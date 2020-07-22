@@ -1,3 +1,3 @@
 # octo
 
-Notes for #developers
+An offline-first, tag-based notes app built for developers.

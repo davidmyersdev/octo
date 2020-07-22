@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://octo.app">
-    <img height="90" src="public/img/icons/logo-512x512.png">
+    <img height="100" src="public/img/icons/logo-512x512.png">
   </a>
 </p>
 

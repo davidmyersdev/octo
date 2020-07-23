@@ -4,6 +4,7 @@ import {
   ADD_DOCUMENT,
   DISCARD_DOCUMENT,
   EDIT_DOCUMENT,
+  RESTORE_DOCUMENT,
 } from '@/store/actions';
 
 const cache = localforage.createInstance({
@@ -20,6 +21,7 @@ export default (store) => {
       case ADD_DOCUMENT:
       case DISCARD_DOCUMENT:
       case EDIT_DOCUMENT:
+      case RESTORE_DOCUMENT:
         const found = find(state, payload.document.clientId);
 
         if (found) {

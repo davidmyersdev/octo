@@ -9,6 +9,7 @@ import {
   EDIT_DOCUMENT,
   LOAD_DOCUMENT,
   LOAD_DOCUMENTS,
+  RESTORE_DOCUMENT,
 } from '@/store/actions';
 
 const cache = localforage.createInstance({
@@ -90,6 +91,14 @@ export default {
     [LOAD_DOCUMENT] (state, payload) {
       state.all.push(payload.document);
     },
+    [RESTORE_DOCUMENT] (state, payload) {
+      const document = findDoc(state, payload.document.clientId);
+
+      Object.assign(document, {
+        discardedAt: null,
+        updatedAt: new Date(),
+      });
+    },
   },
   actions: {
     async [ADD_DOCUMENT] (context, payload) {
@@ -131,6 +140,9 @@ export default {
           document: doc,
         }))
       );
+    },
+    async [RESTORE_DOCUMENT] (context, payload) {
+      context.commit(RESTORE_DOCUMENT, payload);
     },
   },
 };

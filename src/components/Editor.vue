@@ -4,6 +4,7 @@
       <div class="gutter" :class="{ 'md-plus': mediumPlus }" @click="focusEditorStart"></div>
       <Editable ref="editable" class="editable" @input="input" />
       <div class="gutter expand" @click="focusEditorEnd"></div>
+      <DiscardableAction v-if="document.clientId" :discardedAt="document.discardedAt" :onDiscard="discard" :onRestore="restore"></DiscardableAction>
       <div class="saved-at">{{ savedAt }}</div>
     </div>
   </div>
@@ -12,13 +13,16 @@
 <script>
 // @ is an alias to /src
 /* eslint-disable */
+import DiscardableAction from '@/components/DiscardableAction';
 import Editable from '@/components/Editable';
 
 import {
   ADD_DOCUMENT,
   CLEAR_EDITOR,
   CREATE_DOCUMENT,
+  DISCARD_DOCUMENT,
   EDIT_DOCUMENT,
+  RESTORE_DOCUMENT,
   SET_EDITOR_CONTEXT,
   SET_EDITOR_DOCUMENT,
 } from '@/store/actions';
@@ -42,6 +46,7 @@ const slate = () => ({
 export default {
   name: 'editor',
   components: {
+    DiscardableAction,
     Editable,
   },
   data() {
@@ -83,6 +88,22 @@ export default {
     },
   },
   methods: {
+    async discard() {
+      this.$store.dispatch(DISCARD_DOCUMENT, {
+        document: {
+          clientId: this.document.clientId,
+        },
+      });
+
+      this.$router.push({ name: 'dashboard' });
+    },
+    async restore() {
+      this.$store.dispatch(RESTORE_DOCUMENT, {
+        document: {
+          clientId: this.document.clientId,
+        },
+      });
+    },
     async focusEditor() {
       this.$refs.editable.focus();
     },
@@ -206,5 +227,17 @@ export default {
 
   .editor .gutter.expand {
     flex-grow: 1;
+  }
+
+  .destroy {
+    color: #aaa;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    z-index: 10;
+  }
+
+  svg {
+    margin-right: 0.25rem;
   }
 </style>

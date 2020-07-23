@@ -17,22 +17,18 @@ const router = new Router({
   routes: [
     {
       path: '/',
+      name: 'editor',
       component: Dashboard,
       children: [
         // editor views
         {
-          path: '/',
+          path: 'documents/new',
           name: 'dashboard',
-          component: Editor,
-        },
-        {
-          path: '/documents/:documentId',
-          name: 'document',
           component: Editor,
         },
         // document filters
         {
-          path: '/actionable',
+          path: 'documents/actionable',
           name: 'actionable',
           component: NoteList,
           props: {
@@ -40,7 +36,7 @@ const router = new Router({
           },
         },
         {
-          path: '/discarded',
+          path: 'documents/discarded',
           name: 'discarded',
           component: NoteList,
           props: {
@@ -48,7 +44,7 @@ const router = new Router({
           },
         },
         {
-          path: '/recent',
+          path: 'documents/recent',
           name: 'recent',
           component: NoteList,
           props: {
@@ -56,28 +52,34 @@ const router = new Router({
           },
         },
         {
-          path: '/untagged',
+          path: 'documents/untagged',
           name: 'untagged',
           component: NoteList,
           props: {
             untagged: true,
           },
         },
+        // show a specific document
+        {
+          path: 'documents/:documentId',
+          name: 'document',
+          component: Editor,
+        },
         // context switcher
         {
-          path: '/context',
+          path: 'context',
           name: 'context',
           component: Context,
         },
         // tags
         {
-          path: '/tags/:tag',
+          path: 'tags/:tag',
           name: 'tag',
           component: NoteList,
           props: true,
         },
         {
-          path: '/tags',
+          path: 'tags',
           name: 'tags',
           component: TagList,
           props: true,

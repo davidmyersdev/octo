@@ -7,6 +7,7 @@
     "build_assets_with_bg": "vue-asset-generate -a ./public/img/icons/logo-in-circle-512x512.png -o ./public/img/icons/",
     "build_assets_without_bg": "vue-asset-generate -a ./public/img/icons/logo-512x512.png -o ./public/img/icons/",
     "build_prod": "vue-cli-service build --dest ./dist",
+    "deploy": "npm run build_prod && gh-pages -d ./dist",
     "lint": "vue-cli-service lint",
     "serve_dev": "vue-cli-service serve --port 8888",
     "serve_prod": "npm run build_prod && serve -l 8889 -s ./dist"
@@ -32,6 +33,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.2.3",
+    "gh-pages": "^3.1.0",
     "serve": "^11.3.2",
     "sharp": "^0.25.4",
     "vue-pwa-asset-generator": "^1.0.0",

@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://octo.app">
+  <a href="https://try.octo.app">
     <img height="100" src="public/img/icons/logo-512x512.png">
   </a>
 </p>

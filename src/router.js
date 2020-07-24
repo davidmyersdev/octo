@@ -22,6 +22,10 @@ const router = new Router({
       children: [
         // editor views
         {
+          path: '',
+          redirect: { name: 'dashboard' },
+        },
+        {
           path: 'documents/new',
           name: 'dashboard',
           component: Editor,

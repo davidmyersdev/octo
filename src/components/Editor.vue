@@ -231,9 +231,10 @@ export default {
 
   .destroy {
     color: #aaa;
-    position: absolute;
-    right: 1rem;
-    top: 1rem;
+    position: fixed;
+    margin-right: 1rem;
+    margin-top: 1rem;
+    right: 0;
     z-index: 10;
   }
 

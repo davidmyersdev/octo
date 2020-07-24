@@ -464,12 +464,12 @@ self.__precacheManifest = [
     "url": "/img/icons/logo-in-circle.svg"
   },
   {
-    "revision": "d3203a61bb754a40f16043ad4fad87f4",
-    "url": "/img/icons/msapplication-icon-144x144.png"
-  },
-  {
     "revision": "c942cb3cc20e0bfec36a214faf2e2148",
     "url": "/img/icons/mstile-150x150.png"
+  },
+  {
+    "revision": "d3203a61bb754a40f16043ad4fad87f4",
+    "url": "/img/icons/msapplication-icon-144x144.png"
   },
   {
     "revision": "d76195c987cb1070a1ce45ae74efaece",
@@ -480,16 +480,16 @@ self.__precacheManifest = [
     "url": "/img/icons/safari-pinned-tab.svg"
   },
   {
-    "revision": "e801884ade304ab492a01514c3e7daa7",
-    "url": "/img/icons/favicon.ico"
+    "revision": "d83506d6e8a50429f6f8f1e4bc1aae3c",
+    "url": "/img/icons/android-chrome-maskable-512x512.png"
   },
   {
     "revision": "fb161d2e6bc1a85e11711a2a3f1c0d3b",
     "url": "/img/icons/apple-touch-icon-152x152.png"
   },
   {
-    "revision": "ff855d176b9c370569ceb0bb9096fd7b",
-    "url": "/img/icons/apple-touch-icon-60x60.png"
+    "revision": "e801884ade304ab492a01514c3e7daa7",
+    "url": "/img/icons/favicon.ico"
   },
   {
     "revision": "d9f217223d41e57af05b8eda3e7f91e3",
@@ -500,8 +500,8 @@ self.__precacheManifest = [
     "url": "/img/icons/apple-touch-icon-180x180.png"
   },
   {
-    "revision": "70f405ecd8d7a45cd66948ad2219b480",
-    "url": "/img/icons/apple-touch-icon-76x76.png"
+    "revision": "ff855d176b9c370569ceb0bb9096fd7b",
+    "url": "/img/icons/apple-touch-icon-60x60.png"
   },
   {
     "revision": "47408b57b253a0b1e741b64c09e4ba14",
@@ -516,12 +516,12 @@ self.__precacheManifest = [
     "url": "/img/icons/favicon-16x16.png"
   },
   {
-    "revision": "6a281df9e3b1163e7691de07a52930ba",
-    "url": "/img/icons/apple-touch-icon-120x120.png"
+    "revision": "70f405ecd8d7a45cd66948ad2219b480",
+    "url": "/img/icons/apple-touch-icon-76x76.png"
   },
   {
-    "revision": "d83506d6e8a50429f6f8f1e4bc1aae3c",
-    "url": "/img/icons/android-chrome-maskable-512x512.png"
+    "revision": "6a281df9e3b1163e7691de07a52930ba",
+    "url": "/img/icons/apple-touch-icon-120x120.png"
   },
   {
     "revision": "d83506d6e8a50429f6f8f1e4bc1aae3c",

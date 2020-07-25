@@ -24,6 +24,7 @@ export default {
 .tag {
   align-items: center;
   border: 1px solid #222;
+  color: #aaa;
   display: flex;
   margin-bottom: 0.5rem;
   padding: 0.5rem;

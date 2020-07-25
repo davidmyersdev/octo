@@ -3,9 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build_assets_from_svg": "node ./svg-to-png.js",
-    "build_assets_with_bg": "vue-asset-generate -a ./public/img/icons/logo-in-circle-512x512.png -o ./public/img/icons/",
-    "build_assets_without_bg": "vue-asset-generate -a ./public/img/icons/logo-512x512.png -o ./public/img/icons/",
+    "build_assets": "node ./build_assets.js",
     "build_prod": "vue-cli-service build --dest ./dist",
     "deploy": "npm run build_prod && gh-pages -d ./dist",
     "lint": "vue-cli-service lint",
@@ -36,7 +34,7 @@
     "gh-pages": "^3.1.0",
     "serve": "^11.3.2",
     "sharp": "^0.25.4",
-    "vue-pwa-asset-generator": "^1.0.0",
+    "to-ico": "^1.1.5",
     "vue-template-compiler": "^2.6.11"
   }
 }

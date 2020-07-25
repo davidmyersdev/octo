@@ -187,7 +187,7 @@ export default {
 }
 
 .label {
-  background-color: #77aadd;
+  background-color: #d7916f;
   border: none;
   padding: 0.25rem 0.75rem;
 }

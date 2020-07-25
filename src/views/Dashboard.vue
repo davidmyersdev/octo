@@ -94,6 +94,7 @@ export default {
 
 .side-nav .item {
   align-items: center;
+  color: #aaa;
   display: flex;
   padding: 0.25rem 1rem;
   padding-right: 3rem;

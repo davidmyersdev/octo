@@ -1,9 +1,9 @@
 <template>
   <div class="container-lg">
     <div class="editor" @click="focusEditor">
-      <div class="gutter" :class="{ 'md-plus': mediumPlus }" @click="focusEditorStart"></div>
+      <div class="gutter gutter-start" :class="{ 'md-plus': mediumPlus }" @click="focusEditorStart"></div>
       <Editable ref="editable" class="editable" @input="input" />
-      <div class="gutter expand" @click="focusEditorEnd"></div>
+      <div class="gutter gutter-end expand" :class="{ 'md-plus': mediumPlus }" @click="focusEditorEnd"></div>
       <DiscardableAction v-if="document.clientId" :discardedAt="document.discardedAt" :onDiscard="discard" :onRestore="restore"></DiscardableAction>
       <div class="saved-at">{{ savedAt }}</div>
     </div>
@@ -189,9 +189,12 @@ export default {
 
 <style scoped>
   .editor {
+    background: url('~@/assets/octopus-transparent.svg') center center no-repeat;
+    background-size: 50% 50%;
     display: block;
     display: flex;
     flex-direction: column;
+    height: 100%;
     left: 0;
     margin: auto;
     /* need to automatically fill remaining height for editor */
@@ -217,16 +220,13 @@ export default {
 
   .editor .gutter {
     cusor: text;
-    height: 1rem;
+    min-height: 1rem;
     width: 100%;
   }
 
-  .editor .gutter.md-plus {
-    height: 3.25rem;
-  }
-
-  .editor .gutter.expand {
+  .editor .gutter.gutter-end {
     flex-grow: 1;
+    min-height: 2rem;
   }
 
   .destroy {

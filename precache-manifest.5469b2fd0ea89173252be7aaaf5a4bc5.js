@@ -456,6 +456,10 @@ self.__precacheManifest = [
     "url": "/img/icons/manifest.json"
   },
   {
+    "revision": "cfc53189e2e7af95270f66808d5e2477",
+    "url": "/img/icons/msapplication-icon-144x144.png"
+  },
+  {
     "revision": "1cb76f90f780d040cc8213e4c6be66b1",
     "url": "/img/icons/mstile-150x150.png"
   },
@@ -464,40 +468,36 @@ self.__precacheManifest = [
     "url": "/img/icons/safari-pinned-tab.svg"
   },
   {
-    "revision": "8182f8646ed557095afb694727db2cf7",
-    "url": "/img/icons/favicon.ico"
-  },
-  {
-    "revision": "b089ad561d4fabe058128243e5c35f47",
-    "url": "/img/icons/apple-touch-icon-180x180.png"
-  },
-  {
-    "revision": "a84730bfd517f4919b3470cd614a8aa0",
-    "url": "/img/icons/apple-touch-icon-76x76.png"
-  },
-  {
-    "revision": "ed469369325b97cefd891f6fa7ca0b36",
-    "url": "/img/icons/apple-touch-icon-60x60.png"
-  },
-  {
-    "revision": "5bd8a0c3737394aacf240dc605e70909",
-    "url": "/img/icons/favicon-16x16.png"
-  },
-  {
-    "revision": "b089ad561d4fabe058128243e5c35f47",
-    "url": "/img/icons/apple-touch-icon.png"
-  },
-  {
-    "revision": "cfc53189e2e7af95270f66808d5e2477",
-    "url": "/img/icons/msapplication-icon-144x144.png"
-  },
-  {
     "revision": "15506b7ea0ae08eecb9ab04b432d176b",
     "url": "/img/icons/favicon-32x32.png"
   },
   {
     "revision": "8c16ef2f94de1a6bbb73c2324222dc1c",
     "url": "/img/icons/apple-touch-icon-152x152.png"
+  },
+  {
+    "revision": "ed469369325b97cefd891f6fa7ca0b36",
+    "url": "/img/icons/apple-touch-icon-60x60.png"
+  },
+  {
+    "revision": "a84730bfd517f4919b3470cd614a8aa0",
+    "url": "/img/icons/apple-touch-icon-76x76.png"
+  },
+  {
+    "revision": "b089ad561d4fabe058128243e5c35f47",
+    "url": "/img/icons/apple-touch-icon-180x180.png"
+  },
+  {
+    "revision": "b089ad561d4fabe058128243e5c35f47",
+    "url": "/img/icons/apple-touch-icon.png"
+  },
+  {
+    "revision": "8182f8646ed557095afb694727db2cf7",
+    "url": "/img/icons/favicon.ico"
+  },
+  {
+    "revision": "5bd8a0c3737394aacf240dc605e70909",
+    "url": "/img/icons/favicon-16x16.png"
   },
   {
     "revision": "e9e3a8748056a9adc2fec771b322f663",

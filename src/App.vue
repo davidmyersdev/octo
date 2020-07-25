@@ -454,7 +454,7 @@ pre {
 }
 
 .context-tag {
-  background-color: #a55a3e;
+  background-color: #c57257;
   border-radius: 0.125rem;
   color: #111;
   margin: 0.25rem;
@@ -491,7 +491,7 @@ pre {
 }
 
 .dropdown-item:hover, .dropdown-item:active, .dropdown-item.active {
-  background-color: #a55a3e;
+  background-color: #c57257;
   border: none;
 }
 
@@ -527,7 +527,7 @@ pre {
 }
 
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
-  background-color: #a55a3e !important;
+  background-color: #c57257 !important;
   border: none;
   color: #fff !important;
 }

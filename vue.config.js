@@ -77,7 +77,7 @@ module.exports = {
         },
       ],
     },
-    themeColor: "#d7916f",
+    themeColor: "#1a1a1a",
     workboxPluginMode: 'InjectManifest',
     workboxOptions: {
       exclude: [

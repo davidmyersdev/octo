@@ -3,20 +3,14 @@
     <div>
       <h5 class="card-title">Set Context</h5>
       <h6 class="card-subtitle text-muted font-weight-normal mb-3">
-        This will apply a global filter to only include documents that include at least one context tag.
+        This will apply a global filter to only show documents that include at least one of the selected context tags.
       </h6>
       <div class="form-group">
         <label for="tags-search">Add some tags to set the context</label>
         <div class="d-flex align-items-bottom">
           <div class="flex-grow-1">
-            <input v-model="input" @input="first" @keydown.meta.enter.exact="deactivateContext" @keydown.space.prevent="toggleTag" @keydown.enter.exact="toggleTag" @keydown.221.prevent="down" @keydown.down.prevent="down" @keydown.219.prevent="up" @keydown.up.prevent="up" ref="input" type="text" class="form-control" id="tag-search" placeholder="Start typing to filter the list..." autocomplete="off">
+            <input v-model="input" @input="first" @keydown.space.prevent="toggleTag" @keydown.enter.exact="toggleTag" @keydown.221.prevent="down" @keydown.down.prevent="down" @keydown.219.prevent="up" @keydown.up.prevent="up" ref="input" type="text" class="form-control" id="tag-search" placeholder="Start typing to filter the list..." autocomplete="off">
             <small class="form-text text-muted mt-2 d-none d-md-block">Navigate the list below with <span class="key">up</span> or <span class="key">down</span> and toggle tags with <span class="key">space</span> or <span class="key">enter</span></small>
-          </div>
-          <div class="flex-shrink-1 ml-2">
-            <button class="btn btn-primary form-control d-flex align-items-baseline">
-              <span>Clear</span>
-              <small class="action-shortcut d-none d-md-block">cmd + enter</small>
-            </button>
           </div>
         </div>
       </div>
@@ -37,10 +31,6 @@
 
 <script>
 import {
-  ACTIVATE_CONTEXT,
-  ADD_CONTEXT,
-  DEACTIVATE_CONTEXT,
-  SET_CONTEXT,
   SET_CONTEXT_TAGS,
 } from '@/store/actions';
 
@@ -69,9 +59,6 @@ export default {
     },
   },
   methods: {
-    async deactivateContext() {
-      this.$store.dispatch(DEACTIVATE_CONTEXT);
-    },
     down() {
       if (this.activeIndex < (this.filtered.length - 1)) {
         this.activeIndex += 1;
@@ -172,7 +159,7 @@ export default {
 }
 
 .dropdown-item:hover:not(.active) {
-  background-color: rgba(119, 170, 221, 0.5);
+  background-color: #3f3f3f;
 }
 
 .form-control {
@@ -187,7 +174,7 @@ export default {
 }
 
 .label {
-  background-color: #d7916f;
+  background-color: #557bab;
   border: none;
   padding: 0.25rem 0.75rem;
 }

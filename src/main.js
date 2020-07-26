@@ -10,6 +10,7 @@ import store from './store';
 import './registerServiceWorker';
 
 import {
+  CREATE_DOCUMENT,
   LOAD_DOCUMENTS,
   LOADED,
   SET_OFFLINE,
@@ -43,6 +44,33 @@ new Vue({
 
     if (!navigator.onLine) {
       await this.$store.dispatch(SET_OFFLINE);
+    }
+
+    if (localStorage.getItem('octo/welcome/v1') === null) {
+      fetch('./welcome.md')
+        .then((response) => {
+          return response.text();
+        })
+        .then((text) => {
+          console.log(text);
+
+          this.$store.dispatch(CREATE_DOCUMENT, {
+            document: {
+              text,
+            },
+          })
+            .then((doc) => {
+              this.$router.push({ name: 'document', params: { documentId: doc.clientId } });
+            })
+            .catch((error) => {
+              // suppress errors for now
+            });
+
+          localStorage.setItem('octo/welcome/v1', 'done');
+        })
+        .catch((error) => {
+          // suppress errors for now
+        });
     }
 
     this.$store.dispatch(LOAD_DOCUMENTS).then(() => {

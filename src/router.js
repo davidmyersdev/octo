@@ -26,6 +26,11 @@ const router = new Router({
           redirect: { name: 'dashboard' },
         },
         {
+          path: 'documents',
+          name: 'documents',
+          component: NoteList,
+        },
+        {
           path: 'documents/new',
           name: 'dashboard',
           component: Editor,

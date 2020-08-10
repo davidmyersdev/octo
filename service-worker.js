@@ -1,4 +1,4 @@
-importScripts("/precache-manifest.b6673cdb69cbb0017d277493d369efef.js", "https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
+importScripts("/precache-manifest.f58daa1f6cce21de5617dfe66705548b.js", "https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 workbox.core.setCacheNameDetails({ prefix: 'octo' });
 

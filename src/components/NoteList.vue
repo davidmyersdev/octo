@@ -14,7 +14,7 @@
             <div class="monospace ml-2">
               <label class="btn btn-primary btn-toggle">
                 <div class="custom-control custom-checkbox">
-                  <input v-model="filterRegex" type="checkbox" class="custom-control-input">
+                  <input v-model="filterRegex" type="checkbox" class="custom-control-input d-flex">
                   <span class="custom-control-label">.*</span>
                 </div>
               </label>
@@ -22,7 +22,7 @@
             <div class="monospace ml-1">
               <label class="btn btn-primary btn-toggle">
                 <div class="custom-control custom-checkbox">
-                  <input v-model="filterCase" type="checkbox" class="custom-control-input">
+                  <input v-model="filterCase" type="checkbox" class="custom-control-input d-flex">
                   <span class="custom-control-label">Aa</span>
                 </div>
               </label>

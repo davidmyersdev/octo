@@ -53,12 +53,16 @@ self.__precacheManifest = [
     "url": "/manifest.json"
   },
   {
-    "revision": "v1",
-    "url": "https://code.cdn.mozilla.net/fonts/fira.css"
-  },
-  {
     "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
     "url": "/robots.txt"
+  },
+  {
+    "revision": "170ebbd429a8f7931a03de63dabc5cec",
+    "url": "/welcome.md"
+  },
+  {
+    "revision": "v1",
+    "url": "https://code.cdn.mozilla.net/fonts/fira.css"
   },
   {
     "url": "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"
@@ -74,10 +78,6 @@ self.__precacheManifest = [
   },
   {
     "url": "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.54.0/mode/yacas/yacas.min.js"
-  },
-  {
-    "revision": "170ebbd429a8f7931a03de63dabc5cec",
-    "url": "/welcome.md"
   },
   {
     "url": "https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.54.0/mode/xquery/xquery.min.js"
@@ -441,23 +441,23 @@ self.__precacheManifest = [
   },
   {
     "revision": "89dc38c0b4f1b00c6dc308cc5f21d494",
-    "url": "/img/icons/android-chrome-192x192.png"
+    "url": "/img/icons/android-chrome-maskable-192x192.png"
   },
   {
     "revision": "1dc041a5469ec4fbd4b66defea7938ed",
     "url": "/img/octopus-transparent.1dc041a5.svg"
   },
   {
-    "revision": "f1eeb113bf4c306d9b0960e939ee99c9",
+    "revision": "7a1c129aaaf38539f449d4785d68bb04",
     "url": "/index.html"
   },
   {
-    "revision": "05ebcb6588721ababba7",
-    "url": "/js/app.db66bec0.js"
+    "revision": "056de7758e520f0f8ea0",
+    "url": "/js/app.1cb3fa5a.js"
   },
   {
-    "revision": "8182f8646ed557095afb694727db2cf7",
-    "url": "/img/icons/favicon.ico"
+    "revision": "ca9b72d123a80d2915c1292b975dfec1",
+    "url": "/img/icons/manifest.json"
   },
   {
     "revision": "e99cce66dbd61bf7e3cd34d77b9b298e",
@@ -468,40 +468,40 @@ self.__precacheManifest = [
     "url": "/img/icons/safari-pinned-tab.svg"
   },
   {
-    "revision": "ca9b72d123a80d2915c1292b975dfec1",
-    "url": "/img/icons/manifest.json"
+    "revision": "8182f8646ed557095afb694727db2cf7",
+    "url": "/img/icons/favicon.ico"
   },
   {
-    "revision": "1ebf1d1f1bb98659820ceb979b67ecbb",
-    "url": "/img/icons/apple-touch-icon-180x180.png"
+    "revision": "dcd6b5e90df0feb6bf559992059562df",
+    "url": "/img/icons/apple-touch-icon-152x152.png"
   },
   {
     "revision": "e172a76a97515ed7f1bf3a5e88ffa838",
     "url": "/img/icons/apple-touch-icon-60x60.png"
   },
   {
+    "revision": "1ebf1d1f1bb98659820ceb979b67ecbb",
+    "url": "/img/icons/apple-touch-icon-180x180.png"
+  },
+  {
     "revision": "46924ca97bdc1cfe5550530bc786e4f2",
     "url": "/img/icons/apple-touch-icon-76x76.png"
-  },
-  {
-    "revision": "3313c822d5a122843d27d6b4912f7e2f",
-    "url": "/img/icons/favicon-16x16.png"
-  },
-  {
-    "revision": "1ebf1d1f1bb98659820ceb979b67ecbb",
-    "url": "/img/icons/apple-touch-icon.png"
   },
   {
     "revision": "eea5d4a054d42e467625af152d71c727",
     "url": "/img/icons/msapplication-icon-144x144.png"
   },
   {
+    "revision": "1ebf1d1f1bb98659820ceb979b67ecbb",
+    "url": "/img/icons/apple-touch-icon.png"
+  },
+  {
     "revision": "d2491cce4b08bbf4d395aded4a7fc3bd",
     "url": "/img/icons/favicon-32x32.png"
   },
   {
-    "revision": "dcd6b5e90df0feb6bf559992059562df",
-    "url": "/img/icons/apple-touch-icon-152x152.png"
+    "revision": "3313c822d5a122843d27d6b4912f7e2f",
+    "url": "/img/icons/favicon-16x16.png"
   },
   {
     "revision": "cdf96aeea8d88a63127533cfb361d99d",
@@ -512,16 +512,16 @@ self.__precacheManifest = [
     "url": "/img/icons/android-chrome-maskable-512x512.png"
   },
   {
-    "revision": "89dc38c0b4f1b00c6dc308cc5f21d494",
-    "url": "/img/icons/android-chrome-maskable-192x192.png"
-  },
-  {
     "revision": "a772ee7556dd25607e50bc6bc95871ba",
     "url": "/img/icons/android-chrome-512x512.png"
   },
   {
-    "revision": "05ebcb6588721ababba7",
-    "url": "/css/app.4cae3d2f.css"
+    "revision": "89dc38c0b4f1b00c6dc308cc5f21d494",
+    "url": "/img/icons/android-chrome-192x192.png"
+  },
+  {
+    "revision": "056de7758e520f0f8ea0",
+    "url": "/css/app.012fc84b.css"
   },
   {
     "revision": "31211c878d73dbd5ec62486fa6c848a1",

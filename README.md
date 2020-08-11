@@ -6,7 +6,11 @@
 
 <p align="center">An offline-first, tag-based notes app built for developers.</p>
 
-![screenshot](resources/screenshot.png)
+[![screenshot](resources/screenshot.png)](https://try.octo.app)
+
+## Demo
+
+To try out the sandboxed app (no accounts or syncing), check out [try.octo.app](https://try.octo.app).
 
 ## Install
 

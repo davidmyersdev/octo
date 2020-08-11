@@ -595,6 +595,7 @@ pre {
 }
 
 svg {
+  flex-shrink: 0;
   margin-right: 0.5em;
 }
 </style>

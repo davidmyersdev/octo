@@ -15,7 +15,7 @@
               <label class="btn btn-primary btn-toggle">
                 <div class="custom-control custom-checkbox">
                   <input v-model="filterRegex" type="checkbox" class="custom-control-input d-flex">
-                  <span class="custom-control-label">.*</span>
+                  <span class="custom-control-label d-flex">.*</span>
                 </div>
               </label>
             </div>
@@ -23,7 +23,7 @@
               <label class="btn btn-primary btn-toggle">
                 <div class="custom-control custom-checkbox">
                   <input v-model="filterCase" type="checkbox" class="custom-control-input d-flex">
-                  <span class="custom-control-label">Aa</span>
+                  <span class="custom-control-label d-flex">Aa</span>
                 </div>
               </label>
             </div>

@@ -49,3 +49,24 @@ The static assets will be available in the `dist` directory.
 ## Attributions
 
 Logo by [Zagg Studios](https://zaggstudios.com/)
+
+## Support
+
+Your support is appreciated. ♥️
+
+### Provide Feedback
+
+Your feedback is immensely important for building octo into an app that we all love. Consider [opening an issue](https://github.com/voraciousdev/octo/issues) if you discover any bugs or just want to chat about ideas!
+
+### Open a Pull Request
+
+If you feel comfortable tackling [an existing issue](https://github.com/voraciousdev/octo/issues), please consider opening a Pull Request! I am happy to introduce you to the codebase and work with you to get it merged!
+
+### Donate
+
+Donations help support the development of octo (this open source project) and the hosting of [octo.app](https://octo.app).
+
+Accounts on [octo.app](https://octo.app) include syncing and persistence through Firebase. Accounts are currently free, and your financial support directly impacts how long we can keep it that way.
+
+- [Buy Me a Coffee](https://www.buymeacoffee.com/voraciousdev)
+- [Ko-Fi](https://ko-fi.com/voraciousdev)

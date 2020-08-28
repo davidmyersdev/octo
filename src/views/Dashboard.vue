@@ -4,12 +4,8 @@
       <div class="side-nav-spacer">
         <div class="other-actions">
           <div class="item search">
-            <router-link class="btn btn-secondary w-100" :to="{ name: 'documents' }">
-              <svg width="0.9em" height="0.9em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
-                <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
-              </svg>
-              <span>search</span>
+            <router-link class="btn btn-secondary d-flex justify-content-center w-100" :to="{ name: 'documents' }">
+              <SearchLabel>search</SearchLabel>
             </router-link>
           </div>
           <h6 class="dropdown-header">quick filters</h6>
@@ -41,6 +37,7 @@
 <script>
 import DiscardLabel from '@/components/labels/Discard';
 import DocumentLabel from '@/components/labels/Document';
+import SearchLabel from '@/components/labels/Search';
 import Tag from '@/components/Tag';
 import TaskLabel from '@/components/labels/Task';
 import TimelyLabel from '@/components/labels/Timely';
@@ -50,6 +47,7 @@ export default {
   components: {
     DiscardLabel,
     DocumentLabel,
+    SearchLabel,
     Tag,
     TaskLabel,
     TimelyLabel,

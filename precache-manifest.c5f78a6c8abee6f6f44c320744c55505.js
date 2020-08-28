@@ -488,6 +488,10 @@ self.__precacheManifest = [
     "url": "/img/icons/apple-touch-icon-76x76.png"
   },
   {
+    "revision": "3313c822d5a122843d27d6b4912f7e2f",
+    "url": "/img/icons/favicon-16x16.png"
+  },
+  {
     "revision": "eea5d4a054d42e467625af152d71c727",
     "url": "/img/icons/msapplication-icon-144x144.png"
   },
@@ -498,10 +502,6 @@ self.__precacheManifest = [
   {
     "revision": "d2491cce4b08bbf4d395aded4a7fc3bd",
     "url": "/img/icons/favicon-32x32.png"
-  },
-  {
-    "revision": "3313c822d5a122843d27d6b4912f7e2f",
-    "url": "/img/icons/favicon-16x16.png"
   },
   {
     "revision": "cdf96aeea8d88a63127533cfb361d99d",

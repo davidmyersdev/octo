@@ -177,7 +177,7 @@ export default {
   async beforeRouteLeave(to, from, next) {
     clearInterval(this.ticker);
 
-    // gracefully handle the route change when adding a new note
+    // gracefully handle the route change when adding a new document
     if (!this.adding) {
       await this.$store.dispatch(CLEAR_EDITOR);
     }

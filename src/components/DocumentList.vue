@@ -1,5 +1,5 @@
 <template>
-  <div class="note-list container">
+  <div class="document-list container">
     <p class="toolbar">
       <TagLabel v-if="tag">{{ tag }}</TagLabel>
       <span v-else class="action">{{ action }}</span>
@@ -30,16 +30,16 @@
       </div>
       <small class="form-text text-muted mt-2">{{ filterMessage }}</small>
     </div>
-    <Note v-for="document in filteredDocuments" :key="document.clientId" v-bind="document"></Note>
+    <Document v-for="document in filteredDocuments" :key="document.clientId" v-bind="document"></Document>
   </div>
 </template>
 
 <script>
-import Note from '@/components/Note';
-import TagLabel from '@/components/labels/Tag'
+import Document from '@/components/Document';
+import TagLabel from '@/components/labels/Tag';
 
 export default {
-  name: 'NoteList',
+  name: 'DocumentList',
   props: {
     tag: String,
     actionable: Boolean,
@@ -48,7 +48,7 @@ export default {
     untagged: Boolean,
   },
   components: {
-    Note,
+    Document,
     TagLabel,
   },
   data() {
@@ -133,7 +133,7 @@ export default {
 </script>
 
 <style scoped>
-.note-list {
+.document-list {
   flex-grow: 1;
   margin: 0 auto;
   /* max-width: 47em; */

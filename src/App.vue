@@ -130,7 +130,7 @@ export default {
         e.preventDefault();
 
         this.unbindShortcuts();
-        this.triggerNewNote();
+        this.triggerNewDocument();
       });
       Mousetrap.bind('r', (e, shortcut) => {
         e.preventDefault();
@@ -184,7 +184,7 @@ export default {
         this.$router.push({ name: 'discarded' });
       }
     },
-    triggerNewNote() {
+    triggerNewDocument() {
       this.hideMenu();
 
       if (this.$route.name !== 'dashboard') {

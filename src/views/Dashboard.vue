@@ -86,7 +86,7 @@ export default {
   flex-shrink: 0;
   float: left;
   align-items: stretch;
-  overflow: auto;
+  overflow: hidden auto;
   padding: 1rem 0;
   position: sticky;
   top: 0;

@@ -7,6 +7,7 @@ export const DEACTIVATE_CONTEXT = 'DEACTIVATE_CONTEXT';
 export const DISCARD_DOCUMENT = 'DISCARD_DOCUMENT';
 export const EDIT_DOCUMENT = 'EDIT_DOCUMENT';
 export const FOCUS_EDITOR = 'FOCUS_EDITOR';
+export const HIDE_MENU = 'HIDE_MENU';
 export const LOAD_DOCUMENT = 'LOAD_DOCUMENT';
 export const LOAD_DOCUMENTS = 'LOAD_DOCUMENTS';
 export const LOADED = 'LOADED';
@@ -17,6 +18,7 @@ export const SET_EDITOR_CONTEXT = 'SET_EDITOR_CONTEXT';
 export const SET_EDITOR_DOCUMENT = 'SET_EDITOR_DOCUMENT';
 export const SET_OFFLINE = 'SET_OFFLINE';
 export const SET_ONLINE = 'SET_ONLINE';
+export const SHOW_MENU = 'SHOW_MENU';
 
 export default {
   ACTIVATE_CONTEXT,
@@ -28,6 +30,7 @@ export default {
   DISCARD_DOCUMENT,
   EDIT_DOCUMENT,
   FOCUS_EDITOR,
+  HIDE_MENU,
   LOAD_DOCUMENT,
   LOAD_DOCUMENTS,
   LOADED,
@@ -38,4 +41,5 @@ export default {
   SET_EDITOR_DOCUMENT,
   SET_OFFLINE,
   SET_ONLINE,
+  SHOW_MENU,
 };

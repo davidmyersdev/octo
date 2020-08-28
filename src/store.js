@@ -15,6 +15,7 @@ import {
   CLEAR_EDITOR,
   DEACTIVATE_CONTEXT,
   FOCUS_EDITOR,
+  HIDE_MENU,
   LOADED,
   SET_CONTEXT_TAGS,
   SET_EDITOR,
@@ -22,6 +23,7 @@ import {
   SET_EDITOR_DOCUMENT,
   SET_OFFLINE,
   SET_ONLINE,
+  SHOW_MENU,
 } from '@/store/actions';
 
 Vue.use(Vuex);
@@ -34,6 +36,9 @@ export default new Vuex.Store({
       tags: [],
     },
     editor: null,
+    menu: {
+      show: false,
+    },
     loaded: false,
     online: true,
   },
@@ -75,6 +80,9 @@ export default new Vuex.Store({
       state.context.active = false;
       state.context.tags = [];
     },
+    [HIDE_MENU] (state, payload) {
+      state.menu.show = false;
+    },
     [LOADED] (state, payload) {
       state.loaded = true;
     },
@@ -100,6 +108,9 @@ export default new Vuex.Store({
     [SET_ONLINE] (state) {
       state.online = true;
     },
+    [SHOW_MENU] (state) {
+      state.menu.show = true;
+    },
   },
   actions: {
     async [ACTIVATE_CONTEXT] (context) {
@@ -120,6 +131,9 @@ export default new Vuex.Store({
       if (context.state.editor) {
         context.state.editor.focus();
       }
+    },
+    async [HIDE_MENU] (context) {
+      context.commit(HIDE_MENU);
     },
     async [LOADED] (context) {
       context.commit(LOADED);
@@ -152,6 +166,9 @@ export default new Vuex.Store({
     },
     async [SET_ONLINE] (context) {
       context.commit(SET_ONLINE);
+    },
+    async [SHOW_MENU] (context) {
+      context.commit(SHOW_MENU);
     },
   },
   modules: {

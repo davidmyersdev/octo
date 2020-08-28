@@ -6,9 +6,9 @@ import Dashboard from './views/Dashboard.vue';
 
 // components
 import Context from './components/Context.vue';
-import NoteList from './components/NoteList.vue';
-import TagList from './components/TagList.vue';
+import DocumentList from './components/DocumentList.vue';
 import Editor from './components/Editor.vue';
+import TagList from './components/TagList.vue';
 
 
 Vue.use(Router);
@@ -28,7 +28,7 @@ const router = new Router({
         {
           path: 'documents',
           name: 'documents',
-          component: NoteList,
+          component: DocumentList,
         },
         {
           path: 'documents/new',
@@ -39,7 +39,7 @@ const router = new Router({
         {
           path: 'documents/actionable',
           name: 'actionable',
-          component: NoteList,
+          component: DocumentList,
           props: {
             actionable: true,
           },
@@ -47,7 +47,7 @@ const router = new Router({
         {
           path: 'documents/discarded',
           name: 'discarded',
-          component: NoteList,
+          component: DocumentList,
           props: {
             discarded: true,
           },
@@ -55,7 +55,7 @@ const router = new Router({
         {
           path: 'documents/recent',
           name: 'recent',
-          component: NoteList,
+          component: DocumentList,
           props: {
             recent: true,
           },
@@ -63,7 +63,7 @@ const router = new Router({
         {
           path: 'documents/untagged',
           name: 'untagged',
-          component: NoteList,
+          component: DocumentList,
           props: {
             untagged: true,
           },
@@ -84,7 +84,7 @@ const router = new Router({
         {
           path: 'tags/:tag',
           name: 'tag',
-          component: NoteList,
+          component: DocumentList,
           props: true,
         },
         {

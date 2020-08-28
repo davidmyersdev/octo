@@ -1,6 +1,6 @@
 <template>
   <div class="card">
-    <router-link class="note" :to="noteRoute">
+    <router-link class="document" :to="documentRoute">
       <DiscardableAction v-if="clientId" :discardedAt="discardedAt" :onDiscard="discard" :onRestore="restore" class="destroy"></DiscardableAction>
       <pre class="pb-3">{{ text }}</pre>
       <p class="text-muted mb-0"><small>{{ updated }}</small></p>
@@ -17,7 +17,7 @@ import {
 } from '@/store/actions';
 
 export default {
-  name: 'Note',
+  name: 'Document',
   props: {
     clientId: String,
     text: String,
@@ -28,7 +28,7 @@ export default {
     DiscardableAction,
   },
   computed: {
-    noteRoute() {
+    documentRoute() {
       return { name: 'document', params: { documentId: this.clientId } };
     },
     updated() {
@@ -55,7 +55,7 @@ export default {
 </script>
 
 <style scoped>
-  .note {
+  .document {
     color: #fff;
     display: block;
     min-height: 5rem;
@@ -63,11 +63,11 @@ export default {
     position: relative;
   }
 
-  .note pre {
+  .document pre {
     overflow: hidden;
   }
 
-  .note .destroy {
+  .document .destroy {
     position: absolute;
     right: 1rem;
     top: 1rem;

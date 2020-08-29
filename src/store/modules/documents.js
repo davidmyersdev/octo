@@ -1,5 +1,5 @@
 import localforage from 'localforage';
-import { parse as parseTags } from '@/common/tag_service';
+import { parseTags } from '@/common/parsers';
 import { v4 as uuid } from 'uuid';
 
 import {

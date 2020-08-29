@@ -15,6 +15,7 @@
 ## Features
 
 - **Autosave** - No need to hit save
+- **CodeSandbox Integration** - Open all code blocks in the current document in a new [CodeSandbox](https://codesandbox.io/) project with the click of a button
 - **Context Switching** - Focusing on `#work` or `#play`? Apply a global filter to only see the documents that are relevant
 - **Dark Theme** - Save our eyes 😎
 - **Inline Markdown Rendering** - No need for separate edit and preview panels
@@ -29,7 +30,6 @@
 
 ### Coming Soon
 
-- **CodeSandbox Integration** - Open all code blocks in the current document in a new [CodeSandbox](https://codesandbox.io/) project with the click of a button
 - **File Encryption** - Notes will be encrypted prior to storage
 - **Light Theme** - Why not both?
 - **Native Apps** - Install a native application on Android, iOS, or desktop (built with Ionic's [Capacitor](https://capacitorjs.com/) framework)

@@ -16,6 +16,7 @@
 
 - **Autosave** - No need to hit save
 - **CodeSandbox Integration** - Open all code blocks in the current document in a new [CodeSandbox](https://codesandbox.io/) project with the click of a button
+  - Watch a quick demo [on YouTube](https://youtu.be/o3tQsqwgnY4)
 - **Context Switching** - Focusing on `#work` or `#play`? Apply a global filter to only see the documents that are relevant
 - **Dark Theme** - Save our eyes 😎
 - **Inline Markdown Rendering** - No need for separate edit and preview panels

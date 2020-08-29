@@ -3,14 +3,14 @@
 ![open issues](https://img.shields.io/github/issues-raw/voraciousdev/octo)
 
 <p align="center">
-  <a href="https://try.octo.app">
+  <a href="https://octo.app">
     <img height="100" src="resources/stacked.png">
   </a>
 </p>
 
 <p align="center">Notes for developers</p>
 
-[![screenshot](resources/screenshot.png)](https://try.octo.app)
+[![screenshot](resources/screenshot.png)](https://octo.app)
 
 ## Features
 

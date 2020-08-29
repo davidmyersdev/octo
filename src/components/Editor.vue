@@ -4,7 +4,12 @@
       <div class="gutter gutter-start" :class="{ 'md-plus': mediumPlus }" @click="focusEditorStart"></div>
       <Editable ref="editable" class="editable" @input="input" />
       <div class="gutter gutter-end expand" :class="{ 'md-plus': mediumPlus }" @click="focusEditorEnd"></div>
-      <DiscardableAction v-if="document.clientId" :discardedAt="document.discardedAt" :onDiscard="discard" :onRestore="restore"></DiscardableAction>
+      <div class="document-actions">
+        <DiscardableAction v-if="document.clientId" :discardedAt="document.discardedAt" :onDiscard="discard" :onRestore="restore" class="destroy"></DiscardableAction>
+        <button v-if="anyCodeblocks" @click="evaluate" class="btn btn-secondary btn-sm">
+          <CodeLabel>sandbox</CodeLabel>
+        </button>
+      </div>
       <div class="saved-at">{{ savedAt }}</div>
     </div>
   </div>
@@ -13,6 +18,10 @@
 <script>
 // @ is an alias to /src
 /* eslint-disable */
+import { parseCodeblocks } from '@/common/parsers';
+
+import CodeLabel from '@/components/labels/Code';
+import CodeSandbox from '@/common/code_sandbox';
 import DiscardableAction from '@/components/DiscardableAction';
 import Editable from '@/components/Editable';
 
@@ -46,6 +55,7 @@ const slate = () => ({
 export default {
   name: 'editor',
   components: {
+    CodeLabel,
     DiscardableAction,
     Editable,
   },
@@ -64,6 +74,9 @@ export default {
     },
   },
   computed: {
+    anyCodeblocks() {
+      return parseCodeblocks(this.document.text).length > 0;
+    },
     document() {
       return this.$store.state.documents.all.find(doc => doc.clientId === this.$route.params.documentId) || this.placeholder;
     },
@@ -96,6 +109,20 @@ export default {
       });
 
       this.$router.push({ name: 'dashboard' });
+    },
+    async evaluate() {
+      const files = parseCodeblocks(this.document.text).reduce((agg, codeblock, index) => {
+        const filename = codeblock.filename || [index, (codeblock.language || 'txt')].join('.');
+
+        return {
+          ...agg,
+          [filename]: {
+            content: codeblock.code,
+          },
+        };
+      }, {});
+
+      CodeSandbox.create(files).then(sandbox_id => CodeSandbox.open(sandbox_id));
     },
     async restore() {
       this.$store.dispatch(RESTORE_DOCUMENT, {
@@ -229,13 +256,17 @@ export default {
     min-height: 2rem;
   }
 
-  .destroy {
+  .document-actions {
     color: #aaa;
     position: fixed;
     margin-right: 1rem;
     margin-top: 1rem;
     right: 0;
     z-index: 10;
+  }
+
+  .document-actions > *:not(:first-child) {
+    margin-top: 0.5rem;
   }
 
   svg {

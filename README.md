@@ -4,9 +4,30 @@
   </a>
 </p>
 
-<p align="center">An offline-first, tag-based notes app built for developers.</p>
+<p align="center">Notes for developers</p>
 
 [![screenshot](resources/screenshot.png)](https://try.octo.app)
+
+## Features
+
+- **Autosave** - No need to hit save
+- **Context Switching** - Focusing on `#work` or `#play`? Apply a global filter to only see the documents that are relevant
+- **Dark Theme** - Save our eyes 😎
+- **Inline Markdown Rendering** - No need for separate edit and preview panels
+- **Keybindings** - Keyboard shortcuts for many actions
+- **Modern Technologies** - Built with Vue, Vuex, and VueRouter
+- **Offline First** - No account, server, or internet connectivity necessary (files are stored in IndexedDB, WebSQL, or LocalStorage)
+- **PWA** - Progressive Web Apps are accessible on all platforms and installable on most
+- **Regular Expressions** - Search our documents with plain text or regex
+- **Syntax Highlighting** - Code blocks are highlighted based on the tagged language
+- **Tag Based Organization** - Add one or more hashtags to our documents, just like we would on Twitter (code blocks are ignored)
+
+### Coming Soon
+
+- **CodeSandbox Integration** - Open all code blocks in the current document in a new [CodeSandbox](https://codesandbox.io/) project with the click of a button
+- **File Encryption** - Notes will be encrypted prior to storage
+- **Light Theme** - Why not both?
+- **Native Apps** - Install a native application on Android, iOS, or desktop (built with Ionic's [Capacitor](https://capacitorjs.com/) framework)
 
 ## Demo
 

@@ -19,6 +19,7 @@
 - **Offline First** - No account, server, or internet connectivity necessary (files are stored in IndexedDB, WebSQL, or LocalStorage)
 - **PWA** - Progressive Web Apps are accessible on all platforms and installable on most
 - **Regular Expressions** - Search our documents with plain text or regex
+- **Responsive** - Use on desktop or mobile
 - **Syntax Highlighting** - Code blocks are highlighted based on the tagged language
 - **Tag Based Organization** - Add one or more hashtags to our documents, just like we would on Twitter (code blocks are ignored)
 

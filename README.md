@@ -1,3 +1,7 @@
+![latest tag](https://img.shields.io/github/v/tag/voraciousdev/octo?color=blue&label=latest%20tag&sort=semver)
+![license](https://img.shields.io/github/license/voraciousdev/octo)
+![open issues](https://img.shields.io/github/issues-raw/voraciousdev/octo)
+
 <p align="center">
   <a href="https://try.octo.app">
     <img height="100" src="resources/stacked.png">

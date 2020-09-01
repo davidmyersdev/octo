@@ -58,7 +58,6 @@ import TheLogo from '@/components/TheLogo';
 import {
   BLUR_EDITOR,
   DEACTIVATE_CONTEXT,
-  FOCUS_EDITOR,
   HIDE_MENU,
   SHOW_MENU,
 } from '@/store/actions';

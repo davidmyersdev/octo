@@ -2,7 +2,7 @@
   <div class="container-lg">
     <div class="editor" @click="focusEditor">
       <div class="gutter gutter-start" :class="{ 'md-plus': mediumPlus }" @click="focusEditorStart"></div>
-      <Editable ref="editable" class="editable" @input="input" />
+      <MarkdownEditor ref="editable" class="editable" @input="input" />
       <div class="gutter gutter-end expand" :class="{ 'md-plus': mediumPlus }" @click="focusEditorEnd"></div>
       <div class="document-actions">
         <DiscardableAction v-if="document.clientId" :discardedAt="document.discardedAt" :onDiscard="discard" :onRestore="restore" class="destroy"></DiscardableAction>
@@ -23,7 +23,7 @@ import { parseCodeblocks } from '@/common/parsers';
 import CodeLabel from '@/components/labels/Code';
 import CodeSandbox from '@/common/code_sandbox';
 import DiscardableAction from '@/components/DiscardableAction';
-import Editable from '@/components/Editable';
+import MarkdownEditor from '@/components/MarkdownEditor';
 
 import {
   ADD_DOCUMENT,
@@ -57,7 +57,7 @@ export default {
   components: {
     CodeLabel,
     DiscardableAction,
-    Editable,
+    MarkdownEditor,
   },
   data() {
     return slate();

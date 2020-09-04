@@ -226,10 +226,14 @@ export default {
     });
 
     Mousetrap.bindGlobal('mod+k', (e, keys) => {
+      e.preventDefault();
+
       this.toggleMenu();
     });
 
     Mousetrap.bindGlobal('mod+shift+f', (e, keys) => {
+      e.preventDefault();
+
       this.hideMenu();
       this.$router.push({ name: 'documents' });
     });

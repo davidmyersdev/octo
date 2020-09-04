@@ -7,7 +7,7 @@ import Dashboard from './views/Dashboard.vue';
 // components
 import Context from './components/Context.vue';
 import DocumentList from './components/DocumentList.vue';
-import Editor from './components/Editor.vue';
+import TheEditor from './components/TheEditor.vue';
 import TagList from './components/TagList.vue';
 
 
@@ -33,7 +33,8 @@ const router = new Router({
         {
           path: 'documents/new',
           name: 'dashboard',
-          component: Editor,
+          component: TheEditor,
+          props: true,
         },
         // document filters
         {
@@ -72,7 +73,8 @@ const router = new Router({
         {
           path: 'documents/:documentId',
           name: 'document',
-          component: Editor,
+          component: TheEditor,
+          props: true,
         },
         // context switcher
         {

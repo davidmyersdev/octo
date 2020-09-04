@@ -1,4 +1,5 @@
 import localforage from 'localforage';
+import Debouncer from '@/common/debouncer';
 
 import {
   ADD_DOCUMENT,
@@ -10,6 +11,8 @@ import {
 const cache = localforage.createInstance({
   name: 'documents',
 });
+
+const debouncer = new Debouncer(800);
 
 const find = (state, clientId) => {
   return state.documents.all.find(doc => doc.clientId === clientId);
@@ -25,7 +28,9 @@ export default (store) => {
         const found = find(state, payload.document.clientId);
 
         if (found) {
-          cache.setItem(payload.document.clientId, found);
+          debouncer.debounce(found.clientId, () => {
+            cache.setItem(found.clientId, found);
+          });
         }
 
         break;

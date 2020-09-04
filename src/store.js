@@ -12,15 +12,12 @@ import router from '@/router';
 import {
   ACTIVATE_CONTEXT,
   BLUR_EDITOR,
-  CLEAR_EDITOR,
   DEACTIVATE_CONTEXT,
   FOCUS_EDITOR,
   HIDE_MENU,
   LOADED,
   SET_CONTEXT_TAGS,
   SET_EDITOR,
-  SET_EDITOR_CONTEXT,
-  SET_EDITOR_DOCUMENT,
   SET_OFFLINE,
   SET_ONLINE,
   SHOW_MENU,
@@ -73,9 +70,6 @@ export default new Vuex.Store({
     [ACTIVATE_CONTEXT] (state, payload) {
       state.context.active = true;
     },
-    [CLEAR_EDITOR] (state, payload) {
-      state.editor.setValue('');
-    },
     [DEACTIVATE_CONTEXT] (state, payload) {
       state.context.active = false;
       state.context.tags = [];
@@ -91,16 +85,6 @@ export default new Vuex.Store({
     },
     [SET_EDITOR] (state, payload) {
       state.editor = payload.editor;
-    },
-    [SET_EDITOR_CONTEXT] (state, payload) {
-      state.editor.setValue(
-        state.context.tags.map(tag => `#${tag}`).join(' ')
-      );
-    },
-    [SET_EDITOR_DOCUMENT] (state, payload) {
-      const document = state.documents.all.find(doc => doc.clientId === payload.document.clientId);
-
-      state.editor.setValue(document.text);
     },
     [SET_OFFLINE] (state) {
       state.online = false;
@@ -120,9 +104,6 @@ export default new Vuex.Store({
       if (context.state.editor) {
         context.state.editor.getInputField().blur();
       }
-    },
-    async [CLEAR_EDITOR] (context) {
-      context.commit(CLEAR_EDITOR);
     },
     async [DEACTIVATE_CONTEXT] (context) {
       context.commit(DEACTIVATE_CONTEXT);
@@ -154,12 +135,6 @@ export default new Vuex.Store({
     },
     async [SET_EDITOR] (context, payload) {
       context.commit(SET_EDITOR, payload);
-    },
-    async [SET_EDITOR_CONTEXT] (context, payload) {
-      context.commit(SET_EDITOR_CONTEXT, payload);
-    },
-    async [SET_EDITOR_DOCUMENT] (context, payload) {
-      context.commit(SET_EDITOR_DOCUMENT, payload);
     },
     async [SET_OFFLINE] (context) {
       context.commit(SET_OFFLINE);

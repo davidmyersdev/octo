@@ -31,7 +31,7 @@ import {
 } from '@/store/actions';
 
 export default {
-  name: 'Editor',
+  name: 'TheEditor',
   components: {
     CodeLabel,
     DiscardableAction,

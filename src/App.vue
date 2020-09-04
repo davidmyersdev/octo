@@ -226,10 +226,19 @@ export default {
     });
 
     Mousetrap.bindGlobal('mod+k', (e, keys) => {
+      e.preventDefault();
+
       this.toggleMenu();
     });
 
+    Mousetrap.bindGlobal('mod+s', (e, keys) => {
+      // the editor autosaves, so there is no need to do anything but prevent the browser prompt
+      e.preventDefault();
+    });
+
     Mousetrap.bindGlobal('mod+shift+f', (e, keys) => {
+      e.preventDefault();
+
       this.hideMenu();
       this.$router.push({ name: 'documents' });
     });

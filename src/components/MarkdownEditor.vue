@@ -1,5 +1,5 @@
 <template>
-  <codemirror @input="onInput" @ready="onReady" :options="options" />
+  <codemirror :options="options" :value="value" @input="onInput" @ready="onReady" />
 </template>
 
 <script>
@@ -15,12 +15,23 @@ import 'codemirror/theme/yeti.css';
 import { loadMode } from '@/common/codemirror_helper';
 import { parseCodeblocks } from '@/common/parsers';
 
-import { SET_EDITOR } from '@/store/actions';
-
 export default {
   name: 'MarkdownEditor',
   components: {
     codemirror,
+  },
+  props: {
+    initialCursor: {
+      type: Object,
+      default: () => ({
+        character: 0,
+        line: 0,
+      }),
+      validator: (cursor) => (
+        cursor.hasOwnProperty('character') && cursor.hasOwnProperty('line')
+      ),
+    },
+    value: String,
   },
   data() {
     return {
@@ -28,6 +39,9 @@ export default {
     };
   },
   computed: {
+    codeblocks() {
+      return parseCodeblocks(this.value);
+    },
     options() {
       return {
         extraKeys: {
@@ -66,9 +80,7 @@ export default {
       this.editor.setCursor({ line: 0, ch: 0 });
     },
     loadModes() {
-      const codeblocks = parseCodeblocks(this.editor.getValue());
-
-      codeblocks.forEach((codeblock) => {
+      this.codeblocks.forEach((codeblock) => {
         if (codeblock.language) {
           // language specified
           loadMode(codeblock.language, {
@@ -94,9 +106,13 @@ export default {
     onReady(instance) {
       this.editor = instance;
 
-      this.$store.dispatch(SET_EDITOR, {
-        editor: this.editor,
+      this.editor.setCursor({
+        ch: this.initialCursor.character,
+        line: this.initialCursor.line,
       });
+
+      this.$emit('ready', instance);
+      this.loadModes();
     },
   },
 };

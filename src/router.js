@@ -34,6 +34,7 @@ const router = new Router({
           path: 'documents/new',
           name: 'dashboard',
           component: Editor,
+          props: true,
         },
         // document filters
         {
@@ -73,6 +74,7 @@ const router = new Router({
           path: 'documents/:documentId',
           name: 'document',
           component: Editor,
+          props: true,
         },
         // context switcher
         {

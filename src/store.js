@@ -21,7 +21,6 @@ import {
   DEACTIVATE_CONTEXT,
   FOCUS_EDITOR,
   HIDE_MENU,
-  LOADED,
   SET_CONTEXT_TAGS,
   SET_EDITOR,
   SET_OFFLINE,
@@ -42,7 +41,6 @@ export default new Vuex.Store({
     menu: {
       show: false,
     },
-    loaded: false,
     online: true,
   },
   getters: {
@@ -83,9 +81,6 @@ export default new Vuex.Store({
     [HIDE_MENU] (state, payload) {
       state.menu.show = false;
     },
-    [LOADED] (state, payload) {
-      state.loaded = true;
-    },
     [SET_CONTEXT_TAGS] (state, payload) {
       state.context.tags = payload.context.tags;
     },
@@ -121,9 +116,6 @@ export default new Vuex.Store({
     },
     async [HIDE_MENU] (context) {
       context.commit(HIDE_MENU);
-    },
-    async [LOADED] (context) {
-      context.commit(LOADED);
     },
     async [SET_CONTEXT_TAGS] (context, payload) {
       context.commit(SET_CONTEXT_TAGS, payload);

@@ -1,4 +1,3 @@
-import localforage from 'localforage';
 import { parseTags } from '@/common/parsers';
 import { v4 as uuid } from 'uuid';
 
@@ -8,15 +7,12 @@ import {
   ADD_DOCUMENT,
   CREATE_DOCUMENT,
   DISCARD_DOCUMENT,
+  DOCUMENTS_LOADED,
   EDIT_DOCUMENT,
   LOAD_DOCUMENT,
   LOAD_DOCUMENTS,
   RESTORE_DOCUMENT,
 } from '@/store/actions';
-
-const cache = localforage.createInstance({
-  name: 'documents',
-});
 
 const findDoc = (state, clientId) => {
   return state.all.find((doc) => {
@@ -27,6 +23,7 @@ const findDoc = (state, clientId) => {
 export default {
   state: () => ({
     all: [],
+    loaded: false,
   }),
   getters: {
     actionable(_state, getters, globalState, globalGetters) {
@@ -80,6 +77,9 @@ export default {
         updatedAt: now,
       });
     },
+    [DOCUMENTS_LOADED] (state) {
+      state.loaded = true;
+    },
     [EDIT_DOCUMENT] (state, payload) {
       const now = new Date();
       const document = findDoc(state, payload.document.clientId);
@@ -90,8 +90,8 @@ export default {
         updatedAt: now,
       });
     },
-    [LOAD_DOCUMENT] (state, payload) {
-      state.all.push(payload.document);
+    [LOAD_DOCUMENT] (state, doc) {
+      state.all.push(doc);
     },
     [RESTORE_DOCUMENT] (state, payload) {
       const document = findDoc(state, payload.document.clientId);
@@ -127,20 +127,21 @@ export default {
     async [DISCARD_DOCUMENT] (context, payload) {
       context.commit(DISCARD_DOCUMENT, payload);
     },
+    async [DOCUMENTS_LOADED] (context) {
+      context.commit(DOCUMENTS_LOADED);
+    },
     async [EDIT_DOCUMENT] (context, payload) {
       context.commit(EDIT_DOCUMENT, payload);
     },
-    async [LOAD_DOCUMENT] (context, payload) {
-      if (payload.document.encrypted) {
+    async [LOAD_DOCUMENT] (context, doc) {
+      if (doc.encrypted) {
         if (context.rootState.settings.crypto.privateKey) {
-          return decrypt(payload.document.text, context.rootState.settings.crypto.privateKey, payload.document.dataKey, payload.document.iv)
+          return decrypt(doc.text, context.rootState.settings.crypto.privateKey, doc.dataKey, doc.iv)
             .then((data) => {
-              context.commit(LOAD_DOCUMENT, {
-                document: Object.assign({}, payload.document, {
-                  tags: parseTags(data),
-                  text: data,
-                }),
-              });
+              context.commit(LOAD_DOCUMENT, Object.assign({}, doc, {
+                tags: parseTags(data),
+                text: data,
+              }));
             })
             .catch((error) => {
               // error - invalid key maybe?
@@ -149,18 +150,13 @@ export default {
         } else {
           console.log('privateKey missing - cannot load document');
         }
+      } else {
+        context.commit(LOAD_DOCUMENT, doc);
       }
-
-      context.commit(LOAD_DOCUMENT, payload);
     },
-    async [LOAD_DOCUMENTS] (context, payload) {
-      const ids = await cache.keys();
-      const docs = await Promise.all(ids.map(id => cache.getItem(id)));
-
+    async [LOAD_DOCUMENTS] (context, documents) {
       return Promise.all(
-        docs.map(doc => context.dispatch(LOAD_DOCUMENT, {
-          document: doc,
-        }))
+        documents.map(doc => context.dispatch(LOAD_DOCUMENT, doc))
       );
     },
     async [RESTORE_DOCUMENT] (context, payload) {

@@ -11,8 +11,6 @@ import './registerServiceWorker';
 
 import {
   CREATE_DOCUMENT,
-  LOAD_DOCUMENTS,
-  LOADED,
   SET_OFFLINE,
   SET_ONLINE,
 } from '@/store/actions';
@@ -70,9 +68,5 @@ new Vue({
           // suppress errors for now
         });
     }
-
-    this.$store.dispatch(LOAD_DOCUMENTS).then(() => {
-      this.$store.dispatch(LOADED);
-    });
   },
 }).$mount('#app');

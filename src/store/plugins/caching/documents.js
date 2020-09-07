@@ -6,9 +6,13 @@ import { encrypt } from '@/common/crypto/crypto';
 import {
   ADD_DOCUMENT,
   DISCARD_DOCUMENT,
+  DOCUMENTS_LOADED,
   EDIT_DOCUMENT,
+  LOAD_DOCUMENTS,
   RESTORE_DOCUMENT,
 } from '@/store/actions';
+
+import { SETTINGS_LOADED } from '@/store/modules/settings';
 
 const cache = localforage.createInstance({
   name: 'documents',
@@ -53,6 +57,13 @@ export default (store) => {
           });
         }
 
+        break;
+      case SETTINGS_LOADED:
+        // load all documents from the cache after settings are loaded
+        cache.keys()
+          .then(ids => Promise.all(ids.map(id => cache.getItem(id))))
+          .then(docs => store.dispatch(LOAD_DOCUMENTS, docs))
+          .then(() => store.dispatch(DOCUMENTS_LOADED));
         break;
       default:
         break;

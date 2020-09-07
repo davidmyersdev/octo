@@ -2,6 +2,7 @@ export const LOAD_SETTINGS = 'LOAD_SETTINGS';
 export const SET_CRYPTO_ENABLED = 'SET_CRYPTO_ENABLED';
 export const SET_CRYPTO_KEYS = 'SET_CRYPTO_KEYS';
 export const SET_EDITOR_TAB_SIZE = 'SET_EDITOR_TAB_SIZE';
+export const SETTINGS_LOADED = 'SETTINGS_LOADED';
 
 export default {
   state: () => ({
@@ -13,6 +14,7 @@ export default {
     editor: {
       tabSize: 2,
     },
+    loaded: false,
   }),
   getters: {
     // nothing yet
@@ -37,6 +39,9 @@ export default {
     [SET_EDITOR_TAB_SIZE] (state, tabSize) {
       state.editor.tabSize = tabSize;
     },
+    [SETTINGS_LOADED] (state) {
+      state.loaded = true;
+    },
   },
   actions: {
     async [LOAD_SETTINGS] (context, settings) {
@@ -50,6 +55,9 @@ export default {
     },
     async [SET_EDITOR_TAB_SIZE] (context, tabSize) {
       context.commit(SET_EDITOR_TAB_SIZE, tabSize);
+    },
+    async [SETTINGS_LOADED] (context) {
+      context.commit(SETTINGS_LOADED);
     },
   },
 };

@@ -97,7 +97,11 @@ export default {
       });
     },
     onInput(text) {
-      this.$emit('input', text);
+      if (text !== this.value) {
+        // prevent CM input events on :value changes
+        this.$emit('input', text);
+      }
+
       this.loadModes();
     },
     onModeLoad() {

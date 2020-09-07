@@ -12,13 +12,18 @@
           <router-link @click.native="hideMenu" class="btn btn-secondary d-md-none" :to="{ name: 'tags' }">
             <span class="action">tags</span>
           </router-link>
-          <div class="btn btn-menu btn-primary d-flex justify-space-between align-items-center" @click.stop="toggleMenu" role="button" aria-haspopup="true" aria-expanded="false">
+          <div class="btn btn-menu btn-primary d-flex justify-content-between align-items-center ml-2" @click.stop="toggleMenu" role="button" aria-haspopup="true" aria-expanded="false">
             <svg width="0.75em" height="0.75em" viewBox="0 0 16 16" class="bi bi-lightning-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd" d="M11.251.068a.5.5 0 0 1 .227.58L9.677 6.5H13a.5.5 0 0 1 .364.843l-8 8.5a.5.5 0 0 1-.842-.49L6.323 9.5H3a.5.5 0 0 1-.364-.843l8-8.5a.5.5 0 0 1 .615-.09z"/>
             </svg>
             <span>actions</span>
             <small class="action-shortcut d-none d-md-block">cmd + k</small>
           </div>
+          <router-link :to="{ name: 'settings' }" class="btn btn-settings pr-2 pl-2 d-flex align-items-center justify-content-center ml-2">
+            <svg width="1.25em" height="1.25em" viewBox="0 0 16 16" class="bi bi-person-lines-fill mr-0" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm7 1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm-2-3a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm0-3a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm2 9a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+          </router-link>
           <Menu :class="{ hide: !showMenu }" />
         </div>
       </nav>
@@ -330,7 +335,6 @@ a, a:hover {
 .navbar .btn-menu {
   align-items: baseline;
   display: flex;
-  margin-left: 0.5rem;
 }
 
 .action-shortcut {
@@ -455,6 +459,13 @@ a, a:hover {
   color: #aaa;
 }
 
+.btn-settings, .btn-settings:hover, .btn-settings:active, .btn-settings:focus {
+  background-color: #222 !important;
+  border: none;
+  box-shadow: none !important;
+  color: #aaa;
+}
+
 .monospace {
   font-family: 'Fira Mono', monospace !important;
 }
@@ -487,6 +498,11 @@ pre {
 
 .hide {
   display: none !important;
+}
+
+hr {
+  background-color: #aaa;
+  margin-top: 0.5rem;
 }
 
 svg:not(.close-context) {

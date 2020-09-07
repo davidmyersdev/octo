@@ -2,7 +2,7 @@
   <div class="container-lg">
     <div class="editor" @click="focusEditor">
       <div class="gutter gutter-start" :class="{ 'md-plus': mediumPlus }" @click="focusEditorStart"></div>
-      <MarkdownEditor ref="editable" class="editable" :initialCursor="initialCursor" :value="document.text" @input="input" @ready="onReady" />
+      <MarkdownEditor ref="editable" class="editable" :initialCursor="initialCursor" :settings="settings" :value="document.text" @input="input" @ready="onReady" />
       <div class="gutter gutter-end expand" :class="{ 'md-plus': mediumPlus }" @click="focusEditorEnd"></div>
       <div class="document-actions">
         <DiscardableAction v-if="document.clientId" :discardedAt="document.discardedAt" :onDiscard="discardDocument" :onRestore="restoreDocument" class="destroy"></DiscardableAction>
@@ -79,6 +79,9 @@ export default {
     },
     mediumPlus() {
       return ['md', 'lg', 'xl'].includes(this.$mq);
+    },
+    settings() {
+      return this.$store.state.settings.editor;
     },
     savedAt() {
       if (this.document.updatedAt) {

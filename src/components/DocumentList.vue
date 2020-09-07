@@ -87,7 +87,7 @@ export default {
       } else if (this.untagged) {
         return this.$store.getters.untagged;
       } else {
-        return this.$store.state.documents.all;
+        return this.$store.getters.decrypted;
       }
     },
     filterMessage() {

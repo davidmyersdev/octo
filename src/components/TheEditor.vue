@@ -72,7 +72,7 @@ export default {
       return this.mounted ? this.$refs.editable.codeblocks : [];
     },
     document() {
-      return this.$store.state.documents.all.find(doc => doc.clientId === this.$route.params.documentId) || this.placeholder;
+      return this.$store.getters.decrypted.find(doc => doc.clientId === this.$route.params.documentId) || this.placeholder;
     },
     hasCodeblocks() {
       return this.codeblocks.length > 0;

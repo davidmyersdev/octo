@@ -15,6 +15,7 @@
 ## Features
 
 - **Autosave** - No need to hit save
+- **Client-Side Encryption** - Uses a [hybrid cryptosystem](https://en.wikipedia.org/wiki/Hybrid_cryptosystem) approach to reap the benefits of both public-key and symmetric encryption
 - **CodeSandbox Integration** - Open all code blocks in the current document in a new [CodeSandbox](https://codesandbox.io/) project with the click of a button
   - Watch a quick demo [on YouTube](https://youtu.be/o3tQsqwgnY4)
 - **Context Switching** - Focusing on `#work` or `#play`? Apply a global filter to only see the documents that are relevant
@@ -31,7 +32,7 @@
 
 ### Coming Soon
 
-- **File Encryption** - Notes will be encrypted prior to storage
+- **Keybinding Configuration** - Use the shortcuts that make sense to you
 - **Light Theme** - Why not both?
 - **Native Apps** - Install a native application on Android, iOS, or desktop (built with Ionic's [Capacitor](https://capacitorjs.com/) framework)
 

@@ -1,6 +1,8 @@
 import localforage from 'localforage';
 import Debouncer from '@/common/debouncer';
 
+import { encrypt } from '@/common/crypto/crypto';
+
 import {
   ADD_DOCUMENT,
   DISCARD_DOCUMENT,
@@ -29,7 +31,25 @@ export default (store) => {
 
         if (found) {
           debouncer.debounce(found.clientId, () => {
-            cache.setItem(found.clientId, found);
+            if (state.settings.crypto.enabled || found.encrypted) {
+              if (state.settings.crypto.publicKey) {
+                encrypt(found.text, state.settings.crypto.publicKey).then((encrypted) => {
+                  const secureDoc = Object.assign({}, found, {
+                    dataKey: encrypted.encryptedKey,
+                    encrypted: true,
+                    iv: encrypted.iv,
+                    tags: [], // tags will be restored upon decryption
+                    text: encrypted.cipher,
+                  });
+
+                  cache.setItem(found.clientId, secureDoc);
+                });
+              } else {
+                console.log('publicKey missing - cannot store document');
+              }
+            } else {
+              cache.setItem(found.clientId, found);
+            }
           });
         }
 

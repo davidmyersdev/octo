@@ -2,6 +2,8 @@ import localforage from 'localforage';
 import { parseTags } from '@/common/parsers';
 import { v4 as uuid } from 'uuid';
 
+import { decrypt } from '@/common/crypto/crypto';
+
 import {
   ADD_DOCUMENT,
   CREATE_DOCUMENT,
@@ -129,6 +131,26 @@ export default {
       context.commit(EDIT_DOCUMENT, payload);
     },
     async [LOAD_DOCUMENT] (context, payload) {
+      if (payload.document.encrypted) {
+        if (context.rootState.settings.crypto.privateKey) {
+          return decrypt(payload.document.text, context.rootState.settings.crypto.privateKey, payload.document.dataKey, payload.document.iv)
+            .then((data) => {
+              context.commit(LOAD_DOCUMENT, {
+                document: Object.assign({}, payload.document, {
+                  tags: parseTags(data),
+                  text: data,
+                }),
+              });
+            })
+            .catch((error) => {
+              // error - invalid key maybe?
+              console.log('there was an error decrypting a document');
+            });
+        } else {
+          console.log('privateKey missing - cannot load document');
+        }
+      }
+
       context.commit(LOAD_DOCUMENT, payload);
     },
     async [LOAD_DOCUMENTS] (context, payload) {

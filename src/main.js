@@ -52,8 +52,6 @@ new Vue({
           return response.text();
         })
         .then((text) => {
-          console.log(text);
-
           this.$store.dispatch(CREATE_DOCUMENT, {
             document: {
               text,

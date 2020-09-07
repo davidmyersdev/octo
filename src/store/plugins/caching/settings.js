@@ -2,6 +2,8 @@ import localforage from 'localforage';
 
 import {
   LOAD_SETTINGS,
+  SET_CRYPTO_ENABLED,
+  SET_CRYPTO_KEYS,
   SET_EDITOR_TAB_SIZE,
 } from '@/store/modules/settings';
 
@@ -19,6 +21,8 @@ export default (store) => {
 
   store.subscribe(({ type, _payload }, state) => {
     switch (type) {
+      case SET_CRYPTO_ENABLED:
+      case SET_CRYPTO_KEYS:
       case SET_EDITOR_TAB_SIZE:
         cache.setItem(CACHE_KEY, state.settings);
 

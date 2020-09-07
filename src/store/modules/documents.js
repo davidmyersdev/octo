@@ -34,6 +34,9 @@ export default {
     allKept(_state, getters) {
       return getters.sorted.filter(doc => doc.discardedAt === null);
     },
+    decrypted(state) {
+      return state.all.filter(doc => !doc.encrypted);
+    },
     discarded(_state, getters) {
       return getters.sorted.filter(doc => doc.discardedAt !== null);
     },
@@ -49,8 +52,8 @@ export default {
     kept(_state, getters) {
       return getters.filtered.filter(doc => doc.discardedAt === null);
     },
-    sorted(state, _getters) {
-      return state.all.sort((a, b) => {
+    sorted(_state, getters) {
+      return getters.decrypted.sort((a, b) => {
         // reverse sort
         return b.updatedAt - a.updatedAt;
       });
@@ -139,16 +142,17 @@ export default {
           return decrypt(doc.text, context.rootState.settings.crypto.privateKey, doc.dataKey, doc.iv)
             .then((data) => {
               context.commit(LOAD_DOCUMENT, Object.assign({}, doc, {
+                encrypted: false,
                 tags: parseTags(data),
                 text: data,
               }));
             })
             .catch((error) => {
-              // error - invalid key maybe?
-              console.log('there was an error decrypting a document');
+              // can not decrypt
+              context.commit(LOAD_DOCUMENT, doc);
             });
         } else {
-          console.log('privateKey missing - cannot load document');
+          context.commit(LOAD_DOCUMENT, doc);
         }
       } else {
         context.commit(LOAD_DOCUMENT, doc);

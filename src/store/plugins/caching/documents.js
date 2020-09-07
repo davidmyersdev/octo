@@ -35,22 +35,18 @@ export default (store) => {
 
         if (found) {
           debouncer.debounce(found.clientId, () => {
-            if (state.settings.crypto.enabled || found.encrypted) {
-              if (state.settings.crypto.publicKey) {
-                encrypt(found.text, state.settings.crypto.publicKey).then((encrypted) => {
-                  const secureDoc = Object.assign({}, found, {
-                    dataKey: encrypted.encryptedKey,
-                    encrypted: true,
-                    iv: encrypted.iv,
-                    tags: [], // tags will be restored upon decryption
-                    text: encrypted.cipher,
-                  });
-
-                  cache.setItem(found.clientId, secureDoc);
+            if (state.settings.crypto.enabled && state.settings.crypto.publicKey && !found.encrypted) {
+              encrypt(found.text, state.settings.crypto.publicKey).then((encrypted) => {
+                const secureDoc = Object.assign({}, found, {
+                  dataKey: encrypted.encryptedKey,
+                  encrypted: true,
+                  iv: encrypted.iv,
+                  tags: [], // tags will be restored upon decryption
+                  text: encrypted.cipher,
                 });
-              } else {
-                console.log('publicKey missing - cannot store document');
-              }
+
+                cache.setItem(found.clientId, secureDoc);
+              });
             } else {
               cache.setItem(found.clientId, found);
             }

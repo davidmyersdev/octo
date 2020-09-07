@@ -8,6 +8,7 @@ import Dashboard from './views/Dashboard.vue';
 import Context from './components/Context.vue';
 import DocumentList from './components/DocumentList.vue';
 import TheEditor from './components/TheEditor.vue';
+import TheSettings from './components/TheSettings.vue';
 import TagList from './components/TagList.vue';
 
 
@@ -94,6 +95,12 @@ const router = new Router({
           name: 'tags',
           component: TagList,
           props: true,
+        },
+        // settings
+        {
+          path: 'settings',
+          name: 'settings',
+          component: TheSettings,
         },
       ],
     },

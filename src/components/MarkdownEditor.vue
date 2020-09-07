@@ -31,6 +31,12 @@ export default {
         cursor.hasOwnProperty('character') && cursor.hasOwnProperty('line')
       ),
     },
+    settings: {
+      type: Object,
+      default: () => ({
+        // nothing yet
+      }),
+    },
     value: String,
   },
   data() {
@@ -54,17 +60,18 @@ export default {
             if (instance.somethingSelected()) {
               instance.indentSelection('add');
             } else {
-              instance.replaceSelection(Array(instance.getOption('indentUnit') + 1).join(' '), 'end', '+input');
+              instance.replaceSelection(Array(instance.getOption('tabSize') + 1).join(' '), 'end', '+input');
             }
           },
         },
+        indentUnit: this.settings.tabSize || 2,
         indentWithTabs: false,
         lineWrapping: true,
         mode: {
           name: 'gfm',
         },
         singleCursorHeightPerLine: true,
-        tabSize: 2,
+        tabSize: this.settings.tabSize || 2,
         theme: 'yeti',
       };
     },

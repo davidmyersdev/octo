@@ -5,9 +5,15 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import documents from '@/store/modules/documents';
-import cachePlugin from '@/store/plugins/cache';
 import router from '@/router';
+
+// modules
+import documentsModule from '@/store/modules/documents';
+import settingsModule from '@/store/modules/settings';
+
+// plugins
+import documentsCachingPlugin from '@/store/plugins/caching/documents';
+import settingsCachingPlugin from '@/store/plugins/caching/settings';
 
 import {
   ACTIVATE_CONTEXT,
@@ -147,9 +153,11 @@ export default new Vuex.Store({
     },
   },
   modules: {
-    documents,
+    documents: documentsModule,
+    settings: settingsModule,
   },
   plugins: [
-    cachePlugin,
+    documentsCachingPlugin,
+    settingsCachingPlugin,
   ],
 });

@@ -1,16 +1,18 @@
 import Vue from 'vue';
 import VueMq from 'vue-mq'
 
-import App from './App.vue';
+import App from '@/App.vue';
 
-import router from './router';
-import store from './store';
+import router from '@/router';
+import store from '@/store';
 
 // setup the service worker
-import './registerServiceWorker';
+import '@/registerServiceWorker';
+
+import Doc from '@/models/doc';
 
 import {
-  CREATE_DOCUMENT,
+  ADD_DOCUMENT,
   SET_OFFLINE,
   SET_ONLINE,
 } from '@/store/actions';
@@ -50,17 +52,10 @@ new Vue({
           return response.text();
         })
         .then((text) => {
-          this.$store.dispatch(CREATE_DOCUMENT, {
-            document: {
-              text,
-            },
-          })
-            .then((doc) => {
-              this.$router.push({ name: 'document', params: { documentId: doc.clientId } });
-            })
-            .catch((error) => {
-              // suppress errors for now
-            });
+          const doc = new Doc({ text });
+
+          this.$store.dispatch(ADD_DOCUMENT, doc);
+          this.$router.push({ name: 'document', params: { id: doc.id } });
 
           localStorage.setItem('octo/welcome/v1', 'done');
         })

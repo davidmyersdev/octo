@@ -5,7 +5,7 @@
       <MarkdownEditor ref="editable" class="editable" :initialCursor="initialCursor" :settings="settings" :value="document.text" @input="input" @ready="onReady" />
       <div class="gutter gutter-end expand" :class="{ 'md-plus': mediumPlus }" @click="focusEditorEnd"></div>
       <div class="document-actions">
-        <DiscardableAction v-if="document.clientId" :discardedAt="document.discardedAt" :onDiscard="discardDocument" :onRestore="restoreDocument" class="destroy"></DiscardableAction>
+        <DiscardableAction v-if="document.id" :discardedAt="document.discardedAt" :onDiscard="discardDocument" :onRestore="restoreDocument" class="destroy"></DiscardableAction>
         <button v-if="hasCodeblocks" @click="openSandbox" class="btn btn-secondary btn-sm">
           <CodeLabel>sandbox</CodeLabel>
         </button>
@@ -18,12 +18,13 @@
 <script>
 import CodeLabel from '@/components/labels/Code';
 import CodeSandbox from '@/common/code_sandbox';
+import Doc from '@/models/doc';
+
 import DiscardableAction from '@/components/DiscardableAction';
 import MarkdownEditor from '@/components/MarkdownEditor';
 
 import {
   ADD_DOCUMENT,
-  CREATE_DOCUMENT,
   DISCARD_DOCUMENT,
   EDIT_DOCUMENT,
   RESTORE_DOCUMENT,
@@ -54,14 +55,7 @@ export default {
       editor: null,
       mounted: false,
       now: moment(),
-      placeholder: {
-        clientId: null,
-        createdAt: null,
-        text: '',
-        discardedAt: null,
-        tags: [],
-        updatedAt: null,
-      },
+      placeholder: new Doc(),
       ticker: null,
     };
   },
@@ -72,7 +66,7 @@ export default {
       return this.mounted ? this.$refs.editable.codeblocks : [];
     },
     document() {
-      return this.$store.getters.decrypted.find(doc => doc.clientId === this.$route.params.documentId) || this.placeholder;
+      return this.$store.getters.decrypted.find(doc => doc.id === this.$route.params.id) || this.placeholder;
     },
     hasCodeblocks() {
       return this.codeblocks.length > 0;
@@ -84,7 +78,7 @@ export default {
       return this.$store.state.settings.editor;
     },
     savedAt() {
-      if (this.document.updatedAt) {
+      if (this.$route.params.id) {
         if (this.now.diff(this.document.updatedAt, 'seconds') < 5) {
           return 'Saved just now';
         }
@@ -92,47 +86,15 @@ export default {
           return `Saved ${moment(this.document.updatedAt).from(this.now, true)} ago`;
         }
       }
-      else {
-        return 'Not yet saved';
-      }
+
+      return 'Not yet saved';
     },
   },
   methods: {
-    async createDocument(value) {
-      const document = await this.$store.dispatch(CREATE_DOCUMENT, {
-        document: {
-          text: value,
-        },
-      });
-      const cursor = this.editor.getCursor();
-
-      this.$router.push({
-        name: 'document',
-        params: {
-          documentId: document.clientId,
-          initialCursor: {
-            character: cursor.ch,
-            line: cursor.line,
-          },
-        },
-      });
-    },
     async discardDocument() {
-      this.$store.dispatch(DISCARD_DOCUMENT, {
-        document: {
-          clientId: this.document.clientId,
-        },
-      });
+      this.$store.dispatch(DISCARD_DOCUMENT, { id: this.document.id });
 
       this.$router.push({ name: 'dashboard' });
-    },
-    async editDocument(clientId, value) {
-      this.$store.dispatch(EDIT_DOCUMENT, {
-        document: {
-          clientId: clientId,
-          text: value,
-        },
-      });
     },
     async openSandbox() {
       const files = this.codeblocks.reduce((agg, codeblock, index) => {
@@ -149,11 +111,7 @@ export default {
       CodeSandbox.create(files).then(sandbox_id => CodeSandbox.open(sandbox_id));
     },
     async restoreDocument() {
-      this.$store.dispatch(RESTORE_DOCUMENT, {
-        document: {
-          clientId: this.document.clientId,
-        },
-      });
+      this.$store.dispatch(RESTORE_DOCUMENT, { id: this.document.id });
     },
     async focusEditor() {
       this.$refs.editable.focus();
@@ -164,19 +122,29 @@ export default {
     async focusEditorStart() {
       this.$refs.editable.focusStart();
     },
-    async input(value) {
-      if (this.document.clientId) {
-        this.editDocument(this.document.clientId, value);
+    async input(text) {
+      if (this.$route.params.id) {
+        this.$store.dispatch(EDIT_DOCUMENT, { id: this.document.id, text });
       } else {
-        this.createDocument(value);
+        this.$store.dispatch(ADD_DOCUMENT, new Doc({ id: this.document.id, text }));
+
+        this.$router.push({
+          name: 'document',
+          params: {
+            id: this.document.id,
+            initialCursor: {
+              character: this.editor.getCursor().ch,
+              line: this.editor.getCursor().line,
+            },
+          },
+        });
       }
     },
     async onReady(instance) {
       this.editor = instance;
 
-      this.$store.dispatch(SET_EDITOR, {
-        editor: this.editor,
-      });
+      this.focusEditor();
+      this.$store.dispatch(SET_EDITOR, this.editor);
     },
   },
   async beforeDestroy() {
@@ -184,7 +152,6 @@ export default {
   },
   async mounted() {
     this.mounted = true;
-    this.focusEditor();
 
     this.ticker = setInterval(() => {
       this.now = moment();

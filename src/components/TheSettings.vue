@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { generateKeyPair } from '@/common/crypto/asymmetric';
+import { exportKeys, generateKeys } from '@/common/crypto/asymmetric';
 
 import {
   SET_CRYPTO_ENABLED,
@@ -106,10 +106,11 @@ export default {
   },
   methods: {
     async generateKeys() {
-      const keys = await generateKeyPair();
+      const keys = await generateKeys();
+      const { privateKey, publicKey } = await exportKeys(keys);
 
-      this.privateKey = keys.privateKey;
-      this.publicKey = keys.publicKey;
+      this.privateKey = privateKey;
+      this.publicKey = publicKey;
     },
   },
 };

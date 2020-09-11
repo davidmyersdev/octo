@@ -139,18 +139,22 @@ export default {
     async [LOAD_DOCUMENT] (context, doc) {
       if (doc.encrypted) {
         if (context.rootState.settings.crypto.privateKey) {
-          return decrypt(doc.text, context.rootState.settings.crypto.privateKey, doc.dataKey, doc.iv)
-            .then((data) => {
-              context.commit(LOAD_DOCUMENT, Object.assign({}, doc, {
-                encrypted: false,
-                tags: parseTags(data),
-                text: data,
-              }));
-            })
-            .catch((error) => {
-              // can not decrypt
-              context.commit(LOAD_DOCUMENT, doc);
-            });
+          return decrypt({
+            cipher: doc.text,
+            cipherKey: doc.dataKey,
+            iv: doc.iv,
+            privateKey: context.rootState.settings.crypto.privateKey,
+          }).then((data) => {
+            context.commit(LOAD_DOCUMENT, Object.assign({}, doc, {
+              encrypted: false,
+              tags: parseTags(data),
+              text: data,
+            }));
+          })
+          .catch((error) => {
+            // can not decrypt
+            context.commit(LOAD_DOCUMENT, doc);
+          });
         } else {
           context.commit(LOAD_DOCUMENT, doc);
         }

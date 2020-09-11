@@ -1,53 +1,52 @@
-import { ab2str, encode, generateInitializationVector, str2ab } from '@/common/crypto/utils';
+import { decode, encode, generateIv, pack, unpack } from '@/common/crypto/utils';
 
-export const decrypt = async (cipherText, key, iv) => {
-  const buffer = str2ab(window.atob(cipherText));
-  const decrypted = await window.crypto.subtle.decrypt({
-    name: 'AES-GCM',
-    iv: str2ab(window.atob(iv)),
-  }, key, buffer);
-
-  return ab2str(decrypted);
+export const algorithm = {
+  name: 'AES-GCM',
 };
 
-export const encrypt = async (plainText, key) => {
-  const encoded = encode(plainText);
-  const iv = generateInitializationVector();
-  const encrypted = await window.crypto.subtle.encrypt({
-    name: 'AES-GCM',
+// https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/decrypt
+export const decrypt = async (cipher, key, iv) => {
+  const encoded = await window.crypto.subtle.decrypt({
+    name: algorithm.name,
+    iv: iv,
+  }, key, cipher);
+
+  return decode(encoded);
+};
+
+// https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/encrypt
+export const encrypt = async (data, key) => {
+  const encoded = encode(data);
+  const iv = generateIv();
+  const cipher = await window.crypto.subtle.encrypt({
+    name: algorithm.name,
     iv: iv,
   }, key, encoded);
 
   return {
-    cipher: window.btoa(ab2str(encrypted)),
-    iv: window.btoa(ab2str(iv)),
+    cipher,
+    iv,
   };
 };
 
-export const exportKey = async (key) => {
-  const exported = await window.crypto.subtle.exportKey('raw', key);
-  const buffer = new Uint8Array(exported);
-
-  return window.btoa(ab2str(buffer));
-};
-
+// https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/generateKey
 export const generateKey = async () => {
   return window.crypto.subtle.generateKey({
-    name: 'AES-GCM',
+    name: algorithm.name,
     length: 256,
   }, true, ['encrypt', 'decrypt']);
 };
 
-export const importKey = async (key) => {
-  const buffer = str2ab(window.atob(key));
-
-  return window.crypto.subtle.importKey('raw', buffer, 'AES-GCM', true, ['decrypt', 'encrypt']);
+// legacy support for unwrapping data key
+// https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/importKey
+export const importKey = async (keyBuffer) => {
+  return window.crypto.subtle.importKey('raw', keyBuffer, algorithm.name, true, ['decrypt', 'encrypt']);
 };
 
 export default {
+  algorithm,
   decrypt,
   encrypt,
-  exportKey,
   generateKey,
   importKey,
 };

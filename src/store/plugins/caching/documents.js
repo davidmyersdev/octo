@@ -36,9 +36,12 @@ export default (store) => {
         if (found) {
           debouncer.debounce(found.clientId, () => {
             if (state.settings.crypto.enabled && state.settings.crypto.publicKey && !found.encrypted) {
-              encrypt(found.text, state.settings.crypto.publicKey).then((encrypted) => {
+              encrypt({
+                data: found.text,
+                publicKey: state.settings.crypto.publicKey,
+              }).then((encrypted) => {
                 const secureDoc = Object.assign({}, found, {
-                  dataKey: encrypted.encryptedKey,
+                  dataKey: encrypted.cipherKey,
                   encrypted: true,
                   iv: encrypted.iv,
                   tags: [], // tags will be restored upon decryption

@@ -72,7 +72,7 @@ const router = new Router({
         },
         // show a specific document
         {
-          path: 'documents/:documentId',
+          path: 'documents/:id',
           name: 'document',
           component: TheEditor,
           props: true,

@@ -1,89 +1,100 @@
-import { ab2str, encode, keyToBase64, str2ab } from '@/common/crypto/utils';
+import { decode, encode, pack, unpack } from '@/common/crypto/utils';
 
-export const decrypt = async (cipherText, privateKey) => {
-  const buffer = str2ab(window.atob(cipherText));
-  const key = await importPrivateKey(privateKey);
-  const decrypted = await window.crypto.subtle.decrypt({ name: 'RSA-OAEP' }, key, buffer);
-
-  return ab2str(decrypted);
+export const algorithm = {
+  name: 'RSA-OAEP',
 };
 
-export const encrypt = async (plainText, publicKey) => {
-  const encoded = encode(plainText);
-  const key = await importPublicKey(publicKey);
-  const encrypted = await window.crypto.subtle.encrypt({ name: 'RSA-OAEP' }, key, encoded);
+// legacy support for unwrapping data key
+// https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/decrypt
+export const decrypt = async (cipher, privateKey) => {
+  const decrypted = await window.crypto.subtle.decrypt(algorithm, privateKey, cipher);
 
-  return window.btoa(ab2str(encrypted));
+  return decode(decrypted);
 };
 
-export const exportKeyPair = async (keyPair) => {
-  const privateKey = await exportPrivateKey(keyPair.privateKey);
-  const publicKey = await exportPublicKey(keyPair.publicKey);
+// export public/private keys to pem format
+export const exportKeys = async (keys) => {
+  const exported = {};
 
-  return {
-    privateKey,
-    publicKey,
-  };
+  if (keys.privateKey) {
+    exported.privateKey = await exportPrivateKey(keys.privateKey);
+  }
+
+  if (keys.publicKey) {
+    exported.publicKey = await exportPublicKey(keys.publicKey);
+  }
+
+  return exported;
 };
 
 export const exportPrivateKey = async (key) => {
-  const base64 = await keyToBase64(key, 'pkcs8');
+  const base64 = pack(await window.crypto.subtle.exportKey('pkcs8', key));
 
   return `-----BEGIN PRIVATE KEY-----\n${base64}\n-----END PRIVATE KEY-----`;
 };
 
 export const exportPublicKey = async (key) => {
-  const base64 = await keyToBase64(key, 'spki');
+  const base64 = pack(await window.crypto.subtle.exportKey('spki', key));
 
   return `-----BEGIN PUBLIC KEY-----\n${base64}\n-----END PUBLIC KEY-----`;
 };
 
-export const generateKeyPair = async () => {
-  const keyPair = await window.crypto.subtle.generateKey({
+export const generateKeys = async () => {
+  return window.crypto.subtle.generateKey({
     hash: 'SHA-512',
     modulusLength: 4096,
-    name: 'RSA-OAEP',
+    name: algorithm.name,
     publicExponent: new Uint8Array([1, 0, 1]),
   }, true, ['encrypt', 'decrypt']);
+};
 
-  return exportKeyPair(keyPair);
+// import public/private pem keys
+export const importKeys = async (exported) => {
+  const keys = {};
+
+  if (exported.privateKey) {
+    keys.privateKey = await importPrivateKey(exported.privateKey);
+  }
+
+  if (exported.publicKey) {
+    keys.publicKey = await importPublicKey(exported.publicKey);
+  }
+
+  return keys;
 };
 
 export const importPrivateKey = async (pemKey) => {
   const header = '-----BEGIN PRIVATE KEY-----';
   const footer = '-----END PRIVATE KEY-----';
   const base64 = pemKey.substring(header.length, pemKey.length - footer.length);
-  const buffer = str2ab(window.atob(base64));
+  const buffer = unpack(base64);
 
   return window.crypto.subtle.importKey('pkcs8', buffer, {
     hash: 'SHA-512',
-    modulusLength: 4096,
-    name: 'RSA-OAEP',
-    publicExponent: new Uint8Array([1, 0, 1]),
-  }, true, ['decrypt']);
+    name: algorithm.name,
+  }, true, ['decrypt', 'unwrapKey']);
 };
 
 export const importPublicKey = async (pemKey) => {
   const header = '-----BEGIN PUBLIC KEY-----';
   const footer = '-----END PUBLIC KEY-----';
   const base64 = pemKey.substring(header.length, pemKey.length - footer.length);
-  const buffer = str2ab(window.atob(base64));
+  const buffer = unpack(base64);
 
   return window.crypto.subtle.importKey('spki', buffer, {
     hash: 'SHA-512',
-    modulusLength: 4096,
-    name: 'RSA-OAEP',
-    publicExponent: new Uint8Array([1, 0, 1]),
-  }, true, ['encrypt']);
+    name: algorithm.name,
+  }, true, ['encrypt', 'wrapKey']);
 };
 
 export default {
+  algorithm,
   decrypt,
-  encrypt,
-  exportKeyPair,
+  exportKeys,
   exportPrivateKey,
   exportPublicKey,
-  generateKeyPair,
+  generateKeys,
+  importKeys,
   importPrivateKey,
   importPublicKey,
 };

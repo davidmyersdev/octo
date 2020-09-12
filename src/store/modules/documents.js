@@ -3,20 +3,22 @@ import { v4 as uuid } from 'uuid';
 
 import { decrypt } from '@/common/crypto/crypto';
 
+import Doc from '@/models/doc';
+
 import {
   ADD_DOCUMENT,
-  CREATE_DOCUMENT,
   DISCARD_DOCUMENT,
   DOCUMENTS_LOADED,
   EDIT_DOCUMENT,
   LOAD_DOCUMENT,
   LOAD_DOCUMENTS,
   RESTORE_DOCUMENT,
+  TOUCH_DOCUMENT,
 } from '@/store/actions';
 
-const findDoc = (state, clientId) => {
+const findDoc = (state, id) => {
   return state.all.find((doc) => {
-    return doc.clientId === clientId;
+    return doc.id === id;
   });
 };
 
@@ -68,103 +70,54 @@ export default {
     },
   },
   mutations: {
-    [ADD_DOCUMENT] (state, payload) {
-      state.all.push(payload.document);
+    [ADD_DOCUMENT] (state, doc) {
+      state.all.push(doc);
     },
-    [DISCARD_DOCUMENT] (state, payload) {
-      const document = findDoc(state, payload.document.clientId);
-      const now = new Date();
-
-      Object.assign(document, {
-        discardedAt: now,
-        updatedAt: now,
-      });
+    [DISCARD_DOCUMENT] (state, { id }) {
+      findDoc(state, id).discard();
     },
     [DOCUMENTS_LOADED] (state) {
       state.loaded = true;
     },
-    [EDIT_DOCUMENT] (state, payload) {
-      const now = new Date();
-      const document = findDoc(state, payload.document.clientId);
-
-      Object.assign(document, {
-        text: payload.document.text,
-        tags: parseTags(payload.document.text),
-        updatedAt: now,
-      });
+    [EDIT_DOCUMENT] (state, { id, text }) {
+      findDoc(state, id).update({ text });
     },
     [LOAD_DOCUMENT] (state, doc) {
       state.all.push(doc);
     },
-    [RESTORE_DOCUMENT] (state, payload) {
-      const document = findDoc(state, payload.document.clientId);
-
-      Object.assign(document, {
-        discardedAt: null,
-        updatedAt: new Date(),
-      });
+    [RESTORE_DOCUMENT] (state, { id }) {
+      findDoc(state, id).restore();
+    },
+    [TOUCH_DOCUMENT] (state, { id }) {
+      findDoc(state, id).touch();
     },
   },
   actions: {
-    async [ADD_DOCUMENT] (context, payload) {
-      context.commit(ADD_DOCUMENT, payload);
+    async [ADD_DOCUMENT] (context, doc) {
+      context.commit(ADD_DOCUMENT, doc);
     },
-    async [CREATE_DOCUMENT] (context, payload) {
-      const now = new Date();
-      const doc = {
-        document: {
-          clientId: uuid(),
-          tags: parseTags(payload.document.text),
-          text: payload.document.text,
-          // timestamps
-          createdAt: now,
-          discardedAt: null,
-          updatedAt: now,
-        },
-      };
-
-      context.dispatch(ADD_DOCUMENT, doc);
-
-      return doc.document;
-    },
-    async [DISCARD_DOCUMENT] (context, payload) {
-      context.commit(DISCARD_DOCUMENT, payload);
+    async [DISCARD_DOCUMENT] (context, doc) {
+      context.commit(DISCARD_DOCUMENT, doc);
     },
     async [DOCUMENTS_LOADED] (context) {
       context.commit(DOCUMENTS_LOADED);
     },
-    async [EDIT_DOCUMENT] (context, payload) {
-      context.commit(EDIT_DOCUMENT, payload);
+    async [EDIT_DOCUMENT] (context, doc) {
+      context.commit(EDIT_DOCUMENT, doc);
     },
     async [LOAD_DOCUMENT] (context, doc) {
-      if (doc.encrypted) {
-        if (context.rootState.settings.crypto.privateKey) {
-          return decrypt(doc.text, context.rootState.settings.crypto.privateKey, doc.dataKey, doc.iv)
-            .then((data) => {
-              context.commit(LOAD_DOCUMENT, Object.assign({}, doc, {
-                encrypted: false,
-                tags: parseTags(data),
-                text: data,
-              }));
-            })
-            .catch((error) => {
-              // can not decrypt
-              context.commit(LOAD_DOCUMENT, doc);
-            });
-        } else {
-          context.commit(LOAD_DOCUMENT, doc);
-        }
-      } else {
-        context.commit(LOAD_DOCUMENT, doc);
-      }
+      context.commit(LOAD_DOCUMENT, doc);
     },
-    async [LOAD_DOCUMENTS] (context, documents) {
+    async [LOAD_DOCUMENTS] (context, docs) {
       return Promise.all(
-        documents.map(doc => context.dispatch(LOAD_DOCUMENT, doc))
+        docs.map(doc => context.dispatch(LOAD_DOCUMENT, doc))
       );
     },
-    async [RESTORE_DOCUMENT] (context, payload) {
-      context.commit(RESTORE_DOCUMENT, payload);
+    async [RESTORE_DOCUMENT] (context, doc) {
+      context.commit(RESTORE_DOCUMENT, doc);
+    },
+    async [TOUCH_DOCUMENT] (context, doc) {
+      context.commit(TOUCH_DOCUMENT, doc);
     },
   },
 };

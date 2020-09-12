@@ -30,7 +30,7 @@
       </div>
       <small class="form-text text-muted mt-2">{{ filterMessage }}</small>
     </div>
-    <Document v-for="document in filteredDocuments" :key="document.clientId" v-bind="document"></Document>
+    <Document v-for="document in filteredDocuments" :key="document.id" v-bind="document"></Document>
   </div>
 </template>
 

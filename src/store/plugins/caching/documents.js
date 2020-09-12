@@ -1,7 +1,8 @@
 import localforage from 'localforage';
+
 import Debouncer from '@/common/debouncer';
 
-import { encrypt } from '@/common/crypto/crypto';
+import { pack, unpack } from '@/models/doc';
 
 import {
   ADD_DOCUMENT,
@@ -10,6 +11,7 @@ import {
   EDIT_DOCUMENT,
   LOAD_DOCUMENTS,
   RESTORE_DOCUMENT,
+  TOUCH_DOCUMENT,
 } from '@/store/actions';
 
 import { SETTINGS_LOADED } from '@/store/modules/settings';
@@ -20,8 +22,8 @@ const cache = localforage.createInstance({
 
 const debouncer = new Debouncer(800);
 
-const find = (state, clientId) => {
-  return state.documents.all.find(doc => doc.clientId === clientId);
+const find = (state, id) => {
+  return state.documents.all.find(doc => doc.id === id);
 };
 
 export default (store) => {
@@ -31,25 +33,18 @@ export default (store) => {
       case DISCARD_DOCUMENT:
       case EDIT_DOCUMENT:
       case RESTORE_DOCUMENT:
-        const found = find(state, payload.document.clientId);
+      case TOUCH_DOCUMENT:
+        const found = find(state, payload.id);
 
         if (found) {
-          debouncer.debounce(found.clientId, () => {
-            if (state.settings.crypto.enabled && state.settings.crypto.publicKey && !found.encrypted) {
-              encrypt(found.text, state.settings.crypto.publicKey).then((encrypted) => {
-                const secureDoc = Object.assign({}, found, {
-                  dataKey: encrypted.encryptedKey,
-                  encrypted: true,
-                  iv: encrypted.iv,
-                  tags: [], // tags will be restored upon decryption
-                  text: encrypted.cipher,
-                });
-
-                cache.setItem(found.clientId, secureDoc);
-              });
+          debouncer.debounce(found.id, async () => {
+            if (state.settings.crypto.enabled && !found.encrypted) {
+              var doc = await pack(found, { publicKey: state.settings.crypto.publicKey });
             } else {
-              cache.setItem(found.clientId, found);
+              var doc = await pack(found, { secure: false });
             }
+
+            cache.setItem(found.id, doc);
           });
         }
 
@@ -58,6 +53,16 @@ export default (store) => {
         // load all documents from the cache after settings are loaded
         cache.keys()
           .then(ids => Promise.all(ids.map(id => cache.getItem(id))))
+          .then((docs) => {
+            // unpack cached data
+            return Promise.all(
+              docs.map((doc) => {
+                const packed = Object.assign({}, doc, { id: (doc.id || doc.clientId), textKey: (doc.textKey || doc.dataKey) });
+
+                return unpack(packed, { privateKey: state.settings.crypto.privateKey });
+              })
+            );
+          })
           .then(docs => store.dispatch(LOAD_DOCUMENTS, docs))
           .then(() => store.dispatch(DOCUMENTS_LOADED));
         break;

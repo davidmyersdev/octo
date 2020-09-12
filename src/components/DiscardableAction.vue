@@ -7,8 +7,6 @@
 <script>
 import DiscardLabel from '@/components/labels/Discard';
 
-import { DISCARD_DOCUMENT } from '@/store/actions';
-
 export default {
   name: 'DiscardableAction',
   props: {

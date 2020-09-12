@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <router-link class="document" :to="documentRoute">
-      <DiscardableAction v-if="clientId" :discardedAt="discardedAt" :onDiscard="discard" :onRestore="restore" class="destroy"></DiscardableAction>
+      <DiscardableAction v-if="id" :discardedAt="discardedAt" :onDiscard="discard" :onRestore="restore" class="destroy"></DiscardableAction>
       <pre class="pb-3">{{ text }}</pre>
       <p class="text-muted mb-0"><small>{{ updated }}</small></p>
     </router-link>
@@ -19,7 +19,7 @@ import {
 export default {
   name: 'Document',
   props: {
-    clientId: String,
+    id: String,
     text: String,
     updatedAt: Date,
     discardedAt: Date,
@@ -29,7 +29,7 @@ export default {
   },
   computed: {
     documentRoute() {
-      return { name: 'document', params: { documentId: this.clientId } };
+      return { name: 'document', params: { id: this.id } };
     },
     updated() {
       return `Updated on ${moment(this.updatedAt).format('ddd, MMM Do, YYYY [at] h:mm A')}`;
@@ -37,18 +37,10 @@ export default {
   },
   methods: {
     discard() {
-      this.$store.dispatch(DISCARD_DOCUMENT, {
-        document: {
-          clientId: this.clientId,
-        },
-      });
+      this.$store.dispatch(DISCARD_DOCUMENT, { id: this.id });
     },
     restore() {
-      this.$store.dispatch(RESTORE_DOCUMENT, {
-        document: {
-          clientId: this.clientId,
-        },
-      });
+      this.$store.dispatch(RESTORE_DOCUMENT, { id: this.id });
     },
   },
 };

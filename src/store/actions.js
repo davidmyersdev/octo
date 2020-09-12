@@ -15,6 +15,7 @@ export const SET_EDITOR = 'SET_EDITOR';
 export const SET_OFFLINE = 'SET_OFFLINE';
 export const SET_ONLINE = 'SET_ONLINE';
 export const SHOW_MENU = 'SHOW_MENU';
+export const TOUCH_DOCUMENT = 'TOUCH_DOCUMENT';
 
 export default {
   ACTIVATE_CONTEXT,
@@ -34,4 +35,5 @@ export default {
   SET_OFFLINE,
   SET_ONLINE,
   SHOW_MENU,
+  TOUCH_DOCUMENT,
 };

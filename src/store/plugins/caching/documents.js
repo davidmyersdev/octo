@@ -11,6 +11,7 @@ import {
   EDIT_DOCUMENT,
   LOAD_DOCUMENTS,
   RESTORE_DOCUMENT,
+  TOUCH_DOCUMENT,
 } from '@/store/actions';
 
 import { SETTINGS_LOADED } from '@/store/modules/settings';
@@ -32,6 +33,7 @@ export default (store) => {
       case DISCARD_DOCUMENT:
       case EDIT_DOCUMENT:
       case RESTORE_DOCUMENT:
+      case TOUCH_DOCUMENT:
         const found = find(state, payload.id);
 
         if (found) {

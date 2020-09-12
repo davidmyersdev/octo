@@ -22,7 +22,7 @@
           <div>
             <label class="btn btn-primary btn-toggle">
               <div class="custom-control custom-checkbox d-flex align-items-center">
-                <input v-model="cryptoEnabled" :disabled="!allowCrypto" type="checkbox" class="custom-control-input d-flex">
+                <input v-model="toggleCrypto" :disabled="!allowCrypto || togglingCrypto" type="checkbox" class="custom-control-input d-flex">
                 <span class="custom-control-label d-flex">Enable Encryption</span>
               </div>
             </label>
@@ -50,6 +50,8 @@
 <script>
 import { exportKeys, generateKeys } from '@/common/crypto/asymmetric';
 
+import { TOUCH_DOCUMENT } from '@/store/actions';
+
 import {
   SET_CRYPTO_ENABLED,
   SET_CRYPTO_KEYS,
@@ -60,20 +62,12 @@ export default {
   name: 'TheSettings',
   data() {
     return {
-      // nothing yet
+      togglingCrypto: false,
     };
   },
   computed: {
     allowCrypto() {
       return this.privateKey && this.publicKey;
-    },
-    cryptoEnabled: {
-      get() {
-        return this.$store.state.settings.crypto.enabled;
-      },
-      set(value) {
-        this.$store.dispatch(SET_CRYPTO_ENABLED, value);
-      },
     },
     privateKey: {
       get() {
@@ -101,6 +95,23 @@ export default {
       },
       set(value) {
         this.$store.dispatch(SET_EDITOR_TAB_SIZE, parseInt(value) || 2);
+      },
+    },
+    toggleCrypto: {
+      get() {
+        return this.$store.state.settings.crypto.enabled;
+      },
+      async set(value) {
+        this.togglingCrypto = true;
+
+        await this.$store.dispatch(SET_CRYPTO_ENABLED, value);
+        await Promise.all(
+          this.$store.getters.decrypted.map((doc) => {
+            return this.$store.dispatch(TOUCH_DOCUMENT, doc);
+          })
+        );
+
+        this.togglingCrypto = false;
       },
     },
   },

@@ -13,6 +13,7 @@ import {
   LOAD_DOCUMENT,
   LOAD_DOCUMENTS,
   RESTORE_DOCUMENT,
+  TOUCH_DOCUMENT,
 } from '@/store/actions';
 
 const findDoc = (state, id) => {
@@ -87,6 +88,9 @@ export default {
     [RESTORE_DOCUMENT] (state, { id }) {
       findDoc(state, id).restore();
     },
+    [TOUCH_DOCUMENT] (state, { id }) {
+      findDoc(state, id).touch();
+    },
   },
   actions: {
     async [ADD_DOCUMENT] (context, doc) {
@@ -111,6 +115,9 @@ export default {
     },
     async [RESTORE_DOCUMENT] (context, doc) {
       context.commit(RESTORE_DOCUMENT, doc);
+    },
+    async [TOUCH_DOCUMENT] (context, doc) {
+      context.commit(TOUCH_DOCUMENT, doc);
     },
   },
 };

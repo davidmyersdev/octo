@@ -27,7 +27,7 @@
               </div>
             </label>
           </div>
-          <small v-if="!allowCrypto" class="text-muted">Note: Enabling encryption <strong>requires</strong> private/public keys. Generate or supply them below to enable.</small>
+          <small class="text-muted">Note: Toggling encryption will encrypt/decrypt all existing documents. <span v-if="!allowCrypto">Enabling encryption <strong>requires</strong> private/public keys. Generate or supply them below to enable.</span></small>
         </div>
         <div class="form-group">
           <label for="tags-search">Private Key</label>

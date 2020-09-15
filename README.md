@@ -8,7 +8,7 @@
   </a>
 </p>
 
-<p align="center">Notes for developers</p>
+<p align="center">A writing app for developers</p>
 
 [![screenshot](resources/screenshot.png)](https://octo.app)
 

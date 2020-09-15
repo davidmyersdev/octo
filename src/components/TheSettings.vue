@@ -43,6 +43,16 @@
           <button @click="generateKeys" class="btn btn-secondary">Generate Keys</button>
         </div>
       </section>
+      <section>
+        <h4 class="font-weight-normal mt-3 mt-md-5">Export Documents</h4>
+        <hr>
+        <div class="form-group">
+          <label>Bundle all documents as JSON. Documents will be decrypted if the necessary keys are available.</label>
+        </div>
+        <div class="form-group">
+          <button @click="exportDocs" class="btn btn-secondary">Export Documents</button>
+        </div>
+      </section>
     </div>
   </div>
 </template>
@@ -122,6 +132,9 @@ export default {
 
       this.privateKey = privateKey;
       this.publicKey = publicKey;
+    },
+    async exportDocs() {
+      this.$router.push({ name: 'export' });
     },
   },
 };

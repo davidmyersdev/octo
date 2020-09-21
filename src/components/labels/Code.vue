@@ -1,7 +1,7 @@
 <template>
   <Base>
     <CodeIcon :size="iconSize" />
-    <div>
+    <div class="flex-grow-1">
       <slot></slot>
     </div>
   </Base>

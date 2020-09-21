@@ -10,6 +10,7 @@ import DocumentList from './components/DocumentList.vue';
 import Exporter from './components/Exporter.vue';
 import TheEditor from './components/TheEditor.vue';
 import TheSettings from './components/TheSettings.vue';
+import TheSidebar from './components/TheSidebar';
 import TagList from './components/TagList.vue';
 
 
@@ -17,6 +18,11 @@ Vue.use(Router);
 
 const router = new Router({
   routes: [
+    {
+      path: '/menu',
+      name: 'menu',
+      component: TheSidebar,
+    },
     {
       path: '/',
       name: 'editor',

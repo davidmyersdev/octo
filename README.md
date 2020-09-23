@@ -12,6 +12,8 @@
 
 [![screenshot](resources/screenshot.png)](https://octo.app)
 
+<p align="center">Follow <a href="https://twitter.com/voraciousdev">@voraciousdev</a> on Twitter for updates!</p>
+
 ## Features
 
 - **Autosave** - No need to hit save

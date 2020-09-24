@@ -1,125 +1,25 @@
 <template>
-  <div class="dashboard">
-    <div class="side-nav d-none d-md-flex">
-      <div class="side-nav-spacer">
-        <div class="other-actions">
-          <div class="item search">
-            <router-link class="btn btn-secondary d-flex justify-content-center w-100" :to="{ name: 'documents' }">
-              <SearchLabel>search</SearchLabel>
-            </router-link>
-          </div>
-          <h6 class="dropdown-header">quick filters</h6>
-          <div class="item-divider"></div>
-          <router-link class="item" :to="{ name: 'actionable' }">
-            <TaskLabel>actionable</TaskLabel>
-          </router-link>
-          <router-link class="item" :to="{ name: 'recent' }">
-            <TimelyLabel>recent</TimelyLabel>
-          </router-link>
-          <router-link class="item" :to="{ name: 'untagged' }">
-            <DocumentLabel>untagged</DocumentLabel>
-          </router-link>
-          <router-link class="item" :to="{ name: 'discarded' }">
-            <DiscardLabel>discarded</DiscardLabel>
-          </router-link>
-        </div>
-        <div ref="tags" class="tags">
-          <h6 class="dropdown-header">tags</h6>
-          <div class="item-divider"></div>
-          <Tag class="item" v-for="tag in tags" :key="tag" :tag="tag"></Tag>
-        </div>
-      </div>
-    </div>
-    <router-view :key="$route.fullPath"></router-view>
+  <div class="dashboard d-flex align-items-stretch">
+    <TheSidebar class="sidebar d-none d-md-flex"/>
+    <TheContent/>
   </div>
 </template>
 
 <script>
-import DiscardLabel from '@/components/labels/Discard';
-import DocumentLabel from '@/components/labels/Document';
-import SearchLabel from '@/components/labels/Search';
-import Tag from '@/components/Tag';
-import TaskLabel from '@/components/labels/Task';
-import TimelyLabel from '@/components/labels/Timely';
+import TheContent from '@/components/TheContent';
+import TheSidebar from '@/components/TheSidebar';
 
 export default {
-  name: 'dashboard',
+  name: 'Dashboard',
   components: {
-    DiscardLabel,
-    DocumentLabel,
-    SearchLabel,
-    Tag,
-    TaskLabel,
-    TimelyLabel,
-  },
-  computed: {
-    tags() {
-      return this.$store.getters.tags;
-    },
+    TheContent,
+    TheSidebar,
   },
 };
 </script>
 
 <style scoped>
-.dashboard {
-  align-items: stretch;
-  display: flex;
-  position: relative;
-}
-
-.side-nav {
-  border-right: 1px solid #222;
-  display: flex;
-  flex-direction: column;
-  flex-shrink: 0;
-  float: left;
-  align-items: stretch;
-  overflow: hidden auto;
-  padding: 1rem 0;
-  position: sticky;
-  top: 0;
-  width: 12rem;
-}
-
-.side-nav-spacer {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  height: 100%;
-}
-
-.side-nav .tags {
-  margin-top: 0.25rem;
-}
-
-.side-nav .item {
-  align-items: center;
-  color: #aaa;
-  display: flex;
-  padding: 0.3rem 1rem;
-  padding-right: 3rem;
-}
-
-.side-nav .item.search {
-  margin-bottom: 0.5rem;
-  padding-right: 1rem;
-}
-
-.side-nav .item:first-child {
-  margin-top: -0.25rem;
-}
-
-.side-nav .item-divider {
-  background-color: #222;
-  height: 1px;
-  margin: 0 1rem 0.5rem 1rem;
-}
-
-.side-nav .dropdown-header {
-  margin-left: 0.25rem;
-}
-
-svg {
-  margin-right: 0.5rem;
+.sidebar {
+  min-width: 17rem;
 }
 </style>

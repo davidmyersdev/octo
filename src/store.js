@@ -9,10 +9,12 @@ import router from '@/router';
 
 // modules
 import documentsModule from '@/store/modules/documents';
+import keybindingsModule from '@/store/modules/keybindings';
 import settingsModule from '@/store/modules/settings';
 
 // plugins
 import documentsCachingPlugin from '@/store/plugins/caching/documents';
+import keybindingsPlugin from '@/store/plugins/keybindings';
 import settingsCachingPlugin from '@/store/plugins/caching/settings';
 
 import {
@@ -146,10 +148,12 @@ export default new Vuex.Store({
   },
   modules: {
     documents: documentsModule,
+    keybindings: keybindingsModule,
     settings: settingsModule,
   },
   plugins: [
     documentsCachingPlugin,
+    keybindingsPlugin,
     settingsCachingPlugin,
   ],
 });

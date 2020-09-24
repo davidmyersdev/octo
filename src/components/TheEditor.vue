@@ -1,9 +1,9 @@
 <template>
-  <div class="container-lg">
-    <div class="editor" @click="focusEditor">
+  <div class="container-fluid container-xl d-flex">
+    <div class="editor d-flex flex-column flex-grow-1" @click="focusEditor">
       <div class="gutter gutter-start" :class="{ 'md-plus': mediumPlus }" @click="focusEditorStart"></div>
       <MarkdownEditor ref="editable" class="editable" :initialCursor="initialCursor" :settings="settings" :value="document.text" @input="input" @ready="onReady" />
-      <div class="gutter gutter-end expand" :class="{ 'md-plus': mediumPlus }" @click="focusEditorEnd"></div>
+      <div class="gutter gutter-end flex-grow-1" :class="{ 'md-plus': mediumPlus }" @click="focusEditorEnd"></div>
       <div class="document-actions">
         <DiscardableAction v-if="document.id" :discardedAt="document.discardedAt" :onDiscard="discardDocument" :onRestore="restoreDocument" class="destroy"></DiscardableAction>
         <button v-if="hasCodeblocks" @click="openSandbox" class="btn btn-secondary btn-sm">
@@ -161,19 +161,6 @@ export default {
 </script>
 
 <style scoped>
-  .editor {
-    background: url('~@/assets/octopus-transparent.svg') center center no-repeat;
-    background-size: 50% 50%;
-    display: block;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    left: 0;
-    margin: auto;
-    /* need to automatically fill remaining height for editor */
-    min-height: 30rem;
-  }
-
   .editor .editable {
     outline: none;
     white-space: pre-wrap;
@@ -195,11 +182,6 @@ export default {
     cusor: text;
     min-height: 1rem;
     width: 100%;
-  }
-
-  .editor .gutter.gutter-end {
-    flex-grow: 1;
-    min-height: 2rem;
   }
 
   .document-actions {

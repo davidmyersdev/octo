@@ -1,5 +1,5 @@
 <template>
-  <div class="document-list container">
+  <div class="document-list container-fluid container-xl">
     <p class="toolbar">
       <TagLabel v-if="tag">{{ tag }}</TagLabel>
       <span v-else class="action">{{ action }}</span>
@@ -135,8 +135,6 @@ export default {
 <style scoped>
 .document-list {
   flex-grow: 1;
-  margin: 0 auto;
-  /* max-width: 47em; */
   padding: 1rem;
 }
 

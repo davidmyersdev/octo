@@ -1,5 +1,5 @@
 const codeRegex = /```([^\n\s]*)(?:\s([\w-]+\.[\w]+))?\n(.*?)```/gs;
-const tagsRegex = /````.*?````|```.*?```|``.*?``|`.*?`|\w+:\/?\/?\S*|#(\w+)/gs;
+const tagsRegex = /````.*?````|```.*?```|``.*?``|`.*?`|\w+:\/?\/?\S*|#([\w-]+)/gs;
 
 export const parse = (regex, text) => {
   let matches = [];

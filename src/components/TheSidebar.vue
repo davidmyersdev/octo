@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div class="side-nav d-flex flex-grow-1 flex-column align-items-stretch pb-3">
+    <div class="side-nav d-flex flex-grow-1 flex-column align-items-stretch">
       <div class="d-flex my-3">
         <router-link class="d-none d-md-flex navbar-brand mx-auto" :to="{ name: 'dashboard' }">
           <TheLogo size="2em" />
         </router-link>
       </div>
-      <div class="side-nav-spacer">
+      <div class="side-nav-spacer d-flex flex-column flex-grow-1 pb-3">
         <div class="other-actions">
           <div class="item px-3 search">
             <router-link class="btn btn-secondary d-flex align-items-center justify-content-between w-100" :to="{ name: 'documents' }">
@@ -164,13 +164,6 @@ export default {
   overflow: hidden auto;
   position: sticky;
   top: 0;
-}
-
-.side-nav-spacer {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  height: 100%;
 }
 
 .side-nav .item {

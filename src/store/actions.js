@@ -12,6 +12,7 @@ export const LOAD_DOCUMENTS = 'LOAD_DOCUMENTS';
 export const RESTORE_DOCUMENT = 'RESTORE_DOCUMENT';
 export const SET_CONTEXT_TAGS = 'SET_CONTEXT_TAGS';
 export const SET_EDITOR = 'SET_EDITOR';
+export const SET_MOD_KEY = 'SET_MOD_KEY';
 export const SET_OFFLINE = 'SET_OFFLINE';
 export const SET_ONLINE = 'SET_ONLINE';
 export const SHOW_MENU = 'SHOW_MENU';
@@ -32,6 +33,7 @@ export default {
   RESTORE_DOCUMENT,
   SET_CONTEXT_TAGS,
   SET_EDITOR,
+  SET_MOD_KEY,
   SET_OFFLINE,
   SET_ONLINE,
   SHOW_MENU,

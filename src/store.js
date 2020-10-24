@@ -25,6 +25,7 @@ import {
   HIDE_MENU,
   SET_CONTEXT_TAGS,
   SET_EDITOR,
+  SET_MOD_KEY,
   SET_OFFLINE,
   SET_ONLINE,
   SHOW_MENU,
@@ -34,6 +35,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    mod_key: 'ctrl',
     context: {
       active: false,
       editing: false,
@@ -95,6 +97,9 @@ export default new Vuex.Store({
     [SET_ONLINE] (state) {
       state.online = true;
     },
+    [SET_MOD_KEY] (state, payload) {
+      state.mod_key = payload;
+    },
     [SHOW_MENU] (state) {
       state.menu.show = true;
     },
@@ -135,6 +140,9 @@ export default new Vuex.Store({
     },
     async [SET_EDITOR] (context, payload) {
       context.commit(SET_EDITOR, payload);
+    },
+    async [SET_MOD_KEY] (context, payload) {
+      context.commit(SET_MOD_KEY, payload);
     },
     async [SET_OFFLINE] (context) {
       context.commit(SET_OFFLINE);

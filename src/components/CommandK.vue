@@ -1,6 +1,6 @@
 <template>
   <div class="d-none d-md-flex align-items-center">
-    <Key :class="{ active: active }">cmd</Key>
+    <Key :class="{ active: active }">{{this.$store.state.mod_key}}</Key>
     <Key :class="{ active: active }" class="ml-1">k</Key>
   </div>
 </template>

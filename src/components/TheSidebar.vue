@@ -12,7 +12,7 @@
             <router-link class="btn btn-secondary d-flex align-items-center justify-content-between w-100" :to="{ name: 'documents' }">
               <SearchLabel>search</SearchLabel>
               <span class="d-none d-md-flex">
-                <Key :toggleable="false">cmd</Key>
+                <Key :toggleable="false">{{this.$store.state.mod_key}}</Key>
                 <Key class="ml-1" :toggleable="false">shift</Key>
                 <Key class="ml-1" :toggleable="false">f</Key>
               </span>

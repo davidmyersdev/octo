@@ -7,6 +7,7 @@ import { codemirror } from 'vue-codemirror';
 
 // import codemirror dependencies
 import 'codemirror/addon/mode/overlay';
+import 'codemirror/addon/mode/simple';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/gfm/gfm';
 import 'codemirror/mode/markdown/markdown';

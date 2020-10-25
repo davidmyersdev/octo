@@ -22,7 +22,7 @@ const addModeScript = (mode, options) => {
 
 const getModeUrl = (mode) => {
   // hardcode for now
-  return `https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.54.0/mode/${mode.mode}/${mode.mode}.min.js`;
+  return `https://cdnjs.cloudflare.com/ajax/libs/codemirror/${CodeMirror.version}/mode/${mode.mode}/${mode.mode}.min.js`;
 };
 
 const fuzzyFindMode = (fuzzy) => {

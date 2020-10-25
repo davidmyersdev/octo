@@ -8,7 +8,7 @@
 import Key from '@/components/Key';
 
 export default {
-  name: 'CommandKKey',
+  name: 'ModKKey',
   components: {
     Key,
   },

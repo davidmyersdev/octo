@@ -35,7 +35,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    mod_key: 'ctrl',
+    modKey: 'ctrl',
     context: {
       active: false,
       editing: false,
@@ -98,7 +98,7 @@ export default new Vuex.Store({
       state.online = true;
     },
     [SET_MOD_KEY] (state, payload) {
-      state.mod_key = payload;
+      state.modKey = payload;
     },
     [SHOW_MENU] (state) {
       state.menu.show = true;

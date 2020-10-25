@@ -12,7 +12,7 @@
             <router-link class="btn btn-secondary d-flex align-items-center justify-content-between w-100" :to="{ name: 'documents' }">
               <SearchLabel>search</SearchLabel>
               <span class="d-none d-md-flex">
-                <Key :toggleable="false">cmd</Key>
+                <Key :toggleable="false">{{this.$store.state.modKey}}</Key>
                 <Key class="ml-1" :toggleable="false">shift</Key>
                 <Key class="ml-1" :toggleable="false">f</Key>
               </span>
@@ -21,7 +21,7 @@
           <h6 class="dropdown-header mx-0 mt-3 px-3 d-flex justify-content-between">
             <span>actions</span>
             <span class="keybinding d-flex">
-              <CommandK/>
+              <ModK/>
             </span>
           </h6>
           <div class="item-divider"></div>
@@ -34,7 +34,7 @@
             <span class="action d-flex flex-grow-1 align-items-center justify-content-between">
               <span class="action">add document</span>
               <span class="keybinding d-flex">
-                <CommandKKey>n</CommandKKey>
+                <ModKKey>n</ModKKey>
               </span>
             </span>
           </router-link>
@@ -46,7 +46,7 @@
             </svg>
             <span class="action d-flex flex-grow-1 align-items-center justify-content-between">
               <span class="action">change context</span>
-              <CommandKKey>c</CommandKKey>
+              <ModKKey>c</ModKKey>
             </span>
           </router-link>
           <router-link class="item px-3 py-2 py-md-1" :to="{ name: 'settings' }">
@@ -56,7 +56,7 @@
             </svg>
             <span class="action d-flex flex-grow-1 align-items-center justify-content-between">
               <span>editor settings</span>
-              <CommandKKey>e</CommandKKey>
+              <ModKKey>e</ModKKey>
             </span>
           </router-link>
           <a class="item px-3 py-2 py-md-1" target="_blank" href="https://github.com/voraciousdev/octo/issues">
@@ -65,13 +65,13 @@
             </svg>
             <span class="action d-flex flex-grow-1 align-items-center justify-content-between">
               <span>report issue</span>
-              <CommandKKey>i</CommandKKey>
+              <ModKKey>i</ModKKey>
             </span>
           </a>
           <h6 class="dropdown-header mx-0 mt-3 px-3 d-flex justify-content-between">
             <span>quick filters</span>
             <span class="keybinding d-flex">
-              <CommandK/>
+              <ModK/>
             </span>
           </h6>
           <div class="item-divider"></div>
@@ -79,7 +79,7 @@
             <TaskLabel class="flex-grow-1">
               <span class="d-flex align-items-center justify-content-between">
                 <span>actionable</span>
-                <CommandKKey>a</CommandKKey>
+                <ModKKey>a</ModKKey>
               </span>
             </TaskLabel>
           </router-link>
@@ -87,7 +87,7 @@
             <TimelyLabel class="flex-grow-1">
               <span class="d-flex align-items-center justify-content-between">
                 <span>recent</span>
-                <CommandKKey>r</CommandKKey>
+                <ModKKey>r</ModKKey>
               </span>
             </TimelyLabel>
           </router-link>
@@ -95,7 +95,7 @@
             <DocumentLabel class="flex-grow-1">
               <span class="d-flex align-items-center justify-content-between">
                 <span>untagged</span>
-                <CommandKKey>u</CommandKKey>
+                <ModKKey>u</ModKKey>
               </span>
             </DocumentLabel>
           </router-link>
@@ -103,7 +103,7 @@
             <DiscardLabel class="flex-grow-1">
               <span class="d-flex align-items-center justify-content-between">
                 <span>discarded</span>
-                <CommandKKey>d</CommandKKey>
+                <ModKKey>d</ModKKey>
               </span>
             </DiscardLabel>
           </router-link>
@@ -121,11 +121,11 @@
 </template>
 
 <script>
-import CommandK from '@/components/CommandK';
-import CommandKKey from '@/components/CommandKKey';
 import DiscardLabel from '@/components/labels/Discard';
 import DocumentLabel from '@/components/labels/Document';
 import Key from '@/components/Key';
+import ModK from '@/components/ModK';
+import ModKKey from '@/components/ModKKey';
 import SearchLabel from '@/components/labels/Search';
 import Tag from '@/components/Tag';
 import TaskLabel from '@/components/labels/Task';
@@ -135,11 +135,11 @@ import TimelyLabel from '@/components/labels/Timely';
 export default {
   name: 'dashboard',
   components: {
-    CommandK,
-    CommandKKey,
     DiscardLabel,
     DocumentLabel,
     Key,
+    ModK,
+    ModKKey,
     SearchLabel,
     Tag,
     TaskLabel,

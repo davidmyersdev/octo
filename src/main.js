@@ -13,6 +13,7 @@ import Doc from '@/models/doc';
 
 import {
   ADD_DOCUMENT,
+  SET_MOD_KEY,
   SET_OFFLINE,
   SET_ONLINE,
 } from '@/store/actions';
@@ -27,7 +28,6 @@ Vue.use(VueMq, {
     xl: Infinity,
   },
 });
-
 
 new Vue({
   router,
@@ -44,6 +44,10 @@ new Vue({
 
     if (!navigator.onLine) {
       await this.$store.dispatch(SET_OFFLINE);
+    }
+
+    if (/Mac|iPod|iPhone|iPad/.test(navigator.platform)) {
+      this.$store.dispatch(SET_MOD_KEY, 'cmd');
     }
 
     if (localStorage.getItem('octo/welcome/v1') === null) {

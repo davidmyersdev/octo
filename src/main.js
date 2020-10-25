@@ -46,7 +46,7 @@ new Vue({
       await this.$store.dispatch(SET_OFFLINE);
     }
 
-    if (navigator.userAgent.indexOf("Macintosh") > 0) {
+    if (/Mac|iPod|iPhone|iPad/.test(navigator.platform)) {
       this.$store.dispatch(SET_MOD_KEY, 'cmd');
     }
 

@@ -6,6 +6,9 @@
       <div class="gutter gutter-end flex-grow-1" :class="{ 'md-plus': mediumPlus }" @click="focusEditorEnd"></div>
       <div class="document-actions">
         <DiscardableAction v-if="document.id" :discardedAt="document.discardedAt" :onDiscard="discardDocument" :onRestore="restoreDocument" class="destroy"></DiscardableAction>
+        <button @click.stop="duplicateDocument" class="btn btn-secondary btn-sm d-flex align-items-center">
+          <DuplicateLabel>duplicate</DuplicateLabel>
+        </button>
         <button v-if="hasCodeblocks" @click="openSandbox" class="btn btn-secondary btn-sm">
           <CodeLabel>sandbox</CodeLabel>
         </button>
@@ -17,6 +20,7 @@
 
 <script>
 import CodeLabel from '@/components/labels/Code';
+import DuplicateLabel from '@/components/labels/Duplicate';
 import CodeSandbox from '@/common/code_sandbox';
 import Doc from '@/models/doc';
 
@@ -26,6 +30,7 @@ import MarkdownEditor from '@/components/MarkdownEditor';
 import {
   ADD_DOCUMENT,
   DISCARD_DOCUMENT,
+  DUPLICATE_DOCUMENT,
   EDIT_DOCUMENT,
   RESTORE_DOCUMENT,
   SET_EDITOR,
@@ -36,6 +41,7 @@ export default {
   components: {
     CodeLabel,
     DiscardableAction,
+    DuplicateLabel,
     MarkdownEditor,
   },
   props: {
@@ -95,6 +101,11 @@ export default {
       this.$store.dispatch(DISCARD_DOCUMENT, { id: this.document.id });
 
       this.$router.push({ name: 'dashboard' });
+    },
+    async duplicateDocument() {
+      const newDocId = await this.$store.dispatch(DUPLICATE_DOCUMENT, { id: this.document.id });
+
+      this.$router.push({ name: 'document', params: { id: newDocId } });
     },
     async openSandbox() {
       const files = this.codeblocks.reduce((agg, codeblock, index) => {
@@ -195,9 +206,5 @@ export default {
 
   .document-actions > *:not(:first-child) {
     margin-top: 0.5rem;
-  }
-
-  svg {
-    margin-right: 0.25rem;
   }
 </style>

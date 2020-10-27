@@ -8,6 +8,7 @@ import Doc from '@/models/doc';
 import {
   ADD_DOCUMENT,
   DISCARD_DOCUMENT,
+  DUPLICATE_DOCUMENT,
   DOCUMENTS_LOADED,
   EDIT_DOCUMENT,
   LOAD_DOCUMENT,
@@ -101,6 +102,13 @@ export default {
     },
     async [DOCUMENTS_LOADED] (context) {
       context.commit(DOCUMENTS_LOADED);
+    },
+    async [DUPLICATE_DOCUMENT] (context, { id }) {
+      const newDoc = findDoc(context.state, id).duplicate();
+
+      context.commit(ADD_DOCUMENT, newDoc);
+
+      return newDoc.id;
     },
     async [EDIT_DOCUMENT] (context, doc) {
       context.commit(EDIT_DOCUMENT, doc);

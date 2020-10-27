@@ -24,6 +24,10 @@ class Doc {
     this.discardedAt = new Date();
   }
 
+  duplicate() {
+    return new Doc({ text: this.text });
+  }
+
   restore() {
     this.updatedAt = new Date();
     this.touchedAt = new Date();

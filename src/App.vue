@@ -77,6 +77,19 @@ export default {
 * {
   box-sizing: border-box;
   letter-spacing: 0.05em;
+  scrollbar-width: thin;
+  scrollbar-color: #666b7a transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 0.5rem;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: #666b7a;
+  border-radius: 0.125rem;
 }
 
 body {

@@ -147,6 +147,10 @@ export default {
   line-height: 2.25em;
 }
 
+.CodeMirror .cm-comment {
+  color: #9e9e9e;
+}
+
 .CodeMirror .cm-header-1 {
   font-size: 1.6em;
 }

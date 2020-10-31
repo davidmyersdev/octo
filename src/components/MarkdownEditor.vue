@@ -66,6 +66,7 @@ export default {
             }
           },
         },
+        keyMap: this.settings.keyMap || codemirror.defaults.keyMap,
         indentUnit: this.settings.tabSize || 2,
         indentWithTabs: false,
         lineWrapping: true,

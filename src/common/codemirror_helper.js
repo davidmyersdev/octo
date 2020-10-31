@@ -1,5 +1,6 @@
 import CodeMirror from 'codemirror';
 import 'codemirror/mode/meta';
+import 'codemirror/keymap/vim';
 
 let modes = [];
 

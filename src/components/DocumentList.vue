@@ -30,13 +30,24 @@
       </div>
       <small class="form-text text-muted mt-2">{{ filterMessage }}</small>
     </div>
-    <Document v-for="document in filteredDocuments" :key="document.id" v-bind="document"></Document>
+    <div class="form-group">
+      <button @click="toggleIsEditing" class="btn btn-secondary">{{ isEditing ? 'Cancel' : 'Edit Documents' }}</button>
+      <button v-if="canMerge" @click="mergeDocuments" class="btn btn-secondary ml-2">Merge Documents</button>
+    </div>
+    <div>
+      <p v-if="isEditing" class="text-muted">Select two or more documents to merge them together.</p>
+    </div>
+    <Document v-for="document in finalDocuments" @click.native="selectDocument(document.id)" :key="document.id" v-bind="document"></Document>
   </div>
 </template>
 
 <script>
 import Document from '@/components/Document';
 import TagLabel from '@/components/labels/Tag';
+
+import {
+  MERGE_DOCUMENTS,
+} from '@/store/actions';
 
 export default {
   name: 'DocumentList',
@@ -56,6 +67,8 @@ export default {
       filterCase: false,
       filterRegex: true,
       filterText: '',
+      isEditing: false,
+      selectedDocuments: [],
     };
   },
   computed: {
@@ -73,6 +86,9 @@ export default {
       } else {
         return 'documents';
       }
+    },
+    canMerge() {
+      return this.selectedDocuments.length > 1;
     },
     documents() {
       if (this.tag) {
@@ -113,10 +129,42 @@ export default {
         }
       });
     },
+    finalDocuments() {
+      return this.filteredDocuments.map((doc) => ({
+        ...doc,
+        selected: this.selectedDocuments.includes(doc),
+      }));
+    },
   },
   methods: {
     focus() {
       this.$refs.input.focus();
+    },
+    isSelected(id) {
+      return !!this.selectedDocuments.find((doc) => doc.id === id);
+    },
+    mergeDocuments() {
+      this.$store.dispatch(MERGE_DOCUMENTS, this.selectedDocuments);
+
+      this.selectedDocuments = [];
+    },
+    toggleIsEditing() {
+      this.isEditing = !this.isEditing;
+
+      if (!this.isEditing) {
+        this.selectedDocuments = [];
+      }
+    },
+    selectDocument(id) {
+      if (this.isEditing) {
+        if (this.selectedDocuments.find(doc => doc.id === id)) {
+          this.selectedDocuments = this.selectedDocuments.filter(doc => doc.id !== id);
+        } else {
+          this.selectedDocuments.push(this.filteredDocuments.find(doc => doc.id === id));
+        }
+      } else {
+        this.$router.push({ name: 'document', params: { id: id } });
+      }
     },
   },
   beforeRouteEnter(to, from, next) {

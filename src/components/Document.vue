@@ -1,10 +1,10 @@
 <template>
-  <div class="card">
-    <router-link class="document" :to="documentRoute">
+  <div class="card cursor-pointer border" :class="{ 'border-transparent': !selected }">
+    <div class="document">
       <DiscardableAction v-if="id" :discardedAt="discardedAt" :onDiscard="discard" :onRestore="restore" class="destroy"></DiscardableAction>
       <pre class="pb-3">{{ text }}</pre>
       <p class="text-muted mb-0"><small>{{ updated }}</small></p>
-    </router-link>
+    </div>
   </div>
 </template>
 
@@ -23,14 +23,12 @@ export default {
     text: String,
     updatedAt: Date,
     discardedAt: Date,
+    selected: false,
   },
   components: {
     DiscardableAction,
   },
   computed: {
-    documentRoute() {
-      return { name: 'document', params: { id: this.id } };
-    },
     updated() {
       return `Updated on ${moment(this.updatedAt).format('ddd, MMM Do, YYYY [at] h:mm A')}`;
     },

@@ -1,5 +1,5 @@
 <template>
-  <div class="btn btn-sm btn-secondary destroy" @click.prevent="toggle">
+  <div class="btn btn-sm btn-secondary destroy" @click.stop="toggle">
     <DiscardLabel>{{ actionText }}</DiscardLabel>
   </div>
 </template>

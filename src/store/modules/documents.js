@@ -13,6 +13,7 @@ import {
   EDIT_DOCUMENT,
   LOAD_DOCUMENT,
   LOAD_DOCUMENTS,
+  MERGE_DOCUMENTS,
   RESTORE_DOCUMENT,
   TOUCH_DOCUMENT,
 } from '@/store/actions';
@@ -120,6 +121,16 @@ export default {
       return Promise.all(
         docs.map(doc => context.dispatch(LOAD_DOCUMENT, doc))
       );
+    },
+    async [MERGE_DOCUMENTS] (context, docs) {
+      const originalDocs = docs.map(doc => findDoc(context.state, doc.id));
+      const newDoc = new Doc({
+        text: originalDocs.map(doc => doc.text).join("\n\n"),
+      });
+
+      context.commit(ADD_DOCUMENT, newDoc);
+
+      return originalDocs.map((doc) => context.dispatch(DISCARD_DOCUMENT, doc));
     },
     async [RESTORE_DOCUMENT] (context, doc) {
       context.commit(RESTORE_DOCUMENT, doc);

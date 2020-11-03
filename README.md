@@ -18,8 +18,7 @@
 
 - **Autosave** - No need to hit save
 - **Client-Side Encryption** - Uses a [hybrid cryptosystem](https://en.wikipedia.org/wiki/Hybrid_cryptosystem) approach to reap the benefits of both public-key and symmetric encryption
-- **CodeSandbox Integration** - Open all code blocks in the current document in a new [CodeSandbox](https://codesandbox.io/) project with the click of a button
-  - Watch a quick demo [on YouTube](https://youtu.be/o3tQsqwgnY4)
+- **CodeSandbox Integration** - Open all code blocks in the current document in a new [CodeSandbox](https://codesandbox.io/) project [with the click of a button](https://youtu.be/o3tQsqwgnY4)
 - **Context Switching** - Focusing on `#work` or `#play`? Apply a global filter to only see the documents that are relevant
 - **Dark Theme** - Save our eyes 😎
 - **Inline Markdown Rendering** - No need for separate edit and preview panels
@@ -39,6 +38,8 @@
 - **Native Apps** - Install a native application on Android, iOS, or desktop (built with Ionic's [Capacitor](https://capacitorjs.com/) framework)
 
 ## Demo
+
+[Watch a quick intro on YouTube](https://youtu.be/Brtvzu-3qT8) (1m 39s)
 
 To try out the sandboxed app (no accounts or syncing), check out [try.octo.app](https://try.octo.app).
 

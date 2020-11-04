@@ -78,7 +78,7 @@ export default {
   box-sizing: border-box;
   letter-spacing: 0.05em;
   scrollbar-width: thin;
-  scrollbar-color: #666b7a transparent;
+  scrollbar-color: #333 transparent;
 }
 
 *::-webkit-scrollbar {
@@ -88,7 +88,7 @@ export default {
   background: transparent;
 }
 *::-webkit-scrollbar-thumb {
-  background-color: #666b7a;
+  background-color: #333;
   border-radius: 0.125rem;
 }
 

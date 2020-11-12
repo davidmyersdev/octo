@@ -24,7 +24,7 @@
               <ModK/>
             </span>
           </h6>
-          <div class="item-divider"></div>
+          <div class="item-divider mx-3 mb-2"></div>
           <router-link class="item px-3 py-2 py-md-1 d-flex align-items-center" :to="{ name: 'dashboard' }">
             <svg class="bi bi-file-earmark-plus" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
               <path d="M9 1H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h5v-1H4a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1h5v2.5A1.5 1.5 0 0 0 10.5 6H13v2h1V6L9 1z"/>
@@ -74,7 +74,7 @@
               <ModK/>
             </span>
           </h6>
-          <div class="item-divider"></div>
+          <div class="item-divider mx-3 mb-2"></div>
           <router-link class="item px-3 py-2 py-md-1 d-flex" :to="{ name: 'actionable' }">
             <TaskLabel class="flex-grow-1">
               <span class="d-flex align-items-center justify-content-between">
@@ -112,7 +112,7 @@
           <h6 class="dropdown-header mx-0 mt-3 px-3 d-flex justify-content-between">
             <span>tags</span>
           </h6>
-          <div class="item-divider"></div>
+          <div class="item-divider mx-3 mb-2"></div>
           <Tag class="item px-3 py-2 py-md-1" v-for="tag in tags" :key="tag" :tag="tag"></Tag>
         </div>
       </div>
@@ -179,12 +179,6 @@ export default {
 
 .side-nav .item:first-child {
   margin-top: -0.25rem;
-}
-
-.side-nav .item-divider {
-  background-color: #222;
-  height: 1px;
-  margin: 0 1rem 0.5rem 1rem;
 }
 
 .keybinding {

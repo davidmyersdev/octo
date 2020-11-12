@@ -1,6 +1,6 @@
 <template>
-  <div class="container-lg">
-    <div class="editor">
+  <div class="container-lg d-flex">
+    <div class="editor w-100">
       <MarkdownEditor ref="editable" class="editable" :value="value" />
     </div>
   </div>

@@ -271,4 +271,9 @@ svg:not(.close-context) {
 .cursor-pointer {
   cursor: pointer;
 }
+
+.item-divider {
+  background-color: #222;
+  height: 1px;
+}
 </style>

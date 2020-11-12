@@ -1,5 +1,5 @@
 <template>
-  <div class="container context mt-3 mt-md-5">
+  <div class="container context d-flex flex-column mt-3 mt-md-5">
     <div>
       <h5 class="card-title">Set Context</h5>
       <h6 class="card-subtitle text-muted font-weight-normal mb-3">

@@ -140,9 +140,6 @@ export default {
     focus() {
       this.$refs.input.focus();
     },
-    isSelected(id) {
-      return !!this.selectedDocuments.find((doc) => doc.id === id);
-    },
     mergeDocuments() {
       this.$store.dispatch(MERGE_DOCUMENTS, this.selectedDocuments);
 

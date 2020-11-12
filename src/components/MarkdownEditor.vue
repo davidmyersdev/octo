@@ -135,6 +135,10 @@ export default {
   background-color: transparent !important;
 }
 
+.CodeMirror.cm-s-yeti .cm-comment {
+  color: #9e9e9e;
+}
+
 .CodeMirror {
   color: #fff;
   min-height: 100%;
@@ -145,10 +149,6 @@ export default {
   position: relative;
   font-size: 1rem;
   line-height: 2.25em;
-}
-
-.CodeMirror .cm-comment {
-  color: #9e9e9e;
 }
 
 .CodeMirror .cm-header-1 {

@@ -276,4 +276,20 @@ svg:not(.close-context) {
   background-color: #222;
   height: 1px;
 }
+
+.right-3 {
+  right: 1rem !important;
+}
+
+.top-3 {
+  top: 1rem !important;
+}
+
+.z-index-10 {
+  z-index: 10;
+}
+
+.z-index-1 {
+  z-index: 1;
+}
 </style>

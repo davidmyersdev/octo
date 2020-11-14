@@ -1,13 +1,6 @@
 <template>
-  <div class="d-flex flex-grow-1 flex-row">
-    <div class="container-fluid container-xl d-flex">
-      <div class="editor d-flex flex-column flex-grow-1" @click="focusEditor">
-        <div class="gutter gutter-start" :class="{ 'md-plus': mediumPlus }" @click="focusEditorStart"></div>
-        <MarkdownEditor ref="editable" class="editable" :initialCursor="initialCursor" :settings="settings" :value="document.text" @input="input" @ready="onReady" />
-        <div class="gutter gutter-end flex-grow-1" :class="{ 'md-plus': mediumPlus }" @click="focusEditorEnd"></div>
-      </div>
-    </div>
-    <div class="meta p-3">
+  <div class="d-flex flex-grow-1 flex-column flex-lg-row-reverse">
+    <div v-if="showMeta" class="meta p-3">
       <div class="mb-4">
         <DiscardableAction v-if="document.id" :discardedAt="document.discardedAt" :onDiscard="discardDocument" :onRestore="restoreDocument" class="w-100 mb-2"></DiscardableAction>
         <button @click.stop="duplicateDocument" class="btn btn-secondary btn-sm d-flex align-items-center w-100 mb-2">
@@ -39,12 +32,25 @@
         </div>
       </div>
     </div>
+    <div class="editor-container d-flex flex-grow-1 position-relative" :class="{ 'overflow-auto': mediumPlus }">
+      <div class="container-fluid container-xl d-flex">
+        <div class="editor d-flex flex-column flex-grow-1" @click="focusEditor">
+          <div class="gutter gutter-start" :class="{ 'md-plus': mediumPlus }" @click="focusEditorStart"></div>
+          <MarkdownEditor ref="editable" class="editable" :initialCursor="initialCursor" :settings="settings" :value="document.text" @input="input" @ready="onReady" />
+          <div class="gutter gutter-end flex-grow-1" :class="{ 'md-plus': mediumPlus }" @click="focusEditorEnd"></div>
+        </div>
+      </div>
+      <button @click="toggleMeta" class="btn btn-sm btn-secondary position-absolute top-3 right-3 z-index-10">
+        <InfoLabel>info</InfoLabel>
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
 import CodeLabel from '@/components/labels/Code';
 import DuplicateLabel from '@/components/labels/Duplicate';
+import InfoLabel from '@/components/labels/Info';
 import CodeSandbox from '@/common/code_sandbox';
 import Doc from '@/models/doc';
 
@@ -59,6 +65,7 @@ import {
   EDIT_DOCUMENT,
   RESTORE_DOCUMENT,
   SET_EDITOR,
+  TOGGLE_META,
 } from '@/store/actions';
 
 export default {
@@ -67,6 +74,7 @@ export default {
     CodeLabel,
     DiscardableAction,
     DuplicateLabel,
+    InfoLabel,
     MarkdownEditor,
     Tag,
   },
@@ -109,6 +117,9 @@ export default {
     settings() {
       return this.$store.state.settings.editor;
     },
+    showMeta() {
+      return this.$store.state.showMeta;
+    },
     savedAt() {
       if (this.$route.params.id) {
         if (this.now.diff(this.document.updatedAt, 'seconds') < 5) {
@@ -122,13 +133,21 @@ export default {
       return 'Not yet saved';
     },
     createdAt() {
-      return moment(this.document.createdAt).format('ddd, MMM Do, YYYY [at] h:mm A');
+      if (this.$route.params.id) {
+        return moment(this.document.createdAt).format('ddd, MMM Do, YYYY [at] h:mm A');
+      }
+
+      return 'Not yet created'
     },
     discardedAt() {
       return moment(this.document.discardedAt).format('ddd, MMM Do, YYYY [at] h:mm A');
     },
     updatedAt() {
-      return moment(this.document.updatedAt).format('ddd, MMM Do, YYYY [at] h:mm A');
+      if (this.$route.params.id) {
+        return moment(this.document.updatedAt).format('ddd, MMM Do, YYYY [at] h:mm A');
+      }
+
+      return 'Not yet updated'
     },
   },
   methods: {
@@ -191,6 +210,9 @@ export default {
 
       this.focusEditor();
       this.$store.dispatch(SET_EDITOR, this.editor);
+    },
+    async toggleMeta() {
+      this.$store.dispatch(TOGGLE_META);
     },
   },
   async beforeDestroy() {

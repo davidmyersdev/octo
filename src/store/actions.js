@@ -18,6 +18,7 @@ export const SET_MOD_KEY = 'SET_MOD_KEY';
 export const SET_OFFLINE = 'SET_OFFLINE';
 export const SET_ONLINE = 'SET_ONLINE';
 export const SHOW_MENU = 'SHOW_MENU';
+export const TOGGLE_META = 'TOGGLE_META';
 export const TOUCH_DOCUMENT = 'TOUCH_DOCUMENT';
 
 export default {
@@ -41,5 +42,6 @@ export default {
   SET_OFFLINE,
   SET_ONLINE,
   SHOW_MENU,
+  TOGGLE_META,
   TOUCH_DOCUMENT,
 };

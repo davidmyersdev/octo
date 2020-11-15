@@ -247,6 +247,7 @@ export default {
 
   .meta {
     background-color: #050505;
-    min-width: 17rem;
+    color: #aaa;
+    width: 17rem;
   }
 </style>

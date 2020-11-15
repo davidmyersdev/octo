@@ -235,7 +235,7 @@ export default {
 </script>
 
 <style scoped>
-  .editor {
+  .editor-container {
     background: url('~@/assets/octopus-transparent.svg') center center no-repeat;
     background-size: 50% 50%;
   }

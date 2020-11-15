@@ -82,14 +82,18 @@ export default {
 }
 
 *::-webkit-scrollbar {
-  width: 0.5rem;
+  width: 0.75rem;
 }
+
 *::-webkit-scrollbar-track {
   background: transparent;
 }
+
 *::-webkit-scrollbar-thumb {
+  background-clip: padding-box;
   background-color: #333;
-  border-radius: 0.125rem;
+  border-radius: 0.25rem;
+  border: 0.125rem solid transparent;
 }
 
 body {

@@ -13,6 +13,9 @@
       <div class="mb-4">
         <Tag class="item" v-for="tag in document.tags" :key="tag" :tag="tag"></Tag>
       </div>
+      <div class="mb-4">
+        <TaskLabel v-for="task in document.tasks">{{ task }}</TaskLabel>
+      </div>
       <div>
         <div v-if="document.updatedAt" class="mb-1">
           <small class="text-muted">Last Saved</small>
@@ -51,6 +54,8 @@
 import CodeLabel from '@/components/labels/Code';
 import DuplicateLabel from '@/components/labels/Duplicate';
 import InfoLabel from '@/components/labels/Info';
+import TaskLabel from '@/components/labels/Task';
+
 import CodeSandbox from '@/common/code_sandbox';
 import Doc from '@/models/doc';
 
@@ -77,6 +82,7 @@ export default {
     InfoLabel,
     MarkdownEditor,
     Tag,
+    TaskLabel,
   },
   props: {
     initialCursor: {

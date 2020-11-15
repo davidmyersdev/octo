@@ -1,5 +1,6 @@
 const codeRegex = /```([^\n\s]*)(?:\s([\w-]+\.[\w]+))?\n(.*?)```/gs;
 const tagsRegex = /````.*?````|```.*?```|``.*?``|`.*?`|\w+:\/?\/?\S*|#([\w-]+)/gs;
+const tasksRegex = /````.*?````|```.*?```|``.*?``|`.*?`|\-\ \[\ \] ([^\n]+)/gs;
 
 export const parse = (regex, text) => {
   let matches = [];
@@ -38,6 +39,19 @@ export const parseTags = (text) => {
   });
 
   return Array.from(tags).sort();
+};
+
+export const parseTasks = (text) => {
+  let matches = parse(tasksRegex, text);
+  let results = [];
+
+  matches.forEach((match) => {
+    if (match[1]) {
+      results.push(match[1]);
+    }
+  });
+
+  return results;
 };
 
 export default {

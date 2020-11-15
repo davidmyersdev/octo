@@ -29,6 +29,7 @@ import {
   SET_OFFLINE,
   SET_ONLINE,
   SHOW_MENU,
+  TOGGLE_META,
 } from '@/store/actions';
 
 Vue.use(Vuex);
@@ -46,6 +47,7 @@ export default new Vuex.Store({
       show: false,
     },
     online: true,
+    showMeta: false,
   },
   getters: {
     allTags(state, getters) {
@@ -103,6 +105,9 @@ export default new Vuex.Store({
     [SHOW_MENU] (state) {
       state.menu.show = true;
     },
+    [TOGGLE_META] (state) {
+      state.showMeta = !state.showMeta;
+    },
   },
   actions: {
     async [ACTIVATE_CONTEXT] (context) {
@@ -152,6 +157,9 @@ export default new Vuex.Store({
     },
     async [SHOW_MENU] (context) {
       context.commit(SHOW_MENU);
+    },
+    async [TOGGLE_META] (context) {
+      context.commit(TOGGLE_META);
     },
   },
   modules: {

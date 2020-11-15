@@ -82,14 +82,18 @@ export default {
 }
 
 *::-webkit-scrollbar {
-  width: 0.5rem;
+  width: 0.75rem;
 }
+
 *::-webkit-scrollbar-track {
   background: transparent;
 }
+
 *::-webkit-scrollbar-thumb {
+  background-clip: padding-box;
   background-color: #333;
-  border-radius: 0.125rem;
+  border-radius: 0.25rem;
+  border: 0.125rem solid transparent;
 }
 
 body {
@@ -270,5 +274,26 @@ svg:not(.close-context) {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.item-divider {
+  background-color: #222;
+  height: 1px;
+}
+
+.right-3 {
+  right: 1rem !important;
+}
+
+.top-3 {
+  top: 1rem !important;
+}
+
+.z-index-10 {
+  z-index: 10;
+}
+
+.z-index-1 {
+  z-index: 1;
 }
 </style>

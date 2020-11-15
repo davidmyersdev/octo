@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container d-flex flex-column">
     <Tag class="tag btn btn-secondary" v-for="tag in tags" :key="tag" :tag="tag"></Tag>
   </div>
 </template>

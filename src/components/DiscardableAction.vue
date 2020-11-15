@@ -1,7 +1,7 @@
 <template>
-  <div class="btn btn-sm btn-secondary destroy" @click.stop="toggle">
+  <button class="btn btn-sm btn-secondary d-flex align-items-center" @click.stop="toggle">
     <DiscardLabel>{{ actionText }}</DiscardLabel>
-  </div>
+  </button>
 </template>
 
 <script>
@@ -34,7 +34,7 @@ export default {
   .destroy {
     align-items: center;
     cursor: pointer;
-    display: flex;
+    /* display: flex; */
   }
 
   .destroy svg {

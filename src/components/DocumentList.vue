@@ -1,5 +1,5 @@
 <template>
-  <div class="document-list container-fluid container-xl">
+  <div class="document-list container-fluid container-xl d-flex flex-column">
     <p class="toolbar">
       <TagLabel v-if="tag">{{ tag }}</TagLabel>
       <span v-else class="action">{{ action }}</span>

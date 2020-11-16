@@ -51,6 +51,7 @@ export default {
     },
     options() {
       return {
+        addModeClass: true,
         extraKeys: {
           // use spaces instead of tabs
           // https://github.com/codemirror/CodeMirror/issues/988#issuecomment-14921785
@@ -137,6 +138,10 @@ export default {
 
 .CodeMirror.cm-s-yeti .cm-comment {
   color: #9e9e9e;
+}
+
+.CodeMirror .cm-m-markdown:not(.cm-comment) {
+  font-family: 'Fira Sans', arial !important;
 }
 
 .CodeMirror {

@@ -1,6 +1,25 @@
 <template>
-  <div class="d-flex flex-grow-1 flex-column flex-lg-row-reverse">
-    <div v-if="showMeta" class="meta p-3">
+  <div class="d-flex flex-grow-1 flex-row">
+    <div class="editor-container d-flex flex-grow-1 position-relative overflow-auto">
+      <div class="container-fluid container-xl d-flex">
+        <div class="editor d-flex flex-column flex-grow-1" @click="focusEditor">
+          <div class="gutter gutter-start" :class="{ 'md-plus': mediumPlus }" @click="focusEditorStart"></div>
+          <MarkdownEditor ref="editable" class="editable" :initialCursor="initialCursor" :settings="settings" :value="document.text" @input="input" @ready="onReady" />
+          <div class="gutter gutter-end flex-grow-1" :class="{ 'md-plus': mediumPlus }" @click="focusEditorEnd"></div>
+        </div>
+      </div>
+      <div class="sticky-top">
+        <button @click="toggleMeta" class="btn btn-sm btn-secondary position-absolute top-3 right-3 z-index-10">
+          <InfoLabel>info</InfoLabel>
+        </button>
+      </div>
+    </div>
+    <div v-if="showMeta" class="meta p-3" :class="{ 'position-fixed': !largePlus, 'meta-mobile': !largePlus }">
+      <div class="mb-4 d-flex justify-content-end d-lg-none">
+        <button @click="toggleMeta" class="btn btn-sm btn-secondary">
+          <InfoLabel>close</InfoLabel>
+        </button>
+      </div>
       <div class="mb-4">
         <DiscardableAction v-if="document.id" :discardedAt="document.discardedAt" :onDiscard="discardDocument" :onRestore="restoreDocument" class="w-100 mb-2"></DiscardableAction>
         <button @click.stop="duplicateDocument" class="btn btn-secondary btn-sm d-flex align-items-center w-100 mb-2">
@@ -12,6 +31,9 @@
       </div>
       <div class="mb-4">
         <Tag class="item" v-for="tag in document.tags" :key="tag" :tag="tag"></Tag>
+      </div>
+      <div class="mb-4">
+        <TaskLabel v-for="task in document.tasks">{{ task }}</TaskLabel>
       </div>
       <div>
         <div v-if="document.updatedAt" class="mb-1">
@@ -32,18 +54,6 @@
         </div>
       </div>
     </div>
-    <div class="editor-container d-flex flex-grow-1 position-relative" :class="{ 'overflow-auto': mediumPlus }">
-      <div class="container-fluid container-xl d-flex">
-        <div class="editor d-flex flex-column flex-grow-1" @click="focusEditor">
-          <div class="gutter gutter-start" :class="{ 'md-plus': mediumPlus }" @click="focusEditorStart"></div>
-          <MarkdownEditor ref="editable" class="editable" :initialCursor="initialCursor" :settings="settings" :value="document.text" @input="input" @ready="onReady" />
-          <div class="gutter gutter-end flex-grow-1" :class="{ 'md-plus': mediumPlus }" @click="focusEditorEnd"></div>
-        </div>
-      </div>
-      <button @click="toggleMeta" class="btn btn-sm btn-secondary position-absolute top-3 right-3 z-index-10">
-        <InfoLabel>info</InfoLabel>
-      </button>
-    </div>
   </div>
 </template>
 
@@ -51,6 +61,8 @@
 import CodeLabel from '@/components/labels/Code';
 import DuplicateLabel from '@/components/labels/Duplicate';
 import InfoLabel from '@/components/labels/Info';
+import TaskLabel from '@/components/labels/Task';
+
 import CodeSandbox from '@/common/code_sandbox';
 import Doc from '@/models/doc';
 
@@ -77,6 +89,7 @@ export default {
     InfoLabel,
     MarkdownEditor,
     Tag,
+    TaskLabel,
   },
   props: {
     initialCursor: {
@@ -110,6 +123,9 @@ export default {
     },
     hasCodeblocks() {
       return this.codeblocks.length > 0;
+    },
+    largePlus() {
+      return ['lg', 'xl'].includes(this.$mq);
     },
     mediumPlus() {
       return ['md', 'lg', 'xl'].includes(this.$mq);
@@ -229,7 +245,7 @@ export default {
 </script>
 
 <style scoped>
-  .editor {
+  .editor-container {
     background: url('~@/assets/octopus-transparent.svg') center center no-repeat;
     background-size: 50% 50%;
   }
@@ -247,6 +263,13 @@ export default {
 
   .meta {
     background-color: #050505;
-    min-width: 17rem;
+    color: #aaa;
+    width: 17rem;
+  }
+
+  .meta-mobile {
+    right: 0;
+    height: 100%;
+    z-index: 2000;
   }
 </style>

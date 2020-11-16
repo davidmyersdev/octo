@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid';
 
 import { decrypt, encrypt } from '@/common/crypto/crypto';
-import { parseTags } from '@/common/parsers';
+import { parseTags, parseTasks } from '@/common/parsers';
 
 class Doc {
   constructor(attributes = {}) {
@@ -16,6 +16,7 @@ class Doc {
     this.discardedAt = attributes.discardedAt || null;
 
     this.tags = this.encrypted ? [] : parseTags(this.text);
+    this.tasks = this.encrypted ? [] : parseTasks(this.text);
   }
 
   discard() {
@@ -41,6 +42,7 @@ class Doc {
   update({ text }) {
     this.text = text;
     this.tags = parseTags(text);
+    this.tasks = parseTasks(text);
     this.updatedAt = new Date();
     this.touchedAt = new Date();
   }

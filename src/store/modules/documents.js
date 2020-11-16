@@ -31,9 +31,7 @@ export default {
   }),
   getters: {
     actionable(_state, getters, globalState, globalGetters) {
-      // be careful about using the global flag when using .test
-      // https://stackoverflow.com/questions/1520800/why-does-a-regexp-with-global-flag-give-wrong-results
-      return getters.kept.filter(doc => /\-\ \[\ \]/.test(doc.text));
+      return getters.kept.filter(doc => doc.tasks.length > 0);
     },
     allKept(_state, getters) {
       return getters.sorted.filter(doc => doc.discardedAt === null);

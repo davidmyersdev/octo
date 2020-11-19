@@ -4,7 +4,6 @@ import {
   LOAD_SETTINGS,
   SET_CRYPTO_ENABLED,
   SET_CRYPTO_KEYS,
-  SET_EDITOR_KEY_MAP,
   SET_EDITOR_TAB_SIZE,
   SETTINGS_LOADED,
 } from '@/store/modules/settings';
@@ -29,7 +28,6 @@ export default (store) => {
     switch (type) {
       case SET_CRYPTO_ENABLED:
       case SET_CRYPTO_KEYS:
-      case SET_EDITOR_KEY_MAP:
       case SET_EDITOR_TAB_SIZE:
         cache.setItem(CACHE_KEY, state.settings);
 

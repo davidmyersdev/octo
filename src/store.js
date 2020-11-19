@@ -48,6 +48,7 @@ export default new Vuex.Store({
     },
     online: true,
     showMeta: false,
+    vimLoaded: false,
   },
   getters: {
     allTags(state, getters) {
@@ -101,6 +102,9 @@ export default new Vuex.Store({
     },
     [SET_MOD_KEY] (state, payload) {
       state.modKey = payload;
+    },
+    ['SET_VIM_LOADED'] (state, isVimLoaded) {
+      state.vimLoaded = isVimLoaded;
     },
     [SHOW_MENU] (state) {
       state.menu.show = true;

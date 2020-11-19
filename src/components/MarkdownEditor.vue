@@ -13,7 +13,7 @@ import 'codemirror/mode/gfm/gfm';
 import 'codemirror/mode/markdown/markdown';
 import 'codemirror/theme/yeti.css';
 
-import { loadMode } from '@/common/codemirror_helper';
+import { loadMode, loadVim } from '@/common/codemirror_helper';
 import { parseCodeblocks } from '@/common/parsers';
 
 export default {
@@ -32,6 +32,9 @@ export default {
         cursor.hasOwnProperty('character') && cursor.hasOwnProperty('line')
       ),
     },
+    initialVimMode: {
+      type: String,
+    },
     settings: {
       type: Object,
       default: () => ({
@@ -43,11 +46,34 @@ export default {
   data() {
     return {
       editor: null,
+      isInitialVimModeSet: false,
     };
+  },
+  watch: {
+    ['settings.keyMap'] () {
+      if (this.settings.keyMap === 'vim' && !this.$store.state.vimLoaded) {
+        loadVim({
+          onload: () => {
+            // update the keymap
+            this.$store.commit('SET_VIM_LOADED', true);
+          },
+          onerror: () => {
+            // todo: handle errors
+          },
+        });
+      }
+    },
   },
   computed: {
     codeblocks() {
       return parseCodeblocks(this.value);
+    },
+    keyMap() {
+      if (this.settings.keyMap === 'vim' && !this.$store.state.vimLoaded) {
+        return 'default';
+      }
+
+      return this.settings.keyMap;
     },
     options() {
       return {
@@ -66,7 +92,7 @@ export default {
             }
           },
         },
-        keyMap: this.settings.keyMap || codemirror.defaults.keyMap,
+        keyMap: this.keyMap,
         indentUnit: this.settings.tabSize || 2,
         indentWithTabs: false,
         lineWrapping: true,
@@ -99,6 +125,19 @@ export default {
         }
       });
     },
+    maybeLoadVim() {
+      if (this.initialVimMode && !this.isInitialVimModeSet && this.keyMap === 'vim') {
+        this.editor.setOption('keyMap', this.initialVimMode || this.keyMap);
+
+        if (this.initialVimMode === 'vim-insert') {
+          this.editor.state.vim.insertMode = true;
+          this.editor.setOption('disableInput', false);
+          window.CodeMirror.signal(this.editor, "vim-mode-change", { mode: "insert" });
+        }
+
+        this.isInitialVimModeSet = true;
+      }
+    },
     onInput(text) {
       if (text !== this.value) {
         // prevent CM input events on :value changes
@@ -120,6 +159,8 @@ export default {
     onReady(instance) {
       this.editor = instance;
 
+      this.maybeLoadVim();
+
       this.editor.setCursor({
         ch: this.initialCursor.character,
         line: this.initialCursor.line,
@@ -139,6 +180,18 @@ export default {
 
 .CodeMirror.cm-s-yeti .cm-comment {
   color: #9e9e9e;
+}
+
+.CodeMirror.CodeMirror-focused.cm-s-yeti .CodeMirror-selected, .CodeMirror.cm-s-yeti .CodeMirror-selected {
+  background: #555;
+}
+
+.CodeMirror.cm-s-yeti.cm-fat-cursor .CodeMirror-cursor {
+  background: #557bab;
+}
+
+.CodeMirror.cm-s-yeti .cm-animate-fat-cursor {
+  background-color: #557bab;
 }
 
 .CodeMirror .cm-m-markdown:not(.cm-comment) {

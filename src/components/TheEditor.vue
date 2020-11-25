@@ -4,7 +4,7 @@
       <div class="container-fluid container-xl d-flex">
         <div class="editor d-flex flex-column flex-grow-1" @click="focusEditor">
           <div class="gutter gutter-start" :class="{ 'md-plus': mediumPlus }" @click="focusEditorStart"></div>
-          <MarkdownEditor ref="editable" class="editable" :initialCursor="initialCursor" :settings="settings" :value="document.text" @input="input" @ready="onReady" />
+          <MarkdownEditor ref="editable" class="editable" :initialCursor="initialCursor" :initialVimMode="initialVimMode" :settings="settings" :value="document.text" @input="input" @ready="onReady" />
           <div class="gutter gutter-end flex-grow-1" :class="{ 'md-plus': mediumPlus }" @click="focusEditorEnd"></div>
         </div>
       </div>
@@ -101,6 +101,9 @@ export default {
       validator: (cursor) => (
         cursor.hasOwnProperty('character') && cursor.hasOwnProperty('line')
       ),
+    },
+    initialVimMode: {
+      type: String
     },
   },
   data() {
@@ -209,6 +212,8 @@ export default {
       } else {
         this.$store.dispatch(ADD_DOCUMENT, new Doc({ id: this.document.id, text }));
 
+        console.log('vimMode', this.editor.getOption('keyMap'));
+
         this.$router.push({
           name: 'document',
           params: {
@@ -217,6 +222,7 @@ export default {
               character: this.editor.getCursor().ch,
               line: this.editor.getCursor().line,
             },
+            initialVimMode: this.editor.getOption('keyMap'),
           },
         });
       }

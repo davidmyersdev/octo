@@ -2,19 +2,25 @@ import CodeMirror from 'codemirror';
 import 'codemirror/mode/meta';
 
 let modes = [];
+let vimLoaded = false;
 
 const addModeScript = (mode, options) => {
+  const modeUrl = getModeUrl(mode);
+  
+  addScript(modeUrl, options);
+};
+
+const addScript = (url, { onload, onerror }) => {
   const script = document.createElement('script');
 
-  // pull mode in via CDN
-  script.src = getModeUrl(mode);
+  script.src = url;
 
-  if (options.onload) {
-    script.onload = options.onload;
+  if (onload) {
+    script.onload = onload;
   }
 
-  if (options.onerror) {
-    script.onerror = options.onerror;
+  if (onerror) {
+    script.onerror = onerror;
   }
 
   document.body.appendChild(script);
@@ -56,6 +62,26 @@ export const loadMode = (fuzzyMode, options) => {
   }
 };
 
+export const loadVim = (options) => {
+  // ensure CodeMirror namespace exists in the browser
+  window.CodeMirror = window.CodeMirror || CodeMirror;
+  
+  const vimUrl = `https://cdnjs.cloudflare.com/ajax/libs/codemirror/${CodeMirror.version}/keymap/vim.min.js`;
+  const onload = () => {
+    vimLoaded = true;
+
+    if (options.onload) options.onload();
+  };
+
+  if (!vimLoaded) {
+    addScript(vimUrl, {
+      onload,
+      onerror: options.onerror,
+    });
+  }
+};
+
 export default {
   loadMode,
+  loadVim,
 };

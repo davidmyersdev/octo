@@ -11,6 +11,24 @@
           <input v-model="tabSize" type="number" min="2" id="config-tab-size" class="form-control">
           <small class="text-muted">Number of spaces per tab (minimum: 2)</small>
         </div>
+        <div class="form-group">
+          <label for="config-key-map">Keymaps</label>
+          <div>
+            <label class="btn btn-primary btn-toggle">
+              <div class="custom-control custom-radio d-flex align-items-center">
+                <input v-model="keyMap" type="radio" value="default" class="custom-control-input d-flex">
+                <span class="custom-control-label d-flex">Default</span>
+              </div>
+            </label>
+            <label class="btn btn-primary btn-toggle ml-2">
+              <div class="custom-control custom-radio d-flex align-items-center">
+                <input v-model="keyMap" type="radio" value="vim" class="custom-control-input d-flex">
+                <span class="custom-control-label d-flex">Vim</span>
+              </div>
+            </label>
+          </div>
+          <small class="text-muted">Select an alternate keymapping</small>
+        </div>
       </section>
       <section>
         <h4 class="font-weight-normal mt-3 mt-md-5">Client-side Encryption</h4>
@@ -66,6 +84,7 @@ import {
   SET_CRYPTO_ENABLED,
   SET_CRYPTO_KEYS,
   SET_EDITOR_TAB_SIZE,
+  SET_EDITOR_KEY_MAP,
 } from '@/store/modules/settings';
 
 export default {
@@ -78,6 +97,14 @@ export default {
   computed: {
     allowCrypto() {
       return this.privateKey && this.publicKey;
+    },
+    keyMap: {
+      get() {
+        return this.$store.state.settings.editor.keyMap;
+      },
+      set(value) {
+        this.$store.dispatch(SET_EDITOR_KEY_MAP, value || 'default');
+      },
     },
     privateKey: {
       get() {

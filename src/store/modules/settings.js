@@ -1,6 +1,7 @@
 export const LOAD_SETTINGS = 'LOAD_SETTINGS';
 export const SET_CRYPTO_ENABLED = 'SET_CRYPTO_ENABLED';
 export const SET_CRYPTO_KEYS = 'SET_CRYPTO_KEYS';
+export const SET_EDITOR_KEY_MAP = 'SET_EDITOR_KEY_MAP';
 export const SET_EDITOR_TAB_SIZE = 'SET_EDITOR_TAB_SIZE';
 export const SETTINGS_LOADED = 'SETTINGS_LOADED';
 
@@ -13,6 +14,7 @@ export default {
     },
     editor: {
       tabSize: 2,
+      keyMap: 'default',
     },
     loaded: false,
   }),
@@ -36,6 +38,9 @@ export default {
         state.crypto.publicKey = keys.publicKey;
       }
     },
+    [SET_EDITOR_KEY_MAP] (state, keyMap) {
+      state.editor.keyMap = keyMap;
+    },
     [SET_EDITOR_TAB_SIZE] (state, tabSize) {
       state.editor.tabSize = tabSize;
     },
@@ -52,6 +57,9 @@ export default {
     },
     async [SET_CRYPTO_KEYS] (context, keys) {
       context.commit(SET_CRYPTO_KEYS, keys);
+    },
+    async [SET_EDITOR_KEY_MAP] (context, keyMap) {
+      context.commit(SET_EDITOR_KEY_MAP, keyMap);
     },
     async [SET_EDITOR_TAB_SIZE] (context, tabSize) {
       context.commit(SET_EDITOR_TAB_SIZE, tabSize);

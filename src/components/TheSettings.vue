@@ -103,7 +103,7 @@ export default {
         return this.$store.state.settings.editor.keyMap;
       },
       set(value) {
-        this.$store.dispatch(SET_EDITOR_KEY_MAP, value || 'default');
+        this.$store.dispatch(SET_EDITOR_KEY_MAP, value);
       },
     },
     privateKey: {

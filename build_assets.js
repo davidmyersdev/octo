@@ -50,8 +50,7 @@ toIco(faviconFiles).then(buffer => {
 	fs.writeFileSync('./public/img/icons/favicon.ico', buffer);
 });
 
-// build png of octopus logo for README
+// build png of stacked logo for README
 sharp('./src/assets/stacked.svg')
-  .resize(318, 286)
   .png()
   .toFile('./resources/stacked.png');

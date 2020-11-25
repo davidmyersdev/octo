@@ -51,17 +51,7 @@ export default {
   },
   watch: {
     ['settings.keyMap'] () {
-      if (this.settings.keyMap === 'vim' && !this.$store.state.vimLoaded) {
-        loadVim({
-          onload: () => {
-            // update the keymap
-            this.$store.commit('SET_VIM_LOADED', true);
-          },
-          onerror: () => {
-            // todo: handle errors
-          },
-        });
-      }
+      this.maybeLoadVim();
     },
   },
   computed: {
@@ -127,6 +117,19 @@ export default {
       });
     },
     maybeLoadVim() {
+      if (this.settings.keyMap === 'vim' && !this.$store.state.vimLoaded) {
+        loadVim({
+          onload: () => {
+            // update the keymap
+            this.$store.commit('SET_VIM_LOADED', true);
+          },
+          onerror: () => {
+            // todo: handle errors
+          },
+        });
+      }
+    },
+    maybeSetVimMode() {
       if (this.initialVimMode && !this.isInitialVimModeSet && this.keyMap === 'vim') {
         this.editor.setOption('keyMap', this.initialVimMode || this.keyMap);
 
@@ -161,6 +164,7 @@ export default {
       this.editor = instance;
 
       this.maybeLoadVim();
+      this.maybeSetVimMode();
 
       this.editor.setCursor({
         ch: this.initialCursor.character,

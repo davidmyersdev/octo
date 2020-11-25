@@ -13,13 +13,19 @@
         </div>
         <div class="form-group">
           <label for="config-key-map">Keymaps</label>
-          <div class="form-check">
-            <input class="form-check-input" v-model="keyMap" type="radio" value="default" id="config-key-map-default">
-            <label class="form-check-label" for="config-key-map-default">Default</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" v-model="keyMap" type="radio" value="vim" id="config-key-map-vim">
-            <label class="form-check-label" for="config-key-map-vim">Vim</label>
+          <div>
+            <label class="btn btn-primary btn-toggle">
+              <div class="custom-control custom-radio d-flex align-items-center">
+                <input v-model="keyMap" type="radio" value="default" class="custom-control-input d-flex">
+                <span class="custom-control-label d-flex">Default</span>
+              </div>
+            </label>
+            <label class="btn btn-primary btn-toggle ml-2">
+              <div class="custom-control custom-radio d-flex align-items-center">
+                <input v-model="keyMap" type="radio" value="vim" class="custom-control-input d-flex">
+                <span class="custom-control-label d-flex">Vim</span>
+              </div>
+            </label>
           </div>
           <small class="text-muted">Select an alternate keymapping</small>
         </div>

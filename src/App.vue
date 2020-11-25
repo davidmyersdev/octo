@@ -268,6 +268,15 @@ svg:not(.close-context) {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%231a1a1a' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26l2.974 2.99L8 2.193z'/%3e%3c/svg%3e");
 }
 
+.btn-toggle .custom-radio .custom-control-input ~ .custom-control-label::before {
+  background-color: #999;
+  border-color: #888;
+}
+
+.btn-toggle .custom-radio .custom-control-input:checked ~ .custom-control-label::after {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%231a1a1a'/%3e%3c/svg%3e");
+}
+
 .border-transparent {
   border-color: transparent !important;
 }

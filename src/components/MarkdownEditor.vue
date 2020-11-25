@@ -92,12 +92,13 @@ export default {
             }
           },
         },
-        keyMap: this.keyMap,
         indentUnit: this.settings.tabSize || 2,
         indentWithTabs: false,
+        keyMap: this.keyMap,
         lineWrapping: true,
         mode: {
           name: 'gfm',
+          highlightFormatting: true,
         },
         singleCursorHeightPerLine: true,
         tabSize: this.settings.tabSize || 2,
@@ -192,6 +193,16 @@ export default {
 
 .CodeMirror.cm-s-yeti .cm-animate-fat-cursor {
   background-color: #557bab;
+}
+
+.CodeMirror.cm-s-yeti .cm-m-markdown.cm-variable-2:not(.cm-comment),
+.CodeMirror.cm-s-yeti .cm-m-markdown.cm-variable-3:not(.cm-comment),
+.CodeMirror.cm-s-yeti .cm-m-markdown.cm-keyword:not(.cm-comment) {
+  color: #d1c9c0;
+}
+
+.CodeMirror.cm-s-yeti .cm-m-markdown.cm-formatting-list {
+  color: #96c0d8 !important;
 }
 
 .CodeMirror .cm-m-markdown:not(.cm-comment) {

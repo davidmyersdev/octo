@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     actionText() {
-      return this.discardedAt ? 'restore' : 'discard';
+      return this.discardedAt ? 'Restore' : 'Discard';
     },
   },
   methods: {

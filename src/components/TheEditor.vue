@@ -1,8 +1,8 @@
 <template>
-  <div class="d-flex flex-grow-1 flex-row">
-    <div class="editor-container d-flex flex-grow-1 position-relative overflow-auto">
+  <div class="d-flex flex-grow-1 flex-row min-w-0">
+    <div class="editor-container d-flex flex-grow-1 min-w-0 position-relative overflow-auto">
       <div class="container-fluid container-xl d-flex">
-        <div class="editor d-flex flex-column flex-grow-1" @click="focusEditor">
+        <div class="editor d-flex flex-column flex-grow-1 min-w-0" @click="focusEditor">
           <div class="gutter gutter-start" :class="{ 'md-plus': mediumPlus }" @click="focusEditorStart"></div>
           <MarkdownEditor ref="editable" class="editable" :initialCursor="initialCursor" :initialVimMode="initialVimMode" :settings="settings" :value="document.text" @input="input" @ready="onReady" />
           <div class="gutter gutter-end flex-grow-1" :class="{ 'md-plus': mediumPlus }" @click="focusEditorEnd"></div>

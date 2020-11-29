@@ -116,10 +116,13 @@ a, a:hover {
   text-decoration: none;
 }
 
+html, body, #app, .main {
+  height: 100%;
+}
+
 .main {
   display: flex;
   flex-direction: column;
-  height: 100vh;
   width: 100vw;
 }
 
@@ -304,5 +307,9 @@ svg:not(.close-context) {
 
 .z-index-1 {
   z-index: 1;
+}
+
+.min-w-0 {
+  min-width: 0 !important;
 }
 </style>

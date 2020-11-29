@@ -10,7 +10,7 @@
         <div class="other-actions">
           <div class="item px-3 search">
             <router-link class="btn btn-secondary d-flex align-items-center justify-content-between w-100" :to="{ name: 'documents' }">
-              <SearchLabel>search</SearchLabel>
+              <SearchLabel>Search</SearchLabel>
               <span class="d-none d-md-flex">
                 <Key :toggleable="false">{{this.$store.state.modKey}}</Key>
                 <Key class="ml-1" :toggleable="false">shift</Key>
@@ -19,7 +19,7 @@
             </router-link>
           </div>
           <h6 class="dropdown-header mx-0 mt-3 px-3 d-flex justify-content-between">
-            <span>actions</span>
+            <span>Actions</span>
             <span class="keybinding d-flex">
               <ModK/>
             </span>
@@ -32,7 +32,7 @@
               <path fill-rule="evenodd" d="M13 12.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0v-2z"/>
             </svg>
             <span class="action d-flex flex-grow-1 align-items-center justify-content-between">
-              <span class="action">add document</span>
+              <span class="action">Add Document</span>
               <span class="keybinding d-flex">
                 <ModKKey>n</ModKKey>
               </span>
@@ -45,7 +45,7 @@
               <path fill-rule="evenodd" d="M0 12a.5.5 0 0 0 .5.5h2c3.053 0 4.564-2.258 5.856-4.226l.08-.123c.636-.97 1.224-1.865 1.932-2.539C11.086 4.93 11.906 4.5 13 4.5h2a.5.5 0 0 0 0-1h-2c-1.406 0-2.461.57-3.321 1.388-.795.755-1.441 1.742-2.055 2.679l-.105.159C6.186 9.758 4.947 11.5 2.5 11.5h-2a.5.5 0 0 0-.5.5z"/>
             </svg>
             <span class="action d-flex flex-grow-1 align-items-center justify-content-between">
-              <span class="action">change context</span>
+              <span class="action">Change Context</span>
               <ModKKey>c</ModKKey>
             </span>
           </router-link>
@@ -55,7 +55,7 @@
               <path fill-rule="evenodd" d="M8 5.754a2.246 2.246 0 1 0 0 4.492 2.246 2.246 0 0 0 0-4.492zM4.754 8a3.246 3.246 0 1 1 6.492 0 3.246 3.246 0 0 1-6.492 0z"/>
             </svg>
             <span class="action d-flex flex-grow-1 align-items-center justify-content-between">
-              <span>editor settings</span>
+              <span>Editor Settings</span>
               <ModKKey>e</ModKKey>
             </span>
           </router-link>
@@ -64,12 +64,12 @@
               <path fill-rule="evenodd" d="M4.355.522a.5.5 0 0 1 .623.333l.291.956A4.979 4.979 0 0 1 8 1c1.007 0 1.946.298 2.731.811l.29-.956a.5.5 0 1 1 .957.29l-.41 1.352A4.985 4.985 0 0 1 13 6h.5a.5.5 0 0 0 .5-.5V5a.5.5 0 0 1 1 0v.5A1.5 1.5 0 0 1 13.5 7H13v1h1.5a.5.5 0 0 1 0 1H13v1h.5a1.5 1.5 0 0 1 1.5 1.5v.5a.5.5 0 1 1-1 0v-.5a.5.5 0 0 0-.5-.5H13a5 5 0 0 1-10 0h-.5a.5.5 0 0 0-.5.5v.5a.5.5 0 1 1-1 0v-.5A1.5 1.5 0 0 1 2.5 10H3V9H1.5a.5.5 0 0 1 0-1H3V7h-.5A1.5 1.5 0 0 1 1 5.5V5a.5.5 0 0 1 1 0v.5a.5.5 0 0 0 .5.5H3c0-1.364.547-2.601 1.432-3.503l-.41-1.352a.5.5 0 0 1 .333-.623zM4 7v4a4 4 0 0 0 3.5 3.97V7H4zm4.5 0v7.97A4 4 0 0 0 12 11V7H8.5zM12 6H4a3.99 3.99 0 0 1 1.333-2.982A3.983 3.983 0 0 1 8 2c1.025 0 1.959.385 2.666 1.018A3.989 3.989 0 0 1 12 6z"/>
             </svg>
             <span class="action d-flex flex-grow-1 align-items-center justify-content-between">
-              <span>report issue</span>
+              <span>Report Issue</span>
               <ModKKey>i</ModKKey>
             </span>
           </a>
           <h6 class="dropdown-header mx-0 mt-3 px-3 d-flex justify-content-between">
-            <span>quick filters</span>
+            <span>Quick Filters</span>
             <span class="keybinding d-flex">
               <ModK/>
             </span>
@@ -78,7 +78,7 @@
           <router-link class="item px-3 py-2 py-md-1 d-flex" :to="{ name: 'actionable' }">
             <TaskLabel class="flex-grow-1">
               <span class="d-flex align-items-center justify-content-between">
-                <span>actionable</span>
+                <span>Actionable</span>
                 <ModKKey>a</ModKKey>
               </span>
             </TaskLabel>
@@ -86,7 +86,7 @@
           <router-link class="item px-3 py-2 py-md-1 d-flex" :to="{ name: 'recent' }">
             <TimelyLabel class="flex-grow-1">
               <span class="d-flex align-items-center justify-content-between">
-                <span>recent</span>
+                <span>Recent</span>
                 <ModKKey>r</ModKKey>
               </span>
             </TimelyLabel>
@@ -94,7 +94,7 @@
           <router-link class="item px-3 py-2 py-md-1 d-flex" :to="{ name: 'untagged' }">
             <DocumentLabel class="flex-grow-1">
               <span class="d-flex align-items-center justify-content-between">
-                <span>untagged</span>
+                <span>Untagged</span>
                 <ModKKey>u</ModKKey>
               </span>
             </DocumentLabel>
@@ -102,7 +102,7 @@
           <router-link class="item px-3 py-2 py-md-1 d-flex" :to="{ name: 'discarded' }">
             <DiscardLabel class="flex-grow-1">
               <span class="d-flex align-items-center justify-content-between">
-                <span>discarded</span>
+                <span>Discarded</span>
                 <ModKKey>d</ModKKey>
               </span>
             </DiscardLabel>
@@ -110,7 +110,7 @@
         </div>
         <div ref="tags" class="tags">
           <h6 class="dropdown-header mx-0 mt-3 px-3 d-flex justify-content-between">
-            <span>tags</span>
+            <span>Tags</span>
           </h6>
           <div class="item-divider mx-3 mb-2"></div>
           <Tag class="item px-3 py-2 py-md-1" v-for="tag in tags" :key="tag" :tag="tag"></Tag>

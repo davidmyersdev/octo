@@ -10,23 +10,23 @@
       </div>
       <div class="sticky-top">
         <button @click="toggleMeta" class="btn btn-sm btn-secondary position-absolute top-3 right-3 z-index-10">
-          <InfoLabel>info</InfoLabel>
+          <InfoLabel>Info</InfoLabel>
         </button>
       </div>
     </div>
     <div v-if="showMeta" class="meta p-3" :class="{ 'position-fixed': !largePlus, 'meta-mobile': !largePlus }">
       <div class="mb-4 d-flex justify-content-end d-lg-none">
         <button @click="toggleMeta" class="btn btn-sm btn-secondary">
-          <InfoLabel>close</InfoLabel>
+          <InfoLabel>Close</InfoLabel>
         </button>
       </div>
       <div class="mb-4">
         <DiscardableAction v-if="document.id" :discardedAt="document.discardedAt" :onDiscard="discardDocument" :onRestore="restoreDocument" class="w-100 mb-2"></DiscardableAction>
         <button @click.stop="duplicateDocument" class="btn btn-secondary btn-sm d-flex align-items-center w-100 mb-2">
-          <DuplicateLabel>duplicate</DuplicateLabel>
+          <DuplicateLabel>Duplicate</DuplicateLabel>
         </button>
         <button v-if="hasCodeblocks" @click="openSandbox" class="btn btn-secondary btn-sm d-flex w-100 mb-2">
-          <CodeLabel>sandbox</CodeLabel>
+          <CodeLabel>Sandbox</CodeLabel>
         </button>
       </div>
       <div class="mb-4">

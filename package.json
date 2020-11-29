@@ -1,7 +1,6 @@
 {
-  "name": "octo",
-  "version": "0.0.1",
-  "private": true,
+  "name": "@voraciousdev/octo",
+  "version": "v0.12.0",
   "scripts": {
     "build_assets": "node ./build_assets.js",
     "build_prod": "vue-cli-service build --dest ./dist",

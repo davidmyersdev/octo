@@ -105,3 +105,4 @@ Accounts on [octo.app](https://octo.app) include syncing and persistence through
 
 - [Buy Me a Coffee](https://www.buymeacoffee.com/voraciousdev)
 - [Ko-Fi](https://ko-fi.com/voraciousdev)
+- [Patreon](https://patreon.com/voraciousdev)

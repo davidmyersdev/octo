@@ -2,7 +2,7 @@
   <div class="document-list container-fluid container-xl d-flex flex-column">
     <p class="toolbar">
       <TagLabel v-if="tag">{{ tag }}</TagLabel>
-      <span v-else class="action">{{ action }}</span>
+      <span v-else class="action text-capitalize">{{ action }}</span>
     </p>
     <div class="form-group">
       <div class="d-flex align-items-bottom">

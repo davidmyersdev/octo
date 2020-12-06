@@ -2,27 +2,29 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 // views
-import Dashboard from './views/Dashboard.vue';
+import Dashboard from './views/Dashboard';
 
 // components
-import Context from './components/Context.vue';
-import DocumentList from './components/DocumentList.vue';
-import Exporter from './components/Exporter.vue';
-import TheEditor from './components/TheEditor.vue';
-import TheSettings from './components/TheSettings.vue';
-import TheSidebar from './components/TheSidebar';
-import TagList from './components/TagList.vue';
+import Context from './components/Context';
+import DocumentList from './components/DocumentList';
+import Exporter from './components/Exporter';
+import QuickAction from './components/QuickAction';
+import TagList from './components/TagList';
+import TheEditor from './components/TheEditor';
+import TheLeftSidebar from './components/TheLeftSidebar';
+import TheRightSidebar from './components/TheRightSidebar';
+import TheSettings from './components/TheSettings';
 
+import store from '@/store';
+
+import {
+  SET_DOCUMENT,
+} from '@/store/actions';
 
 Vue.use(Router);
 
 const router = new Router({
   routes: [
-    {
-      path: '/menu',
-      name: 'menu',
-      component: TheSidebar,
-    },
     {
       path: '/',
       name: 'editor',
@@ -43,6 +45,10 @@ const router = new Router({
           name: 'dashboard',
           component: TheEditor,
           props: true,
+          beforeEnter(to, from, next) {
+            store.dispatch(SET_DOCUMENT, { id: null });
+            next();
+          },
         },
         {
           path: 'documents/export',
@@ -82,12 +88,39 @@ const router = new Router({
             untagged: true,
           },
         },
+        // show meta for a document
+        {
+          path: 'documents/:id/meta',
+          name: 'document-meta',
+          component: TheRightSidebar,
+          props: true,
+          beforeEnter(to, from, next) {
+            store.dispatch(SET_DOCUMENT, { id: to.params.id });
+            next();
+          },
+        },
         // show a specific document
         {
           path: 'documents/:id',
           name: 'document',
           component: TheEditor,
           props: true,
+          beforeEnter(to, from, next) {
+            store.dispatch(SET_DOCUMENT, { id: to.params.id });
+            next();
+          },
+        },
+        // quick action
+        {
+          path: 'quick-action',
+          name: 'quick-action',
+          component: QuickAction,
+        },
+        // menu
+        {
+          path: 'menu',
+          name: 'menu',
+          component: TheLeftSidebar,
         },
         // context switcher
         {

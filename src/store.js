@@ -28,15 +28,15 @@ import {
   SET_MOD_KEY,
   SET_OFFLINE,
   SET_ONLINE,
+  SET_RIGHT_SIDEBAR_VISIBILITY,
   SHOW_MENU,
-  TOGGLE_META,
 } from '@/store/actions';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    modKey: 'ctrl',
+    modKey: 'CTRL',
     context: {
       active: false,
       editing: false,
@@ -47,7 +47,8 @@ export default new Vuex.Store({
       show: false,
     },
     online: true,
-    showMeta: false,
+    showLeftSidebar: true,
+    showRightSidebar: false,
     vimLoaded: false,
   },
   getters: {
@@ -103,14 +104,14 @@ export default new Vuex.Store({
     [SET_MOD_KEY] (state, payload) {
       state.modKey = payload;
     },
+    [SET_RIGHT_SIDEBAR_VISIBILITY] (state, isVisible) {
+      state.showRightSidebar = isVisible;
+    },
     ['SET_VIM_LOADED'] (state, isVimLoaded) {
       state.vimLoaded = isVimLoaded;
     },
     [SHOW_MENU] (state) {
       state.menu.show = true;
-    },
-    [TOGGLE_META] (state) {
-      state.showMeta = !state.showMeta;
     },
   },
   actions: {
@@ -159,11 +160,11 @@ export default new Vuex.Store({
     async [SET_ONLINE] (context) {
       context.commit(SET_ONLINE);
     },
+    async [SET_RIGHT_SIDEBAR_VISIBILITY] (context, isVisible) {
+      context.commit(SET_RIGHT_SIDEBAR_VISIBILITY, isVisible);
+    },
     async [SHOW_MENU] (context) {
       context.commit(SHOW_MENU);
-    },
-    async [TOGGLE_META] (context) {
-      context.commit(TOGGLE_META);
     },
   },
   modules: {

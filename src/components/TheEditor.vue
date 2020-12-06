@@ -1,95 +1,41 @@
 <template>
-  <div class="d-flex flex-grow-1 flex-row min-w-0">
-    <div class="editor-container d-flex flex-grow-1 min-w-0 position-relative overflow-auto">
-      <div class="container-fluid container-xl d-flex">
-        <div class="editor d-flex flex-column flex-grow-1 min-w-0" @click="focusEditor">
-          <div class="gutter gutter-start" :class="{ 'md-plus': mediumPlus }" @click="focusEditorStart"></div>
-          <MarkdownEditor ref="editable" class="editable" :initialCursor="initialCursor" :initialVimMode="initialVimMode" :settings="settings" :value="document.text" @input="input" @ready="onReady" />
-          <div class="gutter gutter-end flex-grow-1" :class="{ 'md-plus': mediumPlus }" @click="focusEditorEnd"></div>
-        </div>
-      </div>
-      <div class="sticky-top">
-        <button @click="toggleMeta" class="btn btn-sm btn-secondary position-absolute top-3 right-3 z-index-10">
-          <InfoLabel>Info</InfoLabel>
-        </button>
+  <div class="d-flex flex-column flex-grow-1">
+    <div class="container-fluid container-xl d-flex flex-grow-1">
+      <div class="editor d-flex flex-column flex-grow-1 min-w-0" @click="focusEditor">
+        <div class="gutter" @click="focusEditorStart"></div>
+        <MarkdownEditor ref="editable" class="editable" :initialCursor="initialCursor" :initialVimMode="initialVimMode" :settings="settings" :value="document.text" @input="input" @ready="onReady" />
+        <div class="gutter flex-grow-1" @click="focusEditorEnd"></div>
       </div>
     </div>
-    <div v-if="showMeta" class="meta p-3" :class="{ 'position-fixed': !largePlus, 'meta-mobile': !largePlus }">
-      <div class="mb-4 d-flex justify-content-end d-lg-none">
-        <button @click="toggleMeta" class="btn btn-sm btn-secondary">
-          <InfoLabel>Close</InfoLabel>
-        </button>
-      </div>
-      <div class="mb-4">
-        <DiscardableAction v-if="document.id" :discardedAt="document.discardedAt" :onDiscard="discardDocument" :onRestore="restoreDocument" class="w-100 mb-2"></DiscardableAction>
-        <button @click.stop="duplicateDocument" class="btn btn-secondary btn-sm d-flex align-items-center w-100 mb-2">
-          <DuplicateLabel>Duplicate</DuplicateLabel>
-        </button>
-        <button v-if="hasCodeblocks" @click="openSandbox" class="btn btn-secondary btn-sm d-flex w-100 mb-2">
-          <CodeLabel>Sandbox</CodeLabel>
-        </button>
-      </div>
-      <div class="mb-4">
-        <Tag class="item" v-for="tag in document.tags" :key="tag" :tag="tag"></Tag>
-      </div>
-      <div class="mb-4">
-        <TaskLabel v-for="task in document.tasks">{{ task }}</TaskLabel>
-      </div>
-      <div>
-        <div v-if="document.updatedAt" class="mb-1">
-          <small class="text-muted">Last Saved</small>
-          <div>{{ savedAt }}</div>
-        </div>
-        <div v-if="document.createdAt" class="mb-1">
-          <small class="text-muted">Created</small>
-          <div>{{ createdAt }}</div>
-        </div>
-        <div v-if="document.updatedAt" class="mb-1">
-          <small class="text-muted">Updated</small>
-          <div>{{ updatedAt }}</div>
-        </div>
-        <div v-if="document.discardedAt" class="mb-1">
-          <small class="text-muted">Discarded</small>
-          <div>{{ discardedAt }}</div>
-        </div>
-      </div>
+    <div v-if="!showRightSidebar && currentDoc" class="position-fixed top-2 right-2 z-index-10 d-none d-md-block">
+      <button @click="toggleMeta" class="btn btn-secondary">
+        <InfoLabel>Info</InfoLabel>
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import CodeLabel from '@/components/labels/Code';
-import DuplicateLabel from '@/components/labels/Duplicate';
-import InfoLabel from '@/components/labels/Info';
-import TaskLabel from '@/components/labels/Task';
-
-import CodeSandbox from '@/common/code_sandbox';
 import Doc from '@/models/doc';
 
-import DiscardableAction from '@/components/DiscardableAction';
+import InfoLabel from '@/components/labels/Info';
 import MarkdownEditor from '@/components/MarkdownEditor';
 import Tag from '@/components/Tag';
 
 import {
   ADD_DOCUMENT,
-  DISCARD_DOCUMENT,
-  DUPLICATE_DOCUMENT,
   EDIT_DOCUMENT,
-  RESTORE_DOCUMENT,
+  SET_DOCUMENT,
   SET_EDITOR,
-  TOGGLE_META,
+  SET_RIGHT_SIDEBAR_VISIBILITY,
 } from '@/store/actions';
 
 export default {
   name: 'TheEditor',
   components: {
-    CodeLabel,
-    DiscardableAction,
-    DuplicateLabel,
     InfoLabel,
     MarkdownEditor,
     Tag,
-    TaskLabel,
   },
   props: {
     initialCursor: {
@@ -109,26 +55,15 @@ export default {
   data() {
     return {
       editor: null,
-      mounted: false,
-      now: moment(),
       placeholder: new Doc(),
-      ticker: null,
     };
   },
   computed: {
-    codeblocks() {
-      // refs are not available until the component is mounted
-      // https://vuejs.org/v2/guide/instance.html#Lifecycle-Diagram
-      return this.mounted ? this.$refs.editable.codeblocks : [];
+    currentDoc() {
+      return this.$store.getters.currentDoc;
     },
     document() {
       return this.$store.getters.decrypted.find(doc => doc.id === this.$route.params.id) || this.placeholder;
-    },
-    hasCodeblocks() {
-      return this.codeblocks.length > 0;
-    },
-    largePlus() {
-      return ['lg', 'xl'].includes(this.$mq);
     },
     mediumPlus() {
       return ['md', 'lg', 'xl'].includes(this.$mq);
@@ -136,67 +71,11 @@ export default {
     settings() {
       return this.$store.state.settings.editor;
     },
-    showMeta() {
-      return this.$store.state.showMeta;
-    },
-    savedAt() {
-      if (this.$route.params.id) {
-        if (this.now.diff(this.document.updatedAt, 'seconds') < 5) {
-          return 'just now';
-        }
-        else {
-          return `${moment(this.document.updatedAt).from(this.now, true)} ago`;
-        }
-      }
-
-      return 'Not yet saved';
-    },
-    createdAt() {
-      if (this.$route.params.id) {
-        return moment(this.document.createdAt).format('ddd, MMM Do, YYYY [at] h:mm A');
-      }
-
-      return 'Not yet created'
-    },
-    discardedAt() {
-      return moment(this.document.discardedAt).format('ddd, MMM Do, YYYY [at] h:mm A');
-    },
-    updatedAt() {
-      if (this.$route.params.id) {
-        return moment(this.document.updatedAt).format('ddd, MMM Do, YYYY [at] h:mm A');
-      }
-
-      return 'Not yet updated'
+    showRightSidebar() {
+      return this.$store.state.showRightSidebar;
     },
   },
   methods: {
-    async discardDocument() {
-      this.$store.dispatch(DISCARD_DOCUMENT, { id: this.document.id });
-
-      this.$router.push({ name: 'dashboard' });
-    },
-    async duplicateDocument() {
-      const newDocId = await this.$store.dispatch(DUPLICATE_DOCUMENT, { id: this.document.id });
-
-      this.$router.push({ name: 'document', params: { id: newDocId } });
-    },
-    async openSandbox() {
-      const files = this.codeblocks.reduce((agg, codeblock, index) => {
-        const filename = codeblock.filename || [index, (codeblock.language || 'txt')].join('.');
-
-        return {
-          ...agg,
-          [filename]: {
-            content: codeblock.code,
-          },
-        };
-      }, {});
-
-      CodeSandbox.create(files).then(sandbox_id => CodeSandbox.open(sandbox_id));
-    },
-    async restoreDocument() {
-      this.$store.dispatch(RESTORE_DOCUMENT, { id: this.document.id });
-    },
     async focusEditor() {
       this.$refs.editable.focus();
     },
@@ -211,8 +90,6 @@ export default {
         this.$store.dispatch(EDIT_DOCUMENT, { id: this.document.id, text });
       } else {
         this.$store.dispatch(ADD_DOCUMENT, new Doc({ id: this.document.id, text }));
-
-        console.log('vimMode', this.editor.getOption('keyMap'));
 
         this.$router.push({
           name: 'document',
@@ -234,26 +111,22 @@ export default {
       this.$store.dispatch(SET_EDITOR, this.editor);
     },
     async toggleMeta() {
-      this.$store.dispatch(TOGGLE_META);
+      this.$store.dispatch(SET_RIGHT_SIDEBAR_VISIBILITY, !this.showRightSidebar);
     },
   },
-  async beforeDestroy() {
-    clearInterval(this.ticker);
-  },
-  async mounted() {
-    this.mounted = true;
+  beforeRouteUpdate(to, from, next) {
+    if (to.name === 'document') {
+      this.$store.dispatch(SET_DOCUMENT, { id: to.params.id });
+    }
 
-    this.ticker = setInterval(() => {
-      this.now = moment();
-    }, 5000);
+    next();
   },
 };
 </script>
 
 <style scoped>
-  .editor-container {
-    background: url('~@/assets/octopus-transparent.svg') center center no-repeat;
-    background-size: 50% 50%;
+  .md-plus .editable {
+    font-size: 1.1em;
   }
 
   .editor .editable {
@@ -262,20 +135,8 @@ export default {
   }
 
   .editor .gutter {
-    cusor: text;
+    cursor: text;
     min-height: 1rem;
     width: 100%;
-  }
-
-  .meta {
-    background-color: #050505;
-    color: #aaa;
-    width: 17rem;
-  }
-
-  .meta-mobile {
-    right: 0;
-    height: 100%;
-    z-index: 2000;
   }
 </style>

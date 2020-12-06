@@ -15,27 +15,34 @@
         </div>
       </div>
       <div class="form-group">
-        <div ref="tagsContainer" class="dropdown-menu d-block mt-0">
-          <div v-if="filtered.length">
-            <div v-for="(tag, index) in filtered" @click="selectTag(tag)" ref="tags" class="dropdown-item d-flex justify-content-between" :class="{ active: (index === activeIndex), selected: isSelected(tag) }">
-              <span>{{ tag }}</span>
-              <span v-if="isSelected(tag)">selected</span>
+        <simplebar ref="tagsContainer" class="dropdown-menu d-block mt-0">
+          <div>
+            <div v-if="filtered.length">
+              <div v-for="(tag, index) in filtered" @click="selectTag(tag)" ref="tags" class="dropdown-item d-flex justify-content-between" :class="{ active: (index === activeIndex), selected: isSelected(tag) }">
+                <span>{{ tag }}</span>
+                <span v-if="isSelected(tag)">selected</span>
+              </div>
             </div>
+            <div v-else class="dropdown-item">No results...</div>
           </div>
-          <div v-else class="dropdown-item">No results...</div>
-        </div>
+        </simplebar>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import simplebar from 'simplebar-vue';
+
 import {
   SET_CONTEXT_TAGS,
 } from '@/store/actions';
 
 export default {
   name: 'Context',
+  components: {
+    simplebar,
+  },
   data() {
     return {
       activeIndex: 0,
@@ -69,13 +76,13 @@ export default {
     first() {
       this.activeIndex = 0;
 
-      this.$refs.tagsContainer.scroll(0, 0);
+      this.$refs.tagsContainer.scrollElement.scroll(0, 0);
     },
     focusInput() {
       this.$refs.input.focus();
     },
     scroll() {
-      const tagsContainer = this.$refs.tagsContainer;
+      const tagsContainer = this.$refs.tagsContainer.scrollElement;
       const tag = this.$refs.tags[this.activeIndex];
 
       const scrolltop = tagsContainer.scrollTop;
@@ -144,7 +151,6 @@ export default {
 .dropdown-menu {
   float: none;
   max-height: 20rem;
-  overflow: auto;
   padding: 0;
   position: relative;
   z-index: auto;

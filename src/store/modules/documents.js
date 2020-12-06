@@ -15,18 +15,19 @@ import {
   LOAD_DOCUMENTS,
   MERGE_DOCUMENTS,
   RESTORE_DOCUMENT,
+  SET_DOCUMENT,
   TOUCH_DOCUMENT,
 } from '@/store/actions';
 
 const findDoc = (state, id) => {
-  return state.all.find((doc) => {
-    return doc.id === id;
-  });
+  // only return docs that are decrypted
+  return state.all.filter(doc => !doc.encrypted).find(doc => doc.id === id);
 };
 
 export default {
   state: () => ({
     all: [],
+    currentId: null,
     loaded: false,
   }),
   getters: {
@@ -35,6 +36,9 @@ export default {
     },
     allKept(_state, getters) {
       return getters.sorted.filter(doc => doc.discardedAt === null);
+    },
+    currentDoc(state, getters) {
+      return getters.decrypted.find(doc => doc.id === state.currentId);
     },
     decrypted(state) {
       return state.all.filter(doc => !doc.encrypted);
@@ -88,6 +92,9 @@ export default {
     [RESTORE_DOCUMENT] (state, { id }) {
       findDoc(state, id).restore();
     },
+    [SET_DOCUMENT] (state, { id }) {
+      state.currentId = id;
+    },
     [TOUCH_DOCUMENT] (state, { id }) {
       findDoc(state, id).touch();
     },
@@ -132,6 +139,9 @@ export default {
     },
     async [RESTORE_DOCUMENT] (context, doc) {
       context.commit(RESTORE_DOCUMENT, doc);
+    },
+    async [SET_DOCUMENT] (context, doc) {
+      context.commit(SET_DOCUMENT, doc);
     },
     async [TOUCH_DOCUMENT] (context, doc) {
       context.commit(TOUCH_DOCUMENT, doc);

@@ -1,6 +1,6 @@
 <template>
-  <div class="container d-flex flex-column">
-    <Tag class="tag btn btn-secondary" v-for="tag in tags" :key="tag" :tag="tag"></Tag>
+  <div class="container d-flex flex-column py-3">
+    <Tag class="tag btn btn-secondary p-3" v-for="tag in tags" :key="tag" :tag="tag"></Tag>
   </div>
 </template>
 
@@ -23,7 +23,6 @@ export default {
 <style scoped>
 .tag {
   align-items: center;
-  border: 1px solid #222;
   color: #aaa;
   display: flex;
   margin-bottom: 0.5rem;

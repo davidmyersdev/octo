@@ -221,7 +221,7 @@ export default {
 
 .CodeMirror {
   position: relative;
-  font-size: 1rem;
+  font-size: 1em;
   line-height: 2.25em;
 }
 

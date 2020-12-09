@@ -1,35 +1,37 @@
 <template>
-  <div id="app">
-    <main class="main">
-      <TheNavbar/>
-      <div v-if="context.active || context.editing" class="context-banner text-center">
+  <div id="app" class="d-flex flex-column h-100" :class="sizes">
+    <simplebar v-if="context.active || context.editing" class="context-banner relative-fixed">
+      <div class="d-flex align-items-center text-center">
         <div v-if="contextTags.length" class="context-tags">
           <Tag v-for="tag in contextTags" :key="tag" :tag="tag" class="context-tag d-inline-flex" />
         </div>
-        <div v-else  class="context-placeholder">no active tags</div>
+        <div v-else class="context-placeholder">no active tags</div>
         <div @click="deactivateContext" class="context-close">
-          <svg class="close-context bi bi-x-square-fill" width="1.25em" height="1.25em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <svg class="bi bi-x-square-fill m-0" width="1.25em" height="1.25em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm9.854 4.854a.5.5 0 0 0-.708-.708L8 7.293 4.854 4.146a.5.5 0 1 0-.708.708L7.293 8l-3.147 3.146a.5.5 0 0 0 .708.708L8 8.707l3.146 3.147a.5.5 0 0 0 .708-.708L8.707 8l3.147-3.146z"/>
           </svg>
         </div>
       </div>
-      <div class="content">
-        <router-view class="router"></router-view>
-        <div class="card notification" :class="{ hide: !showModal }">
-          <div class="card-body notification-body">
-            <p>An update is available. Refresh the page to apply.</p>
-            <button type="button" class="btn btn-sm btn-primary" @click="refreshPage">Refresh Now</button>
-            <button type="button" class="btn btn-sm btn-secondary" @click="hideModal">Later</button>
-          </div>
+    </simplebar>
+    <div class="flex-grow-1 position-relative overflow-hidden">
+      <router-view class="d-flex h-100"></router-view>
+      <div class="card notification position-fixed top-0 right-0 m-3 m-md-2" :class="{ 'd-none': !showModal }">
+        <div class="card-body notification-body">
+          <p>An update is available. Refresh the app to apply.</p>
+          <button type="button" class="btn btn-sm btn-primary" @click="refreshPage">Refresh Now</button>
+          <button type="button" class="btn btn-sm btn-secondary" @click="hideModal">Later</button>
         </div>
       </div>
-    </main>
+    </div>
   </div>
 </template>
 
 <script>
+import simplebar from 'simplebar-vue';
+
+import 'simplebar/dist/simplebar.min.css';
+
 import Tag from '@/components/Tag';
-import TheNavbar from '@/components/TheNavbar';
 
 import {
   DEACTIVATE_CONTEXT,
@@ -38,8 +40,8 @@ import {
 export default {
   name: 'App',
   components: {
+    simplebar,
     Tag,
-    TheNavbar,
   },
   data() {
     return {
@@ -52,6 +54,13 @@ export default {
     },
     contextTags() {
       return this.context.tags.sort();
+    },
+    sizes() {
+      if (this.$mq === 'xs') return ['xs xs-plus'];
+      if (this.$mq === 'sm') return ['sm xs-plus sm-plus'];
+      if (this.$mq === 'md') return ['md xs-plus sm-plus md-plus'];
+      if (this.$mq === 'lg') return ['lg xs-plus sm-plus md-plus lg-plus'];
+      if (this.$mq === 'xl') return ['xl xs-plus sm-plus md-plus lg-plus xl-plus'];
     },
   },
   methods: {
@@ -76,24 +85,7 @@ export default {
 <style>
 * {
   box-sizing: border-box;
-  letter-spacing: 0.05em;
-  scrollbar-width: thin;
-  scrollbar-color: #333 transparent;
-}
-
-*::-webkit-scrollbar {
-  width: 0.75rem;
-}
-
-*::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-*::-webkit-scrollbar-thumb {
-  background-clip: padding-box;
-  background-color: #333;
-  border-radius: 0.25rem;
-  border: 0.125rem solid transparent;
+  letter-spacing: 0.075em;
 }
 
 body {
@@ -109,6 +101,7 @@ body, pre {
 
 pre {
   font-family: 'Fira Mono', monospace !important;
+  margin: 0;
 }
 
 a, a:hover {
@@ -116,48 +109,15 @@ a, a:hover {
   text-decoration: none;
 }
 
-html, body, #app, .main {
-  height: 100%;
-}
-
-.main {
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-}
-
-.content {
-  flex-grow: 1;
-  overflow: hidden;
-  position: relative;
-}
-
-.router {
-  height: 100%;
-  overflow: auto;
-  position: relative;
-}
-
-.navbar {
-  background-color: #1a1a1a;
-}
-
 .context-banner {
-  align-items: center;
   background-color: #111;
   border-bottom: 0.125rem solid #1a1a1a;
   color: #aaa;
-  display: flex;
   flex-shrink: 0;
   flex-wrap: nowrap;
   padding: 0.25rem;
   line-height: normal;
-  overflow: auto;
   white-space: nowrap;
-}
-
-.context-description {
-  margin-right: 1rem;
 }
 
 .context-tags {
@@ -194,7 +154,7 @@ html, body, #app, .main {
   display: flex;
   justify-content: center;
   padding: 0.0675rem;
-  position: absolute;
+  position: fixed;
   right: 1rem;
   z-index: 20;
 }
@@ -210,50 +170,6 @@ html, body, #app, .main {
   border: none;
   box-shadow: none !important;
   color: #aaa;
-}
-
-.monospace {
-  font-family: 'Fira Mono', monospace !important;
-}
-
-.card {
-  background-color: #1a1a1a;
-  margin-bottom: 1em;
-}
-
-.card .btn + .btn {
-  margin-left: 0.5rem;
-}
-
-pre {
-  margin: 0;
-}
-
-.notification {
-  margin: 1rem;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 20rem;
-  z-index: 90;
-}
-
-.notification .notification-body {
-  padding: 1rem;
-}
-
-.hide {
-  display: none !important;
-}
-
-hr {
-  background-color: #aaa;
-  margin-top: 0.5rem;
-}
-
-svg:not(.close-context) {
-  flex-shrink: 0;
-  margin-right: 0.5em;
 }
 
 .btn-toggle, .btn-toggle:hover, .btn-toggle:active, .btn-toggle:focus {
@@ -280,6 +196,68 @@ svg:not(.close-context) {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%231a1a1a'/%3e%3c/svg%3e");
 }
 
+.monospace {
+  font-family: 'Fira Mono', monospace !important;
+}
+
+.card {
+  background-color: #1a1a1a;
+  margin-bottom: 1em;
+}
+
+.card .btn + .btn {
+  margin-left: 0.5rem;
+}
+
+.icon-wrapper {
+  background-color: #aaa;
+  color: #111;
+  height: 2em;
+  width: 2em;
+}
+
+.item {
+  align-items: center;
+  color: #aaa;
+  display: flex;
+}
+
+.item:hover, .item:active, .item:focus {
+  background-color: #1f1f1f;
+}
+
+.md-plus .icon-wrapper {
+  background-color: inherit;
+  color: inherit;
+  height: auto;
+  width: auto;
+}
+
+.md-plus .icon-wrapper svg {
+  height: 1.25em;
+  width: 1.25em;
+}
+
+.notification {
+  box-shadow: 0 0 0 0.125rem #111 !important;
+  width: 20rem;
+  z-index: 90;
+}
+
+.notification .notification-body {
+  padding: 1rem;
+}
+
+hr {
+  background-color: #aaa;
+  margin-top: 0.5rem;
+}
+
+svg {
+  flex-shrink: 0;
+  margin-right: 0.5em;
+}
+
 .border-transparent {
   border-color: transparent !important;
 }
@@ -293,8 +271,37 @@ svg:not(.close-context) {
   height: 1px;
 }
 
+.relative-fixed {
+  /* this is a hack to position fixed elements relative to this container instead of the viewport */
+  transform: translateZ(0);
+}
+
+.bottom-0 {
+  bottom: 0 !important;
+}
+
+.bottom-3 {
+  bottom: 1rem !important;
+}
+
+.right-0 {
+  right: 0 !important;
+}
+
+.right-2 {
+  right: 0.5rem !important;
+}
+
 .right-3 {
   right: 1rem !important;
+}
+
+.top-0 {
+  top: 0 !important;
+}
+
+.top-2 {
+  top: 0.5rem !important;
 }
 
 .top-3 {
@@ -309,7 +316,28 @@ svg:not(.close-context) {
   z-index: 1;
 }
 
+.min-h-0 {
+  min-height: 0 !important;
+}
+
 .min-w-0 {
   min-width: 0 !important;
+}
+
+.bg-darker {
+  background-color: #050505 !important;
+}
+
+.simplebar-scrollbar::before {
+  background-color: rgba(255, 255, 255, 0.25);
+
+  bottom: 0.25rem !important;
+  top: 0.25rem !important;
+}
+
+.simplebar-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100% !important;
 }
 </style>

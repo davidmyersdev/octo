@@ -23,7 +23,7 @@ export default {
   border-radius: 3px;
   color: #555;
   font-family: 'Fira Mono', monospace !important;
-  font-size: 0.75em;
+  font-size: 0.8em;
   padding: 0 0.25rem;
 }
 </style>

@@ -1,26 +1,26 @@
 self.__precacheManifest = [
   {
-    "revision": "4ff42c44ef5e622547a2",
-    "url": "/css/app.3f8f0df3.css"
+    "revision": "d6c25349058336903137",
+    "url": "/css/app.9fe947b9.css"
   },
   {
-    "revision": "4ff42c44ef5e622547a2",
-    "url": "/js/app.0fc82645.js"
+    "revision": "d6c25349058336903137",
+    "url": "/js/app.032a23ef.js"
   },
   {
-    "revision": "32b96c47e9cd1bf61925",
-    "url": "/css/chunk-vendors.73f8e6f3.css"
+    "revision": "7799443c312758d24208",
+    "url": "/css/chunk-vendors.c3ee37b1.css"
   },
   {
-    "revision": "32b96c47e9cd1bf61925",
-    "url": "/js/chunk-vendors.ce389827.js"
+    "revision": "7799443c312758d24208",
+    "url": "/js/chunk-vendors.39997a77.js"
   },
   {
     "revision": "81120d2ffb3d9085f9d2c68603ec4075",
     "url": "/img/octopus-transparent.81120d2f.svg"
   },
   {
-    "revision": "03aa2edd222d57eef80dc36d2f974b13",
+    "revision": "523eacc87d589df7306f3a446941db9e",
     "url": "/index.html"
   },
   {
@@ -52,12 +52,12 @@ self.__precacheManifest = [
     "url": "/img/icons/favicon-32x32.png"
   },
   {
-    "revision": "ca9b72d123a80d2915c1292b975dfec1",
-    "url": "/img/icons/manifest.json"
-  },
-  {
     "revision": "124d7b46d9dd28f7cb9416eada31e15a",
     "url": "/img/icons/safari-pinned-tab.svg"
+  },
+  {
+    "revision": "ca9b72d123a80d2915c1292b975dfec1",
+    "url": "/img/icons/manifest.json"
   },
   {
     "revision": "f7e84a34609591028222d144b574cc00",
@@ -68,16 +68,16 @@ self.__precacheManifest = [
     "url": "/robots.txt"
   },
   {
-    "revision": "6dbbdf1b5e64fe6a73f4f366230ff660",
-    "url": "/welcome.md"
-  },
-  {
     "revision": "9a36d05e1fef61a943b075e11e659fd5",
     "url": "/img/icons/android-chrome-192x192.png"
   },
   {
     "revision": "9a36d05e1fef61a943b075e11e659fd5",
     "url": "/img/icons/android-chrome-maskable-192x192.png"
+  },
+  {
+    "revision": "6dbbdf1b5e64fe6a73f4f366230ff660",
+    "url": "/welcome.md"
   },
   {
     "revision": "057516409433c7d8662437f05073c5c1",
@@ -101,10 +101,10 @@ self.__precacheManifest = [
   },
   {
     "revision": "e01f6801c4b3748079c65e0950c5d910",
-    "url": "/img/icons/android-chrome-512x512.png"
+    "url": "/img/icons/android-chrome-maskable-512x512.png"
   },
   {
     "revision": "e01f6801c4b3748079c65e0950c5d910",
-    "url": "/img/icons/android-chrome-maskable-512x512.png"
+    "url": "/img/icons/android-chrome-512x512.png"
   }
 ];

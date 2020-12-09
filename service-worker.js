@@ -14,10 +14,10 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.ee722d69812c04b1c6b2b9d5f809d65a.js"
+  "/precache-manifest.3138a0e800e90e15032ab286ecf5dd70.js"
 );
 
-workbox.core.setCacheNameDetails({prefix: "octo"});
+workbox.core.setCacheNameDetails({prefix: "@voraciousdev/octo"});
 
 workbox.skipWaiting();
 workbox.clientsClaim();

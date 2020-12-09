@@ -10,7 +10,7 @@
 
 <p align="center">A writing app for developers</p>
 
-[![screenshot](resources/screenshot.png)](https://octo.app)
+[![screenshot](resources/combined.png)](https://octo.app)
 
 <p align="center">Follow <a href="https://twitter.com/voraciousdev">@voraciousdev</a> on Twitter for updates!</p>
 

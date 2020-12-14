@@ -1,6 +1,8 @@
-![latest tag](https://img.shields.io/github/v/tag/voraciousdev/octo?color=blue&label=latest%20tag&sort=semver)
-![license](https://img.shields.io/github/license/voraciousdev/octo)
-![open issues](https://img.shields.io/github/issues-raw/voraciousdev/octo)
+[![latest tag](https://img.shields.io/github/v/tag/voraciousdev/octo?color=blue&label=latest%20tag&sort=semver)](https://github.com/voraciousdev/octo/releases)
+[![license](https://img.shields.io/github/license/voraciousdev/octo)](https://github.com/voraciousdev/octo/blob/master/LICENSE)
+[![open issues](https://img.shields.io/github/issues-raw/voraciousdev/octo)](https://github.com/voraciousdev/octo/issues)
+[![chat on discord](https://img.shields.io/badge/chat-on%20discord-7289da)](https://discord.gg/NWH9kFq5mb)
+[![follow on twitter](https://img.shields.io/badge/follow-on%20twitter-1da1f2)](https://twitter.com/writewithocto)
 
 <p align="center">
   <a href="https://octo.app">
@@ -11,8 +13,6 @@
 <p align="center">A writing app for developers</p>
 
 [![screenshot](resources/combined.png)](https://octo.app)
-
-<p align="center">Follow <a href="https://twitter.com/voraciousdev">@voraciousdev</a> on Twitter for updates!</p>
 
 ## Features
 

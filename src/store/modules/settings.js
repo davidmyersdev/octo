@@ -1,3 +1,5 @@
+import deepmerge from 'deepmerge';
+
 export const LOAD_SETTINGS = 'LOAD_SETTINGS';
 export const SET_CRYPTO_ENABLED = 'SET_CRYPTO_ENABLED';
 export const SET_CRYPTO_KEYS = 'SET_CRYPTO_KEYS';
@@ -23,8 +25,7 @@ export default {
   },
   mutations: {
     [LOAD_SETTINGS] (state, settings) {
-      // shallow merge
-      Object.assign(state, settings);
+      Object.assign(state, deepmerge(state, settings));
     },
     [SET_CRYPTO_ENABLED] (state, enabled) {
       state.crypto.enabled = enabled;

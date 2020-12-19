@@ -3,6 +3,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import { codemirror } from 'vue-codemirror';
 
 // import codemirror dependencies
@@ -14,7 +15,10 @@ import 'codemirror/mode/markdown/markdown';
 import 'codemirror/theme/yeti.css';
 
 import { loadMode, loadVim } from '@/common/codemirror_helper';
-import { parseCodeblocks } from '@/common/parsers';
+import Markdown from '@/common/markdown/markdown'
+import MarkdownEditorImage from '@/components/MarkdownEditorImage';
+
+const ImageInstance = Vue.extend(MarkdownEditorImage);
 
 export default {
   name: 'MarkdownEditor',
@@ -47,6 +51,8 @@ export default {
     return {
       editor: null,
       isInitialVimModeSet: false,
+      text: '',
+      widgets: [],
     };
   },
   watch: {
@@ -56,7 +62,10 @@ export default {
   },
   computed: {
     codeblocks() {
-      return parseCodeblocks(this.value);
+      return this.markdown.codeblocks()
+    },
+    images() {
+      return this.markdown.images()
     },
     keyMap() {
       if (this.settings.keyMap === 'vim' && !this.$store.state.vimLoaded) {
@@ -64,6 +73,9 @@ export default {
       }
 
       return this.settings.keyMap;
+    },
+    markdown() {
+      return new Markdown(this.text)
     },
     options() {
       return {
@@ -106,6 +118,28 @@ export default {
     focusStart() {
       this.editor.setCursor({ line: 0, ch: 0 });
     },
+    loadImages() {
+      // clear all line widgets
+      // TODO: only clear the ones that change
+      this.widgets.forEach(widget => this.editor.removeLineWidget(widget))
+
+      this.images.forEach((image) => {
+        let lineWidget
+
+        const component = new ImageInstance({
+          propsData: {
+            alt: image.alt,
+            onError: () => lineWidget.changed(),
+            onLoad: () => lineWidget.changed(),
+            source: image.url,
+          },
+        })
+
+        lineWidget = this.editor.addLineWidget(image.line, component.$mount().$el, { above: true })
+
+        this.widgets.push(lineWidget)
+      })
+    },
     loadModes() {
       this.codeblocks.forEach((codeblock) => {
         if (codeblock.language) {
@@ -143,11 +177,14 @@ export default {
       }
     },
     onInput(text) {
+      this.text = text
+
       if (text !== this.value) {
         // prevent CM input events on :value changes
         this.$emit('input', text);
       }
 
+      this.loadImages()
       this.loadModes();
     },
     onModeLoad() {
@@ -162,6 +199,7 @@ export default {
     },
     onReady(instance) {
       this.editor = instance;
+      this.text = this.editor.getValue()
 
       this.maybeLoadVim();
       this.maybeSetVimMode();
@@ -172,6 +210,7 @@ export default {
       });
 
       this.$emit('ready', instance);
+      this.loadImages();
       this.loadModes();
     },
   },
@@ -223,6 +262,11 @@ export default {
   position: relative;
   font-size: 1em;
   line-height: 2.25em;
+}
+
+.CodeMirror pre.CodeMirror-line,
+.CodeMirror pre.CodeMirror-line-like {
+  padding: 0;
 }
 
 .CodeMirror .cm-header-1 {

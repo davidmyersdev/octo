@@ -200,6 +200,10 @@ a, a:hover {
   font-family: 'Fira Mono', monospace !important;
 }
 
+.sans-serif {
+  font-family: 'Fira Sans', arial !important;
+}
+
 .card {
   background-color: #1a1a1a;
   margin-bottom: 1em;

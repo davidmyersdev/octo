@@ -1,4 +1,5 @@
 const codeRegex = /```([^\n\s]*)(?:\s([\w-]+\.[\w]+))?\n(.*?)```/gs;
+const imageTagRegex = /\!\[(.*?)\]\((.+?)\)/g;
 const tagsRegex = /````.*?````|```.*?```|``.*?``|`.*?`|\w+:\/?\/?\S*|#([\w-]+)/gs;
 const tasksRegex = /````.*?````|```.*?```|``.*?``|`.*?`|\-\ \[\ \] ([^\n]+)/gs;
 
@@ -23,6 +24,22 @@ export const parseCodeblocks = (text) => {
       language: match[1],
       code: match[3],
     });
+  });
+
+  return results;
+};
+
+export const parseImages = (text) => {
+  let matches = parse(imageTagRegex, text);
+  let results = [];
+
+  matches.forEach((match) => {
+    if (match[2]) {
+      results.push({
+        alt: match[1],
+        url: match[2],
+      });
+    }
   });
 
   return results;
@@ -57,5 +74,6 @@ export const parseTasks = (text) => {
 export default {
   parse,
   parseCodeblocks,
+  parseImages,
   parseTags,
 };

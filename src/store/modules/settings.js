@@ -3,6 +3,8 @@ import deepmerge from 'deepmerge';
 export const LOAD_SETTINGS = 'LOAD_SETTINGS';
 export const SET_CRYPTO_ENABLED = 'SET_CRYPTO_ENABLED';
 export const SET_CRYPTO_KEYS = 'SET_CRYPTO_KEYS';
+export const SET_EDITOR_IMAGES_ENABLED = 'SET_EDITOR_IMAGES_ENABLED';
+export const SET_EDITOR_IMAGES_SHOW_CAPTIONS = 'SET_EDITOR_IMAGES_SHOW_CAPTIONS';
 export const SET_EDITOR_KEY_MAP = 'SET_EDITOR_KEY_MAP';
 export const SET_EDITOR_TAB_SIZE = 'SET_EDITOR_TAB_SIZE';
 export const SETTINGS_LOADED = 'SETTINGS_LOADED';
@@ -15,8 +17,12 @@ export default {
       publicKey: null,
     },
     editor: {
-      tabSize: 2,
+      images: {
+        enabled: true,
+        showCaptions: true,
+      },
       keyMap: 'default',
+      tabSize: 2,
     },
     loaded: false,
   }),
@@ -39,6 +45,12 @@ export default {
         state.crypto.publicKey = keys.publicKey;
       }
     },
+    [SET_EDITOR_IMAGES_ENABLED] (state, isEnabled) {
+      state.editor.images.enabled = isEnabled;
+    },
+    [SET_EDITOR_IMAGES_SHOW_CAPTIONS] (state, showCaptions) {
+      state.editor.images.showCaptions = showCaptions;
+    },
     [SET_EDITOR_KEY_MAP] (state, keyMap) {
       state.editor.keyMap = keyMap;
     },
@@ -58,6 +70,12 @@ export default {
     },
     async [SET_CRYPTO_KEYS] (context, keys) {
       context.commit(SET_CRYPTO_KEYS, keys);
+    },
+    async [SET_EDITOR_IMAGES_ENABLED] (context, isEnabled) {
+      context.commit(SET_EDITOR_IMAGES_ENABLED, isEnabled);
+    },
+    async [SET_EDITOR_IMAGES_SHOW_CAPTIONS] (context, showCaptions) {
+      context.commit(SET_EDITOR_IMAGES_SHOW_CAPTIONS, showCaptions);
     },
     async [SET_EDITOR_KEY_MAP] (context, keyMap) {
       context.commit(SET_EDITOR_KEY_MAP, keyMap);

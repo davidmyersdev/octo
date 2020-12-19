@@ -2,7 +2,7 @@
   <div class="container rounded d-flex align-items-center justify-content-center p-3 mw-100 mb-2">
     <figure class="m-0">
       <img :src="source" @load="onLoad" @error="onError" :alt="alt" class="mw-100">
-      <figcaption v-if="alt" class="sans-serif text-center mt-3"><small>{{ alt }}</small></figcaption>
+      <figcaption v-if="showCaptions && alt" class="sans-serif text-center mt-3"><small>{{ alt }}</small></figcaption>
     </figure>
   </div>
 </template>
@@ -14,6 +14,7 @@ export default {
     alt: String,
     onError: Function,
     onLoad: Function,
+    showCaptions: Boolean,
     source: String,
   },
 };

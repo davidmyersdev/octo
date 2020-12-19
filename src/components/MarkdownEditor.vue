@@ -123,22 +123,25 @@ export default {
       // TODO: only clear the ones that change
       this.widgets.forEach(widget => this.editor.removeLineWidget(widget))
 
-      this.images.forEach((image) => {
-        let lineWidget
+      if (this.settings.images.enabled) {
+        this.images.forEach((image) => {
+          let lineWidget
 
-        const component = new ImageInstance({
-          propsData: {
-            alt: image.alt,
-            onError: () => lineWidget.changed(),
-            onLoad: () => lineWidget.changed(),
-            source: image.url,
-          },
+          const component = new ImageInstance({
+            propsData: {
+              alt: image.alt,
+              onError: () => lineWidget.changed(),
+              onLoad: () => lineWidget.changed(),
+              showCaptions: this.settings.images.showCaptions,
+              source: image.url,
+            },
+          })
+
+          lineWidget = this.editor.addLineWidget(image.line, component.$mount().$el, { above: true })
+
+          this.widgets.push(lineWidget)
         })
-
-        lineWidget = this.editor.addLineWidget(image.line, component.$mount().$el, { above: true })
-
-        this.widgets.push(lineWidget)
-      })
+      }
     },
     loadModes() {
       this.codeblocks.forEach((codeblock) => {

@@ -229,6 +229,10 @@ export default {
   color: #9e9e9e;
 }
 
+.CodeMirror.cm-s-yeti .cm-formatting-em, .CodeMirror.cm-s-yeti .cm-formatting-strong, .CodeMirror.cm-s-yeti .cm-formatting-strikethrough {
+  color: #444;
+}
+
 .CodeMirror.CodeMirror-focused.cm-s-yeti .CodeMirror-selected, .CodeMirror.cm-s-yeti .CodeMirror-selected {
   background: #555;
 }

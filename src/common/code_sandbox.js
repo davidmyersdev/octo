@@ -1,5 +1,4 @@
 export const create = (files) => {
-  console.log('files', files);
   const options = {
     method: 'POST',
     headers: {

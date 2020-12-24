@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import VueMq from 'vue-mq'
 
-import App from '@/App.vue';
+import App from '@/App'
+import Extendable from '@/components/Extendable'
 
 import router from '@/router';
 import store from '@/store';
@@ -18,6 +19,10 @@ import {
   SET_ONLINE,
 } from '@/store/actions';
 
+import PackageManager from '@/packages/manager'
+
+Vue.prototype.$packageManager = PackageManager
+
 Vue.use(VueMq, {
   breakpoints: {
     // breakpoints match as `screen_size <= value`
@@ -28,6 +33,8 @@ Vue.use(VueMq, {
     xl: Infinity,
   },
 });
+
+Vue.component('Extendable', Extendable)
 
 new Vue({
   router,

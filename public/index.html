@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="h-100">
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
 
     <title>octo</title>
 
@@ -12,12 +12,24 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/darkly/bootstrap.min.css" integrity="sha384-Bo21yfmmZuXwcN/9vKrA5jPUMhr7znVBBeLxT9MA4r2BchhusfJ6+n8TLGUcRAtL" crossorigin="anonymous">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js" integrity="sha256-5oApc/wMda1ntIEK4qoWJ4YItnV4fBHMwywunj8gPqc=" crossorigin="anonymous"></script>
+
+    <style>
+      html {
+        height: -webkit-fill-available;
+      }
+
+      body, #app {
+        height: 100vh;
+        height: -webkit-fill-available;
+      }
+    </style>
   </head>
-  <body class="h-100">
+  <body class="d-flex flex-column">
     <noscript>
       <strong>Octo does not work without JavaScript. Please enable it to continue.</strong>
     </noscript>
-    <div id="app" class="h-100"></div>
+    <!-- #app is replaced by App.vue -->
+    <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
 </html>

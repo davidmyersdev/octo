@@ -1,8 +1,12 @@
 <template>
-  <div class="d-flex align-items-stretch">
-    <TheLeftSidebar v-if="!mobile && showLeftSidebar" class="sidebar d-none d-md-flex bg-darker" />
-    <TheContent class="flex-grow-1" />
-    <TheRightSidebar v-if="!mobile && showRightSidebar && currentDoc" class="sidebar d-none d-md-flex bg-darker" />
+  <div class="d-flex flex-column">
+    <div class="d-flex flex-grow-1 flex-shrink-1 min-h-0">
+      <TheLeftSidebar v-if="!mobile && showLeftSidebar" class="sidebar d-none d-md-flex bg-darker" />
+      <div class="d-flex flex-column flex-grow-1 flex-shrink-1 min-h-0">
+        <TheContent class="flex-grow-1 flex-shrink-1 min-h-0" />
+      </div>
+      <TheRightSidebar v-if="!mobile && showRightSidebar && currentDoc" class="sidebar d-none d-md-flex bg-darker" />
+    </div>
   </div>
 </template>
 

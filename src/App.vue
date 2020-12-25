@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="d-flex flex-column h-100" :class="sizes">
+  <div id="app" class="d-flex flex-column flex-grow-1 flex-shrink-1" :class="sizes">
     <simplebar v-if="context.active || context.editing" class="context-banner relative-fixed">
       <div class="d-flex align-items-center text-center">
         <div v-if="contextTags.length" class="context-tags">
@@ -13,8 +13,8 @@
         </div>
       </div>
     </simplebar>
-    <div class="flex-grow-1 position-relative overflow-hidden">
-      <router-view class="d-flex h-100"></router-view>
+    <div class="d-flex flex-column flex-grow-1 flex-shrink-1 position-relative min-h-0">
+      <router-view class="flex-grow-1 flex-shrink-1 min-h-0"></router-view>
       <div class="card notification position-fixed top-0 right-0 m-3 m-md-2" :class="{ 'd-none': !showModal }">
         <div class="card-body notification-body">
           <p>An update is available. Refresh the app to apply.</p>

@@ -1,79 +1,79 @@
-const codeRegex = /```([^\n\s]*)(?:\s([\w-]+\.[\w]+))?\n(.*?)```/gs;
-const imageTagRegex = /\!\[(.*?)\]\((.+?)\)/g;
-const tagsRegex = /````.*?````|```.*?```|``.*?``|`.*?`|\w+:\/?\/?\S*|#([\w-]+)/gs;
-const tasksRegex = /````.*?````|```.*?```|``.*?``|`.*?`|\-\ \[\ \] ([^\n]+)/gs;
+const codeRegex = /```([^\n\s]*)(?:\s([\w-]+\.[\w]+))?\n(.*?)```/gs
+const imageTagRegex = /!\[(.*?)\]\((.+?)\)/g
+const tagsRegex = /````.*?````|```.*?```|``.*?``|`.*?`|\w+:\/?\/?\S*|#([\w-]+)/gs
+const tasksRegex = /````.*?````|```.*?```|``.*?``|`.*?`|- \[ \] ([^\n]+)/gs
 
 export const parse = (regex, text) => {
-  let matches = [];
-  let results = [];
+  let matches = []
+  const results = []
 
   while (matches = regex.exec(text)) {
-    results.push(matches);
+    results.push(matches)
   }
 
-  return results;
-};
+  return results
+}
 
 export const parseCodeblocks = (text) => {
-  let matches = parse(codeRegex, text);
-  let results = [];
+  const matches = parse(codeRegex, text)
+  const results = []
 
   matches.forEach((match) => {
     results.push({
       filename: match[2],
       language: match[1],
       code: match[3],
-    });
-  });
+    })
+  })
 
-  return results;
-};
+  return results
+}
 
 export const parseImages = (text) => {
-  let matches = parse(imageTagRegex, text);
-  let results = [];
+  const matches = parse(imageTagRegex, text)
+  const results = []
 
   matches.forEach((match) => {
     if (match[2]) {
       results.push({
         alt: match[1],
         url: match[2],
-      });
+      })
     }
-  });
+  })
 
-  return results;
-};
+  return results
+}
 
 export const parseTags = (text) => {
-  let matches = parse(tagsRegex, text);
-  let tags = new Set();
+  const matches = parse(tagsRegex, text)
+  const tags = new Set()
 
   matches.forEach((match) => {
     if (match[1]) {
-      tags.add(match[1].toLowerCase());
+      tags.add(match[1].toLowerCase())
     }
-  });
+  })
 
-  return Array.from(tags).sort();
-};
+  return Array.from(tags).sort()
+}
 
 export const parseTasks = (text) => {
-  let matches = parse(tasksRegex, text);
-  let results = [];
+  const matches = parse(tasksRegex, text)
+  const results = []
 
   matches.forEach((match) => {
     if (match[1]) {
-      results.push(match[1]);
+      results.push(match[1])
     }
-  });
+  })
 
-  return results;
-};
+  return results
+}
 
 export default {
   parse,
   parseCodeblocks,
   parseImages,
   parseTags,
-};
+}

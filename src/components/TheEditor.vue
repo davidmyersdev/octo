@@ -19,7 +19,8 @@
 import Doc from '@/models/doc';
 
 import InfoLabel from '@/components/labels/Info';
-import MarkdownEditor from '@/components/MarkdownEditor';
+// figure out what is happening here...
+import MarkdownEditor from '@voraciousdev/octo-markdown-editor';
 import Tag from '@/components/Tag';
 
 import {

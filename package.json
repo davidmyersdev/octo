@@ -10,6 +10,7 @@
     "serve_prod": "npm run build_prod && serve -l 8889 -s ./dist"
   },
   "dependencies": {
+    "@voraciousdev/octo-markdown-editor": "file:lib/markdown-editor",
     "core-js": "^2.6.11",
     "deepmerge": "^4.2.2",
     "localforage": "^1.7.4",
@@ -18,7 +19,6 @@
     "simplebar-vue": "^1.6.0",
     "uuid": "^8.1.0",
     "vue": "^2.6.11",
-    "vue-codemirror": "^4.0.6",
     "vue-mq": "^1.0.1",
     "vue-router": "^3.3.1",
     "vuex": "^3.4.0"

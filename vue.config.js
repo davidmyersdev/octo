@@ -1,4 +1,5 @@
 module.exports = {
+  chainWebpack: config => config.resolve.set('symlinks', false),
   productionSourceMap: false,
   pwa: {
     manifestOptions: {

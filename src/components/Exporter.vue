@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import MarkdownEditor from '@/components/MarkdownEditor';
+import MarkdownEditor from '@voraciousdev/octo-markdown-editor';
 
 export default {
   name: 'Exporter',

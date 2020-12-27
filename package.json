@@ -10,7 +10,7 @@
     "serve_prod": "npm run build_prod && serve -l 8889 -s ./dist"
   },
   "dependencies": {
-    "@voraciousdev/octo-markdown-editor": "file:lib/markdown-editor",
+    "@voraciousdev/vue-markdown-editor": "file:lib/vue-markdown-editor",
     "core-js": "^2.6.11",
     "deepmerge": "^4.2.2",
     "localforage": "^1.7.4",

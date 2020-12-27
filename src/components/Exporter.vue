@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import MarkdownEditor from '@voraciousdev/octo-markdown-editor';
+import MarkdownEditor from '@voraciousdev/vue-markdown-editor';
 
 export default {
   name: 'Exporter',

@@ -15,7 +15,7 @@ import 'codemirror/mode/gfm/gfm'
 import 'codemirror/mode/markdown/markdown'
 import 'codemirror/theme/yeti.css'
 
-import { loadMode, loadVim } from '@/common/codemirror/codemirror'
+import { isVimLoaded, loadMode, loadVim } from '@/common/codemirror/codemirror'
 import Markdown from '@/common/markdown/markdown'
 import MarkdownEditorImage from '@/components/MarkdownEditorImage'
 
@@ -61,12 +61,13 @@ export default {
       },
       editor: null,
       isInitialVimModeSet: false,
+      isVimLoaded: false,
       text: '',
       widgets: [],
     }
   },
   watch: {
-    'settings.keyMap': () => {
+    settings() {
       this.maybeLoadVim()
     },
   },
@@ -81,9 +82,7 @@ export default {
       return this.markdown.images()
     },
     keyMap() {
-      if (this.config.keyMap === 'vim' && !this.$store.state.vimLoaded) {
-        return 'default'
-      }
+      if (this.config.keyMap === 'vim' && !this.isVimLoaded) return 'default'
 
       return this.config.keyMap
     },
@@ -163,21 +162,15 @@ export default {
         if (codeblock.language) {
           // language specified
           loadMode(codeblock.language, {
-            onload: this.onModeLoad,
+            onload: this.refresh,
           })
         }
       })
     },
     maybeLoadVim() {
-      if (this.config.keyMap === 'vim' && !this.$store.state.vimLoaded) {
+      if (this.settings.keyMap === 'vim' && !this.isVimLoaded) {
         loadVim({
-          onload: () => {
-            // update the keymap
-            this.$store.commit('SET_VIM_LOADED', true)
-          },
-          onerror: () => {
-            // todo: handle errors
-          },
+          onload: () => { this.isVimLoaded = true },
         })
       }
     },
@@ -205,16 +198,6 @@ export default {
       this.loadImages()
       this.loadModes()
     },
-    onModeLoad() {
-      // get current cursor position
-      const cursor = this.editor.getCursor()
-
-      // refresh editor
-      this.editor.setValue(this.editor.getValue())
-
-      // set cursor position back to where it was
-      this.editor.setCursor(cursor)
-    },
     onReady(instance) {
       this.editor = instance
       this.text = this.editor.getValue()
@@ -231,6 +214,19 @@ export default {
       this.loadImages()
       this.loadModes()
     },
+    refresh() {
+      // get current cursor position
+      const cursor = this.editor.getCursor()
+
+      // refresh editor
+      this.editor.setValue(this.editor.getValue())
+
+      // set cursor position back to where it was
+      this.editor.setCursor(cursor)
+    },
+  },
+  created() {
+    this.isVimLoaded = isVimLoaded()
   },
 }
 </script>

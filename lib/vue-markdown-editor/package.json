@@ -1,0 +1,50 @@
+{
+  "name": "@voraciousdev/vue-markdown-editor",
+  "version": "v0.0.1",
+  "private": true,
+  "main": "./dist/MarkdownEditor.umd.js",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build --target lib --name MarkdownEditor ./src/components/MarkdownEditor.vue",
+    "test:unit": "vue-cli-service test:unit",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "codemirror": "^5.59.0",
+    "core-js": "^3.6.5",
+    "deepmerge": "^4.2.2",
+    "vue": "^2.6.11",
+    "vue-class-component": "^7.2.3",
+    "vue-codemirror": "^4.0.6",
+    "vue-property-decorator": "^8.4.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.19",
+    "@typescript-eslint/eslint-plugin": "^2.33.0",
+    "@typescript-eslint/parser": "^2.33.0",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-typescript": "~4.5.0",
+    "@vue/cli-plugin-unit-jest": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/eslint-config-airbnb": "^5.0.2",
+    "@vue/eslint-config-typescript": "^5.0.2",
+    "@vue/test-utils": "^1.0.3",
+    "eslint": "^6.7.2",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-vue": "^6.2.2",
+    "identity-obj-proxy": "^3.0.0",
+    "lint-staged": "^9.5.0",
+    "typescript": "~3.9.3",
+    "vue-template-compiler": "^2.6.11"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,vue,ts,tsx}": [
+      "vue-cli-service lint",
+      "git add"
+    ]
+  }
+}

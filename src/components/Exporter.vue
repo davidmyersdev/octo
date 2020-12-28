@@ -1,13 +1,11 @@
 <template>
   <div class="container-lg d-flex">
-    <div class="editor w-100">
-      <MarkdownEditor ref="editable" class="editable" :value="value" />
-    </div>
+    <MarkdownEditor ref="editable" class="editable w-100" :value="value" />
   </div>
 </template>
 
 <script>
-import MarkdownEditor from '@/components/MarkdownEditor';
+import MarkdownEditor from '@voraciousdev/vue-markdown-editor';
 
 export default {
   name: 'Exporter',
@@ -29,21 +27,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-  /* Duped from TheEditor for now */
-  .editor {
-    background: url('~@/assets/octopus-transparent.svg') center center no-repeat;
-    background-size: 50% 50%;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    margin: auto;
-    min-height: 30rem;
-  }
-
-  .editor .editable {
-    outline: none;
-    white-space: pre-wrap;
-  }
-</style>

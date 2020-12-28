@@ -3,22 +3,23 @@
 </template>
 
 <script>
-import Vue from 'vue';
-import { codemirror } from 'vue-codemirror';
+import deepmerge from 'deepmerge'
+import Vue from 'vue'
+import { codemirror } from 'vue-codemirror'
 
 // import codemirror dependencies
-import 'codemirror/addon/mode/overlay';
-import 'codemirror/addon/mode/simple';
-import 'codemirror/lib/codemirror.css';
-import 'codemirror/mode/gfm/gfm';
-import 'codemirror/mode/markdown/markdown';
-import 'codemirror/theme/yeti.css';
+import 'codemirror/addon/mode/overlay'
+import 'codemirror/addon/mode/simple'
+import 'codemirror/lib/codemirror.css'
+import 'codemirror/mode/gfm/gfm'
+import 'codemirror/mode/markdown/markdown'
+import 'codemirror/theme/yeti.css'
 
-import { loadMode, loadVim } from '@/common/codemirror_helper';
+import { isVimLoaded, loadMode, loadVim } from '@/common/codemirror/codemirror'
 import Markdown from '@/common/markdown/markdown'
-import MarkdownEditorImage from '@/components/MarkdownEditorImage';
+import MarkdownEditorImage from '@/components/MarkdownEditorImage'
 
-const ImageInstance = Vue.extend(MarkdownEditorImage);
+const GenerateImage = () => (Vue.extend(MarkdownEditorImage))
 
 export default {
   name: 'MarkdownEditor',
@@ -33,7 +34,7 @@ export default {
         line: 0,
       }),
       validator: (cursor) => (
-        cursor.hasOwnProperty('character') && cursor.hasOwnProperty('line')
+        Object.prototype.hasOwnProperty.call(cursor, 'character') && Object.prototype.hasOwnProperty.call(cursor, 'line')
       ),
     },
     initialVimMode: {
@@ -49,30 +50,41 @@ export default {
   },
   data() {
     return {
+      defaultConfig: {
+        images: {
+          enabled: false,
+          showCaptions: false,
+        },
+        keyMap: 'default',
+        mode: 'gfm',
+        tabSize: 2,
+      },
       editor: null,
       isInitialVimModeSet: false,
+      isVimLoaded: false,
       text: '',
       widgets: [],
-    };
+    }
   },
   watch: {
-    ['settings.keyMap'] () {
-      this.maybeLoadVim();
+    settings() {
+      this.maybeLoadVim()
     },
   },
   computed: {
     codeblocks() {
       return this.markdown.codeblocks()
     },
+    config() {
+      return deepmerge(this.defaultConfig, this.settings)
+    },
     images() {
       return this.markdown.images()
     },
     keyMap() {
-      if (this.settings.keyMap === 'vim' && !this.$store.state.vimLoaded) {
-        return 'default';
-      }
+      if (this.config.keyMap === 'vim' && !this.isVimLoaded) return 'default'
 
-      return this.settings.keyMap;
+      return this.config.keyMap
     },
     markdown() {
       return new Markdown(this.text)
@@ -84,55 +96,57 @@ export default {
           // use spaces instead of tabs
           // https://github.com/codemirror/CodeMirror/issues/988#issuecomment-14921785
           'Shift-Tab': (instance) => {
-            instance.indentSelection('subtract');
+            instance.indentSelection('subtract')
           },
-          'Tab': (instance) => {
+          Tab: (instance) => {
             if (instance.somethingSelected()) {
-              instance.indentSelection('add');
+              instance.indentSelection('add')
             } else {
-              instance.replaceSelection(Array(instance.getOption('tabSize') + 1).join(' '), 'end', '+input');
+              instance.replaceSelection(Array(instance.getOption('tabSize') + 1).join(' '), 'end', '+input')
             }
           },
         },
-        indentUnit: this.settings.tabSize || 2,
+        indentUnit: this.config.tabSize,
         indentWithTabs: false,
         keyMap: this.keyMap,
         lineWrapping: true,
         mode: {
-          name: 'gfm',
+          name: this.config.mode,
           highlightFormatting: true,
         },
         singleCursorHeightPerLine: true,
-        tabSize: this.settings.tabSize || 2,
+        tabSize: this.config.tabSize,
         theme: 'yeti',
-      };
+      }
     },
   },
   methods: {
     focus() {
-      this.editor.focus();
+      this.editor.focus()
     },
     focusEnd() {
-      this.editor.setCursor({ line: this.editor.lineCount(), ch: 0 });
+      this.editor.setCursor({ line: this.editor.lineCount(), ch: 0 })
     },
     focusStart() {
-      this.editor.setCursor({ line: 0, ch: 0 });
+      this.editor.setCursor({ line: 0, ch: 0 })
     },
     loadImages() {
       // clear all line widgets
       // TODO: only clear the ones that change
-      this.widgets.forEach(widget => this.editor.removeLineWidget(widget))
+      this.widgets.forEach((widget) => this.editor.removeLineWidget(widget))
 
-      if (this.settings.images.enabled) {
+      if (this.config.images.enabled) {
         this.images.forEach((image) => {
           let lineWidget
+
+          const ImageInstance = GenerateImage()
 
           const component = new ImageInstance({
             propsData: {
               alt: image.alt,
               onError: () => lineWidget.changed(),
               onLoad: () => lineWidget.changed(),
-              showCaptions: this.settings.images.showCaptions,
+              showCaptions: this.config.images.showCaptions,
               source: image.url,
             },
           })
@@ -148,35 +162,29 @@ export default {
         if (codeblock.language) {
           // language specified
           loadMode(codeblock.language, {
-            onload: this.onModeLoad,
-          });
+            onload: this.refresh,
+          })
         }
-      });
+      })
     },
     maybeLoadVim() {
-      if (this.settings.keyMap === 'vim' && !this.$store.state.vimLoaded) {
+      if (this.settings.keyMap === 'vim' && !this.isVimLoaded) {
         loadVim({
-          onload: () => {
-            // update the keymap
-            this.$store.commit('SET_VIM_LOADED', true);
-          },
-          onerror: () => {
-            // todo: handle errors
-          },
-        });
+          onload: () => { this.isVimLoaded = true },
+        })
       }
     },
     maybeSetVimMode() {
       if (this.initialVimMode && !this.isInitialVimModeSet && this.keyMap === 'vim') {
-        this.editor.setOption('keyMap', this.initialVimMode || this.keyMap);
+        this.editor.setOption('keyMap', this.initialVimMode || this.keyMap)
 
         if (this.initialVimMode === 'vim-insert') {
-          this.editor.state.vim.insertMode = true;
-          this.editor.setOption('disableInput', false);
-          window.CodeMirror.signal(this.editor, "vim-mode-change", { mode: "insert" });
+          this.editor.state.vim.insertMode = true
+          this.editor.setOption('disableInput', false)
+          window.CodeMirror.signal(this.editor, 'vim-mode-change', { mode: 'insert' })
         }
 
-        this.isInitialVimModeSet = true;
+        this.isInitialVimModeSet = true
       }
     },
     onInput(text) {
@@ -184,40 +192,43 @@ export default {
 
       if (text !== this.value) {
         // prevent CM input events on :value changes
-        this.$emit('input', text);
+        this.$emit('input', text)
       }
 
       this.loadImages()
-      this.loadModes();
-    },
-    onModeLoad() {
-      // get current cursor position
-      const cursor = this.editor.getCursor();
-
-      // refresh editor
-      this.editor.setValue(this.editor.getValue());
-
-      // set cursor position back to where it was
-      this.editor.setCursor(cursor);
+      this.loadModes()
     },
     onReady(instance) {
-      this.editor = instance;
+      this.editor = instance
       this.text = this.editor.getValue()
 
-      this.maybeLoadVim();
-      this.maybeSetVimMode();
+      this.maybeLoadVim()
+      this.maybeSetVimMode()
 
       this.editor.setCursor({
         ch: this.initialCursor.character,
         line: this.initialCursor.line,
-      });
+      })
 
-      this.$emit('ready', instance);
-      this.loadImages();
-      this.loadModes();
+      this.$emit('ready', instance)
+      this.loadImages()
+      this.loadModes()
+    },
+    refresh() {
+      // get current cursor position
+      const cursor = this.editor.getCursor()
+
+      // refresh editor
+      this.editor.setValue(this.editor.getValue())
+
+      // set cursor position back to where it was
+      this.editor.setCursor(cursor)
     },
   },
-};
+  created() {
+    this.isVimLoaded = isVimLoaded()
+  },
+}
 </script>
 
 <style>

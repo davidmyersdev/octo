@@ -17,7 +17,7 @@ export default {
     showCaptions: Boolean,
     source: String,
   },
-};
+}
 </script>
 
 <style scoped>

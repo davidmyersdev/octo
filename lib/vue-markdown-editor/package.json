@@ -1,7 +1,7 @@
 {
   "name": "@voraciousdev/vue-markdown-editor",
   "license": "MIT",
-  "version": "v0.0.1",
+  "version": "v0.1.0",
   "main": "./dist/MarkdownEditor.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -38,6 +38,7 @@
     "typescript": "~3.9.3",
     "vue-template-compiler": "^2.6.11"
   },
+  "files": [ "dist", "src" ],
   "gitHooks": {
     "pre-commit": "lint-staged"
   },

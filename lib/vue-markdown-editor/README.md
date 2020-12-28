@@ -4,6 +4,8 @@ A Markdown editor component for Vue that renders in place without the need for a
 
 ![screenshot](images/screenshot.png)
 
+Check out a quick demo [on YouTube](https://youtu.be/LfhkoCAK6aA).
+
 ## Features
 
 ### Dark Theme

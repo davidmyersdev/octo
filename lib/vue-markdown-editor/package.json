@@ -1,5 +1,6 @@
 {
   "name": "@voraciousdev/vue-markdown-editor",
+  "license": "MIT",
   "version": "v0.0.1",
   "main": "./dist/MarkdownEditor.umd.js",
   "scripts": {

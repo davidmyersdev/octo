@@ -1,7 +1,6 @@
 {
   "name": "@voraciousdev/vue-markdown-editor",
   "version": "v0.0.1",
-  "private": true,
   "main": "./dist/MarkdownEditor.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve",

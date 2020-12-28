@@ -2,6 +2,8 @@
 
 A Markdown editor component for Vue that renders in place without the need for a preview pane. This is the component that powers [Octo](https://github.com/voraciousdev/octo).
 
+![screenshot](images/screenshot.png)
+
 ## Features
 
 ### Dark Theme

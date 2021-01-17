@@ -8,6 +8,7 @@ import Dashboard from './views/Dashboard';
 import Context from './components/Context';
 import DocumentList from './components/DocumentList';
 import Exporter from './components/Exporter';
+import Graph from './components/Graph';
 import Importer from './components/Importer';
 import QuickAction from './components/QuickAction';
 import TagList from './components/TagList';
@@ -152,6 +153,12 @@ const router = new Router({
           path: 'settings',
           name: 'settings',
           component: TheSettings,
+        },
+        // graph view
+        {
+          path: 'graph',
+          name: 'graph',
+          component: Graph,
         },
       ],
     },

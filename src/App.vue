@@ -85,7 +85,6 @@ export default {
 <style>
 * {
   box-sizing: border-box;
-  letter-spacing: 0.075em;
 }
 
 body {

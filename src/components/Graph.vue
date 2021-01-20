@@ -26,7 +26,10 @@ export default {
   watch: {
     graph() {
       if (this.instance) {
-        this.instance.graphData(this.graph)
+        this.instance
+          .graphData(this.graph)
+          .height(this.$refs.graph.clientHeight)
+          .width(this.$refs.graph.clientWidth)
       }
     },
   },

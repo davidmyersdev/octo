@@ -291,6 +291,10 @@ svg {
   bottom: 1rem !important;
 }
 
+.left-0 {
+  left: 0 !important;
+}
+
 .right-0 {
   right: 0 !important;
 }

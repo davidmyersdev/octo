@@ -1,6 +1,6 @@
 <template>
   <div class="d-flex flex-column flex-md-row align-items-stretch justify-content-end">
-    <div ref="graph" class="graph d-flex flex-column overflow-hidden position-fixed top-0 bottom-0"></div>
+    <div ref="graph" class="graph d-flex flex-column overflow-hidden position-fixed left-0 right-0 top-0 bottom-0"></div>
     <div v-if="selectedTag" class="docs d-flex flex-column">
       <DocumentList :tag="selectedTag" class="z-index-1" />
     </div>

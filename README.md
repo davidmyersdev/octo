@@ -10,32 +10,45 @@
   </a>
 </p>
 
-<p align="center">A writing app for developers</p>
+<p align="center">A hackable, offline-first markdown editor for notes, code snippets, and writing that runs entirely in-browser.</p>
 
 [![screenshot](resources/combined.png)](https://octo.app)
 
 ## Features
 
-- **Autosave** - No need to hit save
-- **Client-Side Encryption** - Uses a [hybrid cryptosystem](https://en.wikipedia.org/wiki/Hybrid_cryptosystem) approach to reap the benefits of both public-key and symmetric encryption
-- **CodeSandbox Integration** - Open all code blocks in the current document in a new [CodeSandbox](https://codesandbox.io/) project [with the click of a button](https://youtu.be/o3tQsqwgnY4)
-- **Context Switching** - Focusing on `#work` or `#play`? Apply a global filter to only see the documents that are relevant
-- **Dark Theme** - Save our eyes 😎
-- **Inline Markdown Rendering** - No need for separate edit and preview panels
-- **Keybindings** - Keyboard shortcuts for many actions
-- **Modern Technologies** - Built with Vue, Vuex, and VueRouter
-- **Offline First** - No account, server, or internet connectivity necessary (files are stored in IndexedDB, WebSQL, or LocalStorage)
-- **PWA** - Progressive Web Apps are accessible on all platforms and installable on most
-- **Regular Expressions** - Search our documents with plain text or regex
-- **Responsive** - Use on desktop or mobile
-- **Syntax Highlighting** - Code blocks are highlighted based on the tagged language
-- **Tag Based Organization** - Add one or more hashtags to our documents, just like we would on Twitter (code blocks are ignored)
+### Dark Theme
 
-### Coming Soon
+Built for dark theme lovers. Light theme coming soon! 😎
 
-- **Keybinding Configuration** - Use the shortcuts that make sense to you
-- **Light Theme** - Why not both?
-- **Native Apps** - Install a native application on Android, iOS, or desktop (built with Ionic's [Capacitor](https://capacitorjs.com/) framework)
+### Inline Markdown Rendering and Automatic Syntax Highlighting
+
+All Markdown formatting is rendered in place. This eliminates the need for a preview pane while keeping your document in plain text. Feel free to copy and paste your Markdown into or out of this editor! Code blocks are automatically highlighted based on the tagged language.
+
+### Client-Side Encryption
+
+Uses a [hybrid cryptosystem](https://en.wikipedia.org/wiki/Hybrid_cryptosystem) approach to reap the benefits of both public-key and symmetric encryption.
+
+### Keyboard Friendly and Searchable
+
+Keyboard shortcuts are available for many actions. Search documents with plain text or regex.
+
+### Context Switching
+
+Focusing on `#work` or `#play`? Apply a global filter to only see the documents that are relevant in a given moment.
+
+### Offline First and Mobile First (Responsive)
+
+No account, server, or internet connectivity necessary (after first load). The entire app is cached in the browser using Service Workers. Documents are stored in IndexedDB. All features of the app are built for mobile and desktop. The design changes responsively based on available screen real estate.
+
+### Modern Technologies
+
+Built with Vue, Vuex, and VueRouter. Progressive Web Apps are accessible on all platforms and installable on many.
+
+### Tag-based Organization and Networked Thought
+
+Add as many hashtags to your documents as you like. Build a network of information and explore your knowledgebase just as you would explore your own memories.
+
+![](resources/combined-graph.png)
 
 ## Demo
 
@@ -52,7 +65,7 @@ As simple as it gets.
 npm install
 ```
 
-## Local Dev
+## Local Development
 
 We can run it in `development` mode.
 
@@ -70,7 +83,7 @@ _Note: Offline functionality is only available in `production` mode due to [lack
 npm run serve_prod
 ```
 
-## Deploy
+## Compile to Static Assets
 
 Create the production build.
 
@@ -103,6 +116,6 @@ Donations help support the development of octo (this open source project) and th
 
 Accounts on [octo.app](https://octo.app) include syncing and persistence through Firebase. Accounts are currently free, and your financial support directly impacts how long we can keep it that way.
 
-- [Buy Me a Coffee](https://www.buymeacoffee.com/voraciousdev)
-- [Ko-Fi](https://ko-fi.com/voraciousdev)
 - [Patreon](https://patreon.com/voraciousdev)
+- [Ko-Fi](https://ko-fi.com/voraciousdev)
+- [Buy Me a Coffee](https://www.buymeacoffee.com/voraciousdev)

@@ -1,17 +1,26 @@
 <template>
-  <div class="d-flex flex-column flex-grow-1">
-    <div ref="graph" class="d-flex flex-column flex-grow-1 overflow-hidden"></div>
+  <div class="d-flex flex-column flex-md-row align-items-stretch justify-content-end">
+    <div ref="graph" class="graph d-flex flex-column overflow-hidden position-fixed top-0 bottom-0"></div>
+    <div v-if="selectedTag" class="docs d-flex flex-column">
+      <DocumentList :tag="selectedTag" class="z-index-1" />
+    </div>
   </div>
 </template>
 
 <script>
 import ForceGraph from 'force-graph'
 
+import DocumentList from '@/components/DocumentList'
+
 export default {
   name: 'Graph',
+  components: {
+    DocumentList,
+  },
   data() {
     return {
       instance: null,
+      selectedTag: null,
     }
   },
   watch: {
@@ -115,6 +124,23 @@ export default {
         context.textBaseline = 'top'
         context.fillText(label, node.x, node.y + radius + 1)
       })
+      .onNodeHover(node => this.$refs.graph.style.cursor = node ? 'pointer' : null)
+      .onNodeClick((node) => {
+        this.selectedTag = node.id
+        this.instance.centerAt(node.x, node.y, 1000)
+        this.instance.zoom(6, 2000)
+      })
   },
 }
 </script>
+
+<style scoped>
+.docs {
+  margin-top: 50vh !important;
+}
+
+.md-plus .docs {
+  margin-top: auto !important;
+  width: 30% !important;
+}
+</style>

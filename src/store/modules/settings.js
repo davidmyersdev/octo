@@ -7,6 +7,7 @@ export const SET_EDITOR_IMAGES_ENABLED = 'SET_EDITOR_IMAGES_ENABLED';
 export const SET_EDITOR_IMAGES_SHOW_CAPTIONS = 'SET_EDITOR_IMAGES_SHOW_CAPTIONS';
 export const SET_EDITOR_KEY_MAP = 'SET_EDITOR_KEY_MAP';
 export const SET_EDITOR_TAB_SIZE = 'SET_EDITOR_TAB_SIZE';
+export const SET_THEME = 'SET_THEME'
 export const SETTINGS_LOADED = 'SETTINGS_LOADED';
 
 export default {
@@ -25,6 +26,7 @@ export default {
       tabSize: 2,
     },
     loaded: false,
+    theme: 'dark',
   }),
   getters: {
     // nothing yet
@@ -57,6 +59,9 @@ export default {
     [SET_EDITOR_TAB_SIZE] (state, tabSize) {
       state.editor.tabSize = tabSize;
     },
+    [SET_THEME] (state, theme) {
+      state.theme = theme
+    },
     [SETTINGS_LOADED] (state) {
       state.loaded = true;
     },
@@ -82,6 +87,9 @@ export default {
     },
     async [SET_EDITOR_TAB_SIZE] (context, tabSize) {
       context.commit(SET_EDITOR_TAB_SIZE, tabSize);
+    },
+    async [SET_THEME] (context, theme) {
+      context.commit(SET_THEME, theme)
     },
     async [SETTINGS_LOADED] (context) {
       context.commit(SETTINGS_LOADED);

@@ -17,6 +17,6 @@ export default {
 
 <style scoped>
 svg {
-  color: #ef8a60;
+  color: #e06c75;
 }
 </style>

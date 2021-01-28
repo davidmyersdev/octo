@@ -23,7 +23,6 @@ export default {
 <style scoped>
 .tag {
   align-items: center;
-  color: #aaa;
   display: flex;
   margin-bottom: 0.5rem;
   padding: 0.5rem;

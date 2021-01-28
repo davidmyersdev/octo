@@ -5,6 +5,7 @@
       <h6 class="card-subtitle text-muted font-weight-normal mb-3">Make yourself comfortable</h6>
       <Extendable scope="app.settings">
         <Editor/>
+        <Theme/>
         <Encryption/>
         <Export/>
       </Extendable>
@@ -16,6 +17,7 @@
 import Editor from '@/components/settings/Editor'
 import Encryption from '@/components/settings/Encryption'
 import Export from '@/components/settings/Export'
+import Theme from '@/components/settings/Theme'
 
 export default {
   name: 'TheSettings',
@@ -23,6 +25,7 @@ export default {
     Editor,
     Encryption,
     Export,
+    Theme,
   },
 }
 </script>

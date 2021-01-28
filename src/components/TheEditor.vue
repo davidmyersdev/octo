@@ -3,7 +3,7 @@
     <div class="container-fluid container-xl d-flex flex-grow-1">
       <div class="editor d-flex flex-column flex-grow-1 min-w-0" @click="focusEditor">
         <div class="gutter" @click="focusEditorStart"></div>
-        <MarkdownEditor ref="editable" class="editable" :initialCursor="initialCursor" :initialVimMode="initialVimMode" :settings="settings" :value="document.text" @input="input" @ready="onReady" />
+        <MarkdownEditor ref="editable" class="editable" :theme="theme" :initialCursor="initialCursor" :initialVimMode="initialVimMode" :settings="settings" :value="document.text" @input="input" @ready="onReady" />
         <div class="gutter flex-grow-1" @click="focusEditorEnd"></div>
       </div>
     </div>
@@ -74,6 +74,9 @@ export default {
     },
     showRightSidebar() {
       return this.$store.state.showRightSidebar;
+    },
+    theme() {
+      return this.$store.state.settings.theme;
     },
   },
   methods: {

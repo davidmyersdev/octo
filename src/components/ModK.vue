@@ -23,12 +23,16 @@ export default {
 
 <style scoped>
 .key {
-  border-color: #333;
   font-size: 1em;
 }
 
 .key.active {
   border-color: #111;
   color: #222;
+}
+
+.light .key.active {
+  border-color: #ccc;
+  color: #aaa;
 }
 </style>

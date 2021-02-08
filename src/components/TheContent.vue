@@ -20,8 +20,13 @@ export default {
 </script>
 
 <style scoped>
-.the-content {
-  background: url('~@/assets/octopus-transparent.svg') center center no-repeat;
+.dark .the-content {
+  background: url('~@/assets/octopus-transparent-dark.svg') center center no-repeat;
+  background-size: 50% 50%;
+}
+
+.light .the-content {
+  background: url('~@/assets/octopus-transparent-light.svg') center center no-repeat;
   background-size: 50% 50%;
 }
 </style>

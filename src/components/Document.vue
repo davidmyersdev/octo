@@ -59,7 +59,6 @@ export default {
 
 <style scoped>
   .document {
-    color: #fff;
     display: block;
     min-height: 5rem;
     padding: 1rem;

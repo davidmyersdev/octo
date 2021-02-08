@@ -11,7 +11,7 @@
     "serve_prod": "npm run build_prod && serve -l 8889 -s ./dist"
   },
   "dependencies": {
-    "@voraciousdev/vue-markdown-editor": "^0.1.0",
+    "@voraciousdev/vue-markdown-editor": "v0.3.0",
     "core-js": "^2.6.11",
     "deepmerge": "^4.2.2",
     "force-graph": "^1.35.1",

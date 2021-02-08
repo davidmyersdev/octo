@@ -26,4 +26,9 @@ export default {
   font-size: 0.8em;
   padding: 0 0.25rem;
 }
+
+.light .key {
+  border-color: #888;
+  color: #666;
+}
 </style>

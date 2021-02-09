@@ -12,7 +12,7 @@
 
 <p align="center">A hackable, offline-first markdown editor for notes, code snippets, and writing that runs entirely in-browser.</p>
 
-[![screenshot](resources/combined.png)](https://octo.app)
+[![screenshot](resources/combined-dark.png)](https://octo.app)
 
 ## Features
 

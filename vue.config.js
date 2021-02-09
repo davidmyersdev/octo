@@ -78,7 +78,7 @@ module.exports = {
         },
       ],
     },
-    themeColor: "#111111",
+    themeColor: "#1a1a1a",
     workboxPluginMode: 'GenerateSW',
     workboxOptions: {
       clientsClaim: true,

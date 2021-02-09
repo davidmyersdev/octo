@@ -16,9 +16,9 @@
 
 ## Features
 
-### Dark Theme
+### Dark and Light Themes
 
-Built for dark theme lovers. Light theme coming soon! 😎
+Dark theme by default. Light theme if you want it. 😎
 
 ### Inline Markdown Rendering and Automatic Syntax Highlighting
 

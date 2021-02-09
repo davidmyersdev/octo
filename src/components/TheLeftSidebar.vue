@@ -155,9 +155,7 @@
         <h6 class="dropdown-header mx-0 mt-3 p-3 px-md-2 d-flex justify-content-between">
           <span>Tags</span>
         </h6>
-        <div v-for="tag in tags" class="d-flex align-items-center justify-content-between item rounded p-3 my-1 px-md-2 py-md-1 cursor-pointer">
-          <Tag :key="tag" :tag="tag"></Tag>
-        </div>
+        <Tag v-for="tag in tags" :key="tag" :tag="tag" class="d-flex align-items-center item rounded p-3 my-1 px-md-2 py-md-1 cursor-pointer"></Tag>
       </div>
     </div>
   </simplebar>

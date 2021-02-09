@@ -175,6 +175,10 @@ a:hover {
   margin-bottom: 0;
 }
 
+.CodeMirror .cm-m-markdown:not(.cm-comment) {
+  font-family: 'Fira Sans', helvetica, sans-serif !important;
+}
+
 .monospace {
   font-family: 'Fira Mono', monospace !important;
 }

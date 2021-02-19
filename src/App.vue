@@ -363,6 +363,10 @@ body.light {
   color: #eee;
 }
 
+.light .btn {
+  color: #444;
+}
+
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
   background-color: #557bab !important;
   color: #fff !important;

@@ -34,6 +34,13 @@ export default {
     },
   },
   computed: {
+    colors() {
+      return {
+        edge: this.theme === 'dark' ? '#333' : '#aaa',
+        label: this.theme === 'dark' ? 'rgba(200, 200, 200, 0.8)' : 'rgba(17, 17, 17, 0.8)',
+        node: 'rgba(224, 108, 117, 0.8)',
+      }
+    },
     connections() {
       return this.docs.flatMap((doc) => {
         return doc.tags.flatMap((tag, index) => {
@@ -62,7 +69,7 @@ export default {
         } else {
           edges.push({
             ...connection,
-            color: '#333',
+            color: this.colors.edge,
             size: 1,
           })
         }
@@ -99,6 +106,9 @@ export default {
         return nodes
       }, [])
     },
+    theme() {
+      return this.$store.state.settings.theme
+    },
   },
   mounted() {
     this.instance = ForceGraph()(this.$refs.graph)
@@ -115,13 +125,13 @@ export default {
 
         // draw the node
         context.beginPath()
-        context.fillStyle = 'rgba(255, 255, 255, 0.8)'
+        context.fillStyle = this.colors.node
         context.arc(node.x, node.y, radius, 0, 2 * Math.PI, false)
         context.fill()
         context.closePath()
 
         // draw the label
-        context.fillStyle = 'rgba(200, 200, 200, 0.8)'
+        context.fillStyle = this.colors.label
         context.font = `${fontSize}px Fira Sans`
         context.textAlign = 'center'
         context.textBaseline = 'top'

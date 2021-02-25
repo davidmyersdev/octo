@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/img/octopus-transparent-light.cb3fe44a.svg"
   },
   {
-    "revision": "09e9528a29f8bf61d96332cee8ddc2a0",
+    "revision": "5d460d4a744206fa411a9733a427bc3a",
     "url": "/index.html"
   },
   {
@@ -32,20 +32,16 @@ self.__precacheManifest = [
     "url": "/CNAME"
   },
   {
-    "revision": "58898f80567d65c125c2db6f662ba36d",
-    "url": "/img/icons/android-chrome-192x192.png"
-  },
-  {
     "revision": "67c242cbbd1c577a439bf1f69e4f5512",
     "url": "/img/icons/android-chrome-512x512.png"
   },
   {
     "revision": "58898f80567d65c125c2db6f662ba36d",
-    "url": "/img/icons/android-chrome-maskable-192x192.png"
+    "url": "/img/icons/android-chrome-192x192.png"
   },
   {
-    "revision": "67c242cbbd1c577a439bf1f69e4f5512",
-    "url": "/img/icons/android-chrome-maskable-512x512.png"
+    "revision": "58898f80567d65c125c2db6f662ba36d",
+    "url": "/img/icons/android-chrome-maskable-192x192.png"
   },
   {
     "revision": "811e350a9bf3b9318e69b5fff8f64260",
@@ -54,6 +50,10 @@ self.__precacheManifest = [
   {
     "revision": "74ef8db2f3f4ce7a8beb054eff04b70f",
     "url": "/img/icons/apple-touch-icon-152x152.png"
+  },
+  {
+    "revision": "67c242cbbd1c577a439bf1f69e4f5512",
+    "url": "/img/icons/android-chrome-maskable-512x512.png"
   },
   {
     "revision": "04acb7001a8adc70ae8f554b4976f897",

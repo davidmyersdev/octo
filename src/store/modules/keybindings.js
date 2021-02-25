@@ -28,11 +28,11 @@ const makeListener = (keybinding, callback, context) => {
 
 const makeListeners = (context) => {
   return [
-    makeListener('a', () => goTo('actionable'), context),
+    makeListener('t', () => goTo('actionable'), context),
     makeListener('c', () => goTo('context'), context),
     makeListener('d', () => goTo('discarded'), context),
-    makeListener('e', () => goTo('settings'), context),
-    makeListener('i', () => window.open('https://github.com/voraciousdev/octo/issues', '_blank'), context),
+    makeListener('e', () => goTo('graph'), context),
+    makeListener('s', () => goTo('settings'), context),
     makeListener('n', () => goTo('dashboard'), context),
     makeListener('r', () => goTo('recent'), context),
     makeListener('u', () => goTo('untagged'), context),

@@ -1,0 +1,21 @@
+name: GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: github-pages
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - run: npm install
+      - run: npm run build_prod
+      - run: cp ./dist/index.html ./dist/404.html
+      - uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist

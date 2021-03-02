@@ -1,21 +1,17 @@
 <template>
   <section>
-    <h4 class="font-weight-normal mt-3 mt-md-5">Theme</h4>
-    <hr>
+    <h3 class="text-3xl">Theme</h3>
+    <hr class="mt-2 mb-4">
     <Extendable scope="app.settings.theme">
-      <div class="form-group">
+      <div class="mb-4">
         <div>
-          <label class="btn btn-primary btn-toggle">
-            <div class="custom-control custom-radio d-flex align-items-center">
-              <input v-model="theme" type="radio" value="dark" class="custom-control-input d-flex">
-              <span class="custom-control-label d-flex">Dark</span>
-            </div>
+          <label class="button button-size-medium button-color-gray">
+            <input v-model="theme" type="radio" value="dark" class="transform scale-125 focus:outline-none">
+            <span class="ml-3">Dark</span>
           </label>
-          <label class="btn btn-primary btn-toggle ml-2">
-            <div class="custom-control custom-radio d-flex align-items-center">
-              <input v-model="theme" type="radio" value="light" class="custom-control-input d-flex">
-              <span class="custom-control-label d-flex">Light</span>
-            </div>
+          <label class="button button-size-medium button-color-gray ml-2">
+            <input v-model="theme" type="radio" value="light" class="transform scale-125 focus:outline-none">
+            <span class="ml-3">Light</span>
           </label>
         </div>
       </div>

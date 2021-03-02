@@ -1,7 +1,7 @@
 <template>
-  <simplebar class="the-content d-flex h-100 relative-fixed">
+  <simplebar class="the-content flex h-full relative-fixed">
     <TheNavbar/>
-    <router-view :key="$route.fullPath" class="d-flex"></router-view>
+    <router-view :key="$route.fullPath" class="flex"></router-view>
   </simplebar>
 </template>
 

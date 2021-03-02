@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* form */
+.button {
+  @apply button-flat shadow;
+}
+
+.button-flat {
+  @apply inline-flex items-center justify-between rounded cursor-pointer focus:outline-none focus:ring focus-within:ring;
+}
+
+.button-size-small {
+  @apply px-2 py-1;
+}
+
+.button-size-medium {
+  @apply px-3 py-2;
+}
+
+.button-color-gray {
+  @apply bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700;
+}
+
+.button-color-blue {
+  @apply bg-blue-300 hover:bg-blue-400 dark:bg-blue-500 dark:hover:bg-blue-600;
+}
+
+.form-button {
+  @apply button button-size-medium button-color-gray;
+}
+
+.form-text {
+  @apply block rounded px-3 py-2 shadow bg-gray-100 dark:bg-gray-800 focus:outline-none focus:ring;
+}
+
+/* sidebar */
+.sidebar-button {
+  @apply flex items-center justify-between rounded shadow dark:shadow-light mb-2 p-6 md:p-2 bg-gray-200 dark:bg-gray-800 md:dark:bg-gray-900 hover:bg-gray-300 dark:hover:bg-gray-700 md:dark:hover:bg-gray-800 focus:outline-none focus:ring;
+}
+
+.sidebar-label {
+  @apply flex items-center justify-between text-sm p-6 md:px-2 text-gray-500;
+}
+
+.sidebar-link {
+  @apply flex items-center justify-between rounded mb-2 md:mb-1 p-6 md:p-2 bg-gray-100 dark:bg-gray-800 md:bg-transparent md:dark:bg-transparent hover:bg-gray-200 dark:hover:bg-gray-700 md:dark:hover:bg-gray-900 focus:outline-none focus:ring;
+}

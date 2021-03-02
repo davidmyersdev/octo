@@ -1,7 +1,7 @@
 <template>
-  <div class="d-none d-md-flex align-items-center">
+  <div class="hidden md:flex items-center">
     <Key :class="{ active: active }">{{this.$store.state.modKey}}</Key>
-    <Key :class="{ active: active }" class="ml-1">K</Key>
+    <Key :class="{ active: active }" class="ml-1 monospace">K</Key>
   </div>
 </template>
 
@@ -22,10 +22,6 @@ export default {
 </script>
 
 <style scoped>
-.key {
-  font-size: 1em;
-}
-
 .key.active {
   border-color: #111;
   color: #222;

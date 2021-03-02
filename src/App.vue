@@ -1,9 +1,9 @@
 <template>
-  <div id="app" class="d-flex flex-column flex-grow-1 flex-shrink-1" :class="sizes">
-    <simplebar v-if="context.active || context.editing" class="context-banner relative-fixed">
-      <div class="d-flex align-items-center text-center">
+  <div id="app" class="flex flex-col flex-grow flex-shrink text-gray-900 dark:text-gray-300 bg-white dark:bg-gray-900" :class="sizes">
+    <simplebar v-if="context.active || context.editing" class="context-banner bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800 relative-fixed">
+      <div class="flex items-center text-center">
         <div v-if="contextTags.length" class="context-tags">
-          <Tag v-for="tag in contextTags" :key="tag" :tag="tag" class="context-tag d-inline-flex" />
+          <Tag v-for="tag in contextTags" :key="tag" :tag="tag" class="button button-size-small button-color-gray ml-1" />
         </div>
         <div v-else class="context-placeholder">no active tags</div>
         <div @click="deactivateContext" class="context-close">
@@ -13,13 +13,13 @@
         </div>
       </div>
     </simplebar>
-    <div class="d-flex flex-column flex-grow-1 flex-shrink-1 position-relative min-h-0">
-      <router-view class="flex-grow-1 flex-shrink-1 min-h-0"></router-view>
-      <div class="card notification position-fixed top-0 right-0 m-3 m-md-2" :class="{ 'd-none': !showModal }">
-        <div class="card-body notification-body">
-          <p>An update is available. Refresh the app to apply.</p>
-          <button type="button" class="btn btn-sm btn-primary" @click="refreshPage">Refresh Now</button>
-          <button type="button" class="btn btn-sm btn-secondary" @click="hideModal">Later</button>
+    <div class="flex flex-col flex-grow flex-shrink relative min-h-0">
+      <router-view class="flex-grow flex-shrink min-h-0"></router-view>
+      <div class="flex flex-col min-w-0 max-w-full rounded break-words bg-white notification fixed top-0 right-0 m-4 md:m-2 dark:bg-gray-800" :class="{ 'hidden': !showModal }">
+        <div class="flex-auto p-4 notification-body">
+          <p class="mb-6">An update is available. Refresh the app to apply.</p>
+          <button type="button" class="button button-size-small button-color-blue text-gray-900 dark:text-gray-200" @click="refreshPage">Refresh Now</button>
+          <button type="button" class="button button-size-small button-color-gray ml-2" @click="hideModal">Later</button>
         </div>
       </div>
     </div>
@@ -233,7 +233,6 @@ hr {
 
 svg {
   flex-shrink: 0;
-  margin-right: 0.5em;
 }
 
 .border-transparent {
@@ -313,37 +312,6 @@ svg {
 }
 
 /* theming */
-
-body.dark {
-  background-color: #111;
-}
-
-body.light {
-  background-color: #eee;
-  color: #111;
-}
-
-.dark a,
-.dark a:hover {
-  color: #aaa;
-}
-
-.light a,
-.light a:hover {
-  color: #444;
-}
-
-.dark .context-banner {
-  background-color: #111;
-  border-bottom-color: #1a1a1a;
-  color: #aaa;
-}
-
-.light .context-banner {
-  background-color: #eee;
-  border-bottom-color: #ddd;
-  color: 444;
-}
 
 .dark .context-tag {
   background-color: #1a1a1a;

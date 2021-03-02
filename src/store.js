@@ -5,8 +5,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import router from '@/router';
-
 // modules
 import documentsModule from '@/store/modules/documents';
 import keybindingsModule from '@/store/modules/keybindings';
@@ -36,7 +34,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    modKey: 'CTRL',
+    modKey: '⌃ ctrl',
     context: {
       active: false,
       editing: false,

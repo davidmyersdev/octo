@@ -1,5 +1,5 @@
 <template>
-  <small class="key d-none d-md-flex" :class="{ active: active }">
+  <small class="key hidden md:inline-block rounded shadow dark:shadow-light uppercase leading-none text-xs text-gray-500 py-1 px-1.5" :class="{ active: active }">
     <slot></slot>
   </small>
 </template>
@@ -16,19 +16,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.key {
-  border: 1px solid #333;
-  border-radius: 3px;
-  color: #555;
-  font-family: 'Fira Mono', monospace !important;
-  font-size: 0.8em;
-  padding: 0 0.25rem;
-}
-
-.light .key {
-  border-color: #888;
-  color: #666;
-}
-</style>

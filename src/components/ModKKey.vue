@@ -1,6 +1,6 @@
 <template>
-  <div class="d-md-flex align-items-center">
-    <Key v-if="active"><slot/></Key>
+  <div class="md:flex items-center">
+    <Key v-if="active" class="monospace"><slot/></Key>
   </div>
 </template>
 

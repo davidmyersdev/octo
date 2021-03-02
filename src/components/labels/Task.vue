@@ -1,7 +1,7 @@
 <template>
   <Base>
     <TaskIcon :size="iconSize" />
-    <div class="flex-grow-1 overflow-hidden text-truncate">
+    <div class="flex-grow overflow-hidden truncate">
       <slot></slot>
     </div>
   </Base>

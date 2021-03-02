@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex align-items-center">
+  <div class="flex items-center">
     <slot></slot>
   </div>
 </template>

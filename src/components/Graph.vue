@@ -1,8 +1,8 @@
 <template>
-  <div class="d-flex flex-column flex-md-row align-items-stretch justify-content-end">
-    <div ref="graph" class="graph d-flex flex-column overflow-hidden position-fixed left-0 right-0 top-0 bottom-0"></div>
-    <div v-if="selectedTag" class="docs d-flex flex-column">
-      <DocumentList :tag="selectedTag" class="z-index-1" />
+  <div class="flex flex-col md:flex-row items-stretch justify-end">
+    <div ref="graph" class="graph flex flex-col overflow-hidden fixed left-0 right-0 top-0 bottom-0"></div>
+    <div v-if="selectedTag" class="docs flex flex-col">
+      <DocumentList :tag="selectedTag" cols="1" class="z-index-1" />
     </div>
   </div>
 </template>
@@ -164,5 +164,6 @@ export default {
 .md-plus .docs {
   margin-top: auto !important;
   width: 30% !important;
+  min-width: 30rem !important;
 }
 </style>

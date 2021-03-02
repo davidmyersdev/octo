@@ -1,7 +1,7 @@
 <template>
   <Base>
     <DocumentIcon :size="iconSize" />
-    <div class="flex-grow-1">
+    <div class="flex-grow">
       <slot></slot>
     </div>
   </Base>

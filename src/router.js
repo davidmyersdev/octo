@@ -29,6 +29,10 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
+      path: '/index.html',
+      redirect: { name: 'dashboard' },
+    },
+    {
       path: '/',
       name: 'editor',
       component: Dashboard,

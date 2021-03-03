@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "c611f90388995b229f9c",
+    "revision": "2dbb668e65266f6dd438",
     "url": "/css/app.4e5e9c39.css"
   },
   {
-    "revision": "c611f90388995b229f9c",
-    "url": "/js/app.0033f90f.js"
+    "revision": "2dbb668e65266f6dd438",
+    "url": "/js/app.b33ccaef.js"
   },
   {
     "revision": "bc45d7ab69df79c7a717",
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/img/octopus-transparent-light.cb3fe44a.svg"
   },
   {
-    "revision": "8a822809f2f3710c7271d52c431f03bf",
+    "revision": "caeaddd76190fc38c7a025f35c9241ed",
     "url": "/index.html"
   },
   {

@@ -25,12 +25,7 @@ export default {
   },
   watch: {
     graph() {
-      if (this.instance) {
-        this.instance
-          .graphData(this.graph)
-          .height(this.$refs.graph.clientHeight)
-          .width(this.$refs.graph.clientWidth)
-      }
+      this.resize()
     },
   },
   computed: {
@@ -110,6 +105,16 @@ export default {
       return this.$store.state.settings.theme
     },
   },
+  methods: {
+    resize() {
+      if (this.instance) {
+        this.instance
+          .graphData(this.graph)
+          .height(this.$refs.graph.clientHeight)
+          .width(this.$refs.graph.clientWidth)
+      }
+    },
+  },
   mounted() {
     this.instance = ForceGraph()(this.$refs.graph)
       .height(this.$refs.graph.clientHeight)
@@ -143,6 +148,10 @@ export default {
         this.instance.centerAt(node.x, node.y, 1000)
         this.instance.zoom(6, 2000)
       })
+
+    window.addEventListener('resize', () => {
+      this.resize()
+    })
   },
 }
 </script>

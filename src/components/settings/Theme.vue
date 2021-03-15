@@ -6,11 +6,11 @@
       <div class="mb-4">
         <div>
           <label class="button button-size-medium button-color-gray">
-            <input v-model="theme" type="radio" value="dark" class="transform scale-125 focus:outline-none">
+            <input v-model="theme" type="radio" value="dark" class="radio">
             <span class="ml-3">Dark</span>
           </label>
           <label class="button button-size-medium button-color-gray ml-2">
-            <input v-model="theme" type="radio" value="light" class="transform scale-125 focus:outline-none">
+            <input v-model="theme" type="radio" value="light" class="radio">
             <span class="ml-3">Light</span>
           </label>
         </div>

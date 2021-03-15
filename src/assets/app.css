@@ -35,6 +35,14 @@
   @apply block rounded px-3 py-2 shadow bg-gray-100 dark:bg-gray-800 focus:outline-none focus:ring;
 }
 
+.radio {
+  @apply appearance-none outline-none rounded-full border-4 cursor-pointer border-gray-300 dark:border-white bg-gray-300 dark:bg-white checked:bg-blue-500 dark:checked:bg-blue-500 disabled:bg-gray-500 dark:disabled:bg-gray-500 w-4 h-4;
+}
+
+.checkbox {
+  @apply appearance-none outline-none rounded-sm border-4 cursor-pointer border-gray-300 dark:border-white bg-gray-300 dark:bg-white checked:bg-blue-500 dark:checked:bg-blue-500 disabled:bg-gray-500 dark:disabled:bg-gray-500 w-4 h-4;
+}
+
 /* sidebar */
 .sidebar-button {
   @apply flex items-center justify-between rounded shadow dark:shadow-light mb-2 p-6 md:p-2 bg-gray-200 dark:bg-gray-800 md:dark:bg-gray-900 hover:bg-gray-300 dark:hover:bg-gray-700 md:dark:hover:bg-gray-800 focus:outline-none focus:ring;

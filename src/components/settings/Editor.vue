@@ -12,11 +12,11 @@
         <h4 class="text-2xl mb-2">Keymaps</h4>
         <div>
           <label class="button button-size-medium button-color-gray">
-            <input v-model="keyMap" type="radio" value="default" class="transform scale-125 focus:outline-none">
+            <input v-model="keyMap" type="radio" value="default" class="radio">
             <span class="ml-3">Default</span>
           </label>
           <label class="button button-size-medium button-color-gray ml-2">
-            <input v-model="keyMap" type="radio" value="vim" class="transform scale-125 focus:outline-none">
+            <input v-model="keyMap" type="radio" value="vim" class="radio">
             <span class="ml-3">Vim</span>
           </label>
         </div>
@@ -28,11 +28,11 @@
         <div class="mb-4">
           <div>
             <label class="button button-size-medium button-color-gray items-baseline">
-              <input v-model="imagesEnabled" type="checkbox" class="transform scale-125 focus:outline-none">
+              <input v-model="imagesEnabled" type="checkbox" class="checkbox">
               <span class="ml-3 ">Enable Images</span>
             </label>
             <label class="button button-size-medium button-color-gray ml-2">
-              <input v-model="showCaptions" :disabled="!imagesEnabled" type="checkbox" class="transform scale-125 focus:outline-none">
+              <input v-model="showCaptions" :disabled="!imagesEnabled" type="checkbox" class="checkbox">
               <span class="ml-3">Show Captions</span>
             </label>
           </div>

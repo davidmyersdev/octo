@@ -16,11 +16,11 @@
           <div class="flex items-center">
             <input v-model="filterText" ref="input" type="text" class="form-text w-full shadow" placeholder="Start typing to filter the list..." autocomplete="off">
             <label class="button button-size-medium button-color-gray shadow ml-2">
-              <input v-model="filterRegex" type="checkbox" class="transform scale-125 focus:outline-none">
+              <input v-model="filterRegex" type="checkbox" class="checkbox">
               <span class="monospace ml-3">.*</span>
             </label>
             <label class="button button-size-medium button-color-gray shadow ml-2">
-              <input v-model="filterCase" type="checkbox" class="transform scale-125 focus:outline-none">
+              <input v-model="filterCase" type="checkbox" class="checkbox">
               <span class="monospace ml-3">Aa</span>
             </label>
           </div>

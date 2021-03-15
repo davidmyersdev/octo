@@ -77,13 +77,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.dark .btn.btn-secondary {
-  box-shadow: 0 0 0 0.125rem #111 !important;
-}
-
-.light .btn.btn-secondary {
-  box-shadow: 0 0 0 0.125rem #eee !important;
-}
-</style>

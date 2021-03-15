@@ -8,7 +8,7 @@
     <div class="mb-4">
       <div>
         <label class="button button-size-medium button-color-gray">
-          <input v-model="toggleCrypto" :disabled="!allowCrypto || togglingCrypto" type="checkbox" class="transform scale-125 focus:outline-none">
+          <input v-model="toggleCrypto" :disabled="!allowCrypto || togglingCrypto" type="checkbox" class="checkbox">
           <span class="ml-3">Enable Encryption</span>
         </label>
       </div>

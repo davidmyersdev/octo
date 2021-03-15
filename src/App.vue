@@ -111,11 +111,6 @@ pre {
   margin: 0;
 }
 
-a,
-a:hover {
-  text-decoration: none;
-}
-
 .context-banner {
   border-bottom: 0.125rem solid;
   flex-shrink: 0;
@@ -161,20 +156,6 @@ a:hover {
   z-index: 20;
 }
 
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
-  border: none;
-}
-
-.btn-secondary, .btn-secondary:hover, .btn-secondary:active, .btn-secondary:focus {
-  border: none;
-  box-shadow: none !important;
-}
-
-.btn-toggle, .btn-toggle:hover, .btn-toggle:active, .btn-toggle:focus {
-  border: none;
-  margin-bottom: 0;
-}
-
 .CodeMirror .cm-m-markdown:not(.cm-comment) {
   font-family: 'Fira Sans', helvetica, sans-serif !important;
 }
@@ -185,37 +166,6 @@ a:hover {
 
 .sans-serif {
   font-family: 'Fira Sans', arial !important;
-}
-
-.card {
-  margin-bottom: 1em;
-  border: none;
-}
-
-.card .btn + .btn {
-  margin-left: 0.5rem;
-}
-
-.icon-wrapper {
-  height: 2em;
-  width: 2em;
-}
-
-.item {
-  align-items: center;
-  display: flex;
-}
-
-.md-plus .icon-wrapper {
-  background-color: inherit;
-  color: inherit;
-  height: auto;
-  width: auto;
-}
-
-.md-plus .icon-wrapper svg {
-  height: 1.25em;
-  width: 1.25em;
 }
 
 .notification {
@@ -331,113 +281,6 @@ svg {
   color: #eee;
 }
 
-.light .btn {
-  color: #444;
-}
-
-.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
-  background-color: #557bab !important;
-  color: #fff !important;
-}
-
-.dark .btn-secondary,
-.dark .btn-secondary:hover,
-.dark .btn-secondary:active,
-.dark .btn-secondary:focus {
-  background-color: #1a1a1a !important;
-  color: #aaa;
-}
-
-.light .btn-secondary,
-.light .btn-secondary:hover,
-.light .btn-secondary:active,
-.light .btn-secondary:focus {
-  background-color: #ccc !important;
-  color: #444;
-}
-
-.dark .btn-toggle,
-.dark .btn-toggle:hover,
-.dark .btn-toggle:active,
-.dark .btn-toggle:focus {
-  background-color: #1a1a1a !important;
-  border-color: #1a1a1a;
-}
-
-.light .btn-toggle,
-.light .btn-toggle:hover,
-.light .btn-toggle:active,
-.light .btn-toggle:focus {
-  background-color: #ccc !important;
-  color: #444 !important;
-}
-
-.btn-toggle .custom-checkbox .custom-control-input ~ .custom-control-label::before {
-  background-color: #999;
-  border-color: #888;
-}
-
-.dark .btn-toggle .custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::before {
-  background-color: #444;
-}
-
-.light .btn-toggle .custom-checkbox .custom-control-input:disabled:checked ~ .custom-control-label::before {
-  background-color: #aaa;
-}
-
-.btn-toggle .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath fill='%231a1a1a' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26l2.974 2.99L8 2.193z'/%3e%3c/svg%3e");
-}
-
-.btn-toggle .custom-radio .custom-control-input ~ .custom-control-label::before {
-  background-color: #999;
-  border-color: #888;
-}
-
-.btn-toggle .custom-radio .custom-control-input:checked ~ .custom-control-label::after {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%231a1a1a'/%3e%3c/svg%3e");
-}
-
-.dark .card {
-  background-color: #1a1a1a;
-}
-
-.light .card {
-  background-color: #ddd;
-  color: #444;
-}
-
-.dark .icon-wrapper {
-  background-color: #aaa;
-  color: #111;
-}
-
-.dark .md-plus .icon-wrapper {
-  background-color: transparent;
-  color: inherit;
-}
-
-.light .icon-wrapper {
-  background-color: #ccc;
-}
-
-.light .md-plus .icon-wrapper {
-  background-color: transparent;
-  color: inherit;
-}
-
-.dark .item:hover,
-.dark .item:active,
-.dark .item:focus {
-  background-color: #1f1f1f;
-}
-
-.light .item:hover,
-.light .item:active,
-.light .item:focus {
-  background-color: #ccc;
-}
-
 .dark .notification {
   box-shadow: 0 0 0 0.125rem #111 !important;
 }
@@ -448,14 +291,6 @@ svg {
 
 hr {
   background-color: #aaa;
-}
-
-.dark .bg-darker {
-  background-color: #050505 !important;
-}
-
-.light .bg-darker {
-  background-color: #ddd !important;
 }
 
 .dark .simplebar-scrollbar::before {

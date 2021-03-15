@@ -17,6 +17,7 @@ module.exports = {
   },
   variants: {
     extend: {
+      backgroundColor: ['checked', 'disabled'],
       boxShadow: ['dark'],
     },
   },

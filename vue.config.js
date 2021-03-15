@@ -100,10 +100,6 @@ module.exports = {
             { url: 'https://code.cdn.mozilla.net/fonts/woff/FiraMono-Regular.woff', revision: 'v1' },
             { url: 'https://code.cdn.mozilla.net/fonts/woff/FiraSans-Regular.woff', revision: 'v1' },
             { url: 'https://code.cdn.mozilla.net/fonts/woff/FiraSans-Medium.woff', revision: 'v1' },
-            // lato is currently required by bootstrap
-            // todo: determine if this can be excluded
-            { url: 'https://fonts.googleapis.com/css?family=Lato:400,700,400italic&display=swap', revision: 'v1' },
-            { url: 'https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/darkly/bootstrap.min.css' },
           ]);
           // optionally set warning messages
           const warnings = [];

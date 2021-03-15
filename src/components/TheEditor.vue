@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col flex-grow">
-    <div class="container mx-auto flex flex-grow" @click="focusEditor">
+  <div @click="focusEditor" class="flex flex-col flex-grow">
+    <div class="container mx-auto flex flex-grow">
       <div class="editor flex flex-col flex-grow min-w-0 p-4 md:px-16 md:py-0">
         <div class="gutter h-8" @click="focusEditorStart"></div>
         <MarkdownEditor ref="editable" class="editable" :theme="theme" :initialCursor="initialCursor" :initialVimMode="initialVimMode" :settings="settings" :value="document.text" @input="input" @ready="onReady" />

@@ -1,23 +1,17 @@
 <template>
-  <router-link :to="tagRoute" class="d-flex align-items-center">
-    <svg width="1.25em" height="1.25em" viewBox="0 0 16 16" class="bi bi-tag" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-      <path fill-rule="evenodd" d="M2 2v4.586l7 7L13.586 9l-7-7H2zM1 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 1 6.586V2z"/>
-      <path fill-rule="evenodd" d="M4.5 5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z"/>
+  <router-link :to="tagRoute" class="flex items-center">
+    <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
     </svg>
-    <span class="ml-3">{{ tag }}</span>
+    <span class="ml-6 md:ml-3 flex-grow">{{ tag }}</span>
   </router-link>
 </template>
 
 <script>
-import TagLabel from '@/components/labels/Tag';
-
 export default {
   name: 'Tag',
   props: {
     tag: String,
-  },
-  components: {
-    TagLabel,
   },
   computed: {
     tagRoute() {
@@ -26,9 +20,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-svg {
-  margin: 0;
-}
-</style>

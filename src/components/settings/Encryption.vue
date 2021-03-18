@@ -1,33 +1,31 @@
 <template>
   <section>
-    <h4 class="font-weight-normal mt-3 mt-md-5">Client-side Encryption</h4>
-    <hr>
-    <div class="form-group">
+    <h3 class="text-3xl">Client-side Encryption</h3>
+    <hr class="mt-2 mb-4">
+    <div class="mb-4">
       <label for="tags-search">Documents are encrypted using a <a href="https://en.wikipedia.org/wiki/Hybrid_cryptosystem" target="_blank" rel="noopener noreferrer">hybrid cryptosystem</a>. You may provide your own keys or generate a new set here. If you choose to generate a new set, be sure to <strong>make a secure backup of your keys</strong>. If you lose your private key, you will not be able to recover any data that is encrypted.</label>
     </div>
-    <div class="form-group">
+    <div class="mb-4">
       <div>
-        <label class="btn btn-primary btn-toggle">
-          <div class="custom-control custom-checkbox d-flex align-items-center">
-            <input v-model="toggleCrypto" :disabled="!allowCrypto || togglingCrypto" type="checkbox" class="custom-control-input d-flex">
-            <span class="custom-control-label d-flex">Enable Encryption</span>
-          </div>
+        <label class="button button-size-medium button-color-gray">
+          <input v-model="toggleCrypto" :disabled="!allowCrypto || togglingCrypto" type="checkbox" class="checkbox">
+          <span class="ml-3">Enable Encryption</span>
         </label>
       </div>
-      <small class="text-muted">Note: Toggling encryption will encrypt/decrypt all existing documents. <span v-if="!allowCrypto">Enabling encryption <strong>requires</strong> private/public keys. Generate or supply them below to enable.</span></small>
+      <small class="text-gray-700">Note: Toggling encryption will encrypt/decrypt all existing documents. <span v-if="!allowCrypto">Enabling encryption <strong>requires</strong> private/public keys. Generate or supply them below to enable.</span></small>
     </div>
-    <div class="form-group">
+    <div class="mb-4">
       <label for="tags-search">Private Key</label>
-      <textarea v-model="privateKey" class="form-control" rows="5" placeholder="Private key" autocomplete="off"></textarea>
-      <small class="text-muted">This key is used to <em>decrypt</em> documents. It <strong>will not</strong> be synced across devices when signed in.</small>
+      <textarea v-model="privateKey" class="form-text w-full" rows="5" placeholder="Private key" autocomplete="off"></textarea>
+      <small class="text-gray-700">This key is used to <em>decrypt</em> documents. It <strong>will not</strong> be synced across devices when signed in.</small>
     </div>
-    <div class="form-group">
+    <div class="mb-4">
       <label for="tags-search">Public Key</label>
-      <textarea v-model="publicKey" class="form-control" rows="5" placeholder="Public key" autocomplete="off"></textarea>
-      <small class="text-muted">This key is used to <em>encrypt</em> documents. It <strong>will</strong> be synced across devices when signed in.</small>
+      <textarea v-model="publicKey" class="form-text w-full" rows="5" placeholder="Public key" autocomplete="off"></textarea>
+      <small class="text-gray-700">This key is used to <em>encrypt</em> documents. It <strong>will</strong> be synced across devices when signed in.</small>
     </div>
-    <div class="form-group">
-      <button @click="generateKeys" class="btn btn-secondary">Generate Keys</button>
+    <div class="mb-4">
+      <button @click="generateKeys" class="button button-size-medium button-color-gray">Generate Keys</button>
     </div>
   </section>
 </template>

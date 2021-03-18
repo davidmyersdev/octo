@@ -1,6 +1,6 @@
 <template>
-  <div class="container-lg d-flex">
-    <MarkdownEditor ref="editable" class="editable w-100" :value="value" />
+  <div class="container mx-auto sm:px-4 flex">
+    <MarkdownEditor ref="editable" class="editable w-full" :value="value" />
   </div>
 </template>
 

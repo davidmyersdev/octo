@@ -7,6 +7,8 @@ import Extendable from '@/components/Extendable'
 import router from '@/router';
 import store from '@/store';
 
+import '@/assets/app.css'
+
 // setup the service worker
 import '@/registerServiceWorker';
 
@@ -54,7 +56,7 @@ new Vue({
     }
 
     if (/Mac|iPod|iPhone|iPad/.test(navigator.platform)) {
-      this.$store.dispatch(SET_MOD_KEY, 'CMD');
+      this.$store.dispatch(SET_MOD_KEY, '⌘ cmd')
     }
 
     if (localStorage.getItem('octo/welcome/v1') === null) {

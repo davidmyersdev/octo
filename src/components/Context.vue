@@ -1,38 +1,39 @@
 <template>
-  <div class="container context d-flex flex-column mt-3 mt-md-5">
+  <div class="container flex flex-col mx-auto p-4 md:px-16 md:py-8">
     <div>
-      <h5 class="card-title">Set Context</h5>
-      <h6 class="card-subtitle text-muted font-weight-normal mb-3">
+      <h2 class="text-2xl">Set Context</h2>
+      <p class="mt-1 text-gray-500">
         This will apply a global filter to only show documents that include at least one of the selected context tags.
-      </h6>
-      <div class="form-group">
+      </p>
+      <div class="mt-4">
         <label for="tags-search">Add some tags to set the context</label>
-        <div class="d-flex align-items-bottom">
-          <div class="flex-grow-1">
-            <input v-model="input" @input="first" @keydown.space.prevent="toggleTag" @keydown.enter.exact="toggleTag" @keydown.221.prevent="down" @keydown.down.prevent="down" @keydown.219.prevent="up" @keydown.up.prevent="up" ref="input" type="text" class="form-control" id="tag-search" placeholder="Start typing to filter the list..." autocomplete="off">
-            <small class="form-text text-muted mt-2 d-none d-md-block">Navigate the list below with <span class="key">up</span> or <span class="key">down</span> and toggle tags with <span class="key">space</span> or <span class="key">enter</span></small>
-          </div>
-        </div>
+        <input v-model="input" @input="first" @keydown.space.prevent="toggleTag" @keydown.enter.exact="toggleTag" @keydown.221.prevent="down" @keydown.down.prevent="down" @keydown.219.prevent="up" @keydown.up.prevent="up" ref="input" type="text" class="form-text w-full mt-2" id="tag-search" placeholder="Start typing to filter the list..." autocomplete="off">
+        <small class="block mt-1 text-gray-700 mt-2 hidden md:block">Navigate the list below with <span class="key">up</span> or <span class="key">down</span> and toggle tags with <span class="key">space</span> or <span class="key">enter</span></small>
       </div>
-      <div class="form-group">
-        <simplebar ref="tagsContainer" class="dropdown-menu d-block mt-0">
-          <div>
-            <div v-if="filtered.length">
-              <div v-for="(tag, index) in filtered" @click="selectTag(tag)" ref="tags" class="dropdown-item d-flex justify-content-between" :class="{ active: (index === activeIndex), selected: isSelected(tag) }">
-                <span>{{ tag }}</span>
-                <span v-if="isSelected(tag)">selected</span>
+      <simplebar ref="tagsContainer" class="border rounded mt-4 overflow-hidden bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700">
+        <div>
+          <div v-if="filtered.length">
+            <div v-for="(tag, index) in filtered" @click="selectTag(tag)" :key="tag" ref="tags" class="flex justify-between cursor-pointer p-6 md:p-3 focus-within:ring" :class="{ 'bg-gray-200 dark:bg-gray-700': isSelected(tag), 'bg-blue-300 dark:bg-blue-500': (index === activeIndex) }">
+              <div class="flex items-center">
+                <svg width="1.25em" height="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                </svg>
+                <span class="ml-6 md:ml-3 flex-grow">{{ tag }}</span>
               </div>
+              <span v-if="isSelected(tag)">selected</span>
             </div>
-            <div v-else class="dropdown-item">No results...</div>
           </div>
-        </simplebar>
-      </div>
+          <div v-else class="flex justify-between p-3">No results...</div>
+        </div>
+      </simplebar>
     </div>
   </div>
 </template>
 
 <script>
-import simplebar from 'simplebar-vue';
+import simplebar from 'simplebar-vue'
+
+import Tag from '@/components/Tag'
 
 import {
   SET_CONTEXT_TAGS,
@@ -42,6 +43,7 @@ export default {
   name: 'Context',
   components: {
     simplebar,
+    Tag,
   },
   data() {
     return {
@@ -177,6 +179,7 @@ export default {
   border: 1px solid;
   border-radius: 0.125rem;
   padding: 0 0.25rem;
+  text-transform: uppercase;
 }
 
 .label {

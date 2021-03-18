@@ -1,13 +1,13 @@
 <template>
-  <div class="container mt-3 mt-md-5">
+  <div class="container flex flex-col mx-auto p-4 md:px-16 md:py-8">
     <div>
-      <h3 class="card-title">Settings</h3>
-      <h6 class="card-subtitle text-muted font-weight-normal mb-3">Make yourself comfortable</h6>
+      <h2 class="text-4xl">Settings</h2>
+      <p class="mt-1 mb-8 text-gray-500">Make yourself comfortable</p>
       <Extendable scope="app.settings">
-        <Editor/>
-        <Theme/>
-        <Encryption/>
-        <Export/>
+        <Editor class="mt-4" />
+        <Theme class="mt-8" />
+        <Encryption class="mt-8" />
+        <Export class="mt-8" />
       </Extendable>
     </div>
   </div>

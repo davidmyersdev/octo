@@ -1,51 +1,55 @@
 <template>
-  <div class="document-list container-fluid container-xl d-flex flex-column">
-    <p class="toolbar">
-      <TagLabel v-if="tag">{{ tag }}</TagLabel>
-      <span v-else class="action text-capitalize">{{ action }}</span>
-    </p>
-    <div class="form-group">
-      <div class="d-flex align-items-bottom">
-        <div class="flex-grow-1">
-          <div class="d-flex">
-            <input v-model="filterText" ref="input" type="text" class="form-control d-block" placeholder="Start typing to filter the list..." autocomplete="off">
-            <div class="monospace ml-2">
-              <label class="btn btn-primary btn-toggle">
-                <div class="custom-control custom-checkbox">
-                  <input v-model="filterRegex" type="checkbox" class="custom-control-input d-flex">
-                  <span class="custom-control-label d-flex">.*</span>
-                </div>
-              </label>
-            </div>
-            <div class="monospace ml-1">
-              <label class="btn btn-primary btn-toggle">
-                <div class="custom-control custom-checkbox">
-                  <input v-model="filterCase" type="checkbox" class="custom-control-input d-flex">
-                  <span class="custom-control-label d-flex">Aa</span>
-                </div>
-              </label>
-            </div>
+  <div class="container flex flex-col mx-auto p-4 md:px-16 md:py-8">
+    <div class="flex items-center text-2xl">
+      <div v-if="tag" class="flex items-center">
+        <svg height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+        </svg>
+        <span class="ml-3 flex-grow">{{ tag }}</span>
+      </div>
+      <span v-else class="action capitalize">{{ action }}</span>
+    </div>
+    <div class="my-4">
+      <div class="flex align-items-bottom">
+        <div class="flex-grow">
+          <div class="flex items-center">
+            <input v-model="filterText" ref="input" type="text" class="form-text w-full shadow" placeholder="Start typing to filter the list..." autocomplete="off">
+            <label class="button button-size-medium button-color-gray shadow ml-2">
+              <input v-model="filterRegex" type="checkbox" class="checkbox">
+              <span class="monospace ml-3">.*</span>
+            </label>
+            <label class="button button-size-medium button-color-gray shadow ml-2">
+              <input v-model="filterCase" type="checkbox" class="checkbox">
+              <span class="monospace ml-3">Aa</span>
+            </label>
           </div>
         </div>
       </div>
-      <small class="form-text text-muted mt-2">{{ filterMessage }}</small>
+      <small class="block mt-2 text-gray-700">{{ filterMessage }}</small>
     </div>
-    <div class="form-group">
-      <button @click="toggleIsEditing" class="btn btn-secondary">{{ isEditing ? 'Cancel' : 'Edit Documents' }}</button>
-      <button v-if="canMerge" @click="mergeDocuments" class="btn btn-secondary ml-2">Merge Documents</button>
+    <div class="mb-4">
+      <button @click="toggleIsEditing" class="button button-size-medium button-color-gray shadow">{{ isEditing ? 'Cancel' : 'Edit Documents' }}</button>
+      <button v-if="canMerge" @click="mergeDocuments" class="button button-size-medium button-color-gray shadow ml-2">Merge Documents</button>
     </div>
     <div>
-      <p v-if="isEditing" class="text-muted">Select two or more documents to merge them together.</p>
+      <p v-if="isEditing" class="text-gray-700">Select two or more documents to merge them together.</p>
     </div>
-    <Document v-for="document in visibleDocuments" @click.native="selectDocument(document.id)" :key="document.id" v-bind="document"></Document>
-    <div class="d-flex justify-content-center mb-5">
-      <div v-if="showLoadMore" @click="loadMore" class="btn btn-secondary p-3 d-flex align-items-center">
-        <svg width="1.25em" height="1.25em" viewBox="0 0 16 16" class="bi bi-file-earmark-arrow-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
-          <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"/>
-          <path fill-rule="evenodd" d="M8 6a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 1 1 .708-.708L7.5 10.293V6.5A.5.5 0 0 1 8 6z"/>
-        </svg>
-        <span class="ml-3">Load More</span>
+    <div class="grid gap-4 grid-cols-1" :class="`lg:grid-cols-${cols}`">
+      <div v-for="document in visibleDocuments" :key="document.id" @keypress.enter="selectDocument(document.id)" @click="selectDocument(document.id)" tabindex="0" class="rounded relative cursor-pointer outline-none focus:ring">
+        <Document v-bind="document" class="h-96"></Document>
+        <div v-if="document.selected" class="flex items-center justify-center rounded absolute inset-0 bg-black bg-opacity-10 dark:bg-opacity-50">
+          <svg height="3em" width="3em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+      </div>
+      <div v-if="showLoadMore" class="flex items-center justify-center rounded cursor-pointer">
+        <div @click="loadMore" class="button button-color-gray text-lg px-8 py-6">
+          <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <span class="ml-3">Load More</span>
+        </div>
       </div>
     </div>
   </div>
@@ -53,7 +57,6 @@
 
 <script>
 import Document from '@/components/Document';
-import TagLabel from '@/components/labels/Tag';
 
 import {
   MERGE_DOCUMENTS,
@@ -67,10 +70,13 @@ export default {
     discarded: Boolean,
     recent: Boolean,
     untagged: Boolean,
+    cols: {
+      type: Number,
+      default: 2,
+    },
   },
   components: {
     Document,
-    TagLabel,
   },
   data() {
     return {
@@ -196,19 +202,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.document-list {
-  flex-grow: 1;
-  padding: 1rem;
-}
-
-.toolbar {
-  align-items: center;
-  display: flex;
-}
-
-svg {
-  margin-right: 0.25rem;
-}
-</style>

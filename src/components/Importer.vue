@@ -1,9 +1,9 @@
 <template>
-  <div class="container-lg d-flex flex-column">
+  <div class="container mx-auto sm:px-4 flex flex-col">
     <div>
       <button @click="importDocs">Import Docs</button>
     </div>
-    <MarkdownEditor v-model="text" ref="editable" class="editable w-100" />
+    <MarkdownEditor v-model="text" ref="editable" class="editable w-full" />
   </div>
 </template>
 

@@ -1,27 +1,27 @@
 <template>
-  <div class="d-flex flex-column flex-grow-1">
-    <div class="container-fluid container-xl d-flex flex-grow-1">
-      <div class="editor d-flex flex-column flex-grow-1 min-w-0" @click="focusEditor">
-        <div class="gutter" @click="focusEditorStart"></div>
+  <div @click="focusEditor" class="flex flex-col flex-grow">
+    <div class="md:container md:mx-auto flex flex-grow">
+      <div class="editor flex flex-col flex-grow min-w-0 p-4 md:px-16 md:py-0">
+        <div class="gutter h-8" @click="focusEditorStart"></div>
         <MarkdownEditor ref="editable" class="editable" :theme="theme" :initialCursor="initialCursor" :initialVimMode="initialVimMode" :settings="settings" :value="document.text" @input="input" @ready="onReady" />
-        <div class="gutter flex-grow-1" @click="focusEditorEnd"></div>
+        <div class="gutter h-8 flex-grow" @click="focusEditorEnd"></div>
       </div>
     </div>
-    <div v-if="!showRightSidebar && currentDoc" class="position-fixed top-2 right-2 z-index-10 d-none d-md-block">
-      <button @click="toggleMeta" class="btn btn-secondary">
-        <InfoLabel>Info</InfoLabel>
+    <div v-if="!showRightSidebar && currentDoc" class="fixed top-4 right-4 z-index-10 hidden md:block">
+      <button @click="toggleMeta" class="button button-size-medium button-color-gray">
+        <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span class="ml-3">Info</span>
       </button>
     </div>
   </div>
 </template>
 
 <script>
-import Doc from '@/models/doc';
-
-import InfoLabel from '@/components/labels/Info';
-// figure out what is happening here...
 import MarkdownEditor from '@voraciousdev/vue-markdown-editor';
-import Tag from '@/components/Tag';
+
+import Doc from '@/models/doc';
 
 import {
   ADD_DOCUMENT,
@@ -34,9 +34,7 @@ import {
 export default {
   name: 'TheEditor',
   components: {
-    InfoLabel,
     MarkdownEditor,
-    Tag,
   },
   props: {
     initialCursor: {
@@ -134,7 +132,6 @@ export default {
   }
 
   .editor .editable {
-    outline: none;
     white-space: pre-wrap;
   }
 

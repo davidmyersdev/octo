@@ -137,7 +137,7 @@ export default {
 
         // draw the label
         context.fillStyle = this.colors.label
-        context.font = `${fontSize}px Fira Sans`
+        context.font = `${fontSize}px Inter`
         context.textAlign = 'center'
         context.textBaseline = 'top'
         context.fillText(label, node.x, node.y + radius + 1)

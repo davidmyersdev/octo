@@ -1,7 +1,7 @@
 <template>
   <div class="hidden md:flex items-center">
-    <Key :class="{ active: active }">{{this.$store.state.modKey}}</Key>
-    <Key :class="{ active: active }" class="ml-1 monospace">K</Key>
+    <Key :class="{ active: active }" class="bg-gray-200 dark:bg-gray-900">{{this.$store.state.modKey}}</Key>
+    <Key :class="{ active: active }" class="bg-gray-200 dark:bg-gray-900 ml-1">K</Key>
   </div>
 </template>
 

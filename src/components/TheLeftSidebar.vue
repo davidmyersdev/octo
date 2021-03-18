@@ -16,10 +16,10 @@
                 </svg>
                 <span class="ml-6 md:ml-3">Search</span>
               </div>
-              <span class="hidden md:flex">
+              <span class="hidden md:flex text-gray-500">
                 <Key :toggleable="false">{{this.$store.state.modKey}}</Key>
                 <Key class="ml-1" :toggleable="false">⇧ shift</Key>
-                <Key class="ml-1 monospace" :toggleable="false">f</Key>
+                <Key class="ml-1" :toggleable="false">f</Key>
               </span>
           </router-link>
         </div>

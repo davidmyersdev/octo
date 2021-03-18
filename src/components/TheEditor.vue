@@ -133,12 +133,11 @@ export default {
 </script>
 
 <style scoped>
-  /* .md-plus .editable {
+  .md-plus .editable {
     font-size: 1.1em;
-  } */
+  }
 
   .editor .editable {
-    /* outline: none; */
     white-space: pre-wrap;
   }
 

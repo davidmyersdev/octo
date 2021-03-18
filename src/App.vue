@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="flex flex-col flex-grow flex-shrink text-gray-900 dark:text-gray-300 bg-white dark:bg-gray-900" :class="sizes">
+  <div id="app" class="flex flex-col flex-grow flex-shrink text-gray-900 dark:text-gray-400 bg-white dark:bg-gray-900" :class="sizes">
     <simplebar v-if="context.active || context.editing" class="context-banner bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800 relative-fixed">
       <div class="flex items-center text-center">
         <div v-if="contextTags.length" class="context-tags">
@@ -97,7 +97,7 @@ export default {
 }
 
 body {
-  font-family: 'Fira Sans', arial !important;
+  font-family: 'Inter', arial !important;
   margin: 0;
 }
 
@@ -107,7 +107,7 @@ body, pre {
 }
 
 pre {
-  font-family: 'Fira Mono', monospace !important;
+  font-family: 'Fira Code', monospace !important;
   margin: 0;
 }
 
@@ -157,15 +157,15 @@ pre {
 }
 
 .CodeMirror .cm-m-markdown:not(.cm-comment) {
-  font-family: 'Fira Sans', helvetica, sans-serif !important;
+  font-family: 'Inter', helvetica, sans-serif !important;
 }
 
 .monospace {
-  font-family: 'Fira Mono', monospace !important;
+  font-family: 'Fira Code', monospace !important;
 }
 
 .sans-serif {
-  font-family: 'Fira Sans', arial !important;
+  font-family: 'Inter', helvetica, sans-serif !important;
 }
 
 .notification {

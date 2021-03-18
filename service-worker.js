@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.2f897ec7f5e72a5c25637dbde360d0ed.js"
+  "/precache-manifest.6d551cf3c5983152b67998a17e9f419a.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "@voraciousdev/octo"});
@@ -66,13 +66,6 @@ self.__precacheManifest = [
   {
     "url": "https://code.cdn.mozilla.net/fonts/woff/FiraSans-Medium.woff",
     "revision": "v1"
-  },
-  {
-    "url": "https://fonts.googleapis.com/css?family=Lato:400,700,400italic&display=swap",
-    "revision": "v1"
-  },
-  {
-    "url": "https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/darkly/bootstrap.min.css"
   }
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();

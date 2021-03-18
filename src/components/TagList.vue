@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto flex flex-col p-4 md:px-16 md:py-8">
+  <div class="flex flex-col p-4 md:p-2">
     <Tag class="sidebar-link mb-2" v-for="tag in tags" :key="tag" :tag="tag"></Tag>
   </div>
 </template>

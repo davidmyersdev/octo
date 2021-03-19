@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.07c06179f7e872365a033bf161e9427d.js"
+  "/precache-manifest.40b21c7b724a24647e073814a52743df.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "@voraciousdev/octo"});
@@ -32,39 +32,7 @@ self.__precacheManifest = [
     "url": "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"
   },
   {
-    "url": "https://code.cdn.mozilla.net/fonts/fira.css",
-    "revision": "v1"
-  },
-  {
-    "url": "https://code.cdn.mozilla.net/fonts/ttf/FiraMono-Bold.ttf",
-    "revision": "v1"
-  },
-  {
-    "url": "https://code.cdn.mozilla.net/fonts/ttf/FiraMono-Regular.ttf",
-    "revision": "v1"
-  },
-  {
-    "url": "https://code.cdn.mozilla.net/fonts/ttf/FiraSans-Regular.ttf",
-    "revision": "v1"
-  },
-  {
-    "url": "https://code.cdn.mozilla.net/fonts/ttf/FiraSans-Medium.ttf",
-    "revision": "v1"
-  },
-  {
-    "url": "https://code.cdn.mozilla.net/fonts/woff/FiraMono-Bold.woff",
-    "revision": "v1"
-  },
-  {
-    "url": "https://code.cdn.mozilla.net/fonts/woff/FiraMono-Regular.woff",
-    "revision": "v1"
-  },
-  {
-    "url": "https://code.cdn.mozilla.net/fonts/woff/FiraSans-Regular.woff",
-    "revision": "v1"
-  },
-  {
-    "url": "https://code.cdn.mozilla.net/fonts/woff/FiraSans-Medium.woff",
+    "url": "https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@300;400;700&display=swap",
     "revision": "v1"
   }
 ].concat(self.__precacheManifest || []);
@@ -72,3 +40,4 @@ workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
 workbox.routing.registerRoute(/^https:\/\/cdnjs.cloudflare.com\/.*/, workbox.strategies.staleWhileRevalidate({ "cacheName":"cloudflare-cache", plugins: [] }), 'GET');
+workbox.routing.registerRoute(/^https:\/\/fonts.gstatic.com\/s\/.*/, workbox.strategies.staleWhileRevalidate({ "cacheName":"font-cache", plugins: [] }), 'GET');

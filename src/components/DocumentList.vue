@@ -34,7 +34,7 @@
     <div>
       <p v-if="isEditing" class="text-gray-700">Select two or more documents to merge them together.</p>
     </div>
-    <div class="grid gap-4 grid-cols-1" :class="`lg:grid-cols-${cols}`">
+    <div class="grid gap-4 grid-cols-1" :class="cols === 2 && 'lg:grid-cols-2'">
       <div v-for="document in visibleDocuments" :key="document.id" @keypress.enter="selectDocument(document.id)" @click="selectDocument(document.id)" tabindex="0" class="rounded relative cursor-pointer outline-none focus:ring">
         <Document v-bind="document" class="h-96"></Document>
         <div v-if="document.selected" class="flex items-center justify-center rounded absolute inset-0 bg-black bg-opacity-10 dark:bg-opacity-50">

@@ -91,15 +91,7 @@ module.exports = {
         (originalManifest) => {
           const manifest = originalManifest.concat([
             { url: 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js' },
-            { url: 'https://code.cdn.mozilla.net/fonts/fira.css', revision: 'v1' },
-            { url: 'https://code.cdn.mozilla.net/fonts/ttf/FiraMono-Bold.ttf', revision: 'v1' },
-            { url: 'https://code.cdn.mozilla.net/fonts/ttf/FiraMono-Regular.ttf', revision: 'v1' },
-            { url: 'https://code.cdn.mozilla.net/fonts/ttf/FiraSans-Regular.ttf', revision: 'v1' },
-            { url: 'https://code.cdn.mozilla.net/fonts/ttf/FiraSans-Medium.ttf', revision: 'v1' },
-            { url: 'https://code.cdn.mozilla.net/fonts/woff/FiraMono-Bold.woff', revision: 'v1' },
-            { url: 'https://code.cdn.mozilla.net/fonts/woff/FiraMono-Regular.woff', revision: 'v1' },
-            { url: 'https://code.cdn.mozilla.net/fonts/woff/FiraSans-Regular.woff', revision: 'v1' },
-            { url: 'https://code.cdn.mozilla.net/fonts/woff/FiraSans-Medium.woff', revision: 'v1' },
+            { url: 'https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@300;400;700&display=swap', revision: 'v1' },
           ]);
           // optionally set warning messages
           const warnings = [];
@@ -112,6 +104,13 @@ module.exports = {
           handler: 'staleWhileRevalidate',
           options: {
             cacheName: 'cloudflare-cache',
+          },
+        },
+        {
+          urlPattern: new RegExp('^https\:\/\/fonts\.gstatic\.com\/s\/.*'),
+          handler: 'staleWhileRevalidate',
+          options: {
+            cacheName: 'font-cache',
           },
         },
       ],

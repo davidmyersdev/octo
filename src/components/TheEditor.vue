@@ -123,6 +123,14 @@ export default {
 
     next();
   },
+  mounted() {
+    // this will ensure the cursor is properly aligned on font changes
+    document.fonts.ready.then(() => {
+      if (this.$refs.editable) {
+        this.$refs.editable.refresh()
+      }
+    })
+  },
 };
 </script>
 

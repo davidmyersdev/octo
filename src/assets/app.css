@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* utils */
+.ligatures-none {
+  font-variant-ligatures: none;
+}
+
+.ligatures-normal {
+  font-variant-ligatures: normal;
+}
+
 /* form */
 .button {
   @apply button-flat shadow;

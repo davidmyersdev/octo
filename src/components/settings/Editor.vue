@@ -23,8 +23,18 @@
         <small class="text-gray-700">Select an alternate keymapping</small>
       </div>
       <div class="mb-4">
+        <h4 class="text-2xl mb-2">Font Ligatures</h4>
+        <p class="mb-2">Whether or not to show <a href="https://github.com/tonsky/FiraCode#whats-in-the-box" target="_blank" rel="noopener noreferrer">font ligatures</a> (<code class="monospace ligatures-normal">=></code>).</p>
+        <div class="mb-4">
+          <label class="button button-size-medium button-color-gray items-baseline">
+            <input v-model="ligatures" type="checkbox" class="checkbox">
+            <span class="ml-3 ">Enable Ligatures</span>
+          </label>
+        </div>
+      </div>
+      <div class="mb-4">
         <h4 class="text-2xl mb-2">Images</h4>
-        <p class="mb-2">This setting determines whether or not image tags (e.g. <code class="text-gray-700">![alt text](/path/to/image)</code>) will render images in your documents.</p>
+        <p class="mb-2">This setting determines whether or not image tags (e.g. <code class="text-gray-700 dark:text-gray-600">![alt text](/path/to/image)</code>) will render images in your documents.</p>
         <div class="mb-4">
           <div>
             <label class="button button-size-medium button-color-gray items-baseline">
@@ -47,8 +57,9 @@
 import {
   SET_EDITOR_IMAGES_ENABLED,
   SET_EDITOR_IMAGES_SHOW_CAPTIONS,
-  SET_EDITOR_TAB_SIZE,
   SET_EDITOR_KEY_MAP,
+  SET_EDITOR_LIGATURES,
+  SET_EDITOR_TAB_SIZE,
 } from '@/store/modules/settings';
 
 export default {
@@ -68,6 +79,14 @@ export default {
       },
       set(value) {
         this.$store.dispatch(SET_EDITOR_KEY_MAP, value);
+      },
+    },
+    ligatures: {
+      get() {
+        return this.$store.state.settings.editor.ligatures;
+      },
+      set(value) {
+        this.$store.commit(SET_EDITOR_LIGATURES, value);
       },
     },
     showCaptions: {

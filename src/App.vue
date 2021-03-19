@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="flex flex-col flex-grow flex-shrink text-gray-900 dark:text-gray-400 bg-white dark:bg-gray-900" :class="sizes">
+  <div id="app" class="flex flex-col flex-grow flex-shrink text-gray-900 dark:text-gray-400 bg-white dark:bg-gray-900" :class="sizes.concat([(!ligatures && 'ligatures-none')])">
     <simplebar v-if="context.active || context.editing" class="context-banner bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800 relative-fixed">
       <div class="flex items-center text-center">
         <div v-if="contextTags.length" class="context-tags">
@@ -61,6 +61,9 @@ export default {
     contextTags() {
       return this.context.tags.sort();
     },
+    ligatures() {
+      return this.$store.state.settings.editor.ligatures
+    },
     sizes() {
       if (this.$mq === 'xs') return ['xs xs-plus'];
       if (this.$mq === 'sm') return ['sm xs-plus sm-plus'];
@@ -94,6 +97,10 @@ export default {
 <style>
 * {
   box-sizing: border-box;
+}
+
+.ligatures-none * {
+  font-variant-ligatures: none;
 }
 
 body {

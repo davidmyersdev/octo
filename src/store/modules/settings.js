@@ -6,6 +6,7 @@ export const SET_CRYPTO_KEYS = 'SET_CRYPTO_KEYS';
 export const SET_EDITOR_IMAGES_ENABLED = 'SET_EDITOR_IMAGES_ENABLED';
 export const SET_EDITOR_IMAGES_SHOW_CAPTIONS = 'SET_EDITOR_IMAGES_SHOW_CAPTIONS';
 export const SET_EDITOR_KEY_MAP = 'SET_EDITOR_KEY_MAP';
+export const SET_EDITOR_LIGATURES = 'SET_EDITOR_LIGATURES';
 export const SET_EDITOR_TAB_SIZE = 'SET_EDITOR_TAB_SIZE';
 export const SET_THEME = 'SET_THEME'
 export const SETTINGS_LOADED = 'SETTINGS_LOADED';
@@ -23,6 +24,7 @@ export default {
         showCaptions: true,
       },
       keyMap: 'default',
+      ligatures: true,
       tabSize: 2,
     },
     loaded: false,
@@ -55,6 +57,9 @@ export default {
     },
     [SET_EDITOR_KEY_MAP] (state, keyMap) {
       state.editor.keyMap = keyMap;
+    },
+    [SET_EDITOR_LIGATURES] (state, isEnabled) {
+      state.editor.ligatures = isEnabled;
     },
     [SET_EDITOR_TAB_SIZE] (state, tabSize) {
       state.editor.tabSize = tabSize;

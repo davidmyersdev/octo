@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "51af9016b465ef5adbec",
-    "url": "/css/app.a4e4527d.css"
+    "revision": "1aaccca3a6cdbd132961",
+    "url": "/css/app.c51b7c22.css"
   },
   {
-    "revision": "51af9016b465ef5adbec",
-    "url": "/js/app.2e3985f3.js"
+    "revision": "1aaccca3a6cdbd132961",
+    "url": "/js/app.2c89f72e.js"
   },
   {
     "revision": "3192636ffa685340f9e0",
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/img/octopus-transparent-light.cb3fe44a.svg"
   },
   {
-    "revision": "58206006abe877b4dff9b5b37584dd4a",
+    "revision": "567955925f141537fa51d726a3965ad8",
     "url": "/index.html"
   },
   {
@@ -100,15 +100,15 @@ self.__precacheManifest = [
     "url": "/img/icons/safari-pinned-tab.svg"
   },
   {
+    "revision": "9b70fb47db736091affef12d9dc87fdf",
+    "url": "/manifest.json"
+  },
+  {
     "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
     "url": "/robots.txt"
   },
   {
     "revision": "6dbbdf1b5e64fe6a73f4f366230ff660",
     "url": "/welcome.md"
-  },
-  {
-    "revision": "9b70fb47db736091affef12d9dc87fdf",
-    "url": "/manifest.json"
   }
 ];

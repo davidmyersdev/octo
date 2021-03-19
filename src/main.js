@@ -60,7 +60,7 @@ new Vue({
     }
 
     if (localStorage.getItem('octo/welcome/v1') === null) {
-      fetch('./welcome.md')
+      fetch('/welcome.md')
         .then((response) => {
           return response.text();
         })

@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col md:flex-row items-stretch justify-end">
     <div ref="graph" class="graph flex flex-col overflow-hidden fixed left-0 right-0 top-0 bottom-0"></div>
-    <div v-if="selectedTag" class="docs flex flex-col">
+    <div v-if="selectedTag" class="docs flex flex-col p-4">
       <DocumentList :tag="selectedTag" :cols="1" class="z-index-1" />
     </div>
   </div>

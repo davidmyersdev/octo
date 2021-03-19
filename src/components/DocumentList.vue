@@ -1,5 +1,5 @@
 <template>
-  <div class="container flex flex-col mx-auto p-4 md:px-16 md:py-8">
+  <div class="flex flex-col w-full">
     <div class="flex items-center text-2xl">
       <div v-if="tag" class="flex items-center">
         <svg height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

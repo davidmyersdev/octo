@@ -2,11 +2,11 @@ import Vue from 'vue';
 import Router from 'vue-router';
 
 // views
-import Dashboard from './views/Dashboard';
+import Dashboard from './views/Dashboard'
+import Documents from './views/Documents'
 
 // components
 import Context from './components/Context';
-import DocumentList from './components/DocumentList';
 import Exporter from './components/Exporter';
 import Graph from './components/Graph';
 import Importer from './components/Importer';
@@ -45,7 +45,7 @@ const router = new Router({
         {
           path: 'documents',
           name: 'documents',
-          component: DocumentList,
+          component: Documents,
         },
         {
           path: 'documents/new',
@@ -71,7 +71,7 @@ const router = new Router({
         {
           path: 'documents/actionable',
           name: 'actionable',
-          component: DocumentList,
+          component: Documents,
           props: {
             actionable: true,
           },
@@ -79,7 +79,7 @@ const router = new Router({
         {
           path: 'documents/discarded',
           name: 'discarded',
-          component: DocumentList,
+          component: Documents,
           props: {
             discarded: true,
           },
@@ -87,7 +87,7 @@ const router = new Router({
         {
           path: 'documents/recent',
           name: 'recent',
-          component: DocumentList,
+          component: Documents,
           props: {
             recent: true,
           },
@@ -95,7 +95,7 @@ const router = new Router({
         {
           path: 'documents/untagged',
           name: 'untagged',
-          component: DocumentList,
+          component: Documents,
           props: {
             untagged: true,
           },
@@ -144,7 +144,7 @@ const router = new Router({
         {
           path: 'tags/:tag',
           name: 'tag',
-          component: DocumentList,
+          component: Documents,
           props: true,
         },
         {

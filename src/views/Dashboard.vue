@@ -2,8 +2,8 @@
   <div class="flex flex-col">
     <div class="flex flex-grow flex-shrink min-h-0">
       <TheLeftSidebar v-if="!mobile && showLeftSidebar" class="hidden w-72 bg-gray-100 dark:bg-darkest md:flex m-2 rounded shadow" />
-      <div class="flex flex-col flex-grow flex-shrink min-h-0">
-        <TheContent class="flex-grow flex-shrink min-h-0" />
+      <div class="flex flex-col flex-grow flex-shrink min-h-0 min-w-0">
+        <TheContent class="flex-grow flex-shrink min-h-0 min-w-0" />
       </div>
       <TheRightSidebar v-if="!mobile && showRightSidebar && currentDoc" class="hidden w-72 bg-gray-100 dark:bg-darkest md:flex m-2 rounded" />
     </div>

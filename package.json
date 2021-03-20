@@ -7,7 +7,7 @@
     "build_prod": "vue-cli-service build --dest ./dist",
     "lint": "vue-cli-service lint",
     "serve_dev": "vue-cli-service serve --port 8888",
-    "serve_prod": "npm run build_prod && serve -l 8889 -s ./dist"
+    "serve_prod": "yarn build_prod && serve -l 8889 -s ./dist"
   },
   "dependencies": {
     "@voraciousdev/vue-markdown-editor": "v0.3.0",

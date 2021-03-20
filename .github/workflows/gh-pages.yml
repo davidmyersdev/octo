@@ -12,8 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-      - run: npm install
-      - run: npm run build_prod
+      - run: yarn install --frozen-lockfile
+      - run: yarn build_prod
       - run: cp ./dist/index.html ./dist/404.html
       - uses: peaceiris/actions-gh-pages@v3
         with:

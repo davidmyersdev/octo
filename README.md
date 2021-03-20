@@ -48,7 +48,7 @@ Built with Vue, Vuex, and VueRouter. Progressive Web Apps are accessible on all 
 
 Add as many hashtags to your documents as you like. Build a network of information and explore your knowledgebase just as you would explore your own memories.
 
-![](resources/combined-graph-dark.png)
+![](resources/desktop-graph-dark.png)
 
 ## Demo
 

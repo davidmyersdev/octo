@@ -62,7 +62,7 @@ As simple as it gets.
 
 ```shell
 # install dependencies
-npm install
+yarn install
 ```
 
 ## Local Development
@@ -71,7 +71,7 @@ We can run it in `development` mode.
 
 ```shell
 # binds to localhost:8888
-npm run serve_dev
+yarn serve_dev
 ```
 
 We can also run it in `production` mode.
@@ -80,7 +80,7 @@ _Note: Offline functionality is only available in `production` mode due to [lack
 
 ```shell
 # binds to localhost:8889
-npm run serve_prod
+yarn serve_prod
 ```
 
 ## Compile to Static Assets
@@ -89,7 +89,7 @@ Create the production build.
 
 ```shell
 # compiles at ./dist
-npm run build_prod
+yarn build_prod
 ```
 
 The static assets will be available in the `dist` directory.

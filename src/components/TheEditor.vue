@@ -57,6 +57,11 @@ export default {
       placeholder: new Doc(),
     };
   },
+  watch: {
+    document() {
+      this.clearHistory()
+    },
+  },
   computed: {
     currentDoc() {
       return this.$store.getters.currentDoc;
@@ -78,6 +83,16 @@ export default {
     },
   },
   methods: {
+    clearHistory() {
+      const listener = () => {
+        if (this.document.text === this.editor.getValue()) {
+          this.editor.off('change', listener)
+          this.editor.clearHistory()
+        }
+      }
+
+      this.editor.on('change', listener)
+    },
     async focusEditor() {
       this.$refs.editable.focus();
     },
@@ -107,10 +122,12 @@ export default {
       }
     },
     async onReady(instance) {
-      this.editor = instance;
+      this.editor = instance
 
-      this.focusEditor();
-      this.$store.dispatch(SET_EDITOR, this.editor);
+      this.focusEditor()
+      this.clearHistory()
+
+      this.$store.dispatch(SET_EDITOR, this.editor)
     },
     async toggleMeta() {
       this.$store.dispatch(SET_RIGHT_SIDEBAR_VISIBILITY, !this.showRightSidebar);

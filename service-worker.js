@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.13447f9cd1668b0bdca6b3a94a6dc083.js"
+  "/precache-manifest.ee55fb496cd326c315bd3d962f0e42a5.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "@voraciousdev/octo"});
@@ -28,9 +28,6 @@ workbox.clientsClaim();
  * See https://goo.gl/S9QRab
  */
 self.__precacheManifest = [
-  {
-    "url": "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js"
-  },
   {
     "url": "https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@300;400;700&display=swap",
     "revision": "v1"

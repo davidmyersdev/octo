@@ -68,13 +68,14 @@ import Tag from '@/components/Tag'
 
 import CodeSandbox from '@/common/code_sandbox'
 import { parseCodeblocks } from '@/common/parsers'
+import { open } from '@/router'
 
 import {
   DISCARD_DOCUMENT,
   DUPLICATE_DOCUMENT,
   RESTORE_DOCUMENT,
   SET_RIGHT_SIDEBAR_VISIBILITY,
-} from '@/store/actions';
+} from '@/store/actions'
 
 export default {
   name: 'TheRightSidebar',
@@ -133,12 +134,12 @@ export default {
     async discardDocument() {
       this.$store.dispatch(DISCARD_DOCUMENT, { id: this.document.id });
 
-      this.$router.push({ name: 'dashboard' });
+      open({ name: 'dashboard' })
     },
     async duplicateDocument() {
       const newDocId = await this.$store.dispatch(DUPLICATE_DOCUMENT, { id: this.document.id });
 
-      this.$router.push({ name: 'document', params: { id: newDocId } });
+      open({ name: 'document', params: { id: newDocId } })
     },
     async openSandbox() {
       const files = this.codeblocks.reduce((agg, codeblock, index) => {

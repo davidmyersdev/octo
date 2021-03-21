@@ -36,7 +36,9 @@
 </template>
 
 <script>
-import TheLogo from '@/components/TheLogo';
+import TheLogo from '@/components/TheLogo'
+
+import { open } from '@/router'
 
 export default {
   name: 'TheNavbar',
@@ -45,28 +47,28 @@ export default {
   },
   computed: {
     document() {
-      return this.$store.getters.currentDoc;
+      return this.$store.getters.currentDoc
     },
     isDocument() {
-      return this.document && this.$route.name === 'document';
+      return this.document && this.$route.name === 'document'
     },
     isDashboard() {
-      return this.$route.name === 'dashboard';
+      return this.$route.name === 'dashboard'
     },
   },
   methods: {
     close() {
       if (this.document) {
-        return this.$router.push({
+        return open({
           name: 'document',
           params: {
             id: this.document.id,
           },
-        });
+        })
       }
 
-      this.$router.push({ name: 'dashboard' });
+      open({ name: 'dashboard' })
     },
   },
-};
+}
 </script>

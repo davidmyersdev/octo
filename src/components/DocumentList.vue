@@ -56,11 +56,13 @@
 </template>
 
 <script>
-import Document from '@/components/Document';
+import Document from '@/components/Document'
+
+import { open } from '@/router'
 
 import {
   MERGE_DOCUMENTS,
-} from '@/store/actions';
+} from '@/store/actions'
 
 export default {
   name: 'DocumentList',
@@ -186,7 +188,7 @@ export default {
           this.selectedDocuments.push(this.filteredDocuments.find(doc => doc.id === id));
         }
       } else {
-        this.$router.push({ name: 'document', params: { id: id } });
+        open({ name: 'document', params: { id: id } });
       }
     },
   },

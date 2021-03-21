@@ -1,29 +1,30 @@
-import Vue from 'vue';
-import Router from 'vue-router';
+import Vue from 'vue'
+import Router from 'vue-router'
 
 // views
+import Daily from './views/Daily'
 import Dashboard from './views/Dashboard'
 import Documents from './views/Documents'
 
 // components
-import Context from './components/Context';
-import Exporter from './components/Exporter';
-import Graph from './components/Graph';
-import Importer from './components/Importer';
-import QuickAction from './components/QuickAction';
-import TagList from './components/TagList';
-import TheEditor from './components/TheEditor';
-import TheLeftSidebar from './components/TheLeftSidebar';
-import TheRightSidebar from './components/TheRightSidebar';
-import TheSettings from './components/TheSettings';
+import Context from './components/Context'
+import Exporter from './components/Exporter'
+import Graph from './components/Graph'
+import Importer from './components/Importer'
+import QuickAction from './components/QuickAction'
+import TagList from './components/TagList'
+import TheEditor from './components/TheEditor'
+import TheLeftSidebar from './components/TheLeftSidebar'
+import TheRightSidebar from './components/TheRightSidebar'
+import TheSettings from './components/TheSettings'
 
-import store from '@/store';
+import store from '@/store'
 
 import {
   SET_DOCUMENT,
-} from '@/store/actions';
+} from '@/store/actions'
 
-Vue.use(Router);
+Vue.use(Router)
 
 const router = new Router({
   mode: 'history',
@@ -53,8 +54,8 @@ const router = new Router({
           component: TheEditor,
           props: true,
           beforeEnter(to, from, next) {
-            store.dispatch(SET_DOCUMENT, { id: null });
-            next();
+            store.dispatch(SET_DOCUMENT, { id: null })
+            next()
           },
         },
         {
@@ -100,6 +101,13 @@ const router = new Router({
             untagged: true,
           },
         },
+        // daily
+        {
+          path: 'documents/daily',
+          name: 'daily',
+          component: Daily,
+          props: true,
+        },
         // show meta for a document
         {
           path: 'documents/:id/meta',
@@ -107,8 +115,8 @@ const router = new Router({
           component: TheRightSidebar,
           props: true,
           beforeEnter(to, from, next) {
-            store.dispatch(SET_DOCUMENT, { id: to.params.id });
-            next();
+            store.dispatch(SET_DOCUMENT, { id: to.params.id })
+            next()
           },
         },
         // show a specific document
@@ -118,8 +126,8 @@ const router = new Router({
           component: TheEditor,
           props: true,
           beforeEnter(to, from, next) {
-            store.dispatch(SET_DOCUMENT, { id: to.params.id });
-            next();
+            store.dispatch(SET_DOCUMENT, { id: to.params.id })
+            next()
           },
         },
         // quick action
@@ -168,6 +176,15 @@ const router = new Router({
       ],
     },
   ],
-});
+})
 
-export default router;
+export const open = (route) => {
+  router.push(route).catch((error) => {
+    // avoid redundant navigation errors
+    if (error.name !== 'NavigationDuplicated') {
+      throw error
+    }
+  })
+}
+
+export default router

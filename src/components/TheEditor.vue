@@ -19,9 +19,10 @@
 </template>
 
 <script>
-import MarkdownEditor from '@voraciousdev/vue-markdown-editor';
+import MarkdownEditor from '@voraciousdev/vue-markdown-editor'
 
-import Doc from '@/models/doc';
+import Doc from '@/models/doc'
+import { open } from '@/router'
 
 import {
   ADD_DOCUMENT,
@@ -29,7 +30,7 @@ import {
   SET_DOCUMENT,
   SET_EDITOR,
   SET_RIGHT_SIDEBAR_VISIBILITY,
-} from '@/store/actions';
+} from '@/store/actions'
 
 export default {
   name: 'TheEditor',
@@ -37,6 +38,7 @@ export default {
     MarkdownEditor,
   },
   props: {
+    id: String,
     initialCursor: {
       type: Object,
       default: () => ({
@@ -47,6 +49,13 @@ export default {
         cursor.hasOwnProperty('character') && cursor.hasOwnProperty('line')
       ),
     },
+    initialFocus: {
+      type: String,
+      default: () => ('any'),
+      validator: (position) => (
+        ['any', 'start', 'end'].includes(position)
+      ),
+    },
     initialVimMode: {
       type: String
     },
@@ -55,7 +64,7 @@ export default {
     return {
       editor: null,
       placeholder: new Doc(),
-    };
+    }
   },
   watch: {
     document() {
@@ -64,22 +73,22 @@ export default {
   },
   computed: {
     currentDoc() {
-      return this.$store.getters.currentDoc;
+      return this.$store.getters.currentDoc
     },
     document() {
-      return this.$store.getters.decrypted.find(doc => doc.id === this.$route.params.id) || this.placeholder;
+      return this.$store.getters.decrypted.find(doc => doc.id === this.id) || this.placeholder
     },
     mediumPlus() {
-      return ['md', 'lg', 'xl'].includes(this.$mq);
+      return ['md', 'lg', 'xl'].includes(this.$mq)
     },
     settings() {
-      return this.$store.state.settings.editor;
+      return this.$store.state.settings.editor
     },
     showRightSidebar() {
-      return this.$store.state.showRightSidebar;
+      return this.$store.state.showRightSidebar
     },
     theme() {
-      return this.$store.state.settings.theme;
+      return this.$store.state.settings.theme
     },
   },
   methods: {
@@ -93,22 +102,31 @@ export default {
 
       this.editor.on('change', listener)
     },
-    async focusEditor() {
-      this.$refs.editable.focus();
+    focusEditor() {
+      this.$refs.editable.focus()
+    },
+    focusInitial() {
+      this.focusEditor()
+
+      if (this.initialFocus === 'start') {
+        this.focusEditorStart()
+      } else if (this.initialFocus === 'end') {
+        this.focusEditorEnd()
+      }
     },
     async focusEditorEnd() {
-      this.$refs.editable.focusEnd();
+      this.$refs.editable.focusEnd()
     },
     async focusEditorStart() {
-      this.$refs.editable.focusStart();
+      this.$refs.editable.focusStart()
     },
     async input(text) {
-      if (this.$route.params.id) {
-        this.$store.dispatch(EDIT_DOCUMENT, { id: this.document.id, text });
+      if (this.id) {
+        this.$store.dispatch(EDIT_DOCUMENT, { id: this.document.id, text })
       } else {
-        this.$store.dispatch(ADD_DOCUMENT, new Doc({ id: this.document.id, text }));
+        this.$store.dispatch(ADD_DOCUMENT, new Doc({ id: this.document.id, text }))
 
-        this.$router.push({
+        open({
           name: 'document',
           params: {
             id: this.document.id,
@@ -118,27 +136,27 @@ export default {
             },
             initialVimMode: this.editor.getOption('keyMap'),
           },
-        });
+        })
       }
     },
     async onReady(instance) {
       this.editor = instance
 
-      this.focusEditor()
+      this.focusInitial()
       this.clearHistory()
 
       this.$store.dispatch(SET_EDITOR, this.editor)
     },
     async toggleMeta() {
-      this.$store.dispatch(SET_RIGHT_SIDEBAR_VISIBILITY, !this.showRightSidebar);
+      this.$store.dispatch(SET_RIGHT_SIDEBAR_VISIBILITY, !this.showRightSidebar)
     },
   },
   beforeRouteUpdate(to, from, next) {
     if (to.name === 'document') {
-      this.$store.dispatch(SET_DOCUMENT, { id: to.params.id });
+      this.$store.dispatch(SET_DOCUMENT, { id: to.params.id })
     }
 
-    next();
+    next()
   },
   mounted() {
     // this will ensure the cursor is properly aligned on font changes
@@ -148,7 +166,7 @@ export default {
       }
     })
   },
-};
+}
 </script>
 
 <style scoped>

@@ -90,7 +90,6 @@ module.exports = {
       manifestTransforms: [
         (originalManifest) => {
           const manifest = originalManifest.concat([
-            { url: 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.26.0/moment.min.js' },
             { url: 'https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@300;400;700&display=swap', revision: 'v1' },
           ]);
           // optionally set warning messages

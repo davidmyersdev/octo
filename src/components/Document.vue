@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import moment from 'moment'
+
 import {
   DISCARD_DOCUMENT,
   RESTORE_DOCUMENT,

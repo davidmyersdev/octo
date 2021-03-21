@@ -60,13 +60,14 @@
 </template>
 
 <script>
-import simplebar from 'simplebar-vue';
+import moment from 'moment'
+import simplebar from 'simplebar-vue'
 
-import DiscardableAction from '@/components/DiscardableAction';
-import Tag from '@/components/Tag';
+import DiscardableAction from '@/components/DiscardableAction'
+import Tag from '@/components/Tag'
 
-import CodeSandbox from '@/common/code_sandbox';
-import { parseCodeblocks } from '@/common/parsers';
+import CodeSandbox from '@/common/code_sandbox'
+import { parseCodeblocks } from '@/common/parsers'
 
 import {
   DISCARD_DOCUMENT,

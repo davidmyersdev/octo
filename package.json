@@ -15,6 +15,7 @@
     "deepmerge": "^4.2.2",
     "force-graph": "^1.35.1",
     "localforage": "^1.7.4",
+    "moment": "^2.29.1",
     "mousetrap": "^1.6.5",
     "register-service-worker": "^1.7.1",
     "simplebar-vue": "^1.6.0",

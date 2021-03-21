@@ -49,6 +49,13 @@ export default {
         cursor.hasOwnProperty('character') && cursor.hasOwnProperty('line')
       ),
     },
+    initialFocus: {
+      type: String,
+      default: () => ('any'),
+      validator: (position) => (
+        ['any', 'start', 'end'].includes(position)
+      ),
+    },
     initialVimMode: {
       type: String
     },
@@ -95,8 +102,17 @@ export default {
 
       this.editor.on('change', listener)
     },
-    async focusEditor() {
+    focusEditor() {
       this.$refs.editable.focus()
+    },
+    focusInitial() {
+      this.focusEditor()
+
+      if (this.initialFocus === 'start') {
+        this.focusEditorStart()
+      } else if (this.initialFocus === 'end') {
+        this.focusEditorEnd()
+      }
     },
     async focusEditorEnd() {
       this.$refs.editable.focusEnd()
@@ -126,7 +142,7 @@ export default {
     async onReady(instance) {
       this.editor = instance
 
-      this.focusEditor()
+      this.focusInitial()
       this.clearHistory()
 
       this.$store.dispatch(SET_EDITOR, this.editor)

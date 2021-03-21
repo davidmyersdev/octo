@@ -33,7 +33,7 @@ export default {
       }
 
       if (!this.daily || this.daily.createdAt < cutoff) {
-        const template = `#daily\n\n# ${moment().format('ddd, MMMM Do, YYYY')}\n\n`
+        const template = `#daily\n\n# ${moment().format('dddd, MMMM Do, YYYY')}\n\n`
         const doc = new Doc({ text: template, daily: true })
 
         this.$store.commit(ADD_DOCUMENT, doc)

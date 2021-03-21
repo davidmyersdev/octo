@@ -35,6 +35,15 @@
             <ModKKey>N</ModKKey>
           </span>
         </router-link>
+        <router-link :to="{ name: 'daily' }" class="sidebar-link">
+          <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          <span class="action flex flex-grow items-stretch justify-between ml-6 md:ml-3">
+            <span>Daily Notepad</span>
+            <ModKKey>P</ModKKey>
+          </span>
+        </router-link>
         <router-link :to="{ name: 'context' }" class="sidebar-link">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
@@ -123,13 +132,13 @@
 </template>
 
 <script>
-import simplebar from 'simplebar-vue';
+import simplebar from 'simplebar-vue'
 
-import Key from '@/components/Key';
-import ModK from '@/components/ModK';
-import ModKKey from '@/components/ModKKey';
-import Tag from '@/components/Tag';
-import TheLogo from '@/components/TheLogo';
+import Key from '@/components/Key'
+import ModK from '@/components/ModK'
+import ModKKey from '@/components/ModKKey'
+import Tag from '@/components/Tag'
+import TheLogo from '@/components/TheLogo'
 
 export default {
   name: 'TheLeftSidebar',
@@ -143,16 +152,11 @@ export default {
   },
   computed: {
     document() {
-      return this.$store.getters.currentDoc;
+      return this.$store.getters.currentDoc
     },
     tags() {
-      return this.$store.getters.tags;
+      return this.$store.getters.tags
     },
   },
-  methods: {
-    isRoute(name) {
-      return this.$route.name === name;
-    },
-  },
-};
+}
 </script>

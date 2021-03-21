@@ -1,25 +1,25 @@
-import Vue from 'vue';
+import Vue from 'vue'
 import VueMq from 'vue-mq'
 
 import App from '@/App'
 import Extendable from '@/components/Extendable'
 
-import router from '@/router';
-import store from '@/store';
+import router, { open } from '@/router'
+import store from '@/store'
 
 import '@/assets/app.css'
 
 // setup the service worker
-import '@/registerServiceWorker';
+import '@/registerServiceWorker'
 
-import Doc from '@/models/doc';
+import Doc from '@/models/doc'
 
 import {
   ADD_DOCUMENT,
   SET_MOD_KEY,
   SET_OFFLINE,
   SET_ONLINE,
-} from '@/store/actions';
+} from '@/store/actions'
 
 import PackageManager from '@/packages/manager'
 
@@ -34,7 +34,7 @@ Vue.use(VueMq, {
     lg: 1200,
     xl: Infinity,
   },
-});
+})
 
 Vue.component('Extendable', Extendable)
 
@@ -44,15 +44,15 @@ new Vue({
   render: h => h(App),
   async created() {
     window.addEventListener('offline', () => {
-      this.$store.dispatch(SET_OFFLINE);
-    });
+      this.$store.dispatch(SET_OFFLINE)
+    })
 
     window.addEventListener('online', () => {
-      this.$store.dispatch(SET_ONLINE);
-    });
+      this.$store.dispatch(SET_ONLINE)
+    })
 
     if (!navigator.onLine) {
-      await this.$store.dispatch(SET_OFFLINE);
+      await this.$store.dispatch(SET_OFFLINE)
     }
 
     if (/Mac|iPod|iPhone|iPad/.test(navigator.platform)) {
@@ -62,19 +62,19 @@ new Vue({
     if (localStorage.getItem('octo/welcome/v1') === null) {
       fetch('/welcome.md')
         .then((response) => {
-          return response.text();
+          return response.text()
         })
         .then((text) => {
-          const doc = new Doc({ text });
+          const doc = new Doc({ text })
 
-          this.$store.dispatch(ADD_DOCUMENT, doc);
-          this.$router.push({ name: 'document', params: { id: doc.id } });
+          this.$store.dispatch(ADD_DOCUMENT, doc)
+          open({ name: 'document', params: { id: doc.id } })
 
-          localStorage.setItem('octo/welcome/v1', 'done');
+          localStorage.setItem('octo/welcome/v1', 'done')
         })
         .catch((error) => {
           // suppress errors for now
-        });
+        })
     }
   },
-}).$mount('#app');
+}).$mount('#app')

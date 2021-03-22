@@ -11,6 +11,11 @@
   font-variant-ligatures: normal;
 }
 
+/* vue router */
+.sidebar-link.router-link-active {
+  @apply md:bg-gray-200 md:dark:bg-gray-900 md:bg-opacity-50 md:dark:bg-opacity-50;
+}
+
 /* form */
 .button {
   @apply button-flat shadow;

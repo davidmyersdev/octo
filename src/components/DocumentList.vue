@@ -88,119 +88,109 @@ export default {
       isEditing: false,
       selectedDocuments: [],
       visibleCount: 25,
-    };
+    }
   },
   computed: {
     action() {
       if (this.tag) {
         return this.tag
       } else if (this.actionable) {
-        return 'actionable';
+        return 'actionable'
       } else if (this.discarded) {
-        return 'discarded';
+        return 'discarded'
       } else if (this.recent) {
-        return 'recent';
+        return 'recent'
       } else if (this.untagged) {
-        return 'untagged';
+        return 'untagged'
       } else {
-        return 'documents';
+        return 'documents'
       }
     },
     canMerge() {
-      return this.selectedDocuments.length > 1;
+      return this.selectedDocuments.length > 1
     },
     documents() {
       if (this.tag) {
-        return this.$store.getters.withTag(this.tag);
+        return this.$store.getters.withTag(this.tag)
       } else if (this.actionable) {
-        return this.$store.getters.actionable;
+        return this.$store.getters.actionable
       } else if (this.discarded) {
-        return this.$store.getters.discarded;
+        return this.$store.getters.discarded
       } else if (this.recent) {
         // show all for now - maybe paginate later
-        return this.$store.getters.kept;
+        return this.$store.getters.kept
       } else if (this.untagged) {
-        return this.$store.getters.untagged;
+        return this.$store.getters.untagged
       } else {
-        return this.$store.getters.decrypted;
+        return this.$store.getters.decrypted
       }
     },
     filterMessage() {
-      const sensitivity = this.filterCase ? 'sensitive' : 'insensitive';
-      const type = this.filterRegex ? 'regular expression' : 'plain text';
+      const sensitivity = this.filterCase ? 'sensitive' : 'insensitive'
+      const type = this.filterRegex ? 'regular expression' : 'plain text'
 
-      return `Filtering documents with case ${sensitivity} ${type} queries.`;
+      return `Filtering documents with case ${sensitivity} ${type} queries.`
     },
     filteredDocuments() {
       return this.documents.filter((doc) => {
         if (!this.filterText) {
-          return true;
+          return true
         }
 
         if (this.filterRegex) {
-          return (new RegExp(this.filterText, this.filterCase ? '' : 'i')).test(doc.text);
+          return (new RegExp(this.filterText, this.filterCase ? '' : 'i')).test(doc.text)
         } else {
           if (this.filterCase) {
-            return doc.text.includes(this.filterText);
+            return doc.text.includes(this.filterText)
           } else {
-            return doc.text.toLowerCase().includes(this.filterText.toLowerCase());
+            return doc.text.toLowerCase().includes(this.filterText.toLowerCase())
           }
         }
-      });
+      })
     },
     finalDocuments() {
       return this.filteredDocuments.map((doc) => ({
         ...doc,
         selected: this.selectedDocuments.includes(doc),
-      }));
+      }))
     },
     showLoadMore() {
-      return this.visibleCount <= this.finalDocuments.length;
+      return this.visibleCount <= this.finalDocuments.length
     },
     visibleDocuments() {
-      return this.finalDocuments.slice(0, this.visibleCount);
+      return this.finalDocuments.slice(0, this.visibleCount)
     },
   },
   methods: {
-    focus() {
-      this.$refs.input.focus();
-    },
     loadMore() {
-      this.visibleCount += 25;
+      this.visibleCount += 25
     },
     mergeDocuments() {
-      this.$store.dispatch(MERGE_DOCUMENTS, this.selectedDocuments);
+      this.$store.dispatch(MERGE_DOCUMENTS, this.selectedDocuments)
 
-      this.selectedDocuments = [];
+      this.selectedDocuments = []
     },
     toggleIsEditing() {
-      this.isEditing = !this.isEditing;
+      this.isEditing = !this.isEditing
 
       if (!this.isEditing) {
-        this.selectedDocuments = [];
+        this.selectedDocuments = []
       }
     },
     selectDocument(id) {
       if (this.isEditing) {
         if (this.selectedDocuments.find(doc => doc.id === id)) {
-          this.selectedDocuments = this.selectedDocuments.filter(doc => doc.id !== id);
+          this.selectedDocuments = this.selectedDocuments.filter(doc => doc.id !== id)
         } else {
-          this.selectedDocuments.push(this.filteredDocuments.find(doc => doc.id === id));
+          this.selectedDocuments.push(this.filteredDocuments.find(doc => doc.id === id))
         }
       } else {
-        open({ name: 'document', params: { id: id } });
+        open({ name: 'document', params: { id: id } })
       }
     },
   },
-  beforeRouteEnter(to, from, next) {
-    next((vm) => {
-      vm.focus();
-    });
+  mounted() {
+    this.$refs.input.focus()
   },
-  beforeRouteUpdate(to, from, next) {
-    this.focus();
-
-    next();
-  },
-};
+}
 </script>

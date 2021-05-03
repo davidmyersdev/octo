@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="flex flex-col flex-grow flex-shrink text-gray-900 dark:text-gray-400 bg-white dark:bg-gray-900" :class="sizes.concat([(!ligatures && 'ligatures-none')])">
+  <div id="app" class="flex flex-col flex-grow flex-shrink" :class="sizes.concat([(!ligatures && 'ligatures-none')])">
     <simplebar v-if="context.active || context.editing" class="context-banner bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800 relative-fixed">
       <div class="flex items-center text-center">
         <div v-if="contextTags.length" class="context-tags">
@@ -50,8 +50,8 @@ export default {
   },
   watch: {
     theme(value) {
-      document.body.classList.remove('dark', 'light')
-      document.body.classList.add(value)
+      document.documentElement.classList.remove('dark', 'light')
+      document.documentElement.classList.add(value)
     },
   },
   computed: {

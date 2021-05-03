@@ -1,7 +1,7 @@
-[![latest tag](https://img.shields.io/github/v/tag/voraciousdev/octo?color=blue&label=latest%20tag&sort=semver)](https://github.com/voraciousdev/octo/releases)
-[![license](https://img.shields.io/github/license/voraciousdev/octo)](https://github.com/voraciousdev/octo/blob/master/LICENSE)
-[![open issues](https://img.shields.io/github/issues-raw/voraciousdev/octo)](https://github.com/voraciousdev/octo/issues)
-[![chat in discussions](https://img.shields.io/badge/chat-in%20discussions-7289da)](https://github.com/voraciousdev/octo/discussions)
+[![latest tag](https://img.shields.io/github/v/tag/writewithocto/octo?color=blue&label=latest%20tag&sort=semver)](https://github.com/writewithocto/octo/releases)
+[![license](https://img.shields.io/github/license/writewithocto/octo)](https://github.com/writewithocto/octo/blob/main/LICENSE)
+[![open issues](https://img.shields.io/github/issues-raw/writewithocto/octo)](https://github.com/writewithocto/octo/issues)
+[![chat in discussions](https://img.shields.io/badge/chat-in%20discussions-7289da)](https://github.com/writewithocto/octo/discussions)
 [![follow on twitter](https://img.shields.io/badge/follow-on%20twitter-1da1f2)](https://twitter.com/writewithocto)
 
 <p align="center">
@@ -104,11 +104,11 @@ Your support is appreciated. ♥️
 
 ### Provide Feedback
 
-Your feedback is immensely important for building octo into an app that we all love. Consider [starting a discussion](https://github.com/voraciousdev/octo/discussions) if you have a question or just want to chat about ideas!
+Your feedback is immensely important for building octo into an app that we all love. Consider [starting a discussion](https://github.com/writewithocto/octo/discussions) if you have a question or just want to chat about ideas!
 
 ### Open a Pull Request
 
-If you feel comfortable tackling [an existing issue](https://github.com/voraciousdev/octo/issues), please consider opening a Pull Request! I am happy to introduce you to the codebase and work with you to get it merged!
+If you feel comfortable tackling [an existing issue](https://github.com/writewithocto/octo/issues), please consider opening a Pull Request! I am happy to introduce you to the codebase and work with you to get it merged!
 
 ### Donate
 

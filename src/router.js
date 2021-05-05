@@ -5,6 +5,7 @@ import Router from 'vue-router'
 import Daily from './views/Daily'
 import Dashboard from './views/Dashboard'
 import Documents from './views/Documents'
+import Editor from './views/Editor'
 
 // components
 import Context from './components/Context'
@@ -51,7 +52,7 @@ const router = new Router({
         {
           path: 'documents/new',
           name: 'dashboard',
-          component: TheEditor,
+          component: Editor,
           props: true,
           beforeEnter(to, from, next) {
             store.dispatch(SET_DOCUMENT, { id: null })
@@ -123,7 +124,7 @@ const router = new Router({
         {
           path: 'documents/:id',
           name: 'document',
-          component: TheEditor,
+          component: Editor,
           props: true,
           beforeEnter(to, from, next) {
             store.dispatch(SET_DOCUMENT, { id: to.params.id })

@@ -104,7 +104,7 @@ export default {
 }
 
 body {
-  font-family: 'Inter', arial !important;
+  font-family: 'Inter', helvetica, sans-serif !important;
   margin: 0;
 }
 

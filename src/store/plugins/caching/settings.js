@@ -9,6 +9,7 @@ import {
   SET_EDITOR_KEY_MAP,
   SET_EDITOR_LIGATURES,
   SET_EDITOR_TAB_SIZE,
+  SET_EDITOR_VERSION,
   SET_THEME,
   SETTINGS_LOADED,
 } from '@/store/modules/settings';
@@ -38,6 +39,7 @@ export default (store) => {
       case SET_EDITOR_KEY_MAP:
       case SET_EDITOR_LIGATURES:
       case SET_EDITOR_TAB_SIZE:
+      case SET_EDITOR_VERSION:
       case SET_THEME:
         cache.setItem(CACHE_KEY, state.settings);
 

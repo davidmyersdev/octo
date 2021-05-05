@@ -4,12 +4,26 @@
     <hr class="mt-2 mb-4">
     <Extendable scope="app.settings.editor">
       <div class="mb-4">
-        <label for="config-tab-size">Tab length</label>
-        <input v-model="tabSize" type="number" min="2" id="config-tab-size" class="form-text w-full">
-        <small class="text-gray-700">Number of spaces per tab (minimum: 2)</small>
+        <label for="config-editor-version">Markdown Editor Version</label>
+        <div>
+          <label class="button button-size-medium button-color-gray">
+            <input v-model="version" type="radio" value="original" class="radio">
+            <span class="ml-3">Original</span>
+          </label>
+          <label class="button button-size-medium button-color-gray ml-2">
+            <input v-model="version" type="radio" value="ink" class="radio">
+            <span class="ml-3">Ink (experimental)</span>
+          </label>
+        </div>
+        <small class="text-gray-700">Ink is the next generation of Octo's markdown editor. It is currently experimental, so please use with caution.</small>
       </div>
       <div class="mb-4">
-        <h4 class="text-2xl mb-2">Keymaps</h4>
+        <label for="config-tab-size">Tab length</label>
+        <input v-model="tabSize" type="number" min="2" id="config-tab-size" class="form-text w-full">
+        <small class="text-gray-700">Set the number of spaces to use for each tab (minimum: 2).</small>
+      </div>
+      <div class="mb-4">
+        <label for="config-key-map">KeyMap</label>
         <div>
           <label class="button button-size-medium button-color-gray">
             <input v-model="keyMap" type="radio" value="default" class="radio">
@@ -20,7 +34,7 @@
             <span class="ml-3">Vim</span>
           </label>
         </div>
-        <small class="text-gray-700">Select an alternate keymapping</small>
+        <small class="text-gray-700">Select an alternate keymap.</small>
       </div>
       <div class="mb-4">
         <h4 class="text-2xl mb-2">Font Ligatures</h4>
@@ -60,6 +74,7 @@ import {
   SET_EDITOR_KEY_MAP,
   SET_EDITOR_LIGATURES,
   SET_EDITOR_TAB_SIZE,
+  SET_EDITOR_VERSION,
 } from '@/store/modules/settings';
 
 export default {
@@ -103,6 +118,14 @@ export default {
       },
       set(value) {
         this.$store.dispatch(SET_EDITOR_TAB_SIZE, parseInt(value) || 2);
+      },
+    },
+    version: {
+      get() {
+        return this.$store.state.settings.editor.version
+      },
+      set(value) {
+        this.$store.commit(SET_EDITOR_VERSION, value)
       },
     },
   },

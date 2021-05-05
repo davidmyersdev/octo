@@ -8,6 +8,7 @@ export const SET_EDITOR_IMAGES_SHOW_CAPTIONS = 'SET_EDITOR_IMAGES_SHOW_CAPTIONS'
 export const SET_EDITOR_KEY_MAP = 'SET_EDITOR_KEY_MAP';
 export const SET_EDITOR_LIGATURES = 'SET_EDITOR_LIGATURES';
 export const SET_EDITOR_TAB_SIZE = 'SET_EDITOR_TAB_SIZE';
+export const SET_EDITOR_VERSION = 'SET_EDITOR_VERSION'
 export const SET_THEME = 'SET_THEME'
 export const SETTINGS_LOADED = 'SETTINGS_LOADED';
 
@@ -26,6 +27,7 @@ export default {
       keyMap: 'default',
       ligatures: true,
       tabSize: 2,
+      version: 'original',
     },
     loaded: false,
     theme: 'dark',
@@ -63,6 +65,9 @@ export default {
     },
     [SET_EDITOR_TAB_SIZE] (state, tabSize) {
       state.editor.tabSize = tabSize;
+    },
+    [SET_EDITOR_VERSION] (state, version) {
+      state.editor.version = version
     },
     [SET_THEME] (state, theme) {
       state.theme = theme

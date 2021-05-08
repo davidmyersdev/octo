@@ -33,7 +33,7 @@ export default {
       return getters.sorted.filter(doc => doc.discardedAt === null)
     },
     daily(_state, getters) {
-      return getters.sorted.find(doc => doc.daily)
+      return getters.sortedByCreated.find(doc => doc.daily)
     },
     currentDoc(state, getters) {
       return getters.decrypted.find(doc => doc.id === state.currentId)
@@ -60,6 +60,12 @@ export default {
       return getters.decrypted.sort((a, b) => {
         // reverse sort
         return b.updatedAt - a.updatedAt
+      })
+    },
+    sortedByCreated(_state, getters) {
+      return getters.decrypted.sort((a, b) => {
+        // reverse sort by created at
+        return b.createdAt - a.createdAt
       })
     },
     untagged(_state, getters) {

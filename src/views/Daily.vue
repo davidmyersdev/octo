@@ -25,7 +25,13 @@ export default {
     },
   },
   methods: {
-    checkDaily() {
+    async buildTemplate() {
+      const quotes = await fetch('/quotes.json').then(response => response.json()).catch(_error => [])
+      const quote = quotes[Math.floor(Math.random() * quotes.length)]
+
+      return `#daily\n\n# ${moment().format('dddd, MMMM Do, YYYY')}\n\n> ${quote.text}\n> ${quote.author || 'Unknown'}\n\n`
+    },
+    async checkDaily() {
       let cutoff = moment().startOf('day').add(3, 'hours')
 
       if (moment() < cutoff) {
@@ -33,7 +39,7 @@ export default {
       }
 
       if (!this.daily || this.daily.createdAt < cutoff) {
-        const template = `#daily\n\n# ${moment().format('dddd, MMMM Do, YYYY')}\n\n`
+        const template = await this.buildTemplate()
         const doc = new Doc({ text: template, daily: true })
 
         this.$store.commit(ADD_DOCUMENT, doc)

@@ -1,6 +1,6 @@
 # Welcome
 
-https://github.com/voraciousdev/octo
+https://github.com/writewithocto/octo
 
 Octo is an open source writing app for developers that uses _inline_ Markdown rendering to offer a streamlined writing experience that blends **content** and **code** as seamlessly as possible.
 

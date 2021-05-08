@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.dc8452cce7d9121513cd951ca088a52a.js"
+  "/precache-manifest.cb0e27c38de00dcd874b640bec4353e4.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "@voraciousdev/octo"});
@@ -35,6 +35,8 @@ self.__precacheManifest = [
 ].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+
+workbox.routing.registerNavigationRoute("/index.html");
 
 workbox.routing.registerRoute(/^https:\/\/cdnjs.cloudflare.com\/.*/, workbox.strategies.staleWhileRevalidate({ "cacheName":"cloudflare-cache", plugins: [] }), 'GET');
 workbox.routing.registerRoute(/^https:\/\/fonts.gstatic.com\/s\/.*/, workbox.strategies.staleWhileRevalidate({ "cacheName":"font-cache", plugins: [] }), 'GET');

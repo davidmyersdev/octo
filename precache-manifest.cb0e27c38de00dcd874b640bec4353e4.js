@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "9a1e5dd755a0339715d0",
+    "revision": "43fc6246d5dc7a00a987",
     "url": "/css/app.41252f52.css"
   },
   {
-    "revision": "9a1e5dd755a0339715d0",
-    "url": "/js/app.f6efa55f.js"
+    "revision": "43fc6246d5dc7a00a987",
+    "url": "/js/app.d3d597e9.js"
   },
   {
     "revision": "e6dee51f14b83a78f026",
@@ -24,7 +24,7 @@ self.__precacheManifest = [
     "url": "/img/octopus-transparent-light.cb3fe44a.svg"
   },
   {
-    "revision": "89a00c00892321da23251600f0c40f8f",
+    "revision": "29e1fad2ecde5c8923b04aea85e00451",
     "url": "/index.html"
   },
   {
@@ -104,11 +104,15 @@ self.__precacheManifest = [
     "url": "/manifest.json"
   },
   {
+    "revision": "5708790adbfa20f703f7d38c1d6773ce",
+    "url": "/quotes.json"
+  },
+  {
     "revision": "b6216d61c03e6ce0c9aea6ca7808f7ca",
     "url": "/robots.txt"
   },
   {
-    "revision": "6dbbdf1b5e64fe6a73f4f366230ff660",
+    "revision": "225814c07a47f38da3dec4e0f6456d9b",
     "url": "/welcome.md"
   }
 ];

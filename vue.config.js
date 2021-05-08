@@ -97,6 +97,7 @@ module.exports = {
           return { manifest, warnings };
         },
       ],
+      navigateFallback: '/index.html',
       runtimeCaching: [
         {
           urlPattern: new RegExp('^https\:\/\/cdnjs\.cloudflare\.com\/.*'),

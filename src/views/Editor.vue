@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import InkEditor from '@/../lib/vue-hybrid-mde/src/Ink.vue'
+import InkEditor from '@/../lib/vue-ink/src/Ink.vue'
 import MarkdownEditor from '@voraciousdev/vue-markdown-editor'
 
 import Doc from '@/models/doc'

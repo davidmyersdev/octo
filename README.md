@@ -96,7 +96,7 @@ The static assets will be available in the `dist` directory.
 
 ## Attributions
 
-Logo by [Zagg Studios](https://zaggstudios.com/)
+Logo by Zagg Studios
 
 ## Support
 

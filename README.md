@@ -100,7 +100,7 @@ Logo by Zagg Studios
 
 ## Support
 
-Your support is appreciated. ♥️
+Your support is appreciated. Here are some ways you can help. ♥️
 
 ### Provide Feedback
 
@@ -115,6 +115,8 @@ If you feel comfortable tackling [an existing issue](https://github.com/writewit
 Donations help support the development of octo (this open source project) and the hosting of [octo.app](https://octo.app).
 
 Accounts on [octo.app](https://octo.app) include syncing and persistence through Firebase. Accounts are currently free, and your financial support directly impacts how long we can keep it that way.
+
+Check out our awesome Backers in [BACKERS.md](https://github.com/writewithocto/octo/blob/main/BACKERS.md).
 
 - [Patreon](https://patreon.com/voraciousdev)
 - [Ko-Fi](https://ko-fi.com/voraciousdev)

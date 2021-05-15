@@ -1733,9 +1733,9 @@
     "@xtuc/long" "4.2.2"
 
 "@writewithocto/ink@^0.2.1":
-  version "0.2.4"
-  resolved "https://registry.yarnpkg.com/@writewithocto/ink/-/ink-0.2.4.tgz#f737dc60f95f34ab049a6b381dd608552ceadee2"
-  integrity sha512-ytBLnNdgDKFySqkCwscFNwdyjyTdavmIWTWO+QlGfgAe28YoSIix88oDlcH1dMoe0Kidu3mS2LjjsYYxyODILg==
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/@writewithocto/ink/-/ink-0.2.5.tgz#45097e7307c20241fff914341a5aed22ae02b134"
+  integrity sha512-i43nN0i7pUfXfPmeLc4sM05IDrXhTuDeF6ob/i3CThGmBmSRwa9ybQZU5prxlgA/47Mruf8S028Z60MRRj8Pxg==
   dependencies:
     "@codemirror/commands" "^0.18.0"
     "@codemirror/comment" "^0.18.0"
@@ -6528,9 +6528,9 @@ lezer-json@^0.13.0:
     lezer "^0.13.0"
 
 lezer-markdown@^0.14.3:
-  version "0.14.4"
-  resolved "https://registry.yarnpkg.com/lezer-markdown/-/lezer-markdown-0.14.4.tgz#115749e4b98cc08fc8a4ac8642fe704c53b7fc87"
-  integrity sha512-3sthPcQqKUHlkk1ceJZlzXOZ23ByRG2+aDbUAHZkQ5QitmRxNnm479OvaDTd+O59/sMJKkTx0p+udP50WRTuDQ==
+  version "0.14.5"
+  resolved "https://registry.yarnpkg.com/lezer-markdown/-/lezer-markdown-0.14.5.tgz#84045dc0388b794eec36b7c8c1e1d021b01769a9"
+  integrity sha512-Fk5cGiHk2gHB7HLBjcPHaXEtnYOO4GPwzmx1ApknrmiVldz8QsqmYqF7+TQA/PSFJx1g+ajjVOVHXQGp5rFlGg==
   dependencies:
     lezer-html "^0.13.0"
     lezer-tree "^0.13.0"
@@ -6562,9 +6562,9 @@ lezer-xml@^0.13.0:
     lezer "^0.13.3"
 
 lezer@^0.13.0, lezer@^0.13.2, lezer@^0.13.3, lezer@^0.13.4:
-  version "0.13.4"
-  resolved "https://registry.yarnpkg.com/lezer/-/lezer-0.13.4.tgz#f0396a3447c7a8f40391623f3f47a4d95559c42f"
-  integrity sha512-cLQxUVY28VBBqKBt/R8CYeH57KQnIvscAnoahzvhlZTK8qxMkIyGExR6ecEpYYDX06ZhROZrEm1IiPvjLAsTig==
+  version "0.13.5"
+  resolved "https://registry.yarnpkg.com/lezer/-/lezer-0.13.5.tgz#6000536bca7e24a5bd62e8cb4feff28b37e7dd8f"
+  integrity sha512-cAiMQZGUo2BD8mpcz7Nv1TlKzWP7YIdIRrX41CiP5bk5t4GHxskOxWUx2iAOuHlz8dO+ivbuXr0J1bfHsWD+lQ==
   dependencies:
     lezer-tree "^0.13.2"
 

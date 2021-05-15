@@ -1733,9 +1733,9 @@
     "@xtuc/long" "4.2.2"
 
 "@writewithocto/ink@^0.2.1":
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/@writewithocto/ink/-/ink-0.2.5.tgz#45097e7307c20241fff914341a5aed22ae02b134"
-  integrity sha512-i43nN0i7pUfXfPmeLc4sM05IDrXhTuDeF6ob/i3CThGmBmSRwa9ybQZU5prxlgA/47Mruf8S028Z60MRRj8Pxg==
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/@writewithocto/ink/-/ink-0.2.6.tgz#1aad48369ba6669d2eceda422eef67761cff22f7"
+  integrity sha512-adLOGjochu6ZZIj7sJNtQyLWPTedYeGLUdumLnfT+ny1V8sT0quhLq+HgML96NkL+plnR7DPVvjPE2WswmayCQ==
   dependencies:
     "@codemirror/commands" "^0.18.0"
     "@codemirror/comment" "^0.18.0"

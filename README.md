@@ -118,6 +118,7 @@ Accounts on [octo.app](https://octo.app) include syncing and persistence through
 
 Check out our awesome Backers in [BACKERS.md](https://github.com/writewithocto/octo/blob/main/BACKERS.md).
 
+- [GitHub Sponsors](https://github.com/sponsors/voraciousdev)
 - [Patreon](https://patreon.com/voraciousdev)
 - [Ko-Fi](https://ko-fi.com/voraciousdev)
 - [Buy Me a Coffee](https://www.buymeacoffee.com/voraciousdev)

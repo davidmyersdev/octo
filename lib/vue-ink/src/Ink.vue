@@ -19,6 +19,10 @@ export default {
     initialSelection: {
       type: Object,
     },
+    spellcheck: {
+      type: Boolean,
+      default: true,
+    },
     value: {
       type: String,
       default: '',
@@ -59,6 +63,7 @@ export default {
     this.instance = ink(this.$refs.ink, {
       doc: this.value,
       appearance: this.appearance,
+      enableSpellcheck: this.spellcheck,
       renderImages: this.images,
       selection: this.initialSelection,
       onChange: (doc) => {

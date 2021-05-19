@@ -17,6 +17,16 @@
         </div>
         <small class="text-gray-700">Ink is the next generation of Octo's markdown editor. It is currently experimental, so please use with caution.</small>
       </div>
+      <div v-if="version === 'ink'" class="mb-4">
+        <label for="config-editor-version">Spellcheck</label>
+        <div>
+          <label class="button button-size-medium button-color-gray items-baseline">
+            <input v-model="spellcheck" type="checkbox" class="checkbox">
+            <span class="ml-3 ">Enable Spellcheck</span>
+          </label>
+        </div>
+        <small class="text-gray-700">Spellcheck (and Grammarly support) is only available with the Ink editor.</small>
+      </div>
       <div class="mb-4">
         <label for="config-tab-size">Tab length</label>
         <input v-model="tabSize" type="number" min="2" id="config-tab-size" class="form-text w-full">
@@ -73,6 +83,7 @@ import {
   SET_EDITOR_IMAGES_SHOW_CAPTIONS,
   SET_EDITOR_KEY_MAP,
   SET_EDITOR_LIGATURES,
+  SET_EDITOR_SPELLCHECK,
   SET_EDITOR_TAB_SIZE,
   SET_EDITOR_VERSION,
 } from '@/store/modules/settings';
@@ -110,6 +121,14 @@ export default {
       },
       set(value) {
         this.$store.dispatch(SET_EDITOR_IMAGES_SHOW_CAPTIONS, value);
+      },
+    },
+    spellcheck: {
+      get() {
+        return this.$store.state.settings.editor.spellcheck
+      },
+      set(value) {
+        this.$store.commit(SET_EDITOR_SPELLCHECK, value)
       },
     },
     tabSize: {

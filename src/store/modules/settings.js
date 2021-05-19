@@ -7,6 +7,7 @@ export const SET_EDITOR_IMAGES_ENABLED = 'SET_EDITOR_IMAGES_ENABLED';
 export const SET_EDITOR_IMAGES_SHOW_CAPTIONS = 'SET_EDITOR_IMAGES_SHOW_CAPTIONS';
 export const SET_EDITOR_KEY_MAP = 'SET_EDITOR_KEY_MAP';
 export const SET_EDITOR_LIGATURES = 'SET_EDITOR_LIGATURES';
+export const SET_EDITOR_SPELLCHECK = 'SET_EDITOR_SPELLCHECK'
 export const SET_EDITOR_TAB_SIZE = 'SET_EDITOR_TAB_SIZE';
 export const SET_EDITOR_VERSION = 'SET_EDITOR_VERSION'
 export const SET_THEME = 'SET_THEME'
@@ -26,6 +27,7 @@ export default {
       },
       keyMap: 'default',
       ligatures: true,
+      spellcheck: true,
       tabSize: 2,
       version: 'original',
     },
@@ -62,6 +64,9 @@ export default {
     },
     [SET_EDITOR_LIGATURES] (state, isEnabled) {
       state.editor.ligatures = isEnabled;
+    },
+    [SET_EDITOR_SPELLCHECK] (state, spellcheck) {
+      state.editor.spellcheck = spellcheck
     },
     [SET_EDITOR_TAB_SIZE] (state, tabSize) {
       state.editor.tabSize = tabSize;

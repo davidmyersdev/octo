@@ -1,11 +1,11 @@
 <template>
-  <TheEditor v-if="daily" :id="daily.id" initialFocus="end" />
+  <Editor v-if="daily" :id="daily.id" initialFocus="end" />
 </template>
 
 <script>
 import moment from 'moment'
 
-import TheEditor from '@/components/TheEditor'
+import Editor from '@/views/Editor'
 
 import Doc from '@/models/doc'
 
@@ -17,7 +17,7 @@ import {
 export default {
   name: 'Daily',
   components: {
-    TheEditor,
+    Editor,
   },
   computed: {
     daily() {

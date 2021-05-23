@@ -8,7 +8,7 @@
       <div class="mt-4">
         <label for="tags-search">Add some tags to set the context</label>
         <input v-model="input" @input="first" @keydown.space.prevent="toggleTag" @keydown.enter.exact="toggleTag" @keydown.221.prevent="down" @keydown.down.prevent="down" @keydown.219.prevent="up" @keydown.up.prevent="up" ref="input" type="text" class="form-text w-full mt-2" id="tag-search" placeholder="Start typing to filter the list..." autocomplete="off">
-        <small class="block mt-1 text-gray-700 mt-2 hidden md:block">Navigate the list below with <span class="key">up</span> or <span class="key">down</span> and toggle tags with <span class="key">space</span> or <span class="key">enter</span></small>
+        <small class="text-gray-700 mt-2 hidden md:block">Navigate the list below with <span class="key">up</span> or <span class="key">down</span> and toggle tags with <span class="key">space</span> or <span class="key">enter</span></small>
       </div>
       <simplebar ref="tagsContainer" class="border rounded mt-4 overflow-hidden bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700">
         <div>

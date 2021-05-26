@@ -1,6 +1,6 @@
 <template>
   <nav class="relative flex flex-wrap items-center content-between py-3 px-4 z-index-10 md:hidden p-6 w-full">
-    <router-link class="inline-block pt-1 pb-1 mr-4 text-lg whitespace-no-wrap flex justify-between items-center" :to="{ name: 'dashboard' }">
+    <router-link class="pt-1 pb-1 mr-4 text-lg whitespace-no-wrap flex justify-between items-center" :to="{ name: 'dashboard' }">
       <TheLogo size="2.25em"/>
     </router-link>
     <div class="flex items-stretch fixed top-3 right-3">

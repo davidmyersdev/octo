@@ -6,11 +6,13 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 // modules
+import contextsModule from '@/store/modules/contexts'
 import documentsModule from '@/store/modules/documents';
 import keybindingsModule from '@/store/modules/keybindings';
 import settingsModule from '@/store/modules/settings';
 
 // plugins
+import contextsCachingPlugin from '@/store/plugins/caching/contexts'
 import documentsCachingPlugin from '@/store/plugins/caching/documents';
 import keybindingsPlugin from '@/store/plugins/keybindings';
 import settingsCachingPlugin from '@/store/plugins/caching/settings';
@@ -166,11 +168,13 @@ export default new Vuex.Store({
     },
   },
   modules: {
+    contexts: contextsModule,
     documents: documentsModule,
     keybindings: keybindingsModule,
     settings: settingsModule,
   },
   plugins: [
+    contextsCachingPlugin,
     documentsCachingPlugin,
     keybindingsPlugin,
     settingsCachingPlugin,

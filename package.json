@@ -1,7 +1,7 @@
 {
   "name": "@voraciousdev/octo",
   "license": "MIT",
-  "version": "v0.18.0",
+  "version": "v0.18.1",
   "scripts": {
     "build_assets": "node ./build_assets.js",
     "build_prod": "vue-cli-service build --dest ./dist",

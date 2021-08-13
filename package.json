@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@voraciousdev/vue-markdown-editor": "v0.3.0",
-    "@writewithocto/ink": "^0.2.1",
+    "@writewithocto/ink": "^0.3.0",
     "core-js": "^2.6.11",
     "deepmerge": "^4.2.2",
     "force-graph": "^1.35.1",

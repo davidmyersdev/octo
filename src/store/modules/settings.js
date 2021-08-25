@@ -29,7 +29,7 @@ export default {
       ligatures: true,
       spellcheck: true,
       tabSize: 2,
-      version: 'original',
+      version: 'ink',
     },
     loaded: false,
     theme: 'dark',

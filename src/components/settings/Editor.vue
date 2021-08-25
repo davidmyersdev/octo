@@ -7,17 +7,17 @@
         <label for="config-editor-version">Markdown Editor Version</label>
         <div>
           <label class="button button-size-medium button-color-gray">
-            <input v-model="version" type="radio" value="original" class="radio">
-            <span class="ml-3">Original</span>
+            <input v-model="version" type="radio" value="ink" class="radio">
+            <span class="ml-3">Ink</span>
           </label>
           <label class="button button-size-medium button-color-gray ml-2">
-            <input v-model="version" type="radio" value="ink" class="radio">
-            <span class="ml-3">Ink (experimental)</span>
+            <input v-model="version" type="radio" value="original" class="radio">
+            <span class="ml-3">Original (deprecated)</span>
           </label>
         </div>
-        <small class="text-gray-700">Ink is the next generation of Octo's markdown editor. It is currently experimental, so please use with caution.</small>
+        <small class="text-gray-700">Ink is the next generation of Octo's markdown editor. We are leaving the Original editor available for our Vim Mode users until this feature is implemented in Ink.</small>
       </div>
-      <div v-if="version === 'ink'" class="mb-4">
+      <div v-if="usingInk" class="mb-4">
         <label for="config-editor-version">Spellcheck</label>
         <div>
           <label class="button button-size-medium button-color-gray items-baseline">
@@ -27,24 +27,23 @@
         </div>
         <small class="text-gray-700">Spellcheck (and Grammarly support) is only available with the Ink editor.</small>
       </div>
+      <div v-if="usingLegacy" class="mb-4">
+        <label for="config-key-map">Vim Mode</label>
+        <div>
+          <label class="button button-size-medium button-color-gray">
+            <input v-model="keyMap" type="radio" value="default" class="radio">
+            <span class="ml-3">Disable</span>
+          </label>
+          <label class="button button-size-medium button-color-gray ml-2">
+            <input v-model="keyMap" type="radio" value="vim" class="radio">
+            <span class="ml-3">Enable</span>
+          </label>
+        </div>
+      </div>
       <div class="mb-4">
         <label for="config-tab-size">Tab length</label>
         <input v-model="tabSize" type="number" min="2" id="config-tab-size" class="form-text w-full">
         <small class="text-gray-700">Set the number of spaces to use for each tab (minimum: 2).</small>
-      </div>
-      <div class="mb-4">
-        <label for="config-key-map">KeyMap</label>
-        <div>
-          <label class="button button-size-medium button-color-gray">
-            <input v-model="keyMap" type="radio" value="default" class="radio">
-            <span class="ml-3">Default</span>
-          </label>
-          <label class="button button-size-medium button-color-gray ml-2">
-            <input v-model="keyMap" type="radio" value="vim" class="radio">
-            <span class="ml-3">Vim</span>
-          </label>
-        </div>
-        <small class="text-gray-700">Select an alternate keymap.</small>
       </div>
       <div class="mb-4">
         <h4 class="text-2xl mb-2">Font Ligatures</h4>
@@ -58,7 +57,7 @@
       </div>
       <div class="mb-4">
         <h4 class="text-2xl mb-2">Images</h4>
-        <p class="mb-2">This setting determines whether or not image tags (e.g. <code class="text-gray-700 dark:text-gray-600">![alt text](/path/to/image)</code>) will render images in your documents.</p>
+        <p class="mb-2">This setting determines whether or not image tags (e.g. <code class="bg-gray-100 dark:bg-darkest p-0.5 rounded">![alt text](/path/to/image)</code>) will render images in your documents.</p>
         <div class="mb-4">
           <div>
             <label class="button button-size-medium button-color-gray items-baseline">
@@ -138,6 +137,12 @@ export default {
       set(value) {
         this.$store.dispatch(SET_EDITOR_TAB_SIZE, parseInt(value) || 2);
       },
+    },
+    usingInk() {
+      return this.version === 'ink'
+    },
+    usingLegacy() {
+      return this.version === 'original'
     },
     version: {
       get() {

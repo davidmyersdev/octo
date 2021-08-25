@@ -3,7 +3,7 @@
     <div class="md:container md:mx-auto flex flex-grow">
       <div class="editor flex flex-col flex-grow min-w-0 p-4 md:px-16 md:py-0">
         <div class="gutter h-8" @click="focusEditorStart"></div>
-        <InkEditor v-if="ink" ref="editable" class="ink" :appearance="appearance" :images="settings.images.enabled" :initialSelection="initialSelection" :spellcheck="spellcheck" :value="document.text" @input="input" />
+        <Ink v-if="ink" ref="editable" class="ink" :appearance="appearance" :images="settings.images.enabled" :initialSelection="initialSelection" :spellcheck="spellcheck" :value="document.text" @input="input" />
         <MarkdownEditor v-else ref="editable" class="editable" :theme="appearance" :initialCursor="initialCursor" :initialVimMode="initialVimMode" :settings="settings" :value="document.text" @input="input" @ready="onReady" />
         <div class="gutter h-8 flex-grow" @click="focusEditorEnd"></div>
       </div>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import InkEditor from '@/../lib/vue-ink/src/Ink.vue'
+import Ink from '@writewithocto/vue-ink'
 import MarkdownEditor from '@voraciousdev/vue-markdown-editor'
 
 import Doc from '@/models/doc'
@@ -37,7 +37,7 @@ import {
 export default {
   name: 'Editor',
   components: {
-    InkEditor,
+    Ink,
     MarkdownEditor,
   },
   props: {
@@ -214,5 +214,9 @@ export default {
     cursor: text;
     min-height: 1rem;
     width: 100%;
+  }
+
+  .ink >>> .cm-editor.cm-focused {
+    outline: none;
   }
 </style>

@@ -10,14 +10,17 @@ import {
   DOCUMENTS_LOADED,
   EDIT_DOCUMENT,
   LOAD_DOCUMENTS,
+  MERGE_DOCUMENT,
   RESTORE_DOCUMENT,
+  RESTRICT_DOCUMENT,
+  SHARE_DOCUMENT,
   TOUCH_DOCUMENT,
 } from '@/store/actions';
 
 import { SETTINGS_LOADED } from '@/store/modules/settings';
 
 const cache = localforage.createInstance({
-  name: 'documents',
+  name: 'firebase/documents',
 });
 
 const debouncer = new Debouncer(800);
@@ -32,7 +35,10 @@ export default (store) => {
       case ADD_DOCUMENT:
       case DISCARD_DOCUMENT:
       case EDIT_DOCUMENT:
+      case MERGE_DOCUMENT:
       case RESTORE_DOCUMENT:
+      case RESTRICT_DOCUMENT:
+      case SHARE_DOCUMENT:
       case TOUCH_DOCUMENT:
         const found = find(state, payload.id);
 

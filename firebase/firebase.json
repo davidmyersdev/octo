@@ -1,0 +1,26 @@
+{
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "emulators": {
+    "auth": {
+      "host": "0.0.0.0",
+      "port": 32775
+    },
+    "firestore": {
+      "host": "0.0.0.0",
+      "port": 32776
+    },
+    "ui": {
+      "enabled": true,
+      "host": "0.0.0.0",
+      "port": 32777
+    }
+  },
+  "functions": {
+    "predeploy": [
+      "npm --prefix \"$RESOURCE_DIR\" run lint"
+    ]
+  }
+}

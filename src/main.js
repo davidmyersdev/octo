@@ -3,8 +3,8 @@ import VueMq from 'vue-mq'
 
 import App from '@/App'
 import Extendable from '@/components/Extendable'
-
-import router, { open } from '@/router'
+import { authInstance } from '@/firebase'
+import router from '@/router'
 import store from '@/store'
 
 import '@/assets/app.css'
@@ -12,13 +12,12 @@ import '@/assets/app.css'
 // setup the service worker
 import '@/registerServiceWorker'
 
-import Doc from '@/models/doc'
-
 import {
-  ADD_DOCUMENT,
   SET_MOD_KEY,
   SET_OFFLINE,
   SET_ONLINE,
+  SET_SHOW_WELCOME,
+  SET_USER,
 } from '@/store/actions'
 
 import PackageManager from '@/packages/manager'
@@ -35,6 +34,10 @@ Vue.use(VueMq, {
     xl: Infinity,
   },
 })
+
+if (localStorage.getItem('octo/welcome/v1') === null) {
+  store.dispatch(SET_SHOW_WELCOME, true)
+}
 
 Vue.component('Extendable', Extendable)
 
@@ -58,23 +61,9 @@ new Vue({
     if (/Mac|iPod|iPhone|iPad/.test(navigator.platform)) {
       this.$store.dispatch(SET_MOD_KEY, '⌘ cmd')
     }
-
-    if (localStorage.getItem('octo/welcome/v1') === null) {
-      fetch('/welcome.md')
-        .then((response) => {
-          return response.text()
-        })
-        .then((text) => {
-          const doc = new Doc({ text })
-
-          this.$store.dispatch(ADD_DOCUMENT, doc)
-          open({ name: 'document', params: { id: doc.id } })
-
-          localStorage.setItem('octo/welcome/v1', 'done')
-        })
-        .catch((error) => {
-          // suppress errors for now
-        })
-    }
   },
 }).$mount('#app')
+
+authInstance.onAuthStateChanged((user) => {
+  store.dispatch(SET_USER, { user: user || null })
+})

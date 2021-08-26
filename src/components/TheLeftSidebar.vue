@@ -78,6 +78,14 @@
             <ModKKey>S</ModKKey>
           </span>
         </router-link>
+        <router-link v-if="authIsEvaluated && !user" @click.native="trackCta" :to="{ name: 'settings' }" class="sidebar-link text-brand">
+          <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+          </svg>
+          <span class="action flex flex-grow items-stretch justify-between ml-6 md:ml-3">
+            <span>Sync Docs</span>
+          </span>
+        </router-link>
         <h6 class="sidebar-label">
           <span>Quick Filters</span>
           <span class="flex">
@@ -146,6 +154,27 @@
           <Tag v-for="tag in tags" :key="tag" :tag="tag" class="sidebar-link"></Tag>
         </div>
       </div>
+      <div>
+        <h6 class="sidebar-label">
+          <span>Agreements</span>
+        </h6>
+        <router-link :to="{ name: 'privacy_policy' }" class="sidebar-link">
+          <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <span class="action flex flex-grow items-stretch justify-between ml-6 md:ml-3">
+            <span>Privacy Policy</span>
+          </span>
+        </router-link>
+        <router-link :to="{ name: 'terms_and_conditions' }" class="sidebar-link">
+          <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <span class="action flex flex-grow items-stretch justify-between ml-6 md:ml-3">
+            <span>Terms &amp; Conditions</span>
+          </span>
+        </router-link>
+      </div>
     </div>
   </simplebar>
 </template>
@@ -174,6 +203,9 @@ export default {
     TheLogo,
   },
   computed: {
+    authIsEvaluated() {
+      return this.$store.state.auth.isEvaluated
+    },
     contexts() {
       return this.$store.state.contexts.all
     },
@@ -185,6 +217,14 @@ export default {
     },
     tags() {
       return this.$store.getters.tags
+    },
+    user() {
+      return this.$store.state.auth.user
+    },
+  },
+  methods: {
+    trackCta() {
+      window.fathom.trackGoal(process.env.VUE_APP_FATHOM_GOAL_CTA_SYNC_DOCS, 0)
     },
   },
   methods: {

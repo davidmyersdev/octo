@@ -4,11 +4,18 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="A hackable, offline-first Markdown editor for notes, code snippets, and writing that runs entirely in the browser.">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/writewithocto/octo/main/resources/combined-dark.png">
+    <meta name="twitter:image:alt" content="Designed as an offline-first web app, Octo is a markdown editor for writers that works on all devices with a web browser.">
+    <meta name="twitter:site" content="@writewithocto">
+    <meta name="twitter:title" content="Octo">
 
     <title>octo</title>
 
     <link rel="icon" href="<%= BASE_URL %>img/icons/favicon.ico">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@300;400;600;700&display=swap">
 
     <style>
@@ -17,6 +24,8 @@
         height: -webkit-fill-available;
       }
     </style>
+
+    <script src="<%= VUE_APP_FATHOM_SITE_URL %>/script.js" data-spa="auto" data-site="<%= VUE_APP_FATHOM_SITE_ID %>" defer></script>
   </head>
   <body class="flex flex-col flex-grow text-gray-900 dark:text-gray-400 bg-white dark:bg-gray-900">
     <noscript>

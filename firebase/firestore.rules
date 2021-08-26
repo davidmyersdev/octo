@@ -1,0 +1,29 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    match /{document=**} {
+      allow create: if authenticated() && requestBelongsToUser();
+      allow delete: if authenticated() && resourceBelongsToUser();
+      allow read: if (authenticated() && resourceBelongsToUser()) || resourceIsPublic();
+      allow update: if authenticated() && requestBelongsToUser() && resourceBelongsToUser();
+    }
+
+    function authenticated() {
+      return request.auth != null;
+    }
+
+    function requestBelongsToUser() {
+      return request.auth.uid == request.resource.data.ownerId;
+    }
+
+    function resourceBelongsToUser() {
+      return request.auth.uid == resource.data.ownerId;
+    }
+
+    function resourceIsPublic() {
+      return !!resource.data.public;
+    }
+  }
+}

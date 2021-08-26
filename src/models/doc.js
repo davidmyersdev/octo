@@ -18,6 +18,12 @@ class Doc {
 
     this.tags = this.encrypted ? [] : parseTags(this.text)
     this.tasks = this.encrypted ? [] : parseTasks(this.text)
+
+    // api params
+    this.firebaseId = attributes.firebaseId || null
+    this.ownerId = attributes.ownerId || null
+    this.syncedAt = attributes.syncedAt || null
+    this.public = attributes.public || false
   }
 
   discard() {
@@ -30,10 +36,27 @@ class Doc {
     return new Doc({ text: this.text })
   }
 
+  merge(attributes) {
+    // id is not writable
+    Object.assign(this, attributes, { id: this.id })
+  }
+
   restore() {
     this.updatedAt = new Date()
     this.touchedAt = new Date()
     this.discardedAt = null
+  }
+
+  restrict() {
+    this.public = false
+    this.updatedAt = new Date()
+    this.touchedAt = new Date()
+  }
+
+  share() {
+    this.public = true
+    this.updatedAt = new Date()
+    this.touchedAt = new Date()
   }
 
   touch() {

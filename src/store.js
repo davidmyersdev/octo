@@ -6,16 +6,19 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 // modules
+import authModule from '@/store/modules/auth'
 import contextsModule from '@/store/modules/contexts'
 import documentsModule from '@/store/modules/documents';
 import keybindingsModule from '@/store/modules/keybindings';
 import settingsModule from '@/store/modules/settings';
+import syncModule from '@/store/modules/sync';
 
 // plugins
 import contextsCachingPlugin from '@/store/plugins/caching/contexts'
 import documentsCachingPlugin from '@/store/plugins/caching/documents';
 import keybindingsPlugin from '@/store/plugins/keybindings';
 import settingsCachingPlugin from '@/store/plugins/caching/settings';
+import syncPlugin from '@/store/plugins/sync';
 
 import {
   ACTIVATE_CONTEXT,
@@ -29,6 +32,7 @@ import {
   SET_OFFLINE,
   SET_ONLINE,
   SET_RIGHT_SIDEBAR_VISIBILITY,
+  SET_SHOW_WELCOME,
   SHOW_MENU,
 } from '@/store/actions';
 
@@ -49,6 +53,7 @@ export default new Vuex.Store({
     online: true,
     showLeftSidebar: true,
     showRightSidebar: false,
+    showWelcome: false,
     vimLoaded: false,
   },
   getters: {
@@ -113,6 +118,9 @@ export default new Vuex.Store({
     [SHOW_MENU] (state) {
       state.menu.show = true;
     },
+    [SET_SHOW_WELCOME] (state, shouldShowWelcome) {
+      state.showWelcome = shouldShowWelcome;
+    },
   },
   actions: {
     async [ACTIVATE_CONTEXT] (context) {
@@ -163,20 +171,26 @@ export default new Vuex.Store({
     async [SET_RIGHT_SIDEBAR_VISIBILITY] (context, isVisible) {
       context.commit(SET_RIGHT_SIDEBAR_VISIBILITY, isVisible);
     },
+    async [SET_SHOW_WELCOME] (context, shouldShowWelcome) {
+      context.commit(SET_SHOW_WELCOME, shouldShowWelcome);
+    },
     async [SHOW_MENU] (context) {
       context.commit(SHOW_MENU);
     },
   },
   modules: {
+    auth: authModule,
     contexts: contextsModule,
     documents: documentsModule,
     keybindings: keybindingsModule,
     settings: settingsModule,
+    sync: syncModule,
   },
   plugins: [
     contextsCachingPlugin,
     documentsCachingPlugin,
     keybindingsPlugin,
     settingsCachingPlugin,
+    syncPlugin,
   ],
 });

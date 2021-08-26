@@ -14,6 +14,7 @@
     "@writewithocto/vue-ink": "^0.4.2",
     "core-js": "^2.6.11",
     "deepmerge": "^4.2.2",
+    "firebase": "^9.0.0",
     "force-graph": "^1.35.1",
     "localforage": "^1.7.4",
     "moment": "^2.29.1",

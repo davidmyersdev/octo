@@ -35,7 +35,7 @@
         </div>
       </simplebar>
       <div class="mt-4">
-        <h3 class="text-xl mb-4">Contexts</h3>
+        <h3 class="text-xl mb-4">Saved Contexts</h3>
         <div class="grid gap-4 grid-cols-1 lg:grid-cols-2">
           <div v-for="context in contexts" :key="context.id" class="shadow relative flex flex-col min-w-0 rounded p-4 bg-gray-100 dark:bg-gray-800 dark:text-gray-300">
             <div class="flex items-center justify-between mb-4">
@@ -100,7 +100,7 @@ export default {
       return this.$store.getters.allTags;
     },
     contexts() {
-      return this.$store.state.contexts.all
+      return this.$store.getters.sortedContexts
     },
     filtered() {
       return this.availableTags.filter((tag) => {

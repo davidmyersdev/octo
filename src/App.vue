@@ -307,4 +307,16 @@ hr {
 .light .simplebar-scrollbar::before {
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+.text-brand {
+  color: #e06c75 !important;
+}
+
+.border-brand {
+  border-color: #e06c75 !important;
+}
+
+.bg-brand {
+  background-color: #e06c75 !important;
+}
 </style>

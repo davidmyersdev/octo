@@ -17,11 +17,17 @@ import TagList from './components/TagList'
 import TheLeftSidebar from './components/TheLeftSidebar'
 import TheRightSidebar from './components/TheRightSidebar'
 import TheSettings from './components/TheSettings'
+import Privacy from './components/Privacy'
+import Terms from './components/Terms'
 
 import store from '@/store'
 
+import Doc from '@/models/doc'
+
 import {
+  ADD_DOCUMENT,
   SET_DOCUMENT,
+  SET_SHOW_WELCOME,
 } from '@/store/actions'
 
 Vue.use(Router)
@@ -55,7 +61,27 @@ const router = new Router({
           props: true,
           beforeEnter(to, from, next) {
             store.dispatch(SET_DOCUMENT, { id: null })
-            next()
+
+            if (store.state.showWelcome) {
+              fetch('/welcome.md')
+                .then((response) => response.text())
+                .then((text) => {
+                  const doc = new Doc({ text })
+
+                  store.dispatch(SET_SHOW_WELCOME, false)
+                  store.dispatch(ADD_DOCUMENT, doc)
+
+                  localStorage.setItem('octo/welcome/v1', 'done')
+
+                  next({ name: 'document', params: { id: doc.id } })
+                })
+                .catch((error) => {
+                  // suppress errors for now
+                  next()
+                })
+            } else {
+              next()
+            }
           },
         },
         {
@@ -142,6 +168,16 @@ const router = new Router({
           name: 'menu',
           component: TheLeftSidebar,
         },
+        // open (and load) a shared document
+        {
+          path: 'shared/:id',
+          name: 'shared',
+          component: Editor,
+          props: {
+            default: true,
+            readonly: true,
+          },
+        },
         // context switcher
         {
           path: 'context',
@@ -172,6 +208,17 @@ const router = new Router({
           path: 'graph',
           name: 'graph',
           component: Graph,
+        },
+        // privacy & terms
+        {
+          path: 'privacy-policy',
+          name: 'privacy_policy',
+          component: Privacy,
+        },
+        {
+          path: 'terms-and-conditions',
+          name: 'terms_and_conditions',
+          component: Terms,
         },
       ],
     },

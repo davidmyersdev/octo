@@ -8,9 +8,12 @@ import {
   EDIT_DOCUMENT,
   LOAD_DOCUMENT,
   LOAD_DOCUMENTS,
+  MERGE_DOCUMENT,
   MERGE_DOCUMENTS,
   RESTORE_DOCUMENT,
+  RESTRICT_DOCUMENT,
   SET_DOCUMENT,
+  SHARE_DOCUMENT,
   TOUCH_DOCUMENT,
 } from '@/store/actions'
 
@@ -93,11 +96,20 @@ export default {
     [LOAD_DOCUMENT] (state, doc) {
       state.all.push(doc)
     },
+    [MERGE_DOCUMENT] (state, doc) {
+      findDoc(state, doc.id).merge(doc);
+    },
     [RESTORE_DOCUMENT] (state, { id }) {
       findDoc(state, id).restore()
     },
+    [RESTRICT_DOCUMENT] (state, { id }) {
+      findDoc(state, id).restrict();
+    },
     [SET_DOCUMENT] (state, { id }) {
       state.currentId = id
+    },
+    [SHARE_DOCUMENT] (state, { id }) {
+      findDoc(state, id).share();
     },
     [TOUCH_DOCUMENT] (state, { id }) {
       findDoc(state, id).touch()
@@ -131,6 +143,9 @@ export default {
         docs.map(doc => context.dispatch(LOAD_DOCUMENT, doc))
       )
     },
+    async [MERGE_DOCUMENT] (context, doc) {
+      context.commit(MERGE_DOCUMENT, doc);
+    },
     async [MERGE_DOCUMENTS] (context, docs) {
       const originalDocs = docs.map(doc => findDoc(context.state, doc.id))
       const newDoc = new Doc({
@@ -144,8 +159,14 @@ export default {
     async [RESTORE_DOCUMENT] (context, doc) {
       context.commit(RESTORE_DOCUMENT, doc)
     },
+    async [RESTRICT_DOCUMENT] (context, doc) {
+      context.commit(RESTRICT_DOCUMENT, doc);
+    },
     async [SET_DOCUMENT] (context, doc) {
       context.commit(SET_DOCUMENT, doc)
+    },
+    async [SHARE_DOCUMENT] (context, doc) {
+      context.commit(SHARE_DOCUMENT, doc);
     },
     async [TOUCH_DOCUMENT] (context, doc) {
       context.commit(TOUCH_DOCUMENT, doc)

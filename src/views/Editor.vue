@@ -26,6 +26,9 @@ import MarkdownEditor from '@voraciousdev/vue-markdown-editor'
 import Doc from '@/models/doc'
 import { open } from '@/router'
 
+import { firestoreInstance } from '@/firebase'
+import { unpack } from '@/models/doc'
+
 import {
   ADD_DOCUMENT,
   EDIT_DOCUMENT,
@@ -64,6 +67,9 @@ export default {
     },
     initialVimMode: {
       type: String
+    },
+    readonly: {
+      type: Boolean,
     },
   },
   data() {
@@ -105,6 +111,30 @@ export default {
     },
   },
   methods: {
+    async findSharedDocument() {
+      const docRefs = await firestoreInstance
+        .collection('documents')
+        .where('public', '==', true)
+        .where('id', '==', this.$route.params.id)
+        .get()
+
+      const [docRef, ...extras] = docRefs.docs
+
+      const serverDoc = docRef.data()
+      const packed = {
+        ...serverDoc,
+        id: (serverDoc.id || serverDoc.clientId),
+        firebaseId: docRef.id,
+        textKey: (serverDoc.textKey || serverDoc.dataKey),
+        createdAt: (serverDoc.createdAt ? serverDoc.createdAt.toDate() : null),
+        discardedAt: (serverDoc.discardedAt ? serverDoc.discardedAt.toDate() : null),
+        updatedAt: (serverDoc.updatedAt ? serverDoc.updatedAt.toDate() : null),
+        touchedAt: (serverDoc.touchedAt ? serverDoc.touchedAt.toDate() : null),
+        syncedAt: serverDoc.syncedAt.toDate(),
+      }
+
+      return unpack(packed, { privateKey: this.$store.state.settings.crypto.privateKey })
+    },
     clearHistory() {
       if (this.ink) {
         const listener = () => {
@@ -183,13 +213,18 @@ export default {
 
     next()
   },
-  mounted() {
+  async mounted() {
     // this will ensure the cursor is properly aligned on font changes
     document.fonts.ready.then(() => {
       if (this.$refs.editable) {
         this.$refs.editable.refresh()
       }
     })
+
+    // might want to pass another prop to represent "shared" since readonly might have multiple use cases
+    if (this.readonly) {
+      this.placeholder = await this.findSharedDocument();
+    }
 
     this.focusEditor()
   },

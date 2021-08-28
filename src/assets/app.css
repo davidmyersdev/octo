@@ -22,7 +22,7 @@
 }
 
 .button-flat {
-  @apply inline-flex items-center justify-between rounded cursor-pointer focus:outline-none focus:ring focus-within:ring;
+  @apply inline-flex items-center justify-center lg:justify-between rounded cursor-pointer focus:outline-none focus:ring focus-within:ring;
 }
 
 .button-size-small {
@@ -35,6 +35,10 @@
 
 .button-color-gray {
   @apply bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700;
+}
+
+.button-color-surface {
+  @apply bg-gray-200 dark:bg-gray-900 hover:bg-gray-300 dark:hover:bg-gray-800;
 }
 
 .button-color-blue {

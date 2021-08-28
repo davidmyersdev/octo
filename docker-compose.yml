@@ -1,0 +1,16 @@
+version: '3.1'
+services:
+  firebase:
+    container_name: octo_firebase
+    environment:
+      - FIREBASE_PROJECT_ID=${FIREBASE_PROJECT_ID}
+      - FIREBASE_TOKEN=${FIREBASE_TOKEN}
+    image: voraciousdev/firebase-cli:1.0.0
+    ports:
+      - 32775:32775
+      - 32776:32776
+      - 32777:32777
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./firebase:/firebase/volume

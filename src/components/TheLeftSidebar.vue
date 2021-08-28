@@ -129,7 +129,7 @@
           </span>
         </router-link>
         <h6 v-if="contexts.length" class="sidebar-label">
-          <span>Contexts</span>
+          <span>Saved Contexts</span>
         </h6>
         <button v-for="context in contexts" :key="context.id" @click="setContext(context)" class="sidebar-link w-full">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -207,7 +207,7 @@ export default {
       return this.$store.state.auth.isEvaluated
     },
     contexts() {
-      return this.$store.state.contexts.all
+      return this.$store.getters.sortedContexts
     },
     document() {
       return this.$store.getters.currentDoc

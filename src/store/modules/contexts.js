@@ -7,6 +7,15 @@ export default {
   state: () => ({
     all: [],
   }),
+  getters: {
+    sortedContexts(state, _getters) {
+      return state.all.sort((a, b) => {
+        if (a.name === b.name) return 0
+
+        return a.name < b.name ? -1 : 1
+      })
+    },
+  },
   mutations: {
     [ADD_CONTEXT] (state, context) {
       state.all.push(context)

@@ -83,7 +83,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
           </svg>
           <span class="action flex flex-grow items-stretch justify-between ml-6 md:ml-3">
-            <span>Sync Docs</span>
+            <span>Save Docs</span>
           </span>
         </router-link>
         <h6 class="sidebar-label">

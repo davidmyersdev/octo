@@ -26,6 +26,9 @@ export const firestoreNamespace = firebase.firestore
 if (location.hostname === 'localhost') {
   authInstance.useEmulator(
     process.env.VUE_APP_FIREBASE_EMULATOR_AUTH,
+    {
+      disableWarnings: true,
+    }
   )
 
   firestoreInstance.useEmulator(

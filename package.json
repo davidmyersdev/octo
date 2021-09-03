@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@voraciousdev/vue-markdown-editor": "v0.3.0",
-    "@writewithocto/vue-ink": "^0.4.2",
+    "@writewithocto/vue-ink": "^0.5.0",
     "core-js": "^2.6.11",
     "deepmerge": "^4.2.2",
     "firebase": "^9.0.0",

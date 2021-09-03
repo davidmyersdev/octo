@@ -137,6 +137,8 @@ export default {
     },
     clearHistory() {
       if (this.ink) {
+        this.$refs.editable.instance.load(this.document.text)
+      } else {
         const listener = () => {
           if (this.document.text === this.editor.getValue()) {
             this.editor.off('change', listener)
@@ -216,7 +218,7 @@ export default {
   async mounted() {
     // this will ensure the cursor is properly aligned on font changes
     document.fonts.ready.then(() => {
-      if (this.$refs.editable) {
+      if (this.$refs.editable && !this.ink) {
         this.$refs.editable.refresh()
       }
     })

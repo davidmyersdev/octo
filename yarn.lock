@@ -2184,10 +2184,10 @@
     "@codemirror/state" "^0.18.3"
     "@codemirror/view" "^0.18.3"
 
-"@writewithocto/vue-ink@^0.4.2":
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/@writewithocto/vue-ink/-/vue-ink-0.4.2.tgz#76102bfb922d40fec1ee87b9f6c8d50b4d789669"
-  integrity sha512-JPvq0qCkwJejoXaNMPycs9ukI1D4UMqDBy6lVJ4wt+GXBBwDFK9DvYphwgTlgL+SWMHnyTeHGKdnxSR+ocOEJA==
+"@writewithocto/vue-ink@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@writewithocto/vue-ink/-/vue-ink-0.5.0.tgz#0a990bce31aa0a204c86ffbbfff08aa84e59e320"
+  integrity sha512-84yrnoOob7iiMBIz7SxYta9XNL8xFs5cozU9XxRGIfF/l6KyF4E9TbTrbV8hcEQ4pvAIJdfs/YWcbXovd3fhkQ==
   dependencies:
     "@writewithocto/ink" "^0.4.0"
     core-js "^3.6.5"

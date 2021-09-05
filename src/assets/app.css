@@ -11,12 +11,28 @@
   font-variant-ligatures: normal;
 }
 
+.flex-basis-1\/2 {
+  flex-basis: 50%;
+}
+
 .flex-basis-1\/3 {
   flex-basis: 33%;
 }
 
 .flex-basis-2\/3 {
   flex-basis: 66%;
+}
+
+.has-tooltip {
+  @apply relative cursor-pointer;
+}
+
+.has-tooltip:hover .tooltip {
+  @apply visible;
+}
+
+.tooltip {
+  @apply invisible absolute z-50 ml-2 w-48 text-xs;
 }
 
 /* vue router */

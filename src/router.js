@@ -17,6 +17,7 @@ import TagList from './components/TagList'
 import TheLeftSidebar from './components/TheLeftSidebar'
 import TheRightSidebar from './components/TheRightSidebar'
 import TheSettings from './components/TheSettings'
+import Account from './components/Account'
 import Privacy from './components/Privacy'
 import Terms from './components/Terms'
 
@@ -48,6 +49,11 @@ const router = new Router({
         {
           path: '',
           redirect: { name: 'dashboard' },
+        },
+        {
+          path: 'account',
+          name: 'account',
+          component: Account,
         },
         {
           path: 'documents',

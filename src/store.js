@@ -20,6 +20,8 @@ import keybindingsPlugin from '@/store/plugins/keybindings';
 import settingsCachingPlugin from '@/store/plugins/caching/settings';
 import syncPlugin from '@/store/plugins/sync';
 
+export const SET_STRIPE_MODAL_VISIBILITY = 'SET_STRIPE_MODAL_VISIBILITY'
+
 import {
   ACTIVATE_CONTEXT,
   BLUR_EDITOR,
@@ -40,7 +42,6 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    modKey: '⌃ ctrl',
     context: {
       active: false,
       editing: false,
@@ -50,9 +51,11 @@ export default new Vuex.Store({
     menu: {
       show: false,
     },
+    modKey: '⌃ ctrl',
     online: true,
     showLeftSidebar: true,
     showRightSidebar: false,
+    showStripeModal: false,
     showWelcome: false,
     vimLoaded: false,
   },
@@ -100,17 +103,20 @@ export default new Vuex.Store({
     [SET_EDITOR] (state, payload) {
       state.editor = payload.editor;
     },
+    [SET_MOD_KEY] (state, payload) {
+      state.modKey = payload;
+    },
     [SET_OFFLINE] (state) {
       state.online = false;
     },
     [SET_ONLINE] (state) {
       state.online = true;
     },
-    [SET_MOD_KEY] (state, payload) {
-      state.modKey = payload;
-    },
     [SET_RIGHT_SIDEBAR_VISIBILITY] (state, isVisible) {
       state.showRightSidebar = isVisible;
+    },
+    [SET_STRIPE_MODAL_VISIBILITY] (state, isVisible) {
+      state.showStripeModal = isVisible
     },
     ['SET_VIM_LOADED'] (state, isVimLoaded) {
       state.vimLoaded = isVimLoaded;
@@ -173,6 +179,17 @@ export default new Vuex.Store({
     },
     async [SET_SHOW_WELCOME] (context, shouldShowWelcome) {
       context.commit(SET_SHOW_WELCOME, shouldShowWelcome);
+    },
+    async [SET_STRIPE_MODAL_VISIBILITY] (context, isVisible) {
+      context.commit(SET_STRIPE_MODAL_VISIBILITY, isVisible)
+
+      if (isVisible) {
+        setTimeout(() => {
+          if (context.state.showStripeModal) {
+            context.commit(SET_STRIPE_MODAL_VISIBILITY, false)
+          }
+        }, 15000)
+      }
     },
     async [SHOW_MENU] (context) {
       context.commit(SHOW_MENU);

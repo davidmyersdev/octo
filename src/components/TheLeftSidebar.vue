@@ -83,7 +83,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <span class="action flex flex-grow items-stretch justify-between ml-6 md:ml-3">
-            <span>Account</span>
+            <span>{{ user ? 'Account' : 'Sign In to Account' }}</span>
           </span>
         </router-link>
         <router-link v-if="authIsEvaluated && !user" @click.native="trackCta" :to="{ name: 'account' }" class="sidebar-link text-brand">

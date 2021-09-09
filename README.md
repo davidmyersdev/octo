@@ -60,25 +60,43 @@ To try out the sandboxed app (no accounts or syncing), check out [try.octo.app](
 
 As simple as it gets.
 
-```shell
+```bash
 # install dependencies
 yarn install
 ```
 
 ## Local Development
 
-We can run it in `development` mode.
+Copy `.env.example` to `.env`.
 
-```shell
+```bash
+cp .env.example .env
+```
+
+### Launch the Firebase Emulator
+
+For more information about retrieving a Firebase access token, see the [docker-firebase-cli](https://github.com/voraciousdev/docker-firebase-cli) project.
+
+```bash
+docker-compose up -d
+```
+
+The Firebase Emulator dashboard is available at [localhost:32777](http://localhost:32777).
+
+### Launch the app
+
+Run the app in `development` mode.
+
+```bash
 # binds to localhost:8888
 yarn serve_dev
 ```
 
-We can also run it in `production` mode.
+Run the app in `production` mode (to test the PWA).
 
 _Note: Offline functionality is only available in `production` mode due to [lack of support](https://github.com/vuejs/vue-cli/issues/2678) in the Vue PWA plugin._
 
-```shell
+```bash
 # binds to localhost:8889
 yarn serve_prod
 ```
@@ -87,7 +105,7 @@ yarn serve_prod
 
 Create the production build.
 
-```shell
+```bash
 # compiles at ./dist
 yarn build_prod
 ```
@@ -110,13 +128,11 @@ Your feedback is immensely important for building octo into an app that we all l
 
 If you feel comfortable tackling [an existing issue](https://github.com/writewithocto/octo/issues), please consider opening a Pull Request! I am happy to introduce you to the codebase and work with you to get it merged!
 
-### Donate
+### Subscribe to Octo Pro
 
-Donations help support the development of octo (this open source project) and the hosting of [octo.app](https://octo.app).
+[Octo Pro](https://octo.app/account) is the official paid subscription plan on [octo.app](https://octo.app).
 
-Accounts on [octo.app](https://octo.app) include syncing and persistence through Firebase. Accounts are currently free, and your financial support directly impacts how long we can keep it that way.
-
-Check out our awesome Backers in [BACKERS.md](https://github.com/writewithocto/octo/blob/main/BACKERS.md).
+### Become a Backer
 
 - [GitHub Sponsors](https://github.com/sponsors/voraciousdev)
 - [Patreon](https://patreon.com/voraciousdev)

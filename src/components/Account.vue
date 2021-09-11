@@ -30,35 +30,16 @@
 </template>
 
 <script>
-import GitHubIcon from './icons/GitHub.vue'
-import GoogleIcon from './icons/Google.vue'
-import TwitterIcon from './icons/Twitter.vue'
-
 import Providers from './Providers.vue'
 import Subscriptions from './Subscriptions.vue'
 
 export default {
   name: 'Account',
   components: {
-    GitHubIcon,
-    GoogleIcon,
-    TwitterIcon,
     Providers,
     Subscriptions,
   },
   computed: {
-    github() {
-      return this.providers.find(p => p.providerId === 'github.com')
-    },
-    google() {
-      return this.providers.find(p => p.providerId === 'google.com')
-    },
-    providers() {
-      return this.user ? this.user.providerData : []
-    },
-    twitter() {
-      return this.providers.find(p => p.providerId === 'twitter.com')
-    },
     online() {
       return this.$store.state.online
     },

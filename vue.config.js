@@ -2,7 +2,7 @@ module.exports = {
   chainWebpack: config => config.resolve.set('symlinks', false),
   productionSourceMap: false,
   transpileDependencies: [
-    '@writewithocto/ink',
+    // '@writewithocto/ink',
   ],
   pwa: {
     manifestOptions: {

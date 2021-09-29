@@ -15,11 +15,11 @@
 </template>
 
 <script>
-import Editor from '@/components/settings/Editor'
-import Encryption from '@/components/settings/Encryption'
-import Export from '@/components/settings/Export'
-import Newsletter from '@/components/Newsletter'
-import Theme from '@/components/settings/Theme'
+import Editor from '/src/components/settings/Editor.vue'
+import Encryption from '/src/components/settings/Encryption.vue'
+import Export from '/src/components/settings/Export.vue'
+import Newsletter from '/src/components/Newsletter.vue'
+import Theme from '/src/components/settings/Theme.vue'
 
 export default {
   name: 'TheSettings',

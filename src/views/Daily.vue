@@ -5,14 +5,14 @@
 <script>
 import moment from 'moment'
 
-import Editor from '@/views/Editor'
+import Editor from '/src/views/Editor.vue'
 
-import Doc from '@/models/doc'
+import Doc from '/src/models/doc.js'
 
 import {
   ADD_DOCUMENT,
   DOCUMENTS_LOADED,
-} from '@/store/actions'
+} from '/src/store/actions.js'
 
 export default {
   name: 'Daily',

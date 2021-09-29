@@ -1,14 +1,14 @@
 import localforage from 'localforage'
 
-import Debouncer from '@/common/debouncer'
+import Debouncer from '/src/common/debouncer'
 
 import {
   ADD_CONTEXT,
   LOAD_CONTEXTS,
   REMOVE_CONTEXT,
-} from '@/store/modules/contexts'
+} from '/src/store/modules/contexts'
 
-import { SETTINGS_LOADED } from '@/store/modules/settings'
+import { SETTINGS_LOADED } from '/src/store/modules/settings'
 
 const cache = localforage.createInstance({
   name: 'contexts',

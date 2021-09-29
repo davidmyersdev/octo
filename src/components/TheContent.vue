@@ -8,7 +8,7 @@
 <script>
 import simplebar from 'simplebar-vue';
 
-import TheNavbar from '@/components/TheNavbar';
+import TheNavbar from '/src/components/TheNavbar.vue';
 
 export default {
   name: 'TheContent',

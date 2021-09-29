@@ -1,8 +1,8 @@
 import localforage from 'localforage';
 
-import Debouncer from '@/common/debouncer';
+import Debouncer from '/src/common/debouncer';
 
-import { pack, unpack } from '@/models/doc';
+import { pack, unpack } from '/src/models/doc';
 
 import {
   ADD_DOCUMENT,
@@ -15,9 +15,9 @@ import {
   RESTRICT_DOCUMENT,
   SHARE_DOCUMENT,
   TOUCH_DOCUMENT,
-} from '@/store/actions';
+} from '/src/store/actions';
 
-import { SETTINGS_LOADED } from '@/store/modules/settings';
+import { SETTINGS_LOADED } from '/src/store/modules/settings';
 
 const cache = localforage.createInstance({
   name: 'firebase/documents',

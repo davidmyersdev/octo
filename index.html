@@ -11,7 +11,7 @@
     <meta name="twitter:site" content="@writewithocto">
     <meta name="twitter:title" content="Octo">
 
-    <title>octo</title>
+    <title>Octo | The App for Technical Writers</title>
 
     <link rel="icon" href="<%= BASE_URL %>img/icons/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +25,7 @@
       }
     </style>
 
-    <script src="<%= VUE_APP_FATHOM_SITE_URL %>/script.js" data-spa="auto" data-site="<%= VUE_APP_FATHOM_SITE_ID %>" defer></script>
+    <script src="<%= VITE_FATHOM_SITE_URL %>/script.js" data-spa="auto" data-site="<%= VITE_FATHOM_SITE_ID %>" defer></script>
   </head>
   <body class="flex flex-col flex-grow text-gray-900 dark:text-gray-400 bg-white dark:bg-gray-900">
     <noscript>
@@ -34,6 +34,6 @@
     </noscript>
     <!-- #app is replaced by App.vue -->
     <div id="app"></div>
-    <!-- built files will be auto injected -->
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>

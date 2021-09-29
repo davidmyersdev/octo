@@ -22,7 +22,7 @@
 <script>
 import {
   SET_THEME,
-} from '@/store/modules/settings';
+} from '/src/store/modules/settings.js';
 
 export default {
   name: 'Theme',

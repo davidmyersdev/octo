@@ -10,7 +10,7 @@
 <script>
 import ForceGraph from 'force-graph'
 
-import DocumentList from '@/components/DocumentList'
+import DocumentList from '/src/components/DocumentList.vue'
 
 export default {
   name: 'Graph',

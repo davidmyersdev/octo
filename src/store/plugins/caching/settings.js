@@ -13,7 +13,7 @@ import {
   SET_EDITOR_VERSION,
   SET_THEME,
   SETTINGS_LOADED,
-} from '@/store/modules/settings';
+} from '/src/store/modules/settings';
 
 const CACHE_KEY = 'main';
 const cache = localforage.createInstance({

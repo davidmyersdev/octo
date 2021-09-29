@@ -1,9 +1,9 @@
 import Hello from './Hello'
 
 // Test package
-// To use this package, register it in @/main.js
+// To use this package, register it in /src/main.js
 //
-// import TestPackage from '@/packages/test/index'
+// import TestPackage from '/src/packages/test/index'
 // PackageManager.register(TestPackage)
 class Test {
   constructor() {

@@ -1,12 +1,12 @@
-import { firestoreInstance, firestoreNamespace } from '@/firebase';
-import { parseTags } from '@/common/parsers';
-import { pack, unpack } from '@/models/doc';
+import { firestoreInstance, firestoreNamespace } from '/src/firebase';
+import { parseTags } from '/src/common/parsers';
+import { pack, unpack } from '/src/models/doc';
 
 import {
   ADD_DOCUMENT,
   MERGE_DOCUMENT,
   SYNC,
-} from '@/store/actions';
+} from '/src/store/actions';
 
 // local actions
 const PULL_DOCUMENT = 'PULL_DOCUMENT';

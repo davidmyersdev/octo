@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid'
 
-import { decrypt, encrypt } from '@/common/crypto/crypto'
-import { parseTags, parseTasks } from '@/common/parsers'
+import { decrypt, encrypt } from '/src/common/crypto/crypto'
+import { parseTags, parseTasks } from '/src/common/parsers'
 
 class Doc {
   constructor(attributes = {}) {

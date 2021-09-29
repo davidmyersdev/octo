@@ -2,34 +2,34 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // views
-import Daily from './views/Daily'
-import Dashboard from './views/Dashboard'
-import Documents from './views/Documents'
-import Editor from './views/Editor'
+import Daily from './views/Daily.vue'
+import Dashboard from './views/Dashboard.vue'
+import Documents from './views/Documents.vue'
+import Editor from './views/Editor.vue'
 
 // components
-import Context from './components/Context'
-import Exporter from './components/Exporter'
-import Graph from './components/Graph'
-import Importer from './components/Importer'
-import QuickAction from './components/QuickAction'
-import TagList from './components/TagList'
-import TheLeftSidebar from './components/TheLeftSidebar'
-import TheRightSidebar from './components/TheRightSidebar'
-import TheSettings from './components/TheSettings'
-import Account from './components/Account'
-import Privacy from './components/Privacy'
-import Terms from './components/Terms'
+import Context from './components/Context.vue'
+import Exporter from './components/Exporter.vue'
+import Graph from './components/Graph.vue'
+import Importer from './components/Importer.vue'
+import QuickAction from './components/QuickAction.vue'
+import TagList from './components/TagList.vue'
+import TheLeftSidebar from './components/TheLeftSidebar.vue'
+import TheRightSidebar from './components/TheRightSidebar.vue'
+import TheSettings from './components/TheSettings.vue'
+import Account from './components/Account.vue'
+import Privacy from './components/Privacy.vue'
+import Terms from './components/Terms.vue'
 
-import store from '@/store'
+import store from '/src/store.js'
 
-import Doc from '@/models/doc'
+import Doc from '/src/models/doc.js'
 
 import {
   ADD_DOCUMENT,
   SET_DOCUMENT,
   SET_SHOW_WELCOME,
-} from '@/store/actions'
+} from '/src/store/actions.js'
 
 Vue.use(Router)
 

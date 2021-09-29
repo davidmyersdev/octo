@@ -4,13 +4,13 @@ import 'firebase/compat/firestore'
 
 // firebase config
 const config = {
-  apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
-  appId: process.env.VUE_APP_FIREBASE_APP_ID,
-  authDomain: process.env.VUE_APP_FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.VUE_APP_FIREBASE_DATABASE_URL,
-  messagingSenderId: process.env.VUE_APP_FIREBASE_MESSAGING_SENDER_ID,
-  projectId: process.env.VUE_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.VUE_APP_FIREBASE_STORAGE_BUCKET,
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
 }
 
 // init firebase
@@ -23,17 +23,17 @@ export const firestoreInstance = firebase.firestore()
 export const firestoreNamespace = firebase.firestore
 
 // use emulators in development
-if (location.hostname === 'localhost' && !process.env.VUE_APP_FIREBASE_EMULATOR_BYPASS) {
+if (location.hostname === 'localhost' && !import.meta.env.VITE_FIREBASE_EMULATOR_BYPASS) {
   authInstance.useEmulator(
-    process.env.VUE_APP_FIREBASE_EMULATOR_AUTH,
+    import.meta.env.VITE_FIREBASE_EMULATOR_AUTH,
     {
       disableWarnings: true,
     }
   )
 
   firestoreInstance.useEmulator(
-    process.env.VUE_APP_FIREBASE_EMULATOR_FIRESTORE_HOST,
-    process.env.VUE_APP_FIREBASE_EMULATOR_FIRESTORE_PORT,
+    import.meta.env.VITE_FIREBASE_EMULATOR_FIRESTORE_HOST,
+    import.meta.env.VITE_FIREBASE_EMULATOR_FIRESTORE_PORT,
   )
 }
 

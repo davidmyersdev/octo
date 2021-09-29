@@ -1,4 +1,4 @@
-import Debouncer from '@/common/debouncer';
+import Debouncer from '/src/common/debouncer';
 
 import {
   ADD_DOCUMENT,
@@ -12,7 +12,7 @@ import {
   SHARE_DOCUMENT,
   SYNC,
   TOUCH_DOCUMENT,
-} from '@/store/actions';
+} from '/src/store/actions';
 
 const debouncer = new Debouncer(1500);
 

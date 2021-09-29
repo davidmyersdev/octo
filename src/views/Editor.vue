@@ -4,7 +4,7 @@
       <div class="editor flex flex-col flex-grow min-w-0 p-4 md:px-16 md:py-0">
         <div class="gutter h-8" @click="focusEditorStart"></div>
         <Ink v-if="ink" ref="editable" class="ink" :appearance="appearance" :images="settings.images.enabled" :initialSelection="initialSelection" :spellcheck="spellcheck" :value="document.text" @input="input" />
-        <MarkdownEditor v-else ref="editable" class="editable" :theme="appearance" :initialCursor="initialCursor" :initialVimMode="initialVimMode" :settings="settings" :value="document.text" @input="input" @ready="onReady" />
+        <LegacyEditor v-else ref="editable" class="editable" :theme="appearance" :initialCursor="initialCursor" :initialVimMode="initialVimMode" :settings="settings" :value="document.text" @input="input" @ready="onReady" />
         <div class="gutter h-8 flex-grow" @click="focusEditorEnd"></div>
       </div>
     </div>
@@ -21,13 +21,13 @@
 
 <script>
 import Ink from '@writewithocto/vue-ink'
-import MarkdownEditor from '@voraciousdev/vue-markdown-editor'
+import LegacyEditor from '@voraciousdev/vue-markdown-editor'
 
-import Doc from '@/models/doc'
-import { open } from '@/router'
+import Doc from '/src/models/doc.js'
+import { open } from '/src/router.js'
 
-import { firestoreInstance } from '@/firebase'
-import { unpack } from '@/models/doc'
+import { firestoreInstance } from '/src/firebase.js'
+import { unpack } from '/src/models/doc.js'
 
 import {
   ADD_DOCUMENT,
@@ -35,13 +35,13 @@ import {
   SET_DOCUMENT,
   SET_EDITOR,
   SET_RIGHT_SIDEBAR_VISIBILITY,
-} from '@/store/actions'
+} from '/src/store/actions.js'
 
 export default {
   name: 'Editor',
   components: {
     Ink,
-    MarkdownEditor,
+    LegacyEditor,
   },
   props: {
     id: String,

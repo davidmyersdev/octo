@@ -11,9 +11,9 @@
 </template>
 
 <script>
-import TheContent from '@/components/TheContent';
-import TheLeftSidebar from '@/components/TheLeftSidebar';
-import TheRightSidebar from '@/components/TheRightSidebar';
+import TheContent from '/src/components/TheContent.vue'
+import TheLeftSidebar from '/src/components/TheLeftSidebar.vue'
+import TheRightSidebar from '/src/components/TheRightSidebar.vue'
 
 export default {
   name: 'Dashboard',

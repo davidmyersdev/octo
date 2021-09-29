@@ -1,9 +1,9 @@
-import { authInstance } from '@/firebase';
+import { authInstance } from '/src/firebase';
 
 import {
   SET_USER,
   SIGN_OUT,
-} from '@/store/actions';
+} from '/src/store/actions';
 
 export default {
   state: () => ({

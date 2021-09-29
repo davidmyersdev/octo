@@ -71,16 +71,16 @@
 import simplebar from 'simplebar-vue'
 import { v4 as uuid } from 'uuid'
 
-import Tag from '@/components/Tag'
+import Tag from '/src/components/Tag.vue'
 
 import {
   SET_CONTEXT_TAGS,
-} from '@/store/actions';
+} from '/src/store/actions.js';
 
 import {
   ADD_CONTEXT,
   REMOVE_CONTEXT,
-} from '@/store/modules/contexts'
+} from '/src/store/modules/contexts.js'
 
 export default {
   name: 'Context',

@@ -1,4 +1,4 @@
-import PackageManager from '@/packages/manager'
+import PackageManager from '/src/packages/manager'
 
 import {
   ADD_DOCUMENT,
@@ -8,7 +8,7 @@ import {
   LOAD_DOCUMENTS,
   RESTORE_DOCUMENT,
   TOUCH_DOCUMENT,
-} from '@/store/actions';
+} from '/src/store/actions';
 
 export default (store) => {
   store.subscribe(({ type, payload: { id } }, state) => {

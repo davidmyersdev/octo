@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import DocumentList from '@/components/DocumentList'
+import DocumentList from '/src/components/DocumentList.vue'
 
 export default {
   name: 'Documents',

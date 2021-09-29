@@ -6,19 +6,19 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 // modules
-import authModule from '@/store/modules/auth'
-import contextsModule from '@/store/modules/contexts'
-import documentsModule from '@/store/modules/documents';
-import keybindingsModule from '@/store/modules/keybindings';
-import settingsModule from '@/store/modules/settings';
-import syncModule from '@/store/modules/sync';
+import authModule from '/src/store/modules/auth'
+import contextsModule from '/src/store/modules/contexts'
+import documentsModule from '/src/store/modules/documents';
+import keybindingsModule from '/src/store/modules/keybindings';
+import settingsModule from '/src/store/modules/settings';
+import syncModule from '/src/store/modules/sync';
 
 // plugins
-import contextsCachingPlugin from '@/store/plugins/caching/contexts'
-import documentsCachingPlugin from '@/store/plugins/caching/documents';
-import keybindingsPlugin from '@/store/plugins/keybindings';
-import settingsCachingPlugin from '@/store/plugins/caching/settings';
-import syncPlugin from '@/store/plugins/sync';
+import contextsCachingPlugin from '/src/store/plugins/caching/contexts'
+import documentsCachingPlugin from '/src/store/plugins/caching/documents';
+import keybindingsPlugin from '/src/store/plugins/keybindings';
+import settingsCachingPlugin from '/src/store/plugins/caching/settings';
+import syncPlugin from '/src/store/plugins/sync';
 
 export const SET_STRIPE_MODAL_VISIBILITY = 'SET_STRIPE_MODAL_VISIBILITY'
 
@@ -36,7 +36,7 @@ import {
   SET_RIGHT_SIDEBAR_VISIBILITY,
   SET_SHOW_WELCOME,
   SHOW_MENU,
-} from '@/store/actions';
+} from '/src/store/actions';
 
 Vue.use(Vuex);
 

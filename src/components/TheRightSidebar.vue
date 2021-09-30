@@ -88,12 +88,12 @@
 import moment from 'moment'
 import simplebar from 'simplebar-vue'
 
-import DiscardableAction from '@/components/DiscardableAction'
-import Tag from '@/components/Tag'
+import DiscardableAction from '/src/components/DiscardableAction.vue'
+import Tag from '/src/components/Tag.vue'
 
-import CodeSandbox from '@/common/code_sandbox'
-import { parseCodeblocks } from '@/common/parsers'
-import { open } from '@/router'
+import CodeSandbox from '/src/common/code_sandbox.js'
+import { parseCodeblocks } from '/src/common/parsers.js'
+import { open } from '/src/router.js'
 
 import {
   DISCARD_DOCUMENT,
@@ -102,7 +102,7 @@ import {
   RESTRICT_DOCUMENT,
   SHARE_DOCUMENT,
   SET_RIGHT_SIDEBAR_VISIBILITY,
-} from '@/store/actions'
+} from '/src/store/actions.js'
 
 export default {
   name: 'TheRightSidebar',

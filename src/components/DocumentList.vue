@@ -56,13 +56,13 @@
 </template>
 
 <script>
-import Document from '@/components/Document'
+import Document from '/src/components/Document.vue'
 
-import { open } from '@/router'
+import { open } from '/src/router.js'
 
 import {
   MERGE_DOCUMENTS,
-} from '@/store/actions'
+} from '/src/store/actions.js'
 
 export default {
   name: 'DocumentList',

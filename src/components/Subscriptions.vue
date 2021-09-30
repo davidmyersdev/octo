@@ -121,12 +121,12 @@
 </template>
 
 <script>
-import GitHubIcon from '@/components/icons/GitHub'
-import GoogleIcon from '@/components/icons/Google'
-import TwitterIcon from '@/components/icons/Twitter'
+import GitHubIcon from '/src/components/icons/GitHub.vue'
+import GoogleIcon from '/src/components/icons/Google.vue'
+import TwitterIcon from '/src/components/icons/Twitter.vue'
 
-import { authInstance, authNamespace, firestoreInstance } from '@/firebase'
-import { SET_STRIPE_MODAL_VISIBILITY } from '@/store'
+import { authInstance, authNamespace, firestoreInstance } from '/src/firebase.js'
+import { SET_STRIPE_MODAL_VISIBILITY } from '/src/store.js'
 
 export default {
   name: 'Subscription',
@@ -210,10 +210,10 @@ export default {
       authInstance.signOut()
     },
     trackCtaContinueWithPro() {
-      window.fathom.trackGoal(process.env.VUE_APP_FATHOM_EVENT_CTA_CONTINUE_WITH_PRO, 0)
+      window.fathom.trackGoal(import.meta.env.VITE_FATHOM_EVENT_CTA_CONTINUE_WITH_PRO, 0)
     },
     trackCtaUpgradeToPro() {
-      window.fathom.trackGoal(process.env.VUE_APP_FATHOM_EVENT_CTA_UPGRADE_TO_PRO, 0)
+      window.fathom.trackGoal(import.meta.env.VITE_FATHOM_EVENT_CTA_UPGRADE_TO_PRO, 0)
     },
     upgrade() {
       this.trackCtaUpgradeToPro()
@@ -234,7 +234,7 @@ export default {
         .doc(this.user.uid)
         .collection('checkout_sessions')
         .add({
-          price: process.env.VUE_APP_STRIPE_MONTHLY_PRICE,
+          price: import.meta.env.VITE_STRIPE_MONTHLY_PRICE,
           success_url: window.location.href,
           cancel_url: window.location.href,
         })
@@ -264,7 +264,7 @@ export default {
     authInstance.getRedirectResult().then((result) => {
       // track new sign ups
       if (result.additionalUserInfo && result.additionalUserInfo.isNewUser) {
-        window.fathom.trackGoal(process.env.VUE_APP_FATHOM_GOAL_ACCOUNT_REGISTRATION, 0)
+        window.fathom.trackGoal(import.meta.env.VITE_FATHOM_GOAL_ACCOUNT_REGISTRATION, 0)
       }
 
       if (window.location.hash === '#pro') {

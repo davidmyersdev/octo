@@ -10,7 +10,7 @@
 <script>
 import MarkdownEditor from '@voraciousdev/vue-markdown-editor'
 
-import Doc from '@/models/doc'
+import Doc from '/src/models/doc.js'
 
 export default {
   name: 'Importer',

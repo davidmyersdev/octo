@@ -1,10 +1,10 @@
 import {
   LOAD_KEYBINDINGS,
-} from '@/store/modules/keybindings';
+} from '/src/store/modules/keybindings';
 
 import {
   SETTINGS_LOADED,
-} from '@/store/modules/settings';
+} from '/src/store/modules/settings';
 
 export default (store) => {
   store.subscribe(({ type, _payload }, state) => {

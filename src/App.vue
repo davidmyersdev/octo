@@ -40,11 +40,11 @@ import simplebar from 'simplebar-vue';
 
 import 'simplebar/dist/simplebar.min.css';
 
-import Tag from '@/components/Tag';
+import Tag from '/src/components/Tag.vue';
 
 import {
   DEACTIVATE_CONTEXT,
-} from '@/store/actions';
+} from '/src/store/actions.js';
 
 export default {
   name: 'App',

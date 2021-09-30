@@ -1,4 +1,4 @@
-import Doc from '@/models/doc'
+import Doc from '/src/models/doc'
 
 import {
   ADD_DOCUMENT,
@@ -15,7 +15,7 @@ import {
   SET_DOCUMENT,
   SHARE_DOCUMENT,
   TOUCH_DOCUMENT,
-} from '@/store/actions'
+} from '/src/store/actions'
 
 const findDoc = (state, id) => {
   // only return docs that are decrypted

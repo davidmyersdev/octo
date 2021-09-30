@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Key from '@/components/Key';
+import Key from '/src/components/Key.vue';
 
 export default {
   name: 'ModKKey',

@@ -29,7 +29,7 @@ import moment from 'moment'
 import {
   DISCARD_DOCUMENT,
   RESTORE_DOCUMENT,
-} from '@/store/actions';
+} from '/src/store/actions.js';
 
 export default {
   name: 'Document',

@@ -85,7 +85,7 @@ import {
   SET_EDITOR_SPELLCHECK,
   SET_EDITOR_TAB_SIZE,
   SET_EDITOR_VERSION,
-} from '@/store/modules/settings';
+} from '/src/store/modules/settings.js';
 
 export default {
   name: 'Editor',

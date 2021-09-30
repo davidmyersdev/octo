@@ -25,7 +25,7 @@ export default {
   name: 'Newsletter',
   methods: {
     trackNewsletterCta() {
-      window.fathom.trackGoal(process.env.VUE_APP_FATHOM_GOAL_CTA_NEWSLETTER, 0)
+      window.fathom.trackGoal(import.meta.env.VITE_FATHOM_GOAL_CTA_NEWSLETTER, 0)
     },
   },
 }

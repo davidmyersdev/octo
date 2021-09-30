@@ -1,16 +1,16 @@
 import Vue from 'vue'
 import VueMq from 'vue-mq'
 
-import App from '@/App'
-import Extendable from '@/components/Extendable'
-import { authInstance } from '@/firebase'
-import router from '@/router'
-import store from '@/store'
+import App from '/src/App.vue'
+import Extendable from '/src/components/Extendable.vue'
+import { authInstance } from '/src/firebase.js'
+import router from '/src/router.js'
+import store from '/src/store.js'
 
-import '@/assets/app.css'
+import '/src/assets/app.css'
 
 // setup the service worker
-import '@/registerServiceWorker'
+import '/src/sw.js'
 
 import {
   SET_MOD_KEY,
@@ -18,9 +18,9 @@ import {
   SET_ONLINE,
   SET_SHOW_WELCOME,
   SET_USER,
-} from '@/store/actions'
+} from '/src/store/actions.js'
 
-import PackageManager from '@/packages/manager'
+import PackageManager from '/src/packages/manager.js'
 
 Vue.prototype.$packageManager = PackageManager
 

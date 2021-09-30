@@ -56,11 +56,11 @@
 </template>
 
 <script>
-import GitHubIcon from '@/components/icons/GitHub'
-import GoogleIcon from '@/components/icons/Google'
-import TwitterIcon from '@/components/icons/Twitter'
+import GitHubIcon from '/src/components/icons/GitHub.vue'
+import GoogleIcon from '/src/components/icons/Google.vue'
+import TwitterIcon from '/src/components/icons/Twitter.vue'
 
-import { authInstance, authNamespace } from '@/firebase'
+import { authInstance, authNamespace } from '/src/firebase.js'
 
 export default {
   name: 'Providers',
@@ -121,7 +121,7 @@ export default {
     authInstance.getRedirectResult().then((result) => {
       // track new sign ups
       if (result.additionalUserInfo && result.additionalUserInfo.isNewUser) {
-        window.fathom.trackGoal(process.env.VUE_APP_FATHOM_GOAL_ACCOUNT_REGISTRATION, 0)
+        window.fathom.trackGoal(import.meta.env.VITE_FATHOM_GOAL_ACCOUNT_REGISTRATION, 0)
       }
     }).catch((error) => {
       switch(error.code) {

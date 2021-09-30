@@ -31,14 +31,14 @@
 </template>
 
 <script>
-import { exportKeys, generateKeys } from '@/common/crypto/asymmetric';
+import { exportKeys, generateKeys } from '/src/common/crypto/asymmetric.js';
 
-import { TOUCH_DOCUMENT } from '@/store/actions';
+import { TOUCH_DOCUMENT } from '/src/store/actions.js';
 
 import {
   SET_CRYPTO_ENABLED,
   SET_CRYPTO_KEYS,
-} from '@/store/modules/settings';
+} from '/src/store/modules/settings.js';
 
 export default {
   name: 'Encryption',

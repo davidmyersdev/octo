@@ -190,15 +190,15 @@
 <script>
 import simplebar from 'simplebar-vue'
 
-import Key from '@/components/Key'
-import ModK from '@/components/ModK'
-import ModKKey from '@/components/ModKKey'
-import Tag from '@/components/Tag'
-import TheLogo from '@/components/TheLogo'
+import Key from '/src/components/Key.vue'
+import ModK from '/src/components/ModK.vue'
+import ModKKey from '/src/components/ModKKey.vue'
+import Tag from '/src/components/Tag.vue'
+import TheLogo from '/src/components/TheLogo.vue'
 
 import {
   SET_CONTEXT_TAGS,
-} from '@/store/actions'
+} from '/src/store/actions.js'
 
 export default {
   name: 'TheLeftSidebar',
@@ -232,7 +232,7 @@ export default {
   },
   methods: {
     trackCta() {
-      window.fathom.trackGoal(process.env.VUE_APP_FATHOM_GOAL_CTA_SYNC_DOCS, 0)
+      window.fathom.trackGoal(import.meta.env.VITE_FATHOM_GOAL_CTA_SYNC_DOCS, 0)
     },
   },
   methods: {

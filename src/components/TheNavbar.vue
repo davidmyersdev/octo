@@ -30,9 +30,9 @@
 </template>
 
 <script>
-import TheLogo from '@/components/TheLogo'
+import TheLogo from '/src/components/TheLogo.vue'
 
-import { open } from '@/router'
+import { open } from '/src/router.js'
 
 export default {
   name: 'TheNavbar',

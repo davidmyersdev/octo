@@ -112,7 +112,7 @@ export default defineConfig({
             type: 'image/png',
           },
         ],
-        background_color: '#121212',
+        background_color: '#171717',
         theme_color: '#121212',
       },
     }),

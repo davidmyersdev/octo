@@ -14,19 +14,10 @@ export default defineConfig({
     VitePWA({
       strategies: 'generateSW',
       workbox: {
-        clientsClaim: true,
-        // solution for the current version of workbox plugin
-        // https://forum.vuejs.org/t/vue-cli-plugin-pwa-additionalmanifestentries-error/89234/5
-        manifestTransforms: [
-          (originalManifest) => {
-            const manifest = originalManifest.concat([
-              { url: 'https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@300;400;700&display=swap', revision: 'v1' },
-            ])
-
-            // optionally set warning messages
-            return { manifest, warnings: [] }
-          },
+        additionalManifestEntries: [
+          { url: 'https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@300;400;700&display=swap', revision: 'v1' },
         ],
+        clientsClaim: true,
         navigateFallback: '/index.html',
         runtimeCaching: [
           {
@@ -125,6 +116,5 @@ export default defineConfig({
         theme_color: '#121212',
       },
     }),
-
   ],
 })

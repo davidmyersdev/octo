@@ -17,6 +17,7 @@ export default defineConfig({
         additionalManifestEntries: [
           { url: 'https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@300;400;700&display=swap', revision: 'v1' },
         ],
+        cleanupOutdatedCaches: true,
         clientsClaim: true,
         navigateFallback: '/index.html',
         runtimeCaching: [
@@ -38,6 +39,10 @@ export default defineConfig({
         skipWaiting: true,
       },
       manifest: {
+        background_color: '#171717',
+        theme_color: '#121212',
+        name: 'octo.app',
+        short_name: 'octo.app',
         icons: [
           {
             src: './img/icons/android-chrome-192x192.png',
@@ -112,8 +117,6 @@ export default defineConfig({
             type: 'image/png',
           },
         ],
-        background_color: '#171717',
-        theme_color: '#121212',
       },
     }),
   ],

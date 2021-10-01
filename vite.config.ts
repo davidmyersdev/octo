@@ -12,6 +12,7 @@ export default defineConfig({
     createVuePlugin(),
     injectHtml({ data: parsed }),
     VitePWA({
+      registerType: 'autoUpdate',
       strategies: 'generateSW',
       workbox: {
         additionalManifestEntries: [

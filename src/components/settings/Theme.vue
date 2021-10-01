@@ -13,6 +13,10 @@
             <input v-model="theme" type="radio" value="light" class="radio">
             <span class="ml-3">Light</span>
           </label>
+          <label class="button button-size-medium button-color-gray ml-2">
+            <input v-model="theme" type="radio" value="october" class="radio">
+            <span class="ml-3">October</span>
+          </label>
         </div>
       </div>
     </Extendable>

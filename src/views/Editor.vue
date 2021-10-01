@@ -86,7 +86,7 @@ export default {
   },
   computed: {
     appearance() {
-      return this.$store.state.settings.theme
+      return this.$store.state.settings.theme === 'october' ? 'dark' : this.$store.state.settings.theme
     },
     currentDoc() {
       return this.$store.getters.currentDoc

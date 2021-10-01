@@ -59,8 +59,22 @@ export default {
   },
   watch: {
     theme(value) {
-      document.documentElement.classList.remove('dark', 'light')
-      document.documentElement.classList.add(value)
+      document.documentElement.classList.remove('dark', 'light', 'october')
+
+      switch(value) {
+        case 'dark':
+          document.documentElement.classList.add('dark')
+          break;
+        case 'light':
+          document.documentElement.classList.add('light')
+          break;
+        case 'october':
+          document.documentElement.classList.add('dark', 'october')
+          break;
+        default:
+          document.documentElement.classList.add('dark')
+          break;
+      }
     },
   },
   computed: {
@@ -107,6 +121,13 @@ export default {
 </script>
 
 <style>
+.october {
+  --ink-heading: #eb6123;
+  --ink-name: #eb6123;
+  --ink-labelName: #abb2bf;
+  --ink-variableName: #ebda23;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -318,17 +339,5 @@ hr {
 
 .light .simplebar-scrollbar::before {
   background-color: rgba(0, 0, 0, 0.5);
-}
-
-.text-brand {
-  color: #e06c75 !important;
-}
-
-.border-brand {
-  border-color: #e06c75 !important;
-}
-
-.bg-brand {
-  background-color: #e06c75 !important;
 }
 </style>

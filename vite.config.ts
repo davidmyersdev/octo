@@ -21,6 +21,9 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
         clientsClaim: true,
         navigateFallback: '/index.html',
+        navigateFallbackDenylist: [
+          new RegExp('/manifest.json$'),
+        ],
         runtimeCaching: [
           {
             urlPattern: new RegExp('^https\:\/\/cdnjs\.cloudflare\.com\/.*'),

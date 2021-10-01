@@ -21,5 +21,7 @@ module.exports = {
       boxShadow: ['dark'],
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+  ],
 }

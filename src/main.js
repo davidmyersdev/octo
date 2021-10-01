@@ -9,7 +9,7 @@ import store from '/src/store.js'
 
 import '/src/assets/app.css'
 
-// setup the service worker
+// import the service worker
 import '/src/sw.js'
 
 import {

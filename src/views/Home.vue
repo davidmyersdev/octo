@@ -7,7 +7,7 @@
           <p class="text-xl text-gray-600 font-semibold uppercase">Octo is Made for Technical Writers</p>
         </div>
         <div class="aspect-w-3 aspect-h-4 lg:aspect-w-16 lg:aspect-h-9 w-full mt-8">
-          <iframe class="bg-gray-900 rounded shadow-lg" src="http://localhost:8888/example" sandbox="allow-scripts allow-same-origin" loading="lazy" />
+          <iframe class="bg-gray-900 rounded shadow-lg" src="https://octo.app/example" sandbox="allow-scripts allow-same-origin" loading="lazy" />
         </div>
         <div class="flex flex-col lg:flex-row items-center justify-center gap-2 lg:gap-4 mt-8">
           <router-link :to="{ name: 'account' }" class="button-base button-size-medium bg-blue-600 shadow w-full lg:w-auto whitespace-nowrap justify-center gap-3 text-xl">

@@ -2,31 +2,30 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 // views
-import Daily from './views/Daily.vue'
-import Dashboard from './views/Dashboard.vue'
-import Documents from './views/Documents.vue'
-import Editor from './views/Editor.vue'
+import Daily from '/src/views/Daily.vue'
+import Dashboard from '/src/views/Dashboard.vue'
+import Documents from '/src/views/Documents.vue'
+import EditorView from '/src/views/Editor.vue'
+import ExampleView from '/src/views/Example.vue'
+import Home from '/src/views/Home.vue'
 
 // components
-import Context from './components/Context.vue'
-import Exporter from './components/Exporter.vue'
-import Graph from './components/Graph.vue'
-import Importer from './components/Importer.vue'
-import QuickAction from './components/QuickAction.vue'
-import TagList from './components/TagList.vue'
-import TheLeftSidebar from './components/TheLeftSidebar.vue'
-import TheRightSidebar from './components/TheRightSidebar.vue'
-import TheSettings from './components/TheSettings.vue'
-import Account from './components/Account.vue'
-import Privacy from './components/Privacy.vue'
-import Terms from './components/Terms.vue'
+import Context from '/src/components/Context.vue'
+import Exporter from '/src/components/Exporter.vue'
+import Graph from '/src/components/Graph.vue'
+import Importer from '/src/components/Importer.vue'
+import QuickAction from '/src/components/QuickAction.vue'
+import TagList from '/src/components/TagList.vue'
+import TheLeftSidebar from '/src/components/TheLeftSidebar.vue'
+import TheRightSidebar from '/src/components/TheRightSidebar.vue'
+import TheSettings from '/src/components/TheSettings.vue'
+import Account from '/src/components/Account.vue'
+import Privacy from '/src/components/Privacy.vue'
+import Terms from '/src/components/Terms.vue'
 
 import store from '/src/store.js'
 
-import Doc from '/src/models/doc.js'
-
 import {
-  ADD_DOCUMENT,
   SET_DOCUMENT,
   SET_SHOW_WELCOME,
 } from '/src/store/actions.js'
@@ -41,6 +40,11 @@ const router = new Router({
       redirect: { name: 'dashboard' },
     },
     {
+      path: '/home',
+      name: 'home',
+      component: Home,
+    },
+    {
       path: '/',
       name: 'editor',
       component: Dashboard,
@@ -48,12 +52,18 @@ const router = new Router({
         // editor views
         {
           path: '',
-          redirect: { name: 'dashboard' },
+          redirect: { name: 'home' },
         },
         {
           path: 'account',
           name: 'account',
           component: Account,
+        },
+        {
+          path: 'example',
+          name: 'example',
+          component: ExampleView,
+          props: { url: '/example.md' },
         },
         {
           path: 'documents',
@@ -63,28 +73,16 @@ const router = new Router({
         {
           path: 'documents/new',
           name: 'dashboard',
-          component: Editor,
+          component: EditorView,
           props: true,
           beforeEnter(to, from, next) {
             store.dispatch(SET_DOCUMENT, { id: null })
 
             if (store.state.showWelcome) {
-              fetch('/welcome.md')
-                .then((response) => response.text())
-                .then((text) => {
-                  const doc = new Doc({ text })
+              localStorage.setItem('octo/welcome/v1', 'done')
+              store.dispatch(SET_SHOW_WELCOME, false)
 
-                  store.dispatch(SET_SHOW_WELCOME, false)
-                  store.dispatch(ADD_DOCUMENT, doc)
-
-                  localStorage.setItem('octo/welcome/v1', 'done')
-
-                  next({ name: 'document', params: { id: doc.id } })
-                })
-                .catch((error) => {
-                  // suppress errors for now
-                  next()
-                })
+              next({ name: 'home' })
             } else {
               next()
             }
@@ -155,7 +153,7 @@ const router = new Router({
         {
           path: 'documents/:id',
           name: 'document',
-          component: Editor,
+          component: EditorView,
           props: true,
           beforeEnter(to, from, next) {
             store.dispatch(SET_DOCUMENT, { id: to.params.id })
@@ -178,7 +176,7 @@ const router = new Router({
         {
           path: 'shared/:id',
           name: 'shared',
-          component: Editor,
+          component: EditorView,
           props: {
             default: true,
             readonly: true,

@@ -47,6 +47,7 @@ export default defineConfig({
         theme_color: '#121212',
         name: 'octo.app',
         short_name: 'octo.app',
+        start_url: '/documents/new',
         icons: [
           {
             src: './img/icons/android-chrome-192x192.png',

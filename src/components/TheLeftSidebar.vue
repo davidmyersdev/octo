@@ -2,7 +2,8 @@
   <simplebar class="p-4 md:p-2">
     <div class="hidden md:flex justify-center my-3 pb-2">
       <router-link class="flex p-2" :to="{ name: 'dashboard' }">
-        <TheLogo size="2.5rem" />
+        <TheSpookyLogo v-if="october" class="h-10" />
+        <TheLogo v-else size="2.5rem" />
       </router-link>
     </div>
     <div class="side-nav-spacer flex flex-col flex-grow pb-3">
@@ -195,6 +196,7 @@ import ModK from '/src/components/ModK.vue'
 import ModKKey from '/src/components/ModKKey.vue'
 import Tag from '/src/components/Tag.vue'
 import TheLogo from '/src/components/TheLogo.vue'
+import TheSpookyLogo from '/src/components/TheSpookyLogo.vue'
 
 import {
   SET_CONTEXT_TAGS,
@@ -209,6 +211,7 @@ export default {
     ModKKey,
     Tag,
     TheLogo,
+    TheSpookyLogo,
   },
   computed: {
     authIsEvaluated() {
@@ -222,6 +225,9 @@ export default {
     },
     mediumPlus() {
       return ['md', 'lg', 'xl'].includes(this.$mq)
+    },
+    october() {
+      return this.$store.state.settings.theme === 'october'
     },
     tags() {
       return this.$store.getters.tags

@@ -113,6 +113,8 @@ export default {
   },
   methods: {
     tapFrame() {
+      window.fathom.trackGoal(import.meta.env.VITE_FATHOM_EVENT_CTA_TRY_IT_OUT, 0)
+
       this.tapped = true
     },
     trackCtaOpenApp() {

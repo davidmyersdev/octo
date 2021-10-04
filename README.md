@@ -6,13 +6,13 @@
 
 <p align="center">
   <a href="https://octo.app">
-    <img height="100" src="resources/stacked.png">
+    <img height="100" src="resources/stacked-october.png">
   </a>
 </p>
 
 <p align="center">A hackable, offline-first markdown editor for notes, code snippets, and writing that runs entirely in-browser.</p>
 
-[![screenshot](resources/combined-dark.png)](https://octo.app)
+[![screenshot](resources/desktop-october.png)](https://octo.app)
 
 ## Features
 
@@ -44,11 +44,9 @@ No account, server, or internet connectivity necessary (after first load). The e
 
 Built with Vue, Vuex, and VueRouter. Progressive Web Apps are accessible on all platforms and installable on many.
 
-### Tag-based Organization and Networked Thought
+### Tag-based Organization
 
-Add as many hashtags to your documents as you like. Build a network of information and explore your knowledgebase just as you would explore your own memories.
-
-![](resources/desktop-graph-dark.png)
+Add as many hashtags to your documents as you like. Build a network of information, and explore the patterns and connections that arise.
 
 ## Demo
 

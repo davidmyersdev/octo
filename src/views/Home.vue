@@ -10,7 +10,7 @@
           <iframe class="bg-gray-900 rounded shadow-lg" src="https://octo.app/example" sandbox="allow-scripts allow-same-origin" loading="lazy" />
         </div>
         <div class="flex flex-col lg:flex-row items-center justify-center gap-2 lg:gap-4 mt-8">
-          <router-link :to="{ name: 'account' }" class="button-base button-size-medium bg-blue-600 shadow w-full lg:w-auto whitespace-nowrap justify-center gap-3 text-xl">
+          <router-link @click.native="trackCtaSignUpNow" :to="{ name: 'account' }" class="button-base button-size-medium bg-blue-600 shadow w-full lg:w-auto whitespace-nowrap justify-center gap-3 text-xl">
             <span class="flex items-center gap-3">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -18,7 +18,7 @@
               <span>Sign Up Now</span>
             </span>
           </router-link>
-          <router-link :to="{ name: 'dashboard' }" class="button-base button-size-medium bg-gray-900 text-gray-500 shadow w-full lg:w-auto whitespace-nowrap justify-center gap-3 text-xl">
+          <router-link @click.native="trackCtaOpenApp" :to="{ name: 'dashboard' }" class="button-base button-size-medium bg-gray-900 text-gray-500 shadow w-full lg:w-auto whitespace-nowrap justify-center gap-3 text-xl">
             <span class="flex items-center gap-3">
               <span>Open App</span>
               <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -94,6 +94,14 @@ export default {
   components: {
     GitHubIcon,
     TwitterIcon,
+  },
+  methods: {
+    trackCtaOpenApp() {
+      window.fathom.trackGoal(import.meta.env.VITE_FATHOM_EVENT_CTA_OPEN_APP, 0)
+    },
+    trackCtaSignUpNow() {
+      window.fathom.trackGoal(import.meta.env.VITE_FATHOM_EVENT_CTA_SIGN_UP_NOW, 0)
+    },
   },
 }
 </script>

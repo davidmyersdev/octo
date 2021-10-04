@@ -73,6 +73,9 @@ export default {
     document() {
       return this.$store.getters.decrypted.find(doc => doc.id === this.id) || this.placeholder
     },
+    ink() {
+      return this.settings.version === 'ink'
+    },
     settings() {
       return this.$store.state.settings.editor
     },
@@ -113,7 +116,7 @@ export default {
             name: 'document',
             params: {
               id: this.document.id,
-              initialSelection: this.$refs.editable.selection(),
+              initialSelection: this.$refs.editable.getSelection(),
             },
           })
         } else {
@@ -122,10 +125,10 @@ export default {
             params: {
               id: this.document.id,
               initialCursor: {
-                character: this.editor.getCursor().ch,
-                line: this.editor.getCursor().line,
+                character: this.$refs.editable.getCursor().ch,
+                line: this.$refs.editable.getCursor().line,
               },
-              initialVimMode: this.editor.getOption('keyMap'),
+              initialVimMode: this.$refs.editable.getKeyMap(),
             },
           })
         }

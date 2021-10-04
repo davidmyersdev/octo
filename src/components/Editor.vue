@@ -134,6 +134,15 @@ export default {
         this.$refs.editable.focusStart()
       }
     },
+    getCursor() {
+      return this.editor.getCursor()
+    },
+    getKeyMap() {
+      return this.editor.getOption('keyMap')
+    },
+    getSelection() {
+      return this.$refs.editable.selection()
+    },
     async input(text) {
       this.$emit('input', text)
     },

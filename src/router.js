@@ -1,27 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-// views
-import Daily from '/src/views/Daily.vue'
-import Dashboard from '/src/views/Dashboard.vue'
-import Documents from '/src/views/Documents.vue'
-import EditorView from '/src/views/Editor.vue'
-import ExampleView from '/src/views/Example.vue'
+// landing page
 import Home from '/src/views/Home.vue'
-
-// components
-import Context from '/src/components/Context.vue'
-import Exporter from '/src/components/Exporter.vue'
-import Graph from '/src/components/Graph.vue'
-import Importer from '/src/components/Importer.vue'
-import QuickAction from '/src/components/QuickAction.vue'
-import TagList from '/src/components/TagList.vue'
-import TheLeftSidebar from '/src/components/TheLeftSidebar.vue'
-import TheRightSidebar from '/src/components/TheRightSidebar.vue'
-import TheSettings from '/src/components/TheSettings.vue'
-import Account from '/src/components/Account.vue'
-import Privacy from '/src/components/Privacy.vue'
-import Terms from '/src/components/Terms.vue'
 
 import store from '/src/store.js'
 
@@ -55,7 +36,7 @@ const router = new Router({
     {
       path: '/',
       name: 'editor',
-      component: Dashboard,
+      component: () => import('/src/views/Dashboard.vue'),
       children: [
         // editor views
         {
@@ -65,23 +46,23 @@ const router = new Router({
         {
           path: 'account',
           name: 'account',
-          component: Account,
+          component: () => import('/src/components/Account.vue'),
         },
         {
           path: 'example',
           name: 'example',
-          component: ExampleView,
+          component: () => import('/src/views/Example.vue'),
           props: { url: '/example.md' },
         },
         {
           path: 'documents',
           name: 'documents',
-          component: Documents,
+          component: () => import('/src/views/Documents.vue'),
         },
         {
           path: 'documents/new',
           name: 'dashboard',
-          component: EditorView,
+          component: () => import('/src/views/Editor.vue'),
           props: true,
           beforeEnter(to, from, next) {
             store.dispatch(SET_DOCUMENT, { id: null })
@@ -99,18 +80,18 @@ const router = new Router({
         {
           path: 'documents/export',
           name: 'export',
-          component: Exporter,
+          component: () => import('/src/components/Exporter.vue'),
         },
         {
           path: 'documents/import',
           name: 'import',
-          component: Importer,
+          component: () => import('/src/components/Importer.vue'),
         },
         // document filters
         {
           path: 'documents/actionable',
           name: 'actionable',
-          component: Documents,
+          component: () => import('/src/views/Documents.vue'),
           props: {
             actionable: true,
           },
@@ -118,7 +99,7 @@ const router = new Router({
         {
           path: 'documents/discarded',
           name: 'discarded',
-          component: Documents,
+          component: () => import('/src/views/Documents.vue'),
           props: {
             discarded: true,
           },
@@ -126,7 +107,7 @@ const router = new Router({
         {
           path: 'documents/recent',
           name: 'recent',
-          component: Documents,
+          component: () => import('/src/views/Documents.vue'),
           props: {
             recent: true,
           },
@@ -134,7 +115,7 @@ const router = new Router({
         {
           path: 'documents/untagged',
           name: 'untagged',
-          component: Documents,
+          component: () => import('/src/views/Documents.vue'),
           props: {
             untagged: true,
           },
@@ -143,14 +124,14 @@ const router = new Router({
         {
           path: 'documents/daily',
           name: 'daily',
-          component: Daily,
+          component: () => import('/src/views/Daily.vue'),
           props: true,
         },
         // show meta for a document
         {
           path: 'documents/:id/meta',
           name: 'document-meta',
-          component: TheRightSidebar,
+          component: () => import('/src/components/TheRightSidebar.vue'),
           props: true,
           beforeEnter(to, from, next) {
             store.dispatch(SET_DOCUMENT, { id: to.params.id })
@@ -161,7 +142,7 @@ const router = new Router({
         {
           path: 'documents/:id',
           name: 'document',
-          component: EditorView,
+          component: () => import('/src/views/Editor.vue'),
           props: true,
           beforeEnter(to, from, next) {
             store.dispatch(SET_DOCUMENT, { id: to.params.id })
@@ -172,19 +153,19 @@ const router = new Router({
         {
           path: 'quick-action',
           name: 'quick-action',
-          component: QuickAction,
+          component: () => import('/src/components/QuickAction.vue'),
         },
         // menu
         {
           path: 'menu',
           name: 'menu',
-          component: TheLeftSidebar,
+          component: () => import('/src/components/TheLeftSidebar.vue'),
         },
         // open (and load) a shared document
         {
           path: 'shared/:id',
           name: 'shared',
-          component: EditorView,
+          component: () => import('/src/views/Editor.vue'),
           props: {
             default: true,
             readonly: true,
@@ -194,43 +175,43 @@ const router = new Router({
         {
           path: 'context',
           name: 'context',
-          component: Context,
+          component: () => import('/src/components/Context.vue'),
         },
         // tags
         {
           path: 'tags/:tag',
           name: 'tag',
-          component: Documents,
+          component: () => import('/src/views/Documents.vue'),
           props: true,
         },
         {
           path: 'tags',
           name: 'tags',
-          component: TagList,
+          component: () => import('/src/components/TagList.vue'),
           props: true,
         },
         // settings
         {
           path: 'settings',
           name: 'settings',
-          component: TheSettings,
+          component: () => import('/src/components/TheSettings.vue'),
         },
         // graph view
         {
           path: 'graph',
           name: 'graph',
-          component: Graph,
+          component: () => import('/src/components/Graph.vue'),
         },
         // privacy & terms
         {
           path: 'privacy-policy',
           name: 'privacy_policy',
-          component: Privacy,
+          component: () => import('/src/components/Privacy.vue'),
         },
         {
           path: 'terms-and-conditions',
           name: 'terms_and_conditions',
-          component: Terms,
+          component: () => import('/src/components/Terms.vue'),
         },
       ],
     },

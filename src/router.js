@@ -43,6 +43,14 @@ const router = new Router({
       path: '/home',
       name: 'home',
       component: Home,
+      beforeEnter(to, from, next) {
+        if (store.state.showWelcome) {
+          localStorage.setItem('octo/welcome/v1', 'done')
+          store.dispatch(SET_SHOW_WELCOME, false)
+        }
+
+        next()
+      },
     },
     {
       path: '/',

@@ -15,7 +15,7 @@
           </label>
           <label class="button button-size-medium button-color-gray ml-2">
             <input v-model="theme" type="radio" value="october" class="radio">
-            <span class="ml-3">October</span>
+            <span class="ml-3">Spooky</span>
           </label>
         </div>
       </div>

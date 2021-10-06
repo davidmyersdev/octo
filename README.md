@@ -6,13 +6,13 @@
 
 <p align="center">
   <a href="https://octo.app">
-    <img height="100" src="resources/stacked-october.png">
+    <img height="100" src="resources/spooky-stacked.png">
   </a>
 </p>
 
 <p align="center">A hackable, offline-first markdown editor for notes, code snippets, and writing that runs entirely in-browser.</p>
 
-[![screenshot](resources/desktop-october.png)](https://octo.app)
+[![screenshot](resources/spooky-desktop.png)](https://octo.app)
 
 ## Features
 

@@ -27,23 +27,25 @@
         </div>
         <small class="text-gray-700">Spellcheck (and Grammarly support) is only available with the Ink editor.</small>
       </div>
-      <div v-if="usingLegacy" class="mb-4">
-        <label for="config-key-map">Vim Mode</label>
-        <div>
-          <label class="button button-size-medium button-color-gray">
-            <input v-model="keyMap" type="radio" value="default" class="radio">
-            <span class="ml-3">Disable</span>
-          </label>
-          <label class="button button-size-medium button-color-gray ml-2">
-            <input v-model="keyMap" type="radio" value="vim" class="radio">
-            <span class="ml-3">Enable</span>
-          </label>
-        </div>
-      </div>
       <div class="mb-4">
         <label for="config-tab-size">Tab length</label>
         <input v-model="tabSize" type="number" min="2" id="config-tab-size" class="form-text w-full">
         <small class="text-gray-700">Set the number of spaces to use for each tab (minimum: 2).</small>
+      </div>
+      <div class="mb-4">
+        <h4 class="text-2xl mb-2">Readability Information</h4>
+        <p class="mb-2">The Readability Bar shows useful information such as word count and read time at the bottom of the editor.</p>
+        <div class="mb-4">
+          <div>
+            <label class="button button-size-medium button-color-gray items-baseline">
+              <input v-model="readabilityEnabled" type="checkbox" class="checkbox">
+              <span class="ml-3 ">Toggle Readability Bar</span>
+            </label>
+          </div>
+        </div>
+        <label for="config-tab-size">Reading Speed (words per minute)</label>
+        <input v-model="readabilityWordsPerMinute" type="number" min="2" id="config-tab-size" class="form-text w-full">
+        <small class="text-gray-700">Reading speed is used to estimate document read time.</small>
       </div>
       <div class="mb-4">
         <h4 class="text-2xl mb-2">Font Ligatures</h4>
@@ -82,44 +84,62 @@ import {
   SET_EDITOR_IMAGES_SHOW_CAPTIONS,
   SET_EDITOR_KEY_MAP,
   SET_EDITOR_LIGATURES,
+  SET_EDITOR_READABILITY_ENABLED,
+  SET_EDITOR_READABILITY_WORDS_PER_MINUTE,
   SET_EDITOR_SPELLCHECK,
   SET_EDITOR_TAB_SIZE,
   SET_EDITOR_VERSION,
-} from '/src/store/modules/settings.js';
+} from '/src/store/modules/settings.js'
 
 export default {
   name: 'EditorSettings',
   computed: {
     imagesEnabled: {
       get() {
-        return this.$store.state.settings.editor.images.enabled;
+        return this.$store.state.settings.editor.images.enabled
       },
       set(value) {
-        this.$store.dispatch(SET_EDITOR_IMAGES_ENABLED, value);
+        this.$store.dispatch(SET_EDITOR_IMAGES_ENABLED, value)
       },
     },
     keyMap: {
       get() {
-        return this.$store.state.settings.editor.keyMap;
+        return this.$store.state.settings.editor.keyMap
       },
       set(value) {
-        this.$store.dispatch(SET_EDITOR_KEY_MAP, value);
+        this.$store.dispatch(SET_EDITOR_KEY_MAP, value)
       },
     },
     ligatures: {
       get() {
-        return this.$store.state.settings.editor.ligatures;
+        return this.$store.state.settings.editor.ligatures
       },
       set(value) {
-        this.$store.commit(SET_EDITOR_LIGATURES, value);
+        this.$store.commit(SET_EDITOR_LIGATURES, value)
+      },
+    },
+    readabilityEnabled: {
+      get() {
+        return this.$store.state.settings.editor.readability.enabled
+      },
+      set(value) {
+        this.$store.commit(SET_EDITOR_READABILITY_ENABLED, value)
+      },
+    },
+    readabilityWordsPerMinute: {
+      get() {
+        return this.$store.state.settings.editor.readability.wordsPerMinute
+      },
+      set(value) {
+        this.$store.commit(SET_EDITOR_READABILITY_WORDS_PER_MINUTE, value)
       },
     },
     showCaptions: {
       get() {
-        return this.$store.state.settings.editor.images.showCaptions;
+        return this.$store.state.settings.editor.images.showCaptions
       },
       set(value) {
-        this.$store.dispatch(SET_EDITOR_IMAGES_SHOW_CAPTIONS, value);
+        this.$store.dispatch(SET_EDITOR_IMAGES_SHOW_CAPTIONS, value)
       },
     },
     spellcheck: {
@@ -132,10 +152,10 @@ export default {
     },
     tabSize: {
       get() {
-        return this.$store.state.settings.editor.tabSize;
+        return this.$store.state.settings.editor.tabSize
       },
       set(value) {
-        this.$store.dispatch(SET_EDITOR_TAB_SIZE, parseInt(value) || 2);
+        this.$store.dispatch(SET_EDITOR_TAB_SIZE, parseInt(value) || 2)
       },
     },
     usingInk() {
@@ -153,5 +173,5 @@ export default {
       },
     },
   },
-};
+}
 </script>

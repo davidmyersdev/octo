@@ -5,6 +5,7 @@
         <div class="gutter h-8" @click="focusEditorStart"></div>
         <Ink v-if="ink" ref="editable" class="ink" :appearance="appearance" :images="settings.images.enabled" :initialSelection="initialSelection" :spellcheck="spellcheck" :value="text" @input="input" />
         <LegacyEditor v-else ref="editable" class="editable" :theme="appearance" :initialCursor="initialCursor" :initialVimMode="initialVimMode" :settings="settings" :value="text" @input="input" @ready="onReady" />
+        <p v-if="showReadabilityBar" class="text-gray-400 dark:text-gray-600 text-right">{{ numberOfWords }} words | {{ readTimeDescription }}</p>
         <div class="gutter h-8 flex-grow" @click="focusEditorEnd"></div>
       </div>
     </div>
@@ -22,6 +23,8 @@
 <script>
 import Ink from '@writewithocto/vue-ink'
 import LegacyEditor from '@voraciousdev/vue-markdown-editor'
+
+import { readTime, wordCount } from '/src/common/readability.ts'
 
 import {
   SET_RIGHT_SIDEBAR_VISIBILITY,
@@ -86,11 +89,34 @@ export default {
     mediumPlus() {
       return ['md', 'lg', 'xl'].includes(this.$mq)
     },
+    numberOfWords() {
+      return wordCount(this.text)
+    },
+    readTime() {
+      return readTime(this.text, this.wordsPerMinute)
+    },
+    readTimeDescription() {
+      if (this.readTimeMinutes === 0) return `${this.readTimeSeconds}s to read`
+
+      return `${this.readTimeMinutes}m ${this.readTimeSeconds}s to read`
+    },
+    readTimeMinutes() {
+      return Math.floor(this.readTime)
+    },
+    readTimeSeconds() {
+      return Math.floor((this.readTime % 1) * 60)
+    },
+    showReadabilityBar() {
+      return this.settings.readability.enabled
+    },
     showRightSidebar() {
       return this.$store.state.showRightSidebar
     },
     spellcheck() {
       return this.settings.spellcheck
+    },
+    wordsPerMinute() {
+      return this.settings.readability.wordsPerMinute
     },
   },
   methods: {

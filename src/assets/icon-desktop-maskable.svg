@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <svg width="100%" height="100%" viewBox="0 0 73 73" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-    <g transform="matrix(1,0,0,1,-14.7738,-227.103)">
+    <g transform="matrix(1,0,0,1,-224.481,-227.076)">
         <g transform="matrix(1,0,0,1,194,0)">
-            <g transform="matrix(1,0,0,1,-277.206,-83.1287)">
+            <g transform="matrix(1,0,0,1,-67.4986,-83.1556)">
                 <g transform="matrix(1,0,0,1,-136.557,232.278)">
                     <rect x="234.537" y="77.954" width="72.994" height="72.994" style="fill:rgb(18,18,18);"/>
                 </g>
-                <g transform="matrix(1.78397,0,0,1.78397,-915.895,299.58)">
+                <g transform="matrix(1.43644,0,0,1.43644,-711.273,308.765)">
                     <g transform="matrix(1,0,0,1,-4.293,2.40954)">
                         <g transform="matrix(1,0,0,1,5.41995,-5.06993)">
                             <path d="M594.912,33.009C596.783,32.914 598.1,32.077 599.003,30.434C599.158,30.152 599.512,30.05 599.794,30.204C600.075,30.359 600.179,30.713 600.024,30.995C599.301,32.31 598.344,33.213 597.132,33.714C596.392,33.81 595.652,33.573 594.912,33.009Z" style="fill:rgb(224,108,117);"/>

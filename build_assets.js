@@ -1,56 +1,44 @@
-const fs = require('fs');
-const path = require('path');
-const sharp = require('sharp');
-const toIco = require('to-ico');
+const fs = require('fs')
+const sharp = require('sharp')
+const toIco = require('to-ico')
 
-const source = './src/assets/icon.svg';
-const buildAsset = (name, size) => {
+const mobileIcon = './src/assets/icon-mobile.svg'
+const macIcon = './src/assets/macos-512x512.png'
+const desktopMaskable = './src/assets/icon-desktop-maskable.svg'
+const mobileMaskable = './src/assets/icon-mobile-maskable.svg'
+
+const buildAsset = ({ name, size, source }) => {
   sharp(source, { density: 300 })
     .resize(size, size)
     .png()
-    .toFile(`./public/img/icons/${name}-${size}x${size}.png`);
-};
+    .toFile(`./public/img/icons/${name}-${size}x${size}.png`)
+}
 
-// cookie cutter assets
-buildAsset('android-chrome', 192);
-buildAsset('android-chrome', 512);
-buildAsset('android-chrome-maskable', 192);
-buildAsset('android-chrome-maskable', 512);
-buildAsset('apple-touch-icon', 60);
-buildAsset('apple-touch-icon', 76);
-buildAsset('apple-touch-icon', 120);
-buildAsset('apple-touch-icon', 152);
-buildAsset('apple-touch-icon', 180);
-buildAsset('favicon', 16);
-buildAsset('favicon', 32);
-buildAsset('msapplication-icon', 144);
-buildAsset('mstile', 150);
+// desktop (mac) icon
+fs.copyFile(macIcon, './public/img/icons/icon-512x512.png', () => {})
 
-// special handling of apple touch icon without dimensions in filename
-sharp(source, { density: 300 })
-  .resize(180, 180)
-  .png()
-  .toFile('./public/img/icons/apple-touch-icon.png');
+// desktop and mobile maskable icons
+buildAsset({ name: 'icon-maskable', source: mobileMaskable, size: 192 })
+buildAsset({ name: 'icon-maskable', source: desktopMaskable, size: 512 })
 
-// special handling of safari pinned tab
-fs.copyFile(source, './public/img/icons/safari-pinned-tab.svg', (error) => {
-  if (error) {
-    console.log('An error was encountered while creating safari-pinned-tab.svg');
-    console.error(error);
-  }
-});
+// mobile icons
+buildAsset({ name: 'icon', source: mobileIcon, size: 16 })
+buildAsset({ name: 'icon', source: mobileIcon, size: 32 })
+buildAsset({ name: 'icon', source: mobileIcon, size: 60 })
+buildAsset({ name: 'icon', source: mobileIcon, size: 76 })
+buildAsset({ name: 'icon', source: mobileIcon, size: 120 })
+buildAsset({ name: 'icon', source: mobileIcon, size: 144 })
+buildAsset({ name: 'icon', source: mobileIcon, size: 150 })
+buildAsset({ name: 'icon', source: mobileIcon, size: 152 })
+buildAsset({ name: 'icon', source: mobileIcon, size: 180 })
+buildAsset({ name: 'icon', source: mobileIcon, size: 192 })
 
 // special handling of favicon.ico
 const faviconFiles = [
-	fs.readFileSync('./public/img/icons/favicon-16x16.png'),
-	fs.readFileSync('./public/img/icons/favicon-32x32.png'),
-];
+	fs.readFileSync('./public/img/icons/icon-16x16.png'),
+	fs.readFileSync('./public/img/icons/icon-32x32.png'),
+]
 
 toIco(faviconFiles).then(buffer => {
-	fs.writeFileSync('./public/img/icons/favicon.ico', buffer);
-});
-
-// build png of stacked logo for README
-sharp('./src/assets/stacked.svg')
-  .png()
-  .toFile('./resources/stacked.png');
+	fs.writeFileSync('./public/img/icons/favicon.ico', buffer)
+})

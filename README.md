@@ -87,7 +87,7 @@ Run the app in `development` mode.
 
 ```bash
 # binds to localhost:8888
-yarn serve_dev
+yarn dev
 ```
 
 Run the app in `production` mode (to test the PWA).
@@ -96,7 +96,7 @@ _Note: Offline functionality is only available in `production` mode due to [lack
 
 ```bash
 # binds to localhost:8889
-yarn serve_prod
+yarn preview
 ```
 
 ## Compile to Static Assets
@@ -105,7 +105,7 @@ Create the production build.
 
 ```bash
 # compiles at ./dist
-yarn build_prod
+yarn build
 ```
 
 The static assets will be available in the `dist` directory.

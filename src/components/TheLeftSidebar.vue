@@ -63,11 +63,11 @@
             <ModKKey>E</ModKKey>
           </span>
         </router-link>
-        <a class="sidebar-link" href="https://github.com/writewithocto/octo/discussions" target="_blank" rel="noopener noreferrer">
+        <a class="sidebar-link" :href="discordInviteLink" target="_blank" rel="noopener noreferrer">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
           </svg>
-          <div class="flex-grow ml-6 md:ml-3">Discuss</div>
+          <div class="flex-grow ml-6 md:ml-3">Community Discord</div>
         </a>
         <router-link :to="{ name: 'settings' }" class="sidebar-link">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -219,6 +219,9 @@ export default {
     },
     contexts() {
       return this.$store.getters.sortedContexts
+    },
+    discordInviteLink() {
+      return import.meta.env.VITE_DISCORD_INVITE_LINK
     },
     document() {
       return this.$store.getters.currentDoc

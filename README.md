@@ -1,7 +1,7 @@
 [![latest tag](https://img.shields.io/github/v/tag/writewithocto/octo?color=blue&label=latest%20tag&sort=semver)](https://github.com/writewithocto/octo/releases)
 [![license](https://img.shields.io/github/license/writewithocto/octo)](https://github.com/writewithocto/octo/blob/main/LICENSE)
 [![open issues](https://img.shields.io/github/issues-raw/writewithocto/octo)](https://github.com/writewithocto/octo/issues)
-[![chat in discussions](https://img.shields.io/badge/chat-in%20discussions-7289da)](https://github.com/writewithocto/octo/discussions)
+[![chat on discord](https://img.shields.io/badge/chat-on%20discord-7289da)](https://discord.gg/HGJX6XNxmS)
 [![follow on twitter](https://img.shields.io/badge/follow-on%20twitter-1da1f2)](https://twitter.com/writewithocto)
 
 <p align="center">

@@ -41,7 +41,13 @@ const router = new Router({
         // editor views
         {
           path: '',
-          redirect: { name: 'home' },
+          beforeEnter(to, from, next) {
+            if (store.state.showWelcome) {
+              next({ name: 'home' })
+            } else {
+              next({ name: 'dashboard' })
+            }
+          },
         },
         {
           path: 'account',

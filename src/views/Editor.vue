@@ -62,6 +62,9 @@ export default {
       this.$refs.editable.clearHistory()
       this.$refs.editable.focusEditor()
     },
+    tags() {
+      this.updateTitle()
+    },
   },
   computed: {
     appearance() {
@@ -79,8 +82,14 @@ export default {
     settings() {
       return this.$store.state.settings.editor
     },
+    tags() {
+      return this.document.tags
+    }
   },
   methods: {
+    async updateTitle() {
+      document.title = (this.document.tags.length > 0) ? this.document.tags : "Octo"
+    },
     async findSharedDocument() {
       const docRefs = await firestoreInstance
         .collection('documents')
@@ -143,6 +152,7 @@ export default {
     next()
   },
   async mounted() {
+    this.updateTitle()
     // might want to pass another prop to represent "shared" since readonly might have multiple use cases
     if (this.readonly) {
       this.placeholder = await this.findSharedDocument();

@@ -1,7 +1,7 @@
 <template>
   <simplebar class="p-4 md:p-2">
     <div class="hidden md:flex justify-center my-3 pb-2">
-      <router-link class="flex p-2" :to="{ name: 'dashboard' }">
+      <router-link class="flex p-2" :to="{ name: 'home' }">
         <TheSpookyLogo v-if="october" class="h-10" />
         <TheLogo v-else size="2.5rem" />
       </router-link>

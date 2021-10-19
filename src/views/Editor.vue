@@ -11,6 +11,8 @@ import { open } from '/src/router.js'
 import { firestoreInstance } from '/src/firebase.js'
 import { unpack } from '/src/models/doc.js'
 
+import { setTitle, formatTitleTags } from '/src/common/title.js'
+
 import {
   ADD_DOCUMENT,
   EDIT_DOCUMENT,
@@ -65,6 +67,9 @@ export default {
     tags() {
       this.updateTitle()
     },
+    header() {
+      this.updateTitle()
+    }
   },
   computed: {
     appearance() {
@@ -84,11 +89,14 @@ export default {
     },
     tags() {
       return this.document.tags
-    }
+    },
+    header() {
+      return this.document.headers[0]
+    },
   },
   methods: {
     async updateTitle() {
-      document.title = (this.document.tags.length > 0) ? this.document.tags : "Octo"
+      setTitle(this.document.headers[0] || formatTitleTags(this.document.tags))
     },
     async findSharedDocument() {
       const docRefs = await firestoreInstance

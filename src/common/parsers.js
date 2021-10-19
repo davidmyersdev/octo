@@ -1,6 +1,7 @@
 const codeRegex = /```([^\n\s]*)(?:\s([\w-]+\.[\w]+))?\n(.*?)```/gs
 const imageTagRegex = /!\[(.*?)\]\((.+?)\)/g
 const tagsRegex = /````.*?````|```.*?```|``.*?``|`.*?`|\w+:\/?\/?\S*|#([\w-]+)/gs
+const headersRegex = /````.*?````|```.*?```|``.*?``|`.*?`|\w+:\/?\/?\S*|# (.+)$/gm
 const tasksRegex = /````.*?````|```.*?```|``.*?``|`.*?`|- \[ \] ([^\n]+)/gs
 
 export const parse = (regex, text) => {
@@ -56,6 +57,19 @@ export const parseTags = (text) => {
   })
 
   return Array.from(tags).sort()
+}
+
+export const parseHeaders = (text) => {
+  const matches = parse(headersRegex, text)
+  const headers = []
+
+  matches.forEach((match) => {
+    if (match[1]) {
+      headers.push(match[1])
+    }
+  })
+
+  return headers
 }
 
 export const parseTasks = (text) => {

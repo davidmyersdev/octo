@@ -11,6 +11,8 @@ import {
   SET_SHOW_WELCOME,
 } from '/src/store/actions.js'
 
+import { setTitle } from '/src/common/title.js'
+
 Vue.use(Router)
 
 const router = new Router({
@@ -52,11 +54,13 @@ const router = new Router({
         {
           path: 'account',
           name: 'account',
+          meta: { customTitle: "Account" },
           component: () => import('/src/components/Account.vue'),
         },
         {
           path: 'example',
           name: 'example',
+          meta: { customTitle: "Example" },
           component: () => import('/src/views/Example.vue'),
           props: { url: '/example.md' },
         },
@@ -86,17 +90,20 @@ const router = new Router({
         {
           path: 'documents/export',
           name: 'export',
+          meta: { customTitle: "Export" },
           component: () => import('/src/components/Exporter.vue'),
         },
         {
           path: 'documents/import',
           name: 'import',
+          meta: { customTitle: "Import" },
           component: () => import('/src/components/Importer.vue'),
         },
         // document filters
         {
           path: 'documents/actionable',
           name: 'actionable',
+          meta: { customTitle: "Actionable" },
           component: () => import('/src/views/Documents.vue'),
           props: {
             actionable: true,
@@ -105,6 +112,7 @@ const router = new Router({
         {
           path: 'documents/discarded',
           name: 'discarded',
+          meta: { customTitle: "Discarded" },
           component: () => import('/src/views/Documents.vue'),
           props: {
             discarded: true,
@@ -113,6 +121,7 @@ const router = new Router({
         {
           path: 'documents/recent',
           name: 'recent',
+          meta: { customTitle: "Recent" },
           component: () => import('/src/views/Documents.vue'),
           props: {
             recent: true,
@@ -121,6 +130,7 @@ const router = new Router({
         {
           path: 'documents/untagged',
           name: 'untagged',
+          meta: { customTitle: "Untagged" },
           component: () => import('/src/views/Documents.vue'),
           props: {
             untagged: true,
@@ -130,6 +140,7 @@ const router = new Router({
         {
           path: 'documents/daily',
           name: 'daily',
+          meta: { customTitle: "Daily" },
           component: () => import('/src/views/Daily.vue'),
           props: true,
         },
@@ -159,6 +170,8 @@ const router = new Router({
         {
           path: 'quick-action',
           name: 'quick-action',
+
+          meta: { customTitle: "Quick Action" },
           component: () => import('/src/components/QuickAction.vue'),
         },
         // menu
@@ -181,6 +194,7 @@ const router = new Router({
         {
           path: 'context',
           name: 'context',
+          meta: { customTitle: "Context" },
           component: () => import('/src/components/Context.vue'),
         },
         // tags
@@ -193,6 +207,7 @@ const router = new Router({
         {
           path: 'tags',
           name: 'tags',
+          meta: { customTitle: "Tags" },
           component: () => import('/src/components/TagList.vue'),
           props: true,
         },
@@ -200,28 +215,38 @@ const router = new Router({
         {
           path: 'settings',
           name: 'settings',
+          meta: { customTitle: "Settings" },
           component: () => import('/src/components/TheSettings.vue'),
         },
         // graph view
         {
           path: 'graph',
           name: 'graph',
+          meta: { customTitle: "Graph" },
           component: () => import('/src/components/Graph.vue'),
         },
         // privacy & terms
         {
           path: 'privacy-policy',
           name: 'privacy_policy',
+          meta: { customTitle: "Privacy Policy" },
           component: () => import('/src/components/Privacy.vue'),
         },
         {
           path: 'terms-and-conditions',
           name: 'terms_and_conditions',
+          meta: { customTitle: "Terms and Conditions" },
           component: () => import('/src/components/Terms.vue'),
         },
       ],
     },
   ],
+})
+
+router.beforeEach((to, _from, next) => {
+  setTitle(to.meta.customTitle)
+
+  next()
 })
 
 export const open = (route) => {

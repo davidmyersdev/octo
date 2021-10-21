@@ -11,6 +11,8 @@ import { open } from '/src/router.js'
 import { firestoreInstance } from '/src/firebase.js'
 import { unpack } from '/src/models/doc.js'
 
+import { setTitle, formatTitleTags } from '/src/common/title.js'
+
 import {
   ADD_DOCUMENT,
   EDIT_DOCUMENT,
@@ -62,6 +64,12 @@ export default {
       this.$refs.editable.clearHistory()
       this.$refs.editable.focusEditor()
     },
+    tags() {
+      this.updateTitle()
+    },
+    header() {
+      this.updateTitle()
+    }
   },
   computed: {
     appearance() {
@@ -79,8 +87,17 @@ export default {
     settings() {
       return this.$store.state.settings.editor
     },
+    tags() {
+      return this.document.tags
+    },
+    header() {
+      return this.document.headers[0]
+    },
   },
   methods: {
+    async updateTitle() {
+      setTitle(this.document.headers[0] || formatTitleTags(this.document.tags))
+    },
     async findSharedDocument() {
       const docRefs = await firestoreInstance
         .collection('documents')
@@ -143,6 +160,7 @@ export default {
     next()
   },
   async mounted() {
+    this.updateTitle()
     // might want to pass another prop to represent "shared" since readonly might have multiple use cases
     if (this.readonly) {
       this.placeholder = await this.findSharedDocument();

@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid'
 
 import { decrypt, encrypt } from '/src/common/crypto/crypto'
-import { parseTags, parseTasks } from '/src/common/parsers'
+import { parseTags, parseTasks, parseHeaders } from '/src/common/parsers'
 
 class Doc {
   constructor(attributes = {}) {
@@ -16,6 +16,7 @@ class Doc {
     this.touchedAt = attributes.touchedAt || new Date()
     this.discardedAt = attributes.discardedAt || null
 
+    this.headers = this.encrypted ? [] : parseHeaders(this.text)
     this.tags = this.encrypted ? [] : parseTags(this.text)
     this.tasks = this.encrypted ? [] : parseTasks(this.text)
 
@@ -65,6 +66,7 @@ class Doc {
 
   update({ text }) {
     this.text = text
+    this.headers = parseHeaders(text)
     this.tags = parseTags(text)
     this.tasks = parseTasks(text)
     this.updatedAt = new Date()

@@ -1,7 +1,7 @@
 const codeRegex = /```([^\n\s]*)(?:\s([\w-]+\.[\w]+))?\n(.*?)```/gs
 const imageTagRegex = /!\[(.*?)\]\((.+?)\)/g
 const tagsRegex = /````.*?````|```.*?```|``.*?``|`.*?`|\w+:\/?\/?\S*|#([\w-]+)/gs
-const headersRegex = /^#+ ([^\n.]+)$/gm
+const headersRegex = /````.*?````|```.*?```|``.*?``|`.*?`|\w+:\/?\/?\S*|# ([^\n]+)/gs
 const tasksRegex = /````.*?````|```.*?```|``.*?``|`.*?`|- \[ \] ([^\n]+)/gs
 
 export const parse = (regex, text) => {

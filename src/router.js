@@ -165,7 +165,7 @@ const router = new Router({
           path: 'quick-action',
           name: 'quick-action',
 
-          meta: { customTitle: "Context" },
+          meta: { customTitle: "Quick Action" },
           component: () => import('/src/components/QuickAction.vue'),
         },
         // menu

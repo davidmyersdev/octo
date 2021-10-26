@@ -31,8 +31,8 @@ export default {
   computed: {
     colors() {
       return {
-        edge: this.theme === 'dark' ? '#333' : '#aaa',
-        label: this.theme === 'dark' ? 'rgba(200, 200, 200, 0.8)' : 'rgba(17, 17, 17, 0.8)',
+        edge: this.theme === 'light' ? '#aaa' : '#333',
+        label: this.theme === 'light' ? 'rgba(17, 17, 17, 0.8)' : 'rgba(200, 200, 200, 0.8)',
         node: 'rgba(224, 108, 117, 0.8)',
       }
     },

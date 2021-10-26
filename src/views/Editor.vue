@@ -11,13 +11,17 @@ import { open } from '/src/router.js'
 import { firestoreInstance } from '/src/firebase.js'
 import { unpack } from '/src/models/doc.js'
 
-import { setTitle, formatTitleTags } from '/src/common/title.js'
+import { setTitle } from '/src/common/title.js'
 
 import {
   ADD_DOCUMENT,
   EDIT_DOCUMENT,
   SET_DOCUMENT,
 } from '/src/store/actions.js'
+
+const formatTags = (tags, delimiter = ", ") => {
+  return tags.map(tag => `#${tag}`).join(delimiter)
+}
 
 export default {
   name: 'EditorView',
@@ -56,7 +60,7 @@ export default {
   data() {
     return {
       editor: null,
-      placeholder: new Doc(),
+      placeholder: new Doc({ text: formatTags(this.$store.state.context.tags, " ") }),
     }
   },
   watch: {
@@ -96,7 +100,7 @@ export default {
   },
   methods: {
     async updateTitle() {
-      setTitle(this.document.headers[0] || formatTitleTags(this.document.tags))
+      setTitle(this.document.headers[0] || formatTags(this.document.tags))
     },
     async findSharedDocument() {
       const docRefs = await firestoreInstance

@@ -1,0 +1,17 @@
+{
+  "name": "@writewithocto/functions",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@writewithocto/xp": "^0.2.6",
+    "firebase-admin": "^9.8.0",
+    "firebase-functions": "^3.14.1"
+  },
+  "devDependencies": {
+    "firebase-functions-test": "^0.2.0",
+    "typescript": "^3.8.0"
+  },
+  "private": true
+}

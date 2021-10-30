@@ -12,15 +12,14 @@
       "host": "0.0.0.0",
       "port": 32776
     },
+    "functions": {
+      "host": "0.0.0.0",
+      "port": 32778
+    },
     "ui": {
       "enabled": true,
       "host": "0.0.0.0",
       "port": 32777
     }
-  },
-  "functions": {
-    "predeploy": [
-      "npm --prefix \"$RESOURCE_DIR\" run lint"
-    ]
   }
 }

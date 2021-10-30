@@ -10,6 +10,7 @@ services:
       - 32775:32775
       - 32776:32776
       - 32777:32777
+      - 32778:32778
     stdin_open: true
     tty: true
     volumes:

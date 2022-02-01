@@ -49,12 +49,20 @@
               </button>
             </div>
           </div>
+          <div v-if="devEnabled">
+            <button @click="publishDev" class="sidebar-button w-full">
+              <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+              <span class="ml-6 md:ml-3 flex-grow text-left">Publish Document</span>
+            </button>
+          </div>
         </div>
         <div class="mt-4">
           <Tag v-for="tag in document.tags" :key="tag" :tag="tag" class="sidebar-link"></Tag>
         </div>
         <div class="mt-4">
-          <div v-for="task in document.tasks" class="flex items-center px-3 py-2 my-1 md:px-2 md:py-1">
+          <div v-for="task in document.tasks" :key="task" class="flex items-center px-3 py-2 my-1 md:px-2 md:py-1">
             <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
@@ -93,6 +101,7 @@ import Tag from '/src/components/Tag.vue'
 
 import CodeSandbox from '/src/common/code_sandbox.js'
 import { parseCodeblocks } from '/src/common/parsers.js'
+import firebase from '/src/firebase.js'
 import { open } from '/src/router.js'
 
 import {
@@ -127,6 +136,9 @@ export default {
       }
 
       return 'Not yet created'
+    },
+    devEnabled() {
+      return this.$store.state.settings.publishing.dev.enabled
     },
     discardedAt() {
       return moment(this.document.discardedAt).format('ddd, MMM Do, YYYY [at] h:mm A');
@@ -191,6 +203,19 @@ export default {
       }, {});
 
       CodeSandbox.create(files).then(sandbox_id => CodeSandbox.open(sandbox_id));
+    },
+    async publishDev() {
+      open({ name: 'document-publish', params: { id: this.document.id } })
+      // console.log('publishing...')
+      // const publish = firebase.functions().httpsCallable('publishDocument')
+
+      // publish({
+      //   apiKey: this.$store.state.settings.publishing.dev.apiKey,
+      //   title: 'A fake title for now',
+      //   body: this.document.text,
+      // })
+      //   .then(result => console.log({ result }))
+      //   .catch(error => console.log({ error }))
     },
     async restoreDocument() {
       this.$store.dispatch(RESTORE_DOCUMENT, { id: this.document.id });

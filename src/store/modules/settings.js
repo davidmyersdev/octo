@@ -12,6 +12,8 @@ export const SET_EDITOR_READABILITY_WORDS_PER_MINUTE = 'SET_EDITOR_READABILITY_W
 export const SET_EDITOR_SPELLCHECK = 'SET_EDITOR_SPELLCHECK'
 export const SET_EDITOR_TAB_SIZE = 'SET_EDITOR_TAB_SIZE'
 export const SET_EDITOR_VERSION = 'SET_EDITOR_VERSION'
+export const SET_PUBLISHING_DEV_API_KEY = 'SET_PUBLISHING_DEV_API_KEY'
+export const SET_PUBLISHING_DEV_ENABLED = 'SET_PUBLISHING_DEV_ENABLED'
 export const SET_THEME = 'SET_THEME'
 export const SETTINGS_LOADED = 'SETTINGS_LOADED'
 
@@ -38,6 +40,12 @@ export default {
       version: 'ink',
     },
     loaded: false,
+    publishing: {
+      dev: {
+        apiKey: null,
+        enabled: false,
+      },
+    },
     theme: 'dark',
   }),
   getters: {
@@ -86,6 +94,12 @@ export default {
     [SET_EDITOR_VERSION] (state, version) {
       state.editor.version = version
     },
+    [SET_PUBLISHING_DEV_API_KEY] (state, apiKey) {
+      state.publishing.dev.apiKey = apiKey
+    },
+    [SET_PUBLISHING_DEV_ENABLED] (state, enabled) {
+      state.publishing.dev.enabled = enabled
+    },
     [SET_THEME] (state, theme) {
       state.theme = theme
     },
@@ -114,6 +128,12 @@ export default {
     },
     async [SET_EDITOR_TAB_SIZE] (context, tabSize) {
       context.commit(SET_EDITOR_TAB_SIZE, tabSize)
+    },
+    async [SET_PUBLISHING_DEV_API_KEY] (context, apiKey) {
+      context.commit(SET_PUBLISHING_DEV_API_KEY, apiKey)
+    },
+    async [SET_PUBLISHING_DEV_ENABLED] (context, enabled) {
+      context.commit(SET_PUBLISHING_DEV_ENABLED, enabled)
     },
     async [SET_THEME] (context, theme) {
       context.commit(SET_THEME, theme)

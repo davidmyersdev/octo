@@ -1,6 +1,7 @@
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/auth'
 import 'firebase/compat/firestore'
+import 'firebase/compat/functions'
 
 // firebase config
 const config = {
@@ -16,7 +17,7 @@ const config = {
 // init firebase
 firebase.initializeApp(config)
 
-// utils
+// legacy utils
 export const authInstance = firebase.auth()
 export const authNamespace = firebase.auth
 export const firestoreInstance = firebase.firestore()
@@ -24,23 +25,23 @@ export const firestoreNamespace = firebase.firestore
 
 // use emulators in development
 if (location.hostname === 'localhost' && !import.meta.env.VITE_FIREBASE_EMULATOR_BYPASS) {
-  authInstance.useEmulator(
+  firebase.auth().useEmulator(
     import.meta.env.VITE_FIREBASE_EMULATOR_AUTH,
     {
       disableWarnings: true,
     }
   )
 
-  firestoreInstance.useEmulator(
+  firebase.firestore().useEmulator(
     import.meta.env.VITE_FIREBASE_EMULATOR_FIRESTORE_HOST,
     import.meta.env.VITE_FIREBASE_EMULATOR_FIRESTORE_PORT,
+  )
+
+  firebase.functions().useEmulator(
+    import.meta.env.VITE_FIREBASE_EMULATOR_FUNCTIONS_HOST,
+    import.meta.env.VITE_FIREBASE_EMULATOR_FUNCTIONS_PORT,
   )
 }
 
 // export firebase instance
-export default {
-  authInstance,
-  authNamespace,
-  firestoreInstance,
-  firestoreNamespace,
-}
+export default firebase

@@ -13,6 +13,8 @@ import {
   SET_EDITOR_SPELLCHECK,
   SET_EDITOR_TAB_SIZE,
   SET_EDITOR_VERSION,
+  SET_PUBLISHING_DEV_API_KEY,
+  SET_PUBLISHING_DEV_ENABLED,
   SET_THEME,
   SETTINGS_LOADED,
 } from '/src/store/modules/settings';
@@ -46,6 +48,8 @@ export default (store) => {
       case SET_EDITOR_SPELLCHECK:
       case SET_EDITOR_TAB_SIZE:
       case SET_EDITOR_VERSION:
+      case SET_PUBLISHING_DEV_API_KEY:
+      case SET_PUBLISHING_DEV_ENABLED:
       case SET_THEME:
         cache.setItem(CACHE_KEY, state.settings);
 

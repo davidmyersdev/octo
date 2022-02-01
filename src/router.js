@@ -155,6 +155,12 @@ const router = new Router({
             next()
           },
         },
+        {
+          path: 'documents/:id/publish',
+          name: 'document-publish',
+          component: () => import('/src/components/Publisher.vue'),
+          props: true,
+        },
         // show a specific document
         {
           path: 'documents/:id',

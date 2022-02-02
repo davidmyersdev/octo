@@ -26,6 +26,7 @@
     "vuex": "^3.4.0"
   },
   "devDependencies": {
+    "@capacitor/android": "^3.4.0",
     "@capacitor/cli": "^3.4.0",
     "@capacitor/core": "^3.4.0",
     "@tailwindcss/aspect-ratio": "^0.2.1",

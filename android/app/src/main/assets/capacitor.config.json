@@ -1,0 +1,6 @@
+{
+	"appId": "app.octo",
+	"appName": "Octo",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}

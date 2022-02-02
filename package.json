@@ -26,6 +26,8 @@
     "vuex": "^3.4.0"
   },
   "devDependencies": {
+    "@capacitor/cli": "^3.4.0",
+    "@capacitor/core": "^3.4.0",
     "@tailwindcss/aspect-ratio": "^0.2.1",
     "@types/node": "^16.10.1",
     "@vitejs/plugin-vue": "^1.9.2",

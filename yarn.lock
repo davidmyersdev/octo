@@ -2188,9 +2188,9 @@
   integrity sha512-B3HouBtUxcfu2w2d+VhdLcVBXKYYhXiFMAfQ+hoe8NUhKkPRkWDIqhpuehCZxVQ3S2dN1P1WfKGlxGC+pfmxGg==
 
 "@writewithocto/ink@^0.5.0":
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/@writewithocto/ink/-/ink-0.5.1.tgz#106f9bc903e307b33a1483a20e2c79b4bfb25cbd"
-  integrity sha512-TgejC4WGQJK1j/PKKSkPup5QmUoijeC74tgKU/fQW512RJxeDht1NUGVlNZ2uSS0BkEmn3n40MsIWMZbewI0gg==
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@writewithocto/ink/-/ink-0.5.2.tgz#1f0ff6976666e5ba92e219e8da7212f65ddccc81"
+  integrity sha512-LoHbQ8ml71e8IkPHV6H1zUnd8Xw6eAs/HX67cK+wdc9wnF75/JWzX7hVBva4oqgwDPasU+rAU6BN2PJVuFJYCg==
   dependencies:
     "@codemirror/commands" "^0.19.0"
     "@codemirror/comment" "^0.19.0"
@@ -2203,9 +2203,9 @@
     "@codemirror/view" "^0.19.0"
 
 "@writewithocto/vue-ink@^0.5.0":
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/@writewithocto/vue-ink/-/vue-ink-0.5.2.tgz#588d5d50a02a71b86eeaa96d069720a38080acc3"
-  integrity sha512-jS8fu3/o3cJolUMzhXd+6hLjQrj+VnrRZsyZJZVfW4rX2OuRGrI9MLamkXR4ZVrCgaSRI7n09gM1Gq4cJm34Ew==
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@writewithocto/vue-ink/-/vue-ink-0.5.3.tgz#191e263977978f65d81705680ace7eb9d9a17af7"
+  integrity sha512-BWMT1h61zupj1r9x3jkpq9tDq2GMYjBDYbBx4Nqt5rluWc8oztU1A63UIaFMKQOcejAb+ySV6fyswH4tBIeGCg==
   dependencies:
     "@writewithocto/ink" "^0.5.0"
     core-js "^3.6.5"

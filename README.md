@@ -1,7 +1,7 @@
 [![latest tag](https://img.shields.io/github/v/tag/writewithocto/octo?color=blue&label=latest%20tag&sort=semver)](https://github.com/writewithocto/octo/releases)
 [![license](https://img.shields.io/github/license/writewithocto/octo)](https://github.com/writewithocto/octo/blob/main/LICENSE)
 [![open issues](https://img.shields.io/github/issues-raw/writewithocto/octo)](https://github.com/writewithocto/octo/issues)
-[![chat on discord](https://img.shields.io/badge/chat-on%20discord-7289da)](https://discord.gg/HGJX6XNxmS)
+[![chat on discord](https://img.shields.io/badge/chat-on%20discord-7289da)](https://link.octo.app/discord)
 [![follow on twitter](https://img.shields.io/badge/follow-on%20twitter-1da1f2)](https://twitter.com/writewithocto)
 
 <p align="center">
@@ -16,12 +16,12 @@
 
 ## Features
 
-- [x] Dark theme by default
+- [x] Dark and light themes
 - [x] Hybrid markdown rendering
 - [x] Cross-platform (desktop and mobile)
-- [x] Client-side encryption
+- [x] Client-side (end-to-end) encryption
 - [x] Offline-first progressive web app
-- [x] Hashtag-based document organization
+- [x] Tag-based document organization
 - [x] Keyboard shortcuts
 - [x] Regex search
 - [x] Context switching
@@ -29,7 +29,7 @@
 
 ## Questions
 
-For questions or support, please join our [Discord Community](https://discord.gg/HGJX6XNxmS).
+For questions or support, please join our [Discord Community](https://link.octo.app/discord).
 
 ## Contributions
 

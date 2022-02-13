@@ -3,8 +3,8 @@
     <section class="py-4 lg:py-8">
       <div class="container mx-auto mb-8">
         <div class="flex flex-col">
-          <h1 class="text-4xl lg:text-6xl text-brand font-bold uppercase text-center mt-20 lg:mt-40">Enhance Your Writing Workflow</h1>
-          <p class="text-xl lg:text-2xl text-gray-600 uppercase text-center mt-8">Octo is a Lightweight <span class="font-semibold">Word Processor</span> for <span class="font-semibold">Technical Writers</span></p>
+          <h1 class="text-4xl lg:text-6xl text-brand font-bold uppercase text-center mt-20 lg:mt-40">Organize Your Thoughts</h1>
+          <p class="text-xl lg:text-2xl text-gray-600 uppercase text-center mt-8">Octo is a <span class="font-semibold">Notes App</span> for <span class="font-semibold">Knowledge Workers</span></p>
 
           <div class="flex flex-col gap-4 items-center text-center mt-16">
             <router-link @click.native="trackCtaSignUpNow" :to="{ name: 'account' }" class="button-base bg-blue-600 shadow w-full lg:w-auto whitespace-nowrap justify-center gap-3 text-blue-100 text-2xl py-4 px-10">
@@ -45,7 +45,7 @@
           </div>
           <div>
             <h2 class="text-xl lg:text-2xl text-gray-400 uppercase">Improved Focusability</h2>
-            <p class="lg:text-xl mt-2">Markdown is the preferred markup language for technical writers, but most editors require the use of separate edit and preview panes. This often leads to interruptions in your focus. Instead, we have built a custom hybrid editor that renders formatting, embeds, and syntax highlighting in real time without requiring you to break focus just to see what your content will look like to your users.</p>
+            <p class="lg:text-xl mt-2">Markdown is the preferred markup language for notes, but most editors require the use of separate edit and preview panes. This often leads to interruptions in your focus. Instead, we have built a custom hybrid editor that renders formatting, embeds, and syntax highlighting in real time without requiring you to break focus just to see what your content will look like to your users.</p>
           </div>
         </div>
       </div>
@@ -64,7 +64,7 @@
           </div>
           <div>
             <h2 class="text-xl lg:text-2xl text-gray-400 uppercase">Community</h2>
-            <p class="lg:text-xl mt-2">We love to connect with our community of developers and writers. Whether you want to collaborate on improving Octo itself or you want to meet others interested in technical writing, you can connect with us on <a class="underline" :href="discordInviteLink" target="_blank" rel="noopener noreferrer">Discord</a>.</p>
+            <p class="lg:text-xl mt-2">We love to connect with our community of developers and writers. Whether you want to collaborate on improving Octo itself or you want to meet other knowledge workers, creators, or enthusiasts, you can connect with us on <a class="underline" :href="discordInviteLink" target="_blank" rel="noopener noreferrer">Discord</a>.</p>
           </div>
         </div>
       </div>

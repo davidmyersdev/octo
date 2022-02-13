@@ -10,7 +10,7 @@
   </a>
 </p>
 
-<p align="center">The App for Technical Writers</p>
+<p align="center">The Notes App for Knowledge Workers</p>
 
 [![screenshot](resources/dark-desktop.png)](https://octo.app)
 

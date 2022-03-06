@@ -1,22 +1,19 @@
 <template>
-  <simplebar class="the-content flex h-full relative-fixed">
+  <SimpleBar class="the-content">
     <TheNavbar/>
-    <router-view :key="$route.fullPath" class="flex"></router-view>
-  </simplebar>
+    <router-view :inheritAttrs="true" :key="$route.fullPath" class="flex"></router-view>
+  </SimpleBar>
 </template>
 
 <script>
-import simplebar from 'simplebar-vue';
-
-import TheNavbar from '/src/components/TheNavbar.vue';
+import TheNavbar from '/src/components/TheNavbar.vue'
 
 export default {
   name: 'TheContent',
   components: {
-    simplebar,
     TheNavbar,
   },
-};
+}
 </script>
 
 <style scoped>

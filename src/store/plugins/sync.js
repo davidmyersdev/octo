@@ -1,4 +1,4 @@
-import Debouncer from '/src/common/debouncer';
+import Debouncer from '/src/common/debouncer'
 
 import {
   ADD_DOCUMENT,
@@ -8,13 +8,14 @@ import {
   RESTORE_DOCUMENT,
   RESTRICT_DOCUMENT,
   SET_ONLINE,
-  SET_USER,
   SHARE_DOCUMENT,
   SYNC,
   TOUCH_DOCUMENT,
-} from '/src/store/actions';
+} from '/src/store/actions'
 
-const debouncer = new Debouncer(1500);
+import { SET_USER } from '/src/store/modules/auth'
+
+const debouncer = new Debouncer(1500)
 
 export default (store) => {
   store.subscribe(async ({ type, payload }, state) => {
@@ -32,13 +33,13 @@ export default (store) => {
         // sync documents if online
         if (store.state.online && store.state.auth.user) {
           debouncer.debounce('sync', () => {
-            store.dispatch(SYNC);
-          });
+            store.dispatch(SYNC)
+          })
         }
 
-        break;
+        break
       default:
-        break;
+        break
     }
-  });
-};
+  })
+}

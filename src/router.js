@@ -1,10 +1,9 @@
-import Vue from 'vue'
-import Router from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 
 // landing page
 import Home from '/src/views/Home.vue'
 
-import store from '/src/store.js'
+import { store } from '/src/store'
 
 import {
   SET_DOCUMENT,
@@ -13,18 +12,18 @@ import {
 
 import { setTitle } from '/src/common/title.js'
 
-Vue.use(Router)
-
-const router = new Router({
-  mode: 'history',
+export const router = createRouter({
+  history: createWebHistory(),
   routes: [
     {
       path: '/index.html',
-      redirect: { name: 'dashboard' },
+      meta: { track: true },
+      redirect: { name: 'editor' },
     },
     {
       path: '/home',
       name: 'home',
+      meta: { track: true },
       component: Home,
       beforeEnter(to, from, next) {
         if (store.state.showWelcome) {
@@ -43,35 +42,31 @@ const router = new Router({
         // editor views
         {
           path: '',
+          meta: { track: true },
           beforeEnter(to, from, next) {
             if (store.state.showWelcome) {
               next({ name: 'home' })
             } else {
-              next({ name: 'dashboard' })
+              next({ name: 'new_doc' })
             }
           },
         },
         {
           path: 'account',
           name: 'account',
-          meta: { customTitle: "Account" },
+          meta: { title: 'My Account', track: true },
           component: () => import('/src/components/Account.vue'),
         },
         {
-          path: 'example',
-          name: 'example',
-          meta: { customTitle: "Example" },
-          component: () => import('/src/views/Example.vue'),
-          props: { url: '/example.md' },
-        },
-        {
-          path: 'documents',
-          name: 'documents',
+          path: 'docs',
+          name: 'docs',
+          meta: { title: 'My Docs', track: true },
           component: () => import('/src/views/Documents.vue'),
         },
         {
-          path: 'documents/new',
-          name: 'dashboard',
+          path: 'docs/new',
+          name: 'new_doc',
+          meta: { track: true },
           component: () => import('/src/views/Editor.vue'),
           props: true,
           beforeEnter(to, from, next) {
@@ -88,66 +83,48 @@ const router = new Router({
           },
         },
         {
-          path: 'documents/export',
-          name: 'export',
-          meta: { customTitle: "Export" },
-          component: () => import('/src/components/Exporter.vue'),
-        },
-        {
-          path: 'documents/import',
-          name: 'import',
-          meta: { customTitle: "Import" },
-          component: () => import('/src/components/Importer.vue'),
-        },
-        // document filters
-        {
-          path: 'documents/actionable',
-          name: 'actionable',
-          meta: { customTitle: "Actionable" },
+          path: 'docs/f/:filter',
+          name: 'filtered_docs',
+          meta: { title: 'My Docs' },
           component: () => import('/src/views/Documents.vue'),
-          props: {
-            actionable: true,
-          },
+          props: true
         },
         {
-          path: 'documents/discarded',
-          name: 'discarded',
-          meta: { customTitle: "Discarded" },
+          path: 'docs/t/:tag',
+          name: 'tagged_docs',
+          meta: { title: 'My Docs' },
           component: () => import('/src/views/Documents.vue'),
-          props: {
-            discarded: true,
-          },
+          props: true
         },
         {
-          path: 'documents/recent',
-          name: 'recent',
-          meta: { customTitle: "Recent" },
-          component: () => import('/src/views/Documents.vue'),
-          props: {
-            recent: true,
-          },
-        },
-        {
-          path: 'documents/untagged',
-          name: 'untagged',
-          meta: { customTitle: "Untagged" },
-          component: () => import('/src/views/Documents.vue'),
-          props: {
-            untagged: true,
-          },
-        },
-        // daily
-        {
-          path: 'documents/daily',
-          name: 'daily',
-          meta: { customTitle: "Daily" },
+          path: 'notepad',
+          name: 'notepad',
+          meta: { title: 'Notepad', track: true },
           component: () => import('/src/views/Daily.vue'),
           props: true,
         },
-        // show meta for a document
         {
-          path: 'documents/:id/meta',
-          name: 'document-meta',
+          path: 'docs/:id',
+          name: 'doc',
+          component: () => import('/src/views/Editor.vue'),
+          props({ params }) {
+            if (typeof params?.props === 'string') {
+              return {
+                ...params,
+                ...JSON.parse(params.props),
+              }
+            }
+
+            return params
+          },
+          beforeEnter(to, from, next) {
+            store.dispatch(SET_DOCUMENT, { id: to.params.id })
+            next()
+          },
+        },
+        {
+          path: 'docs/:id/meta',
+          name: 'doc_meta',
           component: () => import('/src/components/TheRightSidebar.vue'),
           props: true,
           beforeEnter(to, from, next) {
@@ -155,29 +132,105 @@ const router = new Router({
             next()
           },
         },
-        // show a specific document
+        {
+          path: 'force-graph',
+          name: 'force_graph',
+          meta: { title: 'Force Graph', track: true },
+          component: () => import('/src/components/Graph.vue'),
+          props: true,
+        },
+        {
+          path: 'documents',
+          name: 'documents',
+          meta: { track: true },
+          redirect: { name: 'docs' },
+        },
+        {
+          path: 'documents/new',
+          name: 'dashboard',
+          meta: { track: true },
+          redirect: { name: 'new_doc' },
+
+        },
+        {
+          path: 'documents/export',
+          name: 'export',
+          meta: { title: 'Export Docs', track: true },
+          component: () => import('/src/components/Exporter.vue'),
+        },
+        {
+          path: 'documents/import',
+          name: 'import',
+          meta: { title: 'Import Docs', track: true },
+          component: () => import('/src/components/Importer.vue'),
+        },
+        // document filters
+        {
+          path: 'documents/recent',
+          name: 'recent',
+          meta: { track: true },
+          redirect: { name: 'docs' },
+        },
+        {
+          // deprecated
+          path: 'documents/actionable',
+          meta: { track: true },
+          redirect: { name: 'filtered_docs', params: { filter: 'tasks' } },
+        },
+        {
+          path: 'documents/discarded',
+          name: 'discarded',
+          meta: { track: true },
+          redirect: { name: 'filtered_docs', params: { filter: 'discarded' } },
+        },
+        {
+          path: 'documents/tasks',
+          name: 'tasks',
+          meta: { track: true },
+          redirect: { name: 'filtered_docs', params: { filter: 'tasks' } },
+        },
+        {
+          path: 'documents/untagged',
+          name: 'untagged',
+          meta: { track: true },
+          redirect: { name: 'filtered_docs', params: { filter: 'untagged' } },
+        },
+        // daily
+        {
+          path: 'documents/daily',
+          name: 'daily',
+          meta: { track: true },
+          redirect: { name: 'notepad' },
+        },
         {
           path: 'documents/:id',
           name: 'document',
-          component: () => import('/src/views/Editor.vue'),
-          props: true,
-          beforeEnter(to, from, next) {
-            store.dispatch(SET_DOCUMENT, { id: to.params.id })
-            next()
-          },
+          redirect: { name: 'doc' },
+        },
+        {
+          path: 'documents/:id/meta',
+          name: 'document-meta',
+          redirect: { name: 'doc_meta' },
+        },
+        {
+          path: 'example',
+          name: 'example',
+          meta: { title: 'Example', track: true },
+          component: () => import('/src/views/Example.vue'),
+          props: { url: '/example.md' },
         },
         // quick action
         {
           path: 'quick-action',
-          name: 'quick-action',
-
-          meta: { customTitle: "Quick Action" },
+          name: 'quick_action',
+          meta: { title: 'Quick Action', track: true },
           component: () => import('/src/components/QuickAction.vue'),
         },
         // menu
         {
           path: 'menu',
           name: 'menu',
+          meta: { track: true },
           component: () => import('/src/components/TheLeftSidebar.vue'),
         },
         // open (and load) a shared document
@@ -194,20 +247,25 @@ const router = new Router({
         {
           path: 'context',
           name: 'context',
-          meta: { customTitle: "Context" },
+          meta: { track: true },
+          redirect: { name: 'contexts' },
+        },
+        {
+          path: 'contexts',
+          name: 'contexts',
+          meta: { title: 'Context Switching', track: true },
           component: () => import('/src/components/Context.vue'),
         },
         // tags
         {
           path: 'tags/:tag',
           name: 'tag',
-          component: () => import('/src/views/Documents.vue'),
-          props: true,
+          redirect: { name: 'tagged_docs' },
         },
         {
           path: 'tags',
           name: 'tags',
-          meta: { customTitle: "Tags" },
+          meta: { title: 'Tags', track: true },
           component: () => import('/src/components/TagList.vue'),
           props: true,
         },
@@ -215,27 +273,27 @@ const router = new Router({
         {
           path: 'settings',
           name: 'settings',
-          meta: { customTitle: "Settings" },
+          meta: { title: 'App Settings', track: true },
           component: () => import('/src/components/TheSettings.vue'),
         },
         // graph view
         {
           path: 'graph',
           name: 'graph',
-          meta: { customTitle: "Graph" },
-          component: () => import('/src/components/Graph.vue'),
+          meta: { track: true },
+          redirect: { name: 'force_graph' }
         },
         // privacy & terms
         {
           path: 'privacy-policy',
           name: 'privacy_policy',
-          meta: { customTitle: "Privacy Policy" },
+          meta: { title: 'Privacy Policy', track: true },
           component: () => import('/src/components/Privacy.vue'),
         },
         {
           path: 'terms-and-conditions',
           name: 'terms_and_conditions',
-          meta: { customTitle: "Terms and Conditions" },
+          meta: { title: 'Terms & Conditions', track: true },
           component: () => import('/src/components/Terms.vue'),
         },
       ],
@@ -243,19 +301,17 @@ const router = new Router({
   ],
 })
 
-router.beforeEach((to, _from, next) => {
-  setTitle(to.meta.customTitle)
+router.beforeEach((to) => {
+  if (to.meta.title) setTitle(to.meta.title)
+  if (to.meta.track) window.fathom.trackPageview()
 
-  next()
+  return true
 })
 
-export const open = (route) => {
-  router.push(route).catch((error) => {
-    // avoid redundant navigation errors
-    if (error.name !== 'NavigationDuplicated') {
-      throw error
-    }
-  })
-}
+export const open = (to) => {
+  if (to.params?.props) {
+    to.params.props = JSON.stringify(to.params.props)
+  }
 
-export default router
+  router.push(to)
+}

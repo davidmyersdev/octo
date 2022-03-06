@@ -26,10 +26,16 @@ export default {
   },
   methods: {
     async buildTemplate() {
-      const quotes = await fetch('/quotes.json').then(response => response.json()).catch(_error => [])
-      const quote = quotes[Math.floor(Math.random() * quotes.length)]
+      try {
+        const quotes = (await import('/src/data/quotes.json')).default
+        const quote = quotes[Math.floor(Math.random() * quotes.length)]
 
-      return `#daily\n\n# ${moment().format('dddd, MMMM Do, YYYY')}\n\n> ${quote.text}\n> ${quote.author || 'Unknown'}\n\n`
+        return `#daily\n\n# ${moment().format('dddd, MMMM Do, YYYY')}\n\n> ${quote.text}\n> ${quote.author || 'Unknown'}\n\n`
+      } catch (error) {
+        console.error(error)
+
+        return `#daily\n\n# ${moment().format('dddd, MMMM Do, YYYY')}\n\n`
+      }
     },
     async checkDaily() {
       let cutoff = moment().startOf('day').add(3, 'hours')

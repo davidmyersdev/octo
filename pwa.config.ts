@@ -1,6 +1,7 @@
 import { VitePWAOptions } from 'vite-plugin-pwa'
 
 export const config: Partial<VitePWAOptions> = {
+  includeAssets: ['img/icons/favicon.ico'],
   registerType: 'autoUpdate',
   strategies: 'generateSW',
   workbox: {

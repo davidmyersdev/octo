@@ -1,6 +1,7 @@
 import localforage from 'localforage'
 
 import Debouncer from '/src/common/debouncer'
+import { unwrap } from '/src/common/vue'
 
 import {
   ADD_CONTEXT,
@@ -28,7 +29,7 @@ export default (store) => {
 
         if (found) {
           debouncer.debounce(found.id, async () => {
-            cache.setItem(found.id, found)
+            cache.setItem(found.id, unwrap(found))
           })
         }
 

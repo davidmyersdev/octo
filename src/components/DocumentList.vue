@@ -1,31 +1,26 @@
 <template>
   <div class="flex flex-col w-full">
-    <div class="flex items-center text-2xl">
-      <div v-if="tag" class="flex items-center">
-        <svg height="1em" width="1em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-        </svg>
-        <span class="ml-3 flex-grow">{{ tag }}</span>
-      </div>
-      <span v-else class="action capitalize">{{ action }}</span>
-    </div>
-    <div class="my-4">
+    <h2 class="action text-3xl capitalize mb-2">My Docs</h2>
+    <p v-if="tag || filter" class="flex items-center gap-1 text-gray-500">
+      Filtering docs as
+      <strong class="inline-flex items-center">
+        <span v-if="tag" class="inline-flex items-center gap-0.5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
+          </svg>
+          <span>{{ tag }}</span>
+        </span>
+        <span v-else class="">{{ filter }}</span>
+      </strong>
+    </p>
+    <div class="mb-4 mt-8">
       <div class="flex align-items-bottom">
         <div class="flex-grow">
-          <div class="flex items-center">
-            <input v-model="filterText" ref="input" type="text" class="form-text w-full shadow" placeholder="Start typing to filter the list..." autocomplete="off">
-            <label class="button button-size-medium button-color-gray shadow ml-2">
-              <input v-model="filterRegex" type="checkbox" class="checkbox">
-              <span class="monospace ml-3">.*</span>
-            </label>
-            <label class="button button-size-medium button-color-gray shadow ml-2">
-              <input v-model="filterCase" type="checkbox" class="checkbox">
-              <span class="monospace ml-3">Aa</span>
-            </label>
+          <div class="flex">
+            <input v-model="q" ref="input" type="text" class="form-text w-full shadow" placeholder="Search with /regex/i or plain text..." autocomplete="off">
           </div>
         </div>
       </div>
-      <small class="block mt-2 text-gray-700">{{ filterMessage }}</small>
     </div>
     <div class="mb-4">
       <button @click="toggleIsEditing" class="button button-size-medium button-color-gray shadow">{{ isEditing ? 'Cancel' : 'Edit Documents' }}</button>
@@ -57,6 +52,7 @@
 
 <script>
 import Document from '/src/components/Document.vue'
+import Tag from '/src/components/Tag.vue'
 
 import { open } from '/src/router.js'
 
@@ -64,87 +60,62 @@ import {
   MERGE_DOCUMENTS,
 } from '/src/store/actions.js'
 
+const REGEX_QUERY = /^\/(?<regex>.+)\/(?<flags>[a-z]*)$/s
+
 export default {
   name: 'DocumentList',
-  props: {
-    tag: String,
-    actionable: Boolean,
-    discarded: Boolean,
-    recent: Boolean,
-    untagged: Boolean,
-    cols: {
-      type: Number,
-      default: 2,
-    },
-  },
+  emits: ['update:query'],
   components: {
     Document,
+    Tag,
+  },
+  props: {
+    cols: {
+      default: 2,
+      type: Number,
+    },
+    filter: String,
+    query: String,
+    tag: String,
   },
   data() {
     return {
-      filterCase: false,
-      filterRegex: true,
-      filterText: '',
       isEditing: false,
+      q: this.query,
       selectedDocuments: [],
       visibleCount: 25,
     }
   },
+  watch: {
+    q(value) {
+      this.$emit('update:query', value)
+    }
+  },
   computed: {
     action() {
-      if (this.tag) {
-        return this.tag
-      } else if (this.actionable) {
-        return 'actionable'
-      } else if (this.discarded) {
-        return 'discarded'
-      } else if (this.recent) {
-        return 'recent'
-      } else if (this.untagged) {
-        return 'untagged'
-      } else {
-        return 'documents'
-      }
+      return this.tag || this.filter || 'My docs'
     },
     canMerge() {
       return this.selectedDocuments.length > 1
     },
     documents() {
-      if (this.tag) {
-        return this.$store.getters.withTag(this.tag)
-      } else if (this.actionable) {
-        return this.$store.getters.actionable
-      } else if (this.discarded) {
-        return this.$store.getters.discarded
-      } else if (this.recent) {
-        // show all for now - maybe paginate later
-        return this.$store.getters.kept
-      } else if (this.untagged) {
-        return this.$store.getters.untagged
-      } else {
-        return this.$store.getters.decrypted
-      }
-    },
-    filterMessage() {
-      const sensitivity = this.filterCase ? 'sensitive' : 'insensitive'
-      const type = this.filterRegex ? 'regular expression' : 'plain text'
+      if (this.tag) { return this.$store.getters.withTag(this.tag) }
+      if (this.filter === 'tasks') { return this.$store.getters.tasks }
+      if (this.filter === 'discarded') { return this.$store.getters.discarded }
+      if (this.filter === 'untagged') { return this.$store.getters.untagged }
 
-      return `Filtering documents with case ${sensitivity} ${type} queries.`
+      return this.$store.getters.kept
     },
     filteredDocuments() {
       return this.documents.filter((doc) => {
-        if (!this.filterText) {
-          return true
-        }
+        if (!this.q) { return true }
 
-        if (this.filterRegex) {
-          return (new RegExp(this.filterText, this.filterCase ? '' : 'i')).test(doc.text)
-        } else {
-          if (this.filterCase) {
-            return doc.text.includes(this.filterText)
-          } else {
-            return doc.text.toLowerCase().includes(this.filterText.toLowerCase())
-          }
+        try {
+          const { groups: { flags, regex } } = REGEX_QUERY.exec(this.q)
+
+          return (new RegExp(regex, flags)).test(doc.text)
+        } catch (_error) {
+          return doc.text.toLowerCase().includes(this.q.toLowerCase())
         }
       })
     },
@@ -185,7 +156,7 @@ export default {
           this.selectedDocuments.push(this.filteredDocuments.find(doc => doc.id === id))
         }
       } else {
-        open({ name: 'document', params: { id: id } })
+        open({ name: 'doc', params: { id: id } })
       }
     },
   },

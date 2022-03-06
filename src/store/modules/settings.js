@@ -11,7 +11,6 @@ export const SET_EDITOR_READABILITY_ENABLED = 'SET_EDITOR_READABILITY_ENABLED'
 export const SET_EDITOR_READABILITY_WORDS_PER_MINUTE = 'SET_EDITOR_READABILITY_WORDS_PER_MINUTE'
 export const SET_EDITOR_SPELLCHECK = 'SET_EDITOR_SPELLCHECK'
 export const SET_EDITOR_TAB_SIZE = 'SET_EDITOR_TAB_SIZE'
-export const SET_EDITOR_VERSION = 'SET_EDITOR_VERSION'
 export const SET_THEME = 'SET_THEME'
 export const SETTINGS_LOADED = 'SETTINGS_LOADED'
 
@@ -35,7 +34,6 @@ export default {
       },
       spellcheck: true,
       tabSize: 2,
-      version: 'ink',
     },
     loaded: false,
     theme: 'dark',
@@ -82,9 +80,6 @@ export default {
     },
     [SET_EDITOR_TAB_SIZE] (state, tabSize) {
       state.editor.tabSize = tabSize
-    },
-    [SET_EDITOR_VERSION] (state, version) {
-      state.editor.version = version
     },
     [SET_THEME] (state, theme) {
       state.theme = theme

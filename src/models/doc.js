@@ -74,26 +74,33 @@ class Doc {
   }
 }
 
-export const pack = async (doc, { secure = true, publicKey = null }) => {
-  // prevent double encryption
-  if (secure) {
-    const { cipher, cipherKey, iv } = await encrypt({ data: doc.text, publicKey })
+export const pack = async (doc, { preferEncryption = null, publicKey = null }) => {
+  const packed = Object.assign({}, {
+    ...doc,
+    // These values are derived from the doc, so we don't need to store them.
+    headers: [],
+    tags: [],
+    tasks: [],
+  })
 
-    return Object.assign({}, doc, {
+  // Guard against encryption edge cases.
+  if (preferEncryption && publicKey && !doc.encrypted && !doc.public) {
+    const { cipher, cipherKey, iv } = await encrypt({ data: packed.text, publicKey })
+
+    return Object.assign({}, packed, {
       encrypted: true,
       iv: iv,
-      tags: [], // tags will be restored upon decryption
       text: cipher,
       textKey: cipherKey,
     })
   }
 
-  return Object.assign({}, doc)
+  return Object.assign({}, packed)
 }
 
 export const unpack = async (packed, { privateKey }) => {
   try {
-    if (packed.encrypted) {
+    if (privateKey && packed.encrypted) {
       const text = await decrypt({ cipher: packed.text, cipherKey: packed.textKey, iv: packed.iv, privateKey })
 
       return new Doc(

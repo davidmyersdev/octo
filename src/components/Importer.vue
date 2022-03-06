@@ -1,22 +1,17 @@
 <template>
-  <div class="container mx-auto sm:px-4 flex flex-col">
+  <div class="container mx-auto p-4 flex flex-col flex-grow h-full gap-4">
     <div>
-      <button @click="importDocs">Import Docs</button>
+      <button @click="importDocs" class="button button-size-medium button-color-gray">Import Docs</button>
     </div>
-    <MarkdownEditor v-model="text" ref="editable" class="editable w-full" />
+    <pre @input="text" contenteditable ref="editable" class="editable monospace min-h- w-full text-current bg-transparent outline-none flex-grow">{{value}}</pre>
   </div>
 </template>
 
 <script>
-import MarkdownEditor from '@voraciousdev/vue-markdown-editor'
-
 import Doc from '/src/models/doc.js'
 
 export default {
   name: 'Importer',
-  components: {
-    MarkdownEditor,
-  },
   data() {
     return {
       text: '',

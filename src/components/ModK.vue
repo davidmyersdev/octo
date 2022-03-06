@@ -1,7 +1,7 @@
 <template>
   <div class="hidden md:flex items-center">
-    <Key :class="{ active: active }" class="bg-gray-200 dark:bg-gray-900">{{this.$store.state.modKey}}</Key>
-    <Key :class="{ active: active }" class="bg-gray-200 dark:bg-gray-900 ml-1">K</Key>
+    <Key :class="{ 'text-gray-400 dark:text-gray-800': active }">{{this.$store.state.modKey}}</Key>
+    <Key :class="{ 'text-gray-400 dark:text-gray-800': active }" class="ml-1">K</Key>
   </div>
 </template>
 
@@ -20,15 +20,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.key.active {
-  border-color: #111;
-  color: #222;
-}
-
-.light .key.active {
-  border-color: #ccc;
-  color: #aaa;
-}
-</style>

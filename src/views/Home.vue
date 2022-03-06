@@ -3,11 +3,11 @@
     <section class="py-4 lg:py-8">
       <div class="container mx-auto mb-8">
         <div class="flex flex-col">
-          <h1 class="text-4xl lg:text-6xl text-brand font-bold uppercase text-center mt-20 lg:mt-40">Organize Your Thoughts</h1>
-          <p class="text-xl lg:text-2xl text-gray-600 uppercase text-center mt-8">Octo is a <span class="font-semibold">Notes App</span> for <span class="font-semibold">Knowledge Workers</span></p>
+          <h1 class="text-4xl lg:text-6xl text-brand font-bold text-center mt-20 lg:mt-40">Write. Organize. Review.</h1>
+          <p class="text-xl lg:text-2xl text-gray-600 text-center mt-8">Octo is a <span class="font-semibold">Notes App</span> for <span class="font-semibold">Knowledge Workers</span></p>
 
           <div class="flex flex-col gap-4 items-center text-center mt-16">
-            <router-link @click.native="trackCtaSignUpNow" :to="{ name: 'account' }" class="button-base bg-blue-600 shadow w-full lg:w-auto whitespace-nowrap justify-center gap-3 text-blue-100 text-2xl py-4 px-10">
+            <router-link @click="trackCtaSignUpNow" :to="{ name: 'account' }" class="button-base bg-blue-600 shadow w-full lg:w-auto whitespace-nowrap justify-center gap-3 text-blue-100 text-2xl py-4 px-10">
               <span class="flex items-center gap-3 align-center">
                 <span>Get started for free</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -15,7 +15,7 @@
                 </svg>
               </span>
             </router-link>
-            <router-link @click.native="trackCtaOpenApp" :to="{ name: 'dashboard' }" class="button-base button-size-medium text-gray-500 w-full lg:w-auto whitespace-nowrap justify-center gap-3 text-xl">
+            <router-link @click="trackCtaOpenApp" :to="{ name: 'dashboard' }" class="button-base button-size-medium text-gray-500 w-full lg:w-auto whitespace-nowrap justify-center gap-3 text-xl">
               <span class="flex items-center gap-3">
                 <span>Take me to the app</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -90,7 +90,7 @@
     </section>
     <section class="py-4 lg:py-8">
       <div class="container mx-auto mb-8 text-center">
-        <router-link @click.native="trackCtaSignUpNow" :to="{ name: 'account' }" class="button-base bg-blue-600 shadow w-full lg:w-auto whitespace-nowrap justify-center gap-3 text-blue-100 text-2xl py-4 px-10">
+        <router-link @click="trackCtaSignUpNow" :to="{ name: 'account' }" class="button-base bg-blue-600 shadow w-full lg:w-auto whitespace-nowrap justify-center gap-3 text-blue-100 text-2xl py-4 px-10">
           <span class="flex items-center gap-3 align-center">
             <span>Get started for free</span>
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -111,7 +111,7 @@
               <a href="https://github.com/writewithocto" target="_blank" rel="noopener noreferrer"><GitHubIcon class="h-6 lg:h-4" /></a>
             </div>
           </div>
-          <p class="mt-4">&copy; 2021 Octo</p>
+          <p class="mt-4">&copy; 2022 Octo</p>
         </div>
       </div>
     </footer>

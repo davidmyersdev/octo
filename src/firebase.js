@@ -1,6 +1,6 @@
-import firebase from 'firebase/compat/app'
-import 'firebase/compat/auth'
-import 'firebase/compat/firestore'
+import { initializeApp } from 'firebase/app'
+import { connectAuthEmulator, getAuth } from 'firebase/auth'
+import { connectFirestoreEmulator, getFirestore, initializeFirestore, setLogLevel } from 'firebase/firestore'
 
 // firebase config
 const config = {
@@ -13,34 +13,31 @@ const config = {
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
 }
 
-// init firebase
-firebase.initializeApp(config)
+export const init = () => {
+  // init firebase
+  const app = initializeApp(config)
 
-// utils
-export const authInstance = firebase.auth()
-export const authNamespace = firebase.auth
-export const firestoreInstance = firebase.firestore()
-export const firestoreNamespace = firebase.firestore
+  initializeFirestore(app, {
+    experimentalAutoDetectLongPolling: true
+  })
 
-// use emulators in development
-if (location.hostname === 'localhost' && !import.meta.env.VITE_FIREBASE_EMULATOR_BYPASS) {
-  authInstance.useEmulator(
-    import.meta.env.VITE_FIREBASE_EMULATOR_AUTH,
-    {
-      disableWarnings: true,
-    }
-  )
+  setLogLevel(import.meta.env.VITE_FIREBASE_LOG_LEVEL || 'error')
 
-  firestoreInstance.useEmulator(
-    import.meta.env.VITE_FIREBASE_EMULATOR_FIRESTORE_HOST,
-    import.meta.env.VITE_FIREBASE_EMULATOR_FIRESTORE_PORT,
-  )
-}
 
-// export firebase instance
-export default {
-  authInstance,
-  authNamespace,
-  firestoreInstance,
-  firestoreNamespace,
+  // use emulators in development
+  if (location.hostname === 'localhost' && !import.meta.env.VITE_FIREBASE_EMULATOR_BYPASS) {
+    connectAuthEmulator(
+      getAuth(),
+      import.meta.env.VITE_FIREBASE_EMULATOR_AUTH,
+      {
+        disableWarnings: true,
+      }
+    )
+
+    connectFirestoreEmulator(
+      getFirestore(),
+      import.meta.env.VITE_FIREBASE_EMULATOR_FIRESTORE_HOST,
+      import.meta.env.VITE_FIREBASE_EMULATOR_FIRESTORE_PORT,
+    )
+  }
 }

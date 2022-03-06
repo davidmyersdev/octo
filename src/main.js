@@ -1,12 +1,15 @@
-import Vue from 'vue'
-import VueMq from 'vue-mq'
+import { getAuth } from 'firebase/auth'
+import { createApp } from 'vue'
+import { Vue3Mq } from 'vue3-mq'
 
 import App from '/src/App.vue'
 import Extendable from '/src/components/Extendable.vue'
-import { authInstance } from '/src/firebase.js'
-import router from '/src/router.js'
-import store from '/src/store.js'
+import SimpleBar from '/src/components/SimpleBar.vue'
+import { init } from '/src/firebase'
+import { router } from '/src/router'
+import { store } from '/src/store'
 
+import 'simplebar/dist/simplebar.min.css'
 import '/src/assets/app.css'
 
 // import the service worker
@@ -17,53 +20,64 @@ import {
   SET_OFFLINE,
   SET_ONLINE,
   SET_SHOW_WELCOME,
-  SET_USER,
 } from '/src/store/actions.js'
+
+import { SET_SUBSCRIPTION, SET_USER } from '/src/store/modules/auth'
 
 import PackageManager from '/src/packages/manager.js'
 
-Vue.prototype.$packageManager = PackageManager
-
-Vue.use(VueMq, {
-  breakpoints: {
-    // breakpoints match as `screen_size <= value`
-    xs: 576,
-    sm: 768,
-    md: 992,
-    lg: 1200,
-    xl: Infinity,
-  },
-})
+// init firebase
+init()
 
 if (localStorage.getItem('octo/welcome/v1') === null) {
   store.dispatch(SET_SHOW_WELCOME, true)
 }
 
-Vue.component('Extendable', Extendable)
+window.addEventListener('offline', () => {
+  store.dispatch(SET_OFFLINE)
+})
 
-new Vue({
-  router,
-  store,
-  render: h => h(App),
-  async created() {
-    window.addEventListener('offline', () => {
-      this.$store.dispatch(SET_OFFLINE)
-    })
+window.addEventListener('online', () => {
+  store.dispatch(SET_ONLINE)
+})
 
-    window.addEventListener('online', () => {
-      this.$store.dispatch(SET_ONLINE)
-    })
+if (!navigator.onLine) {
+  store.dispatch(SET_OFFLINE)
+}
 
-    if (!navigator.onLine) {
-      await this.$store.dispatch(SET_OFFLINE)
-    }
+// TODO: Determine whether we need both of these.
+if (/Mac|iPod|iPhone|iPad/.test(navigator.platform || navigator.userAgentData.platform)) {
+  store.dispatch(SET_MOD_KEY, '⌘ cmd')
+}
 
-    if (/Mac|iPod|iPhone|iPad/.test(navigator.platform)) {
-      this.$store.dispatch(SET_MOD_KEY, '⌘ cmd')
-    }
+const app = createApp(App)
+
+app.config.globalProperties.$packageManager = PackageManager
+app.use(router)
+app.use(store)
+app.component('Extendable', Extendable)
+app.component('SimpleBar', SimpleBar)
+app.use(Vue3Mq, {
+  breakpoints: {
+    xs: 0,
+    sm: 577,
+    md: 769,
+    lg: 993,
+    xl: 1201,
   },
-}).$mount('#app')
+})
+app.mount('#app')
 
-authInstance.onAuthStateChanged((user) => {
-  store.dispatch(SET_USER, { user: user || null })
+getAuth().onAuthStateChanged(async (user) => {
+  store.commit(SET_USER, user)
+
+  if (user) {
+    await user.getIdToken(true)
+
+    const decodedToken = await user.getIdTokenResult()
+
+    store.commit(SET_SUBSCRIPTION, {
+      pro: decodedToken.claims.stripeRole === 'subscriber'
+    })
+  }
 })

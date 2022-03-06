@@ -1,8 +1,9 @@
-import localforage from 'localforage';
+import localforage from 'localforage'
 
-import Debouncer from '/src/common/debouncer';
+import Debouncer from '/src/common/debouncer'
 
-import { pack, unpack } from '/src/models/doc';
+import { pack, unpack } from '/src/models/doc'
+import { unwrap } from '/src/common/vue'
 
 import {
   ADD_DOCUMENT,
@@ -15,19 +16,19 @@ import {
   RESTRICT_DOCUMENT,
   SHARE_DOCUMENT,
   TOUCH_DOCUMENT,
-} from '/src/store/actions';
+} from '/src/store/actions'
 
-import { SETTINGS_LOADED } from '/src/store/modules/settings';
+import { SETTINGS_LOADED } from '/src/store/modules/settings'
 
 const cache = localforage.createInstance({
   name: 'firebase/documents',
-});
+})
 
-const debouncer = new Debouncer(800);
+const debouncer = new Debouncer(800)
 
 const find = (state, id) => {
-  return state.documents.all.find(doc => doc.id === id);
-};
+  return state.documents.all.find(doc => doc.id === id)
+}
 
 export default (store) => {
   store.subscribe(({ type, payload }, state) => {
@@ -40,21 +41,20 @@ export default (store) => {
       case RESTRICT_DOCUMENT:
       case SHARE_DOCUMENT:
       case TOUCH_DOCUMENT:
-        const found = find(state, payload.id);
+        const found = find(state, payload.id)
 
         if (found) {
           debouncer.debounce(found.id, async () => {
-            if (state.settings.crypto.enabled && !found.encrypted) {
-              var doc = await pack(found, { publicKey: state.settings.crypto.publicKey });
-            } else {
-              var doc = await pack(found, { secure: false });
-            }
+            const doc = await pack(found, {
+              preferEncryption: state.settings.crypto.enabled,
+              publicKey: state.settings.crypto.publicKey,
+            })
 
-            cache.setItem(found.id, doc);
-          });
+            cache.setItem(found.id, doc)
+          })
         }
 
-        break;
+        break
       case SETTINGS_LOADED:
         // load all documents from the cache after settings are loaded
         cache.keys()
@@ -63,17 +63,17 @@ export default (store) => {
             // unpack cached data
             return Promise.all(
               docs.map((doc) => {
-                const packed = Object.assign({}, doc, { id: (doc.id || doc.clientId), textKey: (doc.textKey || doc.dataKey) });
+                const packed = Object.assign({}, doc, { id: (doc.id || doc.clientId), textKey: (doc.textKey || doc.dataKey) })
 
-                return unpack(packed, { privateKey: state.settings.crypto.privateKey });
+                return unpack(packed, { privateKey: state.settings.crypto.privateKey })
               })
-            );
+            )
           })
           .then(docs => store.dispatch(LOAD_DOCUMENTS, docs))
-          .then(() => store.dispatch(DOCUMENTS_LOADED));
-        break;
+          .then(() => store.dispatch(DOCUMENTS_LOADED))
+        break
       default:
-        break;
+        break
     }
-  });
-};
+  })
+}

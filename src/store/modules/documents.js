@@ -29,9 +29,6 @@ export default {
     loaded: false,
   }),
   getters: {
-    actionable(_state, getters, globalState, globalGetters) {
-      return getters.kept.filter(doc => doc.tasks.length > 0)
-    },
     allKept(_state, getters) {
       return getters.sorted.filter(doc => doc.discardedAt === null)
     },
@@ -50,7 +47,7 @@ export default {
     filtered(state, getters, globalState) {
       if (globalState.context.active) {
         return getters.sorted.filter((doc) => {
-          return globalState.context.tags.filter(t => doc.tags.includes(t)).length > 0
+          return globalState.context.tags.some(t => doc.tags.includes(t))
         })
       }
 
@@ -70,6 +67,9 @@ export default {
         // reverse sort by created at
         return b.createdAt - a.createdAt
       })
+    },
+    tasks(_state, getters, _globalState, _globalGetters) {
+      return getters.kept.filter(doc => doc.tasks.length > 0)
     },
     untagged(_state, getters) {
       return getters.allKept.filter(doc => doc.tags.length == 0)

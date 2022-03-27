@@ -303,7 +303,7 @@ export const router = createRouter({
 
 router.beforeEach((to) => {
   if (to.meta.title) setTitle(to.meta.title)
-  if (to.meta.track) window.fathom.trackPageview()
+  if (to.meta.track) window.fathom?.trackPageview()
 
   return true
 })

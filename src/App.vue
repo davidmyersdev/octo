@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="flex flex-col flex-grow flex-shrink" :class="sizes.concat([(!ligatures && 'ligatures-none')])">
+  <div id="app" class="h-screen" :class="sizes.concat([(!ligatures && 'ligatures-none')])">
     <div v-if="showStripeModal" class="flex items-center justify-center fixed top-0 left-0 h-full w-full z-50 bg-darkest">
       <div class="flex flex-col items-center justify-center gap-8 text-center text-2xl">
         <svg class="animate-spin mr-3 h-10 w-10 text-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -9,21 +9,9 @@
         <span>Redirecting you to Stripe for checkout</span>
       </div>
     </div>
-    <simplebar v-if="context.active || context.editing" class="context-banner bg-white dark:bg-gray-900 border-gray-100 dark:border-gray-800 relative-fixed">
-      <div class="flex items-center text-center">
-        <div v-if="contextTags.length" class="context-tags">
-          <Tag v-for="tag in contextTags" :key="tag" :tag="tag" class="button button-size-small button-color-gray ml-1" />
-        </div>
-        <div v-else class="context-placeholder">no active tags</div>
-        <div @click="deactivateContext" class="button button-size-small button-color-gray">
-          <svg width="1.25em" height="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </div>
-      </div>
-    </simplebar>
-    <div class="flex flex-col flex-grow flex-shrink relative min-h-0">
-      <router-view class="flex-grow flex-shrink min-h-0"></router-view>
+    <ChangeLog v-if="!home" />
+    <div>
+      <router-view :inheritAttrs="true" class="flex-grow flex-shrink min-h-0"></router-view>
       <div class="flex flex-col min-w-0 max-w-full rounded break-words bg-white notification fixed top-0 right-0 m-4 md:m-2 dark:bg-gray-800" :class="{ 'hidden': !showModal }">
         <div class="flex-auto p-4 notification-body">
           <p class="mb-6">An update is available. Refresh the app to apply.</p>
@@ -36,26 +24,20 @@
 </template>
 
 <script>
-import simplebar from 'simplebar-vue';
-
-import 'simplebar/dist/simplebar.min.css';
-
-import Tag from '/src/components/Tag.vue';
-
-import {
-  DEACTIVATE_CONTEXT,
-} from '/src/store/actions.js';
+import ChangeLog from '/src/components/ChangeLog.vue'
+import Modal from '/src/components/Modal.vue'
 
 export default {
   name: 'App',
   components: {
-    simplebar,
-    Tag,
+    ChangeLog,
+    Modal,
   },
+  inject: ["mq"],
   data() {
     return {
       showModal: false,
-    };
+    }
   },
   watch: {
     theme(value) {
@@ -64,35 +46,34 @@ export default {
       switch(value) {
         case 'dark':
           document.documentElement.classList.add('dark')
-          break;
+          break
         case 'light':
           document.documentElement.classList.add('light')
-          break;
+          break
         case 'october':
           document.documentElement.classList.add('dark', 'october')
-          break;
+          break
         default:
           document.documentElement.classList.add('dark')
-          break;
+          break
       }
     },
   },
   computed: {
-    context() {
-      return this.$store.state.context;
-    },
-    contextTags() {
-      return this.context.tags.sort();
+    home() {
+      return this.$route.name === 'home'
     },
     ligatures() {
       return this.$store.state.settings.editor.ligatures
     },
     sizes() {
-      if (this.$mq === 'xs') return ['xs xs-plus'];
-      if (this.$mq === 'sm') return ['sm xs-plus sm-plus'];
-      if (this.$mq === 'md') return ['md xs-plus sm-plus md-plus'];
-      if (this.$mq === 'lg') return ['lg xs-plus sm-plus md-plus lg-plus'];
-      if (this.$mq === 'xl') return ['xl xs-plus sm-plus md-plus lg-plus xl-plus'];
+      if (this.mq.current === 'xs') return ['xs xs-plus']
+      if (this.mq.current === 'sm') return ['sm xs-plus sm-plus']
+      if (this.mq.current === 'md') return ['md xs-plus sm-plus md-plus']
+      if (this.mq.current === 'lg') return ['lg xs-plus sm-plus md-plus lg-plus']
+      if (this.mq.current === 'xl') return ['xl xs-plus sm-plus md-plus lg-plus xl-plus']
+
+      return []
     },
     showStripeModal() {
       return this.$store.state.showStripeModal
@@ -102,30 +83,30 @@ export default {
     },
   },
   methods: {
-    deactivateContext() {
-      this.$store.dispatch(DEACTIVATE_CONTEXT);
+    closeChangelog() {
+      this.showChangelog = false
     },
     hideModal() {
-      this.showModal = false;
+      this.showModal = false
     },
     refreshPage() {
-      window.location.reload(true);
+      window.location.reload(true)
     },
   },
   created() {
     window.addEventListener('swupdated', (event) => {
-      this.showModal = true;
-    });
+      this.showModal = true
+    })
   },
-};
+}
 </script>
 
 <style>
 .october {
-  --ink-heading: #eb6123;
-  --ink-name: #eb6123;
-  --ink-labelName: #abb2bf;
-  --ink-variableName: #ebda23;
+  --ink-syntax-heading-color: #eb6123;
+  --ink-syntax-name-color: #eb6123;
+  --ink-syntax-name-label-color: #abb2bf;
+  --ink-syntax-name-variable-color: #ebda23;
 }
 
 * {
@@ -149,51 +130,6 @@ body, pre {
 pre {
   font-family: 'Fira Code', monospace !important;
   margin: 0;
-}
-
-.context-banner {
-  border-bottom: 0.125rem solid;
-  flex-shrink: 0;
-  flex-wrap: nowrap;
-  padding: 0.25rem;
-  line-height: normal;
-  white-space: nowrap;
-}
-
-.context-tags {
-  margin: auto;
-  position: relative;
-  z-index: 10;
-}
-
-.context-placeholder {
-  line-height: 1.5em;
-  margin: 0.25rem auto;
-  padding: 0.125rem 0.5rem;
-}
-
-.context-tag {
-  border-radius: 0.125rem;
-  line-height: 1.5em;
-  margin: 0.25rem;
-  padding: 0.125rem 0.5rem;
-  padding-left: 0.375rem; /* offset svg padding */
-}
-
-.context-tag > span {
-  line-height: 1.5em;
-}
-
-.context-close {
-  align-items: center;
-  border-radius: 0.125rem;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  padding: 0.0675rem;
-  position: fixed;
-  right: 1rem;
-  z-index: 20;
 }
 
 .CodeMirror .cm-m-markdown:not(.cm-comment) {
@@ -302,24 +238,6 @@ svg {
 }
 
 /* theming */
-
-.dark .context-tag {
-  background-color: #1a1a1a;
-}
-
-.light .context-tag {
-  background-color: #ddd;
-}
-
-.dark .context-close {
-  background-color: #aaa;
-  color: #111;
-}
-
-.light .context-close {
-  background-color: #444;
-  color: #eee;
-}
 
 .dark .notification {
   box-shadow: 0 0 0 0.125rem #111 !important;

@@ -1,5 +1,5 @@
 <template>
-  <simplebar class="meta p-4 md:p-2">
+  <SimpleBar class="meta p-4 md:p-2">
     <div class="flex flex-col flex-grow">
       <div class="hidden mb-4 md:flex justify-end">
         <button @click="toggleMeta" class="sidebar-button">
@@ -51,7 +51,7 @@
           </div>
         </div>
         <div class="mt-4">
-          <Tag v-for="tag in document.tags" :key="tag" :tag="tag" class="sidebar-link"></Tag>
+          <TagLink v-for="tag in document.tags" :key="tag" :tag="tag" class="sidebar-link"></TagLink>
         </div>
         <div class="mt-4">
           <div v-for="task in document.tasks" class="flex items-center px-3 py-2 my-1 md:px-2 md:py-1">
@@ -81,15 +81,14 @@
         </div>
       </div>
     </div>
-  </simplebar>
+  </SimpleBar>
 </template>
 
 <script>
 import moment from 'moment'
-import simplebar from 'simplebar-vue'
 
 import DiscardableAction from '/src/components/DiscardableAction.vue'
-import Tag from '/src/components/Tag.vue'
+import TagLink from '/src/components/TagLink.vue'
 
 import CodeSandbox from '/src/common/code_sandbox.js'
 import { parseCodeblocks } from '/src/common/parsers.js'
@@ -108,34 +107,33 @@ export default {
   name: 'TheRightSidebar',
   components: {
     DiscardableAction,
-    simplebar,
-    Tag,
+    TagLink,
   },
   data() {
     return {
       now: moment(),
       ticker: null,
-    };
+    }
   },
   computed: {
     codeblocks() {
-      return parseCodeblocks(this.document.text);
+      return parseCodeblocks(this.document.text)
     },
     createdAt() {
       if (this.$route.params.id) {
-        return moment(this.document.createdAt).format('ddd, MMM Do, YYYY [at] h:mm A');
+        return moment(this.document.createdAt).format('ddd, MMM Do, YYYY [at] h:mm A')
       }
 
       return 'Not yet created'
     },
     discardedAt() {
-      return moment(this.document.discardedAt).format('ddd, MMM Do, YYYY [at] h:mm A');
+      return moment(this.document.discardedAt).format('ddd, MMM Do, YYYY [at] h:mm A')
     },
     document() {
-      return this.$store.getters.currentDoc;
+      return this.$store.getters.currentDoc
     },
     hasCodeblocks() {
-      return this.codeblocks.length > 0;
+      return this.codeblocks.length > 0
     },
     publicUrl() {
       const path = this.$router.resolve({ name: 'shared', params: { id: this.document.id } }).href
@@ -145,18 +143,18 @@ export default {
     savedAt() {
       if (this.$route.params.id) {
         if (this.now.diff(this.document.updatedAt, 'seconds') < 5) {
-          return 'just now';
+          return 'just now'
         }
         else {
-          return `${moment(this.document.updatedAt).from(this.now, true)} ago`;
+          return `${moment(this.document.updatedAt).from(this.now, true)} ago`
         }
       }
 
-      return 'Not yet saved';
+      return 'Not yet saved'
     },
     updatedAt() {
       if (this.$route.params.id) {
-        return moment(this.document.updatedAt).format('ddd, MMM Do, YYYY [at] h:mm A');
+        return moment(this.document.updatedAt).format('ddd, MMM Do, YYYY [at] h:mm A')
       }
 
       return 'Not yet updated'
@@ -165,55 +163,55 @@ export default {
   methods: {
     async copyPublicUrl() {
       // copy link to clipboard
-      this.$refs.link.select();
-      document.execCommand('copy');
+      this.$refs.link.select()
+      document.execCommand('copy')
     },
     async discardDocument() {
-      this.$store.dispatch(DISCARD_DOCUMENT, { id: this.document.id });
+      this.$store.dispatch(DISCARD_DOCUMENT, { id: this.document.id })
 
       open({ name: 'dashboard' })
     },
     async duplicateDocument() {
-      const newDocId = await this.$store.dispatch(DUPLICATE_DOCUMENT, { id: this.document.id });
+      const newDocId = await this.$store.dispatch(DUPLICATE_DOCUMENT, { id: this.document.id })
 
-      open({ name: 'document', params: { id: newDocId } })
+      open({ name: 'doc', params: { id: newDocId } })
     },
     async openSandbox() {
       const files = this.codeblocks.reduce((agg, codeblock, index) => {
-        const filename = codeblock.filename || [index, (codeblock.language || 'txt')].join('.');
+        const filename = codeblock.filename || [index, (codeblock.language || 'txt')].join('.')
 
         return {
           ...agg,
           [filename]: {
             content: codeblock.code,
           },
-        };
-      }, {});
+        }
+      }, {})
 
-      CodeSandbox.create(files).then(sandbox_id => CodeSandbox.open(sandbox_id));
+      CodeSandbox.create(files).then(sandbox_id => CodeSandbox.open(sandbox_id))
     },
     async restoreDocument() {
-      this.$store.dispatch(RESTORE_DOCUMENT, { id: this.document.id });
+      this.$store.dispatch(RESTORE_DOCUMENT, { id: this.document.id })
     },
     async restrictDocument() {
-      this.$store.dispatch(RESTRICT_DOCUMENT, { id: this.document.id });
+      this.$store.dispatch(RESTRICT_DOCUMENT, { id: this.document.id })
     },
     async shareDocument() {
-      this.$store.dispatch(SHARE_DOCUMENT, { id: this.document.id });
+      this.$store.dispatch(SHARE_DOCUMENT, { id: this.document.id })
     },
     async toggleMeta() {
-      this.$store.dispatch(SET_RIGHT_SIDEBAR_VISIBILITY, !this.$store.state.showRightSidebar);
+      this.$store.dispatch(SET_RIGHT_SIDEBAR_VISIBILITY, !this.$store.state.showRightSidebar)
     },
   },
-  async beforeDestroy() {
-    clearInterval(this.ticker);
+  async beforeUnmount() {
+    clearInterval(this.ticker)
   },
   async mounted() {
-    this.mounted = true;
+    this.mounted = true
 
     this.ticker = setInterval(() => {
-      this.now = moment();
-    }, 5000);
+      this.now = moment()
+    }, 5000)
   },
-};
+}
 </script>

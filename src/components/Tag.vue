@@ -1,22 +1,10 @@
 <template>
-  <router-link :to="tagRoute" class="flex items-center">
-    <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+  <span class="inline-flex items-center gap-2">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" />
     </svg>
-    <span class="ml-6 md:ml-3 flex-grow">{{ tag }}</span>
-  </router-link>
+    <span class="flex-grow">
+      <slot></slot>
+    </span>
+  </span>
 </template>
-
-<script>
-export default {
-  name: 'Tag',
-  props: {
-    tag: String,
-  },
-  computed: {
-    tagRoute() {
-      return { name: 'tag', params: { tag: this.tag } };
-    },
-  },
-};
-</script>

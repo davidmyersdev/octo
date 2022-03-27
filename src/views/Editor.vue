@@ -1,17 +1,15 @@
 <template>
-  <Editor ref="editable" :appearance="appearance" :initialCursor="initialCursor" :initialSelection="initialSelection" :initialVimMode="initialVimMode" :settings="settings" :text="document.text" @input="input" />
+  <Editor ref="editable" :appearance="appearance" :initialSelections="initialSelections" :settings="settings" :text="doc.text" @input="input" />
 </template>
 
 <script>
 import Editor from '/src/components/Editor.vue'
-
-import Doc from '/src/models/doc.js'
-import { open } from '/src/router.js'
-
-import { firestoreInstance } from '/src/firebase.js'
-import { unpack } from '/src/models/doc.js'
+import { fetchSharedDoc } from '/src/firebase/firestore'
 
 import { setTitle } from '/src/common/title.js'
+import Doc, { unpack } from '/src/models/doc.js'
+import { open } from '/src/router.js'
+
 
 import {
   ADD_DOCUMENT,
@@ -30,16 +28,6 @@ export default {
   },
   props: {
     id: String,
-    initialCursor: {
-      type: Object,
-      default: () => ({
-        character: 0,
-        line: 0,
-      }),
-      validator: (cursor) => (
-        cursor.hasOwnProperty('character') && cursor.hasOwnProperty('line')
-      ),
-    },
     initialFocus: {
       type: String,
       default: () => ('any'),
@@ -47,11 +35,8 @@ export default {
         ['any', 'start', 'end'].includes(position)
       ),
     },
-    initialSelection: {
-      type: Object,
-    },
-    initialVimMode: {
-      type: String
+    initialSelections: {
+      type: Array,
     },
     readonly: {
       type: Boolean,
@@ -64,12 +49,15 @@ export default {
     }
   },
   watch: {
-    document() {
+    doc() {
       this.$refs.editable.clearHistory()
       this.$refs.editable.focusEditor()
     },
-    tags() {
-      this.updateTitle()
+    tags: {
+      deep: true,
+      handler() {
+        this.updateTitle()
+      },
     },
     header() {
       this.updateTitle()
@@ -82,35 +70,25 @@ export default {
     currentDoc() {
       return this.$store.getters.currentDoc
     },
-    document() {
+    doc() {
       return this.$store.getters.decrypted.find(doc => doc.id === this.id) || this.placeholder
-    },
-    ink() {
-      return this.settings.version === 'ink'
     },
     settings() {
       return this.$store.state.settings.editor
     },
     tags() {
-      return this.document.tags
+      return this.doc.tags
     },
     header() {
-      return this.document.headers[0]
+      return this.doc.headers[0]
     },
   },
   methods: {
     async updateTitle() {
-      setTitle(this.document.headers[0] || formatTags(this.document.tags))
+      setTitle(this.doc.header || formatTags(this.doc.tags))
     },
     async findSharedDocument() {
-      const docRefs = await firestoreInstance
-        .collection('documents')
-        .where('public', '==', true)
-        .where('id', '==', this.$route.params.id)
-        .get()
-
-      const [docRef, ...extras] = docRefs.docs
-
+      const docRef = await fetchSharedDoc({ docId: this.$route.params.id })
       const serverDoc = docRef.data()
       const packed = {
         ...serverDoc,
@@ -128,36 +106,24 @@ export default {
     },
     async input(text) {
       if (this.id) {
-        this.$store.dispatch(EDIT_DOCUMENT, { id: this.document.id, text })
+        this.$store.dispatch(EDIT_DOCUMENT, { id: this.doc.id, text })
       } else {
-        this.$store.dispatch(ADD_DOCUMENT, new Doc({ id: this.document.id, text }))
+        this.$store.dispatch(ADD_DOCUMENT, new Doc({ id: this.doc.id, text }))
 
-        if (this.ink) {
-          open({
-            name: 'document',
-            params: {
-              id: this.document.id,
-              initialSelection: this.$refs.editable.getSelection(),
+        open({
+          name: 'doc',
+          params: {
+            id: this.doc.id,
+            props: {
+              initialSelections: this.$refs.editable.getSelections(),
             },
-          })
-        } else {
-          open({
-            name: 'document',
-            params: {
-              id: this.document.id,
-              initialCursor: {
-                character: this.$refs.editable.getCursor().ch,
-                line: this.$refs.editable.getCursor().line,
-              },
-              initialVimMode: this.$refs.editable.getKeyMap(),
-            },
-          })
-        }
+          },
+        })
       }
     },
   },
   beforeRouteUpdate(to, from, next) {
-    if (to.name === 'document') {
+    if (to.name === 'doc') {
       this.$store.dispatch(SET_DOCUMENT, { id: to.params.id })
     }
 

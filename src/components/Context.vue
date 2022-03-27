@@ -18,22 +18,17 @@
         <input v-model="input" @input="first" @keydown.space.prevent="toggleTag" @keydown.enter.exact="toggleTag" @keydown.221.prevent="down" @keydown.down.prevent="down" @keydown.219.prevent="up" @keydown.up.prevent="up" ref="input" type="text" class="form-text w-full mt-2" id="tag-search" placeholder="Start typing to filter the list..." autocomplete="off">
         <small class="text-gray-700 mt-1 hidden md:block">Navigate the list below with <span class="key">up</span> or <span class="key">down</span> and toggle tags with <span class="key">space</span> or <span class="key">enter</span></small>
       </div>
-      <simplebar ref="tagsContainer" class="border rounded mt-4 overflow-hidden bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700">
+      <SimpleBar ref="tagsContainer" class="border rounded mt-4 overflow-hidden bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700">
         <div>
           <div v-if="filtered.length">
             <div v-for="(tag, index) in filtered" @click="selectTag(tag)" :key="tag" ref="tags" class="flex justify-between cursor-pointer p-6 md:p-3 focus-within:ring" :class="{ 'bg-gray-200 dark:bg-gray-700': isSelected(tag), 'bg-blue-300 dark:bg-blue-500': (index === activeIndex) }">
-              <div class="flex items-center">
-                <svg width="1.25em" height="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                </svg>
-                <span class="ml-6 md:ml-3 flex-grow">{{ tag }}</span>
-              </div>
+              <Tag>{{ tag }}</Tag>
               <span v-if="isSelected(tag)">selected</span>
             </div>
           </div>
           <div v-else class="flex justify-between p-3">No results...</div>
         </div>
-      </simplebar>
+      </SimpleBar>
       <div class="mt-4">
         <h3 class="text-xl mb-4">Saved Contexts</h3>
         <div class="grid gap-4 grid-cols-1 lg:grid-cols-2">
@@ -53,12 +48,7 @@
               </button>
             </div>
             <div class="flex items-center flex-wrap">
-              <div v-for="tag in context.tags" :key="tag" class="flex items-center mr-6">
-                <svg width="1.25em" height="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                </svg>
-                <span class="ml-2 flex-grow">{{ tag }}</span>
-              </div>
+              <Tag v-for="tag in context.tags" :key="tag" class="mr-6">{{ tag }}</Tag>
             </div>
           </div>
         </div>
@@ -68,7 +58,6 @@
 </template>
 
 <script>
-import simplebar from 'simplebar-vue'
 import { v4 as uuid } from 'uuid'
 
 import Tag from '/src/components/Tag.vue'
@@ -85,7 +74,6 @@ import {
 export default {
   name: 'Context',
   components: {
-    simplebar,
     Tag,
   },
   data() {
@@ -204,11 +192,12 @@ export default {
     this.$store.state.context.editing = true;
     this.focusInput();
   },
-  beforeDestroy() {
+  beforeUnmount() {
     this.$store.state.context.editing = false;
   },
 };
 </script>
+
 <style scoped>
 .dropdown-menu {
   float: none;

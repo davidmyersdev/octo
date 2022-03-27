@@ -56,11 +56,11 @@
 </template>
 
 <script>
+import { getAuth, getRedirectResult, GithubAuthProvider, GoogleAuthProvider, signInWithRedirect, TwitterAuthProvider } from 'firebase/auth'
+
 import GitHubIcon from '/src/components/icons/GitHub.vue'
 import GoogleIcon from '/src/components/icons/Google.vue'
 import TwitterIcon from '/src/components/icons/Twitter.vue'
-
-import { authInstance, authNamespace } from '/src/firebase.js'
 
 export default {
   name: 'Providers',
@@ -96,29 +96,29 @@ export default {
   },
   methods: {
     linkGithub() {
-      this.user.linkWithRedirect(new authNamespace.GithubAuthProvider())
+      this.user.linkWithRedirect(new GithubAuthProvider())
     },
     linkGoogle() {
-      this.user.linkWithRedirect(new authNamespace.GoogleAuthProvider())
+      this.user.linkWithRedirect(new GoogleAuthProvider())
     },
     linkTwitter() {
-      this.user.linkWithRedirect(new authNamespace.TwitterAuthProvider())
+      this.user.linkWithRedirect(new TwitterAuthProvider())
     },
     signInGithub() {
-      authInstance.signInWithRedirect(new authNamespace.GithubAuthProvider())
+      signInWithRedirect(getAuth(), new GithubAuthProvider())
     },
     signInGoogle() {
-      authInstance.signInWithRedirect(new authNamespace.GoogleAuthProvider())
+      signInWithRedirect(getAuth(), new GoogleAuthProvider())
     },
     signInTwitter() {
-      authInstance.signInWithRedirect(new authNamespace.TwitterAuthProvider())
+      signInWithRedirect(getAuth(), new TwitterAuthProvider())
     },
     signOut() {
-      authInstance.signOut()
+      getAuth().signOut()
     },
   },
   created() {
-    authInstance.getRedirectResult().then((result) => {
+    getRedirectResult().then((result) => {
       // track new sign ups
       if (result.additionalUserInfo && result.additionalUserInfo.isNewUser) {
         window.fathom.trackGoal(import.meta.env.VITE_FATHOM_GOAL_ACCOUNT_REGISTRATION, 0)

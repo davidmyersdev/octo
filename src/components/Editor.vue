@@ -3,8 +3,7 @@
     <div class="md:container md:mx-auto flex flex-grow">
       <div class="editor flex flex-col flex-grow min-w-0 p-4 md:px-16 md:py-0">
         <div class="gutter h-8" @click="focusEditorStart"></div>
-        <Ink v-if="ink" ref="editable" class="ink" :appearance="appearance" :images="settings.images.enabled" :initialSelection="initialSelection" :spellcheck="spellcheck" :value="text" @input="input" />
-        <LegacyEditor v-else ref="editable" class="editable" :theme="appearance" :initialCursor="initialCursor" :initialVimMode="initialVimMode" :settings="settings" :value="text" @input="input" @ready="onReady" />
+        <Ink ref="editable" class="ink" :options="options" v-model="doc" />
         <p v-if="showReadabilityBar" class="text-gray-400 dark:text-gray-600 text-right">{{ numberOfWords }} words | {{ readTimeDescription }}</p>
         <div class="gutter h-8 flex-grow" @click="focusEditorEnd"></div>
       </div>
@@ -22,7 +21,7 @@
 
 <script>
 import Ink from '@writewithocto/vue-ink'
-import LegacyEditor from '@voraciousdev/vue-markdown-editor'
+import { defineComponent } from 'vue'
 
 import { readTime, wordCount } from '/src/common/readability.ts'
 
@@ -30,28 +29,18 @@ import {
   SET_RIGHT_SIDEBAR_VISIBILITY,
 } from '/src/store/actions.js'
 
-export default {
+export default defineComponent({
   name: 'Editor',
   components: {
     Ink,
-    LegacyEditor,
   },
+  inject: ["mq"],
   props: {
     appearance: {
       type: String,
       default: () => ('dark'),
       validator: (value) => (
         ['dark', 'light'].includes(value)
-      ),
-    },
-    initialCursor: {
-      type: Object,
-      default: () => ({
-        character: 0,
-        line: 0,
-      }),
-      validator: (cursor) => (
-        cursor.hasOwnProperty('character') && cursor.hasOwnProperty('line')
       ),
     },
     initialFocus: {
@@ -61,8 +50,8 @@ export default {
         ['any', 'start', 'end'].includes(position)
       ),
     },
-    initialSelection: {
-      type: Object,
+    initialSelections: {
+      type: Array,
     },
     initialVimMode: {
       type: String
@@ -83,14 +72,37 @@ export default {
     }
   },
   computed: {
-    ink() {
-      return this.settings.version === 'ink'
+    doc: {
+      get() {
+        return this.text
+      },
+      set(value) {
+        this.input(value)
+      },
     },
     mediumPlus() {
-      return ['md', 'lg', 'xl'].includes(this.$mq)
+      return ['md', 'lg', 'xl'].includes(this.mq.current)
     },
     numberOfWords() {
       return wordCount(this.text)
+    },
+    options() {
+      return {
+        files: {
+          dragAndDrop: true,
+          handler: (files) => {
+            // TODO: handle file uploads
+            console.log({ files })
+          },
+        },
+        interface: {
+          appearance: this.appearance,
+          images: this.settings.images.enabled,
+          spellcheck: this.settings.spellcheck,
+        },
+        selections: this.initialSelections || [],
+        vim: this.settings.keyMap === 'vim',
+      }
     },
     readTime() {
       return readTime(this.text, this.wordsPerMinute)
@@ -121,18 +133,7 @@ export default {
   },
   methods: {
     clearHistory() {
-      if (this.ink) {
-        this.$refs.editable.instance.load(this.text)
-      } else {
-        const listener = () => {
-          if (this.text === this.editor.getValue()) {
-            this.editor.off('change', listener)
-            this.editor.clearHistory()
-          }
-        }
-
-        this.editor.on('change', listener)
-      }
+      this.$refs.editable.instance.load(this.text)
     },
     focusEditor() {
       this.$refs.editable.focus()
@@ -147,18 +148,10 @@ export default {
       }
     },
     async focusEditorEnd() {
-      if (this.ink) {
-        this.$refs.editable.focus()
-      } else {
-        this.$refs.editable.focusEnd()
-      }
+      this.$refs.editable.focus()
     },
     async focusEditorStart() {
-      if (this.ink) {
-        this.$refs.editable.focus()
-      } else {
-        this.$refs.editable.focusStart()
-      }
+      this.$refs.editable.focus()
     },
     getCursor() {
       return this.editor.getCursor()
@@ -166,8 +159,8 @@ export default {
     getKeyMap() {
       return this.editor.getOption('keyMap')
     },
-    getSelection() {
-      return this.$refs.editable.selection()
+    getSelections() {
+      return Array.from(this.$refs.editable.selections())
     },
     async input(text) {
       this.$emit('input', text)
@@ -183,16 +176,9 @@ export default {
     },
   },
   async mounted() {
-    // this will ensure the cursor is properly aligned on font changes
-    document.fonts.ready.then(() => {
-      if (this.$refs.editable && !this.ink) {
-        this.$refs.editable.refresh()
-      }
-    })
-
     this.focusEditor()
   },
-}
+})
 </script>
 
 <style scoped>
@@ -201,8 +187,9 @@ export default {
   }
 
   .editor {
-    --ink-font-family: 'Inter', helvetica, sans-serif;
-    --ink-font-family-mono: 'Fira Code', monospace;
+    --ink-all-font-family: 'Inter', helvetica, sans-serif;
+    --ink-monospace-font-family: 'Fira Code', monospace;
+    --ink-editor-padding: 0;
   }
 
   .editor .editable {
@@ -215,7 +202,15 @@ export default {
     width: 100%;
   }
 
-  .ink >>> .cm-editor.cm-focused {
+  .ink {
+    height: 100%;
+  }
+
+  :deep(.ink > div:first-child), :deep(.ink .cm-editor) {
+    height: 100%;
+  }
+
+  .ink :deep(.cm-editor.cm-focused) {
     outline: none;
   }
 </style>

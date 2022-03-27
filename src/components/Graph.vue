@@ -1,9 +1,7 @@
 <template>
-  <div class="flex flex-col md:flex-row items-stretch justify-end">
-    <div ref="graph" class="graph flex flex-col overflow-hidden fixed left-0 right-0 top-0 bottom-0"></div>
-    <div v-if="selectedTag" class="docs flex flex-col p-4">
-      <DocumentList :tag="selectedTag" :cols="1" class="z-index-1" />
-    </div>
+  <div class="flex justify-end h-screen relative">
+    <DocumentList v-if="tag" :tag="tag" :cols="1" class="h-full w-full md:w-1/3 z-index-1 px-4 mt-96" />
+    <div ref="graph" class="absolute inset-0"></div>
   </div>
 </template>
 
@@ -17,10 +15,12 @@ export default {
   components: {
     DocumentList,
   },
+  inject: ['mq'],
   data() {
     return {
       instance: null,
-      selectedTag: null,
+      listener: null,
+      tag: null,
     }
   },
   watch: {
@@ -33,7 +33,7 @@ export default {
       return {
         edge: this.theme === 'light' ? '#aaa' : '#333',
         label: this.theme === 'light' ? 'rgba(17, 17, 17, 0.8)' : 'rgba(200, 200, 200, 0.8)',
-        node: 'rgba(224, 108, 117, 0.8)',
+        node: 'rgba(224, 108, 117, 0.9)',
       }
     },
     connections() {
@@ -53,7 +53,7 @@ export default {
       })
     },
     docs() {
-      return this.$store.getters.allKept
+      return this.$store.getters.kept
     },
     edges() {
       return this.connections.reduce((edges, connection) => {
@@ -83,6 +83,9 @@ export default {
     },
     maxNodeSize() {
       return Math.max(...this.nodes.map(node => node.size))
+    },
+    mobile() {
+      return ['xs', 'sm'].includes(this.mq.current)
     },
     nodes() {
       return this.edges.flatMap(edge => [edge.source, edge.target]).reduce((nodes, tag) => {
@@ -117,9 +120,9 @@ export default {
   },
   mounted() {
     this.instance = ForceGraph()(this.$refs.graph)
+      .graphData(this.graph)
       .height(this.$refs.graph.clientHeight)
       .width(this.$refs.graph.clientWidth)
-      .graphData(this.graph)
       .linkWidth((link) => {
         return (link.size / this.maxEdgeSize) * 5
       })
@@ -144,26 +147,32 @@ export default {
       })
       .onNodeHover(node => this.$refs.graph.style.cursor = node ? 'pointer' : null)
       .onNodeClick((node) => {
-        this.selectedTag = node.id
-        this.instance.centerAt(node.x, node.y, 1000)
+        const offset = this.mobile ? 40 : 0
+
+        this.tag = node.id
+        this.instance.centerAt(node.x, node.y + offset, 1000)
         this.instance.zoom(6, 2000)
       })
 
-    window.addEventListener('resize', () => {
+    this.listener = () => {
       this.resize()
-    })
+    }
+
+    window.addEventListener('resize', this.listener)
+  },
+  beforeUnmount() {
+    window.removeEventListener('resize', this.listener)
   },
 }
 </script>
 
-<style scoped>
-.docs {
-  margin-top: 50vh !important;
-}
-
-.md-plus .docs {
-  margin-top: auto !important;
-  width: 30% !important;
-  min-width: 30rem !important;
+<style>
+/*
+This fix can be removed if the following PR is accepted.
+https://github.com/vasturiano/force-graph/pull/258
+*/
+.graph-tooltip {
+  left: 0;
+  top: 0;
 }
 </style>

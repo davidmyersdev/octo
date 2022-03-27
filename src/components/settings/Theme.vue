@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h3 class="text-3xl">Theme</h3>
+    <h3 class="text-3xl">Appearance</h3>
     <hr class="mt-2 mb-4">
     <Extendable scope="app.settings.theme">
       <div class="mb-4">
@@ -15,7 +15,7 @@
           </label>
           <label class="button button-size-medium button-color-gray ml-2">
             <input v-model="theme" type="radio" value="october" class="radio">
-            <span class="ml-3">Spooky</span>
+            <span class="ml-3">Halloween</span>
           </label>
         </div>
       </div>

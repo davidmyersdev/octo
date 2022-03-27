@@ -1,16 +1,16 @@
 <template>
   <div class="flex flex-col p-4 md:p-2">
-    <Tag class="sidebar-link mb-2" v-for="tag in tags" :key="tag" :tag="tag"></Tag>
+    <TagLink class="sidebar-link mb-2" v-for="tag in tags" :key="tag" :tag="tag"></TagLink>
   </div>
 </template>
 
 <script>
-import Tag from '/src/components/Tag.vue';
+import TagLink from '/src/components/TagLink.vue';
 
 export default {
   name: 'TagList',
   components: {
-    Tag,
+    TagLink,
   },
   computed: {
     tags() {

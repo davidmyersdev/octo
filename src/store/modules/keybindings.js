@@ -35,7 +35,7 @@ const makeListeners = (context) => {
     makeListener('p', () => goTo('daily'), context),
     makeListener('r', () => goTo('recent'), context),
     makeListener('s', () => goTo('settings'), context),
-    makeListener('t', () => goTo('actionable'), context),
+    makeListener('t', () => goTo('tasks'), context),
     makeListener('u', () => goTo('untagged'), context),
   ]
 }

@@ -1,12 +1,8 @@
 <template>
-  <div class="flex flex-col">
-    <div class="flex flex-grow flex-shrink min-h-0">
-      <TheLeftSidebar v-if="!mobile && showLeftSidebar" class="hidden w-72 bg-gray-100 dark:bg-darkest md:flex m-2 rounded shadow" />
-      <div class="flex flex-col flex-grow flex-shrink min-h-0 min-w-0">
-        <TheContent class="flex-grow flex-shrink min-h-0 min-w-0" />
-      </div>
-      <TheRightSidebar v-if="!mobile && showRightSidebar && currentDoc" class="hidden w-72 bg-gray-100 dark:bg-darkest md:flex m-2 rounded" />
-    </div>
+  <div class="flex h-screen">
+    <TheLeftSidebar v-if="!mobile && showLeftSidebar" class="hidden w-72 bg-gray-100 dark:bg-darkest md:flex m-2 rounded shadow" />
+    <TheContent class="flex-grow flex-shrink relative h-screen" />
+    <TheRightSidebar v-if="!mobile && showRightSidebar && currentDoc" class="hidden w-72 bg-gray-100 dark:bg-darkest md:flex m-2 rounded" />
   </div>
 </template>
 
@@ -22,20 +18,21 @@ export default {
     TheLeftSidebar,
     TheRightSidebar,
   },
+  inject: ["mq"],
   computed: {
     currentDoc() {
       // only show the right sidebar while a document is selected (for now)
-      return this.$store.getters.currentDoc;
+      return this.$store.getters.currentDoc
     },
     mobile() {
-      return ['xs', 'sm'].includes(this.$mq);
+      return ['xs', 'sm'].includes(this.mq.current)
     },
     showLeftSidebar() {
-      return this.$store.state.showLeftSidebar;
+      return this.$store.state.showLeftSidebar
     },
     showRightSidebar() {
-      return this.$route.name === 'document' && this.$store.state.showRightSidebar;
+      return this.$route.name === 'doc' && this.$store.state.showRightSidebar
     },
   },
-};
+}
 </script>

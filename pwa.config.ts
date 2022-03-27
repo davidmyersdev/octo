@@ -37,7 +37,7 @@ export const config: Partial<VitePWAOptions> = {
     theme_color: '#121212',
     name: 'Octo',
     short_name: 'Octo',
-    start_url: '/documents/new',
+    start_url: '/docs/new',
     icons: [
       {
         src: './img/icons/icon-16x16.png',

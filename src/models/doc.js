@@ -1,11 +1,11 @@
-import { v4 as uuid } from 'uuid'
+import { nanoid } from 'nanoid'
 
 import { decrypt, encrypt } from '/src/common/crypto/crypto'
 import { parseTags, parseTasks, parseHeaders } from '/src/common/parsers'
 
 class Doc {
   constructor(attributes = {}) {
-    this.id = attributes.id || uuid()
+    this.id = attributes.id || nanoid()
     this.text = attributes.text || ''
     this.textKey = attributes.textKey || null
     this.daily = attributes.daily || false

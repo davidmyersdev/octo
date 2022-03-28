@@ -1,0 +1,28 @@
+rules_version = '2';
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /files/v1/{uid} {
+      match /{file=**} {
+        allow read: if true;
+        allow write: if authenticated() && authorized() && pro() && underQuota();
+      }
+
+      function authenticated() {
+        return request.auth != null;
+      }
+
+      function authorized() {
+        return request.auth.uid == uid;
+      }
+
+      function pro() {
+        return request.auth.token.stripeRole == 'subscriber';
+      }
+
+      function underQuota() {
+        return request.resource.size < 10 * 1024 * 1024
+      }
+    }
+  }
+}

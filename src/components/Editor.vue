@@ -3,7 +3,7 @@
     <div class="md:container md:mx-auto flex flex-grow">
       <div class="editor flex flex-col flex-grow min-w-0 p-4 md:px-16 md:py-0">
         <div class="gutter h-8" @click="focusEditorStart"></div>
-        <Ink ref="editable" class="ink" :options="options" v-model="doc" />
+        <Ink ref="editable" @paste="handlePaste" class="ink" :options="options" v-model="doc" />
         <p v-if="showReadabilityBar" class="text-gray-400 dark:text-gray-600 text-right">{{ numberOfWords }} words | {{ readTimeDescription }}</p>
         <div class="gutter h-8 flex-grow" @click="focusEditorEnd"></div>
       </div>
@@ -24,6 +24,7 @@ import Ink from '@writewithocto/vue-ink'
 import { defineComponent } from 'vue'
 
 import { readTime, wordCount } from '/src/common/readability.ts'
+import { addFile } from '/src/firebase/storage.ts'
 
 import {
   SET_RIGHT_SIDEBAR_VISIBILITY,
@@ -91,8 +92,7 @@ export default defineComponent({
         files: {
           dragAndDrop: true,
           handler: (files) => {
-            // TODO: handle file uploads
-            console.log({ files })
+            this.uploadFiles(files)
           },
         },
         interface: {
@@ -162,6 +162,9 @@ export default defineComponent({
     getSelections() {
       return Array.from(this.$refs.editable.selections())
     },
+    handlePaste(event) {
+      this.uploadFiles(event.clipboardData.files)
+    },
     async input(text) {
       this.$emit('input', text)
     },
@@ -174,8 +177,15 @@ export default defineComponent({
     async toggleMeta() {
       this.$store.dispatch(SET_RIGHT_SIDEBAR_VISIBILITY, !this.showRightSidebar)
     },
+    uploadFiles(files) {
+      Array.from(files).forEach((file) => {
+        addFile(file).then((url) => {
+          this.$refs.editable.instance.insert(`![](${url})`)
+        })
+      })
+    },
   },
-  async mounted() {
+  mounted() {
     this.focusEditor()
   },
 })

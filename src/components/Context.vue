@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import { v4 as uuid } from 'uuid'
+import { nanoid } from 'nanoid'
 
 import Tag from '/src/components/Tag.vue'
 
@@ -123,7 +123,7 @@ export default {
     },
     save() {
       this.$store.commit(ADD_CONTEXT, {
-        id: uuid(),
+        id: nanoid(),
         name: this.contextName,
         tags: this.tags,
       })

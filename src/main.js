@@ -75,9 +75,10 @@ getAuth().onAuthStateChanged(async (user) => {
     await user.getIdToken(true)
 
     const decodedToken = await user.getIdTokenResult()
+    const pro = decodedToken.claims.ambassador || (decodedToken.claims.stripeRole === 'subscriber')
 
     store.commit(SET_SUBSCRIPTION, {
-      pro: decodedToken.claims.stripeRole === 'subscriber'
+      pro,
     })
   }
 })

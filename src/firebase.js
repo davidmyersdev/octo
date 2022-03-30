@@ -1,6 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import { connectAuthEmulator, getAuth } from 'firebase/auth'
 import { connectFirestoreEmulator, getFirestore, initializeFirestore, setLogLevel } from 'firebase/firestore'
+import { connectStorageEmulator, getStorage } from 'firebase/storage'
 
 // firebase config
 const config = {
@@ -38,6 +39,12 @@ export const init = () => {
       getFirestore(),
       import.meta.env.VITE_FIREBASE_EMULATOR_FIRESTORE_HOST,
       import.meta.env.VITE_FIREBASE_EMULATOR_FIRESTORE_PORT,
+    )
+
+    connectStorageEmulator(
+      getStorage(),
+      import.meta.env.VITE_FIREBASE_EMULATOR_STORAGE_HOST,
+      import.meta.env.VITE_FIREBASE_EMULATOR_STORAGE_PORT,
     )
   }
 }

@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: github-pages
     env:
+      VITE_APP_CDN_URL: ${{ secrets.VITE_APP_CDN_URL }}
       VITE_DISCORD_INVITE_LINK: ${{ secrets.VITE_DISCORD_INVITE_LINK }}
       VITE_FATHOM_EVENT_CTA_CONTINUE_WITH_PRO: ${{ secrets.VUE_APP_FATHOM_EVENT_CTA_CONTINUE_WITH_PRO }}
       VITE_FATHOM_EVENT_CTA_MODAL_UPGRADE: ${{ secrets.VITE_FATHOM_EVENT_CTA_MODAL_UPGRADE }}

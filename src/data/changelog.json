@@ -1,6 +1,12 @@
 [
   {
     "changes": [
+      "Drag-and-drop or paste files to upload and attach to the current doc (Octo Pro)."
+    ],
+    "timestamp": "2022-03-30T22:47:29-0400"
+  },
+  {
+    "changes": [
       "Changelog notifications are displayed when Octo updates.",
       "Improvements have been made to IME language support.",
       "Regular expressions are automatically recognized by the /.*/i syntax in searches.",

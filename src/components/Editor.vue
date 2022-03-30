@@ -3,7 +3,7 @@
     <div class="md:container md:mx-auto flex flex-grow">
       <div class="editor flex flex-col flex-grow min-w-0 p-4 md:px-16 md:py-0">
         <div class="gutter h-8" @click="focusEditorStart"></div>
-        <Ink ref="editable" @paste="handlePaste" class="ink" :options="options" v-model="doc" />
+        <Ink ref="editable" class="ink" :options="options" v-model="doc" />
         <p v-if="showReadabilityBar" class="text-gray-400 dark:text-gray-600 text-right">{{ numberOfWords }} words | {{ readTimeDescription }}</p>
         <div class="gutter h-8 flex-grow" @click="focusEditorEnd"></div>
       </div>
@@ -23,6 +23,7 @@
 import Ink from '@writewithocto/vue-ink'
 import { defineComponent } from 'vue'
 
+import { subscription } from '/src/common/account'
 import { readTime, wordCount } from '/src/common/readability.ts'
 import { addFile } from '/src/firebase/storage.ts'
 
@@ -90,10 +91,12 @@ export default defineComponent({
     options() {
       return {
         files: {
-          dragAndDrop: true,
+          clipboard: this.pro,
+          dragAndDrop: this.pro,
           handler: (files) => {
-            this.uploadFiles(files)
+            return this.uploadFiles(files)
           },
+          injectMarkup: false,
         },
         interface: {
           appearance: this.appearance,
@@ -103,6 +106,9 @@ export default defineComponent({
         selections: this.initialSelections || [],
         vim: this.settings.keyMap === 'vim',
       }
+    },
+    pro() {
+      return subscription.value.pro
     },
     readTime() {
       return readTime(this.text, this.wordsPerMinute)
@@ -162,9 +168,6 @@ export default defineComponent({
     getSelections() {
       return Array.from(this.$refs.editable.selections())
     },
-    handlePaste(event) {
-      this.uploadFiles(event.clipboardData.files)
-    },
     async input(text) {
       this.$emit('input', text)
     },
@@ -178,11 +181,16 @@ export default defineComponent({
       this.$store.dispatch(SET_RIGHT_SIDEBAR_VISIBILITY, !this.showRightSidebar)
     },
     uploadFiles(files) {
-      Array.from(files).forEach((file) => {
-        addFile(file).then((url) => {
-          this.$refs.editable.instance.insert(`![](${url})`)
+      return Promise.all(
+        Array.from(files).map(async (file) => {
+          return addFile(file).then((uploadedFile) => {
+            // Todo: Handle non-image files
+            if (/^image\/.*/.test(uploadedFile.mimeType)) {
+              this.$refs.editable.instance.insert(`![](${uploadedFile.url})`)
+            }
+          })
         })
-      })
+      )
     },
   },
   mounted() {

@@ -9,7 +9,10 @@
     <template #footer>
       <div class="flex items-center justify-end gap-2">
         <button class="button-flat button-size-medium" @click="closeChangeLog">Dismiss</button>
-        <router-link v-if="auth.isEvaluated && !auth.user" @click="trackCta" :to="{ name: 'account' }" class="text-blue-400 button-flat button-color-surface button-size-medium">
+        <router-link v-if="!subscription.pro" @click="trackCta" :to="{ name: 'account' }" class="text-blue-400 button-flat button-color-surface button-size-medium">
+          <span>Upgrade</span>
+        </router-link>
+        <router-link v-else-if="!user" @click="trackCta" :to="{ name: 'account' }" class="text-blue-400 button-flat button-color-surface button-size-medium">
           <span>Sign Up</span>
         </router-link>
       </div>
@@ -19,14 +22,12 @@
 
 <script lang="ts" setup>
 import moment from 'moment'
-import { computed, onMounted, ref } from 'vue'
-import { useStore } from 'vuex'
+import { onMounted, ref } from 'vue'
 
+import { subscription, user } from '/src/common/account'
 import ChangeSet from '/src/components/ChangeSet.vue'
 import Modal from '/src/components/Modal.vue'
 
-
-const auth = computed(() => useStore().state.auth)
 const changeSets = ref<any>([])
 const lastUpdated = localStorage.getItem('changelog:v1')
 const showChangeLog = ref(false)

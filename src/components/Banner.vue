@@ -1,5 +1,5 @@
 <template>
-  <section v-if="subscription.pro" class="bg-gray-100 dark:bg-darkest text-center xl:text-left shadow rounded p-4 md:p-2">
+  <section v-if="!subscription.pro" class="bg-gray-100 dark:bg-darkest text-center xl:text-left shadow rounded p-4 md:p-2">
     <div class="flex flex-col lg:flex-row items-center justify-between gap-4">
       <strong class="inline-flex items-center lg:ml-2">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

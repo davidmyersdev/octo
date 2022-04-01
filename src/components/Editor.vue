@@ -8,7 +8,7 @@
         <div class="gutter h-8 flex-grow" @click="focusEditorEnd"></div>
       </div>
     </div>
-    <div v-if="!showRightSidebar && text" class="fixed top-4 right-4 z-index-10 hidden md:block">
+    <div v-if="!readonly && !showRightSidebar && text" class="fixed top-4 right-4 z-index-10 hidden md:block">
       <button @click="toggleMeta" class="button button-size-medium button-color-gray">
         <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -100,7 +100,9 @@ export default defineComponent({
         },
         interface: {
           appearance: this.appearance,
+          attribution: false,
           images: this.settings.images.enabled,
+          readonly: this.readonly,
           spellcheck: this.settings.spellcheck,
         },
         selections: this.initialSelections || [],

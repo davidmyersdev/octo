@@ -164,7 +164,7 @@ export default {
     async copyPublicUrl() {
       // copy link to clipboard
       this.$refs.link.select()
-      doc.execCommand('copy')
+      document.execCommand('copy')
     },
     async discardDocument() {
       this.$store.dispatch(DISCARD_DOCUMENT, { id: this.doc.id })

@@ -95,6 +95,7 @@
           </svg>
           <span class="action flex flex-grow items-stretch justify-between ml-6 md:ml-3">
             <span>{{ authIsEvaluated && !user ? 'Sign In to Account' : 'My Account' }}</span>
+            <ModKKey class="text-gray-500">A</ModKKey>
           </span>
         </router-link>
         <a class="sidebar-link" :href="discordInviteLink" target="_blank" rel="noopener noreferrer">

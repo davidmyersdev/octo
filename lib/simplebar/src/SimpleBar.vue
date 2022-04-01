@@ -28,10 +28,11 @@
 </template>
 
 <script>
+import './lib.css'
 import SimpleBar from 'simplebar'
 
 export default {
-  name: 'simplebar-vue',
+  name: 'SimpleBar',
   mounted () {
     const options = SimpleBar.getOptions(this.$refs.element.attributes)
     this.SimpleBar = new SimpleBar(this.$refs.element, options)

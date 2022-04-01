@@ -9,7 +9,7 @@
         <span>Redirecting you to Stripe for checkout</span>
       </div>
     </div>
-    <ChangeLog v-if="!home" />
+    <ChangeLog v-if="!home && !publicDoc" />
     <div>
       <router-view :inheritAttrs="true" class="flex-grow flex-shrink min-h-0"></router-view>
       <div class="flex flex-col min-w-0 max-w-full rounded break-words bg-white notification fixed top-0 right-0 m-4 md:m-2 dark:bg-gray-800" :class="{ 'hidden': !showModal }">
@@ -66,6 +66,12 @@ export default {
     ligatures() {
       return this.$store.state.settings.editor.ligatures
     },
+    publicDoc() {
+      return this.$route.name === 'public_doc'
+    },
+    showStripeModal() {
+      return this.$store.state.showStripeModal
+    },
     sizes() {
       if (this.mq.current === 'xs') return ['xs xs-plus']
       if (this.mq.current === 'sm') return ['sm xs-plus sm-plus']
@@ -74,9 +80,6 @@ export default {
       if (this.mq.current === 'xl') return ['xl xs-plus sm-plus md-plus lg-plus xl-plus']
 
       return []
-    },
-    showStripeModal() {
-      return this.$store.state.showStripeModal
     },
     theme() {
       return this.$store.state.settings.theme

@@ -133,6 +133,12 @@ export const router = createRouter({
           },
         },
         {
+          path: 'public/:id',
+          name: 'public_doc',
+          component: () => import('/src/views/Editor.vue'),
+          props: { readonly: true },
+        },
+        {
           path: 'force-graph',
           name: 'force_graph',
           meta: { title: 'Force Graph', track: true },
@@ -237,11 +243,7 @@ export const router = createRouter({
         {
           path: 'shared/:id',
           name: 'shared',
-          component: () => import('/src/views/Editor.vue'),
-          props: {
-            default: true,
-            readonly: true,
-          },
+          redirect: { name: 'public_doc' },
         },
         // context switcher
         {

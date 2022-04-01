@@ -17,15 +17,18 @@
 ## Features
 
 - [x] Dark and light themes
-- [x] Hybrid markdown rendering
+- [x] Hybrid plain-text Markdown rendering
+- [x] Syntax highlighting for many common languages (in code blocks)
+- [x] Client-side (end-to-end) encryption support
 - [x] Cross-platform (desktop and mobile)
-- [x] Client-side (end-to-end) encryption
 - [x] Offline-first progressive web app
-- [x] Tag-based document organization
+- [x] Regex full-text search
+- [x] Tag-based file organization
+- [x] Drag-and-drop or paste to upload files
 - [x] Keyboard shortcuts
-- [x] Regex search
 - [x] Context switching
-- [x] Built with modern technologies
+- [x] Modern technologies
+- [x] Vim Mode support
 
 ## Questions
 

@@ -1,5 +1,5 @@
 <template>
-  <Editor ref="editable" :appearance="appearance" :initialSelections="initialSelections" :settings="settings" :text="doc.text" @input="input" />
+  <Editor ref="editable" :appearance="appearance" :initialSelections="initialSelections" :readonly="readonly" :settings="settings" :text="doc.text" @input="input" />
 </template>
 
 <script>
@@ -105,20 +105,24 @@ export default {
       return unpack(packed, { privateKey: this.$store.state.settings.crypto.privateKey })
     },
     async input(text) {
-      if (this.id) {
-        this.$store.dispatch(EDIT_DOCUMENT, { id: this.doc.id, text })
-      } else {
-        this.$store.dispatch(ADD_DOCUMENT, new Doc({ id: this.doc.id, text }))
+      if (!this.readonly) {
+        // ReadOnly mode means we are viewing a shared doc.
+        // Todo: Create a new view for shared docs, and store shared docs in a new collection.
+        if (this.id) {
+          this.$store.dispatch(EDIT_DOCUMENT, { id: this.doc.id, text })
+        } else {
+          this.$store.dispatch(ADD_DOCUMENT, new Doc({ id: this.doc.id, text }))
 
-        open({
-          name: 'doc',
-          params: {
-            id: this.doc.id,
-            props: {
-              initialSelections: this.$refs.editable.getSelections(),
+          open({
+            name: 'doc',
+            params: {
+              id: this.doc.id,
+              props: {
+                initialSelections: this.$refs.editable.getSelections(),
+              },
             },
-          },
-        })
+          })
+        }
       }
     },
   },

@@ -1,4 +1,4 @@
-import{_ as i,aa as n,l as a,W as d,a0 as c,ab as l,r as u,a as m,d as h,f as _}from"./index.a894f475.js";import f from"./Editor.e16e72d8.js";import"./Editor.2114e366.js";const y={name:"Daily",components:{Editor:f},computed:{daily(){return this.$store.getters.daily}},methods:{async buildTemplate(){try{const t=(await n(()=>import("./quotes.6145aced.js"),[])).default,e=t[Math.floor(Math.random()*t.length)];return`#daily
+import{_ as i,ab as n,l as a,X as d,a1 as c,ac as l,r as u,a as m,d as h,f as _}from"./index.6978e00c.js";import f from"./Editor.00e76e48.js";import"./Editor.203647cc.js";const y={name:"Daily",components:{Editor:f},computed:{daily(){return this.$store.getters.daily}},methods:{async buildTemplate(){try{const t=(await n(()=>import("./quotes.6145aced.js"),[])).default,e=t[Math.floor(Math.random()*t.length)];return`#daily
 
 # ${a().format("dddd, MMMM Do, YYYY")}
 

@@ -6,7 +6,7 @@
     <Extendable scope="app.settings.editor">
       <div class="mb-4">
         <div>
-          <label class="button button-size-medium button-color-gray items-baseline">
+          <label class="button button-size-medium button-color-gray items-center">
             <input v-model="spellcheck" type="checkbox" class="checkbox">
             <span class="ml-3">Spellcheck</span>
           </label>
@@ -15,7 +15,7 @@
       </div>
       <div class="mb-4">
         <div>
-          <label class="button button-size-medium button-color-gray items-baseline">
+          <label class="button button-size-medium button-color-gray items-center">
             <input v-model="vim" type="checkbox" class="checkbox">
             <span class="ml-3">Vim Mode</span>
           </label>
@@ -32,7 +32,7 @@
         <p class="mb-2">The Readability Bar shows useful information such as word count and read time at the bottom of the editor.</p>
         <div class="mb-4">
           <div>
-            <label class="button button-size-medium button-color-gray items-baseline">
+            <label class="button button-size-medium button-color-gray items-center">
               <input v-model="readabilityEnabled" type="checkbox" class="checkbox">
               <span class="ml-3 ">Toggle Readability Bar</span>
             </label>
@@ -46,7 +46,7 @@
         <h4 class="text-2xl mb-2">Font Ligatures</h4>
         <p class="mb-2">Whether or not to show <a href="https://github.com/tonsky/FiraCode#whats-in-the-box" target="_blank" rel="noopener noreferrer">font ligatures</a> (<code class="monospace ligatures-normal">=></code>).</p>
         <div class="mb-4">
-          <label class="button button-size-medium button-color-gray items-baseline">
+          <label class="button button-size-medium button-color-gray items-center">
             <input v-model="ligatures" type="checkbox" class="checkbox">
             <span class="ml-3 ">Enable Ligatures</span>
           </label>
@@ -57,7 +57,7 @@
         <p class="mb-2">This setting determines whether or not image tags (e.g. <code class="bg-gray-100 dark:bg-darkest p-0.5 rounded">![alt text](/path/to/image)</code>) will render images in your docs.</p>
         <div class="mb-4">
           <div>
-            <label class="button button-size-medium button-color-gray items-baseline">
+            <label class="button button-size-medium button-color-gray items-center">
               <input v-model="imagesEnabled" type="checkbox" class="checkbox">
               <span class="ml-3 ">Enable Images</span>
             </label>

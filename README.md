@@ -1,3 +1,5 @@
+# Octo
+
 [![latest tag](https://img.shields.io/github/v/tag/writewithocto/octo?color=blue&label=latest%20tag&sort=semver)](https://github.com/writewithocto/octo/releases)
 [![license](https://img.shields.io/github/license/writewithocto/octo)](https://github.com/writewithocto/octo/blob/main/LICENSE)
 [![open issues](https://img.shields.io/github/issues-raw/writewithocto/octo)](https://github.com/writewithocto/octo/issues)
@@ -6,13 +8,13 @@
 
 <p align="center">
   <a href="https://octo.app">
-    <img height="100" src="resources/stacked.png">
+    <img height="100" src="resources/logo.png">
   </a>
 </p>
 
 <p align="center">The Notes App for Knowledge Workers</p>
 
-[![screenshot](resources/dark-desktop.png)](https://octo.app)
+[![screenshot](resources/screenshot.png)](https://octo.app)
 
 ## Features
 

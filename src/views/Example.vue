@@ -3,10 +3,10 @@
 </template>
 
 <script>
-import Editor from '/src/components/Editor.vue'
+import Editor from "/src/components/Editor.vue";
 
 export default {
-  name: 'ExampleView',
+  name: "ExampleView",
   components: {
     Editor,
   },
@@ -17,23 +17,25 @@ export default {
   },
   data() {
     return {
-      text: '',
-    }
+      text: "",
+    };
   },
   computed: {
     appearance() {
-      return this.$store.state.settings.theme === 'october' ? 'dark' : this.$store.state.settings.theme
+      return this.$store.state.settings.theme === "october"
+        ? "dark"
+        : this.$store.state.settings.theme;
     },
     settings() {
-      return this.$store.state.settings.editor
+      return this.$store.state.settings.editor;
     },
   },
   async mounted() {
     fetch(this.url)
       .then((response) => response.text())
       .then((text) => {
-        this.text = text
-      })
+        this.text = text;
+      });
   },
-}
+};
 </script>

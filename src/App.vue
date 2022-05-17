@@ -1,10 +1,29 @@
 <template>
-  <div id="app" class="h-screen" :class="sizes.concat([(!ligatures && 'ligatures-none')])">
-    <div v-if="showStripeModal" class="flex items-center justify-center fixed top-0 left-0 h-full w-full z-50 bg-darkest">
+  <div id="app" class="h-screen" :class="sizes.concat([!ligatures && 'ligatures-none'])">
+    <div
+      v-if="showStripeModal"
+      class="flex items-center justify-center fixed top-0 left-0 h-full w-full z-50 bg-darkest"
+    >
       <div class="flex flex-col items-center justify-center gap-8 text-center text-2xl">
-        <svg class="animate-spin mr-3 h-10 w-10 text-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        <svg
+          class="animate-spin mr-3 h-10 w-10 text-current"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <circle
+            class="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            stroke-width="4"
+          ></circle>
+          <path
+            class="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+          ></path>
         </svg>
         <span>Redirecting you to Stripe for checkout</span>
       </div>
@@ -12,11 +31,26 @@
     <ChangeLog v-if="!home && !publicDoc" />
     <div>
       <router-view :inheritAttrs="true" class="flex-grow flex-shrink min-h-0"></router-view>
-      <div class="flex flex-col min-w-0 max-w-full rounded break-words bg-white notification fixed top-0 right-0 m-4 md:m-2 dark:bg-gray-800" :class="{ 'hidden': !showModal }">
+      <div
+        class="flex flex-col min-w-0 max-w-full rounded break-words bg-white notification fixed top-0 right-0 m-4 md:m-2 dark:bg-gray-800"
+        :class="{ hidden: !showModal }"
+      >
         <div class="flex-auto p-4 notification-body">
           <p class="mb-6">An update is available. Refresh the app to apply.</p>
-          <button type="button" class="button button-size-small button-color-blue text-gray-900 dark:text-gray-200" @click="refreshPage">Refresh Now</button>
-          <button type="button" class="button button-size-small button-color-gray ml-2" @click="hideModal">Later</button>
+          <button
+            type="button"
+            class="button button-size-small button-color-blue text-gray-900 dark:text-gray-200"
+            @click="refreshPage"
+          >
+            Refresh Now
+          </button>
+          <button
+            type="button"
+            class="button button-size-small button-color-gray ml-2"
+            @click="hideModal"
+          >
+            Later
+          </button>
         </div>
       </div>
     </div>
@@ -24,11 +58,11 @@
 </template>
 
 <script>
-import ChangeLog from '/src/components/ChangeLog.vue'
-import Modal from '/src/components/Modal.vue'
+import ChangeLog from "/src/components/ChangeLog.vue";
+import Modal from "/src/components/Modal.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     ChangeLog,
     Modal,
@@ -37,71 +71,80 @@ export default {
   data() {
     return {
       showModal: false,
-    }
+    };
   },
   watch: {
     theme(value) {
-      document.documentElement.classList.remove('dark', 'light', 'october')
+      document.documentElement.classList.remove("dark", "light", "october");
 
-      switch(value) {
-        case 'dark':
-          document.documentElement.classList.add('dark')
-          break
-        case 'light':
-          document.documentElement.classList.add('light')
-          break
-        case 'october':
-          document.documentElement.classList.add('dark', 'october')
-          break
+      switch (value) {
+        case "dark":
+          document.documentElement.classList.add("dark");
+          break;
+        case "light":
+          document.documentElement.classList.add("light");
+          break;
+        case "october":
+          document.documentElement.classList.add("dark", "october");
+          break;
+        case "auto dark":
+          document.documentElement.classList.add("auto dark");
+          break;
+        case "auto light":
+          document.documentElement.classList.add("auto light");
+
         default:
-          document.documentElement.classList.add('dark')
-          break
+          document.documentElement.classList.add("dark");
+          break;
       }
     },
   },
   computed: {
     home() {
-      return this.$route.name === 'home'
+      return this.$route.name === "home";
     },
     ligatures() {
-      return this.$store.state.settings.editor.ligatures
+      return this.$store.state.settings.editor.ligatures;
     },
     publicDoc() {
-      return this.$route.name === 'public_doc'
+      return this.$route.name === "public_doc";
     },
     showStripeModal() {
-      return this.$store.state.showStripeModal
+      return this.$store.state.showStripeModal;
     },
     sizes() {
-      if (this.mq.current === 'xs') return ['xs xs-plus']
-      if (this.mq.current === 'sm') return ['sm xs-plus sm-plus']
-      if (this.mq.current === 'md') return ['md xs-plus sm-plus md-plus']
-      if (this.mq.current === 'lg') return ['lg xs-plus sm-plus md-plus lg-plus']
-      if (this.mq.current === 'xl') return ['xl xs-plus sm-plus md-plus lg-plus xl-plus']
+      if (this.mq.current === "xs") return ["xs xs-plus"];
+      if (this.mq.current === "sm") return ["sm xs-plus sm-plus"];
+      if (this.mq.current === "md") return ["md xs-plus sm-plus md-plus"];
+      if (this.mq.current === "lg") return ["lg xs-plus sm-plus md-plus lg-plus"];
+      if (this.mq.current === "xl") return ["xl xs-plus sm-plus md-plus lg-plus xl-plus"];
 
-      return []
+      return [];
     },
     theme() {
-      return this.$store.state.settings.theme
+      return this.$store.state.settings.theme;
     },
   },
   methods: {
     closeChangelog() {
-      this.showChangelog = false
+      this.showChangelog = false;
     },
     hideModal() {
-      this.showModal = false
+      this.showModal = false;
     },
     refreshPage() {
-      window.location.reload(true)
+      window.location.reload(true);
     },
   },
   created() {
-    window.addEventListener('swupdated', (event) => {
-      this.showModal = true
-    })
+    window.addEventListener("swupdated", (event) => {
+      this.showModal = true;
+    });
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
+      const newColorScheme = event.matches ? "dark" : "light";
+    });
   },
-}
+};
 </script>
 
 <style>
@@ -121,30 +164,31 @@ export default {
 }
 
 body {
-  font-family: 'Inter', helvetica, sans-serif !important;
+  font-family: "Inter", helvetica, sans-serif !important;
   margin: 0;
 }
 
-body, pre {
+body,
+pre {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 pre {
-  font-family: 'Fira Code', monospace !important;
+  font-family: "Fira Code", monospace !important;
   margin: 0;
 }
 
 .CodeMirror .cm-m-markdown:not(.cm-comment) {
-  font-family: 'Inter', helvetica, sans-serif !important;
+  font-family: "Inter", helvetica, sans-serif !important;
 }
 
 .monospace {
-  font-family: 'Fira Code', monospace !important;
+  font-family: "Fira Code", monospace !important;
 }
 
 .sans-serif {
-  font-family: 'Inter', helvetica, sans-serif !important;
+  font-family: "Inter", helvetica, sans-serif !important;
 }
 
 .notification {
@@ -260,5 +304,19 @@ hr {
 
 .light .simplebar-scrollbar::before {
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Detect Theme */
+@media (prefers-color-scheme: light) {
+  body {
+    background: #fff;
+    color: #333;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #333;
+    color: #fff;
+  }
 }
 </style>

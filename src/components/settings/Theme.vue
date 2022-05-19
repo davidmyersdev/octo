@@ -5,11 +5,11 @@
     <Extendable scope="app.settings.theme">
       <div class="mb-4">
         <div>
-          <label class="button button-size-medium button-color-gray">
+          <label class="button button-size-medium button-color-gray ml-2">
             <input v-model="theme" type="radio" value="auto" class="radio" />
             <span class="ml-3">Auto</span>
           </label>
-          <label class="button button-size-medium button-color-gray">
+          <label class="button button-size-medium button-color-gray ml-2">
             <input v-model="theme" type="radio" value="dark" class="radio" />
             <span class="ml-3">Dark</span>
           </label>

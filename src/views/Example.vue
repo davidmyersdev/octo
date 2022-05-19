@@ -22,9 +22,15 @@ export default {
   },
   computed: {
     appearance() {
-      return this.$store.state.settings.theme === "october"
-        ? "dark"
-        : this.$store.state.settings.theme;
+      // return this.$store.state.settings.theme === "october" ? "dark" : this.$store.state.settings.theme;
+
+      if (this.$store.state.settings.theme === "light") { return "light"}
+      if (this.$store.state.settings.theme === "auto") {
+        const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+
+        return isDark ? "dark" : "light"
+    }
+        return "dark"
     },
     settings() {
       return this.$store.state.settings.editor;

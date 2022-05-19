@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import { doc } from "@firebase/firestore";
 import ChangeLog from "/src/components/ChangeLog.vue";
 import Modal from "/src/components/Modal.vue";
 
@@ -98,7 +99,32 @@ export default {
           break;
       }
     },
+    updateTheme(){
+      document.documentElement.classList.remove("auto", "dark", "light", "october");
+
+      switch (this.theme) {
+        case "dark":
+          document.documentElement.classList.add("dark");
+          break;
+        case "light":
+          document.documentElement.classList.add("light");
+          break;
+        case "october":
+          document.documentElement.classList.add("dark","october");
+          break;
+        case "auto":
+          const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+          const preferredTheme = isDark ? "dark" : "light"
+
+          document.documentElement.classList.add("auto", preferredTheme);
+          break;
+        default:
+          document.documentElement.classList.add("dark");
+          break;
+      }
+    }
   },
+
   computed: {
     home() {
       return this.$route.name === "home";
@@ -124,6 +150,10 @@ export default {
     theme() {
       return this.$store.state.settings.theme;
     },
+    // theme(_value){
+    //   this.updateTheme()
+    // },
+   
   },
   methods: {
     closeChangelog() {
@@ -135,13 +165,16 @@ export default {
     refreshPage() {
       window.location.reload(true);
     },
+    theme(_value){
+      this.updateTheme()
+    }
   },
   created() {
     window.addEventListener("swupdated", (event) => {
       this.showModal = true;
     });
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
-      const newColorScheme = event.matches ? "dark" : "light";
+      this.updateTheme();
     });
   },
 };
@@ -306,17 +339,5 @@ hr {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-/* Detect Theme */
-@media (prefers-color-scheme: light) {
-  body {
-    background: #fff;
-    color: #333;
-  }
-}
-@media (prefers-color-scheme: dark) {
-  body {
-    background: #333;
-    color: #fff;
-  }
-}
+
 </style>

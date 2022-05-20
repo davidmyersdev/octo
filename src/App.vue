@@ -76,32 +76,9 @@ export default {
   },
   watch: {
     theme(value){
-      this.updateTheme()
-    
-      switch (value) {
-        case "dark":
-          document.documentElement.classList.add("dark");
-          break;
-        case "light":
-          document.documentElement.classList.add("light");
-          break;
-        case "october":
-          document.documentElement.classList.add("dark", "october");
-          break;
-        case "auto dark":
-          document.documentElement.classList.add("auto dark");
-          break;
-        case "auto light":
-          document.documentElement.classList.add("auto light");
-
-        default:
-          document.documentElement.classList.add("dark");
-          break;
-      }
-    },
-   
+      this.updateTheme()}
   },
-
+    
   computed: {
     home() {
       return this.$route.name === "home";
@@ -141,7 +118,27 @@ export default {
     },
      updateTheme(){
       document.documentElement.classList.remove("auto", "dark", "light", "october");
-      },
+      switch (this.theme) {
+        case "dark":
+          document.documentElement.classList.add("dark");
+          break;
+        case "light":
+          document.documentElement.classList.add("light");
+          break;
+        case "october":
+          document.documentElement.classList.add("dark","october");
+          break;
+        case "auto":
+          const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+          const preferredTheme = isDark ? "dark" : "light"
+          document.documentElement.classList.add("auto", preferredTheme);
+          break;
+        default:
+          document.documentElement.classList.add("dark");
+          break;
+      }
+      
+    },
   },
     created() {
       window.addEventListener("swupdated", (event) => {

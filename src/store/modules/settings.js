@@ -36,7 +36,7 @@ export default {
       tabSize: 2,
     },
     loaded: false,
-    theme: 'dark',
+    theme: 'auto',
   }),
   getters: {
     // nothing yet

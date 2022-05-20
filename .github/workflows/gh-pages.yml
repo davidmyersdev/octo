@@ -1,9 +1,6 @@
 name: GitHub Pages
 
-on:
-  push:
-    branches:
-      - main
+on: workflow_dispatch
 
 jobs:
   deploy:

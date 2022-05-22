@@ -72,7 +72,6 @@ export default {
     theme() {
       return this.$store.state.settings.theme
     },
-
   },
   methods: {
     closeChangelog() {
@@ -80,6 +79,7 @@ export default {
     },
     updateTheme() {
       document.documentElement.classList.remove("auto", "dark", "light", "october")
+
       switch (this.theme) {
         case "dark":
           document.documentElement.classList.add("dark")
@@ -88,11 +88,12 @@ export default {
           document.documentElement.classList.add("light")
           break
         case "october":
-          document.documentElement.classList.add("dark","october")
+          document.documentElement.classList.add("dark", "october")
           break
         case "auto":
           const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches
           const preferredTheme = isDark ? "dark" : "light"
+
           document.documentElement.classList.add("auto", preferredTheme)
           break
         default:
@@ -102,6 +103,8 @@ export default {
     },
   },
   created() {
+    this.updateTheme()
+
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
       this.updateTheme()
     })

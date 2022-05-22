@@ -11,20 +11,21 @@
 </template>
 
 <script>
-import Editor from "/src/components/Editor.vue";
-import { fetchSharedDoc } from "/src/firebase/firestore";
+import { defineComponent } from 'vue'
+import Editor from "/src/components/Editor.vue"
+import { fetchSharedDoc } from "/src/firebase/firestore"
 
-import { setTitle } from "/src/common/title.js";
-import Doc, { unpack } from "/src/models/doc.js";
-import { open } from "/src/router.js";
+import { setTitle } from "/src/common/title.js"
+import Doc, { unpack } from "/src/models/doc.js"
+import { open } from "/src/router.js"
 
-import { ADD_DOCUMENT, EDIT_DOCUMENT, SET_DOCUMENT } from "/src/store/actions.js";
+import { ADD_DOCUMENT, EDIT_DOCUMENT, SET_DOCUMENT } from "/src/store/actions.js"
 
 const formatTags = (tags, delimiter = ", ") => {
-  return tags.map((tag) => `#${tag}`).join(delimiter);
-};
+  return tags.map((tag) => `#${tag}`).join(delimiter)
+}
 
-export default {
+export default defineComponent({
   name: "EditorView",
   components: {
     Editor,
@@ -47,57 +48,52 @@ export default {
     return {
       editor: null,
       placeholder: new Doc({ text: formatTags(this.$store.state.context.tags, " ") }),
-    };
+    }
   },
   watch: {
     doc() {
-      this.$refs.editable.clearHistory();
-      this.$refs.editable.focusEditor();
+      this.$refs.editable.clearHistory()
+      this.$refs.editable.focusEditor()
     },
     tags: {
       deep: true,
       handler() {
-        this.updateTitle();
+        this.updateTitle()
       },
     },
     header() {
-      this.updateTitle();
+      this.updateTitle()
     },
   },
   computed: {
     appearance() {
-      // return this.$store.state.settings.theme === "october" ? "dark" : this.$store.state.settings.theme;
-      if (this.$store.state.settings.theme === "light") { return "light"}
-      if (this.$store.state.settings.theme === "auto") {
-        const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+      if (this.$store.state.settings.theme === "october") { return "dark" }
 
-        return isDark ? "dark" : "light"
-    }
-        return "dark"
+      return this.$store.state.settings.theme
     },
     currentDoc() {
-      return this.$store.getters.currentDoc;
+      return this.$store.getters.currentDoc
     },
     doc() {
-      return this.$store.getters.decrypted.find((doc) => doc.id === this.id) || this.placeholder;
+      return this.$store.getters.decrypted.find((doc) => doc.id === this.id) || this.placeholder
     },
     settings() {
-      return this.$store.state.settings.editor;
+      return this.$store.state.settings.editor
     },
     tags() {
-      return this.doc.tags;
+      return this.doc.tags
     },
     header() {
-      return this.doc.headers[0];
+      return this.doc.headers[0]
     },
   },
   methods: {
     async updateTitle() {
-      setTitle(this.doc.header || formatTags(this.doc.tags));
+      setTitle(this.doc.header || formatTags(this.doc.tags))
     },
     async findSharedDocument() {
-      const docRef = await fetchSharedDoc({ docId: this.$route.params.id });
-      const serverDoc = docRef.data();
+      const docRef = await fetchSharedDoc({ docId: this.$route.params.id })
+      const serverDoc = docRef.data()
       const packed = {
         ...serverDoc,
         id: serverDoc.id || serverDoc.clientId,
@@ -108,18 +104,18 @@ export default {
         updatedAt: serverDoc.updatedAt ? serverDoc.updatedAt.toDate() : null,
         touchedAt: serverDoc.touchedAt ? serverDoc.touchedAt.toDate() : null,
         syncedAt: serverDoc.syncedAt.toDate(),
-      };
+      }
 
-      return unpack(packed, { privateKey: this.$store.state.settings.crypto.privateKey });
+      return unpack(packed, { privateKey: this.$store.state.settings.crypto.privateKey })
     },
     async input(text) {
       if (!this.readonly) {
         // ReadOnly mode means we are viewing a shared doc.
         // Todo: Create a new view for shared docs, and store shared docs in a new collection.
         if (this.id) {
-          this.$store.dispatch(EDIT_DOCUMENT, { id: this.doc.id, text });
+          this.$store.dispatch(EDIT_DOCUMENT, { id: this.doc.id, text })
         } else {
-          this.$store.dispatch(ADD_DOCUMENT, new Doc({ id: this.doc.id, text }));
+          this.$store.dispatch(ADD_DOCUMENT, new Doc({ id: this.doc.id, text }))
 
           open({
             name: "doc",
@@ -129,24 +125,25 @@ export default {
                 initialSelections: this.$refs.editable.getSelections(),
               },
             },
-          });
+          })
         }
       }
     },
   },
   beforeRouteUpdate(to, from, next) {
     if (to.name === "doc") {
-      this.$store.dispatch(SET_DOCUMENT, { id: to.params.id });
+      this.$store.dispatch(SET_DOCUMENT, { id: to.params.id })
     }
 
-    next();
+    next()
   },
   async mounted() {
-    this.updateTitle();
+    this.updateTitle()
+
     // might want to pass another prop to represent "shared" since readonly might have multiple use cases
     if (this.readonly) {
-      this.placeholder = await this.findSharedDocument();
+      this.placeholder = await this.findSharedDocument()
     }
   },
-};
+})
 </script>

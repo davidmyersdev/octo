@@ -12,7 +12,7 @@
     "preview:latest": "vite preview --port 8889"
   },
   "dependencies": {
-    "@writewithocto/vue-ink": "link:../vue-ink",
+    "@writewithocto/vue-ink": "^0.7.0",
     "deepmerge": "^4.2.2",
     "firebase": "^9.0.0",
     "force-graph": "^1.35.1",
@@ -22,7 +22,7 @@
     "mousetrap": "^1.6.5",
     "nanoid": "^3.3.1",
     "simplebar": "^5.3.6",
-    "vue": "^3.2.31",
+    "vue": "^3.2.36",
     "vue-router": "^4.0.13",
     "vue3-mq": "^3.0.3",
     "vuex": "^4.0.2"
@@ -39,7 +39,7 @@
     "vite": "^2.5.10",
     "vite-plugin-html": "^3.2.0",
     "vite-plugin-pwa": "^0.12.0",
-    "vue-tsc": "^0.34.15",
+    "vue-tsc": "^0.34.16",
     "workbox-build": "^6.3.0",
     "workbox-window": "^6.3.0"
   }

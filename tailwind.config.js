@@ -1,25 +1,18 @@
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  mode: 'jit',
-  purge: [
+  content: [
     './index.html',
     './src/**/*.vue',
   ],
-  darkMode: 'class', // or 'media' or 'class'
+  darkMode: 'class', // the default is 'media'
   theme: {
     extend: {
       colors: {
         brand: '#e06c75',
         darkest: '#121212',
-        gray: colors.trueGray,
+        gray: colors.neutral,
       },
-    },
-  },
-  variants: {
-    extend: {
-      backgroundColor: ['checked', 'disabled'],
-      boxShadow: ['dark'],
     },
   },
   plugins: [

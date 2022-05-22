@@ -29,126 +29,84 @@
       </div>
     </div>
     <ChangeLog v-if="!home && !publicDoc" />
-    <div>
-      <router-view :inheritAttrs="true" class="flex-grow flex-shrink min-h-0"></router-view>
-      <div
-        class="flex flex-col min-w-0 max-w-full rounded break-words bg-white notification fixed top-0 right-0 m-4 md:m-2 dark:bg-gray-800"
-        :class="{ hidden: !showModal }"
-      >
-        <div class="flex-auto p-4 notification-body">
-          <p class="mb-6">An update is available. Refresh the app to apply.</p>
-          <button
-            type="button"
-            class="button button-size-small button-color-blue text-gray-900 dark:text-gray-200"
-            @click="refreshPage"
-          >
-            Refresh Now
-          </button>
-          <button
-            type="button"
-            class="button button-size-small button-color-gray ml-2"
-            @click="hideModal"
-          >
-            Later
-          </button>
-        </div>
-      </div>
-    </div>
+    <router-view :inheritAttrs="true" class="flex-grow flex-shrink min-h-0"></router-view>
   </div>
 </template>
 
 <script>
-
-import ChangeLog from "/src/components/ChangeLog.vue";
-import Modal from "/src/components/Modal.vue";
+import ChangeLog from '/src/components/ChangeLog.vue'
 
 export default {
   name: "App",
   components: {
     ChangeLog,
-    Modal,
   },
   inject: ["mq"],
-  data() {
-    return {
-      showModal: false,
-    };
-  },
   watch: {
-    theme(value){
-      this.updateTheme()}
+    theme(value) {
+      this.updateTheme()
+    },
   },
-    
   computed: {
     home() {
-      return this.$route.name === "home";
+      return this.$route.name === "home"
     },
     ligatures() {
-      return this.$store.state.settings.editor.ligatures;
+      return this.$store.state.settings.editor.ligatures
     },
     publicDoc() {
-      return this.$route.name === "public_doc";
+      return this.$route.name === "public_doc"
     },
     showStripeModal() {
-      return this.$store.state.showStripeModal;
+      return this.$store.state.showStripeModal
     },
     sizes() {
-      if (this.mq.current === "xs") return ["xs xs-plus"];
-      if (this.mq.current === "sm") return ["sm xs-plus sm-plus"];
-      if (this.mq.current === "md") return ["md xs-plus sm-plus md-plus"];
-      if (this.mq.current === "lg") return ["lg xs-plus sm-plus md-plus lg-plus"];
-      if (this.mq.current === "xl") return ["xl xs-plus sm-plus md-plus lg-plus xl-plus"];
+      if (this.mq.current === "xs") return ["xs xs-plus"]
+      if (this.mq.current === "sm") return ["sm xs-plus sm-plus"]
+      if (this.mq.current === "md") return ["md xs-plus sm-plus md-plus"]
+      if (this.mq.current === "lg") return ["lg xs-plus sm-plus md-plus lg-plus"]
+      if (this.mq.current === "xl") return ["xl xs-plus sm-plus md-plus lg-plus xl-plus"]
 
-      return [];
+      return []
     },
     theme() {
-      return this.$store.state.settings.theme;
+      return this.$store.state.settings.theme
     },
-   
+
   },
   methods: {
     closeChangelog() {
-      this.showChangelog = false;
+      this.showChangelog = false
     },
-    hideModal() {
-      this.showModal = false;
-    },
-    refreshPage() {
-      window.location.reload(true);
-    },
-     updateTheme(){
-      document.documentElement.classList.remove("auto", "dark", "light", "october");
+    updateTheme() {
+      document.documentElement.classList.remove("auto", "dark", "light", "october")
       switch (this.theme) {
         case "dark":
-          document.documentElement.classList.add("dark");
-          break;
+          document.documentElement.classList.add("dark")
+          break
         case "light":
-          document.documentElement.classList.add("light");
-          break;
+          document.documentElement.classList.add("light")
+          break
         case "october":
-          document.documentElement.classList.add("dark","october");
-          break;
+          document.documentElement.classList.add("dark","october")
+          break
         case "auto":
           const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches
           const preferredTheme = isDark ? "dark" : "light"
-          document.documentElement.classList.add("auto", preferredTheme);
-          break;
+          document.documentElement.classList.add("auto", preferredTheme)
+          break
         default:
-          document.documentElement.classList.add("dark");
-          break;
+          document.documentElement.classList.add("dark")
+          break
       }
-      
     },
   },
-    created() {
-      window.addEventListener("swupdated", (event) => {
-        this.showModal = true;
-      });
-      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
-      this.updateTheme();
-      });
+  created() {
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
+      this.updateTheme()
+    })
   },
-};
+}
 </script>
 
 <style>
@@ -309,6 +267,4 @@ hr {
 .light .simplebar-scrollbar::before {
   background-color: rgba(0, 0, 0, 0.5);
 }
-
-
 </style>

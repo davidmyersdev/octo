@@ -38,13 +38,30 @@
             </label>
           </div>
         </div>
-        <label for="config-tab-size">Reading Speed (words per minute)</label>
-        <input v-model="readabilityWordsPerMinute" type="number" min="2" id="config-tab-size" class="form-text w-full">
-        <small class="text-gray-700">Reading speed is used to estimate document read time.</small>
+        <div class="mb-4">
+          <label for="config-tab-size">Reading Speed (words per minute)</label>
+          <input v-model="readabilityWordsPerMinute" type="number" min="2" id="config-tab-size" class="form-text w-full">
+          <small class="text-gray-700">Reading speed is used to estimate document read time.</small>
+        </div>
+        <div class="mb-4">
+          <label for="config-max-width">Max Width of Editor (in number of characters)</label>
+          <input v-model="readabilityMaxWidth" type="number" min="40" id="config-max-width" class="form-text w-full">
+          <small class="text-gray-700">Values between 60 and 100 are common.</small>
+        </div>
+      </div>
+      <div class="mb-4">
+        <h4 class="text-2xl mb-2">Formatting Toolbar</h4>
+        <p class="mb-2">Display the formatting toolbar in the editor.</p>
+        <div class="mb-4">
+          <label class="button button-size-medium button-color-gray items-center">
+            <input v-model="toolbar" type="checkbox" class="checkbox">
+            <span class="ml-3 ">Enable Toolbar</span>
+          </label>
+        </div>
       </div>
       <div class="mb-4">
         <h4 class="text-2xl mb-2">Font Ligatures</h4>
-        <p class="mb-2">Whether or not to show <a href="https://github.com/tonsky/FiraCode#whats-in-the-box" target="_blank" rel="noopener noreferrer">font ligatures</a> (<code class="monospace ligatures-normal">=></code>).</p>
+        <p class="mb-2">Render <a href="https://github.com/tonsky/FiraCode#whats-in-the-box" target="_blank" rel="noopener noreferrer">font ligatures</a> (e.g. <code class="monospace ligatures-normal">=></code>).</p>
         <div class="mb-4">
           <label class="button button-size-medium button-color-gray items-center">
             <input v-model="ligatures" type="checkbox" class="checkbox">
@@ -75,9 +92,11 @@ import {
   SET_EDITOR_KEY_MAP,
   SET_EDITOR_LIGATURES,
   SET_EDITOR_READABILITY_ENABLED,
+  SET_EDITOR_READABILITY_MAX_WIDTH,
   SET_EDITOR_READABILITY_WORDS_PER_MINUTE,
   SET_EDITOR_SPELLCHECK,
   SET_EDITOR_TAB_SIZE,
+  SET_EDITOR_TOOLBAR,
 } from '/src/store/modules/settings.js'
 
 export default {
@@ -105,6 +124,14 @@ export default {
       },
       set(value) {
         this.$store.commit(SET_EDITOR_READABILITY_ENABLED, value)
+      },
+    },
+    readabilityMaxWidth: {
+      get() {
+        return this.$store.state.settings.editor.readability.maxWidthInChars
+      },
+      set(value) {
+        this.$store.commit(SET_EDITOR_READABILITY_MAX_WIDTH, value)
       },
     },
     readabilityWordsPerMinute: {
@@ -137,6 +164,14 @@ export default {
       },
       set(value) {
         this.$store.dispatch(SET_EDITOR_TAB_SIZE, parseInt(value) || 2)
+      },
+    },
+    toolbar: {
+      get() {
+        return this.$store.state.settings.editor.toolbar
+      },
+      set(value) {
+        this.$store.commit(SET_EDITOR_TOOLBAR, value)
       },
     },
     vim: {

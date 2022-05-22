@@ -5,7 +5,7 @@
     <Extendable scope="app.settings.theme">
       <div class="mb-4">
         <div>
-          <label class="button button-size-medium button-color-gray ml-2">
+          <label class="button button-size-medium button-color-gray">
             <input v-model="theme" type="radio" value="auto" class="radio" />
             <span class="ml-3">Auto</span>
           </label>
@@ -28,19 +28,19 @@
 </template>
 
 <script>
-import { SET_THEME } from "/src/store/modules/settings.js";
+import { SET_THEME } from "/src/store/modules/settings.js"
 
 export default {
   name: "Theme",
   computed: {
     theme: {
       get() {
-        return this.$store.state.settings.theme;
+        return this.$store.state.settings.theme
       },
       set(value) {
-        this.$store.dispatch(SET_THEME, value);
+        this.$store.dispatch(SET_THEME, value)
       },
     },
   },
-};
+}
 </script>

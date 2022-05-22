@@ -8,9 +8,11 @@ export const SET_EDITOR_IMAGES_SHOW_CAPTIONS = 'SET_EDITOR_IMAGES_SHOW_CAPTIONS'
 export const SET_EDITOR_KEY_MAP = 'SET_EDITOR_KEY_MAP'
 export const SET_EDITOR_LIGATURES = 'SET_EDITOR_LIGATURES'
 export const SET_EDITOR_READABILITY_ENABLED = 'SET_EDITOR_READABILITY_ENABLED'
+export const SET_EDITOR_READABILITY_MAX_WIDTH = 'SET_EDITOR_READABILITY_MAX_WIDTH'
 export const SET_EDITOR_READABILITY_WORDS_PER_MINUTE = 'SET_EDITOR_READABILITY_WORDS_PER_MINUTE'
 export const SET_EDITOR_SPELLCHECK = 'SET_EDITOR_SPELLCHECK'
 export const SET_EDITOR_TAB_SIZE = 'SET_EDITOR_TAB_SIZE'
+export const SET_EDITOR_TOOLBAR = 'SET_EDITOR_TOOLBAR'
 export const SET_THEME = 'SET_THEME'
 export const SETTINGS_LOADED = 'SETTINGS_LOADED'
 
@@ -30,10 +32,12 @@ export default {
       ligatures: true,
       readability: {
         enabled: true,
+        maxWidthInChars: 100,
         wordsPerMinute: 225,
       },
       spellcheck: true,
       tabSize: 2,
+      toolbar: true,
     },
     loaded: false,
     theme: 'auto',
@@ -72,6 +76,9 @@ export default {
     [SET_EDITOR_READABILITY_ENABLED] (state, isEnabled) {
       state.editor.readability.enabled = isEnabled
     },
+    [SET_EDITOR_READABILITY_MAX_WIDTH] (state, maxWidthInChars) {
+      state.editor.readability.maxWidthInChars = maxWidthInChars
+    },
     [SET_EDITOR_READABILITY_WORDS_PER_MINUTE] (state, wordsPerMinute) {
       state.editor.readability.wordsPerMinute = wordsPerMinute
     },
@@ -80,6 +87,9 @@ export default {
     },
     [SET_EDITOR_TAB_SIZE] (state, tabSize) {
       state.editor.tabSize = tabSize
+    },
+    [SET_EDITOR_TOOLBAR] (state, isEnabled) {
+      state.editor.toolbar = isEnabled
     },
     [SET_THEME] (state, theme) {
       state.theme = theme

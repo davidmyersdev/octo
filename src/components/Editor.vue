@@ -1,9 +1,9 @@
 <template>
   <div @click="focusEditor" class="flex flex-col flex-grow">
-    <div class="md:container md:mx-auto flex flex-grow">
-      <div class="editor flex flex-col flex-grow min-w-0 p-4 md:px-16 md:py-0">
+    <div class="min-w-0 flex flex-grow p-4 md:px-16 md:py-0">
+      <div class="editor flex flex-col flex-grow w-full mx-auto" :style="styles">
         <div class="gutter h-8" @click="focusEditorStart"></div>
-        <Ink ref="editable" class="ink" :options="options" v-model="doc" />
+        <Ink ref="editable" class="ink-editor" :options="options" v-model="doc" />
         <p v-if="showReadabilityBar" class="text-gray-400 dark:text-gray-600 text-right">{{ numberOfWords }} words | {{ readTimeDescription }}</p>
         <div class="gutter h-8 flex-grow" @click="focusEditorEnd"></div>
       </div>
@@ -82,6 +82,14 @@ export default defineComponent({
         this.input(value)
       },
     },
+    styles() {
+      return {
+        maxWidth: `${this.maxWidthInChars}ch`,
+      }
+    },
+    maxWidthInChars() {
+      return this.settings.readability.maxWidthInChars
+    },
     mediumPlus() {
       return ['md', 'lg', 'xl'].includes(this.mq.current)
     },
@@ -104,8 +112,12 @@ export default defineComponent({
           images: this.settings.images.enabled,
           readonly: this.readonly,
           spellcheck: this.settings.spellcheck,
+          toolbar: this.settings.toolbar,
         },
         selections: this.initialSelections || [],
+        toolbar: {
+          upload: this.pro,
+        },
         vim: this.settings.keyMap === 'vim',
       }
     },
@@ -207,9 +219,17 @@ export default defineComponent({
   }
 
   .editor {
-    --ink-all-font-family: 'Inter', helvetica, sans-serif;
-    --ink-monospace-font-family: 'Fira Code', monospace;
+    --ink-flex-direction: column-reverse;
+    --ink-font-family: 'Inter', helvetica, sans-serif;
+    --ink-code-font-family: 'Fira Code', monospace;
     --ink-editor-padding: 0;
+    --ink-syntax-heading-color: #e06c75;
+  }
+
+  @media (min-width: 768px) {
+    .editor {
+      --ink-flex-direction: column;
+    }
   }
 
   .editor .editable {
@@ -222,15 +242,15 @@ export default defineComponent({
     width: 100%;
   }
 
-  .ink {
+  .ink-editor {
     height: 100%;
   }
 
-  :deep(.ink > div:first-child), :deep(.ink .cm-editor) {
+  :deep(.ink-editor > div:first-child), :deep(.ink-editor .cm-editor) {
     height: 100%;
   }
 
-  .ink :deep(.cm-editor.cm-focused) {
+  .ink-editor :deep(.cm-editor.cm-focused) {
     outline: none;
   }
 </style>

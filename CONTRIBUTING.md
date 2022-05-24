@@ -35,7 +35,7 @@ Here are a few resources to learn more about the process!
 - **Do not** comment on an Issue, Discussion, or Pull Request to engage in arguments or promote harassment. See our [Code of Conduct](https://github.com/writewithocto/octo/blob/main/CODE_OF_CONDUCT.md).
 - **Do not** disclose security vulnerabilities in public. Please email [david@octo.app](mailto:david@octo.app) instead.
 
-## Setting up the local dev environment
+## Set up the local dev environment
 
 Install the dependencies.
 
@@ -49,7 +49,7 @@ Copy `.env.example` to `.env`.
 cp .env.example .env
 ```
 
-### Launching the app
+### Launch the app
 
 Run the app in `development` mode.
 
@@ -67,9 +67,9 @@ _Note: Offline functionality is only available in `production` mode._
 yarn preview
 ```
 
-### Launching the Firebase Emulator
+### Launch the Firebase Emulator
 
-For more information about retrieving a Firebase access token, see the [docker-firebase-cli](https://github.com/voraciousdev/docker-firebase-cli) project.
+The emulator is not necessary for most changes. For more information about retrieving a Firebase access token, see the [docker-firebase-cli](https://github.com/voraciousdev/docker-firebase-cli) project.
 
 ```bash
 docker-compose up -d
@@ -77,11 +77,11 @@ docker-compose up -d
 
 The Firebase Emulator dashboard is available at [localhost:32777](http://localhost:32777).
 
-### Compiling the production build
+### Build the production app
 
 ```bash
 # compiles to ./dist
 yarn build
 ```
 
-The production build (static assets) will be available in the `dist` directory.
+The built files (static assets) will be available in the `dist` directory.

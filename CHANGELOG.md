@@ -6,7 +6,7 @@ Our format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Staged](https://github.com/writewithocto/octo/compare/v0.20.3...main)
 
-These changes have not been released yet. Add a description of your changes to this file.
+These changes have not been released yet. Add a description of your changes to this section.
 
 ### Bug Fixes
 

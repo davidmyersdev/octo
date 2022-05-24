@@ -32,7 +32,7 @@ const makeListeners = (context) => {
     makeListener('c', () => goTo('context'), context),
     makeListener('d', () => goTo('discarded'), context),
     makeListener('e', () => goTo('graph'), context),
-    makeListener('n', () => goTo('dashboard'), context),
+    makeListener('n', () => goTo('new_doc'), context),
     makeListener('p', () => goTo('daily'), context),
     makeListener('r', () => goTo('recent'), context),
     makeListener('s', () => goTo('settings'), context),

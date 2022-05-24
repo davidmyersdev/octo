@@ -152,9 +152,6 @@ export default defineComponent({
     },
   },
   methods: {
-    clearHistory() {
-      this.$refs.editable.instance.load(this.text)
-    },
     focusEditor() {
       this.$refs.editable.focus()
     },
@@ -184,12 +181,6 @@ export default defineComponent({
     },
     async input(text) {
       this.$emit('input', text)
-    },
-    async onReady(instance) {
-      this.editor = instance
-
-      this.focusInitial()
-      this.clearHistory()
     },
     async toggleMeta() {
       this.$store.dispatch(SET_RIGHT_SIDEBAR_VISIBILITY, !this.showRightSidebar)

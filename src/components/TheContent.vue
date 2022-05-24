@@ -1,17 +1,33 @@
 <template>
   <SimpleBar class="the-content">
     <TheNavbar/>
-    <router-view :inheritAttrs="true" :key="$route.fullPath" class="flex"></router-view>
+    <router-view :inheritAttrs="true" :key="routeKey" class="flex"></router-view>
   </SimpleBar>
 </template>
 
 <script>
+import { nanoid } from 'nanoid'
 import TheNavbar from '/src/components/TheNavbar.vue'
 
 export default {
   name: 'TheContent',
   components: {
     TheNavbar,
+  },
+  data() {
+    return {
+      routeKey: null,
+    }
+  },
+  watch: {
+    $route: {
+      deep: true,
+      handler(route) {
+        if (route.params.preserve) { return }
+
+        this.routeKey = nanoid()
+      },
+    },
   },
 }
 </script>

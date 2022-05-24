@@ -17,7 +17,6 @@ import { fetchSharedDoc } from "/src/firebase/firestore"
 
 import { setTitle } from "/src/common/title.js"
 import Doc, { unpack } from "/src/models/doc.js"
-import { open } from "/src/router.js"
 
 import { ADD_DOCUMENT, EDIT_DOCUMENT, SET_DOCUMENT } from "/src/store/actions.js"
 
@@ -51,10 +50,6 @@ export default defineComponent({
     }
   },
   watch: {
-    doc() {
-      this.$refs.editable.clearHistory()
-      this.$refs.editable.focusEditor()
-    },
     tags: {
       deep: true,
       handler() {
@@ -88,8 +83,24 @@ export default defineComponent({
     },
   },
   methods: {
-    async updateTitle() {
-      setTitle(this.doc.header || formatTags(this.doc.tags))
+    async input(text) {
+      if (!this.readonly) {
+        // ReadOnly mode means we are viewing a shared doc.
+        // Todo: Create a new view for shared docs, and store shared docs in a new collection.
+        if (this.id) {
+          this.$store.dispatch(EDIT_DOCUMENT, { id: this.doc.id, text })
+        } else {
+          this.$store.dispatch(ADD_DOCUMENT, new Doc({ id: this.doc.id, text }))
+
+          this.$router.replace({
+            name: "doc",
+            params: {
+              id: this.doc.id,
+              preserve: true,
+            },
+          })
+        }
+      }
     },
     async findSharedDocument() {
       const docRef = await fetchSharedDoc({ docId: this.$route.params.id })
@@ -108,29 +119,11 @@ export default defineComponent({
 
       return unpack(packed, { privateKey: this.$store.state.settings.crypto.privateKey })
     },
-    async input(text) {
-      if (!this.readonly) {
-        // ReadOnly mode means we are viewing a shared doc.
-        // Todo: Create a new view for shared docs, and store shared docs in a new collection.
-        if (this.id) {
-          this.$store.dispatch(EDIT_DOCUMENT, { id: this.doc.id, text })
-        } else {
-          this.$store.dispatch(ADD_DOCUMENT, new Doc({ id: this.doc.id, text }))
-
-          open({
-            name: "doc",
-            params: {
-              id: this.doc.id,
-              props: {
-                initialSelections: this.$refs.editable.getSelections(),
-              },
-            },
-          })
-        }
-      }
+    updateTitle() {
+      setTitle(this.doc.header || formatTags(this.doc.tags))
     },
   },
-  beforeRouteUpdate(to, from, next) {
+  beforeRouteUpdate(to, _from, next) {
     if (to.name === "doc") {
       this.$store.dispatch(SET_DOCUMENT, { id: to.params.id })
     }

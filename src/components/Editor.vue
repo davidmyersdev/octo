@@ -40,9 +40,9 @@ export default defineComponent({
   props: {
     appearance: {
       type: String,
-      default: () => ('dark'),
+      default: () => ('auto'),
       validator: (value) => (
-        ['dark', 'light'].includes(value)
+        ['auto', 'dark', 'light'].includes(value)
       ),
     },
     initialFocus: {

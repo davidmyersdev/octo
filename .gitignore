@@ -8,6 +8,7 @@ node_modules
 # Editor directories and files
 .idea
 .vscode
+.yarn/install-state.gz
 *.suo
 *.ntvs*
 *.njsproj

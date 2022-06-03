@@ -225,6 +225,13 @@ export const router = createRouter({
           component: () => import('/src/views/Example.vue'),
           props: { url: '/example.md' },
         },
+        {
+          path: 'file-editor/:id',
+          name: 'file_editor',
+          meta: { title: 'File Editor' },
+          component: () => import('/src/views/FileEditor.vue'),
+          props: true,
+        },
         // quick action
         {
           path: 'quick-action',

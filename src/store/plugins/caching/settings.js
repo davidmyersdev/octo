@@ -15,6 +15,7 @@ import {
   SET_EDITOR_SPELLCHECK,
   SET_EDITOR_TAB_SIZE,
   SET_EDITOR_TOOLBAR,
+  SET_EXPERIMENTAL,
   SET_THEME,
   SETTINGS_LOADED,
 } from '/src/store/modules/settings'
@@ -48,6 +49,7 @@ export default (store) => {
       case SET_EDITOR_SPELLCHECK:
       case SET_EDITOR_TAB_SIZE:
       case SET_EDITOR_TOOLBAR:
+      case SET_EXPERIMENTAL:
       case SET_THEME:
         cache.setItem(CACHE_KEY, unwrap(state.settings))
 

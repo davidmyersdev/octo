@@ -33,6 +33,7 @@ import {
 
 export default defineComponent({
   name: 'Editor',
+  emits: ['input'],
   components: {
     Ink,
   },
@@ -72,6 +73,14 @@ export default defineComponent({
     return {
       editor: null,
     }
+  },
+  watch: {
+    text: {
+      deep: true,
+      handler(value) {
+        this.$refs.editable.instance.load(value)
+      },
+    },
   },
   computed: {
     doc: {
@@ -169,15 +178,6 @@ export default defineComponent({
     },
     async focusEditorStart() {
       this.$refs.editable.focus()
-    },
-    getCursor() {
-      return this.editor.getCursor()
-    },
-    getKeyMap() {
-      return this.editor.getOption('keyMap')
-    },
-    getSelections() {
-      return Array.from(this.$refs.editable.selections())
     },
     async input(text) {
       this.$emit('input', text)

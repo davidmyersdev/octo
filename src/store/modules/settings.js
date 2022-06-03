@@ -13,6 +13,7 @@ export const SET_EDITOR_READABILITY_WORDS_PER_MINUTE = 'SET_EDITOR_READABILITY_W
 export const SET_EDITOR_SPELLCHECK = 'SET_EDITOR_SPELLCHECK'
 export const SET_EDITOR_TAB_SIZE = 'SET_EDITOR_TAB_SIZE'
 export const SET_EDITOR_TOOLBAR = 'SET_EDITOR_TOOLBAR'
+export const SET_EXPERIMENTAL = 'SET_EXPERIMENTAL'
 export const SET_THEME = 'SET_THEME'
 export const SETTINGS_LOADED = 'SETTINGS_LOADED'
 
@@ -39,6 +40,7 @@ export default {
       tabSize: 2,
       toolbar: true,
     },
+    experimental: false,
     loaded: false,
     theme: 'auto',
   }),
@@ -90,6 +92,9 @@ export default {
     },
     [SET_EDITOR_TOOLBAR] (state, isEnabled) {
       state.editor.toolbar = isEnabled
+    },
+    [SET_EXPERIMENTAL] (state, isEnabled) {
+      state.experimental = isEnabled
     },
     [SET_THEME] (state, theme) {
       state.theme = theme

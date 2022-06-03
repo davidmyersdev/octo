@@ -1,26 +1,16 @@
-# System files
+*.crswap
+*.log*
+*.njsproj
+*.ntvs*
+*.sln
+*.suo
+*.sw?
 .DS_Store
-
-# Vendor and build files
-node_modules
-/dist
-
-# Editor directories and files
+.env
+.env.*.local
+.env.local
 .idea
 .vscode
 .yarn/install-state.gz
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# Local env files
-.env
-.env.local
-.env.*.local
-
-# Log files
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+/dist
+node_modules

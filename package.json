@@ -42,5 +42,6 @@
     "vue-tsc": "^0.34.16",
     "workbox-build": "^6.3.0",
     "workbox-window": "^6.3.0"
-  }
+  },
+  "packageManager": "yarn@3.2.1"
 }

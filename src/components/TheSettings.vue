@@ -9,26 +9,17 @@
         <Editor class="mb-8" />
         <Encryption class="mb-8" />
         <Export class="mb-8" />
+        <Experimental class="mb-8" />
       </Extendable>
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts" setup>
 import Banner from '/src/components/Banner.vue'
 import Editor from '/src/components/settings/Editor.vue'
 import Encryption from '/src/components/settings/Encryption.vue'
+import Experimental from '/src/components/settings/Experimental.vue'
 import Export from '/src/components/settings/Export.vue'
 import Theme from '/src/components/settings/Theme.vue'
-
-export default {
-  name: 'TheSettings',
-  components: {
-    Banner,
-    Editor,
-    Encryption,
-    Export,
-    Theme,
-  },
-}
 </script>

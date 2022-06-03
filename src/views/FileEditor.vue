@@ -1,0 +1,50 @@
+<template>
+  <Editor :appearance="appearance" :settings="settings" :text="text" @input="input" />
+</template>
+
+<script lang="ts" setup>
+import { computed, ref, watchEffect } from 'vue'
+import { useStore } from 'vuex'
+
+import Debouncer from '/src/common/debouncer'
+import Editor from '/src/components/Editor.vue'
+import { useFiles } from '/src/stores/files'
+
+const { id } = defineProps({ id: String })
+const fileStore = useFiles()
+const store = useStore()
+const debouncer = new Debouncer(800)
+const appearance = computed(() => {
+  if (store.state.settings.theme === 'october') { return 'dark' }
+
+  return store.state.settings.theme as string
+})
+const settings = computed(() => {
+  return store.state.settings.editor
+})
+
+const text = ref('')
+const file = computed(() => (fileStore.files.find(file => file.id === id)))
+
+watchEffect(async () => {
+  if (file?.value) {
+    // @ts-ignore
+    await file.value.handle.createWritable()
+    const fileHandle = await file.value.handle.getFile()
+
+    if (fileHandle) {
+      text.value = await fileHandle.text()
+    }
+  }
+})
+
+const input = async (text: string) => {
+  // @ts-ignore
+  debouncer.debounce(file.value.id, async () => {
+    // @ts-ignore
+    const writable = await file.value.handle.createWritable()
+    writable.write(text)
+    writable.close()
+  })
+}
+</script>

@@ -114,6 +114,19 @@
             <span>Save Docs</span>
           </span>
         </router-link>
+        <div v-if="experimentalFeaturesEnabled">
+          <button @click="openFile" class="sidebar-link w-full" title="Experimental">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+            </svg>
+            <span class="action flex flex-grow items-center justify-between ml-6 md:ml-3">
+              <span>Open File</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-300 dark:text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+            </span>
+          </button>
+        </div>
         <h6 class="sidebar-label">
           <span>Quick Filters</span>
           <span class="flex">
@@ -199,12 +212,16 @@
 </template>
 
 <script>
+import { nanoid } from 'nanoid'
 import Key from '/src/components/Key.vue'
 import ModK from '/src/components/ModK.vue'
 import ModKKey from '/src/components/ModKKey.vue'
 import TagLink from '/src/components/TagLink.vue'
 import TheLogo from '/src/components/TheLogo.vue'
 import TheSpookyLogo from '/src/components/TheSpookyLogo.vue'
+import { open } from '/src/router'
+import { useFiles } from '/src/stores/files'
+import { AsyncIterable } from '/src/utils/iterables'
 
 import {
   DEACTIVATE_CONTEXT,
@@ -241,6 +258,9 @@ export default {
     document() {
       return this.$store.getters.currentDoc
     },
+    experimentalFeaturesEnabled() {
+      return this.$store.state.settings.experimental
+    },
     mediumPlus() {
       return ['md', 'lg', 'xl'].includes(this.mq.current)
     },
@@ -260,6 +280,25 @@ export default {
   methods: {
     clearContext() {
       this.$store.dispatch(DEACTIVATE_CONTEXT)
+    },
+    async openFile() {
+      const id = nanoid()
+      const [handle] = await window.showOpenFilePicker({ types: [{ description: 'Markdown Files', accept: { 'text/markdown': ['.markdown', '.md'] } }] })
+
+      try {
+        const { id } = await AsyncIterable(useFiles().files).any((file) => {
+          return file.handle.isSameEntry(handle)
+        })
+
+        if (id) {
+          return open({ name: 'file_editor', params: { id }})
+        }
+      } catch {}
+
+      await handle.createWritable()
+
+      useFiles().add({ id, handle })
+      open({ name: 'file_editor', params: { id } })
     },
     setContext(context) {
       this.$store.dispatch(SET_CONTEXT_TAGS, { context })

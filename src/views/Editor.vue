@@ -66,9 +66,6 @@ export default defineComponent({
 
       return this.$store.state.settings.theme
     },
-    currentDoc() {
-      return this.$store.getters.currentDoc
-    },
     doc() {
       return this.$store.getters.decrypted.find((doc) => doc.id === this.id) || this.placeholder
     },
@@ -120,7 +117,7 @@ export default defineComponent({
       return unpack(packed, { privateKey: this.$store.state.settings.crypto.privateKey })
     },
     updateTitle() {
-      setTitle(this.doc.header || formatTags(this.doc.tags))
+      setTitle(this.header || formatTags(this.doc.tags))
     },
   },
   beforeRouteUpdate(to, _from, next) {

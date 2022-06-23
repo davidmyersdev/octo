@@ -75,11 +75,8 @@ export default defineComponent({
     }
   },
   watch: {
-    text: {
-      deep: true,
-      handler(value) {
-        this.$refs.editable.instance.load(value)
-      },
+    text(value) {
+      // this.$refs.editable.instance.load(value)
     },
   },
   computed: {

@@ -8,20 +8,20 @@
 
 <p align="center">
   <a href="https://octo.app">
-    <img height="100" src="resources/logo.png">
+    <img height="100" src="public/img/logo.png">
   </a>
 </p>
 
-<p align="center">The Notes App for Knowledge Workers</p>
+<p align="center">Build your knowledge base</p>
 
-[![screenshot](resources/screenshot.png)](https://octo.app)
+[![screenshot](public/img/screenshot.png)](https://octo.app)
 
 ## Features
 
 - [x] Dark and light themes
 - [x] Hybrid plain-text Markdown rendering
 - [x] Syntax highlighting for many common languages (in code blocks)
-- [x] Client-side (end-to-end) encryption support
+- [x] End-to-End Encryption (E2EE) support
 - [x] Cross-platform (desktop and mobile)
 - [x] Offline-first progressive web app
 - [x] Regex full-text search

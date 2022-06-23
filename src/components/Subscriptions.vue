@@ -14,12 +14,12 @@
     </div>
     <div class="flex flex-col justify-center lg:flex-row gap-4">
       <div class="flex-shrink flex-basis-1/2 bg-gray-100 dark:bg-darkest shadow rounded p-4">
-        <h3 class="flex items-center text-2xl font-bold mb-2">
-          <span>Personal</span>
-          <span v-if="user && !subscribed" class="bg-gray-200 dark:bg-gray-900 text-base font-normal py-0.5 px-2 rounded ml-2">Active</span>
+        <h3 class="text-3xl flex justify-between mb-2">
+          <span class="font-bold">Personal</span>
+          <span class="font-semibold ml-4"><span>$0</span> <span class="text-base font-normal">per month</span></span>
         </h3>
-        <p class="mb-4">For hobbyists, students, and content consumers</p>
-        <p class="text-4xl font-bold mb-4">$0 <span class="text-base font-normal">/mo</span></p>
+        <p v-if="user && !subscribed" class="bg-gray-200 dark:bg-gray-900 text-base font-normal py-0.5 px-2 rounded ml-2">Active</p>
+        <p class="mb-4">For individuals who want to maintain a personal knowledge base</p>
         <div v-if="!user" class="flex flex-col gap-2 mb-4">
           <button @click="signInGithub" :disabled="!online" class="button-base button-size-medium button-color-surface shadow w-full whitespace-nowrap justify-center">
             <GitHubIcon class="h-5 w-5" />
@@ -58,17 +58,17 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
-            <span>End-to-end encryption</span>
+            <span>End-to-End Encryption (E2EE)</span>
           </li>
         </ul>
       </div>
       <div class="flex-grow flex-shrink flex-basis-1/2 bg-gray-100 dark:bg-darkest shadow rounded p-4 ring ring-blue-400 ring-opacity-75">
-        <h3 class="flex items-center text-2xl font-bold mb-2">
-          <span>Pro</span>
-          <span v-if="user && subscribed" class="bg-gray-200 dark:bg-gray-900 text-base font-normal py-0.5 px-2 rounded ml-2">Active</span>
+        <h3 class="text-3xl flex justify-between mb-2">
+          <span class="font-bold">Pro</span>
+          <span class="font-semibold ml-4"><span class="text-blue-400">$4</span> <span class="text-base font-normal">per month</span></span>
         </h3>
-        <p class="mb-4">For professionals, authors, and content creators</p>
-        <p class="text-4xl font-bold mb-4"><s class="font-normal text-3xl">$7</s> <span class="text-blue-400 ml-1">$4</span> <span class="text-base font-normal">/mo</span></p>
+        <p v-if="user && subscribed" class="bg-gray-200 dark:bg-gray-900 text-base font-normal py-0.5 px-2 rounded ml-2">Active</p>
+        <p class="mb-4">For professionals who want to collaborate on documentation and more</p>
         <div v-if="!user" class="flex flex-col gap-2 mb-4">
           <button @click="signInGithubPro" :disabled="!online" class="button-base button-size-medium button-color-surface shadow w-full whitespace-nowrap justify-center text-blue-400">
             <GitHubIcon class="h-5 w-5" />
@@ -83,6 +83,7 @@
             <span class="action ml-3">Continue with Twitter</span>
           </button>
         </div>
+        <p class="text-gray-500 mb-4">You will be redirected to Stripe for checkout after you sign up with your preferred auth provider.</p>
         <div v-if="user && !subscribed" class="flex flex-col gap-2 mb-4">
           <button @click="upgrade" :disabled="!online" class="button-base button-size-medium button-color-surface shadow w-full whitespace-nowrap justify-center text-blue-400">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -103,7 +104,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
-            <span>Unlimited shared docs</span>
+            <span>Unlimited public docs</span>
           </li>
           <li class="flex gap-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -115,16 +116,13 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
-            <span>Unlimited cross-posting <sup>1</sup> (coming soon)</span>
+            <span>Realtime collaboration (coming soon)</span>
           </li>
           <li class="flex gap-4">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
             <span>1% of revenue <a href="https://stripe.com/climate" target="_blank" rel="noopener noreferrer" class="text-blue-400">funds carbon removal</a></span>
-          </li>
-          <li class="mt-4 text-sm">
-            <span><sup>1</sup> Publish directly to dev.to, hashnode.com, and medium.com</span>
           </li>
         </ul>
       </div>
@@ -139,11 +137,12 @@ import GitHubIcon from '/src/components/icons/GitHub.vue'
 import GoogleIcon from '/src/components/icons/Google.vue'
 import TwitterIcon from '/src/components/icons/Twitter.vue'
 import { addCheckout } from '/src/firebase/firestore'
+import { open } from '/src/router'
 
 import { SET_STRIPE_MODAL_VISIBILITY } from '/src/store.js'
 
 export default {
-  name: 'Subscription',
+  name: 'Subscriptions',
   components: {
     GitHubIcon,
     GoogleIcon,
@@ -274,6 +273,8 @@ export default {
             this.subscribe()
           }
         })
+      } else {
+        open({ name: 'new_doc' })
       }
     }).catch((error) => {
       switch(error.code) {

@@ -1,6 +1,6 @@
 <template>
   <nav class="relative flex flex-wrap items-center content-between py-3 px-4 z-index-10 md:hidden p-6 w-full">
-    <router-link class="pt-1 pb-1 mr-4 text-lg whitespace-no-wrap flex justify-between items-center" :to="{ name: 'dashboard' }">
+    <router-link class="pt-1 pb-1 mr-4 text-lg whitespace-no-wrap flex justify-between items-center" :to="{ name: 'new_doc' }">
       <TheSpookyLogo v-if="october" class="h-9" />
       <TheLogo v-else size="2.25rem" />
     </router-link>
@@ -50,7 +50,7 @@ export default {
       return this.doc && this.$route.name === 'doc'
     },
     isDashboard() {
-      return this.$route.name === 'dashboard'
+      return this.$route.name === 'new_doc'
     },
     october() {
       return this.$store.state.settings.theme === 'october'
@@ -67,7 +67,7 @@ export default {
         })
       }
 
-      open({ name: 'dashboard' })
+      open({ name: 'new_doc' })
     },
   },
 }

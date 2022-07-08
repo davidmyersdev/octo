@@ -10,6 +10,9 @@ const { parsed } = dotenv.config()
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    // sourcemap: true,
+  },
   plugins: [
     vue(),
     createHtmlPlugin({ inject: { data: parsed } }),

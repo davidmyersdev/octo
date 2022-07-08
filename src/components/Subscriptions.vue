@@ -222,6 +222,9 @@ export default {
     signOut() {
       getAuth().signOut()
     },
+    trackCtaContinue() {
+      window.fathom.trackGoal(import.meta.env.VITE_FATHOM_EVENT_CTA_CONTINUE, 0)
+    },
     trackCtaContinueWithPro() {
       window.fathom.trackGoal(import.meta.env.VITE_FATHOM_EVENT_CTA_CONTINUE_WITH_PRO, 0)
     },

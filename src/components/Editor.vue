@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import Ink from '@writewithocto/vue-ink'
+import Ink from '@writewithocto/ink/vue'
 import { defineComponent } from 'vue'
 
 import { subscription } from '/src/common/account'
@@ -76,7 +76,10 @@ export default defineComponent({
   },
   watch: {
     text(value) {
-      // this.$refs.editable.instance.load(value)
+      // If a text value is being passed in that doesn't match the editor, then we likely need to load a new doc.
+      if (value !== this.$refs.editable.instance.doc()) {
+        this.$refs.editable.instance.load(value)
+      }
     },
   },
   computed: {

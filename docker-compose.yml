@@ -5,8 +5,10 @@ services:
     environment:
       - FIREBASE_PROJECT_ID=${FIREBASE_PROJECT_ID}
       - FIREBASE_TOKEN=${FIREBASE_TOKEN}
-    image: voraciousdev/firebase-cli:1.0.1
+    image: voraciousdev/firebase-tools
     ports:
+      - 4400:4400
+      - 4500:4500
       - 32775:32775
       - 32776:32776
       - 32777:32777

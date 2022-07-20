@@ -45,5 +45,8 @@
     "workbox-build": "^6.3.0",
     "workbox-window": "^6.3.0"
   },
-  "packageManager": "yarn@3.2.1"
+  "packageManager": "yarn@3.2.1",
+  "resolutions": {
+    "terser": "^5.14.2"
+  }
 }

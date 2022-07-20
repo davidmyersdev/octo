@@ -20,12 +20,13 @@
 </template>
 
 <script>
-import Ink from '@writewithocto/ink/vue'
+import Ink from 'ink-mde/vue'
 import { defineComponent } from 'vue'
 
 import { subscription } from '/src/common/account'
 import { readTime, wordCount } from '/src/common/readability.ts'
 import { addFile } from '/src/firebase/storage.ts'
+import { plugins } from '/src/vendor/plugins'
 
 import {
   SET_RIGHT_SIDEBAR_VISIBILITY,
@@ -91,10 +92,17 @@ export default defineComponent({
         this.input(value)
       },
     },
-    styles() {
-      return {
-        maxWidth: `${this.maxWidthInChars}ch`,
-      }
+    docs() {
+      return this.$store.getters.decrypted.reduce((docs, doc) => {
+        if (doc.id && doc.headers.length > 0) {
+          docs.push({
+            id: doc.id,
+            title: doc.headers[0],
+          })
+        }
+
+        return docs
+      }, [])
     },
     maxWidthInChars() {
       return this.settings.readability.maxWidthInChars
@@ -118,11 +126,14 @@ export default defineComponent({
         interface: {
           appearance: this.appearance,
           attribution: false,
+          autocomplete: true,
           images: this.settings.images.enabled,
           readonly: this.readonly,
           spellcheck: this.settings.spellcheck,
           toolbar: this.settings.toolbar,
         },
+        // Todo: Make these configurable.
+        plugins: plugins({ docs: this.docs, tags: this.tags }),
         selections: this.initialSelections || [],
         toolbar: {
           upload: this.pro,
@@ -155,6 +166,14 @@ export default defineComponent({
     },
     spellcheck() {
       return this.settings.spellcheck
+    },
+    styles() {
+      return {
+        maxWidth: `${this.maxWidthInChars}ch`,
+      }
+    },
+    tags() {
+      return this.$store.getters.allTags;
     },
     wordsPerMinute() {
       return this.settings.readability.wordsPerMinute

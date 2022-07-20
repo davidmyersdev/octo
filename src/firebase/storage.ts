@@ -1,5 +1,5 @@
 import { getAuth } from 'firebase/auth'
-import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
+import { getStorage, ref, uploadBytes } from 'firebase/storage'
 import mime from 'mime-types'
 import { nanoid } from 'nanoid'
 

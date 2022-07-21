@@ -5,7 +5,7 @@ const codeBlockIndicators = ['`````', '````', '```']
 const codeInlineIndicators = ['``', '`']
 const trashMultiline = new RegExp(codeBlockIndicators.map(ind => `${ind}.*?${ind}`).join('|'))
 const trashInline = new RegExp(codeInlineIndicators.map(ind => `${ind}[^\n]*?${ind}`).join('|'))
-const trashBin = new RegExp(`${trashMultiline}|${trashInline}`)
+const trashBin = new RegExp(`${trashMultiline.source}|${trashInline.source}`)
 
 const imageTagRegex = /!\[(.*?)\]\((.+?)\)/g
 const tagsRegex = new RegExp(`${trashBin.source}|(${hashtagWithBoundary.source})`, 'gsi')
@@ -65,8 +65,6 @@ export const parseImages = (text: string) => {
 export const parseTags = (text: string) => {
   const matches = parse(tagsRegex, text)
   const tags = new Set()
-
-  console.log({ matches, tagsRegex })
 
   matches.forEach((match) => {
     if (match && match[1]) {

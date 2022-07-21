@@ -7,12 +7,55 @@ export const unicodeNumbers = /0-9\u0660-\u0669\u06F0-\u06F9\u07C0-\u07C9\u0966-
 export const hashtagSpecialChars = /_\u200c\u200d\ua67e\u05be\u05f3\u05f4\uff5e\u301c\u309b\u309c\u30a0\u30fb\u3003\u0f0b\u0f0c\u00b7/
 export const hashSigns = /[#＃]/
 export const hashtagAlpha = new RegExp(`[${unicodeLettersAndMarks.source}]`)
-export const hashtagAlphaNumeric = new RegExp(`[${unicodeLettersAndMarks.source}${unicodeNumbers.source}${hashtagSpecialChars.source}]`)
+export const hashtagAlphaNumeric = new RegExp(`[${unicodeLettersAndMarks.source}${unicodeNumbers.source}${hashtagSpecialChars.source}\-]`)
 export const hashtagBoundaryChars = new RegExp(`[^&${unicodeLettersAndMarks.source}${unicodeNumbers.source}${hashtagSpecialChars.source}]`)
-export const hashtagBoundary = new RegExp(`(?:^|$|${hashtagBoundaryChars.source})`)
-export const hashtag = new RegExp(`(?:${hashSigns.source})(?!${/\ufe0f|\u20e3/.source})(?:${hashtagAlphaNumeric.source}*${hashtagAlpha.source}${hashtagAlphaNumeric.source}*)`, 'i')
+export const hashtagBoundary = /(?<boundary>^|\s)/
+export const hashtag = new RegExp(`(?<sign>${hashSigns.source})(?!${/\ufe0f|\u20e3/.source})(?<tag>${hashtagAlphaNumeric.source}+)`, 'i')
 export const hashtagWithBoundary = new RegExp(`(?:${hashtagBoundary.source})(?:${hashtag.source})`, 'i')
+export const hashtagStart = new RegExp(`${hashtagBoundary.source}(?<sign>${hashSigns.source})(?!${/\ufe0f|\u20e3/.source})`, 'i')
+
+const formatMatch = (match: RegExpMatchArray) => {
+  const boundary = match.groups?.boundary || ''
+  const sign = match.groups?.sign || ''
+  const tag = match.groups?.tag || ''
+
+  return {
+    index: Number(match.index),
+    length: boundary.length + sign.length + tag.length,
+    boundary,
+    sign,
+    tag,
+  }
+}
 
 export const matchHashtag = (text: string) => {
-  return hashtagWithBoundary.exec(text)?.at(0)
+  const match = text.match(hashtagWithBoundary)
+
+  if (!match) { return null }
+
+  return formatMatch(match)
+}
+
+export const matchHashtags = (text: string) => {
+  const matches = text.matchAll(new RegExp(hashtagWithBoundary.source, 'gi'))
+
+  return [...matches].map((match) => {
+    return formatMatch(match)
+  })
+}
+
+export const matchStart = (text: string) => {
+  const match = text.match(hashtagStart)
+
+  if (!match) { return null }
+
+  return formatMatch(match)
+}
+
+export const matchStarts = (text: string) => {
+  const matches = text.matchAll(new RegExp(hashtagStart.source, 'gi'))
+
+  return [...matches].map((match) => {
+    return formatMatch(match)
+  })
 }

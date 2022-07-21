@@ -1,7 +1,7 @@
 // https://discuss.codemirror.net/t/adding-support-for-the-additional-inline-syntax-to-markdown/3099
 import { HighlightStyle, syntaxHighlighting } from '@codemirror/language'
 import { Tag } from '@lezer/highlight'
-import { hashSigns, hashtagBoundaryChars, matchHashtag } from '/lib/hashtags/parser'
+import { matchHashtags } from '/lib/hashtagged/parser'
 import { completions } from './completions'
 import type { InlineContext, MarkdownConfig } from '@lezer/markdown'
 import type * as Ink from 'ink-mde'
@@ -41,36 +41,36 @@ const Hashtag: MarkdownConfig = {
     {
       name: 'Hashtag',
       parse: makeParser((context) => {
-        // If not the first char, verify a valid "boundary" char is present before this one.
-        // Verify the current start char is a hash sign.
-        // Match the hashtag.
-        const relativeIndex = context.index - context.inline.offset
-
-        if (relativeIndex > 0) {
-          const previousChar = context.inline.slice(context.index - 1, context.index)
-
-          if (!hashtagBoundaryChars.test(previousChar)) { return -1 }
-        }
-
-        const currentChar = context.inline.slice(context.index, context.index + 1)
-
-        if (!hashSigns.test(currentChar)) { return -1 }
-
-        const match = matchHashtag(
+        const match = matchHashtags(
           context.inline.slice(
             context.index,
             context.inline.end
           )
-        )
+        ).shift()
 
         if (match) {
-          const offset = match.length
+          // This feels a little hacky, but since the parser scans incrementally char-by-char, we need to make sure we
+          // aren't just matching a hashtag boundary as the start of the line (^) every time we see a hash sign.
+          if (context.charCode === '#'.charCodeAt(0)) {
+            const posBefore = Math.max(context.index - 1, context.inline.offset)
+
+            if (posBefore < context.index) {
+              const before = context.inline.slice(posBefore, posBefore + 1)
+
+              if (!/\s/.test(before)) {
+                return -1
+              }
+            }
+          }
+
+          const offset = match.length - match.boundary.length
+          const offsetIndex = match.index + match.boundary.length
 
           return context.inline.addElement(
             context.inline.elt(
               'Hashtag',
-              context.index,
-              context.index + offset
+              context.index + offsetIndex,
+              context.index + offset + offsetIndex
             )
           )
         }

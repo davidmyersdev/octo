@@ -91,7 +91,7 @@ import DiscardableAction from '/src/components/DiscardableAction.vue'
 import TagLink from '/src/components/TagLink.vue'
 
 import CodeSandbox from '/src/common/code_sandbox.js'
-import { parseCodeblocks } from '/src/common/parsers.js'
+import { parseCodeblocks } from '/src/common/parsers'
 import { open } from '/src/router.js'
 
 import {

@@ -1,6 +1,13 @@
 [
   {
     "changes": [
+      "Tags are now properly highlighted and support a wide array of unicode letters and marks. Additionally, when typing a new tag, suggestions will appear based on your existing tags. Press enter to use the active tag suggestion.",
+      "Direct doc references are finally here! Start typing the top-level title of another doc with the [[my other doc]] syntax for suggestions to appear."
+    ],
+    "timestamp": "2022-07-21T22:12:55-0400"
+  },
+  {
+    "changes": [
       "The Formatting Toolbar is here! You can toggle it per-device in App Settings.",
       "You can now improve the readability of active docs by customizing the max-width to better fit your needs (defaults to 100 characters).",
       "There is a new 'Auto' appearance option that will match your system theme. It is the default for new users, and you can update it for yourself in App Settings.",

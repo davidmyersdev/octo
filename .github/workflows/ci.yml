@@ -1,8 +1,9 @@
-name: CI Checks
-
+name: Continuous Integration
 on:
-  pull_request
-
+  pull_request:
+  push:
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest

@@ -1,7 +1,5 @@
-name: GitHub Pages
-
+name: deploy
 on: workflow_dispatch
-
 jobs:
   deploy:
     runs-on: ubuntu-latest

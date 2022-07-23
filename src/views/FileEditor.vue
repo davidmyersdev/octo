@@ -1,11 +1,12 @@
 <template>
-  <Editor :appearance="appearance" :settings="settings" :text="text" @input="input" />
+  <Editor :appearance="appearance" :settings="settings" :doc="doc" @input="input" />
 </template>
 
 <script lang="ts" setup>
 import { computed, ref, watchEffect } from 'vue'
 import { useStore } from 'vuex'
 
+import Doc from '/src/models/doc'
 import Debouncer from '/src/common/debouncer'
 import Editor from '/src/components/Editor.vue'
 import { useFiles } from '/src/stores/files'
@@ -23,7 +24,7 @@ const settings = computed(() => {
   return store.state.settings.editor
 })
 
-const text = ref('')
+const doc = ref(new Doc())
 const file = computed(() => (fileStore.files.find(file => file.id === id)))
 
 watchEffect(async () => {
@@ -33,7 +34,7 @@ watchEffect(async () => {
     const fileHandle = await file.value.handle.getFile()
 
     if (fileHandle) {
-      text.value = await fileHandle.text()
+      doc.value.update({ text: await fileHandle.text() })
     }
   }
 })

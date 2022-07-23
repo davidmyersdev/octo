@@ -66,9 +66,9 @@ class Doc {
 
   update({ text }) {
     this.text = text
-    this.headers = parseHeaders(text)
-    this.tags = parseTags(text)
-    this.tasks = parseTasks(text)
+    this.headers.splice(0, this.headers.length, ...parseHeaders(text))
+    this.tags.splice(0, this.tags.length, ...parseTags(text))
+    this.tasks.splice(0, this.tasks.length, ...parseTasks(text))
     this.updatedAt = new Date()
     this.touchedAt = new Date()
   }
@@ -77,7 +77,7 @@ class Doc {
 export const pack = async (doc, { preferEncryption = null, publicKey = null }) => {
   const packed = Object.assign({}, {
     ...doc,
-    // These values are derived from the doc, so we don't need to store them.
+    // These values are derived from the text, so we don't need to store them.
     headers: [],
     tags: [],
     tasks: [],

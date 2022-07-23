@@ -3,7 +3,7 @@
     <div class="min-w-0 flex flex-grow p-4 md:px-16 md:py-0">
       <div class="editor flex flex-col flex-grow w-full mx-auto" :style="styles">
         <div class="gutter h-8" @click="focusEditorStart"></div>
-        <Ink ref="editable" class="ink-editor" :options="options" v-model="doc" />
+        <Ink ref="editable" class="ink-editor" :options="options" v-model="text" />
         <p v-if="showReadabilityBar" class="text-gray-400 dark:text-gray-600 text-right">{{ numberOfWords }} words | {{ readTimeDescription }}</p>
         <div class="gutter h-8 flex-grow" @click="focusEditorEnd"></div>
       </div>
@@ -22,7 +22,6 @@
 <script>
 import Ink from 'ink-mde/vue'
 import { defineComponent } from 'vue'
-
 import { subscription } from '/src/common/account'
 import { readTime, wordCount } from '/src/common/readability.ts'
 import { addFile } from '/src/firebase/storage.ts'
@@ -47,6 +46,9 @@ export default defineComponent({
         ['auto', 'dark', 'light'].includes(value)
       ),
     },
+    doc: {
+      type: Object,
+    },
     initialFocus: {
       type: String,
       default: () => ('any'),
@@ -66,9 +68,6 @@ export default defineComponent({
     settings: {
       type: Object,
     },
-    text: {
-      type: String,
-    },
   },
   data() {
     return {
@@ -84,17 +83,9 @@ export default defineComponent({
     },
   },
   computed: {
-    doc: {
-      get() {
-        return this.text
-      },
-      set(value) {
-        this.input(value)
-      },
-    },
     docs() {
-      return this.$store.getters.decrypted.reduce((docs, doc) => {
-        if (doc.id && doc.headers.length > 0) {
+      return this.$store.getters.kept.reduce((docs, doc) => {
+        if (doc.id && doc.id !== this.doc.id && doc.headers.length > 0) {
           docs.push({
             id: doc.id,
             title: doc.headers[0],
@@ -133,13 +124,19 @@ export default defineComponent({
           toolbar: this.settings.toolbar,
         },
         // Todo: Make these configurable.
-        plugins: plugins({ docs: this.docs, tags: this.tags }),
+        plugins: this.plugins,
         selections: this.initialSelections || [],
         toolbar: {
           upload: this.pro,
         },
         vim: this.settings.keyMap === 'vim',
       }
+    },
+    plugins() {
+      // For now, passing the current context in allows us to not recalculate the plugins on every doc change. Since the
+      // object we're passing in is a reference, the editor automatically gets access to the live lists of docs and tags
+      // without needing to recalculate.
+      return plugins(this)
     },
     pro() {
       return subscription.value.pro
@@ -173,7 +170,17 @@ export default defineComponent({
       }
     },
     tags() {
-      return this.$store.getters.allTags;
+      return this.$store.getters.allTags.filter((tag) => {
+        return !this.doc.tags.includes(tag)
+      });
+    },
+    text: {
+      get() {
+        return this.doc.text
+      },
+      set(value) {
+        this.input(value)
+      },
     },
     wordsPerMinute() {
       return this.settings.readability.wordsPerMinute
@@ -216,9 +223,6 @@ export default defineComponent({
         })
       )
     },
-  },
-  mounted() {
-    this.focusEditor()
   },
 })
 </script>

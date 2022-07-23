@@ -1,9 +1,10 @@
 <template>
-  <Editor :appearance="appearance" :settings="settings" :text="text" />
+  <Editor :appearance="appearance" :settings="settings" :doc="doc" />
 </template>
 
 <script>
 import Editor from '/src/components/Editor.vue'
+import Doc from '/src/models/doc'
 
 export default {
   name: 'ExampleView',
@@ -17,7 +18,7 @@ export default {
   },
   data() {
     return {
-      text: '',
+      doc: new Doc(),
     }
   },
   computed: {
@@ -34,7 +35,7 @@ export default {
     fetch(this.url)
       .then((response) => response.text())
       .then((text) => {
-        this.text = text
+        this.doc.update({ text })
       })
   },
 }

@@ -2,10 +2,10 @@
   <Editor
     ref="editable"
     :appearance="appearance"
+    :doc="doc"
     :initialSelections="initialSelections"
     :readonly="readonly"
     :settings="settings"
-    :text="doc.text"
     @input="input"
   />
 </template>
@@ -80,14 +80,14 @@ export default defineComponent({
     },
   },
   methods: {
-    async input(text) {
+    input(text) {
       if (!this.readonly) {
         // ReadOnly mode means we are viewing a shared doc.
         // Todo: Create a new view for shared docs, and store shared docs in a new collection.
         if (this.id) {
-          this.$store.dispatch(EDIT_DOCUMENT, { id: this.doc.id, text })
+          this.$store.commit(EDIT_DOCUMENT, { id: this.doc.id, text })
         } else {
-          this.$store.dispatch(ADD_DOCUMENT, new Doc({ id: this.doc.id, text }))
+          this.$store.commit(ADD_DOCUMENT, new Doc({ id: this.doc.id, text }))
 
           this.$router.replace({
             name: "doc",

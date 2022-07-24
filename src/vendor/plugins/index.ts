@@ -1,5 +1,6 @@
 import { hashtags } from './hashtags'
 import { references } from './references'
+import { urls } from './urls'
 
 export interface Config {
   docs: Doc[]
@@ -15,5 +16,6 @@ export const plugins = (config: Config) => {
   return [
     ...hashtags(config),
     ...references(config),
+    ...urls(config),
   ]
 }

@@ -6,6 +6,7 @@
     "lib": ["esnext", "dom"],
     "module": "esnext",
     "moduleResolution": "node",
+    "noEmit": true,
     "paths": {
       "/lib/*": ["./lib/*"],
       "/src/*": ["./src/*"],

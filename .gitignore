@@ -6,10 +6,14 @@
 *.suo
 *.sw?
 .DS_Store
+.cache
 .env
 .env.*.local
 .env.local
 .idea
+.nitro
+.nuxt
+.output
 .yarn/install-state.gz
-/dist
+dist
 node_modules

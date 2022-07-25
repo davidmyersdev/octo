@@ -1,0 +1,8 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll": false,
+    "source.fixAll.eslint": false
+  },
+  "prettier.enable": false,
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

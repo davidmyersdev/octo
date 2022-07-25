@@ -10,7 +10,6 @@
 .env.*.local
 .env.local
 .idea
-.vscode
 .yarn/install-state.gz
 /dist
 node_modules

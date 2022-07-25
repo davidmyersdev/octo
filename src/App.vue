@@ -114,7 +114,6 @@ export default {
 
 <style>
 .october {
-  --ink-syntax-heading-color: #eb6123;
   --ink-syntax-name-color: #eb6123;
   --ink-syntax-name-label-color: #abb2bf;
   --ink-syntax-name-variable-color: #ebda23;

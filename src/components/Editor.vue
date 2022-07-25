@@ -237,7 +237,6 @@ export default defineComponent({
     --ink-font-family: 'Inter', helvetica, sans-serif;
     --ink-code-font-family: 'Fira Code', monospace;
     --ink-editor-padding: 0;
-    --ink-syntax-heading-color: #e06c75;
   }
 
   @media (min-width: 768px) {

@@ -3,35 +3,27 @@
 
 # Octo
 
-<p align="center">
-  <a href="https://octo.app">
-    <img height="100" src="public/img/logo.png">
-  </a>
-</p>
-
-<p align="center">Build your knowledge base</p>
+Build your knowledge base
 
 [![screenshot](public/img/screenshot.png)](https://octo.app)
 
 ## Features
 
 - [x] Dark and light themes
-- [x] Hybrid plain-text Markdown rendering
-- [x] Syntax highlighting for many common languages (in code blocks)
+- [x] Plain-text docs with in-place styling
+- [x] Syntax highlighting for many languages
+- [x] Keyboard navigation and shortcuts
 - [x] End-to-End Encryption (E2EE) support
-- [x] Cross-platform (desktop and mobile)
-- [x] Offline-first progressive web app
-- [x] Regex full-text search
-- [x] Tag-based file organization
-- [x] Drag-and-drop or paste to upload files
-- [x] Keyboard shortcuts
-- [x] Context switching
-- [x] Modern technologies
-- [x] Vim Mode support
+- [x] Cross-platform and offline-first web app
+- [x] Full-text exact match or regex search
+- [x] Organize your docs with plain-text hashtags
+- [x] File attachments
+- [x] Context management
+- [x] Optional Vim Mode editing
 
 ## Contributions
 
-Please read the [Contributing Guide](https://github.com/voraciousdev/octo/blob/main/CONTRIBUTING.md) and the [Code of Conduct](https://github.com/voraciousdev/octo/blob/main/CODE_OF_CONDUCT.md) before making a Pull Request.
+Please read the [Contributing Guide](https://github.com/voraciousdev/octo/blob/main/CONTRIBUTING.md) and the [Code of Conduct](https://voracious.link/code-of-conduct) before making a Pull Request.
 
 ## Supporting Octo
 

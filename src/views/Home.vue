@@ -53,7 +53,7 @@
         <div class="grid lg:grid-cols-2 gap-8 mt-4">
           <div>
             <h3 class="text-xl lg:text-2xl text-gray-400">Transparency</h3>
-            <p class="lg:text-xl mt-2">You get full visibility of the <a class="underline" href="https://github.com/writewithocto/octo" target="_blank" rel="noopener noreferrer">codebase</a> that powers Octo. This means you can participate in feature discussions, track bugs, and collaborate with the developer community that relies on us.</p>
+            <p class="lg:text-xl mt-2">You get full visibility of the <a class="underline" href="https://github.com/voraciousdev/octo" target="_blank" rel="noopener noreferrer">codebase</a> that powers Octo. This means you can participate in feature discussions, track bugs, and collaborate with the developer community that relies on us.</p>
           </div>
           <div>
             <h3 class="text-xl lg:text-2xl text-gray-400">Security &amp; Reliability</h3>
@@ -101,7 +101,7 @@
             <router-link :to="{ name: 'terms_and_conditions' }" class="font-semibold">Terms &amp; Conditions</router-link>
             <div class="flex items-center gap-2 mt-1 lg:mt-0">
               <a href="https://twitter.com/writewithocto" target="_blank" rel="noopener noreferrer"><TwitterIcon class="h-6 lg:h-4" /></a>
-              <a href="https://github.com/writewithocto" target="_blank" rel="noopener noreferrer"><GitHubIcon class="h-6 lg:h-4" /></a>
+              <a href="https://github.com/voraciousdev" target="_blank" rel="noopener noreferrer"><GitHubIcon class="h-6 lg:h-4" /></a>
             </div>
           </div>
           <p class="mt-4">&copy; 2022 Octo</p>

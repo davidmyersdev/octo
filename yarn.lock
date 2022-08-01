@@ -2650,7 +2650,7 @@ __metadata:
     deepmerge-ts: ^4.2.1
     firebase: ^9.9.0
     force-graph: ^1.35.1
-    ink-mde: ^0.9.3
+    ink-mde: ^0.11.0
     localforage: ^1.10.0
     mime-types: ^2.1.35
     moment: ^2.29.4
@@ -4726,9 +4726,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ink-mde@npm:^0.9.3":
-  version: 0.9.3
-  resolution: "ink-mde@npm:0.9.3"
+"ink-mde@npm:^0.11.0":
+  version: 0.11.0
+  resolution: "ink-mde@npm:0.11.0"
   dependencies:
     "@codemirror/autocomplete": ^6.0.4
     "@codemirror/commands": ^6.0.1
@@ -4738,10 +4738,13 @@ __metadata:
     "@codemirror/search": ^6.0.0
     "@codemirror/state": ^6.0.1
     "@codemirror/view": ^6.0.3
+    "@lezer/common": ^1.0.0
     "@lezer/highlight": ^1.0.0
     "@lezer/markdown": ^1.0.1
     "@replit/codemirror-vim": ^6.0.1
-  checksum: 7c9865843fdda4db8b4978291a44fca95a6c778521b4e4f939b82c908676dd704df5beb4f36cfe705e511a91349c38e35487dd3c2c16a967c88ffefba7400ede
+    solid-js: ^1.4.8
+    style-mod: ^4.0.0
+  checksum: dadbec42aefd713038dc2c221a78541ecb165267b6e8fe85a9e499440493fb1ec20720e4ed7f426aae605a0a645beac47876480755014b81da8e1088f8fad127
   languageName: node
   linkType: hard
 
@@ -6194,6 +6197,13 @@ __metadata:
     ip: ^1.1.5
     smart-buffer: ^4.2.0
   checksum: dd9194293059d737759d5c69273850ad4149f448426249325c4bea0e340d1cf3d266c3b022694b0dcf5d31f759de23657244c481fc1e8322add80b7985c36b5e
+  languageName: node
+  linkType: hard
+
+"solid-js@npm:^1.4.8":
+  version: 1.4.8
+  resolution: "solid-js@npm:1.4.8"
+  checksum: deb79463dab3af7889fffaa15f1be92be0c0732d46e74bd2848208d974389e967d69462eb940fbfc0cdbdf7d0a3677a7c9517da5fe6e2a25534e077b555d5704
   languageName: node
   linkType: hard
 

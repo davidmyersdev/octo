@@ -33,7 +33,7 @@ Here are a few resources to learn more about the process!
 - **Do not** submit a Pull Request for an undocumented feature idea. All feature ideas should start as a [Discussion](https://github.com/voracious/octo/discussions) to ensure we have the chance to properly vet the idea.
 - **Do not** submit a Pull Request purely for code quality (linting, refactoring, reorganizing, etc).
 - **Do not** comment on an Issue, Discussion, or Pull Request to engage in arguments or promote harassment. See our [Code of Conduct](https://github.com/voracious/octo/blob/main/CODE_OF_CONDUCT.md).
-- **Do not** disclose security vulnerabilities in public. Please email [david@octo.app](mailto:david@octo.app) instead.
+- **Do not** disclose security vulnerabilities in public. Please email [david@voracious.dev](mailto:david@voracious.dev) instead.
 
 ## Set up the local dev environment
 

@@ -2650,7 +2650,7 @@ __metadata:
     deepmerge-ts: ^4.2.1
     firebase: ^9.9.0
     force-graph: ^1.35.1
-    ink-mde: ^0.11.0
+    ink-mde: ^0.11.1
     localforage: ^1.10.0
     mime-types: ^2.1.35
     moment: ^2.29.4
@@ -4726,9 +4726,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ink-mde@npm:^0.11.0":
-  version: 0.11.0
-  resolution: "ink-mde@npm:0.11.0"
+"ink-mde@npm:^0.11.1":
+  version: 0.11.1
+  resolution: "ink-mde@npm:0.11.1"
   dependencies:
     "@codemirror/autocomplete": ^6.0.4
     "@codemirror/commands": ^6.0.1
@@ -4744,7 +4744,7 @@ __metadata:
     "@replit/codemirror-vim": ^6.0.1
     solid-js: ^1.4.8
     style-mod: ^4.0.0
-  checksum: dadbec42aefd713038dc2c221a78541ecb165267b6e8fe85a9e499440493fb1ec20720e4ed7f426aae605a0a645beac47876480755014b81da8e1088f8fad127
+  checksum: c7ec34c4d343972fcc0ae64b17322b3c7bf29c81bb1f7d3e77f992fc6b240294a4c313f601d8f3b23294ed9670b8c9eb8c6c632267d34a65a8fb02874251fbe3
   languageName: node
   linkType: hard
 

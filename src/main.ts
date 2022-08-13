@@ -8,6 +8,7 @@ import App from '/src/App.vue'
 import Extendable from '/src/components/Extendable.vue'
 import SimpleBar from '/lib/simplebar/src/SimpleBar.vue'
 import { init } from '/src/firebase'
+import { globalConfig } from '/src/global'
 import { router } from '/src/router'
 import { store } from '/src/store'
 import { caching } from '/src/stores/plugins'
@@ -75,17 +76,19 @@ app.use(Vue3Mq, {
 })
 app.mount('#app')
 
-getAuth().onAuthStateChanged(async (user) => {
-  store.commit(SET_USER, user)
+if (globalConfig.supportsFirebase) {
+  getAuth().onAuthStateChanged(async (user) => {
+    store.commit(SET_USER, user)
 
-  if (user) {
-    await user.getIdToken(true)
+    if (user) {
+      await user.getIdToken(true)
 
-    const decodedToken = await user.getIdTokenResult()
-    const pro = decodedToken.claims.ambassador || (decodedToken.claims.stripeRole === 'subscriber')
+      const decodedToken = await user.getIdTokenResult()
+      const pro = decodedToken.claims.ambassador || (decodedToken.claims.stripeRole === 'subscriber')
 
-    store.commit(SET_SUBSCRIPTION, {
-      pro,
-    })
-  }
-})
+      store.commit(SET_SUBSCRIPTION, {
+        pro,
+      })
+    }
+  })
+}

@@ -29,6 +29,7 @@ env:
   VITE_STRIPE_MONTHLY_PRICE: ""
 jobs:
   deploy_vercel:
+    environment: preview
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

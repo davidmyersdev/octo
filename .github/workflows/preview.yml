@@ -1,0 +1,44 @@
+name: preview
+on:
+  pull_request:
+  workflow_dispatch:
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+  VITE_APP_CDN_URL: ""
+  VITE_DISCORD_INVITE_LINK: ""
+  VITE_FATHOM_EVENT_CTA_CONTINUE_WITH_PRO: ""
+  VITE_FATHOM_EVENT_CTA_MODAL_UPGRADE: ""
+  VITE_FATHOM_EVENT_CTA_OPEN_APP: ""
+  VITE_FATHOM_EVENT_CTA_SETTINGS_UPGRADE: ""
+  VITE_FATHOM_EVENT_CTA_SIGN_UP_NOW: ""
+  VITE_FATHOM_EVENT_CTA_TRY_IT_OUT: ""
+  VITE_FATHOM_EVENT_CTA_UPGRADE_TO_PRO: ""
+  VITE_FATHOM_GOAL_ACCOUNT_REGISTRATION: ""
+  VITE_FATHOM_GOAL_CTA_SYNC_DOCS: ""
+  VITE_FATHOM_SITE_ID: ""
+  VITE_FATHOM_SITE_URL: ""
+  VITE_FIREBASE_API_KEY: ""
+  VITE_FIREBASE_APP_ID: ""
+  VITE_FIREBASE_AUTH_DOMAIN: ""
+  VITE_FIREBASE_DATABASE_URL: ""
+  VITE_FIREBASE_LOG_LEVEL: ""
+  VITE_FIREBASE_MESSAGING_SENDER_ID: ""
+  VITE_FIREBASE_PROJECT_ID: ""
+  VITE_FIREBASE_STORAGE_BUCKET: ""
+  VITE_STRIPE_MONTHLY_PRICE: ""
+jobs:
+  deploy_vercel:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+      - run: yarn install --immutable
+      - run: yarn vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+      - run: yarn vercel build --token=${{ secrets.VERCEL_TOKEN }}
+      - run: cp ./.vercel/output/static/manifest.webmanifest ./.vercel/output/static/manifest.json
+      - run: cp ./.vercel/output/static/sw.js ./.vercel/output/static/service-worker.js
+      - run: yarn vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}

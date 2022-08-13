@@ -85,7 +85,7 @@
         </div>
       </div>
     </section>
-    <section class="p-4 lg:p-8 bg-gray-900">
+    <section v-if="supportsFirebase" class="p-4 lg:p-8 bg-gray-900">
       <div class="container mx-auto">
         <div class="max-w-[100ch] mx-auto mb-8">
           <h2 id="pricing" class="text-2xl lg:text-4xl font-bold">Pricing</h2>
@@ -116,6 +116,7 @@ import GitHubIcon from '/src/components/icons/GitHub.vue'
 import TwitterIcon from '/src/components/icons/Twitter.vue'
 import Subscriptions from '/src/components/Subscriptions.vue'
 import TheLogo from '/src/components/TheLogo.vue'
+import { globalConfig } from '/src/global'
 
 export default {
   name: 'Home',
@@ -124,6 +125,11 @@ export default {
     TwitterIcon,
     Subscriptions,
     TheLogo,
+  },
+  data() {
+    return {
+      supportsFirebase: globalConfig.supportsFirebase,
+    }
   },
   computed: {
     discordInviteLink() {

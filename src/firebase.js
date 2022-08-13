@@ -2,6 +2,7 @@ import { initializeApp } from 'firebase/app'
 import { connectAuthEmulator, getAuth } from 'firebase/auth'
 import { connectFirestoreEmulator, getFirestore, initializeFirestore, setLogLevel } from 'firebase/firestore'
 import { connectStorageEmulator, getStorage } from 'firebase/storage'
+import { updateGlobalConfig } from '/src/global'
 
 // firebase config
 const config = {
@@ -14,7 +15,23 @@ const config = {
   storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
 }
 
+const verifyConfig = () => {
+  const missingKeys = Object.keys(config).filter(key => !config[key])
+
+  if (missingKeys.length > 0) {
+    console.warn(
+      `Skipping Firebase initialization. Missing keys: [${missingKeys.join(', ')}]`
+    )
+
+    return false
+  }
+
+  return true
+}
+
 export const init = () => {
+  if (!verifyConfig()) { return }
+
   // init firebase
   const app = initializeApp(config)
 
@@ -47,4 +64,6 @@ export const init = () => {
       import.meta.env.VITE_FIREBASE_EMULATOR_STORAGE_PORT,
     )
   }
+
+  updateGlobalConfig({ supportsFirebase: true })
 }

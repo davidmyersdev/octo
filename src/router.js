@@ -1,16 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
-
-// landing page
 import Home from '/src/views/Home.vue'
-
 import { store } from '/src/store'
-
 import {
   SET_DOCUMENT,
   SET_SHOW_WELCOME,
 } from '/src/store/actions.js'
-
 import { setTitle } from '/src/common/title.js'
+import { globalConfig } from '/src/global'
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -44,7 +40,7 @@ export const router = createRouter({
           path: '',
           meta: { track: true },
           beforeEnter(to, from, next) {
-            if (store.state.showWelcome) {
+            if (globalConfig.supportsFirebase && store.state.showWelcome) {
               next({ name: 'home' })
             } else {
               next({ name: 'new_doc' })
@@ -72,7 +68,7 @@ export const router = createRouter({
           beforeEnter(to, from, next) {
             store.dispatch(SET_DOCUMENT, { id: null })
 
-            if (store.state.showWelcome) {
+            if (globalConfig.supportsFirebase && store.state.showWelcome) {
               localStorage.setItem('octo/welcome/v1', 'done')
               store.dispatch(SET_SHOW_WELCOME, false)
 

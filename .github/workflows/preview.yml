@@ -29,7 +29,9 @@ env:
   VITE_STRIPE_MONTHLY_PRICE: ""
 jobs:
   deploy_vercel:
-    environment: preview
+    environment:
+      name: preview
+      url: ${{ steps.deploy.outputs.url }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -42,4 +44,7 @@ jobs:
       - run: yarn vercel build --token=${{ secrets.VERCEL_TOKEN }}
       - run: cp ./.vercel/output/static/manifest.webmanifest ./.vercel/output/static/manifest.json
       - run: cp ./.vercel/output/static/sw.js ./.vercel/output/static/service-worker.js
-      - run: yarn vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+      - id: deploy
+        run: |
+          url=`yarn vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}`
+          echo "::set-output name=url::$url"

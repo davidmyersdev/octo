@@ -1,24 +1,16 @@
 {
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
-    "allowJs": true,
     "esModuleInterop": true,
-    "jsx": "preserve",
     "lib": ["esnext", "dom"],
-    "module": "esnext",
-    "moduleResolution": "node",
-    "noEmit": true,
     "paths": {
       "/lib/*": ["./lib/*"],
       "/src/*": ["./src/*"],
       "/types/*": ["./types/*"]
     },
-    "resolveJsonModule": true,
     "sourceMap": true,
     "strict": true,
     "target": "esnext",
-    "types": ["vite/client"],
     "useDefineForClassFields": true
-  },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+  }
 }

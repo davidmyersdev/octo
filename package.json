@@ -33,6 +33,7 @@
     "vuex": "^4.0.2"
   },
   "devDependencies": {
+    "@pinia/nuxt": "^0.4.0",
     "@tailwindcss/aspect-ratio": "^0.4.0",
     "@types/mime-types": "^2.1.1",
     "@types/node": "^18.0.6",

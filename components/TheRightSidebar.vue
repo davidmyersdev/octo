@@ -87,8 +87,8 @@
 <script>
 import moment from 'moment'
 
-import DiscardableAction from '/src/components/DiscardableAction.vue'
-import TagLink from '/src/components/TagLink.vue'
+import DiscardableAction from '/components/DiscardableAction.vue'
+import TagLink from '/components/TagLink.vue'
 
 import CodeSandbox from '/src/common/code_sandbox.js'
 import { parseCodeblocks } from '/src/common/parsers'
@@ -169,7 +169,7 @@ export default {
     async discardDocument() {
       this.$store.dispatch(DISCARD_DOCUMENT, { id: this.doc.id })
 
-      open({ name: 'new_doc' })
+      open({ name: 'docs-new' })
     },
     async duplicateDocument() {
       const newDocId = await this.$store.dispatch(DUPLICATE_DOCUMENT, { id: this.doc.id })

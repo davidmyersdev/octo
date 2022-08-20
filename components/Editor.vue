@@ -3,7 +3,9 @@
     <div class="min-w-0 flex flex-grow p-4 md:px-16 md:py-0">
       <div class="editor flex flex-col flex-grow w-full mx-auto" :style="styles">
         <div class="gutter h-8" @click="focusEditorStart"></div>
-        <Ink ref="editable" class="ink-editor" :options="options" v-model="text" />
+        <ClientOnly>
+          <Ink ref="editable" class="ink-editor" :options="options" v-model="text" />
+        </ClientOnly>
         <p v-if="showReadabilityBar" class="text-gray-400 dark:text-gray-600 text-right">{{ numberOfWords }} words | {{ readTimeDescription }}</p>
         <div class="gutter h-8 flex-grow" @click="focusEditorEnd"></div>
       </div>

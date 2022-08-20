@@ -1,17 +1,6 @@
 import { getAuth } from 'firebase/auth'
-import { createPinia } from 'pinia'
-import { createApp } from 'vue'
-// @ts-ignore
-import { Vue3Mq } from 'vue3-mq'
-
-import App from '/src/App.vue'
-import Extendable from '/src/components/Extendable.vue'
-import SimpleBar from '/lib/simplebar/src/SimpleBar.vue'
 import { init } from '/src/firebase'
 import { globalConfig } from '/src/global'
-import { router } from '/src/router'
-import { store } from '/src/store'
-import { caching } from '/src/stores/plugins'
 
 import '/src/assets/app.css'
 
@@ -27,7 +16,7 @@ import {
 
 import { SET_SUBSCRIPTION, SET_USER } from '/src/store/modules/auth'
 
-import PackageManager from '/src/packages/manager.js'
+// import PackageManager from '/src/packages/manager.js'
 
 // init firebase
 init()
@@ -36,13 +25,13 @@ if (localStorage.getItem('octo/welcome/v1') === null) {
   store.dispatch(SET_SHOW_WELCOME, true)
 }
 
-window.addEventListener('offline', () => {
-  store.dispatch(SET_OFFLINE)
-})
+// window.addEventListener('offline', () => {
+//   store.dispatch(SET_OFFLINE)
+// })
 
-window.addEventListener('online', () => {
-  store.dispatch(SET_ONLINE)
-})
+// window.addEventListener('online', () => {
+//   store.dispatch(SET_ONLINE)
+// })
 
 if (!navigator.onLine) {
   store.dispatch(SET_OFFLINE)
@@ -53,28 +42,6 @@ if (!navigator.onLine) {
 if (/Mac|iPod|iPhone|iPad/.test(navigator.platform || navigator.userAgentData.platform)) {
   store.dispatch(SET_MOD_KEY, '⌘ cmd')
 }
-
-const app = createApp(App)
-const pinia = createPinia()
-
-pinia.use(caching)
-
-app.config.globalProperties.$packageManager = PackageManager
-app.use(pinia)
-app.use(router)
-app.use(store)
-app.component('Extendable', Extendable)
-app.component('SimpleBar', SimpleBar)
-app.use(Vue3Mq, {
-  breakpoints: {
-    xs: 0,
-    sm: 577,
-    md: 769,
-    lg: 993,
-    xl: 1201,
-  },
-})
-app.mount('#app')
 
 if (globalConfig.supportsFirebase) {
   getAuth().onAuthStateChanged(async (user) => {

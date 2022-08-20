@@ -138,7 +138,9 @@ export default {
   },
   methods: {
     trackCtaSignUpNow() {
-      window.fathom.trackGoal(import.meta.env.VITE_FATHOM_EVENT_CTA_SIGN_UP_NOW, 0)
+      if (process.browser) {
+        window.fathom.trackGoal(import.meta.env.VITE_FATHOM_EVENT_CTA_SIGN_UP_NOW, 0)
+      }
     },
   },
 }

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import TagLink from '/src/components/TagLink.vue';
+import TagLink from '/components/TagLink.vue';
 
 export default {
   name: 'TagList',

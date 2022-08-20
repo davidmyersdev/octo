@@ -8,7 +8,7 @@ import { useStore } from 'vuex'
 
 import Doc from '/src/models/doc'
 import Debouncer from '/src/common/debouncer'
-import Editor from '/src/components/Editor.vue'
+import Editor from '/components/Editor.vue'
 import { useFiles } from '/src/stores/files'
 
 const { id } = defineProps({ id: String })

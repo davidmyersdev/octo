@@ -32,7 +32,7 @@ const makeListeners = (context) => {
     makeListener('c', () => goTo('context'), context),
     makeListener('d', () => goTo('discarded'), context),
     makeListener('e', () => goTo('graph'), context),
-    makeListener('n', () => goTo('new_doc'), context),
+    makeListener('n', () => goTo('docs-new'), context),
     makeListener('p', () => goTo('daily'), context),
     makeListener('r', () => goTo('recent'), context),
     makeListener('s', () => goTo('settings'), context),
@@ -79,8 +79,10 @@ export default {
         goTo('documents')
       })
 
-      // disable listeners on any click
-      window.addEventListener('click', () => context.dispatch(DISABLE_LISTENERS))
+      if (process.browser) {
+        // disable listeners on any click
+        window.addEventListener('click', () => context.dispatch(DISABLE_LISTENERS))
+      }
 
       context.commit(KEYBINDINGS_LOADED)
     },

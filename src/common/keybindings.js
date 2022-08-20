@@ -1,30 +1,36 @@
-import Mousetrap from 'mousetrap';
-
-// import global bind plugin
-import 'mousetrap/plugins/global-bind/mousetrap-global-bind.min.js';
+import Mousetrap from 'mousetrap'
 
 export const bind = ({ keybinding, callback }) => {
-  Mousetrap.bind(keybinding, (e, _sequence) => {
-    e.preventDefault();
+  if (process.browser) {
+    Mousetrap.bind(keybinding, (e, _sequence) => {
+      e.preventDefault()
 
-    callback();
-  });
-};
+      callback()
+    })
+  }
+}
 
-export const bindGlobal = (keybinding, callback) => {
-  Mousetrap.bindGlobal(keybinding, (e, _sequence) => {
-    e.preventDefault();
+export const bindGlobal = async (keybinding, callback) => {
+  if (process.browser) {
+    // import global bind plugin
+    await import('mousetrap/plugins/global-bind/mousetrap-global-bind.min.js')
 
-    callback();
-  });
-};
+    Mousetrap.bindGlobal(keybinding, (e, _sequence) => {
+      e.preventDefault()
+
+      callback()
+    })
+  }
+}
 
 export const unbind = ({ keybinding }) => {
-  Mousetrap.unbind(keybinding);
-};
+  if (process.browser) {
+    Mousetrap.unbind(keybinding)
+  }
+}
 
 export default {
   bind,
   bindGlobal,
   unbind,
-};
+}

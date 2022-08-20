@@ -1,15 +1,15 @@
 <template>
   <SimpleBar class="p-4 md:p-2">
     <div class="hidden md:flex justify-center my-3 pb-2">
-      <router-link class="flex p-2" :to="{ name: 'home' }">
+      <NuxtLink class="flex p-2" :to="{ name: 'home' }">
         <TheSpookyLogo v-if="october" class="h-10" />
         <TheLogo v-else size="2.5rem" />
-      </router-link>
+      </NuxtLink>
     </div>
     <div class="side-nav-spacer flex flex-col flex-grow pb-3">
       <div class="other-actions">
         <div class="search">
-          <router-link :to="{ name: 'docs' }" class="sidebar-button">
+          <NuxtLink :to="{ name: 'docs' }" class="sidebar-button">
             <div class="flex items-center">
               <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -21,7 +21,7 @@
               <Key class="ml-1">⇧ shift</Key>
               <Key class="ml-1">f</Key>
             </span>
-          </router-link>
+          </NuxtLink>
         </div>
         <div v-if="context.active || context.editing" class="-mx-2 md:mx-0">
           <div class="-m-px mt-6 border px-2 pb-2 md:p-1 border-gray-600 rounded context-box">
@@ -43,7 +43,7 @@
           <span>Actions</span>
           <ModK/>
         </h6>
-        <router-link :to="{ name: 'new_doc' }" class="sidebar-link">
+        <NuxtLink :to="{ name: 'docs-new' }" class="sidebar-link">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
@@ -51,8 +51,8 @@
             <span class="action">New Doc</span>
             <ModKKey class="text-gray-500">N</ModKKey>
           </span>
-        </router-link>
-        <router-link :to="{ name: 'notepad' }" class="sidebar-link">
+        </NuxtLink>
+        <NuxtLink :to="{ name: 'notepad' }" class="sidebar-link">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
@@ -60,8 +60,8 @@
             <span>Daily Notepad</span>
             <ModKKey class="text-gray-500">P</ModKKey>
           </span>
-        </router-link>
-        <router-link :to="{ name: 'contexts' }" class="sidebar-link">
+        </NuxtLink>
+        <NuxtLink :to="{ name: 'contexts' }" class="sidebar-link">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
           </svg>
@@ -69,8 +69,8 @@
             <span class="action">Context Switching</span>
             <ModKKey class="text-gray-500">C</ModKKey>
           </span>
-        </router-link>
-        <router-link :to="{ name: 'force_graph' }" class="sidebar-link">
+        </NuxtLink>
+        <NuxtLink :to="{ name: 'force-graph' }" class="sidebar-link">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
           </svg>
@@ -78,8 +78,8 @@
             <span>Force Graph</span>
             <ModKKey class="text-gray-500">E</ModKKey>
           </span>
-        </router-link>
-        <router-link :to="{ name: 'settings' }" class="sidebar-link">
+        </NuxtLink>
+        <NuxtLink :to="{ name: 'settings' }" class="sidebar-link">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -88,8 +88,8 @@
             <span>App Settings</span>
             <ModKKey class="text-gray-500">S</ModKKey>
           </span>
-        </router-link>
-        <router-link v-if="supportsFirebase" :to="{ name: 'account' }" class="sidebar-link">
+        </NuxtLink>
+        <NuxtLink v-if="supportsFirebase" :to="{ name: 'account' }" class="sidebar-link">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
@@ -97,7 +97,7 @@
             <span>{{ authIsEvaluated && !user ? 'Sign In to Account' : 'My Account' }}</span>
             <ModKKey class="text-gray-500">A</ModKKey>
           </span>
-        </router-link>
+        </NuxtLink>
         <a class="sidebar-link" :href="discordInviteLink" target="_blank" rel="noopener noreferrer">
           <svg class="h-6 w-5 px-0.5" viewBox="0 0 71 55" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
           <g>
@@ -106,14 +106,14 @@
           </svg>
           <div class="flex-grow ml-6 md:ml-3">Community Discord</div>
         </a>
-        <router-link v-if="supportsFirebase && authIsEvaluated && !user" @click="trackCta" :to="{ name: 'account' }" class="sidebar-link text-theme">
+        <NuxtLink v-if="supportsFirebase && authIsEvaluated && !user" @click="trackCta" :to="{ name: 'account' }" class="sidebar-link text-theme">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
           </svg>
           <span class="action flex flex-grow items-stretch justify-between ml-6 md:ml-3">
             <span>Save Docs</span>
           </span>
-        </router-link>
+        </NuxtLink>
         <div v-if="experimentalFeaturesEnabled">
           <button @click="openFile" class="sidebar-link w-full" title="Experimental">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -133,7 +133,7 @@
             <ModK/>
           </span>
         </h6>
-        <router-link :to="{ name: 'filtered_docs', params: { filter: 'tasks' } }" class="sidebar-link">
+        <NuxtLink :to="{ path: '/docs/f/tasks' }" class="sidebar-link">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
           </svg>
@@ -141,8 +141,8 @@
             <span>Tasks</span>
             <ModKKey class="text-gray-500">T</ModKKey>
           </span>
-        </router-link>
-        <router-link :to="{ name: 'filtered_docs', params: { filter: 'untagged' } }" class="sidebar-link">
+        </NuxtLink>
+        <NuxtLink :to="{ path: '/docs/f/untagged' }" class="sidebar-link">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
           </svg>
@@ -150,8 +150,8 @@
             <span>Untagged</span>
             <ModKKey class="text-gray-500">U</ModKKey>
           </span>
-        </router-link>
-        <router-link :to="{ name: 'filtered_docs', params: { filter: 'discarded' } }" class="sidebar-link">
+        </NuxtLink>
+        <NuxtLink :to="{ path: '/docs/f/discarded' }" class="sidebar-link">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
           </svg>
@@ -159,7 +159,7 @@
             <span>Discarded</span>
             <ModKKey class="text-gray-500">D</ModKKey>
           </span>
-        </router-link>
+        </NuxtLink>
         <h6 v-if="contexts.length" class="sidebar-label">
           <span>Saved Contexts</span>
         </h6>
@@ -176,12 +176,12 @@
         <h6 class="sidebar-label">
           <span>Tags</span>
         </h6>
-        <router-link class="sidebar-link md:hidden" :to="{ name: 'tags' }">
+        <NuxtLink class="sidebar-link md:hidden" :to="{ name: 'tags' }">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
           </svg>
           <span class="ml-6 flex-grow">Tags</span>
-        </router-link>
+        </NuxtLink>
         <div v-if="mediumPlus">
           <TagLink v-for="tag in tags" :key="tag" :tag="tag" class="sidebar-link"></TagLink>
         </div>
@@ -190,22 +190,22 @@
         <h6 class="sidebar-label">
           <span>Agreements</span>
         </h6>
-        <router-link :to="{ name: 'privacy_policy' }" class="sidebar-link">
+        <NuxtLink :to="{ path: '/privacy-policy' }" class="sidebar-link">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
           <span class="action flex flex-grow items-stretch justify-between ml-6 md:ml-3">
             <span>Privacy Policy</span>
           </span>
-        </router-link>
-        <router-link :to="{ name: 'terms_and_conditions' }" class="sidebar-link">
+        </NuxtLink>
+        <NuxtLink :to="{ path: '/terms-and-conditions' }" class="sidebar-link">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
           <span class="action flex flex-grow items-stretch justify-between ml-6 md:ml-3">
             <span>Terms &amp; Conditions</span>
           </span>
-        </router-link>
+        </NuxtLink>
       </div>
     </div>
   </SimpleBar>
@@ -213,12 +213,12 @@
 
 <script>
 import { nanoid } from 'nanoid'
-import Key from '/src/components/Key.vue'
-import ModK from '/src/components/ModK.vue'
-import ModKKey from '/src/components/ModKKey.vue'
-import TagLink from '/src/components/TagLink.vue'
-import TheLogo from '/src/components/TheLogo.vue'
-import TheSpookyLogo from '/src/components/TheSpookyLogo.vue'
+import Key from '/components/Key.vue'
+import ModK from '/components/ModK.vue'
+import ModKKey from '/components/ModKKey.vue'
+import TagLink from '/components/TagLink.vue'
+import TheLogo from '/components/TheLogo.vue'
+import TheSpookyLogo from '/components/TheSpookyLogo.vue'
 import { open } from '/src/router'
 import { useFiles } from '/src/stores/files'
 import { AsyncIterable } from '/src/utils/iterables'
@@ -311,7 +311,9 @@ export default {
       this.$store.dispatch(SET_CONTEXT_TAGS, { context })
     },
     trackCta() {
-      window.fathom.trackGoal(import.meta.env.VITE_FATHOM_GOAL_CTA_SYNC_DOCS, 0)
+      if (process.browser) {
+        window.fathom.trackGoal(import.meta.env.VITE_FATHOM_GOAL_CTA_SYNC_DOCS, 0)
+      }
     },
   },
 }

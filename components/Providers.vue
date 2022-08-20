@@ -58,9 +58,9 @@
 <script>
 import { getAuth, getRedirectResult, GithubAuthProvider, GoogleAuthProvider, signInWithRedirect, TwitterAuthProvider } from 'firebase/auth'
 
-import GitHubIcon from '/src/components/icons/GitHub.vue'
-import GoogleIcon from '/src/components/icons/Google.vue'
-import TwitterIcon from '/src/components/icons/Twitter.vue'
+import GitHubIcon from '/components/icons/GitHub.vue'
+import GoogleIcon from '/components/icons/Google.vue'
+import TwitterIcon from '/components/icons/Twitter.vue'
 
 export default {
   name: 'Providers',
@@ -120,7 +120,7 @@ export default {
   created() {
     getRedirectResult().then((result) => {
       // track new sign ups
-      if (result.additionalUserInfo && result.additionalUserInfo.isNewUser) {
+      if (process.browser && result.additionalUserInfo && result.additionalUserInfo.isNewUser) {
         window.fathom.trackGoal(import.meta.env.VITE_FATHOM_GOAL_ACCOUNT_REGISTRATION, 0)
       }
     }).catch((error) => {

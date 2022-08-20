@@ -9,12 +9,12 @@
     <template #footer>
       <div class="flex items-center justify-end gap-2">
         <button class="button-flat button-size-medium" @click="closeChangeLog">Dismiss</button>
-        <router-link v-if="!subscription.pro" @click="trackCta" :to="{ name: 'account' }" class="text-blue-400 button-flat button-color-surface button-size-medium">
+        <NuxtLink v-if="!subscription.pro" @click="trackCta" :to="{ name: 'account' }" class="text-blue-400 button-flat button-color-surface button-size-medium">
           <span>Upgrade</span>
-        </router-link>
-        <router-link v-else-if="!user" @click="trackCta" :to="{ name: 'account' }" class="text-blue-400 button-flat button-color-surface button-size-medium">
+        </NuxtLink>
+        <NuxtLink v-else-if="!user" @click="trackCta" :to="{ name: 'account' }" class="text-blue-400 button-flat button-color-surface button-size-medium">
           <span>Sign Up</span>
-        </router-link>
+        </NuxtLink>
       </div>
     </template>
   </Modal>
@@ -25,18 +25,19 @@ import moment from 'moment'
 import { onMounted, ref } from 'vue'
 
 import { subscription, user } from '/src/common/account'
-import ChangeSet from '/src/components/ChangeSet.vue'
-import Modal from '/src/components/Modal.vue'
+import ChangeSet from '/components/ChangeSet.vue'
+import Modal from '/components/Modal.vue'
 
 const changeSets = ref<any>([])
-const lastUpdated = localStorage.getItem('changelog:v1')
 const showChangeLog = ref(false)
 const closeChangeLog = () => { showChangeLog.value = false }
 const trackCta = () => {
-  // @ts-ignore
-  window.fathom.trackGoal(import.meta.env.VITE_FATHOM_EVENT_CTA_MODAL_UPGRADE, 0)
+  if (process.browser) {
+    // @ts-ignore
+    window.fathom.trackGoal(import.meta.env.VITE_FATHOM_EVENT_CTA_MODAL_UPGRADE, 0)
 
-  closeChangeLog()
+    closeChangeLog()
+  }
 }
 
 onMounted(async () => {
@@ -48,6 +49,7 @@ onMounted(async () => {
     }))
 
     const latestTimestamp = changeSets.value[0].timestamp
+    const lastUpdated = localStorage.getItem('changelog:v1')
 
     if (!lastUpdated || new Date(latestTimestamp) > new Date(lastUpdated)) {
       showChangeLog.value = true

@@ -9,7 +9,7 @@
       </strong>
       <div class="lg:ml-2 xl:ml-4">Share your docs, attach files, and get early access to new features.</div>
       <div class="flex items-center justify-end">
-        <router-link @click="trackCta" :to="{ name: 'account' }" class="button-flat button-color-surface button-size-medium w-full whitespace-nowrap lg:ml-2 text-blue-400">Learn More</router-link>
+        <NuxtLink @click="trackCta" :to="{ name: 'account' }" class="button-flat button-color-surface button-size-medium w-full whitespace-nowrap lg:ml-2 text-blue-400">Learn More</NuxtLink>
       </div>
     </div>
   </section>
@@ -19,7 +19,9 @@
 import { subscription } from '/src/common/account'
 
 const trackCta = () => {
-  // @ts-ignore
-  window.fathom.trackGoal(import.meta.env.VITE_FATHOM_EVENT_CTA_SETTINGS_UPGRADE, 0)
+  if (process.browser) {
+    // @ts-ignore
+    window.fathom.trackGoal(import.meta.env.VITE_FATHOM_EVENT_CTA_SETTINGS_UPGRADE, 0)
+  }
 }
 </script>

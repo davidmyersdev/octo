@@ -1,13 +1,13 @@
 <template>
   <SimpleBar class="the-content">
     <TheNavbar/>
-    <router-view :inheritAttrs="true" :key="routeKey" class="flex"></router-view>
+    <NuxtPage :inheritAttrs="true" :key="routeKey" class="flex"></NuxtPage>
   </SimpleBar>
 </template>
 
 <script>
 import { nanoid } from 'nanoid'
-import TheNavbar from '/src/components/TheNavbar.vue'
+import TheNavbar from '/components/TheNavbar.vue'
 
 export default {
   name: 'TheContent',

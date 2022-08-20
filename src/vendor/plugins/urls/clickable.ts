@@ -30,7 +30,9 @@ const clickHandler = EditorView.domEventHandlers({
       const url = findUrl(text, offset)
 
       if (url) {
-        window.open(url, '_blank')
+        if (process.browser) {
+          window.open(url, '_blank')
+        }
       }
     }
   },

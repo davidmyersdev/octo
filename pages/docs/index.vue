@@ -8,7 +8,7 @@
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-import DocumentList from '/src/components/DocumentList.vue'
+import DocumentList from '/components/DocumentList.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -30,6 +30,8 @@ watch(query, (value) => {
 
   // This will replace the browser history's current state with the new query.
   // This is necessary to prevent the entire component from reloading (the behavior of router.replace).
-  window.history.replaceState(window.history.state, '', resolved.fullPath)
+  if (process.browser) {
+    window.history.replaceState(window.history.state, '', resolved.fullPath)
+  }
 })
 </script>

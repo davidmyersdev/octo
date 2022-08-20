@@ -16,10 +16,10 @@
 </template>
 
 <script lang="ts" setup>
-import Banner from '/src/components/Banner.vue'
-import Editor from '/src/components/settings/Editor.vue'
-import Encryption from '/src/components/settings/Encryption.vue'
-import Experimental from '/src/components/settings/Experimental.vue'
-import Export from '/src/components/settings/Export.vue'
-import Theme from '/src/components/settings/Theme.vue'
+import Banner from '/components/Banner.vue'
+import Editor from '/components/settings/Editor.vue'
+import Encryption from '/components/settings/Encryption.vue'
+import Experimental from '/components/settings/Experimental.vue'
+import Export from '/components/settings/Export.vue'
+import Theme from '/components/settings/Theme.vue'
 </script>

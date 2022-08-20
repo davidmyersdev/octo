@@ -15,11 +15,15 @@ export default {
   computed: {
     appendable() {
       // package manager is not yet reactive
-      return this.$packageManager.getComponents(this.scope, 'append')
+      // return this.$packageManager.getComponents(this.scope, 'append')
+
+      return []
     },
     prependable() {
       // package manager is not yet reactive
-      return this.$packageManager.getComponents(this.scope, 'prepend')
+      // return this.$packageManager.getComponents(this.scope, 'prepend')
+
+      return []
     },
   },
   created() {

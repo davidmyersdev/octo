@@ -5,15 +5,10 @@
   "private": true,
   "scripts": {
     "assets": "node ./build_assets.js",
-    "build": "vue-tsc --noEmit && yarn build:unsafe",
-    "build:unsafe": "vite build",
-    "dev": "vite --port 8888",
-    "nuxt:build": "nuxt build",
-    "nuxt:dev": "nuxt dev",
-    "nuxt:generate": "nuxt generate",
-    "nuxt:preview": "nuxt preview",
-    "preview": "yarn build && yarn preview:latest",
-    "preview:latest": "vite preview --port 8889"
+    "build": "vue-tsc --noEmit && nuxt build",
+    "dev": "nuxt dev --port 8888",
+    "generate": "nuxt generate",
+    "preview": "nuxt build && nuxt preview --port 8889"
   },
   "dependencies": {
     "deepmerge": "^4.2.2",

@@ -8,7 +8,7 @@
 <script>
 import ForceGraph from 'force-graph'
 
-import DocumentList from '/src/components/DocumentList.vue'
+import DocumentList from '/components/DocumentList.vue'
 
 export default {
   name: 'Graph',
@@ -85,7 +85,11 @@ export default {
       return Math.max(...this.nodes.map(node => node.size))
     },
     mobile() {
-      return ['xs', 'sm'].includes(this.mq.current)
+      if (process.browser) {
+        return ['xs', 'sm'].includes(this.mq.current)
+      }
+
+      return false
     },
     nodes() {
       return this.edges.flatMap(edge => [edge.source, edge.target]).reduce((nodes, tag) => {
@@ -158,10 +162,14 @@ export default {
       this.resize()
     }
 
-    window.addEventListener('resize', this.listener)
+    if (process.browser) {
+      window.addEventListener('resize', this.listener)
+    }
   },
   beforeUnmount() {
-    window.removeEventListener('resize', this.listener)
+    if (process.browser) {
+      window.removeEventListener('resize', this.listener)
+    }
   },
 }
 </script>

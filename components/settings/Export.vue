@@ -6,7 +6,7 @@
       <label>Bundle all documents as JSON. Documents will be decrypted if the necessary keys are available.</label>
     </div>
     <div class="mb-4">
-      <router-link :to="{ name: 'export' }" class="button button-size-medium button-color-gray">Export Documents</router-link>
+      <NuxtLink :to="{ name: 'export' }" class="button button-size-medium button-color-gray">Export Documents</NuxtLink>
     </div>
   </section>
 </template>

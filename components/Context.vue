@@ -60,7 +60,7 @@
 <script>
 import { nanoid } from 'nanoid'
 
-import Tag from '/src/components/Tag.vue'
+import Tag from '/components/Tag.vue'
 
 import {
   SET_CONTEXT_TAGS,

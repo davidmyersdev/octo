@@ -16,8 +16,9 @@
 </template>
 
 <script lang="ts" setup>
-import { subscription } from '/src/common/account'
+import { useSubscription } from '/src/common/account'
 
+const subscription = useSubscription()
 const trackCta = () => {
   if (process.browser) {
     // @ts-ignore

@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="h-screen" :class="sizes.concat([!ligatures && 'ligatures-none'])">
     <NuxtLayout name="editor">
-      <!-- <NuxtPage :pageKey="routeKey" /> -->
+      <NuxtPage :pageKey="routeKey" />
     </NuxtLayout>
   </div>
 </template>

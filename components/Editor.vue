@@ -21,7 +21,7 @@
 
 <script>
 import { defineComponent } from 'vue'
-import { subscription } from '/src/common/account'
+import { useSubscription } from '/src/common/account'
 import { readTime, wordCount } from '/src/common/readability.ts'
 import { addFile } from '/src/firebase/storage.ts'
 import { plugins } from '/src/vendor/plugins'
@@ -72,6 +72,7 @@ export default defineComponent({
   data() {
     return {
       editor: null,
+      pro: false,
     }
   },
   watch: {
@@ -93,7 +94,7 @@ export default defineComponent({
         }
 
         return docs
-      }, [])
+      }, []) || []
     },
     maxWidthInChars() {
       return this.settings.readability.maxWidthInChars
@@ -135,9 +136,6 @@ export default defineComponent({
       // without needing to recalculate.
       return plugins(this)
     },
-    pro() {
-      return subscription.value.pro
-    },
     readTime() {
       return readTime(this.text, this.wordsPerMinute)
     },
@@ -156,7 +154,7 @@ export default defineComponent({
       return this.settings.readability.enabled
     },
     showRightSidebar() {
-      return this?.$store?.state.showRightSidebar
+      return this?.$store?.state.showRightSidebar || false
     },
     spellcheck() {
       return this.settings.spellcheck
@@ -169,7 +167,7 @@ export default defineComponent({
     tags() {
       return this?.$store?.getters.allTags.filter((tag) => {
         return !this.doc.tags.includes(tag)
-      });
+      }) || []
     },
     text: {
       get() {
@@ -220,6 +218,13 @@ export default defineComponent({
         })
       )
     },
+  },
+  mounted() {
+    const subscription = useSubscription()
+
+    // debugger
+
+    // this.pro = subscription.value.pro
   },
 })
 </script>

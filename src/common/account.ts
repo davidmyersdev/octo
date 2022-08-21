@@ -4,10 +4,14 @@ import { useStore } from 'vuex'
 import type { User } from 'firebase/auth'
 import type { Subscription } from '/types/types'
 
-export const subscription = computed<Subscription>(() => {
-  return useStore().state.auth.subscription
-})
+export const useSubscription = () => {
+  return computed<Subscription>(() => {
+    return useStore()?.state.auth.subscription || { pro: false }
+  })
+}
 
-export const user = computed<User>(() => {
-  return useStore().state.auth.user
-})
+export const useUser = () => {
+  return computed<User>(() => {
+    return useStore()?.state.auth.user || {}
+  })
+}

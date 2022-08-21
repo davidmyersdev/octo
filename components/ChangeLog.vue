@@ -24,10 +24,12 @@
 import moment from 'moment'
 import { onMounted, ref } from 'vue'
 
-import { subscription, user } from '/src/common/account'
+import { useSubscription, useUser } from '/src/common/account'
 import ChangeSet from '/components/ChangeSet.vue'
 import Modal from '/components/Modal.vue'
 
+const subscription = useSubscription()
+const user = useUser()
 const changeSets = ref<any>([])
 const showChangeLog = ref(false)
 const closeChangeLog = () => { showChangeLog.value = false }

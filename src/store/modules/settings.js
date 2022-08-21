@@ -17,33 +17,35 @@ export const SET_EXPERIMENTAL = 'SET_EXPERIMENTAL'
 export const SET_THEME = 'SET_THEME'
 export const SETTINGS_LOADED = 'SETTINGS_LOADED'
 
+export const defaultSettings = {
+  crypto: {
+    enabled: false,
+    privateKey: null,
+    publicKey: null,
+  },
+  editor: {
+    images: {
+      enabled: true,
+      showCaptions: true,
+    },
+    keyMap: 'default',
+    ligatures: true,
+    readability: {
+      enabled: true,
+      maxWidthInChars: 100,
+      wordsPerMinute: 225,
+    },
+    spellcheck: true,
+    tabSize: 2,
+    toolbar: true,
+  },
+  experimental: false,
+  loaded: false,
+  theme: 'auto',
+}
+
 export default {
-  state: () => ({
-    crypto: {
-      enabled: false,
-      privateKey: null,
-      publicKey: null,
-    },
-    editor: {
-      images: {
-        enabled: true,
-        showCaptions: true,
-      },
-      keyMap: 'default',
-      ligatures: true,
-      readability: {
-        enabled: true,
-        maxWidthInChars: 100,
-        wordsPerMinute: 225,
-      },
-      spellcheck: true,
-      tabSize: 2,
-      toolbar: true,
-    },
-    experimental: false,
-    loaded: false,
-    theme: 'auto',
-  }),
+  state: () => defaultSettings,
   getters: {
     // nothing yet
   },

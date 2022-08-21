@@ -53,7 +53,7 @@ export default {
       })
     },
     docs() {
-      return this.$store.getters.kept
+      return this?.$store?.getters.kept
     },
     edges() {
       return this.connections.reduce((edges, connection) => {
@@ -109,7 +109,7 @@ export default {
       }, [])
     },
     theme() {
-      return this.$store.state.settings.theme
+      return this?.$store?.state.settings.theme
     },
   },
   methods: {

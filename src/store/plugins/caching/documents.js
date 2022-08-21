@@ -20,17 +20,16 @@ import {
 
 import { SETTINGS_LOADED } from '/src/store/modules/settings'
 
-const cache = localforage.createInstance({
-  name: 'firebase/documents',
-})
-
-const debouncer = new Debouncer(800)
-
 const find = (state, id) => {
   return state.documents.all.find(doc => doc.id === id)
 }
 
 export default (store) => {
+  const debouncer = new Debouncer(800)
+  const cache = localforage.createInstance({
+    name: 'firebase/documents',
+  })
+
   store.subscribe(({ type, payload }, state) => {
     switch (type) {
       case ADD_DOCUMENT:

@@ -21,11 +21,12 @@ import {
 } from '/src/store/modules/settings'
 
 const CACHE_KEY = 'main'
-const cache = localforage.createInstance({
-  name: 'settings',
-})
 
 export default (store) => {
+  const cache = localforage.createInstance({
+    name: 'settings',
+  })
+
   cache.getItem(CACHE_KEY).then((settings) => {
     if (settings) {
       store.dispatch(LOAD_SETTINGS, settings).then(() => {

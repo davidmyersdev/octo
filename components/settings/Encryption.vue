@@ -53,35 +53,35 @@ export default {
     },
     privateKey: {
       get() {
-        return this.$store.state.settings.crypto.privateKey;
+        return this?.$store?.state.settings.crypto.privateKey;
       },
       set(value) {
-        this.$store.dispatch(SET_CRYPTO_KEYS, {
+        this?.$store?.dispatch(SET_CRYPTO_KEYS, {
           privateKey: value,
         });
       },
     },
     publicKey: {
       get() {
-        return this.$store.state.settings.crypto.publicKey;
+        return this?.$store?.state.settings.crypto.publicKey;
       },
       set(value) {
-        this.$store.dispatch(SET_CRYPTO_KEYS, {
+        this?.$store?.dispatch(SET_CRYPTO_KEYS, {
           publicKey: value,
         });
       },
     },
     toggleCrypto: {
       get() {
-        return this.$store.state.settings.crypto.enabled;
+        return this?.$store?.state.settings.crypto.enabled;
       },
       async set(value) {
         this.togglingCrypto = true;
 
-        await this.$store.dispatch(SET_CRYPTO_ENABLED, value);
+        await this?.$store?.dispatch(SET_CRYPTO_ENABLED, value);
         await Promise.all(
-          this.$store.getters.decrypted.map((doc) => {
-            return this.$store.dispatch(TOUCH_DOCUMENT, doc);
+          this?.$store?.getters.decrypted.map((doc) => {
+            return this?.$store?.dispatch(TOUCH_DOCUMENT, doc);
           })
         );
 

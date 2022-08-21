@@ -85,10 +85,10 @@ export default {
   },
   computed: {
     availableTags() {
-      return this.$store.getters.allTags;
+      return this?.$store?.getters.allTags;
     },
     contexts() {
-      return this.$store.getters.sortedContexts
+      return this?.$store?.getters.sortedContexts
     },
     filtered() {
       return this.availableTags.filter((tag) => {
@@ -99,12 +99,12 @@ export default {
       return this.tags.sort();
     },
     tags() {
-      return this.$store.state.context.tags;
+      return this?.$store?.state.context.tags;
     },
   },
   methods: {
     discard(context) {
-      this.$store.commit(REMOVE_CONTEXT, context)
+      this?.$store?.commit(REMOVE_CONTEXT, context)
     },
     down() {
       if (this.activeIndex < (this.filtered.length - 1)) {
@@ -122,14 +122,14 @@ export default {
       this.$refs.input.focus();
     },
     save() {
-      this.$store.commit(ADD_CONTEXT, {
+      this?.$store?.commit(ADD_CONTEXT, {
         id: nanoid(),
         name: this.contextName,
         tags: this.tags,
       })
 
       this.contextName = ''
-      this.$store.dispatch(SET_CONTEXT_TAGS, { context: { tags: [] } })
+      this?.$store?.dispatch(SET_CONTEXT_TAGS, { context: { tags: [] } })
     },
     scroll() {
       const tagsContainer = this.$refs.tagsContainer.scrollElement;
@@ -172,7 +172,7 @@ export default {
           tags = tags.concat([tag]);
         }
 
-        this.$store.dispatch(SET_CONTEXT_TAGS, {
+        this?.$store?.dispatch(SET_CONTEXT_TAGS, {
           context: {
             tags,
           }
@@ -189,11 +189,11 @@ export default {
   },
   mounted() {
     // todo use action
-    this.$store.state.context.editing = true;
+    this?.$store?.state.context.editing = true;
     this.focusInput();
   },
   beforeUnmount() {
-    this.$store.state.context.editing = false;
+    this?.$store?.state.context.editing = false;
   },
 };
 </script>

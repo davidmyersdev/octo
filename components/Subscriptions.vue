@@ -170,7 +170,7 @@ export default {
       return this.providers.find(p => p.providerId === 'google.com')
     },
     online() {
-      return this.$store.state.online
+      return this?.$store?.state.online
     },
     providers() {
       return this.user ? this.user.providerData : []
@@ -179,7 +179,7 @@ export default {
       return this.providers.find(p => p.providerId === 'twitter.com')
     },
     user() {
-      return this.$store.state.auth.user
+      return this?.$store?.state.auth.user
     },
   },
   methods: {
@@ -243,7 +243,7 @@ export default {
       this.subscribed = decodedToken.claims.stripeRole === 'subscriber'
     },
     async subscribe() {
-      this.$store.dispatch(SET_STRIPE_MODAL_VISIBILITY, true)
+      this?.$store?.dispatch(SET_STRIPE_MODAL_VISIBILITY, true)
 
       const checkoutRef = await addCheckout({ userId: this.user.uid })
       const { error, url } = checkoutRef.data()
@@ -251,7 +251,7 @@ export default {
       if (error) {
         this.stripeError = error.message
 
-        this.$store.dispatch(SET_STRIPE_MODAL_VISIBILITY, false)
+        this?.$store?.dispatch(SET_STRIPE_MODAL_VISIBILITY, false)
       }
 
       if (url) {

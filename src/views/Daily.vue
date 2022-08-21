@@ -21,7 +21,7 @@ export default {
   },
   computed: {
     daily() {
-      return this.$store.getters.daily
+      return this?.$store?.getters.daily
     },
   },
   methods: {
@@ -48,15 +48,15 @@ export default {
         const template = await this.buildTemplate()
         const doc = new Doc({ text: template, daily: true })
 
-        this.$store.commit(ADD_DOCUMENT, doc)
+        this?.$store?.commit(ADD_DOCUMENT, doc)
       }
     },
   },
   beforeMount() {
-    if (this.$store.state.documents.loaded) {
+    if (this?.$store?.state.documents.loaded) {
       this.checkDaily()
     } else {
-      this.$store.subscribe(({ type }, _state) => {
+      this?.$store?.subscribe(({ type }, _state) => {
         if (type === DOCUMENTS_LOADED) {
           this.checkDaily()
         }

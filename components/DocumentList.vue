@@ -99,12 +99,12 @@ export default {
       return this.selectedDocuments.length > 1
     },
     documents() {
-      if (this.tag) { return this.$store.getters.withTag(this.tag) }
-      if (this.filter === 'tasks') { return this.$store.getters.tasks }
-      if (this.filter === 'discarded') { return this.$store.getters.discarded }
-      if (this.filter === 'untagged') { return this.$store.getters.untagged }
+      if (this.tag) { return this?.$store?.getters.withTag(this.tag) }
+      if (this.filter === 'tasks') { return this?.$store?.getters.tasks }
+      if (this.filter === 'discarded') { return this?.$store?.getters.discarded }
+      if (this.filter === 'untagged') { return this?.$store?.getters.untagged }
 
-      return this.$store.getters.kept
+      return this?.$store?.getters.kept
     },
     filteredDocuments() {
       return this.documents.filter((doc) => {
@@ -137,7 +137,7 @@ export default {
       this.visibleCount += 25
     },
     mergeDocuments() {
-      this.$store.dispatch(MERGE_DOCUMENTS, this.selectedDocuments)
+      this?.$store?.dispatch(MERGE_DOCUMENTS, this.selectedDocuments)
 
       this.selectedDocuments = []
     },

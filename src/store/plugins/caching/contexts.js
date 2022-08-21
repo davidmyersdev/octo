@@ -11,17 +11,16 @@ import {
 
 import { SETTINGS_LOADED } from '/src/store/modules/settings'
 
-const cache = localforage.createInstance({
-  name: 'contexts',
-})
-
-const debouncer = new Debouncer(800)
-
 const find = (state, id) => {
   return state.contexts.all.find(context => context.id === id)
 }
 
 export default (store) => {
+  const debouncer = new Debouncer(800)
+  const cache = localforage.createInstance({
+    name: 'contexts',
+  })
+
   store.subscribe(({ type, payload }, state) => {
     switch (type) {
       case ADD_CONTEXT:

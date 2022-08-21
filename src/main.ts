@@ -2,8 +2,6 @@ import { getAuth } from 'firebase/auth'
 import { init } from '/src/firebase'
 import { globalConfig } from '/src/global'
 
-import '/src/assets/app.css'
-
 // import the service worker
 import '/src/sw.js'
 
@@ -35,12 +33,6 @@ if (localStorage.getItem('octo/welcome/v1') === null) {
 
 if (!navigator.onLine) {
   store.dispatch(SET_OFFLINE)
-}
-
-// TODO: Determine whether we need both of these.
-// @ts-ignore
-if (/Mac|iPod|iPhone|iPad/.test(navigator.platform || navigator.userAgentData.platform)) {
-  store.dispatch(SET_MOD_KEY, '⌘ cmd')
 }
 
 if (globalConfig.supportsFirebase) {

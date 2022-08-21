@@ -35,10 +35,10 @@ export default {
   computed: {
     theme: {
       get() {
-        return this.$store.state.settings.theme
+        return this?.$store?.state.settings.theme
       },
       set(value) {
-        this.$store.dispatch(SET_THEME, value)
+        this?.$store?.dispatch(SET_THEME, value)
       },
     },
   },

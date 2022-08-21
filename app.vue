@@ -1,58 +1,37 @@
 <template>
   <div id="app" class="h-screen" :class="sizes.concat([!ligatures && 'ligatures-none'])">
-    <div
-      v-if="showStripeModal"
-      class="flex items-center justify-center fixed top-0 left-0 h-full w-full z-50 bg-darkest"
-    >
-      <div class="flex flex-col items-center justify-center gap-8 text-center text-2xl">
-        <svg
-          class="animate-spin mr-3 h-10 w-10 text-current"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <circle
-            class="opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            stroke-width="4"
-          ></circle>
-          <path
-            class="opacity-75"
-            fill="currentColor"
-            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-          ></path>
-        </svg>
-        <span>Redirecting you to Stripe for checkout</span>
-      </div>
-    </div>
-    <ChangeLog v-if="!home && !publicDoc" />
-    <NuxtPage :inheritAttrs="true" class="flex-grow flex-shrink min-h-0"></NuxtPage>
+    <NuxtLayout name="editor">
+      <!-- <NuxtPage :pageKey="routeKey" /> -->
+    </NuxtLayout>
   </div>
 </template>
 
 <script>
+import { nanoid } from 'nanoid'
+
 export default {
   inject: ["mq"],
   watch: {
+    $route: {
+      deep: true,
+      handler(route) {
+        if (route.params.preserve) { return }
+
+        this.routeKey = nanoid()
+      },
+    },
     theme(value) {
       this.updateTheme()
     },
   },
+  data() {
+    return {
+      routeKey: null,
+    }
+  },
   computed: {
-    home() {
-      return this.$route.name === "home"
-    },
     ligatures() {
-      return this.$store.state.settings.editor.ligatures
-    },
-    publicDoc() {
-      return this.$route.name === "public_doc"
-    },
-    showStripeModal() {
-      return this.$store.state.showStripeModal
+      return this?.$store?.state.settings.editor.ligatures
     },
     sizes() {
       if (process.browser) {
@@ -66,7 +45,7 @@ export default {
       return []
     },
     theme() {
-      return this.$store.state.settings.theme
+      return this?.$store?.state.settings.theme
     },
   },
   methods: {
@@ -100,19 +79,33 @@ export default {
       }
     },
   },
-  created() {
+  mounted() {
     this.updateTheme()
 
-    if (process.browser) {
-      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
-        this.updateTheme()
-      })
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
+      this.updateTheme()
+    })
+
+    // TODO: Determine whether we need both of these.
+    if (/Mac|iPod|iPhone|iPad/.test(navigator.platform || navigator.userAgentData.platform)) {
+      this?.$store?.dispatch('SET_MOD_KEY', '⌘ cmd')
     }
   },
 }
 </script>
 
 <style>
+html, body, #__nuxt, #app {
+  height: 100vh;
+  height: -webkit-fill-available;
+}
+
+#__nuxt, #app {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 .october {
   --ink-syntax-name-color: #eb6123;
   --ink-syntax-name-label-color: #abb2bf;
@@ -268,5 +261,127 @@ hr {
 
 .light .simplebar-scrollbar::before {
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .text-theme {
+    @apply text-brand;
+  }
+
+  .october .text-theme {
+    color: #eb6123;
+  }
+
+  /* utils */
+  .ligatures-none {
+    font-variant-ligatures: none;
+  }
+
+  .ligatures-normal {
+    font-variant-ligatures: normal;
+  }
+
+  .flex-basis-1\/2 {
+    flex-basis: 50%;
+  }
+
+  .flex-basis-1\/3 {
+    flex-basis: 33%;
+  }
+
+  .flex-basis-2\/3 {
+    flex-basis: 66%;
+  }
+
+  .has-tooltip {
+    @apply relative cursor-pointer;
+  }
+
+  .has-tooltip:hover .tooltip {
+    @apply visible;
+  }
+
+  .tooltip {
+    @apply invisible absolute z-50 ml-2 w-48 text-xs;
+  }
+
+  /* vue router */
+  .sidebar-link.NuxtLink-exact-active, .sidebar-button.NuxtLink-exact-active {
+    @apply md:bg-gray-200 md:dark:bg-gray-900 md:bg-opacity-50 md:dark:bg-opacity-50;
+  }
+
+  /* form */
+  .button {
+    @apply button-flat shadow;
+  }
+
+  .button-flat {
+    @apply button-base justify-center lg:justify-between;
+  }
+
+  .button-base {
+    @apply inline-flex items-center rounded cursor-pointer focus:outline-none focus:ring focus-within:ring;
+  }
+
+  .button-size-small {
+    @apply px-2 py-1;
+  }
+
+  .button-size-medium {
+    @apply px-3 py-2;
+  }
+
+  .button-color-gray {
+    @apply bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700;
+  }
+
+  .button-color-surface {
+    @apply bg-gray-200 dark:bg-gray-900 hover:bg-gray-300 dark:hover:bg-gray-800;
+  }
+
+  .button-color-blue {
+    @apply bg-blue-300 hover:bg-blue-400 dark:bg-blue-500 dark:hover:bg-blue-600;
+  }
+
+  .form-button {
+    @apply button button-size-medium button-color-gray;
+  }
+
+  .form-text {
+    @apply block rounded px-3 py-2 shadow bg-gray-100 dark:bg-gray-800 focus:outline-none focus:ring;
+  }
+
+  .radio {
+    @apply appearance-none outline-none rounded-full border-4 cursor-pointer border-gray-300 dark:border-white bg-gray-300 dark:bg-white checked:bg-blue-500 dark:checked:bg-blue-500 disabled:bg-gray-500 dark:disabled:bg-gray-500 w-4 h-4;
+  }
+
+  .checkbox {
+    @apply appearance-none outline-none rounded-sm border-4 cursor-pointer border-gray-300 dark:border-white bg-gray-300 dark:bg-white checked:bg-blue-500 dark:checked:bg-blue-500 disabled:bg-gray-500 dark:disabled:bg-gray-500 w-4 h-4;
+  }
+
+  /* sidebar */
+  .sidebar-button {
+    @apply flex items-center justify-between rounded mb-2 p-6 md:p-2 bg-gray-200 dark:bg-gray-800 md:dark:bg-gray-900 hover:bg-gray-300 dark:hover:bg-gray-700 md:dark:hover:bg-gray-800 focus:outline-none focus:ring;
+  }
+
+  .sidebar-label {
+    @apply flex items-center justify-between text-sm p-6 md:px-2 text-gray-500;
+  }
+
+  .sidebar-link {
+    @apply flex items-center justify-between rounded mb-2 md:mb-1 p-6 md:p-2 bg-gray-100 dark:bg-gray-800 md:bg-transparent md:dark:bg-transparent hover:bg-gray-200 dark:hover:bg-gray-700 md:dark:hover:bg-gray-900 focus:outline-none focus:ring;
+  }
+
+  .context-label {
+    @apply flex items-center justify-between text-sm p-6 md:py-2 md:px-1.5 md:mb-2 text-gray-500;
+  }
+
+  .context-tag {
+    @apply flex items-center justify-between rounded p-6 md:p-2 bg-gray-100 dark:bg-gray-800 md:bg-transparent md:dark:bg-transparent hover:bg-gray-200 dark:hover:bg-gray-700 md:dark:hover:bg-gray-900 focus:outline-none focus:ring;
+  }
 }
 </style>

@@ -82,7 +82,7 @@ export default {
       return this.providers.find(p => p.providerId === 'google.com')
     },
     online() {
-      return this.$store.state.online
+      return this?.$store?.state.online
     },
     providers() {
       return this.user ? this.user.providerData : []
@@ -91,7 +91,7 @@ export default {
       return this.providers.find(p => p.providerId === 'twitter.com')
     },
     user() {
-      return this.$store.state.auth.user
+      return this?.$store?.state.auth.user
     },
   },
   methods: {

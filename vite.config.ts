@@ -17,6 +17,11 @@ import { config as pwaConfig } from './pwa.config'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    VitePWA(pwaConfig),
+    // VitePWA(pwaConfig),
   ],
+  resolve: {
+    alias: {
+      path: 'path-browserify',
+    },
+  },
 })

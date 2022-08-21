@@ -46,10 +46,10 @@ export default {
   },
   methods: {
     discard() {
-      this.$store.dispatch(DISCARD_DOCUMENT, { id: this.id });
+      this?.$store?.dispatch(DISCARD_DOCUMENT, { id: this.id });
     },
     restore() {
-      this.$store.dispatch(RESTORE_DOCUMENT, { id: this.id });
+      this?.$store?.dispatch(RESTORE_DOCUMENT, { id: this.id });
     },
   },
 };

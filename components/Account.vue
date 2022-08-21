@@ -41,10 +41,10 @@ export default {
   },
   computed: {
     online() {
-      return this.$store.state.online
+      return this?.$store?.state.online
     },
     user() {
-      return this.$store.state.auth.user
+      return this?.$store?.state.auth.user
     },
   },
 }

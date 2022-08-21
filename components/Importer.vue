@@ -24,7 +24,7 @@ export default {
       things.forEach((thing) => {
         const doc = new Doc(thing)
 
-        this.$store.dispatch('ADD_DOCUMENT', doc)
+        this?.$store?.dispatch('ADD_DOCUMENT', doc)
       })
     },
   },

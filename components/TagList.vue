@@ -14,7 +14,7 @@ export default {
   },
   computed: {
     tags() {
-      return this.$store.getters.tags;
+      return this?.$store?.getters.tags;
     },
   },
 };

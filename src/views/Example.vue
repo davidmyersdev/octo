@@ -23,12 +23,12 @@ export default {
   },
   computed: {
     appearance() {
-      if (this.$store.state.settings.theme === 'october') { return 'dark' }
+      if (this?.$store?.state.settings.theme === 'october') { return 'dark' }
 
-      return this.$store.state.settings.theme
+      return this?.$store?.state.settings.theme
     },
     settings() {
-      return this.$store.state.settings.editor
+      return this?.$store?.state.settings.editor
     },
   },
   async mounted() {

@@ -3,14 +3,12 @@
     <div class="min-w-0 flex flex-grow p-4 md:px-16 md:py-0">
       <div class="editor flex flex-col flex-grow w-full mx-auto" :style="styles">
         <div class="gutter h-8" @click="focusEditorStart"></div>
-        <ClientOnly>
-          <Ink ref="editable" class="ink-editor" :options="options" v-model="text" />
-        </ClientOnly>
+        <InkEditor ref="editable" class="ink-editor" :options="options" v-model="text" />
         <p v-if="showReadabilityBar" class="text-gray-400 dark:text-gray-600 text-right">{{ numberOfWords }} words | {{ readTimeDescription }}</p>
         <div class="gutter h-8 flex-grow" @click="focusEditorEnd"></div>
       </div>
     </div>
-    <div v-if="!readonly && !showRightSidebar && text" class="fixed top-4 right-4 z-index-10 hidden md:block">
+    <div v-if="!disabled && !showRightSidebar && text" class="fixed top-4 right-4 z-index-10 hidden md:block">
       <button @click="toggleMeta" class="button button-size-medium button-color-gray">
         <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -22,7 +20,6 @@
 </template>
 
 <script>
-import Ink from 'ink-mde/vue'
 import { defineComponent } from 'vue'
 import { subscription } from '/src/common/account'
 import { readTime, wordCount } from '/src/common/readability.ts'
@@ -33,12 +30,11 @@ import {
   SET_RIGHT_SIDEBAR_VISIBILITY,
 } from '/src/store/actions.js'
 
+import { defaultSettings } from '/src/store/modules/settings'
+import Doc from '/src/models/doc'
+
 export default defineComponent({
-  name: 'Editor',
   emits: ['input'],
-  components: {
-    Ink,
-  },
   inject: ["mq"],
   props: {
     appearance: {
@@ -49,6 +45,7 @@ export default defineComponent({
       ),
     },
     doc: {
+      default: () => new Doc(),
       type: Object,
     },
     initialFocus: {
@@ -62,12 +59,14 @@ export default defineComponent({
       type: Array,
     },
     initialVimMode: {
-      type: String
+      type: String,
     },
-    readonly: {
+    disabled: {
+      default: false,
       type: Boolean,
     },
     settings: {
+      default: () => defaultSettings.editor,
       type: Object,
     },
   },
@@ -86,7 +85,7 @@ export default defineComponent({
   },
   computed: {
     docs() {
-      return this.$store.getters.kept.reduce((docs, doc) => {
+      return this?.$store?.getters.kept.reduce((docs, doc) => {
         if (doc.id && doc.id !== this.doc.id && doc.headers.length > 0) {
           docs.push({
             id: doc.id,
@@ -121,7 +120,7 @@ export default defineComponent({
           attribution: false,
           autocomplete: true,
           images: this.settings.images.enabled,
-          readonly: this.readonly,
+          readonly: this.disabled,
           spellcheck: this.settings.spellcheck,
           toolbar: this.settings.toolbar,
         },
@@ -161,7 +160,7 @@ export default defineComponent({
       return this.settings.readability.enabled
     },
     showRightSidebar() {
-      return this.$store.state.showRightSidebar
+      return this?.$store?.state.showRightSidebar
     },
     spellcheck() {
       return this.settings.spellcheck
@@ -172,7 +171,7 @@ export default defineComponent({
       }
     },
     tags() {
-      return this.$store.getters.allTags.filter((tag) => {
+      return this?.$store?.getters.allTags.filter((tag) => {
         return !this.doc.tags.includes(tag)
       });
     },
@@ -211,7 +210,7 @@ export default defineComponent({
       this.$emit('input', text)
     },
     async toggleMeta() {
-      this.$store.dispatch(SET_RIGHT_SIDEBAR_VISIBILITY, !this.showRightSidebar)
+      this?.$store?.dispatch(SET_RIGHT_SIDEBAR_VISIBILITY, !this.showRightSidebar)
     },
     uploadFiles(files) {
       return Promise.all(

@@ -9,7 +9,7 @@
     <div class="side-nav-spacer flex flex-col flex-grow pb-3">
       <div class="other-actions">
         <div class="search">
-          <NuxtLink :to="{ name: 'docs' }" class="sidebar-button">
+          <NuxtLink :to="{ path: '/docs' }" class="sidebar-button">
             <div class="flex items-center">
               <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -248,45 +248,49 @@ export default {
   },
   computed: {
     authIsEvaluated() {
-      return this.$store.state.auth.isEvaluated
+      return this?.$store?.state.auth.isEvaluated
     },
     context() {
-      return this.$store.state.context
+      return this?.$store?.state.context || { tags: [] }
     },
     contextTags() {
       return this.context.tags.sort()
     },
     contexts() {
-      return this.$store.getters.sortedContexts
+      return this?.$store?.getters.sortedContexts || []
     },
     discordInviteLink() {
       return import.meta.env.VITE_DISCORD_INVITE_LINK
     },
     document() {
-      return this.$store.getters.currentDoc
+      return this?.$store?.getters.currentDoc
     },
     experimentalFeaturesEnabled() {
-      return this.$store.state.settings.experimental
+      return this?.$store?.state.settings.experimental
     },
     mediumPlus() {
-      return ['md', 'lg', 'xl'].includes(this.mq.current)
+      if (process.browser) {
+        return ['md', 'lg', 'xl'].includes(this.mq.current)
+      }
+
+      return true
     },
     modKey() {
-      return this.$store.state.modKey
+      return this?.$store?.state.modKey || '⌘ cmd'
     },
     october() {
-      return this.$store.state.settings.theme === 'october'
+      return this?.$store?.state.settings.theme === 'october'
     },
     tags() {
-      return this.$store.getters.tags
+      return this?.$store?.getters.tags
     },
     user() {
-      return this.$store.state.auth.user
+      return this?.$store?.state.auth.user
     },
   },
   methods: {
     clearContext() {
-      this.$store.dispatch(DEACTIVATE_CONTEXT)
+      this?.$store?.dispatch(DEACTIVATE_CONTEXT)
     },
     async openFile() {
       const id = nanoid()
@@ -308,7 +312,7 @@ export default {
       open({ name: 'file_editor', params: { id } })
     },
     setContext(context) {
-      this.$store.dispatch(SET_CONTEXT_TAGS, { context })
+      this?.$store?.dispatch(SET_CONTEXT_TAGS, { context })
     },
     trackCta() {
       if (process.browser) {

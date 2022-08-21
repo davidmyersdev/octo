@@ -9,7 +9,7 @@ export default {
   name: 'Exporter',
   computed: {
     value() {
-      return JSON.stringify(this.$store.state.documents.all, null, 2)
+      return JSON.stringify(this?.$store?.state.documents.all, null, 2)
     },
   },
   methods: {

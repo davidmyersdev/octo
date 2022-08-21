@@ -130,7 +130,7 @@ export default {
       return moment(this.doc.discardedAt).format('ddd, MMM Do, YYYY [at] h:mm A')
     },
     doc() {
-      return this.$store.getters.currentDoc
+      return this?.$store?.getters.currentDoc
     },
     hasCodeblocks() {
       return this.codeblocks.length > 0
@@ -167,12 +167,12 @@ export default {
       document.execCommand('copy')
     },
     async discardDocument() {
-      this.$store.dispatch(DISCARD_DOCUMENT, { id: this.doc.id })
+      this?.$store?.dispatch(DISCARD_DOCUMENT, { id: this.doc.id })
 
       open({ name: 'docs-new' })
     },
     async duplicateDocument() {
-      const newDocId = await this.$store.dispatch(DUPLICATE_DOCUMENT, { id: this.doc.id })
+      const newDocId = await this?.$store?.dispatch(DUPLICATE_DOCUMENT, { id: this.doc.id })
 
       open({ name: 'doc', params: { id: newDocId } })
     },
@@ -191,16 +191,16 @@ export default {
       CodeSandbox.create(files).then(sandbox_id => CodeSandbox.open(sandbox_id))
     },
     async restoreDocument() {
-      this.$store.dispatch(RESTORE_DOCUMENT, { id: this.doc.id })
+      this?.$store?.dispatch(RESTORE_DOCUMENT, { id: this.doc.id })
     },
     async restrictDocument() {
-      this.$store.dispatch(RESTRICT_DOCUMENT, { id: this.doc.id })
+      this?.$store?.dispatch(RESTRICT_DOCUMENT, { id: this.doc.id })
     },
     async shareDocument() {
-      this.$store.dispatch(SHARE_DOCUMENT, { id: this.doc.id })
+      this?.$store?.dispatch(SHARE_DOCUMENT, { id: this.doc.id })
     },
     async toggleMeta() {
-      this.$store.dispatch(SET_RIGHT_SIDEBAR_VISIBILITY, !this.$store.state.showRightSidebar)
+      this?.$store?.dispatch(SET_RIGHT_SIDEBAR_VISIBILITY, !this?.$store?.state.showRightSidebar)
     },
   },
   async beforeUnmount() {

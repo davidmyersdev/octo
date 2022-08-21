@@ -104,83 +104,83 @@ export default {
   computed: {
     imagesEnabled: {
       get() {
-        return this.$store.state.settings.editor.images.enabled
+        return this?.$store?.state.settings.editor.images.enabled
       },
       set(value) {
-        this.$store.dispatch(SET_EDITOR_IMAGES_ENABLED, value)
+        this?.$store?.dispatch(SET_EDITOR_IMAGES_ENABLED, value)
       },
     },
     ligatures: {
       get() {
-        return this.$store.state.settings.editor.ligatures
+        return this?.$store?.state.settings.editor.ligatures
       },
       set(value) {
-        this.$store.commit(SET_EDITOR_LIGATURES, value)
+        this?.$store?.commit(SET_EDITOR_LIGATURES, value)
       },
     },
     readabilityEnabled: {
       get() {
-        return this.$store.state.settings.editor.readability.enabled
+        return this?.$store?.state.settings.editor.readability.enabled
       },
       set(value) {
-        this.$store.commit(SET_EDITOR_READABILITY_ENABLED, value)
+        this?.$store?.commit(SET_EDITOR_READABILITY_ENABLED, value)
       },
     },
     readabilityMaxWidth: {
       get() {
-        return this.$store.state.settings.editor.readability.maxWidthInChars
+        return this?.$store?.state.settings.editor.readability.maxWidthInChars
       },
       set(value) {
-        this.$store.commit(SET_EDITOR_READABILITY_MAX_WIDTH, value)
+        this?.$store?.commit(SET_EDITOR_READABILITY_MAX_WIDTH, value)
       },
     },
     readabilityWordsPerMinute: {
       get() {
-        return this.$store.state.settings.editor.readability.wordsPerMinute
+        return this?.$store?.state.settings.editor.readability.wordsPerMinute
       },
       set(value) {
-        this.$store.commit(SET_EDITOR_READABILITY_WORDS_PER_MINUTE, value)
+        this?.$store?.commit(SET_EDITOR_READABILITY_WORDS_PER_MINUTE, value)
       },
     },
     showCaptions: {
       get() {
-        return this.$store.state.settings.editor.images.showCaptions
+        return this?.$store?.state.settings.editor.images.showCaptions
       },
       set(value) {
-        this.$store.dispatch(SET_EDITOR_IMAGES_SHOW_CAPTIONS, value)
+        this?.$store?.dispatch(SET_EDITOR_IMAGES_SHOW_CAPTIONS, value)
       },
     },
     spellcheck: {
       get() {
-        return this.$store.state.settings.editor.spellcheck
+        return this?.$store?.state.settings.editor.spellcheck
       },
       set(value) {
-        this.$store.commit(SET_EDITOR_SPELLCHECK, value)
+        this?.$store?.commit(SET_EDITOR_SPELLCHECK, value)
       },
     },
     tabSize: {
       get() {
-        return this.$store.state.settings.editor.tabSize
+        return this?.$store?.state.settings.editor.tabSize
       },
       set(value) {
-        this.$store.dispatch(SET_EDITOR_TAB_SIZE, parseInt(value) || 2)
+        this?.$store?.dispatch(SET_EDITOR_TAB_SIZE, parseInt(value) || 2)
       },
     },
     toolbar: {
       get() {
-        return this.$store.state.settings.editor.toolbar
+        return this?.$store?.state.settings.editor.toolbar
       },
       set(value) {
-        this.$store.commit(SET_EDITOR_TOOLBAR, value)
+        this?.$store?.commit(SET_EDITOR_TOOLBAR, value)
       },
     },
     vim: {
       // Todo: Use a new setting for Vim.
       get() {
-        return this.$store.state.settings.editor.keyMap === 'vim'
+        return this?.$store?.state.settings.editor.keyMap === 'vim'
       },
       set(value) {
-        this.$store.dispatch(SET_EDITOR_KEY_MAP, value ? 'vim' : 'default')
+        this?.$store?.dispatch(SET_EDITOR_KEY_MAP, value ? 'vim' : 'default')
       },
     },
   },

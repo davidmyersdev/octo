@@ -1,3 +1,3 @@
 <template>
-  <div></div>
+  <CustomizedEditor :disabled="false"></CustomizedEditor>
 </template>

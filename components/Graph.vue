@@ -7,6 +7,7 @@
 
 <script>
 import ForceGraph from 'force-graph'
+import { useMq } from 'vue3-mq'
 
 import DocumentList from '/components/DocumentList.vue'
 
@@ -15,7 +16,6 @@ export default {
   components: {
     DocumentList,
   },
-  inject: ['mq'],
   data() {
     return {
       instance: null,
@@ -84,13 +84,6 @@ export default {
     maxNodeSize() {
       return Math.max(...this.nodes.map(node => node.size))
     },
-    mobile() {
-      if (process.browser) {
-        return ['xs', 'sm'].includes(this.mq.current)
-      }
-
-      return false
-    },
     nodes() {
       return this.edges.flatMap(edge => [edge.source, edge.target]).reduce((nodes, tag) => {
         const found = nodes.find(node => node.id === tag)
@@ -113,6 +106,11 @@ export default {
     },
   },
   methods: {
+    isMobile() {
+      const mq = useMq()
+
+      return ['xs', 'sm'].includes(mq.current)
+    },
     resize() {
       if (this.instance) {
         this.instance
@@ -151,7 +149,7 @@ export default {
       })
       .onNodeHover(node => this.$refs.graph.style.cursor = node ? 'pointer' : null)
       .onNodeClick((node) => {
-        const offset = this.mobile ? 40 : 0
+        const offset = this.isMobile() ? 40 : 0
 
         this.tag = node.id
         this.instance.centerAt(node.x, node.y + offset, 1000)

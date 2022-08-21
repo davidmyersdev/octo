@@ -8,9 +8,10 @@
 
 <script>
 import { nanoid } from 'nanoid'
+import { defineComponent } from 'vue'
+import { useMq } from 'vue3-mq'
 
-export default {
-  inject: ["mq"],
+export default defineComponent({
   watch: {
     $route: {
       deep: true,
@@ -27,22 +28,12 @@ export default {
   data() {
     return {
       routeKey: null,
+      sizes: [],
     }
   },
   computed: {
     ligatures() {
       return this?.$store?.state.settings.editor.ligatures
-    },
-    sizes() {
-      if (process.browser) {
-        if (this.mq.current === "xs") return ["xs xs-plus"]
-        if (this.mq.current === "sm") return ["sm xs-plus sm-plus"]
-        if (this.mq.current === "md") return ["md xs-plus sm-plus md-plus"]
-        if (this.mq.current === "lg") return ["lg xs-plus sm-plus md-plus lg-plus"]
-        if (this.mq.current === "xl") return ["xl xs-plus sm-plus md-plus lg-plus xl-plus"]
-      }
-
-      return []
     },
     theme() {
       return this?.$store?.state.settings.theme
@@ -51,6 +42,20 @@ export default {
   methods: {
     closeChangelog() {
       this.showChangelog = false
+    },
+    getSizes() {
+      const mq = useMq()
+
+      if (mq.current === "xs") return ["xs xs-plus"]
+      if (mq.current === "sm") return ["sm xs-plus sm-plus"]
+      if (mq.current === "md") return ["md xs-plus sm-plus md-plus"]
+      if (mq.current === "lg") return ["lg xs-plus sm-plus md-plus lg-plus"]
+      if (mq.current === "xl") return ["xl xs-plus sm-plus md-plus lg-plus xl-plus"]
+
+      return []
+    },
+    updateSizes() {
+      this.sizes = this.getSizes()
     },
     updateTheme() {
       if (process.browser) {
@@ -81,6 +86,7 @@ export default {
   },
   mounted() {
     this.updateTheme()
+    this.updateSizes()
 
     window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
       this.updateTheme()
@@ -91,7 +97,7 @@ export default {
       this?.$store?.dispatch('SET_MOD_KEY', '⌘ cmd')
     }
   },
-}
+})
 </script>
 
 <style>

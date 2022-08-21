@@ -35,7 +35,6 @@ import Doc from '/src/models/doc'
 
 export default defineComponent({
   emits: ['input'],
-  inject: ["mq"],
   props: {
     appearance: {
       type: String,
@@ -98,9 +97,6 @@ export default defineComponent({
     },
     maxWidthInChars() {
       return this.settings.readability.maxWidthInChars
-    },
-    mediumPlus() {
-      return ['md', 'lg', 'xl'].includes(this.mq.current)
     },
     numberOfWords() {
       return wordCount(this.text)

@@ -30,19 +30,26 @@
     </div>
     <ChangeLog v-if="!home && !publicDoc" />
     <div class="flex h-screen">
-      <TheLeftSidebar v-if="!mobile && showLeftSidebar" class="hidden w-72 bg-gray-100 dark:bg-darkest md:flex m-2 rounded shadow" />
+      <TheLeftSidebar v-if="!isMobile && showLeftSidebar" class="hidden w-72 bg-gray-100 dark:bg-darkest md:flex m-2 rounded shadow" />
       <SimpleBar class="the-content flex-grow flex-shrink relative h-screen">
         <TheNavbar/>
         <slot />
       </SimpleBar>
-      <TheRightSidebar v-if="!mobile && showRightSidebar && currentDoc" class="hidden w-72 bg-gray-100 dark:bg-darkest md:flex m-2 rounded" />
+      <TheRightSidebar v-if="!isMobile && showRightSidebar && currentDoc" class="hidden w-72 bg-gray-100 dark:bg-darkest md:flex m-2 rounded" />
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  inject: ["mq"],
+import { defineComponent } from 'vue'
+import { useMq } from 'vue3-mq'
+
+export default defineComponent({
+  data() {
+    return {
+      isMobile: false,
+    }
+  },
   computed: {
     currentDoc() {
       // only show the right sidebar while a document is selected (for now)
@@ -50,13 +57,6 @@ export default {
     },
     home() {
       return this.$route.name === "home"
-    },
-    mobile() {
-      if (process.browser) {
-        return ['xs', 'sm'].includes(this.mq.current)
-      }
-
-      return false
     },
     publicDoc() {
       return this.$route.name === "public_doc"
@@ -79,7 +79,12 @@ export default {
       return this?.$store?.state.showStripeModal
     },
   },
-}
+  mounted() {
+    const mq = useMq()
+
+    this.isMobile = ['xs', 'sm'].includes(mq.current)
+  },
+})
 </script>
 
 <style scoped>

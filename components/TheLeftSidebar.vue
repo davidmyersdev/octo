@@ -182,9 +182,9 @@
           </svg>
           <span class="ml-6 flex-grow">Tags</span>
         </NuxtLink>
-        <div v-if="mediumPlus">
+        <MqResponsive target="md+" tag="div">
           <TagLink v-for="tag in tags" :key="tag" :tag="tag" class="sidebar-link"></TagLink>
-        </div>
+        </MqResponsive>
       </div>
       <div>
         <h6 class="sidebar-label">
@@ -213,6 +213,7 @@
 
 <script>
 import { nanoid } from 'nanoid'
+import { defineComponent } from 'vue'
 import Key from '/components/Key.vue'
 import ModK from '/components/ModK.vue'
 import ModKKey from '/components/ModKKey.vue'
@@ -229,8 +230,7 @@ import {
   SET_CONTEXT_TAGS,
 } from '/src/store/actions.js'
 
-export default {
-  name: 'TheLeftSidebar',
+export default defineComponent({
   components: {
     Key,
     ModK,
@@ -239,7 +239,6 @@ export default {
     TheLogo,
     TheSpookyLogo,
   },
-  inject: ['mq'],
   data() {
     return {
       globalConfig,
@@ -268,13 +267,6 @@ export default {
     experimentalFeaturesEnabled() {
       return this?.$store?.state.settings.experimental
     },
-    mediumPlus() {
-      if (process.browser) {
-        return ['md', 'lg', 'xl'].includes(this.mq.current)
-      }
-
-      return true
-    },
     modKey() {
       return this?.$store?.state.modKey || '⌘ cmd'
     },
@@ -282,10 +274,10 @@ export default {
       return this?.$store?.state.settings.theme === 'october'
     },
     tags() {
-      return this?.$store?.getters.tags
+      return this?.$store?.getters.tags || []
     },
     user() {
-      return this?.$store?.state.auth.user
+      return this?.$store?.state.auth.user || {}
     },
   },
   methods: {
@@ -320,5 +312,5 @@ export default {
       }
     },
   },
-}
+})
 </script>

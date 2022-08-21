@@ -35,6 +35,10 @@ export default (store) => {
     } else {
       store.dispatch(SETTINGS_LOADED)
     }
+  }).catch((error) => {
+    if (process.browser) {
+      console.log({ error })
+    }
   })
 
   store.subscribe(({ type, _payload }, state) => {

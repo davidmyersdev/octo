@@ -13,6 +13,10 @@ export default defineNuxtConfig({
       },
     },
   },
+  experimental: {
+    // Todo: Does not respect port provided with `nuxi dev --port`
+    // viteNode: true,
+  },
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',

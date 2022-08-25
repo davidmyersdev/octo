@@ -151,7 +151,7 @@ export default defineComponent({
       return Math.floor((this.readTime % 1) * 60)
     },
     showReadabilityBar() {
-      return this.settings.readability.enabled
+      return this.settings.readability.enabled ?? true
     },
     showRightSidebar() {
       return this?.$store?.state.showRightSidebar || false
@@ -224,7 +224,7 @@ export default defineComponent({
 
     // debugger
 
-    // this.pro = subscription.value.pro
+    this.pro = subscription.value.pro
   },
 })
 </script>
@@ -257,15 +257,19 @@ export default defineComponent({
     width: 100%;
   }
 
-  .ink-editor {
+  /* .ink-editor {
     height: 100%;
+  } */
+
+  /* :deep(.ink-editor > div:first-child), :deep(.ink-editor .cm-editor) {
+    height: 100%;
+  } */
+
+  :deep(.ink-editor .cm-content) {
+    padding: 4px 0;
   }
 
-  :deep(.ink-editor > div:first-child), :deep(.ink-editor .cm-editor) {
-    height: 100%;
-  }
-
-  .ink-editor :deep(.cm-editor.cm-focused) {
+  :deep(.ink-editor .cm-editor.cm-focused) {
     outline: none;
   }
 </style>

@@ -261,9 +261,6 @@ export default defineComponent({
     discordInviteLink() {
       return import.meta.env.VITE_DISCORD_INVITE_LINK
     },
-    document() {
-      return this?.$store?.getters.currentDoc
-    },
     experimentalFeaturesEnabled() {
       return this?.$store?.state.settings.experimental
     },

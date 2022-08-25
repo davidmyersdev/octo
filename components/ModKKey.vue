@@ -14,7 +14,7 @@ export default {
   },
   computed: {
     active() {
-      return this?.$store?.state.keybindings.listening;
+      return this?.$store?.state.keybindings.listening ?? false;
     },
   },
 }

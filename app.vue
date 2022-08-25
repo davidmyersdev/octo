@@ -101,6 +101,8 @@ export default defineComponent({
 </script>
 
 <style>
+@import '~/lib/simplebar/src/lib.css';
+
 html, body, #__nuxt, #app {
   height: 100vh;
   height: -webkit-fill-available;

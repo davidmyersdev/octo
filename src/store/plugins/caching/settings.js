@@ -27,19 +27,19 @@ export default (store) => {
     name: 'settings',
   })
 
-  cache.getItem(CACHE_KEY).then((settings) => {
-    if (settings) {
-      store.dispatch(LOAD_SETTINGS, settings).then(() => {
-        store.dispatch(SETTINGS_LOADED)
-      })
-    } else {
-      store.dispatch(SETTINGS_LOADED)
-    }
-  }).catch((error) => {
-    if (process.browser) {
-      console.log({ error })
-    }
-  })
+  // cache.getItem(CACHE_KEY).then((settings) => {
+  //   if (settings) {
+  //     store.dispatch(LOAD_SETTINGS, settings).then(() => {
+  //       store.dispatch(SETTINGS_LOADED)
+  //     })
+  //   } else {
+  //     store.dispatch(SETTINGS_LOADED)
+  //   }
+  // }).catch((error) => {
+  //   if (process.browser) {
+  //     console.log({ error })
+  //   }
+  // })
 
   store.subscribe(({ type, _payload }, state) => {
     switch (type) {

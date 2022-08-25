@@ -70,7 +70,7 @@ export default defineComponent({
     },
     showRightSidebar() {
       if (process.server) {
-        return true
+        return false
       }
 
       return this.$route.name === 'doc' && this?.$store?.state.showRightSidebar

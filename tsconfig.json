@@ -2,15 +2,17 @@
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
     "esModuleInterop": true,
-    "lib": ["esnext", "dom"],
+    "lib": ["ESNext", "DOM"],
+    "moduleResolution": "NodeNext",
     "paths": {
-      "/lib/*": ["./lib/*"],
-      "/src/*": ["./src/*"],
-      "/types/*": ["./types/*"]
+      "/*": ["./*"]
     },
     "sourceMap": true,
     "strict": true,
     "target": "esnext",
     "useDefineForClassFields": true
-  }
+  },
+  "include": [
+    "./**/*"
+  ]
 }

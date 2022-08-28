@@ -43,7 +43,7 @@
     "workbox-build": "^6.3.0",
     "workbox-window": "^6.3.0"
   },
-  "packageManager": "yarn@3.2.2",
+  "packageManager": "yarn@3.2.3",
   "resolutions": {
     "terser": "^5.14.2"
   }

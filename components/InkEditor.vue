@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div ref="ink"></div>
+    <div ref="ink" v-html="html"></div>
   </div>
 </template>
 
 <script lang="ts">
 // @ts-ignore
-import { ink } from 'ink-mde'
+import { ink, ssr } from 'ink-mde/ssr'
 import { defineComponent } from 'vue'
 
 import type * as Ink from 'ink-mde'
@@ -103,9 +103,11 @@ export default defineComponent({
     },
   },
   created() {
-    if (process.server) {
-      // this.html = ssr(this.options)
-    }
+    // if (!process.client) {
+      this.html = ssr(this.options)
+
+      console.log('html', this.html)
+    // }
   },
   updated() {
     this.tryInit()

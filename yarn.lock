@@ -4851,6 +4851,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"csstype@npm:^3.1.0":
+  version: 3.1.0
+  resolution: "csstype@npm:3.1.0"
+  checksum: 644e986cefab86525f0b674a06889cfdbb1f117e5b7d1ce0fc55b0423ecc58807a1ea42ecc75c4f18999d14fc42d1d255f84662a45003a52bb5840e977eb2ffd
+  languageName: node
+  linkType: hard
+
 "cuint@npm:^0.2.2":
   version: 0.2.2
   resolution: "cuint@npm:0.2.2"
@@ -7243,7 +7250,7 @@ __metadata:
 
 "ink-mde@git@github.com:voracious/ink-mde.git#feature/ssr-support":
   version: 0.11.1
-  resolution: "ink-mde@git@github.com:voracious/ink-mde.git#commit=2afc11b145aa4c6e6ca0cc0f31202fa16739a668"
+  resolution: "ink-mde@git@github.com:voracious/ink-mde.git#commit=38875cc4d4d065da47d8c8589c7ebe38a4653d44"
   dependencies:
     "@codemirror/autocomplete": ^6.0.4
     "@codemirror/commands": ^6.0.1
@@ -7257,9 +7264,14 @@ __metadata:
     "@lezer/highlight": ^1.0.0
     "@lezer/markdown": ^1.0.1
     "@replit/codemirror-vim": ^6.0.1
-    solid-js: ^1.4.8
+    solid-js: ^1.5.1
     style-mod: ^4.0.0
-  checksum: aeead1c6c3d7e0b34f6f05fb1994dfe69f717ee3eee9dae4e93db05af125e9448bd029365530f10cf57341665bc0db31f11c14aee7279bd6f088c2fc55bab4df
+  peerDependencies:
+    vue: ^3.0.0
+  peerDependenciesMeta:
+    vue:
+      optional: true
+  checksum: 9a382d13a3dd5f8166280f2cf97a91fc8981768be0295d9a348493efa76805d126a4c68f53afc2bbcdd68392b31dffe86c16c955490a76e2f5afa24a52c86d4c
   languageName: node
   linkType: hard
 
@@ -10670,10 +10682,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"solid-js@npm:^1.4.8":
-  version: 1.4.8
-  resolution: "solid-js@npm:1.4.8"
-  checksum: deb79463dab3af7889fffaa15f1be92be0c0732d46e74bd2848208d974389e967d69462eb940fbfc0cdbdf7d0a3677a7c9517da5fe6e2a25534e077b555d5704
+"solid-js@npm:^1.5.1":
+  version: 1.5.1
+  resolution: "solid-js@npm:1.5.1"
+  dependencies:
+    csstype: ^3.1.0
+  checksum: b03f63ba63b4fdf28992b25b32d627417a1b61e6805acb2b68363392bbd9acb0a24cc2fb887830c785e32a799b1b9912882c5fedfda9a2454d340e18b48f4783
   languageName: node
   linkType: hard
 
@@ -11339,7 +11353,7 @@ __metadata:
 
 "typescript@patch:typescript@4.3.4#~builtin<compat/typescript>":
   version: 4.3.4
-  resolution: "typescript@patch:typescript@npm%3A4.3.4#~builtin<compat/typescript>::version=4.3.4&hash=f456af"
+  resolution: "typescript@patch:typescript@npm%3A4.3.4#~builtin<compat/typescript>::version=4.3.4&hash=a1c5e5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
@@ -11349,7 +11363,7 @@ __metadata:
 
 "typescript@patch:typescript@^4.7.4#~builtin<compat/typescript>":
   version: 4.7.4
-  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=f456af"
+  resolution: "typescript@patch:typescript@npm%3A4.7.4#~builtin<compat/typescript>::version=4.7.4&hash=a1c5e5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver

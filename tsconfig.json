@@ -3,16 +3,24 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "lib": ["ESNext", "DOM"],
+    "module": "ESNext",
     "moduleResolution": "NodeNext",
     "paths": {
-      "/*": ["./*"]
+      "/*.ts": [
+        "./*.ts"
+      ],
+      "/*.js": [
+        "./*.js"
+      ],
+      "/*": [
+        "./*.ts",
+        "./*.js",
+        "./*"
+      ]
     },
     "sourceMap": true,
     "strict": true,
-    "target": "esnext",
+    "target": "ESNext",
     "useDefineForClassFields": true
-  },
-  "include": [
-    "./**/*"
-  ]
+  }
 }

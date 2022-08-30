@@ -19,19 +19,20 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue'
-import { useSubscription } from '/src/common/account'
+import { useSubscription } from '/src/common/account.ts'
 import { readTime, wordCount } from '/src/common/readability.ts'
 import { addFile } from '/src/firebase/storage.ts'
-import { plugins } from '/src/vendor/plugins'
+import { plugins } from '/src/vendor/plugins/index.ts'
 
 import {
   SET_RIGHT_SIDEBAR_VISIBILITY,
 } from '/src/store/actions.js'
 
-import { defaultSettings } from '/src/store/modules/settings'
-import Doc from '/src/models/doc'
+import { defaultSettings } from '/src/store/modules/settings.js'
+import Doc from '/src/models/doc.js'
+import type * as Ink from 'ink-mde'
 
 export default defineComponent({
   emits: ['input'],
@@ -39,7 +40,7 @@ export default defineComponent({
     appearance: {
       type: String,
       default: () => ('auto'),
-      validator: (value) => (
+      validator: (value: string) => (
         ['auto', 'dark', 'light'].includes(value)
       ),
     },
@@ -50,7 +51,7 @@ export default defineComponent({
     initialFocus: {
       type: String,
       default: () => ('any'),
-      validator: (position) => (
+      validator: (position: string) => (
         ['any', 'start', 'end'].includes(position)
       ),
     },
@@ -102,7 +103,7 @@ export default defineComponent({
     numberOfWords() {
       return wordCount(this.text)
     },
-    options() {
+    options(): Ink.Options {
       return {
         files: {
           clipboard: this.pro,

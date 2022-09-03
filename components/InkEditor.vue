@@ -1,3 +1,3 @@
 <script lang="ts">
-export { default } from 'ink-mde/vue/ssr'
+export { default } from 'ink-mde/vue'
 </script>

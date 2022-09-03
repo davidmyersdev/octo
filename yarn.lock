@@ -1326,7 +1326,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@codemirror/autocomplete@npm:^6.0.0, @codemirror/autocomplete@npm:^6.0.4":
+"@codemirror/autocomplete@npm:^6.0.0, @codemirror/autocomplete@npm:^6.1.0":
   version: 6.1.0
   resolution: "@codemirror/autocomplete@npm:6.1.0"
   dependencies:
@@ -1343,7 +1343,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@codemirror/commands@npm:^6.0.1":
+"@codemirror/commands@npm:^6.1.0":
   version: 6.1.0
   resolution: "@codemirror/commands@npm:6.1.0"
   dependencies:
@@ -1427,7 +1427,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@codemirror/lang-markdown@npm:^6.0.0":
+"@codemirror/lang-markdown@npm:^6.0.0, @codemirror/lang-markdown@npm:^6.0.1":
   version: 6.0.1
   resolution: "@codemirror/lang-markdown@npm:6.0.1"
   dependencies:
@@ -1534,7 +1534,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@codemirror/language@npm:^6.0.0, @codemirror/language@npm:^6.2.0":
+"@codemirror/language@npm:^6.0.0, @codemirror/language@npm:^6.2.1":
   version: 6.2.1
   resolution: "@codemirror/language@npm:6.2.1"
   dependencies:
@@ -1568,25 +1568,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@codemirror/search@npm:^6.0.0":
-  version: 6.1.0
-  resolution: "@codemirror/search@npm:6.1.0"
+"@codemirror/search@npm:^6.2.0":
+  version: 6.2.0
+  resolution: "@codemirror/search@npm:6.2.0"
   dependencies:
     "@codemirror/state": ^6.0.0
     "@codemirror/view": ^6.0.0
     crelt: ^1.0.5
-  checksum: 3cf85eec96236f856ba947241a0587e46bbfd3c88f5a90bd4c5f0bbb867055732b8cf6dc146e5e0c3f4dfd87540e97908fdae033f991c55f6fa9179059cb80fc
+  checksum: 1d25a847d3ebde3b3e8ee796c9a874c5e77622cebf361887f4ce7c9b9c1de196c9e74b488602032b5a3eeff31d3c983ea67e7fdba8b0b4775b40abb066e58d63
   languageName: node
   linkType: hard
 
-"@codemirror/state@npm:^6.0.0, @codemirror/state@npm:^6.0.1":
+"@codemirror/state@npm:^6.0.0, @codemirror/state@npm:^6.1.1":
   version: 6.1.1
   resolution: "@codemirror/state@npm:6.1.1"
   checksum: 26b767af3a3385479d9bb6a31b5d4fb7d2485d4f502c3056aa3117c12ba0b4e80bbbf358d81e81a03d147e404b7ef65cc1449058b2f869f698882d1969b74996
   languageName: node
   linkType: hard
 
-"@codemirror/view@npm:^6.0.0, @codemirror/view@npm:^6.0.3":
+"@codemirror/view@npm:^6.0.0":
   version: 6.2.0
   resolution: "@codemirror/view@npm:6.2.0"
   dependencies:
@@ -1594,6 +1594,17 @@ __metadata:
     style-mod: ^4.0.0
     w3c-keyname: ^2.2.4
   checksum: 984ef8b6f41055ce221d322263726e95185c22eca23284c3612b449b5a2d2e63ff091b8e4bbc80ae9e980889d3d8929929076528fa9d1125c67a41c4af3a5193
+  languageName: node
+  linkType: hard
+
+"@codemirror/view@npm:^6.2.1":
+  version: 6.2.2
+  resolution: "@codemirror/view@npm:6.2.2"
+  dependencies:
+    "@codemirror/state": ^6.0.0
+    style-mod: ^4.0.0
+    w3c-keyname: ^2.2.4
+  checksum: 6983c51362367d3885961fa233d302e75dfb103cd83ec78e6a044c2420e61466b5e94cfb73a9e840b04765577e8bbb269eb1ad45fa21abd28efda4ae780791db
   languageName: node
   linkType: hard
 
@@ -2325,6 +2336,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@lezer/common@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@lezer/common@npm:1.0.1"
+  checksum: 05bda2b0b90713a511502e1e0c67842996cb86415cd701c46eb49f8fa117552229a4bc7244f1e8e0025e3563294a52911eebd70d06a4bc987280fca5d148c34b
+  languageName: node
+  linkType: hard
+
 "@lezer/cpp@npm:^1.0.0":
   version: 1.0.0
   resolution: "@lezer/cpp@npm:1.0.0"
@@ -2806,7 +2824,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@replit/codemirror-vim@npm:^6.0.1":
+"@replit/codemirror-vim@npm:^6.0.2":
   version: 6.0.2
   resolution: "@replit/codemirror-vim@npm:6.0.2"
   peerDependencies:
@@ -3367,7 +3385,7 @@ __metadata:
     deepmerge-ts: ^4.2.1
     firebase: ^9.9.0
     force-graph: ^1.35.1
-    ink-mde: "git@github.com:voracious/ink-mde.git#feature/ssr-support"
+    ink-mde: ^0.12.0
     localforage: ^1.10.0
     mime-types: ^2.1.35
     moment: ^2.29.4
@@ -7248,22 +7266,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ink-mde@git@github.com:voracious/ink-mde.git#feature/ssr-support":
-  version: 0.11.1
-  resolution: "ink-mde@git@github.com:voracious/ink-mde.git#commit=a20426d98120dc6d137972d46770918cacbc27cc"
+"ink-mde@npm:^0.12.0":
+  version: 0.12.0
+  resolution: "ink-mde@npm:0.12.0"
   dependencies:
-    "@codemirror/autocomplete": ^6.0.4
-    "@codemirror/commands": ^6.0.1
-    "@codemirror/lang-markdown": ^6.0.0
-    "@codemirror/language": ^6.2.0
+    "@codemirror/autocomplete": ^6.1.0
+    "@codemirror/commands": ^6.1.0
+    "@codemirror/lang-markdown": ^6.0.1
+    "@codemirror/language": ^6.2.1
     "@codemirror/language-data": ^6.1.0
-    "@codemirror/search": ^6.0.0
-    "@codemirror/state": ^6.0.1
-    "@codemirror/view": ^6.0.3
-    "@lezer/common": ^1.0.0
+    "@codemirror/search": ^6.2.0
+    "@codemirror/state": ^6.1.1
+    "@codemirror/view": ^6.2.1
+    "@lezer/common": ^1.0.1
     "@lezer/highlight": ^1.0.0
     "@lezer/markdown": ^1.0.1
-    "@replit/codemirror-vim": ^6.0.1
+    "@replit/codemirror-vim": ^6.0.2
     solid-js: ^1.5.1
     style-mod: ^4.0.0
   peerDependencies:
@@ -7271,7 +7289,7 @@ __metadata:
   peerDependenciesMeta:
     vue:
       optional: true
-  checksum: 76940a729a07330c96d4a6aae19d5ed5816c1eb0a569f85cb21b8318f6e3e81ab8fbbe40e54b9a9f56222542c0acae8ba8be552ec5a3f3bfa6485b22831652c4
+  checksum: dda976211eeb83aa831b38ed9db6cc693ec36205e1ea160da14da2dd268a59a768bed6ed4e2782fae9516b6d8e35c56c7ed7e56e8c938f1626b93d84a170f110
   languageName: node
   linkType: hard
 

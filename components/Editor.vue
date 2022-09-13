@@ -79,14 +79,17 @@ export default defineComponent({
   watch: {
     text(value) {
       // If a text value is being passed in that doesn't match the editor, then we likely need to load a new doc.
+      // @ts-ignore
       if (value !== this.$refs.editable.instance.doc()) {
+        // @ts-ignore
         this.$refs.editable.instance.load(value)
       }
     },
   },
   computed: {
     docs() {
-      return this?.$store?.getters.kept.reduce((docs, doc) => {
+      // @ts-ignore
+      return this.$store.getters.kept.reduce((docs, doc) => {
         if (doc.id && doc.id !== this.doc.id && doc.headers.length > 0) {
           docs.push({
             id: doc.id,
@@ -114,6 +117,7 @@ export default defineComponent({
           injectMarkup: false,
         },
         interface: {
+          // @ts-ignore
           appearance: this.appearance,
           attribution: false,
           autocomplete: true,
@@ -123,7 +127,9 @@ export default defineComponent({
           toolbar: this.settings.toolbar,
         },
         // Todo: Make these configurable.
+        // @ts-ignore
         plugins: this.plugins,
+        // @ts-ignore
         selections: this.initialSelections || [],
         toolbar: {
           upload: this.pro,
@@ -155,6 +161,7 @@ export default defineComponent({
       return this.settings.readability.enabled ?? true
     },
     showRightSidebar() {
+      // @ts-ignore
       return this?.$store?.state.showRightSidebar || false
     },
     spellcheck() {
@@ -166,6 +173,7 @@ export default defineComponent({
       }
     },
     tags() {
+      // @ts-ignore
       return this?.$store?.getters.allTags.filter((tag) => {
         return !this.doc.tags.includes(tag)
       }) || []
@@ -174,7 +182,7 @@ export default defineComponent({
       get() {
         return this.doc.text
       },
-      set(value) {
+      set(value: string) {
         this.input(value)
       },
     },
@@ -184,6 +192,7 @@ export default defineComponent({
   },
   methods: {
     focusEditor() {
+      // @ts-ignore
       this.$refs.editable.focus()
     },
     focusInitial() {
@@ -196,23 +205,28 @@ export default defineComponent({
       }
     },
     async focusEditorEnd() {
+      // @ts-ignore
       this.$refs.editable.focus()
     },
     async focusEditorStart() {
+      // @ts-ignore
       this.$refs.editable.focus()
     },
-    async input(text) {
+    async input(text: string) {
       this.$emit('input', text)
     },
     async toggleMeta() {
+      // @ts-ignore
       this?.$store?.dispatch(SET_RIGHT_SIDEBAR_VISIBILITY, !this.showRightSidebar)
     },
-    uploadFiles(files) {
+    uploadFiles(files: FileList) {
       return Promise.all(
         Array.from(files).map(async (file) => {
           return addFile(file).then((uploadedFile) => {
             // Todo: Handle non-image files
+            // @ts-ignore
             if (/^image\/.*/.test(uploadedFile.mimeType)) {
+              // @ts-ignore
               this.$refs.editable.instance.insert(`![](${uploadedFile.url})`)
             }
           })
@@ -221,11 +235,7 @@ export default defineComponent({
     },
   },
   mounted() {
-    const subscription = useSubscription()
-
-    // debugger
-
-    this.pro = subscription.value.pro
+    this.pro = useSubscription().value.pro
   },
 })
 </script>

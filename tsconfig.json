@@ -2,9 +2,10 @@
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
     "esModuleInterop": true,
+    "jsx": "preserve",
     "lib": ["ESNext", "DOM"],
     "module": "ESNext",
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "Node",
     "paths": {
       "/*.ts": [
         "./*.ts"

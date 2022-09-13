@@ -16,7 +16,7 @@ export default defineComponent({
     $route: {
       deep: true,
       handler(route) {
-        if (route.params.preserve) { return }
+        if (route.query.preserve) { return }
 
         this.routeKey = nanoid()
       },

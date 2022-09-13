@@ -82,9 +82,8 @@ export default defineComponent({
           this?.$store?.commit(ADD_DOCUMENT, new Doc({ id: this.doc.id, text }))
 
           this.$router.replace({
-            name: 'doc',
-            params: {
-              id: this.doc.id,
+            path: `/docs/${this.doc.id}`,
+            query: {
               preserve: true,
             },
           })
@@ -121,6 +120,7 @@ export default defineComponent({
   },
   async mounted() {
     this.updateTitle()
+    this.$refs.editable.focusEditor()
 
     // might want to pass another prop to represent 'shared' since disabled might have multiple use cases
     if (this.disabled) {

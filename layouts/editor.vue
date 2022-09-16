@@ -80,6 +80,7 @@ export default defineComponent({
     },
   },
   mounted() {
+    console.log('editor_layout.mounted')
     const mq = useMq()
 
     this.isMobile = ['xs', 'sm'].includes(mq.current)

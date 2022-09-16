@@ -76,15 +76,16 @@ export default defineComponent({
       if (!this.disabled) {
         // ReadOnly mode means we are viewing a shared doc.
         // Todo: Create a new view for shared docs, and store shared docs in a new collection.
+        // Todo: Emit these as events, and allow the page component to update the URL and set the key accordingly.
         if (this.id) {
           this?.$store?.commit(EDIT_DOCUMENT, { id: this.doc.id, text })
         } else {
           this?.$store?.commit(ADD_DOCUMENT, new Doc({ id: this.doc.id, text }))
 
-          this.$router.replace({
+          this.$router.push({
             path: `/docs/${this.doc.id}`,
             query: {
-              preserve: true,
+              key: 'new',
             },
           })
         }
@@ -119,6 +120,8 @@ export default defineComponent({
     next()
   },
   async mounted() {
+    console.log('customized_editor.mounted')
+
     this.updateTitle()
     this.$refs.editable.focusEditor()
 

@@ -11,6 +11,15 @@ export default defineNuxtConfig({
         class: 'dark flex scroll-smooth scroll-pt-4',
         lang: 'en',
       },
+      link: [
+        { href: '/img/icons/favicon.ico', rel: 'icon' },
+        { href: 'https://fonts.googleapis.com', rel: 'preconnect' },
+        { crossorigin: true, href: 'https://fonts.gstatic.com', rel: 'preconnect' },
+        { href: 'https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@300;400;600;700&display=swap', rel: 'stylesheet' },
+      ],
+      script: [
+        // Todo: Add Fathom script
+      ],
     },
   },
   experimental: {

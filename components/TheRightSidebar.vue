@@ -169,7 +169,7 @@ export default {
     async discardDocument() {
       this?.$store?.dispatch(DISCARD_DOCUMENT, { id: this.doc.id })
 
-      open({ name: 'docs-new' })
+      open({ path: '/docs/new' })
     },
     async duplicateDocument() {
       const newDocId = await this?.$store?.dispatch(DUPLICATE_DOCUMENT, { id: this.doc.id })

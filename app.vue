@@ -1,33 +1,23 @@
 <template>
   <div id="app" class="h-screen" :class="sizes.concat([!ligatures && 'ligatures-none'])">
     <NuxtLayout name="editor">
-      <NuxtPage :pageKey="routeKey" />
+      <NuxtPage />
     </NuxtLayout>
   </div>
 </template>
 
 <script>
-import { nanoid } from 'nanoid'
 import { defineComponent } from 'vue'
 import { useMq } from 'vue3-mq'
 
 export default defineComponent({
   watch: {
-    $route: {
-      deep: true,
-      handler(route) {
-        if (route.query.preserve) { return }
-
-        this.routeKey = nanoid()
-      },
-    },
-    theme(value) {
+    theme() {
       this.updateTheme()
     },
   },
   data() {
     return {
-      routeKey: null,
       sizes: [],
     }
   },

@@ -43,7 +43,7 @@ import { globalConfig } from '/src/global'
 //             if (globalConfig.supportsFirebase && store.state.showWelcome) {
 //               next({ name: 'home' })
 //             } else {
-//               next({ name: 'docs-new' })
+//               next({ path: '/docs/new' })
 //             }
 //           },
 //         },
@@ -61,7 +61,7 @@ import { globalConfig } from '/src/global'
 //         },
 //         {
 //           path: 'docs/new',
-//           name: 'docs-new',
+//           path: '/docs/new',
 //           meta: { track: true },
 //           component: () => import('/src/views/Editor.vue'),
 //           props: true,
@@ -151,7 +151,7 @@ import { globalConfig } from '/src/global'
 //           path: 'documents/new',
 //           name: 'dashboard',
 //           meta: { track: true },
-//           redirect: { name: 'docs-new' },
+//           redirect: { path: '/docs/new' },
 
 //         },
 //         {

@@ -1,6 +1,6 @@
 <template>
   <nav class="relative flex flex-wrap items-center content-between py-3 px-4 z-index-10 md:hidden p-6 w-full">
-    <NuxtLink class="pt-1 pb-1 mr-4 text-lg whitespace-no-wrap flex justify-between items-center" :to="{ name: 'docs-new' }">
+    <NuxtLink class="pt-1 pb-1 mr-4 text-lg whitespace-no-wrap flex justify-between items-center" :to="{ path: '/docs/new' }">
       <TheSpookyLogo v-if="october" class="h-9" />
       <TheLogo v-else size="2.25rem" />
     </NuxtLink>
@@ -67,7 +67,7 @@ export default {
         })
       }
 
-      open({ name: 'docs-new' })
+      open({ path: '/docs/new' })
     },
   },
 }

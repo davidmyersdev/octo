@@ -277,7 +277,7 @@ export default {
           }
         })
       } else {
-        open({ name: 'docs-new' })
+        open({ path: '/docs/new' })
       }
     }).catch((error) => {
       switch(error.code) {

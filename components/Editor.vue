@@ -120,7 +120,8 @@ export default defineComponent({
           // @ts-ignore
           appearance: this.appearance,
           attribution: false,
-          autocomplete: true,
+          // Todo: Figure out why this is causing an error.
+          // autocomplete: true,
           images: this.settings.images.enabled,
           readonly: this.disabled,
           spellcheck: this.settings.spellcheck,
@@ -193,7 +194,7 @@ export default defineComponent({
   methods: {
     focusEditor() {
       // @ts-ignore
-      this.$refs.editable.focus()
+      this.$refs.editable?.focus()
     },
     focusInitial() {
       this.focusEditor()

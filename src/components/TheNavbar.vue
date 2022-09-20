@@ -1,8 +1,7 @@
 <template>
-  <nav class="relative flex flex-wrap items-center content-between py-3 px-4 z-index-10 md:hidden p-6 w-full">
+  <nav class="relative flex flex-wrap items-center content-between p-4 z-index-10 md:hidden w-full">
     <router-link class="pt-1 pb-1 mr-4 text-lg whitespace-no-wrap flex justify-between items-center" :to="{ name: 'new_doc' }">
-      <TheSpookyLogo v-if="october" class="h-9" />
-      <TheLogo v-else size="2.25rem" />
+      <TheLogo class="h-9 text-theme" />
     </router-link>
     <div class="flex items-stretch fixed top-3 right-3">
       <router-link class="button button-size-medium button-color-gray ml-2" :to="{ name: 'menu' }" role="button" aria-haspopup="true" aria-expanded="false">
@@ -32,7 +31,6 @@
 
 <script>
 import TheLogo from '/src/components/TheLogo.vue'
-import TheSpookyLogo from '/src/components/TheSpookyLogo.vue'
 
 import { open } from '/src/router.js'
 
@@ -40,7 +38,6 @@ export default {
   name: 'TheNavbar',
   components: {
     TheLogo,
-    TheSpookyLogo,
   },
   computed: {
     doc() {

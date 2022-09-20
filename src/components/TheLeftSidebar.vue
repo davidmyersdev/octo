@@ -1,9 +1,8 @@
 <template>
   <SimpleBar class="p-4 md:p-2">
-    <div class="hidden md:flex justify-center my-3 pb-2">
-      <router-link class="flex p-2" :to="{ name: 'home' }">
-        <TheSpookyLogo v-if="october" class="h-10" />
-        <TheLogo v-else size="2.5rem" />
+    <div class="hidden md:flex items-center justify-center pb-2">
+      <router-link class="flex p-2" :to="{ name: 'new_doc' }">
+        <TheLogo class="h-10 text-theme" />
       </router-link>
     </div>
     <div class="side-nav-spacer flex flex-col flex-grow pb-3">
@@ -218,7 +217,6 @@ import ModK from '/src/components/ModK.vue'
 import ModKKey from '/src/components/ModKKey.vue'
 import TagLink from '/src/components/TagLink.vue'
 import TheLogo from '/src/components/TheLogo.vue'
-import TheSpookyLogo from '/src/components/TheSpookyLogo.vue'
 import { open } from '/src/router'
 import { useFiles } from '/src/stores/files'
 import { AsyncIterable } from '/src/utils/iterables'
@@ -237,7 +235,6 @@ export default {
     ModKKey,
     TagLink,
     TheLogo,
-    TheSpookyLogo,
   },
   inject: ['mq'],
   data() {

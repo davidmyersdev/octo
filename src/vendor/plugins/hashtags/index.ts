@@ -1,30 +1,11 @@
 // https://discuss.codemirror.net/t/adding-support-for-the-additional-inline-syntax-to-markdown/3099
 import { HighlightStyle, syntaxHighlighting } from '@codemirror/language'
 import { Tag } from '@lezer/highlight'
-import { matchHashtags } from '/lib/hashtagged/parser'
+import { HASHTAG_CODES, matchHashtag, matchHashtagPrefix } from '/lib/hashtagged/parser'
 import { completions } from './completions'
 import type { InlineContext, MarkdownConfig } from '@lezer/markdown'
 import type * as Ink from 'ink-mde'
 import type { Config } from '../index'
-
-interface ParserContext {
-  charCode: number
-  index: number
-  inline: InlineContext
-}
-
-type Parser = (context: InlineContext, charCode: number, index: number) => number
-type ParserCallback = (context: ParserContext) => number
-
-const makeParser = (callback: ParserCallback): Parser => {
-  return (inline: InlineContext, charCode: number, index: number) => {
-    return callback({
-      charCode,
-      index,
-      inline,
-    })
-  }
-}
 
 const tags = {
   hashtag: Tag.define(),
@@ -40,43 +21,35 @@ const Hashtag: MarkdownConfig = {
   parseInline: [
     {
       name: 'Hashtag',
-      parse: makeParser((context) => {
-        const match = matchHashtags(
-          context.inline.slice(
-            context.index,
-            context.inline.end
-          )
-        ).shift()
+      parse: (inline, charCode, index) => {
+        if (!HASHTAG_CODES.includes(charCode) || HASHTAG_CODES.includes(inline.char(index + 1))) return -1
 
-        if (match) {
-          // This feels a little hacky, but since the parser scans incrementally char-by-char, we need to make sure we
-          // aren't just matching a hashtag boundary as the start of the line (^) every time we see a hash sign.
-          if (context.charCode === '#'.charCodeAt(0)) {
-            const posBefore = Math.max(context.index - 1, context.inline.offset)
+        // "A #hashtag in a line." -> "A #"
+        const text = inline.slice(inline.offset, index + 1)
+        // "A #" will match but "A#" will not
+        const prefixMatch = matchHashtagPrefix(text)
 
-            if (posBefore < context.index) {
-              const before = context.inline.slice(posBefore, posBefore + 1)
+        console.log('prefix', text, prefixMatch)
 
-              if (!/\s/.test(before)) {
-                return -1
-              }
-            }
-          }
+        if (prefixMatch) {
+          const start = index - prefixMatch.boundary.length
+          const fullMatch = matchHashtag(inline.slice(start, inline.end))
 
-          const offset = match.length - match.boundary.length
-          const offsetIndex = match.index + match.boundary.length
+          console.log('full', inline.slice(start, inline.end), fullMatch)
 
-          return context.inline.addElement(
-            context.inline.elt(
-              'Hashtag',
-              context.index + offsetIndex,
-              context.index + offset + offsetIndex
+          if (fullMatch) {
+            return inline.addElement(
+              inline.elt(
+                'Hashtag',
+                index,
+                index + fullMatch.length - fullMatch.boundary.length,
+              )
             )
-          )
+          }
         }
 
         return -1
-      }),
+      },
       after: 'Emphasis',
     },
   ],

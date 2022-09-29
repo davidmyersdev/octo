@@ -1,5 +1,5 @@
 import { tags } from './theme'
-import { matchUrlAtStart } from './utils'
+import { matchUrl, matchUrlPrefix } from './utils'
 import type { InlineContext, MarkdownConfig } from '@lezer/markdown'
 import type { Config } from '../index'
 
@@ -14,25 +14,30 @@ export const grammar = (_config: Config): MarkdownConfig => {
     parseInline: [
       {
         name: 'ClickableUrl',
-        parse: (inline: InlineContext, _charCode: number, index: number) => {
-          const match = matchUrlAtStart(
-            inline.slice(
-              index,
-              inline.end
-            )
+        parse: (inline: InlineContext, nextChar: number, index: number) => {
+          // Attempts to parse URLs when the current position matches "://" and not ":///"
+          if (nextChar !== 58 || inline.char(index + 1) !== 47 || inline.char(index + 2) !== 47 || inline.char(index + 3) === 47) return -1
+
+          const text = inline.slice(
+            inline.offset,
+            index + 3, // '/'
           )
+          const prefixMatch = matchUrlPrefix(text)
 
-          if (match) {
-            const start = Number(match.index)
-            const end = Number(match.index) + match[0].length
+          if (prefixMatch) {
+            const start = index - prefixMatch[1].length + 3
 
-            return inline.addElement(
-              inline.elt(
-                'ClickableUrl',
-                index + start,
-                index + end
+            const fullMatch = matchUrl(inline.slice(start, inline.end))
+
+            if (fullMatch) {
+              return inline.addElement(
+                inline.elt(
+                  'ClickableUrl',
+                  start,
+                  start + fullMatch[1].length,
+                )
               )
-            )
+            }
           }
 
           return -1

@@ -14,6 +14,9 @@ export const hashtag = new RegExp(`(?<sign>${hashSigns.source})(?!${/\ufe0f|\u20
 export const hashtagWithBoundary = new RegExp(`(?:${hashtagBoundary.source})(?:${hashtag.source})`, 'i')
 export const hashtagStart = new RegExp(`${hashtagBoundary.source}(?<sign>${hashSigns.source})(?!${/\ufe0f|\u20e3/.source})`, 'i')
 
+export const HASHTAG_CODES = [35, 65283]
+export const MATCH_HASHTAG_PREFIX = new RegExp(`(${hashtagBoundary.source}${hashSigns.source})$`, 'i')
+
 const formatMatch = (match: RegExpMatchArray) => {
   const boundary = match.groups?.boundary || ''
   const sign = match.groups?.sign || ''
@@ -30,6 +33,14 @@ const formatMatch = (match: RegExpMatchArray) => {
 
 export const matchHashtag = (text: string) => {
   const match = text.match(hashtagWithBoundary)
+
+  if (!match) { return null }
+
+  return formatMatch(match)
+}
+
+export const matchHashtagPrefix = (text: string) => {
+  const match = text.match(MATCH_HASHTAG_PREFIX)
 
   if (!match) { return null }
 

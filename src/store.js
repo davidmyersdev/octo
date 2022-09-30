@@ -43,7 +43,7 @@ export const store = createStore({
       modKey: '⌃ ctrl',
       online: true,
       showLeftSidebar: true,
-      showRightSidebar: false,
+      showRightSidebar: true,
       showStripeModal: false,
       showWelcome: false,
     }

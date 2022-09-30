@@ -51,7 +51,7 @@ export const router = createRouter({
           path: 'account',
           name: 'account',
           meta: { title: 'My Account', track: true },
-          component: () => import('/components/Account.vue'),
+          component: () => import('/pages/Account.vue'),
         },
         {
           path: 'docs',

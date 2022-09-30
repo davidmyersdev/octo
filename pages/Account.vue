@@ -30,8 +30,8 @@
 </template>
 
 <script>
-import Providers from './Providers.vue'
-import Subscriptions from './Subscriptions.vue'
+import Providers from '/components/Providers.vue'
+import Subscriptions from '/components/Subscriptions.vue'
 
 export default {
   name: 'Account',

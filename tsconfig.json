@@ -8,16 +8,15 @@
     "moduleResolution": "node",
     "noEmit": true,
     "paths": {
-      "/lib/*": ["./lib/*"],
-      "/src/*": ["./src/*"],
-      "/types/*": ["./types/*"]
+      "/*": ["./*"],
     },
     "resolveJsonModule": true,
+    "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "target": "esnext",
     "types": ["vite/client"],
     "useDefineForClassFields": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"]
+  "include": ["./**/*.ts", "./**/*.d.ts", "./**/*.tsx", "./**/*.vue"]
 }

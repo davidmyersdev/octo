@@ -212,11 +212,11 @@
 
 <script>
 import { nanoid } from 'nanoid'
-import Key from '/src/components/Key.vue'
-import ModK from '/src/components/ModK.vue'
-import ModKKey from '/src/components/ModKKey.vue'
-import TagLink from '/src/components/TagLink.vue'
-import TheLogo from '/src/components/TheLogo.vue'
+import Key from '/components/Key.vue'
+import ModK from '/components/ModK.vue'
+import ModKKey from '/components/ModKKey.vue'
+import TagLink from '/components/TagLink.vue'
+import TheLogo from '/components/TheLogo.vue'
 import { open } from '/src/router'
 import { useFiles } from '/src/stores/files'
 import { AsyncIterable } from '/src/utils/iterables'

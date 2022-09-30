@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import TheContent from '/src/components/TheContent.vue'
-import TheLeftSidebar from '/src/components/TheLeftSidebar.vue'
-import TheRightSidebar from '/src/components/TheRightSidebar.vue'
+import TheContent from '/components/TheContent.vue'
+import TheLeftSidebar from '/components/TheLeftSidebar.vue'
+import TheRightSidebar from '/components/TheRightSidebar.vue'
 
 export default {
   name: 'Dashboard',

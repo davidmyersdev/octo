@@ -25,8 +25,8 @@ import moment from 'moment'
 import { onMounted, ref } from 'vue'
 
 import { subscription, user } from '/src/common/account'
-import ChangeSet from '/src/components/ChangeSet.vue'
-import Modal from '/src/components/Modal.vue'
+import ChangeSet from '/components/ChangeSet.vue'
+import Modal from '/components/Modal.vue'
 
 const changeSets = ref<any>([])
 const lastUpdated = localStorage.getItem('changelog:v1')

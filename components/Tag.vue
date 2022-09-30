@@ -12,7 +12,7 @@
 
 <script lang="ts" setup>
 import { useSlots } from 'vue'
-import TheLogo from '/src/components/TheLogo.vue'
+import TheLogo from '/components/TheLogo.vue'
 
 const slotNodes = useSlots().default?.()
 const isOcto = slotNodes?.some((node) => {

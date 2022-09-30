@@ -7,7 +7,7 @@
 
 <script>
 import { nanoid } from 'nanoid'
-import TheNavbar from '/src/components/TheNavbar.vue'
+import TheNavbar from '/components/TheNavbar.vue'
 
 export default {
   name: 'TheContent',

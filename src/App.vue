@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import ChangeLog from '/src/components/ChangeLog.vue'
+import ChangeLog from '/components/ChangeLog.vue'
 
 export default {
   name: "App",

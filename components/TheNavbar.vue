@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import TheLogo from '/src/components/TheLogo.vue'
+import TheLogo from '/components/TheLogo.vue'
 
 import { open } from '/src/router.js'
 

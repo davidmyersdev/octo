@@ -5,7 +5,7 @@ import { createApp } from 'vue'
 import { Vue3Mq } from 'vue3-mq'
 
 import App from '/src/App.vue'
-import Extendable from '/src/components/Extendable.vue'
+import Extendable from '/components/Extendable.vue'
 import SimpleBar from '/lib/simplebar/src/SimpleBar.vue'
 import { init } from '/src/firebase'
 import { globalConfig } from '/src/global'

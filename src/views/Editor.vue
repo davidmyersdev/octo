@@ -12,7 +12,7 @@
 
 <script>
 import { defineComponent } from 'vue'
-import Editor from "/src/components/Editor.vue"
+import Editor from "/components/Editor.vue"
 import { fetchSharedDoc } from "/src/firebase/firestore"
 
 import { setTitle } from "/src/common/title.js"

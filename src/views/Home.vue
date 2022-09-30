@@ -113,10 +113,10 @@
 </template>
 
 <script>
-import GitHubIcon from '/src/components/icons/GitHub.vue'
-import TwitterIcon from '/src/components/icons/Twitter.vue'
-import Subscriptions from '/src/components/Subscriptions.vue'
-import TheLogo from '/src/components/TheLogo.vue'
+import GitHubIcon from '/components/icons/GitHub.vue'
+import TwitterIcon from '/components/icons/Twitter.vue'
+import Subscriptions from '/components/Subscriptions.vue'
+import TheLogo from '/components/TheLogo.vue'
 import { globalConfig } from '/src/global'
 
 export default {

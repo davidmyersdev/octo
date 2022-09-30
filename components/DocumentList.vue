@@ -51,8 +51,8 @@
 </template>
 
 <script>
-import Document from '/src/components/Document.vue'
-import Tag from '/src/components/Tag.vue'
+import Document from '/components/Document.vue'
+import Tag from '/components/Tag.vue'
 
 import { open } from '/src/router.js'
 

@@ -51,7 +51,7 @@ export const router = createRouter({
           path: 'account',
           name: 'account',
           meta: { title: 'My Account', track: true },
-          component: () => import('/src/components/Account.vue'),
+          component: () => import('/components/Account.vue'),
         },
         {
           path: 'docs',
@@ -121,7 +121,7 @@ export const router = createRouter({
         {
           path: 'docs/:id/meta',
           name: 'doc_meta',
-          component: () => import('/src/components/TheRightSidebar.vue'),
+          component: () => import('/components/TheRightSidebar.vue'),
           props: true,
           beforeEnter(to, from, next) {
             store.dispatch(SET_DOCUMENT, { id: to.params.id })
@@ -138,7 +138,7 @@ export const router = createRouter({
           path: 'force-graph',
           name: 'force_graph',
           meta: { title: 'Force Graph', track: true },
-          component: () => import('/src/components/Graph.vue'),
+          component: () => import('/components/Graph.vue'),
           props: true,
         },
         {
@@ -158,13 +158,13 @@ export const router = createRouter({
           path: 'documents/export',
           name: 'export',
           meta: { title: 'Export Docs', track: true },
-          component: () => import('/src/components/Exporter.vue'),
+          component: () => import('/components/Exporter.vue'),
         },
         {
           path: 'documents/import',
           name: 'import',
           meta: { title: 'Import Docs', track: true },
-          component: () => import('/src/components/Importer.vue'),
+          component: () => import('/components/Importer.vue'),
         },
         // document filters
         {
@@ -233,14 +233,14 @@ export const router = createRouter({
           path: 'quick-action',
           name: 'quick_action',
           meta: { title: 'Quick Action', track: true },
-          component: () => import('/src/components/QuickAction.vue'),
+          component: () => import('/components/QuickAction.vue'),
         },
         // menu
         {
           path: 'menu',
           name: 'menu',
           meta: { track: true },
-          component: () => import('/src/components/TheLeftSidebar.vue'),
+          component: () => import('/components/TheLeftSidebar.vue'),
         },
         // open (and load) a shared document
         {
@@ -259,7 +259,7 @@ export const router = createRouter({
           path: 'contexts',
           name: 'contexts',
           meta: { title: 'Context Switching', track: true },
-          component: () => import('/src/components/Context.vue'),
+          component: () => import('/components/Context.vue'),
         },
         // tags
         {
@@ -271,7 +271,7 @@ export const router = createRouter({
           path: 'tags',
           name: 'tags',
           meta: { title: 'Tags', track: true },
-          component: () => import('/src/components/TagList.vue'),
+          component: () => import('/components/TagList.vue'),
           props: true,
         },
         // settings
@@ -279,7 +279,7 @@ export const router = createRouter({
           path: 'settings',
           name: 'settings',
           meta: { title: 'App Settings', track: true },
-          component: () => import('/src/components/TheSettings.vue'),
+          component: () => import('/components/TheSettings.vue'),
         },
         // graph view
         {
@@ -293,13 +293,13 @@ export const router = createRouter({
           path: 'privacy-policy',
           name: 'privacy_policy',
           meta: { title: 'Privacy Policy', track: true },
-          component: () => import('/src/components/Privacy.vue'),
+          component: () => import('/components/Privacy.vue'),
         },
         {
           path: 'terms-and-conditions',
           name: 'terms_and_conditions',
           meta: { title: 'Terms & Conditions', track: true },
-          component: () => import('/src/components/Terms.vue'),
+          component: () => import('/components/Terms.vue'),
         },
       ],
     },

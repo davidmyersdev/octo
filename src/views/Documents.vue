@@ -8,7 +8,7 @@
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-import DocumentList from '/src/components/DocumentList.vue'
+import DocumentList from '/components/DocumentList.vue'
 
 const route = useRoute()
 const router = useRouter()

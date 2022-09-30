@@ -30,20 +30,26 @@
 <script>
 import './lib.css'
 import SimpleBar from 'simplebar'
+import { defineComponent } from 'vue'
 
-export default {
-  name: 'SimpleBar',
-  mounted () {
-    const options = SimpleBar.getOptions(this.$refs.element.attributes)
-    this.SimpleBar = new SimpleBar(this.$refs.element, options)
+export default defineComponent({
+  data() {
+    return {
+      SimpleBar: null,
+    }
   },
   computed: {
+    contentElement () {
+      return this.$refs.contentElement
+    },
     scrollElement () {
       return this.$refs.scrollElement
     },
-    contentElement () {
-      return this.$refs.contentElement
-    }
-  }
-}
+  },
+  mounted() {
+    const options = SimpleBar.getOptions(this.$refs.element.attributes)
+
+    this.SimpleBar = new SimpleBar(this.$refs.element, options)
+  },
+})
 </script>

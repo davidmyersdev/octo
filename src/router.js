@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '/src/views/Home.vue'
+import Home from '/pages/Home.vue'
 import { store } from '/src/store'
 import {
   SET_DOCUMENT,
@@ -33,7 +33,7 @@ export const router = createRouter({
     {
       path: '/',
       name: 'editor',
-      component: () => import('/src/views/Dashboard.vue'),
+      component: () => import('/pages/Dashboard.vue'),
       children: [
         // editor views
         {
@@ -57,13 +57,13 @@ export const router = createRouter({
           path: 'docs',
           name: 'docs',
           meta: { title: 'My Docs', track: true },
-          component: () => import('/src/views/Documents.vue'),
+          component: () => import('/pages/Documents.vue'),
         },
         {
           path: 'docs/new',
           name: 'new_doc',
           meta: { track: true },
-          component: () => import('/src/views/Editor.vue'),
+          component: () => import('/pages/Editor.vue'),
           props: true,
           beforeEnter(to, from, next) {
             store.dispatch(SET_DOCUMENT, { id: null })
@@ -82,27 +82,27 @@ export const router = createRouter({
           path: 'docs/f/:filter',
           name: 'filtered_docs',
           meta: { title: 'My Docs' },
-          component: () => import('/src/views/Documents.vue'),
+          component: () => import('/pages/Documents.vue'),
           props: true
         },
         {
           path: 'docs/t/:tag',
           name: 'tagged_docs',
           meta: { title: 'My Docs' },
-          component: () => import('/src/views/Documents.vue'),
+          component: () => import('/pages/Documents.vue'),
           props: true
         },
         {
           path: 'notepad',
           name: 'notepad',
           meta: { title: 'Notepad', track: true },
-          component: () => import('/src/views/Daily.vue'),
+          component: () => import('/pages/Daily.vue'),
           props: true,
         },
         {
           path: 'docs/:id',
           name: 'doc',
-          component: () => import('/src/views/Editor.vue'),
+          component: () => import('/pages/Editor.vue'),
           props({ params }) {
             if (typeof params?.props === 'string') {
               return {
@@ -131,7 +131,7 @@ export const router = createRouter({
         {
           path: 'public/:id',
           name: 'public_doc',
-          component: () => import('/src/views/Editor.vue'),
+          component: () => import('/pages/Editor.vue'),
           props: { readonly: true },
         },
         {
@@ -218,14 +218,14 @@ export const router = createRouter({
           path: 'example',
           name: 'example',
           meta: { title: 'Example', track: true },
-          component: () => import('/src/views/Example.vue'),
+          component: () => import('/pages/Example.vue'),
           props: { url: '/example.md' },
         },
         {
           path: 'file-editor/:id',
           name: 'file_editor',
           meta: { title: 'File Editor' },
-          component: () => import('/src/views/FileEditor.vue'),
+          component: () => import('/pages/FileEditor.vue'),
           props: true,
         },
         // quick action

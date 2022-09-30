@@ -3,6 +3,7 @@
   "license": "MIT",
   "version": "v0.20.3",
   "private": true,
+  "type": "module",
   "scripts": {
     "assets": "node ./build_assets.js",
     "build": "vue-tsc --noEmit && yarn build:unsafe",

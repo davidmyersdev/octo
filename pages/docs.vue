@@ -12,9 +12,7 @@ import DocumentList from '/components/DocumentList.vue'
 
 const route = useRoute()
 const router = useRouter()
-
 const props = defineProps(['filter', 'tag'])
-
 const filter = props.filter || route.query.filter as string
 const query = ref(route.query.q as string)
 const tag = props.tag || route.query.tag as string

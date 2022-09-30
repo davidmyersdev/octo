@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '/pages/Home.vue'
+import Home from '/pages/home.vue'
 import { store } from '/src/store'
 import {
   SET_DOCUMENT,
@@ -33,7 +33,7 @@ export const router = createRouter({
     {
       path: '/',
       name: 'editor',
-      component: () => import('/pages/Dashboard.vue'),
+      component: () => import('/pages/index.vue'),
       children: [
         // editor views
         {
@@ -51,19 +51,19 @@ export const router = createRouter({
           path: 'account',
           name: 'account',
           meta: { title: 'My Account', track: true },
-          component: () => import('/pages/Account.vue'),
+          component: () => import('/pages/account.vue'),
         },
         {
           path: 'docs',
           name: 'docs',
           meta: { title: 'My Docs', track: true },
-          component: () => import('/pages/Documents.vue'),
+          component: () => import('/pages/docs.vue'),
         },
         {
           path: 'docs/new',
           name: 'new_doc',
           meta: { track: true },
-          component: () => import('/pages/Editor.vue'),
+          component: () => import('/pages/docs/[id].vue'),
           props: true,
           beforeEnter(to, from, next) {
             store.dispatch(SET_DOCUMENT, { id: null })
@@ -82,27 +82,27 @@ export const router = createRouter({
           path: 'docs/f/:filter',
           name: 'filtered_docs',
           meta: { title: 'My Docs' },
-          component: () => import('/pages/Documents.vue'),
+          component: () => import('/pages/f/[filter].vue'),
           props: true
         },
         {
           path: 'docs/t/:tag',
           name: 'tagged_docs',
           meta: { title: 'My Docs' },
-          component: () => import('/pages/Documents.vue'),
+          component: () => import('/pages/t/[tag].vue'),
           props: true
         },
         {
           path: 'notepad',
           name: 'notepad',
           meta: { title: 'Notepad', track: true },
-          component: () => import('/pages/Daily.vue'),
+          component: () => import('/pages/notepad.vue'),
           props: true,
         },
         {
           path: 'docs/:id',
           name: 'doc',
-          component: () => import('/pages/Editor.vue'),
+          component: () => import('/pages/docs/[id].vue'),
           props({ params }) {
             if (typeof params?.props === 'string') {
               return {
@@ -121,7 +121,7 @@ export const router = createRouter({
         {
           path: 'docs/:id/meta',
           name: 'doc_meta',
-          component: () => import('/components/TheRightSidebar.vue'),
+          component: () => import('/pages/docs/[id]/meta.vue'),
           props: true,
           beforeEnter(to, from, next) {
             store.dispatch(SET_DOCUMENT, { id: to.params.id })
@@ -131,14 +131,14 @@ export const router = createRouter({
         {
           path: 'public/:id',
           name: 'public_doc',
-          component: () => import('/pages/Editor.vue'),
+          component: () => import('/pages/public/[id].vue'),
           props: { readonly: true },
         },
         {
           path: 'force-graph',
           name: 'force_graph',
           meta: { title: 'Force Graph', track: true },
-          component: () => import('/components/Graph.vue'),
+          component: () => import('/pages/force-graph.vue'),
           props: true,
         },
         {
@@ -158,13 +158,13 @@ export const router = createRouter({
           path: 'documents/export',
           name: 'export',
           meta: { title: 'Export Docs', track: true },
-          component: () => import('/components/Exporter.vue'),
+          component: () => import('/pages/docs/export.vue'),
         },
         {
           path: 'documents/import',
           name: 'import',
           meta: { title: 'Import Docs', track: true },
-          component: () => import('/components/Importer.vue'),
+          component: () => import('/pages/docs/import.vue'),
         },
         // document filters
         {
@@ -218,14 +218,14 @@ export const router = createRouter({
           path: 'example',
           name: 'example',
           meta: { title: 'Example', track: true },
-          component: () => import('/pages/Example.vue'),
+          component: () => import('/pages/example.vue'),
           props: { url: '/example.md' },
         },
         {
           path: 'file-editor/:id',
           name: 'file_editor',
           meta: { title: 'File Editor' },
-          component: () => import('/pages/FileEditor.vue'),
+          component: () => import('/pages/file-editor/[id].vue'),
           props: true,
         },
         // quick action
@@ -233,14 +233,14 @@ export const router = createRouter({
           path: 'quick-action',
           name: 'quick_action',
           meta: { title: 'Quick Action', track: true },
-          component: () => import('/components/QuickAction.vue'),
+          component: () => import('/pages/quick-action.vue'),
         },
         // menu
         {
           path: 'menu',
           name: 'menu',
           meta: { track: true },
-          component: () => import('/components/TheLeftSidebar.vue'),
+          component: () => import('/pages/menu.vue'),
         },
         // open (and load) a shared document
         {
@@ -259,7 +259,7 @@ export const router = createRouter({
           path: 'contexts',
           name: 'contexts',
           meta: { title: 'Context Switching', track: true },
-          component: () => import('/components/Context.vue'),
+          component: () => import('/pages/contexts.vue'),
         },
         // tags
         {
@@ -271,7 +271,7 @@ export const router = createRouter({
           path: 'tags',
           name: 'tags',
           meta: { title: 'Tags', track: true },
-          component: () => import('/components/TagList.vue'),
+          component: () => import('/pages/tags.vue'),
           props: true,
         },
         // settings
@@ -279,7 +279,7 @@ export const router = createRouter({
           path: 'settings',
           name: 'settings',
           meta: { title: 'App Settings', track: true },
-          component: () => import('/components/TheSettings.vue'),
+          component: () => import('/pages/settings.vue'),
         },
         // graph view
         {
@@ -293,13 +293,13 @@ export const router = createRouter({
           path: 'privacy-policy',
           name: 'privacy_policy',
           meta: { title: 'Privacy Policy', track: true },
-          component: () => import('/components/Privacy.vue'),
+          component: () => import('/pages/privacy-policy.vue'),
         },
         {
           path: 'terms-and-conditions',
           name: 'terms_and_conditions',
           meta: { title: 'Terms & Conditions', track: true },
-          component: () => import('/components/Terms.vue'),
+          component: () => import('/pages/terms-and-conditions.vue'),
         },
       ],
     },

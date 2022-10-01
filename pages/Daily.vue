@@ -4,7 +4,7 @@
 
 <script>
 import moment from 'moment'
-import Editor from '/pages/Editor.vue'
+import Editor from '/pages/docs/[doc].vue'
 import Doc from '/src/models/doc.js'
 
 import {

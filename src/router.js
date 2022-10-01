@@ -12,11 +12,6 @@ export const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/index.html',
-      meta: { track: true },
-      redirect: { name: 'editor' },
-    },
-    {
       path: '/home',
       name: 'home',
       meta: { track: true },
@@ -33,7 +28,7 @@ export const router = createRouter({
     {
       path: '/',
       name: 'editor',
-      component: () => import('/pages/Dashboard.vue'),
+      component: () => import('/layouts/editor.vue'),
       children: [
         // editor views
         {
@@ -67,7 +62,7 @@ export const router = createRouter({
           path: 'docs/new',
           name: 'new_doc',
           meta: { track: true },
-          component: () => import('/pages/Editor.vue'),
+          component: () => import('/pages/docs/[doc].vue'),
           props: true,
           beforeEnter(to, from, next) {
             store.dispatch(SET_DOCUMENT, { id: null })
@@ -106,7 +101,7 @@ export const router = createRouter({
         {
           path: 'docs/:id',
           name: 'doc',
-          component: () => import('/pages/Editor.vue'),
+          component: () => import('/pages/docs/[doc].vue'),
           props({ params }) {
             if (typeof params?.props === 'string') {
               return {
@@ -135,7 +130,7 @@ export const router = createRouter({
         {
           path: 'public/:id',
           name: 'public_doc',
-          component: () => import('/pages/Editor.vue'),
+          component: () => import('/pages/docs/[doc].vue'),
           props: { readonly: true },
         },
         {

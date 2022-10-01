@@ -25,7 +25,6 @@ const formatTags = (tags, delimiter = ", ") => {
 }
 
 export default defineComponent({
-  name: "EditorView",
   components: {
     Editor,
   },

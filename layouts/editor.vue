@@ -12,7 +12,6 @@ import TheLeftSidebar from '/components/TheLeftSidebar.vue'
 import TheRightSidebar from '/components/TheRightSidebar.vue'
 
 export default {
-  name: 'Dashboard',
   components: {
     TheContent,
     TheLeftSidebar,

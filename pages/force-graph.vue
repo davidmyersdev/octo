@@ -11,7 +11,6 @@ import ForceGraph from 'force-graph'
 import DocumentList from '/components/DocumentList.vue'
 
 export default {
-  name: 'Graph',
   components: {
     DocumentList,
   },

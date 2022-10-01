@@ -8,7 +8,7 @@
 
 <script>
 import TheContent from '/components/TheContent.vue'
-import TheLeftSidebar from '/components/TheLeftSidebar.vue'
+import TheLeftSidebar from '/pages/menu.vue'
 import TheRightSidebar from '/pages/docs/[doc]/meta.vue'
 
 export default {

@@ -31,7 +31,7 @@ export const router = createRouter({
       children: [
         // editor views
         {
-          path: '',
+          path: '/',
           meta: { track: true },
           beforeEnter(to, from, next) {
             if (globalConfig.supportsFirebase && store.state.showWelcome) {
@@ -46,19 +46,19 @@ export const router = createRouter({
           component: () => import('/pages/_routes.vue'),
         },
         {
-          path: 'account',
+          path: '/account',
           name: 'account',
           meta: { title: 'My Account', track: true },
           component: () => import('/pages/account.vue'),
         },
         {
-          path: 'docs',
+          path: '/docs',
           name: 'docs',
           meta: { title: 'My Docs', track: true },
           component: () => import('/pages/docs.vue'),
         },
         {
-          path: 'docs/new',
+          path: '/docs/new',
           name: 'new_doc',
           meta: { track: true },
           component: () => import('/pages/docs/[doc].vue'),
@@ -77,28 +77,28 @@ export const router = createRouter({
           },
         },
         {
-          path: 'docs/f/:filter',
+          path: '/docs/f/:filter',
           name: 'filtered_docs',
           meta: { title: 'My Docs' },
           component: () => import('/pages/docs.vue'),
           props: true
         },
         {
-          path: 'docs/t/:tag',
+          path: '/docs/t/:tag',
           name: 'tagged_docs',
           meta: { title: 'My Docs' },
           component: () => import('/pages/docs.vue'),
           props: true
         },
         {
-          path: 'notepad',
+          path: '/notepad',
           name: 'notepad',
           meta: { title: 'Notepad', track: true },
-          component: () => import('/pages/Daily.vue'),
+          component: () => import('/pages/notepad.vue'),
           props: true,
         },
         {
-          path: 'docs/:id',
+          path: '/docs/:id',
           name: 'doc',
           component: () => import('/pages/docs/[doc].vue'),
           props({ params }) {
@@ -117,7 +117,7 @@ export const router = createRouter({
           },
         },
         {
-          path: 'docs/:id/meta',
+          path: '/docs/:id/meta',
           name: 'doc_meta',
           component: () => import('/pages/docs/[doc]/meta.vue'),
           props: true,
@@ -127,177 +127,187 @@ export const router = createRouter({
           },
         },
         {
-          path: 'public/:id',
+          path: '/public/:id',
           name: 'public_doc',
           component: () => import('/pages/docs/[doc].vue'),
           props: { readonly: true },
         },
         {
-          path: 'force-graph',
+          path: '/force-graph',
           name: 'force_graph',
           meta: { title: 'Force Graph', track: true },
-          component: () => import('/components/Graph.vue'),
+          component: () => import('/pages/force-graph.vue'),
           props: true,
         },
         {
-          path: 'documents',
+          path: '/documents',
           name: 'documents',
           meta: { track: true },
           redirect: { name: 'docs' },
         },
         {
-          path: 'documents/new',
+          path: '/documents/new',
           name: 'dashboard',
           meta: { track: true },
           redirect: { name: 'new_doc' },
 
         },
         {
-          path: 'documents/export',
+          path: '/docs/export',
           name: 'export',
           meta: { title: 'Export Docs', track: true },
-          component: () => import('/components/Exporter.vue'),
+          component: () => import('/pages/docs/export.vue'),
         },
         {
-          path: 'documents/import',
+          path: '/docs/import',
           name: 'import',
           meta: { title: 'Import Docs', track: true },
-          component: () => import('/components/Importer.vue'),
+          component: () => import('/pages/docs/import.vue'),
+        },
+        {
+          path: '/documents/export',
+          meta: { title: 'Export Docs', track: true },
+          redirect: { path: '/docs/export' },
+        },
+        {
+          path: '/documents/import',
+          meta: { title: 'Import Docs', track: true },
+          redirect: { path: '/docs/import' },
         },
         // document filters
         {
-          path: 'documents/recent',
+          path: '/documents/recent',
           name: 'recent',
           meta: { track: true },
           redirect: { name: 'docs' },
         },
         {
           // deprecated
-          path: 'documents/actionable',
+          path: '/documents/actionable',
           meta: { track: true },
           redirect: { name: 'filtered_docs', params: { filter: 'tasks' } },
         },
         {
-          path: 'documents/discarded',
+          path: '/documents/discarded',
           name: 'discarded',
           meta: { track: true },
           redirect: { name: 'filtered_docs', params: { filter: 'discarded' } },
         },
         {
-          path: 'documents/tasks',
+          path: '/documents/tasks',
           name: 'tasks',
           meta: { track: true },
           redirect: { name: 'filtered_docs', params: { filter: 'tasks' } },
         },
         {
-          path: 'documents/untagged',
+          path: '/documents/untagged',
           name: 'untagged',
           meta: { track: true },
           redirect: { name: 'filtered_docs', params: { filter: 'untagged' } },
         },
         // daily
         {
-          path: 'documents/daily',
+          path: '/documents/daily',
           name: 'daily',
           meta: { track: true },
           redirect: { name: 'notepad' },
         },
         {
-          path: 'documents/:id',
+          path: '/documents/:id',
           name: 'document',
           redirect: { name: 'doc' },
         },
         {
-          path: 'documents/:id/meta',
+          path: '/documents/:id/meta',
           name: 'document-meta',
           redirect: { name: 'doc_meta' },
         },
         {
-          path: 'example',
+          path: '/example',
           name: 'example',
           meta: { title: 'Example', track: true },
-          component: () => import('/pages/Example.vue'),
+          component: () => import('/pages/example.vue'),
           props: { url: '/example.md' },
         },
         {
-          path: 'file-editor/:id',
+          path: '/file-editor/:id',
           name: 'file_editor',
           meta: { title: 'File Editor' },
-          component: () => import('/pages/FileEditor.vue'),
+          component: () => import('/pages/file-editor/[file].vue'),
           props: true,
         },
         // quick action
         {
-          path: 'quick-action',
+          path: '/quick-action',
           name: 'quick_action',
           meta: { title: 'Quick Action', track: true },
-          component: () => import('/components/QuickAction.vue'),
+          component: () => import('/pages/quick-action.vue'),
         },
         // menu
         {
-          path: 'menu',
+          path: '/menu',
           name: 'menu',
           meta: { track: true },
-          component: () => import('/components/TheLeftSidebar.vue'),
+          component: () => import('/pages/menu.vue'),
         },
         // open (and load) a shared document
         {
-          path: 'shared/:id',
+          path: '/shared/:id',
           name: 'shared',
           redirect: { name: 'public_doc' },
         },
         // context switcher
         {
-          path: 'context',
+          path: '/context',
           name: 'context',
           meta: { track: true },
           redirect: { name: 'contexts' },
         },
         {
-          path: 'contexts',
+          path: '/contexts',
           name: 'contexts',
           meta: { title: 'Context Switching', track: true },
           component: () => import('/pages/contexts.vue'),
         },
         // tags
         {
-          path: 'tags/:tag',
+          path: '/tags/:tag',
           name: 'tag',
           redirect: { name: 'tagged_docs' },
         },
         {
-          path: 'tags',
+          path: '/tags',
           name: 'tags',
           meta: { title: 'Tags', track: true },
-          component: () => import('/components/TagList.vue'),
+          component: () => import('/pages/tags.vue'),
           props: true,
         },
         // settings
         {
-          path: 'settings',
+          path: '/settings',
           name: 'settings',
           meta: { title: 'App Settings', track: true },
-          component: () => import('/components/TheSettings.vue'),
+          component: () => import('/pages/settings.vue'),
         },
         // graph view
         {
-          path: 'graph',
+          path: '/graph',
           name: 'graph',
           meta: { track: true },
           redirect: { name: 'force_graph' }
         },
         // privacy & terms
         {
-          path: 'privacy-policy',
+          path: '/privacy-policy',
           name: 'privacy_policy',
           meta: { title: 'Privacy Policy', track: true },
-          component: () => import('/components/Privacy.vue'),
+          component: () => import('/pages/privacy-policy.vue'),
         },
         {
-          path: 'terms-and-conditions',
+          path: '/terms-and-conditions',
           name: 'terms_and_conditions',
           meta: { title: 'Terms & Conditions', track: true },
-          component: () => import('/components/Terms.vue'),
+          component: () => import('/pages/terms-and-conditions.vue'),
         },
       ],
     },

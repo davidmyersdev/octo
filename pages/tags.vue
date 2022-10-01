@@ -8,7 +8,6 @@
 import TagLink from '/components/TagLink.vue';
 
 export default {
-  name: 'TagList',
   components: {
     TagLink,
   },

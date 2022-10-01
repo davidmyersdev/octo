@@ -7,7 +7,6 @@ import Editor from '/components/Editor.vue'
 import Doc from '/src/models/doc'
 
 export default {
-  name: 'ExampleView',
   components: {
     Editor,
   },

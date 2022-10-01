@@ -13,7 +13,6 @@ import {
 } from '/src/store/actions.js'
 
 export default {
-  name: 'Daily',
   components: {
     Editor,
   },

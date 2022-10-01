@@ -228,7 +228,6 @@ import {
 } from '/src/store/actions.js'
 
 export default {
-  name: 'TheLeftSidebar',
   components: {
     Key,
     ModK,

@@ -29,13 +29,9 @@ const Hashtag: MarkdownConfig = {
         // "A #" will match but "A#" will not
         const prefixMatch = matchHashtagPrefix(text)
 
-        console.log('prefix', text, prefixMatch)
-
         if (prefixMatch) {
           const start = index - prefixMatch.boundary.length
           const fullMatch = matchHashtag(inline.slice(start, inline.end))
-
-          console.log('full', inline.slice(start, inline.end), fullMatch)
 
           if (fullMatch) {
             return inline.addElement(

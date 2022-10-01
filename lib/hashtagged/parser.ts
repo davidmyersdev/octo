@@ -7,10 +7,10 @@ export const unicodeNumbers = /0-9\u0660-\u0669\u06F0-\u06F9\u07C0-\u07C9\u0966-
 export const hashtagSpecialChars = /_\u200c\u200d\ua67e\u05be\u05f3\u05f4\uff5e\u301c\u309b\u309c\u30a0\u30fb\u3003\u0f0b\u0f0c\u00b7/
 export const hashSigns = /[#＃]/
 export const hashtagAlpha = new RegExp(`[${unicodeLettersAndMarks.source}]`)
-export const hashtagAlphaNumeric = new RegExp(`[${unicodeLettersAndMarks.source}${unicodeNumbers.source}${hashtagSpecialChars.source}\-]`)
+export const hashtagChars = new RegExp(`[${unicodeLettersAndMarks.source}${unicodeNumbers.source}${hashtagSpecialChars.source}\/\-]`)
 export const hashtagBoundaryChars = new RegExp(`[^&${unicodeLettersAndMarks.source}${unicodeNumbers.source}${hashtagSpecialChars.source}]`)
 export const hashtagBoundary = /(?<boundary>^|\s)/
-export const hashtag = new RegExp(`(?<sign>${hashSigns.source})(?!${/\ufe0f|\u20e3/.source})(?<tag>${hashtagAlphaNumeric.source}+)`, 'i')
+export const hashtag = new RegExp(`(?<sign>${hashSigns.source})(?!${/\ufe0f|\u20e3/.source})(?<tag>${hashtagChars.source}+)`, 'i')
 export const hashtagWithBoundary = new RegExp(`(?:${hashtagBoundary.source})(?:${hashtag.source})`, 'i')
 export const hashtagStart = new RegExp(`${hashtagBoundary.source}(?<sign>${hashSigns.source})(?!${/\ufe0f|\u20e3/.source})`, 'i')
 

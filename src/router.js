@@ -48,6 +48,10 @@ export const router = createRouter({
           },
         },
         {
+          path: '/_routes',
+          component: () => import('/pages/_routes.vue'),
+        },
+        {
           path: 'account',
           name: 'account',
           meta: { title: 'My Account', track: true },

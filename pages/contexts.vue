@@ -72,7 +72,6 @@ import {
 } from '/src/store/modules/contexts.js'
 
 export default {
-  name: 'Context',
   components: {
     Tag,
   },

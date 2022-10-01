@@ -120,7 +120,6 @@ import TheLogo from '/components/TheLogo.vue'
 import { globalConfig } from '/src/global'
 
 export default {
-  name: 'Home',
   components: {
     GitHubIcon,
     TwitterIcon,

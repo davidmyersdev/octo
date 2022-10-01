@@ -1,5 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '/pages/Home.vue'
 import { store } from '/src/store'
 import {
   SET_DOCUMENT,
@@ -15,7 +14,7 @@ export const router = createRouter({
       path: '/home',
       name: 'home',
       meta: { track: true },
-      component: Home,
+      component: () => import('/pages/home.vue'),
       beforeEnter(to, from, next) {
         if (store.state.showWelcome) {
           localStorage.setItem('octo/welcome/v1', 'done')
@@ -50,13 +49,13 @@ export const router = createRouter({
           path: 'account',
           name: 'account',
           meta: { title: 'My Account', track: true },
-          component: () => import('/pages/Account.vue'),
+          component: () => import('/pages/account.vue'),
         },
         {
           path: 'docs',
           name: 'docs',
           meta: { title: 'My Docs', track: true },
-          component: () => import('/pages/Documents.vue'),
+          component: () => import('/pages/docs.vue'),
         },
         {
           path: 'docs/new',
@@ -81,14 +80,14 @@ export const router = createRouter({
           path: 'docs/f/:filter',
           name: 'filtered_docs',
           meta: { title: 'My Docs' },
-          component: () => import('/pages/Documents.vue'),
+          component: () => import('/pages/docs.vue'),
           props: true
         },
         {
           path: 'docs/t/:tag',
           name: 'tagged_docs',
           meta: { title: 'My Docs' },
-          component: () => import('/pages/Documents.vue'),
+          component: () => import('/pages/docs.vue'),
           props: true
         },
         {
@@ -120,7 +119,7 @@ export const router = createRouter({
         {
           path: 'docs/:id/meta',
           name: 'doc_meta',
-          component: () => import('/components/TheRightSidebar.vue'),
+          component: () => import('/pages/docs/[doc]/meta.vue'),
           props: true,
           beforeEnter(to, from, next) {
             store.dispatch(SET_DOCUMENT, { id: to.params.id })
@@ -258,7 +257,7 @@ export const router = createRouter({
           path: 'contexts',
           name: 'contexts',
           meta: { title: 'Context Switching', track: true },
-          component: () => import('/components/Context.vue'),
+          component: () => import('/pages/contexts.vue'),
         },
         // tags
         {

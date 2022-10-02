@@ -9,7 +9,6 @@
 import Key from '/components/Key.vue';
 
 export default {
-  name: 'ModK',
   components: {
     Key,
   },

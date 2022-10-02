@@ -10,8 +10,8 @@ export const KEYBINDINGS_LOADED = 'KEYBINDINGS_LOADED'
 export const LOAD_KEYBINDINGS = 'LOAD_KEYBINDINGS'
 export const TOGGLE_LISTENERS = 'TOGGLE_LISTENERS'
 
-const goTo = (name) => {
-  open({ name })
+const goTo = (path) => {
+  open({ path })
 }
 
 const makeCallback = (callback, context) => {
@@ -28,16 +28,16 @@ const makeListener = (keybinding, callback, context) => {
 
 const makeListeners = (context) => {
   return [
-    makeListener('a', () => goTo('account'), context),
-    makeListener('c', () => goTo('context'), context),
-    makeListener('d', () => goTo('discarded'), context),
-    makeListener('e', () => goTo('graph'), context),
-    makeListener('n', () => goTo('new_doc'), context),
-    makeListener('p', () => goTo('daily'), context),
-    makeListener('r', () => goTo('recent'), context),
-    makeListener('s', () => goTo('settings'), context),
-    makeListener('t', () => goTo('tasks'), context),
-    makeListener('u', () => goTo('untagged'), context),
+    makeListener('a', () => goTo('/account'), context),
+    makeListener('c', () => goTo('/contexts'), context),
+    makeListener('d', () => goTo('/docs/f/discarded'), context),
+    makeListener('e', () => goTo('/force-graph'), context),
+    makeListener('n', () => goTo('/docs/new'), context),
+    makeListener('p', () => goTo('/notepad'), context),
+    makeListener('r', () => goTo('/docs'), context),
+    makeListener('s', () => goTo('/settings'), context),
+    makeListener('t', () => goTo('/docs/f/tasks'), context),
+    makeListener('u', () => goTo('/docs/f/untagged'), context),
   ]
 }
 
@@ -76,7 +76,7 @@ export default {
       bindGlobal('mod+shift+f', () => {
         context.dispatch(DISABLE_LISTENERS)
 
-        goTo('documents')
+        goTo('/docs')
       })
 
       // disable listeners on any click

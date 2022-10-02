@@ -6,7 +6,6 @@
 
 <script>
 export default {
-  name: 'Key',
   props: {
     active: {
       default: false,

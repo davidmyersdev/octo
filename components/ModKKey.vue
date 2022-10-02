@@ -8,7 +8,6 @@
 import Key from '/components/Key.vue';
 
 export default {
-  name: 'ModKKey',
   components: {
     Key,
   },

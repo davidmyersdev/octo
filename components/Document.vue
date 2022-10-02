@@ -32,7 +32,6 @@ import {
 } from '/src/store/actions.js';
 
 export default {
-  name: 'Document',
   props: {
     id: String,
     text: String,

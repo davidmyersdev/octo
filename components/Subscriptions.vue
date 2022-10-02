@@ -142,7 +142,6 @@ import { open } from '/src/router'
 import { SET_STRIPE_MODAL_VISIBILITY } from '/src/store.js'
 
 export default {
-  name: 'Subscriptions',
   components: {
     GitHubIcon,
     GoogleIcon,
@@ -277,7 +276,7 @@ export default {
           }
         })
       } else {
-        open({ name: 'new_doc' })
+        open({ path: '/docs/new' })
       }
     }).catch((error) => {
       switch(error.code) {

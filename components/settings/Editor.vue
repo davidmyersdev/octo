@@ -100,7 +100,6 @@ import {
 } from '/src/store/modules/settings.js'
 
 export default {
-  name: 'EditorSettings',
   computed: {
     imagesEnabled: {
       get() {

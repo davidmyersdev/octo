@@ -11,7 +11,6 @@
 import Doc from '/src/models/doc.js'
 
 export default {
-  name: 'Importer',
   data() {
     return {
       text: '',

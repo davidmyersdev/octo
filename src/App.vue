@@ -37,7 +37,6 @@
 import ChangeLog from '/components/ChangeLog.vue'
 
 export default {
-  name: "App",
   components: {
     ChangeLog,
   },
@@ -55,7 +54,7 @@ export default {
       return this.$store.state.settings.editor.ligatures
     },
     publicDoc() {
-      return this.$route.name === "public_doc"
+      return this.$route.name === "public-doc"
     },
     showStripeModal() {
       return this.$store.state.showStripeModal

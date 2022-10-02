@@ -104,7 +104,6 @@ import {
 } from '/src/store/actions.js'
 
 export default {
-  name: 'TheRightSidebar',
   components: {
     DiscardableAction,
     TagLink,
@@ -136,7 +135,7 @@ export default {
       return this.codeblocks.length > 0
     },
     publicUrl() {
-      const path = this.$router.resolve({ name: 'public_doc', params: { id: this.doc.id } }).href
+      const path = this.$router.resolve({ path: `/public/${this.doc.id}` }).href
 
       return `${location.protocol}//${location.host}${path}`
     },
@@ -169,12 +168,12 @@ export default {
     async discardDocument() {
       this.$store.dispatch(DISCARD_DOCUMENT, { id: this.doc.id })
 
-      open({ name: 'new_doc' })
+      open({ path: '/docs/new' })
     },
     async duplicateDocument() {
       const newDocId = await this.$store.dispatch(DUPLICATE_DOCUMENT, { id: this.doc.id })
 
-      open({ name: 'doc', params: { id: newDocId } })
+      open({ path: `/docs/${newDocId}` })
     },
     async openSandbox() {
       const files = this.codeblocks.reduce((agg, codeblock, index) => {

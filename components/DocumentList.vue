@@ -63,7 +63,6 @@ import {
 const REGEX_QUERY = /^\/(?<regex>.+)\/(?<flags>[a-z]*)$/s
 
 export default {
-  name: 'DocumentList',
   emits: ['update:query'],
   components: {
     Document,
@@ -156,7 +155,7 @@ export default {
           this.selectedDocuments.push(this.filteredDocuments.find(doc => doc.id === id))
         }
       } else {
-        open({ name: 'doc', params: { id: id } })
+        open({ path: `/docs/${id}` })
       }
     },
   },

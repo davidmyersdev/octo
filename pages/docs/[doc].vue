@@ -89,7 +89,7 @@ export default defineComponent({
           this.$store.commit(ADD_DOCUMENT, new Doc({ id: this.doc.id, text }))
 
           this.$router.replace({
-            name: "doc",
+            name: 'docs-doc',
             params: {
               id: this.doc.id,
               preserve: true,

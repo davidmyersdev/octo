@@ -8,5 +8,5 @@
 import Tag from '/components/Tag.vue'
 
 const { tag } = defineProps(['tag'])
-const route = { name: 'tagged_docs', params: { tag } }
+const route = { path: `/docs/t/${tag}` }
 </script>

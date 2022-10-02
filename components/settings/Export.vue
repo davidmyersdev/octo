@@ -6,13 +6,7 @@
       <label>Bundle all documents as JSON. Documents will be decrypted if the necessary keys are available.</label>
     </div>
     <div class="mb-4">
-      <router-link :to="{ name: 'export' }" class="button button-size-medium button-color-gray">Export Documents</router-link>
+      <router-link :to="{ path: '/docs/export' }" class="button button-size-medium button-color-gray">Export Documents</router-link>
     </div>
   </section>
 </template>
-
-<script>
-export default {
-  name: 'Export',
-}
-</script>

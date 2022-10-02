@@ -32,7 +32,6 @@ import {
 } from '/src/store/actions.js'
 
 export default defineComponent({
-  name: 'Editor',
   emits: ['input'],
   components: {
     Ink,

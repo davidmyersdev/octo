@@ -1,14 +1,14 @@
 <template>
   <SimpleBar class="p-4 md:p-2">
     <div class="hidden md:flex items-center justify-center pb-2">
-      <router-link class="flex p-2" :to="{ name: 'new_doc' }">
+      <router-link class="flex p-2" :to="{ path: '/docs/new' }">
         <TheLogo class="h-10 text-theme" />
       </router-link>
     </div>
     <div class="side-nav-spacer flex flex-col flex-grow pb-3">
       <div class="other-actions">
         <div class="search">
-          <router-link :to="{ name: 'docs' }" class="sidebar-button">
+          <router-link :to="{ path: '/docs' }" class="sidebar-button">
             <div class="flex items-center">
               <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -42,7 +42,7 @@
           <span>Actions</span>
           <ModK/>
         </h6>
-        <router-link :to="{ name: 'new_doc' }" class="sidebar-link">
+        <router-link :to="{ path: '/docs/new' }" class="sidebar-link">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
@@ -51,7 +51,7 @@
             <ModKKey class="text-gray-500">N</ModKKey>
           </span>
         </router-link>
-        <router-link :to="{ name: 'notepad' }" class="sidebar-link">
+        <router-link :to="{ path: '/notepad' }" class="sidebar-link">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
           </svg>
@@ -60,7 +60,7 @@
             <ModKKey class="text-gray-500">P</ModKKey>
           </span>
         </router-link>
-        <router-link :to="{ name: 'contexts' }" class="sidebar-link">
+        <router-link :to="{ path: '/contexts' }" class="sidebar-link">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
           </svg>
@@ -69,7 +69,7 @@
             <ModKKey class="text-gray-500">C</ModKKey>
           </span>
         </router-link>
-        <router-link :to="{ name: 'force_graph' }" class="sidebar-link">
+        <router-link :to="{ path: '/force-graph' }" class="sidebar-link">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
           </svg>
@@ -78,7 +78,7 @@
             <ModKKey class="text-gray-500">E</ModKKey>
           </span>
         </router-link>
-        <router-link :to="{ name: 'settings' }" class="sidebar-link">
+        <router-link :to="{ path: '/settings' }" class="sidebar-link">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -88,7 +88,7 @@
             <ModKKey class="text-gray-500">S</ModKKey>
           </span>
         </router-link>
-        <router-link v-if="supportsFirebase" :to="{ name: 'account' }" class="sidebar-link">
+        <router-link v-if="supportsFirebase" :to="{ path: '/account' }" class="sidebar-link">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
@@ -105,7 +105,7 @@
           </svg>
           <div class="flex-grow ml-6 md:ml-3">Community Discord</div>
         </a>
-        <router-link v-if="supportsFirebase && authIsEvaluated && !user" @click="trackCta" :to="{ name: 'account' }" class="sidebar-link text-theme">
+        <router-link v-if="supportsFirebase && authIsEvaluated && !user" @click="trackCta" :to="{ path: '/account' }" class="sidebar-link text-theme">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
           </svg>
@@ -132,7 +132,7 @@
             <ModK/>
           </span>
         </h6>
-        <router-link :to="{ name: 'filtered_docs', params: { filter: 'tasks' } }" class="sidebar-link">
+        <router-link :to="{ path: '/docs/f/tasks' }" class="sidebar-link">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
           </svg>
@@ -141,7 +141,7 @@
             <ModKKey class="text-gray-500">T</ModKKey>
           </span>
         </router-link>
-        <router-link :to="{ name: 'filtered_docs', params: { filter: 'untagged' } }" class="sidebar-link">
+        <router-link :to="{ path: '/docs/f/untagged' }" class="sidebar-link">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
           </svg>
@@ -150,7 +150,7 @@
             <ModKKey class="text-gray-500">U</ModKKey>
           </span>
         </router-link>
-        <router-link :to="{ name: 'filtered_docs', params: { filter: 'discarded' } }" class="sidebar-link">
+        <router-link :to="{ path: '/docs/f/discarded' }" class="sidebar-link">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
           </svg>
@@ -175,7 +175,7 @@
         <h6 class="sidebar-label">
           <span>Tags</span>
         </h6>
-        <router-link class="sidebar-link md:hidden" :to="{ name: 'tags' }">
+        <router-link class="sidebar-link md:hidden" :to="{ path: '/tags' }">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
           </svg>
@@ -189,7 +189,7 @@
         <h6 class="sidebar-label">
           <span>Agreements</span>
         </h6>
-        <router-link :to="{ name: 'privacy_policy' }" class="sidebar-link">
+        <router-link :to="{ path: '/privacy-policy' }" class="sidebar-link">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
@@ -197,7 +197,7 @@
             <span>Privacy Policy</span>
           </span>
         </router-link>
-        <router-link :to="{ name: 'terms_and_conditions' }" class="sidebar-link">
+        <router-link :to="{ path: 'terms-and-conditions' }" class="sidebar-link">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
           </svg>
@@ -294,14 +294,14 @@ export default {
         })
 
         if (id) {
-          return open({ name: 'file_editor', params: { id }})
+          return open({ path: `/file-editor/${id}` })
         }
       } catch {}
 
       await handle.createWritable()
 
       useFiles().add({ id, handle })
-      open({ name: 'file_editor', params: { id } })
+      return open({ path: `/file-editor/${id}` })
     },
     setContext(context) {
       this.$store.dispatch(SET_CONTEXT_TAGS, { context })

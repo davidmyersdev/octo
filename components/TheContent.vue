@@ -10,7 +10,6 @@ import { nanoid } from 'nanoid'
 import TheNavbar from '/components/TheNavbar.vue'
 
 export default {
-  name: 'TheContent',
   components: {
     TheNavbar,
   },

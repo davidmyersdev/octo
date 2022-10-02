@@ -9,7 +9,6 @@
 
 <script>
 export default {
-  name: 'DiscardableAction',
   props: {
     discardedAt: Date,
     onDiscard: Function,

@@ -31,7 +31,6 @@
 import { SET_THEME } from "/src/store/modules/settings.js"
 
 export default {
-  name: "Theme",
   computed: {
     theme: {
       get() {

@@ -34,7 +34,6 @@ import Providers from '/components/Providers.vue'
 import Subscriptions from '/components/Subscriptions.vue'
 
 export default {
-  name: 'Account',
   components: {
     Providers,
     Subscriptions,

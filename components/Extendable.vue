@@ -8,7 +8,6 @@
 
 <script>
 export default {
-  name: 'Extendable',
   props: {
     scope: String,
   },

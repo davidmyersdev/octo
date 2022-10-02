@@ -9,10 +9,10 @@
     <template #footer>
       <div class="flex items-center justify-end gap-2">
         <button class="button-flat button-size-medium" @click="closeChangeLog">Dismiss</button>
-        <router-link v-if="!subscription.pro" @click="trackCta" :to="{ name: 'account' }" class="text-blue-400 button-flat button-color-surface button-size-medium">
+        <router-link v-if="!subscription.pro" @click="trackCta" :to="{ path: '/account' }" class="text-blue-400 button-flat button-color-surface button-size-medium">
           <span>Upgrade</span>
         </router-link>
-        <router-link v-else-if="!user" @click="trackCta" :to="{ name: 'account' }" class="text-blue-400 button-flat button-color-surface button-size-medium">
+        <router-link v-else-if="!user" @click="trackCta" :to="{ path: '/account' }" class="text-blue-400 button-flat button-color-surface button-size-medium">
           <span>Sign Up</span>
         </router-link>
       </div>

@@ -63,7 +63,6 @@ import GoogleIcon from '/components/icons/Google.vue'
 import TwitterIcon from '/components/icons/Twitter.vue'
 
 export default {
-  name: 'Providers',
   components: {
     GitHubIcon,
     GoogleIcon,

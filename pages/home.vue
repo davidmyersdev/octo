@@ -98,10 +98,10 @@
       <div class="max-w-[100ch] mx-auto mb-8">
         <div class="flex flex-col items-center lg:items-start gap-2">
           <div class="flex flex-col items-center lg:flex-row gap-2 lg:gap-4">
-            <router-link :to="{ name: 'privacy_policy' }" class="font-semibold">Privacy Policy</router-link>
-            <router-link :to="{ name: 'terms_and_conditions' }" class="font-semibold">Terms &amp; Conditions</router-link>
+            <router-link :to="{ path: '/privacy-policy' }" class="font-semibold">Privacy Policy</router-link>
+            <router-link :to="{ path: '/terms-and-conditions' }" class="font-semibold">Terms &amp; Conditions</router-link>
             <div class="flex items-center gap-2 mt-1 lg:mt-0">
-              <a href="https://twitter.com/writewithocto" target="_blank" rel="noopener noreferrer"><TwitterIcon class="h-6 lg:h-4" /></a>
+              <a href="https://twitter.com/voraciousdev" target="_blank" rel="noopener noreferrer"><TwitterIcon class="h-6 lg:h-4" /></a>
               <a href="https://github.com/voracious" target="_blank" rel="noopener noreferrer"><GitHubIcon class="h-6 lg:h-4" /></a>
             </div>
           </div>

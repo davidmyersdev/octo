@@ -12,7 +12,6 @@ import { defineComponent, PropType } from 'vue'
 import moment from 'moment'
 
 export default defineComponent({
-  name: 'ChangeSet',
   props: {
     changeSet: {
       required: true,

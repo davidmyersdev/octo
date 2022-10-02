@@ -41,7 +41,6 @@ import {
 } from '/src/store/modules/settings.js';
 
 export default {
-  name: 'Encryption',
   data() {
     return {
       togglingCrypto: false,

@@ -119,7 +119,7 @@ export default {
       return parseCodeblocks(this.doc.text)
     },
     createdAt() {
-      if (this.$route.params.id) {
+      if (this.$route.params.docId) {
         return moment(this.doc.createdAt).format('ddd, MMM Do, YYYY [at] h:mm A')
       }
 
@@ -140,7 +140,7 @@ export default {
       return `${location.protocol}//${location.host}${path}`
     },
     savedAt() {
-      if (this.$route.params.id) {
+      if (this.$route.params.docId) {
         if (this.now.diff(this.doc.updatedAt, 'seconds') < 5) {
           return 'just now'
         }
@@ -152,7 +152,7 @@ export default {
       return 'Not yet saved'
     },
     updatedAt() {
-      if (this.$route.params.id) {
+      if (this.$route.params.docId) {
         return moment(this.doc.updatedAt).format('ddd, MMM Do, YYYY [at] h:mm A')
       }
 

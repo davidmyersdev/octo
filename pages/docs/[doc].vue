@@ -29,7 +29,7 @@ export default defineComponent({
     Editor,
   },
   props: {
-    id: String,
+    docId: String,
     initialFocus: {
       type: String,
       default: () => "any",
@@ -66,7 +66,7 @@ export default defineComponent({
       return this.$store.state.settings.theme
     },
     doc() {
-      return this.$store.getters.decrypted.find((doc) => doc.id === this.id) || this.placeholder
+      return this.$store.getters.decrypted.find((doc) => doc.id === this.docId) || this.placeholder
     },
     settings() {
       return this.$store.state.settings.editor
@@ -83,7 +83,7 @@ export default defineComponent({
       if (!this.readonly) {
         // ReadOnly mode means we are viewing a shared doc.
         // Todo: Create a new view for shared docs, and store shared docs in a new collection.
-        if (this.id) {
+        if (this.docId) {
           this.$store.commit(EDIT_DOCUMENT, { id: this.doc.id, text })
         } else {
           this.$store.commit(ADD_DOCUMENT, new Doc({ id: this.doc.id, text }))
@@ -91,7 +91,7 @@ export default defineComponent({
           this.$router.replace({
             name: 'docs-doc',
             params: {
-              id: this.doc.id,
+              docId: this.doc.id,
               preserve: true,
             },
           })
@@ -99,7 +99,7 @@ export default defineComponent({
       }
     },
     async findSharedDocument() {
-      const docRef = await fetchSharedDoc({ docId: this.$route.params.id })
+      const docRef = await fetchSharedDoc({ docId: this.$route.params.docId })
       const serverDoc = docRef.data()
       const packed = {
         ...serverDoc,
@@ -120,8 +120,8 @@ export default defineComponent({
     },
   },
   beforeRouteUpdate(to, _from, next) {
-    if (to.name === "doc") {
-      this.$store.dispatch(SET_DOCUMENT, { id: to.params.id })
+    if (to.name === "docs-doc") {
+      this.$store.dispatch(SET_DOCUMENT, { id: to.params.docId })
     }
 
     next()

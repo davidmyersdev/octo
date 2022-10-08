@@ -84,7 +84,7 @@ export const router = createRouter({
           props: true
         },
         {
-          path: '/docs/:id',
+          path: '/docs/:docId',
           name: 'docs-doc',
           component: () => import('/pages/docs/[doc].vue'),
           props({ params }) {
@@ -98,16 +98,16 @@ export const router = createRouter({
             return params
           },
           beforeEnter(to, from, next) {
-            store.dispatch(SET_DOCUMENT, { id: to.params.id })
+            store.dispatch(SET_DOCUMENT, { id: to.params.docId })
             next()
           },
         },
         {
-          path: '/docs/:doc/meta',
+          path: '/docs/:docId/meta',
           component: () => import('/pages/docs/[doc]/meta.vue'),
           props: true,
           beforeEnter(to, from, next) {
-            store.dispatch(SET_DOCUMENT, { id: to.params.id })
+            store.dispatch(SET_DOCUMENT, { id: to.params.docId })
             next()
           },
         },
@@ -118,7 +118,8 @@ export const router = createRouter({
           props: true,
         },
         {
-          path: '/public/:doc',
+          path: '/public/:docId',
+          name: 'public-doc',
           component: () => import('/pages/docs/[doc].vue'),
           props: { readonly: true },
         },

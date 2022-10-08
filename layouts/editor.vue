@@ -30,7 +30,7 @@ export default {
       return this.$store.state.showLeftSidebar
     },
     showRightSidebar() {
-      return this.$route.name === 'doc' && this.$store.state.showRightSidebar
+      return this.$route.name === 'docs-doc' && this.$store.state.showRightSidebar
     },
   },
 }

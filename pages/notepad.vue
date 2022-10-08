@@ -1,5 +1,5 @@
 <template>
-  <Editor v-if="daily" :id="daily.id" initialFocus="end" />
+  <Editor v-if="daily" :docId="daily.id" initialFocus="end" />
 </template>
 
 <script>

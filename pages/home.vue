@@ -8,7 +8,7 @@
             <h1 class="text-4xl lg:text-6xl font-semibold">Build <span class="underline underline-offset-8 decoration-2">your</span> knowledge base.</h1>
           </div>
           <div class="flex flex-col gap-4 items-center text-center">
-            <a @click="trackCtaSignUpNow" href="#pricing" class="button-base bg-brand hover:bg-blue-500 transition shadow whitespace-nowrap justify-center gap-3 text-black text-xl py-2 px-8">
+            <a @click="trackCtaSignUpNow" href="#pricing" class="button-base bg-brand hover:scale-125 transition shadow whitespace-nowrap justify-center gap-3 text-black text-xl py-2 px-8">
               <span class="flex items-center gap-3 align-center">
                 <span>Get started for free</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

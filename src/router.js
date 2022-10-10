@@ -12,6 +12,7 @@ export const router = createRouter({
   routes: [
     {
       path: '/home',
+      name: 'home',
       meta: { track: true },
       component: () => import('/pages/home.vue'),
       beforeEnter(to, from, next) {

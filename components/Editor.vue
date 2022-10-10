@@ -71,7 +71,7 @@ export default defineComponent({
   watch: {
     text(value) {
       // If a text value is being passed in that doesn't match the editor, then we likely need to load a new doc.
-      if (value !== this.editor.doc()) {
+      if (value !== this.editor.getDoc()) {
         this.editor.load(value)
       }
     },

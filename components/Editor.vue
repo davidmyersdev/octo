@@ -68,16 +68,11 @@ export default defineComponent({
       type: Object,
     },
   },
-  data() {
-    return {
-      editor: null,
-    }
-  },
   watch: {
     text(value) {
       // If a text value is being passed in that doesn't match the editor, then we likely need to load a new doc.
-      if (value !== this.$refs.editable.instance.doc()) {
-        this.$refs.editable.instance.load(value)
+      if (value !== this.editor.doc()) {
+        this.editor.load(value)
       }
     },
   },
@@ -93,6 +88,9 @@ export default defineComponent({
 
         return docs
       }, [])
+    },
+    editor() {
+      return this.$refs.editable?.instance
     },
     maxWidthInChars() {
       return this.settings.readability.maxWidthInChars
@@ -187,7 +185,7 @@ export default defineComponent({
   },
   methods: {
     focusEditor() {
-      this.$refs.editable.focus()
+      this.editor.focus()
     },
     focusInitial() {
       this.focusEditor()
@@ -198,11 +196,13 @@ export default defineComponent({
         this.focusEditorEnd()
       }
     },
-    async focusEditorEnd() {
-      this.$refs.editable.focus()
+    focusEditorEnd() {
+      this.focusEditor()
+      this.editor.select({ at: 'end' })
     },
-    async focusEditorStart() {
-      this.$refs.editable.focus()
+    focusEditorStart() {
+      this.focusEditor()
+      this.editor.select({ at: 'start' })
     },
     async input(text) {
       this.$emit('input', text)
@@ -216,13 +216,16 @@ export default defineComponent({
           return addFile(file).then((uploadedFile) => {
             // Todo: Handle non-image files
             if (/^image\/.*/.test(uploadedFile.mimeType)) {
-              this.$refs.editable.instance.insert(`![](${uploadedFile.url})`)
+              this.editor.insert(`![](${uploadedFile.url})`)
             }
           })
         })
       )
     },
   },
+  mounted() {
+    this.focusInitial()
+  }
 })
 </script>
 

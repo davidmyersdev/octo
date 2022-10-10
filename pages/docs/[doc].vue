@@ -3,6 +3,7 @@
     ref="editable"
     :appearance="appearance"
     :doc="doc"
+    :initialFocus="initialFocus"
     :initialSelections="initialSelections"
     :readonly="readonly"
     :settings="settings"

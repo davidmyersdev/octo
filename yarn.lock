@@ -3256,7 +3256,7 @@ __metadata:
     deepmerge-ts: ^4.2.1
     firebase: ^9.9.0
     force-graph: ^1.35.1
-    ink-mde: ^0.14.0
+    ink-mde: ^0.14.1
     localforage: ^1.10.0
     mime-types: ^2.1.35
     moment: ^2.29.4
@@ -7003,9 +7003,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ink-mde@npm:0.14.0, ink-mde@npm:^0.14.0":
-  version: 0.14.0
-  resolution: "ink-mde@npm:0.14.0"
+"ink-mde@npm:0.14.1, ink-mde@npm:^0.14.1":
+  version: 0.14.1
+  resolution: "ink-mde@npm:0.14.1"
   dependencies:
     "@codemirror/autocomplete": ^6.2.0
     "@codemirror/commands": ^6.1.0
@@ -7019,7 +7019,7 @@ __metadata:
     "@lezer/highlight": ^1.0.0
     "@lezer/markdown": ^1.0.1
     "@replit/codemirror-vim": ^6.0.2
-    ink-mde: 0.14.0
+    ink-mde: 0.14.1
     solid-js: ^1.5.5
     style-mod: ^4.0.0
   peerDependencies:
@@ -7027,7 +7027,7 @@ __metadata:
   peerDependenciesMeta:
     vue:
       optional: true
-  checksum: 78238932a73fd6eac1a14bff889a164dcdf2f595ff12e3d9f0e58f3ae1422737f3aca51f1c6ad51cac50198d63d5cf990b7620de585414462511b588bf1ec2d5
+  checksum: a15329f81b65b93935f14642248ecd3bb41be45155c3c2271c9a159aa50bc35720b0b430cad1dbedc38df227f8b656ee49a946de3e07bf2261b6710f21e0c86b
   languageName: node
   linkType: hard
 

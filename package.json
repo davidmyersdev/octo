@@ -16,7 +16,7 @@
     "deepmerge": "^4.2.2",
     "firebase": "^9.9.0",
     "force-graph": "^1.35.1",
-    "ink-mde": "^0.14.0",
+    "ink-mde": "^0.14.1",
     "localforage": "^1.10.0",
     "mime-types": "^2.1.35",
     "moment": "^2.29.4",

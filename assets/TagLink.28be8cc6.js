@@ -1,0 +1,1 @@
+import{_ as n}from"./Tag.85d413ea.js";import{r,o as c,n as _,w as e,b as l,d as i,u as m}from"./index.f0efdd9c.js";const g={__name:"TagLink",props:["tag"],setup(t){const{tag:o}=t,a={path:`/docs/t/${o}`};return(u,p)=>{const s=r("router-link");return c(),_(s,{to:a,class:"flex items-center"},{default:e(()=>[l(n,null,{default:e(()=>[i(m(t.tag),1)]),_:1})]),_:1})}}};export{g as _};

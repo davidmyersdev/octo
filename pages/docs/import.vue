@@ -3,7 +3,7 @@
     <div>
       <button @click="importDocs" class="button button-size-medium button-color-gray">Import Docs</button>
     </div>
-    <pre @input="text" contenteditable ref="editable" class="editable monospace min-h- w-full text-current bg-transparent outline-none flex-grow">{{value}}</pre>
+    <pre @input="updateText" contenteditable ref="editable" class="editable monospace min-h- w-full text-current bg-transparent outline-none flex-grow"></pre>
   </div>
 </template>
 
@@ -18,13 +18,16 @@ export default {
   },
   methods: {
     importDocs() {
-      const things = JSON.parse(this.text)
+      const things = [JSON.parse(this.text)].flat()
 
-      things.forEach((thing) => {
-        const doc = new Doc(thing)
-
-        this.$store.dispatch('ADD_DOCUMENT', doc)
+      things.forEach(({ text }) => {
+        this.$store.commit('ADD_DOCUMENT', new Doc({ text }))
       })
+
+      this.$refs.editable.innerText = ''
+    },
+    updateText(event) {
+      this.text = event.target.innerText
     },
   },
 }

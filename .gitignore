@@ -17,5 +17,6 @@
 .vercel
 .vscode
 .yarn/install-state.gz
+.yarn/cache
 dist
 node_modules

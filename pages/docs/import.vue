@@ -18,10 +18,24 @@ export default {
   },
   methods: {
     importDocs() {
-      const things = [JSON.parse(this.text)].flat()
+      const docs = [JSON.parse(this.text)].flat()
+      
 
-      things.forEach(({ text }) => {
-        this.$store.commit('ADD_DOCUMENT', new Doc({ text }))
+      docs.forEach(({ id, text }) => {
+        if (id) {
+          const existingDoc = this.$store.state.documents.all.find(doc => doc.id === id)
+
+          if (existingDoc) {
+            return this.$store.commit('EDIT_DOCUMENT', {
+              id: existingDoc.id,
+              text,
+            })
+          } else {
+            this.$store.commit('ADD_DOCUMENT', new Doc({ text }))
+          }
+        } else {
+          this.$store.commit('ADD_DOCUMENT', new Doc({ text }))
+        }
       })
 
       this.$refs.editable.innerText = ''

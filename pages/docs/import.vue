@@ -2,7 +2,7 @@
   <div class="container mx-auto p-4 flex flex-col flex-grow h-full gap-4">
     <div class="flex flex-col gap-4">
       <label for="markdown-file-uploader">Choose .md file(s) to upload</label>
-      <input ref="uploads" @change="parseFiles" type="file" id="markdown-file-uploader" multiple accept=".md" class="input" />
+      <input ref="uploads" @change="parseFiles" type="file" id="markdown-file-uploader" multiple accept=".md" class="button button-size-medium button-color-gray" />
     </div>
   </div>
 </template>

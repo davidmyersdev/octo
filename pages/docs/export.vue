@@ -1,6 +1,13 @@
 <template>
-  <div class="container mx-auto p-4 flex">
-    <button class="button button-size-medium button-color-gray" v-on:click="exportFiles">Export documents</button>
+  <div class="container mx-auto p-4 flex flex-col gap-4">
+    <div>
+      <label class="button button-size-medium button-color-gray items-center">
+        <input v-model="withFrontMatter" type="checkbox" class="checkbox" checked>
+        <span class="ml-3">Export with Octo metadata</span>
+      </label>
+    </div>
+    <button class="button button-size-medium button-color-gray" v-on:click="exportFiles(withFrontMatter)">Export
+      documents</button>
   </div>
 </template>
 
@@ -9,23 +16,25 @@ import { saveAs } from 'file-saver';
 import JSZip from 'jszip'
 
 export default {
-  computed: {
-    value() {
-      return JSON.stringify(this.$store.state.documents.all, null, 2)
-    },
+  data() {
+    return {
+      withFrontMatter: true
+    }
   },
   methods: {
-    exportFiles() {
+    exportFiles(withFrontMatter = false) {
       const zip = new JSZip();
       const folder = zip.folder("octo_exported");
 
-      this.$store.state.documents.all.forEach(({ id, text }) => {
-        folder.file(`${id}.md`, text);        
+      this.$store.state.documents.all.forEach((doc) => {
+        const { id, text } = doc
+        const content = withFrontMatter ? `---\nid: ${id}\n---\n${text}` : text
+        folder.file(`${id}.md`, content);
       })
 
-      zip.generateAsync({type:"blob"}).then(function(content) {
-          saveAs(content, "octo_exported.zip");
-        });
+      zip.generateAsync({ type: "blob" }).then(function (content) {
+        saveAs(content, "octo_exported.zip");
+      });
     }
   },
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="container flex flex-col mx-auto p-4 md:px-16 md:py-8">
+  <PageContainer>
     <div>
       <h2 class="text-4xl">App Settings</h2>
       <p class="mt-1 mb-8 text-gray-500">Make yourself comfortable</p>
@@ -13,11 +13,12 @@
         <Experimental class="mb-8" />
       </Extendable>
     </div>
-  </div>
+  </PageContainer>
 </template>
 
 <script lang="ts" setup>
 import Banner from '/components/Banner.vue'
+import PageContainer from '/components/PageContainer.vue'
 import Editor from '/components/settings/Editor.vue'
 import Encryption from '/components/settings/Encryption.vue'
 import Experimental from '/components/settings/Experimental.vue'

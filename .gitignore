@@ -16,7 +16,15 @@
 .output
 .vercel
 .vscode
-.yarn/install-state.gz
-.yarn/cache
 dist
 node_modules
+
+# We are not using Zero-Installs.
+# https://yarnpkg.com/getting-started/qa/#which-files-should-be-gitignored
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

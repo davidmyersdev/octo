@@ -1,13 +1,14 @@
 <template>
-  <div class="container mx-auto p-4 flex flex-col gap-4">
+  <div class="flex flex-col gap-4">
     <div>
       <label class="button button-size-medium button-color-gray items-center">
-        <input v-model="withFrontMatter" type="checkbox" class="checkbox" checked>
-        <span class="ml-3">Export with Octo metadata</span>
+        <input v-model="withFrontMatter" type="checkbox" class="checkbox">
+        <span class="ml-3">Include metadata as Front Matter</span>
       </label>
     </div>
-    <button class="button button-size-medium button-color-gray" v-on:click="exportFiles(withFrontMatter)">Export
-      documents</button>
+    <div>
+      <button class="button button-size-medium button-color-gray" @click="exportFiles(withFrontMatter)">Export</button>
+    </div>
   </div>
 </template>
 
@@ -28,7 +29,7 @@ export default {
 
       this.$store.state.documents.all.forEach((doc) => {
         const { id, text } = doc
-        const content = withFrontMatter ? `---\nid: ${id}\n---\n${text}` : text
+        const content = withFrontMatter ? `---\nid: ${id}\n---\n\n${text}` : text
         folder.file(`${id}.md`, content);
       })
 

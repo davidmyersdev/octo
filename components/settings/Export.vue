@@ -1,12 +1,16 @@
+<script lang="ts" setup>
+import Exporter from '/pages/docs/export.vue'
+</script>
+
 <template>
   <section>
-    <h3 class="text-3xl">Export Documents</h3>
+    <h3 class="text-3xl">Export Docs</h3>
     <hr class="mt-2 mb-4">
     <div class="mb-4">
-      <label>Bundle all documents as JSON. Documents will be decrypted if the necessary keys are available.</label>
+      <label>This tool lets you download your knowledge base as a zipped folder of plain-text Markdown files.</label>
     </div>
     <div class="mb-4">
-      <router-link :to="{ path: '/docs/export' }" class="button button-size-medium button-color-gray">Export Documents</router-link>
+      <Exporter />
     </div>
   </section>
 </template>

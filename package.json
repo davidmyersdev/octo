@@ -14,9 +14,11 @@
   },
   "dependencies": {
     "deepmerge": "^4.2.2",
+    "file-saver": "^2.0.5",
     "firebase": "^9.9.0",
     "force-graph": "^1.35.1",
     "ink-mde": "^0.14.1",
+    "jszip": "^3.10.1",
     "localforage": "^1.10.0",
     "mime-types": "^2.1.35",
     "moment": "^2.29.4",
@@ -32,8 +34,10 @@
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.0",
+    "@types/file-saver": "^2.0.5",
     "@types/mime-types": "^2.1.1",
     "@types/node": "^18.0.6",
+    "@types/remarkable": "^2.0.3",
     "@vitejs/plugin-vue": "2",
     "autoprefixer": "^10.3.6",
     "deepmerge-ts": "^4.2.1",

@@ -7,8 +7,8 @@
       <ChangeLogEntry header="Sunday, October 16th, 2022">
         <p>Today's updates focus on <strong>portability</strong>.</p><p>Vendor lock-in has become commonplace, but you deserve the right to take your data with you <strong>anywhere</strong> you choose. Thanks to recent community contributions, transferring your data into or out of Octo has become much simpler.</p>
         <template #items>
-          <li>Import plain-text Markdown files into your knowledge base.</li>
-          <li>Export your entire knowledge base as a zipped folder of plain-text Markdown files.</li>
+          <li>Import plain-text Markdown files into your knowledge base, directly from App Settings.</li>
+          <li>Export your entire knowledge base as a zipped folder of plain-text Markdown files, directly from App Settings.</li>
         </template>
       </ChangeLogEntry>
       <ChangeLogEntry header="Thursday, July 21st, 2022">

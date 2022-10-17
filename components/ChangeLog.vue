@@ -1,10 +1,47 @@
 <template>
   <Modal v-if="showChangeLog" @close="closeChangeLog">
     <template #header>
-      What's new?
+      What's New
     </template>
-    <div class="flex flex-col gap-8">
-      <ChangeSet v-for="changeSet in changeSets" :changeSet="changeSet" :key="changeSet.timestamp" />
+    <div class="flex flex-col gap-12">
+      <ChangeLogEntry header="Sunday, October 16th, 2022">
+        <p>Today's updates focus on <strong>portability</strong>.</p><p>Vendor lock-in has become commonplace, but you deserve the right to take your data with you <strong>anywhere</strong> you choose. Thanks to recent community contributions, transferring your data into or out of Octo has become much simpler.</p>
+        <template #items>
+          <li>Import plain-text Markdown files into your knowledge base.</li>
+          <li>Export your entire knowledge base as a zipped folder of plain-text Markdown files.</li>
+        </template>
+      </ChangeLogEntry>
+      <ChangeLogEntry header="Thursday, July 21st, 2022">
+        <template #items>
+          <li>Tags are now properly highlighted and support a wide array of unicode letters and marks. Additionally, when typing a new tag, suggestions will appear based on your existing tags. Press enter to use the active tag suggestion.</li>
+          <li>Direct doc references are finally here! Start typing the top-level title of another doc with the <Code>[[my other doc]]</Code> syntax for suggestions to appear.</li>
+        </template>
+      </ChangeLogEntry>
+      <ChangeLogEntry header="Monday, May 23rd, 2022">
+        <template #items>
+          <li>The Formatting Toolbar is here! You can toggle it per-device in App Settings.</li>
+          <li>You can now improve the readability of active docs by customizing the max-width to better fit your needs (defaults to 100 characters).</li>
+          <li>There is a new 'Auto' appearance option that will match your system theme. It is the default for new users, and you can update it for yourself in App Settings.</li>
+          <li>Formatting tokens (<Code>#</Code>, <Code>*</Code>, etc) now have better contrast with the surrounding text.</li>
+          <li>Additionally, this release includes dependency updates, performance improvements, and small bugfixes.</li>
+        </template>
+      </ChangeLogEntry>
+      <ChangeLogEntry header="Wednesday, March 30th, 2022">
+        <template #items>
+          <li>Drag-and-drop or paste files to upload and attach to the current doc (Octo Pro).</li>
+        </template>
+      </ChangeLogEntry>
+      <ChangeLogEntry header="Saturday, March 26th, 2022">
+        <template #items>
+          <li>Changelog notifications are displayed when Octo updates.</li>
+          <li>Improvements have been made to IME language support.</li>
+          <li>Regular expressions are automatically recognized by the <Code>/.*/i</Code> syntax in searches.</li>
+          <li>The Active Context bar has been merged into the navigation menu.</li>
+          <li>The legacy Markdown editor has been removed in favor of Ink.</li>
+          <li>The Daily Notepad page now works offline.</li>
+          <li>Vim Mode can be enabled on the Settings page.</li>
+        </template>
+      </ChangeLogEntry>
     </div>
     <template #footer>
       <div class="flex items-center justify-end gap-2">
@@ -21,38 +58,33 @@
 </template>
 
 <script lang="ts" setup>
-import moment from 'moment'
 import { onMounted, ref } from 'vue'
 
 import { subscription, user } from '/src/common/account'
-import ChangeSet from '/components/ChangeSet.vue'
+import ChangeLogEntry from '/components/ChangeLogEntry.vue'
+import Code from '/components/Code.vue'
 import Modal from '/components/Modal.vue'
 
-const changeSets = ref<any>([])
-const lastUpdated = localStorage.getItem('changelog:v1')
 const showChangeLog = ref(false)
 const closeChangeLog = () => { showChangeLog.value = false }
 const trackCta = () => {
-  // @ts-ignore
-  window.fathom.trackGoal(import.meta.env.VITE_FATHOM_EVENT_CTA_MODAL_UPGRADE, 0)
-
   closeChangeLog()
+
+  // @ts-ignore
+  window.fathom?.trackGoal(import.meta.env.VITE_FATHOM_EVENT_CTA_MODAL_UPGRADE, 0)
 }
 
 onMounted(async () => {
   try {
-    const changeLog = (await import('/src/data/changelog.json')).default
+    // Make sure this timestamp is updated when new entries are added.
+    // (new Date()).toISOString()
+    const lastEntryTimestamp = '2022-10-16T21:38:09.137Z'
+    const lastClientTimestamp = localStorage.getItem('changelog:v1')
 
-    changeSets.value.push(...changeLog.sort((a, b) => {
-      return moment(b.timestamp).unix() - moment(a.timestamp).unix()
-    }))
-
-    const latestTimestamp = changeSets.value[0].timestamp
-
-    if (!lastUpdated || new Date(latestTimestamp) > new Date(lastUpdated)) {
+    if (!lastClientTimestamp || new Date(lastEntryTimestamp) > new Date(lastClientTimestamp)) {
       showChangeLog.value = true
 
-      localStorage.setItem('changelog:v1', latestTimestamp)
+      localStorage.setItem('changelog:v1', lastEntryTimestamp)
     }
   } catch (error) {
     // Todo: Handle this error

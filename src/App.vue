@@ -28,17 +28,17 @@
         <span>Redirecting you to Stripe for checkout</span>
       </div>
     </div>
-    <ChangeLog v-if="!home && !publicDoc" />
+    <AsyncChangeLog v-if="!home && !publicDoc" />
     <router-view :inheritAttrs="true" class="flex-grow flex-shrink min-h-0"></router-view>
   </div>
 </template>
 
 <script>
-import ChangeLog from '/components/ChangeLog.vue'
+import AsyncChangeLog from '/components/AsyncChangeLog.vue'
 
 export default {
   components: {
-    ChangeLog,
+    AsyncChangeLog,
   },
   inject: ["mq"],
   watch: {

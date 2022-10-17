@@ -1,17 +1,11 @@
 <template>
   <section>
-    <div v-if="accountConflict" role="alert" class="flex items-center rounded p-2 bg-blue-100 dark:bg-blue-400 text-gray-900 mb-4 shadow">
-      <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-      </svg>
-      <span class="ml-3">You have an account with another provider. If you want to link these accounts, you need to sign in with the correct provider first.</span>
-    </div>
-    <div v-if="stripeError" role="alert" class="flex items-center rounded p-2 bg-blue-100 dark:bg-blue-400 text-gray-900 mb-4 shadow">
-      <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-      </svg>
-      <span class="ml-3">We could not connect to Stripe for checkout. Please try again.</span>
-    </div>
+    <Alert v-if="accountConflict" class="mb-4">
+      <span>You already have an account with another provider. If you want to link these accounts, you must sign in with the correct provider first.</span>
+    </Alert>
+    <Alert v-if="stripeError" class="mb-4">
+      <span>We could not connect to Stripe for checkout. Please try again.</span>
+    </Alert>
     <div class="flex flex-col justify-center lg:flex-row gap-4">
       <div class="flex-shrink flex-basis-1/2 bg-gray-100 dark:bg-darkest shadow rounded p-4">
         <h3 class="text-3xl flex justify-between mb-2">
@@ -62,30 +56,30 @@
           </li>
         </ul>
       </div>
-      <div class="flex-grow flex-shrink flex-basis-1/2 bg-gray-100 dark:bg-darkest shadow rounded p-4 ring ring-blue-400 ring-opacity-75">
+      <div class="flex-grow flex-shrink flex-basis-1/2 bg-gray-100 dark:bg-darkest shadow rounded p-4 ring ring-brand ring-opacity-75">
         <h3 class="text-3xl flex justify-between mb-2">
           <span class="font-bold">Pro</span>
-          <span class="font-semibold ml-4"><span class="text-blue-400">$4</span> <span class="text-base font-normal">per month</span></span>
+          <span class="font-semibold ml-4"><span class="">$4</span> <span class="text-base font-normal">per month</span></span>
         </h3>
         <p v-if="user && subscribed" class="bg-gray-200 dark:bg-gray-900 text-base font-normal py-0.5 px-2 rounded ml-2">Active</p>
         <p class="mb-4">For professionals who want to collaborate on documentation and more</p>
         <div v-if="!user" class="flex flex-col gap-2 mb-4">
-          <button @click="signInGithubPro" :disabled="!online" class="button-base button-size-medium button-color-surface shadow w-full whitespace-nowrap justify-center text-blue-400">
+          <button @click="signInGithubPro" :disabled="!online" class="button-base button-size-medium button-color-surface shadow w-full whitespace-nowrap justify-center">
             <GitHubIcon class="h-5 w-5" />
             <span class="action ml-3">Continue with GitHub</span>
           </button>
-          <button @click="signInGooglePro" :disabled="!online" class="button-base button-size-medium button-color-surface shadow w-full whitespace-nowrap justify-center text-blue-400">
+          <button @click="signInGooglePro" :disabled="!online" class="button-base button-size-medium button-color-surface shadow w-full whitespace-nowrap justify-center">
             <GoogleIcon class="h-5 w-5" />
             <span class="action ml-3">Continue with Google</span>
           </button>
-          <button @click="signInTwitterPro" :disabled="!online" class="button-base button-size-medium button-color-surface shadow w-full whitespace-nowrap justify-center text-blue-400">
+          <button @click="signInTwitterPro" :disabled="!online" class="button-base button-size-medium button-color-surface shadow w-full whitespace-nowrap justify-center">
             <TwitterIcon class="h-5 w-5" />
             <span class="action ml-3">Continue with Twitter</span>
           </button>
         </div>
         <p class="text-gray-500 mb-4">You will be redirected to Stripe for checkout after you sign up with your preferred auth provider.</p>
         <div v-if="user && !subscribed" class="flex flex-col gap-2 mb-4">
-          <button @click="upgrade" :disabled="!online" class="button-base button-size-medium button-color-surface shadow w-full whitespace-nowrap justify-center text-blue-400">
+          <button @click="upgrade" :disabled="!online" class="button-base button-size-medium button-color-surface shadow w-full whitespace-nowrap justify-center text-brand">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 11l3-3m0 0l3 3m-3-3v8m0-13a9 9 0 110 18 9 9 0 010-18z" />
             </svg>
@@ -122,7 +116,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
             </svg>
-            <span>1% of revenue <a href="https://stripe.com/climate" target="_blank" rel="noopener noreferrer" class="text-blue-400">funds carbon removal</a></span>
+            <span>1% of revenue <a href="https://stripe.com/climate" target="_blank" rel="noopener noreferrer" class="text-brand">funds carbon removal</a></span>
           </li>
         </ul>
       </div>
@@ -133,6 +127,7 @@
 <script>
 import { getAuth, getRedirectResult, GithubAuthProvider, GoogleAuthProvider, signInWithRedirect, TwitterAuthProvider } from 'firebase/auth'
 
+import Alert from '/components/Alert.vue'
 import GitHubIcon from '/components/icons/GitHub.vue'
 import GoogleIcon from '/components/icons/Google.vue'
 import TwitterIcon from '/components/icons/Twitter.vue'
@@ -143,6 +138,7 @@ import { SET_STRIPE_MODAL_VISIBILITY } from '/src/store.js'
 
 export default {
   components: {
+    Alert,
     GitHubIcon,
     GoogleIcon,
     TwitterIcon,

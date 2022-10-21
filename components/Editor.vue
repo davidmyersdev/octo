@@ -116,6 +116,7 @@ export default defineComponent({
           attribution: false,
           autocomplete: true,
           images: this.settings.images.enabled,
+          lists: this.settings.lists.enabled,
           readonly: this.readonly,
           spellcheck: this.settings.spellcheck,
           toolbar: this.settings.toolbar,

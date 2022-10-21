@@ -7,6 +7,7 @@ export const SET_EDITOR_IMAGES_ENABLED = 'SET_EDITOR_IMAGES_ENABLED'
 export const SET_EDITOR_IMAGES_SHOW_CAPTIONS = 'SET_EDITOR_IMAGES_SHOW_CAPTIONS'
 export const SET_EDITOR_KEY_MAP = 'SET_EDITOR_KEY_MAP'
 export const SET_EDITOR_LIGATURES = 'SET_EDITOR_LIGATURES'
+export const SET_EDITOR_LISTS_ENABLED = 'SET_EDITOR_LISTS_ENABLED'
 export const SET_EDITOR_READABILITY_ENABLED = 'SET_EDITOR_READABILITY_ENABLED'
 export const SET_EDITOR_READABILITY_MAX_WIDTH = 'SET_EDITOR_READABILITY_MAX_WIDTH'
 export const SET_EDITOR_READABILITY_WORDS_PER_MINUTE = 'SET_EDITOR_READABILITY_WORDS_PER_MINUTE'
@@ -31,6 +32,9 @@ export default {
       },
       keyMap: 'default',
       ligatures: true,
+      lists: {
+        enabled: true,
+      },
       readability: {
         enabled: true,
         maxWidthInChars: 100,
@@ -74,6 +78,9 @@ export default {
     },
     [SET_EDITOR_LIGATURES] (state, isEnabled) {
       state.editor.ligatures = isEnabled
+    },
+    [SET_EDITOR_LISTS_ENABLED] (state, isEnabled) {
+      state.editor.lists.enabled = isEnabled
     },
     [SET_EDITOR_READABILITY_ENABLED] (state, isEnabled) {
       state.editor.readability.enabled = isEnabled

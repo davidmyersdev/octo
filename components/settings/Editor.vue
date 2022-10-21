@@ -81,6 +81,18 @@
           </div>
         </div>
       </div>
+      <div class="mb-4">
+        <h4 class="text-2xl mb-2">List Overlays</h4>
+        <p class="mb-2">This setting enables overlays for bullet and task lists. Task lists will render an interactive checkbox in place of <code class="bg-gray-100 dark:bg-darkest p-0.5 rounded">- [ ]</code> or <code class="bg-gray-100 dark:bg-darkest p-0.5 rounded">- [x]</code>.</p>
+        <div class="mb-4">
+          <div>
+            <label class="button button-size-medium button-color-gray items-center">
+              <input v-model="listsEnabled" type="checkbox" class="checkbox">
+              <span class="ml-3 ">Enable List Overlays</span>
+            </label>
+          </div>
+        </div>
+      </div>
     </Extendable>
   </section>
 </template>
@@ -91,6 +103,7 @@ import {
   SET_EDITOR_IMAGES_SHOW_CAPTIONS,
   SET_EDITOR_KEY_MAP,
   SET_EDITOR_LIGATURES,
+  SET_EDITOR_LISTS_ENABLED,
   SET_EDITOR_READABILITY_ENABLED,
   SET_EDITOR_READABILITY_MAX_WIDTH,
   SET_EDITOR_READABILITY_WORDS_PER_MINUTE,
@@ -115,6 +128,14 @@ export default {
       },
       set(value) {
         this.$store.commit(SET_EDITOR_LIGATURES, value)
+      },
+    },
+    listsEnabled: {
+      get() {
+        return this.$store.state.settings.editor.lists.enabled
+      },
+      set(value) {
+        this.$store.commit(SET_EDITOR_LISTS_ENABLED, value)
       },
     },
     readabilityEnabled: {

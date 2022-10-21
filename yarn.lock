@@ -3283,7 +3283,7 @@ __metadata:
     file-saver: ^2.0.5
     firebase: ^9.9.0
     force-graph: ^1.35.1
-    ink-mde: ^0.14.1
+    ink-mde: ^0.15.0
     jszip: ^3.10.1
     localforage: ^1.10.0
     mime-types: ^2.1.35
@@ -7075,9 +7075,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ink-mde@npm:0.14.1, ink-mde@npm:^0.14.1":
-  version: 0.14.1
-  resolution: "ink-mde@npm:0.14.1"
+"ink-mde@npm:0.15.0, ink-mde@npm:^0.15.0":
+  version: 0.15.0
+  resolution: "ink-mde@npm:0.15.0"
   dependencies:
     "@codemirror/autocomplete": ^6.2.0
     "@codemirror/commands": ^6.1.0
@@ -7091,7 +7091,7 @@ __metadata:
     "@lezer/highlight": ^1.0.0
     "@lezer/markdown": ^1.0.1
     "@replit/codemirror-vim": ^6.0.2
-    ink-mde: 0.14.1
+    ink-mde: 0.15.0
     solid-js: ^1.5.5
     style-mod: ^4.0.0
   peerDependencies:
@@ -7099,7 +7099,7 @@ __metadata:
   peerDependenciesMeta:
     vue:
       optional: true
-  checksum: a15329f81b65b93935f14642248ecd3bb41be45155c3c2271c9a159aa50bc35720b0b430cad1dbedc38df227f8b656ee49a946de3e07bf2261b6710f21e0c86b
+  checksum: d3796ab9eaab500e583772c13f7046d884405eb831cf587e3b99302e74e247283cbb876758c7bea07a170d7f7b7cd06e3f89b1e26803ffaf130b1d31e80f284b
   languageName: node
   linkType: hard
 

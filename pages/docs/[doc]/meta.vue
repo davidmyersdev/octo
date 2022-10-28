@@ -51,7 +51,10 @@
           </div>
         </div>
         <div class="mt-4">
-          <TagLink v-for="tag in doc.tags" :key="tag" :tag="tag" class="sidebar-link"></TagLink>
+          <TagLink v-for="tag in doc.tags" :key="tag" :tag="tag" class="sidebar-link" />
+        </div>
+        <div class="mt-4">
+          <DocLink v-for="reference in references" :key="reference.id" :doc="reference" class="sidebar-link" />
         </div>
         <div class="mt-4">
           <div v-for="task in doc.tasks" class="flex items-center px-3 py-2 my-1 md:px-2 md:py-1">
@@ -88,10 +91,11 @@
 import moment from 'moment'
 
 import DiscardableAction from '/components/DiscardableAction.vue'
+import DocLink from '/components/DocLink.vue'
 import TagLink from '/components/TagLink.vue'
 
 import CodeSandbox from '/src/common/code_sandbox.js'
-import { parseCodeblocks } from '/src/common/parsers'
+import { parseCodeblocks, parseReferences } from '/src/common/parsers'
 import { open } from '/src/router.js'
 
 import {
@@ -106,6 +110,7 @@ import {
 export default {
   components: {
     DiscardableAction,
+    DocLink,
     TagLink,
   },
   data() {
@@ -138,6 +143,13 @@ export default {
       const path = this.$router.resolve({ path: `/public/${this.doc.id}` }).href
 
       return `${location.protocol}//${location.host}${path}`
+    },
+    references() {
+      const references = parseReferences(this.doc.text)
+
+      return this.$store.getters.kept.filter((doc) => {
+        return references.includes(doc.id)
+      })
     },
     savedAt() {
       if (this.$route.params.docId) {

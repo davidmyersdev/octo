@@ -8,6 +8,7 @@ const trashInline = new RegExp(codeInlineIndicators.map(ind => `${ind}[^\n]*?${i
 const trashBin = new RegExp(`${trashMultiline.source}|${trashInline.source}`)
 
 const imageTagRegex = /!\[(.*?)\]\((.+?)\)/g
+const referencesRegex = new RegExp(`${trashBin.source}|\\[\\[(.*?)\\]\\]`, 'gsi')
 const tagsRegex = new RegExp(`${trashBin.source}|(${hashtagWithBoundary.source})`, 'gsi')
 // Todo: Replace more of these with composed regular expressions.
 const codeRegex = /```([^\n\s]*)(?:\s([\w-]+\.[\w]+))?\n(.*?)```/gs
@@ -60,6 +61,19 @@ export const parseImages = (text: string) => {
   })
 
   return results
+}
+
+export const parseReferences = (text: string) => {
+  const matches = parse(referencesRegex, text)
+  const references = new Set()
+
+  matches.forEach((match) => {
+    if (match && match[1]) {
+      references.add(match[1])
+    }
+  })
+
+  return Array.from(references).sort()
 }
 
 export const parseTags = (text: string) => {

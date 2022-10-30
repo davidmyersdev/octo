@@ -30,7 +30,7 @@
     </div>
 
     <div class="flex flex-col gap-2 lg:max-w-xs">
-      <button v-if="!github" @click="linkGithub" class="button-base button-size-medium button-color-gray shadow w-full lg:w-auto whitespace-nowrap justify-start">
+      <button v-if="!github" @click="linkGitHub" class="button-base button-size-medium button-color-gray shadow w-full lg:w-auto whitespace-nowrap justify-start">
         <GitHubIcon class="h-5 w-5" />
         <span class="ml-3">Link GitHub</span>
       </button>
@@ -55,83 +55,67 @@
   </section>
 </template>
 
-<script>
-import { getAuth, getRedirectResult, GithubAuthProvider, GoogleAuthProvider, signInWithRedirect, TwitterAuthProvider } from 'firebase/auth'
+<script lang="ts">
+import { getAuth, getRedirectResult, linkWithRedirect, GithubAuthProvider, GoogleAuthProvider, TwitterAuthProvider } from 'firebase/auth'
+import { computed, defineComponent } from 'vue'
+import GitHubIcon from '/components/LocalIcons/GitHub.vue'
+import GoogleIcon from '/components/LocalIcons/Google.vue'
+import TwitterIcon from '/components/LocalIcons/Twitter.vue'
+import { useUser } from '/composables'
 
-import GitHubIcon from '/components/icons/GitHub.vue'
-import GoogleIcon from '/components/icons/Google.vue'
-import TwitterIcon from '/components/icons/Twitter.vue'
-
-export default {
+export default defineComponent({
   components: {
     GitHubIcon,
     GoogleIcon,
     TwitterIcon,
   },
-  data() {
+  setup() {
+    const user = useUser()
+    const github = computed(() => user.value.providers.find(({ providerId: id }) => id === 'github.com'))
+    const google = computed(() => user.value.providers.find(({ providerId: id }) => id === 'google.com'))
+    const twitter = computed(() => user.value.providers.find(({ providerId: id }) => id === 'twitter.com'))
+
+    getRedirectResult(getAuth()).catch((error) => {
+      console.warn({ error })
+    })
+
+    const linkGitHub = () => {
+      const authUser = getAuth().currentUser
+
+      if (authUser) {
+        linkWithRedirect(authUser, new GithubAuthProvider())
+      }
+    }
+
+    const linkGoogle = () => {
+      const authUser = getAuth().currentUser
+
+      if (authUser) {
+        linkWithRedirect(authUser, new GoogleAuthProvider())
+      }
+    }
+
+    const linkTwitter = () => {
+      const authUser = getAuth().currentUser
+
+      if (authUser) {
+        linkWithRedirect(authUser, new TwitterAuthProvider())
+      }
+    }
+
+    const signOut = () => {
+      getAuth().signOut()
+    }
+
     return {
-      accountConflict: false,
+      github,
+      google,
+      linkGitHub,
+      linkGoogle,
+      linkTwitter,
+      signOut,
+      twitter,
     }
   },
-  computed: {
-    github() {
-      return this.providers.find(p => p.providerId === 'github.com')
-    },
-    google() {
-      return this.providers.find(p => p.providerId === 'google.com')
-    },
-    online() {
-      return this.$store.state.online
-    },
-    providers() {
-      return this.user ? this.user.providerData : []
-    },
-    twitter() {
-      return this.providers.find(p => p.providerId === 'twitter.com')
-    },
-    user() {
-      return this.$store.state.auth.user
-    },
-  },
-  methods: {
-    linkGithub() {
-      this.user.linkWithRedirect(new GithubAuthProvider())
-    },
-    linkGoogle() {
-      this.user.linkWithRedirect(new GoogleAuthProvider())
-    },
-    linkTwitter() {
-      this.user.linkWithRedirect(new TwitterAuthProvider())
-    },
-    signInGithub() {
-      signInWithRedirect(getAuth(), new GithubAuthProvider())
-    },
-    signInGoogle() {
-      signInWithRedirect(getAuth(), new GoogleAuthProvider())
-    },
-    signInTwitter() {
-      signInWithRedirect(getAuth(), new TwitterAuthProvider())
-    },
-    signOut() {
-      getAuth().signOut()
-    },
-  },
-  created() {
-    getRedirectResult().then((result) => {
-      // track new sign ups
-      if (result.additionalUserInfo && result.additionalUserInfo.isNewUser) {
-        window.fathom.trackGoal(import.meta.env.VITE_FATHOM_GOAL_ACCOUNT_REGISTRATION, 0)
-      }
-    }).catch((error) => {
-      switch(error.code) {
-        case 'auth/account-exists-with-different-credential':
-          this.accountConflict = true
-          break
-        default:
-          console.error(error)
-          break
-      }
-    })
-  },
-}
+})
 </script>

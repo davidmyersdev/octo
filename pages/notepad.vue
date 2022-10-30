@@ -29,7 +29,7 @@ export default {
 
         return `#daily\n\n# ${moment().format('dddd, MMMM Do, YYYY')}\n\n> ${quote.text}\n> ${quote.author || 'Unknown'}\n\n`
       } catch (error) {
-        console.error(error)
+        console.warn({ error })
 
         return `#daily\n\n# ${moment().format('dddd, MMMM Do, YYYY')}\n\n`
       }

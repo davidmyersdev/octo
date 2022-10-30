@@ -2,8 +2,8 @@
   <div class="container flex flex-col mx-auto p-4 md:px-16 md:py-8">
     <h2 class="text-4xl mb-1">My Account</h2>
     <p class="text-gray-500 mb-8">Manage account settings and subscriptions</p>
-    <p v-if="!user" class="mb-4">By default, docs are only stored in your browser. This means some actions, such as clearing your history, could <strong>erase everything</strong>. To protect your data, you should sign up for an account.</p>
-    <section v-if="user" class="mb-8">
+    <p v-if="!user.id" class="mb-4">By default, docs are only stored in your browser. This means some actions, such as clearing your history, could <strong>erase everything</strong>. To protect your data, you should sign up for an account.</p>
+    <section v-if="user.id" class="mb-8">
       <h3 class="text-3xl mb-4">Status</h3>
       <div v-if="online" class="flex items-center">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -19,32 +19,37 @@
       </div>
     </section>
     <section class="mb-8">
-      <h3 v-if="user" class="text-3xl mb-4">Subscriptions</h3>
-      <Subscriptions />
+      <h3 v-if="user.id" class="text-3xl mb-4">Subscriptions</h3>
+      <AuthTiers />
     </section>
-    <section v-if="user" class="mb-8">
+    <section v-if="user.id" class="mb-8">
       <h3 class="text-3xl mb-4">Providers</h3>
       <Providers />
     </section>
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { computed, defineComponent } from 'vue'
+import { useStore } from 'vuex'
+import AuthTiers from '/components/AuthTiers.vue'
 import Providers from '/components/Providers.vue'
-import Subscriptions from '/components/Subscriptions.vue'
+import { useUser } from '/composables'
 
-export default {
+export default defineComponent({
   components: {
+    AuthTiers,
     Providers,
-    Subscriptions,
   },
-  computed: {
-    online() {
-      return this.$store.state.online
-    },
-    user() {
-      return this.$store.state.auth.user
-    },
+  setup() {
+    const store = useStore()
+    const online = computed(() => store.state.online)
+    const user = useUser()
+
+    return {
+      online,
+      user,
+    }
   },
-}
+})
 </script>

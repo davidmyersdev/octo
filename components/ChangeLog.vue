@@ -87,8 +87,7 @@ onMounted(async () => {
       localStorage.setItem('changelog:v1', lastEntryTimestamp)
     }
   } catch (error) {
-    // Todo: Handle this error
-    console.error(error)
+    console.warn({ error })
   }
 })
 </script>

@@ -93,7 +93,7 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
           <span class="action flex flex-grow items-stretch justify-between ml-6 md:ml-3">
-            <span>{{ authIsEvaluated && !user ? 'Sign In to Account' : 'My Account' }}</span>
+            <span>{{ user.id ? 'My Account' : 'Sign In to Account' }}</span>
             <ModKKey class="text-gray-500">A</ModKKey>
           </span>
         </router-link>
@@ -105,7 +105,7 @@
           </svg>
           <div class="flex-grow ml-6 md:ml-3">Community Discord</div>
         </a>
-        <router-link v-if="supportsFirebase && authIsEvaluated && !user" @click="trackCta" :to="{ path: '/account' }" class="sidebar-link text-theme">
+        <router-link v-if="supportsFirebase && !user.id" @click="trackCta" :to="{ path: '/account' }" class="sidebar-link text-theme">
           <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
           </svg>
@@ -212,6 +212,7 @@
 
 <script>
 import { nanoid } from 'nanoid'
+import { inject } from 'vue'
 import Key from '/components/Key.vue'
 import ModK from '/components/ModK.vue'
 import ModKKey from '/components/ModKKey.vue'
@@ -276,9 +277,6 @@ export default {
     tags() {
       return this.$store.getters.tags
     },
-    user() {
-      return this.$store.state.auth.user
-    },
   },
   methods: {
     clearContext() {
@@ -309,6 +307,13 @@ export default {
     trackCta() {
       window.fathom.trackGoal(import.meta.env.VITE_FATHOM_GOAL_CTA_SYNC_DOCS, 0)
     },
+  },
+  setup() {
+    const user = inject('user')
+
+    return {
+      user,
+    }
   },
 }
 </script>

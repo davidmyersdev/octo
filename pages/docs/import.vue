@@ -55,7 +55,7 @@ export default {
           try {
             this.importDoc({ id, text })
           } catch (error) {
-            console.error(error)
+            console.warn({ error })
           }
 
           // Remove the file from the list.

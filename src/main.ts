@@ -1,12 +1,13 @@
+import { useStorage } from '@vueuse/core'
 import { getAuth } from 'firebase/auth'
 import { createPinia } from 'pinia'
-import { createApp } from 'vue'
+import { createApp, h, provide } from 'vue'
 // @ts-ignore
 import { Vue3Mq } from 'vue3-mq'
-
-import App from '/src/App.vue'
 import Extendable from '/components/Extendable.vue'
+import { type User } from '/composables'
 import SimpleBar from '/lib/simplebar/src/SimpleBar.vue'
+import App from '/src/App.vue'
 import { init } from '/src/firebase'
 import { globalConfig } from '/src/global'
 import { router } from '/src/router'
@@ -54,7 +55,65 @@ if (/Mac|iPod|iPhone|iPad/.test(navigator.platform || navigator.userAgentData.pl
   store.dispatch(SET_MOD_KEY, '⌘ cmd')
 }
 
-const app = createApp(App)
+const app = createApp({
+  render: () => h(App),
+  setup() {
+    // https://github.com/vueuse/vueuse/issues/1595
+    const email = useStorage<string>('email', '')
+    const user = useStorage<User>('user', {
+      id: undefined,
+      providers: [],
+      roles: [],
+    }, undefined, { mergeDefaults: true })
+
+    provide('email', email)
+    provide('user', user)
+
+    if (globalConfig.supportsFirebase) {
+      getAuth().onIdTokenChanged(async (authUser) => {
+
+        if (authUser) {
+          user.value = {
+            ...user.value,
+            id: authUser.uid,
+            providers: [...authUser.providerData],
+          }
+
+          store.commit(SET_USER, authUser)
+
+          const token = await authUser.getIdTokenResult(true)
+
+          if (token.claims.ambassador && !user.value.roles.includes('ambassador')) {
+            user.value = {
+              ...user.value,
+              roles: [...user.value.roles, 'ambassador'],
+            }
+
+            store.commit(SET_SUBSCRIPTION, { pro: true })
+          }
+
+          if (token.claims.stripeRole === 'subscriber' && !user.value.roles.includes('subscriber')) {
+            user.value = {
+              ...user.value,
+              roles: [...user.value.roles, 'subscriber'],
+            }
+
+            store.commit(SET_SUBSCRIPTION, { pro: true })
+          }
+        } else {
+          user.value = {
+            id: undefined,
+            providers: [],
+            roles: [],
+          }
+
+          store.commit(SET_USER, null)
+          store.commit(SET_SUBSCRIPTION, { pro: false })
+        }
+      })
+    }
+  },
+})
 const pinia = createPinia()
 
 pinia.use(caching)
@@ -75,20 +134,3 @@ app.use(Vue3Mq, {
   },
 })
 app.mount('#app')
-
-if (globalConfig.supportsFirebase) {
-  getAuth().onAuthStateChanged(async (user) => {
-    store.commit(SET_USER, user)
-
-    if (user) {
-      await user.getIdToken(true)
-
-      const decodedToken = await user.getIdTokenResult()
-      const pro = decodedToken.claims.ambassador || (decodedToken.claims.stripeRole === 'subscriber')
-
-      store.commit(SET_SUBSCRIPTION, {
-        pro,
-      })
-    }
-  })
-}

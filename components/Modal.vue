@@ -15,9 +15,9 @@
         <SimpleBar class="max-h-96 p-4">
           <slot></slot>
         </SimpleBar>
-        <div v-if="hasFooter" class="bg-gray-200 dark:bg-gray-900 px-4 py-2">
+        <footer v-if="hasFooter" class="px-4 py-2">
           <slot name="footer"></slot>
-        </div>
+        </footer>
       </article>
     </div>
   </div>

@@ -319,8 +319,8 @@
       <div class="container mx-auto">
         <div class="max-w-[80ch] mx-auto mb-8">
           <h2 id="pricing" class="text-2xl lg:text-4xl font-bold">Pricing</h2>
-          <p class="mt-4">Accounts are recommended, but they are not required. Feel free to just <router-link :to="{ path: '/docs/new' }" class="underline">open the app</router-link> instead.</p>
-          <Subscriptions class="bg-gray-900 rounded mt-4" />
+          <p class="my-4">Accounts are recommended, but they are not required. Feel free to just <router-link :to="{ path: '/docs/new' }" class="underline">open the app</router-link> instead.</p>
+          <AuthTiers />
         </div>
       </div>
     </section>
@@ -343,17 +343,17 @@
 </template>
 
 <script>
-import GitHubIcon from '/components/icons/GitHub.vue'
-import TwitterIcon from '/components/icons/Twitter.vue'
-import Subscriptions from '/components/Subscriptions.vue'
+import AuthTiers from '/components/AuthTiers.vue'
+import GitHubIcon from '/components/LocalIcons/GitHub.vue'
+import TwitterIcon from '/components/LocalIcons/Twitter.vue'
 import TheLogo from '/components/TheLogo.vue'
 import { globalConfig } from '/src/global'
 
 export default {
   components: {
+    AuthTiers,
     GitHubIcon,
     TwitterIcon,
-    Subscriptions,
     TheLogo,
   },
   data() {

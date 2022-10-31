@@ -1,5 +1,5 @@
 <template>
-  <div class="text-gray-100 text-lg overflow-auto home">
+  <div class="dark text-gray-100 text-lg overflow-auto home">
     <section class="p-4 lg:p-8 container mx-auto">
       <div class="max-w-[80ch] mx-auto mb-8">
         <div class="flex flex-col gap-32 lg:gap-40 py-10">

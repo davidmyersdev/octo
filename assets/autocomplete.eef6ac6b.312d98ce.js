@@ -1,0 +1,1 @@
+import{r as p,a,c as i}from"./Editor.e1821ecf.js";import"./index.6c9a8663.js";import"./account.81155d4c.js";const n=t=>{const e=t.plugins.flatMap(o=>o.type===p.Completion?o.value:[]);return[a({defaultKeymap:!0,icons:!1,override:e,optionClass:()=>"ink-tooltip-option"}),i()]};export{n as autocomplete};

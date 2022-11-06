@@ -280,6 +280,7 @@ export default {
           this.accountConflict = true
           break
         default:
+          console.error(error)
           break
       }
     })

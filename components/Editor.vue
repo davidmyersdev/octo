@@ -25,7 +25,7 @@ import { defineComponent } from 'vue'
 import { subscription } from '/src/common/account'
 import { readTime, wordCount } from '/src/common/readability.ts'
 import { addFile } from '/src/firebase/storage.ts'
-import { plugins } from '/src/vendor/plugins'
+import { mermaid, plugins } from '/src/vendor/plugins'
 
 import {
   SET_RIGHT_SIDEBAR_VISIBILITY,
@@ -122,7 +122,10 @@ export default defineComponent({
           toolbar: this.settings.toolbar,
         },
         // Todo: Make these configurable.
-        plugins: this.plugins,
+        plugins: [
+          ...this.plugins,
+          ...(this.$store.state.settings.experimental ? mermaid() : []),
+        ],
         selections: this.initialSelections || [],
         toolbar: {
           upload: this.pro,

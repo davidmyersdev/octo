@@ -10,6 +10,7 @@ export const config: Partial<VitePWAOptions> = {
     ],
     cleanupOutdatedCaches: true,
     clientsClaim: true,
+    maximumFileSizeToCacheInBytes: (5 * 1024 * 1024),
     navigateFallback: '/index.html',
     navigateFallbackDenylist: [
       new RegExp('/manifest.json$'),

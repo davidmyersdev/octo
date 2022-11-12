@@ -1,1 +1,121 @@
-var o=/[+\-\/\\*~<>=@%|&?!.,:;^]/,p=/true|false|nil|self|super|thisContext/,l=function(e,n){this.next=e,this.parent=n},r=function(e,n,t){this.name=e,this.context=n,this.eos=t},c=function(){this.context=new l(h,null),this.expectVariable=!0,this.indentation=0,this.userIndentationDelta=0};c.prototype.userIndent=function(e,n){this.userIndentationDelta=e>0?e/n-this.indentation:0};var h=function(e,n,t){var i=new r(null,n,!1),a=e.next();return a==='"'?i=u(e,new l(u,n)):a==="'"?i=s(e,new l(s,n)):a==="#"?e.peek()==="'"?(e.next(),i=f(e,new l(f,n))):e.eatWhile(/[^\s.{}\[\]()]/)?i.name="string.special":i.name="meta":a==="$"?(e.next()==="<"&&(e.eatWhile(/[^\s>]/),e.next()),i.name="string.special"):a==="|"&&t.expectVariable?i.context=new l(x,n):/[\[\]{}()]/.test(a)?(i.name="bracket",i.eos=/[\[{(]/.test(a),a==="["?t.indentation++:a==="]"&&(t.indentation=Math.max(0,t.indentation-1))):o.test(a)?(e.eatWhile(o),i.name="operator",i.eos=a!==";"):/\d/.test(a)?(e.eatWhile(/[\w\d]/),i.name="number"):/[\w_]/.test(a)?(e.eatWhile(/[\w\d_]/),i.name=t.expectVariable?p.test(e.current())?"keyword":"variable":null):i.eos=t.expectVariable,i},u=function(e,n){return e.eatWhile(/[^"]/),new r("comment",e.eat('"')?n.parent:n,!0)},s=function(e,n){return e.eatWhile(/[^']/),new r("string",e.eat("'")?n.parent:n,!1)},f=function(e,n){return e.eatWhile(/[^']/),new r("string.special",e.eat("'")?n.parent:n,!1)},x=function(e,n){var t=new r(null,n,!1),i=e.next();return i==="|"?(t.context=n.parent,t.eos=!0):(e.eatWhile(/[^|]/),t.name="variable"),t};const d={startState:function(){return new c},token:function(e,n){if(n.userIndent(e.indentation(),e.indentUnit),e.eatSpace())return null;var t=n.context.next(e,n.context,n);return n.context=t.context,n.expectVariable=t.eos,t.name},blankLine:function(e,n){e.userIndent(0,n)},indent:function(e,n,t){var i=e.context.next===h&&n&&n.charAt(0)==="]"?-1:e.userIndentationDelta;return(e.indentation+i)*t.unit},languageData:{indentOnInput:/^\s*\]$/}};export{d as smalltalk};
+var specialChars = /[+\-\/\\*~<>=@%|&?!.,:;^]/;
+var keywords = /true|false|nil|self|super|thisContext/;
+var Context = function(tokenizer, parent) {
+  this.next = tokenizer;
+  this.parent = parent;
+};
+var Token = function(name, context, eos) {
+  this.name = name;
+  this.context = context;
+  this.eos = eos;
+};
+var State = function() {
+  this.context = new Context(next, null);
+  this.expectVariable = true;
+  this.indentation = 0;
+  this.userIndentationDelta = 0;
+};
+State.prototype.userIndent = function(indentation, indentUnit) {
+  this.userIndentationDelta = indentation > 0 ? indentation / indentUnit - this.indentation : 0;
+};
+var next = function(stream, context, state) {
+  var token = new Token(null, context, false);
+  var aChar = stream.next();
+  if (aChar === '"') {
+    token = nextComment(stream, new Context(nextComment, context));
+  } else if (aChar === "'") {
+    token = nextString(stream, new Context(nextString, context));
+  } else if (aChar === "#") {
+    if (stream.peek() === "'") {
+      stream.next();
+      token = nextSymbol(stream, new Context(nextSymbol, context));
+    } else {
+      if (stream.eatWhile(/[^\s.{}\[\]()]/))
+        token.name = "string.special";
+      else
+        token.name = "meta";
+    }
+  } else if (aChar === "$") {
+    if (stream.next() === "<") {
+      stream.eatWhile(/[^\s>]/);
+      stream.next();
+    }
+    token.name = "string.special";
+  } else if (aChar === "|" && state.expectVariable) {
+    token.context = new Context(nextTemporaries, context);
+  } else if (/[\[\]{}()]/.test(aChar)) {
+    token.name = "bracket";
+    token.eos = /[\[{(]/.test(aChar);
+    if (aChar === "[") {
+      state.indentation++;
+    } else if (aChar === "]") {
+      state.indentation = Math.max(0, state.indentation - 1);
+    }
+  } else if (specialChars.test(aChar)) {
+    stream.eatWhile(specialChars);
+    token.name = "operator";
+    token.eos = aChar !== ";";
+  } else if (/\d/.test(aChar)) {
+    stream.eatWhile(/[\w\d]/);
+    token.name = "number";
+  } else if (/[\w_]/.test(aChar)) {
+    stream.eatWhile(/[\w\d_]/);
+    token.name = state.expectVariable ? keywords.test(stream.current()) ? "keyword" : "variable" : null;
+  } else {
+    token.eos = state.expectVariable;
+  }
+  return token;
+};
+var nextComment = function(stream, context) {
+  stream.eatWhile(/[^"]/);
+  return new Token("comment", stream.eat('"') ? context.parent : context, true);
+};
+var nextString = function(stream, context) {
+  stream.eatWhile(/[^']/);
+  return new Token("string", stream.eat("'") ? context.parent : context, false);
+};
+var nextSymbol = function(stream, context) {
+  stream.eatWhile(/[^']/);
+  return new Token("string.special", stream.eat("'") ? context.parent : context, false);
+};
+var nextTemporaries = function(stream, context) {
+  var token = new Token(null, context, false);
+  var aChar = stream.next();
+  if (aChar === "|") {
+    token.context = context.parent;
+    token.eos = true;
+  } else {
+    stream.eatWhile(/[^|]/);
+    token.name = "variable";
+  }
+  return token;
+};
+const smalltalk = {
+  startState: function() {
+    return new State();
+  },
+  token: function(stream, state) {
+    state.userIndent(stream.indentation(), stream.indentUnit);
+    if (stream.eatSpace()) {
+      return null;
+    }
+    var token = state.context.next(stream, state.context, state);
+    state.context = token.context;
+    state.expectVariable = token.eos;
+    return token.name;
+  },
+  blankLine: function(state, indentUnit) {
+    state.userIndent(0, indentUnit);
+  },
+  indent: function(state, textAfter, cx) {
+    var i = state.context.next === next && textAfter && textAfter.charAt(0) === "]" ? -1 : state.userIndentationDelta;
+    return (state.indentation + i) * cx.unit;
+  },
+  languageData: {
+    indentOnInput: /^\s*\]$/
+  }
+};
+export {
+  smalltalk
+};
+//# sourceMappingURL=smalltalk.1a1dc7f5.js.map

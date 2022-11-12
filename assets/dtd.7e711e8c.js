@@ -1,1 +1,140 @@
-var u;function r(e,n){return u=n,e}function t(e,n){var l=e.next();if(l=="<"&&e.eat("!")){if(e.eatWhile(/[\-]/))return n.tokenize=o,o(e,n);if(e.eatWhile(/[\w]/))return r("keyword","doindent")}else{if(l=="<"&&e.eat("?"))return n.tokenize=f("meta","?>"),r("meta",l);if(l=="#"&&e.eatWhile(/[\w]/))return r("atom","tag");if(l=="|")return r("keyword","separator");if(l.match(/[\(\)\[\]\-\.,\+\?>]/))return r(null,l);if(l.match(/[\[\]]/))return r("rule",l);if(l=='"'||l=="'")return n.tokenize=k(l),n.tokenize(e,n);if(e.eatWhile(/[a-zA-Z\?\+\d]/)){var i=e.current();return i.substr(i.length-1,i.length).match(/\?|\+/)!==null&&e.backUp(1),r("tag","tag")}else return l=="%"||l=="*"?r("number","number"):(e.eatWhile(/[\w\\\-_%.{,]/),r(null,null))}}function o(e,n){for(var l=0,i;(i=e.next())!=null;){if(l>=2&&i==">"){n.tokenize=t;break}l=i=="-"?l+1:0}return r("comment","comment")}function k(e){return function(n,l){for(var i=!1,c;(c=n.next())!=null;){if(c==e&&!i){l.tokenize=t;break}i=!i&&c=="\\"}return r("string","tag")}}function f(e,n){return function(l,i){for(;!l.eol();){if(l.match(n)){i.tokenize=t;break}l.next()}return e}}const a={startState:function(){return{tokenize:t,baseIndent:0,stack:[]}},token:function(e,n){if(e.eatSpace())return null;var l=n.tokenize(e,n),i=n.stack[n.stack.length-1];return e.current()=="["||u==="doindent"||u=="["?n.stack.push("rule"):u==="endtag"?n.stack[n.stack.length-1]="endtag":e.current()=="]"||u=="]"||u==">"&&i=="rule"?n.stack.pop():u=="["&&n.stack.push("["),l},indent:function(e,n,l){var i=e.stack.length;return n.charAt(0)==="]"?i--:n.substr(n.length-1,n.length)===">"&&(n.substr(0,1)==="<"||u=="doindent"&&n.length>1||(u=="doindent"?i--:u==">"&&n.length>1||u=="tag"&&n!==">"||(u=="tag"&&e.stack[e.stack.length-1]=="rule"?i--:u=="tag"?i++:n===">"&&e.stack[e.stack.length-1]=="rule"&&u===">"?i--:n===">"&&e.stack[e.stack.length-1]=="rule"||(n.substr(0,1)!=="<"&&n.substr(0,1)===">"?i=i-1:n===">"||(i=i-1)))),(u==null||u=="]")&&i--),e.baseIndent+i*l.unit},languageData:{indentOnInput:/^\s*[\]>]$/}};export{a as dtd};
+var type;
+function ret(style, tp) {
+  type = tp;
+  return style;
+}
+function tokenBase(stream, state) {
+  var ch = stream.next();
+  if (ch == "<" && stream.eat("!")) {
+    if (stream.eatWhile(/[\-]/)) {
+      state.tokenize = tokenSGMLComment;
+      return tokenSGMLComment(stream, state);
+    } else if (stream.eatWhile(/[\w]/))
+      return ret("keyword", "doindent");
+  } else if (ch == "<" && stream.eat("?")) {
+    state.tokenize = inBlock("meta", "?>");
+    return ret("meta", ch);
+  } else if (ch == "#" && stream.eatWhile(/[\w]/))
+    return ret("atom", "tag");
+  else if (ch == "|")
+    return ret("keyword", "separator");
+  else if (ch.match(/[\(\)\[\]\-\.,\+\?>]/))
+    return ret(null, ch);
+  else if (ch.match(/[\[\]]/))
+    return ret("rule", ch);
+  else if (ch == '"' || ch == "'") {
+    state.tokenize = tokenString(ch);
+    return state.tokenize(stream, state);
+  } else if (stream.eatWhile(/[a-zA-Z\?\+\d]/)) {
+    var sc = stream.current();
+    if (sc.substr(sc.length - 1, sc.length).match(/\?|\+/) !== null)
+      stream.backUp(1);
+    return ret("tag", "tag");
+  } else if (ch == "%" || ch == "*")
+    return ret("number", "number");
+  else {
+    stream.eatWhile(/[\w\\\-_%.{,]/);
+    return ret(null, null);
+  }
+}
+function tokenSGMLComment(stream, state) {
+  var dashes = 0, ch;
+  while ((ch = stream.next()) != null) {
+    if (dashes >= 2 && ch == ">") {
+      state.tokenize = tokenBase;
+      break;
+    }
+    dashes = ch == "-" ? dashes + 1 : 0;
+  }
+  return ret("comment", "comment");
+}
+function tokenString(quote) {
+  return function(stream, state) {
+    var escaped = false, ch;
+    while ((ch = stream.next()) != null) {
+      if (ch == quote && !escaped) {
+        state.tokenize = tokenBase;
+        break;
+      }
+      escaped = !escaped && ch == "\\";
+    }
+    return ret("string", "tag");
+  };
+}
+function inBlock(style, terminator) {
+  return function(stream, state) {
+    while (!stream.eol()) {
+      if (stream.match(terminator)) {
+        state.tokenize = tokenBase;
+        break;
+      }
+      stream.next();
+    }
+    return style;
+  };
+}
+const dtd = {
+  startState: function() {
+    return {
+      tokenize: tokenBase,
+      baseIndent: 0,
+      stack: []
+    };
+  },
+  token: function(stream, state) {
+    if (stream.eatSpace())
+      return null;
+    var style = state.tokenize(stream, state);
+    var context = state.stack[state.stack.length - 1];
+    if (stream.current() == "[" || type === "doindent" || type == "[")
+      state.stack.push("rule");
+    else if (type === "endtag")
+      state.stack[state.stack.length - 1] = "endtag";
+    else if (stream.current() == "]" || type == "]" || type == ">" && context == "rule")
+      state.stack.pop();
+    else if (type == "[")
+      state.stack.push("[");
+    return style;
+  },
+  indent: function(state, textAfter, cx) {
+    var n = state.stack.length;
+    if (textAfter.charAt(0) === "]")
+      n--;
+    else if (textAfter.substr(textAfter.length - 1, textAfter.length) === ">") {
+      if (textAfter.substr(0, 1) === "<")
+        ;
+      else if (type == "doindent" && textAfter.length > 1)
+        ;
+      else if (type == "doindent")
+        n--;
+      else if (type == ">" && textAfter.length > 1)
+        ;
+      else if (type == "tag" && textAfter !== ">")
+        ;
+      else if (type == "tag" && state.stack[state.stack.length - 1] == "rule")
+        n--;
+      else if (type == "tag")
+        n++;
+      else if (textAfter === ">" && state.stack[state.stack.length - 1] == "rule" && type === ">")
+        n--;
+      else if (textAfter === ">" && state.stack[state.stack.length - 1] == "rule")
+        ;
+      else if (textAfter.substr(0, 1) !== "<" && textAfter.substr(0, 1) === ">")
+        n = n - 1;
+      else if (textAfter === ">")
+        ;
+      else
+        n = n - 1;
+      if (type == null || type == "]")
+        n--;
+    }
+    return state.baseIndent + n * cx.unit;
+  },
+  languageData: {
+    indentOnInput: /^\s*[\]>]$/
+  }
+};
+export {
+  dtd
+};
+//# sourceMappingURL=dtd.7e711e8c.js.map

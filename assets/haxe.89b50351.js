@@ -1,1 +1,595 @@
-function o(e){return{type:e,style:"keyword"}}var P=o("keyword a"),W=o("keyword b"),g=o("keyword c"),K=o("operator"),z={type:"atom",style:"atom"},y={type:"attribute",style:"attribute"},c=o("typedef"),B={if:P,while:P,else:W,do:W,try:W,return:g,break:g,continue:g,new:g,throw:g,var:o("var"),inline:y,static:y,using:o("import"),public:y,private:y,cast:o("cast"),import:o("import"),macro:o("macro"),function:o("function"),catch:o("catch"),untyped:o("untyped"),callback:o("cb"),for:o("for"),switch:o("switch"),case:o("case"),default:o("default"),in:K,never:o("property_access"),trace:o("trace"),class:c,abstract:c,enum:c,interface:c,typedef:c,extends:c,implements:c,dynamic:c,true:z,false:z,null:z},E=/[+\-*&%=<>!?|]/;function I(e,r,n){return r.tokenize=n,n(e,r)}function L(e,r){for(var n=!1,i;(i=e.next())!=null;){if(i==r&&!n)return!0;n=!n&&i=="\\"}}var c,N;function p(e,r,n){return c=e,N=n,r}function A(e,r){var n=e.next();if(n=='"'||n=="'")return I(e,r,M(n));if(/[\[\]{}\(\),;\:\.]/.test(n))return p(n);if(n=="0"&&e.eat(/x/i))return e.eatWhile(/[\da-f]/i),p("number","number");if(/\d/.test(n)||n=="-"&&e.eat(/\d/))return e.match(/^\d*(?:\.\d*(?!\.))?(?:[eE][+\-]?\d+)?/),p("number","number");if(r.reAllowed&&n=="~"&&e.eat(/\//))return L(e,"/"),e.eatWhile(/[gimsu]/),p("regexp","string.special");if(n=="/")return e.eat("*")?I(e,r,Q):e.eat("/")?(e.skipToEnd(),p("comment","comment")):(e.eatWhile(E),p("operator",null,e.current()));if(n=="#")return e.skipToEnd(),p("conditional","meta");if(n=="@")return e.eat(/:/),e.eatWhile(/[\w_]/),p("metadata","meta");if(E.test(n))return e.eatWhile(E),p("operator",null,e.current());var i;if(/[A-Z]/.test(n))return e.eatWhile(/[\w_<>]/),i=e.current(),p("type","type",i);e.eatWhile(/[\w_]/);var i=e.current(),u=B.propertyIsEnumerable(i)&&B[i];return u&&r.kwAllowed?p(u.type,u.style,i):p("variable","variable",i)}function M(e){return function(r,n){return L(r,e)&&(n.tokenize=A),p("string","string")}}function Q(e,r){for(var n=!1,i;i=e.next();){if(i=="/"&&n){r.tokenize=A;break}n=i=="*"}return p("comment","comment")}var $={atom:!0,number:!0,variable:!0,string:!0,regexp:!0};function j(e,r,n,i,u,s){this.indented=e,this.column=r,this.type=n,this.prev=u,this.info=s,i!=null&&(this.align=i)}function R(e,r){for(var n=e.localVars;n;n=n.next)if(n.name==r)return!0}function X(e,r,n,i,u){var s=e.cc;for(a.state=e,a.stream=u,a.marked=null,a.cc=s,e.lexical.hasOwnProperty("align")||(e.lexical.align=!0);;){var k=s.length?s.pop():b;if(k(n,i)){for(;s.length&&s[s.length-1].lex;)s.pop()();return a.marked?a.marked:n=="variable"&&R(e,i)?"variableName.local":n=="variable"&&Y(e,i)?"variableName.special":r}}}function Y(e,r){if(/[a-z]/.test(r.charAt(0)))return!1;for(var n=e.importedtypes.length,i=0;i<n;i++)if(e.importedtypes[i]==r)return!0}function F(e){for(var r=a.state,n=r.importedtypes;n;n=n.next)if(n.name==e)return;r.importedtypes={name:e,next:r.importedtypes}}var a={state:null,column:null,marked:null,cc:null};function x(){for(var e=arguments.length-1;e>=0;e--)a.cc.push(arguments[e])}function t(){return x.apply(null,arguments),!0}function H(e,r){for(var n=r;n;n=n.next)if(n.name==e)return!0;return!1}function S(e){var r=a.state;if(r.context){if(a.marked="def",H(e,r.localVars))return;r.localVars={name:e,next:r.localVars}}else if(r.globalVars){if(H(e,r.globalVars))return;r.globalVars={name:e,next:r.globalVars}}}var ee={name:"this",next:null};function D(){a.state.context||(a.state.localVars=ee),a.state.context={prev:a.state.context,vars:a.state.localVars}}function V(){a.state.localVars=a.state.context.vars,a.state.context=a.state.context.prev}V.lex=!0;function l(e,r){var n=function(){var i=a.state;i.lexical=new j(i.indented,a.stream.column(),e,null,i.lexical,r)};return n.lex=!0,n}function f(){var e=a.state;e.lexical.prev&&(e.lexical.type==")"&&(e.indented=e.lexical.indented),e.lexical=e.lexical.prev)}f.lex=!0;function d(e){function r(n){return n==e?t():e==";"?x():t(r)}return r}function b(e){return e=="@"?t(Z):e=="var"?t(l("vardef"),C,d(";"),f):e=="keyword a"?t(l("form"),v,b,f):e=="keyword b"?t(l("form"),b,f):e=="{"?t(l("}"),D,_,f,V):e==";"?t():e=="attribute"?t(U):e=="function"?t(w):e=="for"?t(l("form"),d("("),l(")"),ae,d(")"),f,b,f):e=="variable"?t(l("stat"),te):e=="switch"?t(l("form"),v,l("}","switch"),d("{"),_,f,f):e=="case"?t(v,d(":")):e=="default"?t(d(":")):e=="catch"?t(l("form"),D,d("("),J,d(")"),b,f,V):e=="import"?t(q,d(";")):e=="typedef"?t(ne):x(l("stat"),v,d(";"),f)}function v(e){return $.hasOwnProperty(e)||e=="type"?t(h):e=="function"?t(w):e=="keyword c"?t(O):e=="("?t(l(")"),O,d(")"),f,h):e=="operator"?t(v):e=="["?t(l("]"),m(O,"]"),f,h):e=="{"?t(l("}"),m(ue,"}"),f,h):t()}function O(e){return e.match(/[;\}\)\],]/)?x():x(v)}function h(e,r){if(e=="operator"&&/\+\+|--/.test(r))return t(h);if(e=="operator"||e==":")return t(v);if(e!=";"){if(e=="(")return t(l(")"),m(v,")"),f,h);if(e==".")return t(ie,h);if(e=="[")return t(l("]"),v,d("]"),f,h)}}function U(e){if(e=="attribute")return t(U);if(e=="function")return t(w);if(e=="var")return t(C)}function Z(e){if(e==":"||e=="variable")return t(Z);if(e=="(")return t(l(")"),m(re,")"),f,b)}function re(e){if(e=="variable")return t()}function q(e,r){if(e=="variable"&&/[A-Z]/.test(r.charAt(0)))return F(r),t();if(e=="variable"||e=="property"||e=="."||r=="*")return t(q)}function ne(e,r){if(e=="variable"&&/[A-Z]/.test(r.charAt(0)))return F(r),t();if(e=="type"&&/[A-Z]/.test(r.charAt(0)))return t()}function te(e){return e==":"?t(f,b):x(h,d(";"),f)}function ie(e){if(e=="variable")return a.marked="property",t()}function ue(e){if(e=="variable"&&(a.marked="property"),$.hasOwnProperty(e))return t(d(":"),v)}function m(e,r){function n(i){return i==","?t(e,n):i==r?t():t(d(r))}return function(i){return i==r?t():x(e,n)}}function _(e){return e=="}"?t():x(b,_)}function C(e,r){return e=="variable"?(S(r),t(T,G)):t()}function G(e,r){if(r=="=")return t(v,G);if(e==",")return t(C)}function ae(e,r){return e=="variable"?(S(r),t(fe,v)):x()}function fe(e,r){if(r=="in")return t()}function w(e,r){if(e=="variable"||e=="type")return S(r),t(w);if(r=="new")return t(w);if(e=="(")return t(l(")"),D,m(J,")"),f,T,b,V)}function T(e){if(e==":")return t(oe)}function oe(e){if(e=="type"||e=="variable")return t();if(e=="{")return t(l("}"),m(le,"}"),f)}function le(e){if(e=="variable")return t(T)}function J(e,r){if(e=="variable")return S(r),t(T)}const ce={startState:function(e){var r=["Int","Float","String","Void","Std","Bool","Dynamic","Array"],n={tokenize:A,reAllowed:!0,kwAllowed:!0,cc:[],lexical:new j(-e,0,"block",!1),importedtypes:r,context:null,indented:0};return n},token:function(e,r){if(e.sol()&&(r.lexical.hasOwnProperty("align")||(r.lexical.align=!1),r.indented=e.indentation()),e.eatSpace())return null;var n=r.tokenize(e,r);return c=="comment"?n:(r.reAllowed=!!(c=="operator"||c=="keyword c"||c.match(/^[\[{}\(,;:]$/)),r.kwAllowed=c!=".",X(r,n,c,N,e))},indent:function(e,r,n){if(e.tokenize!=A)return 0;var i=r&&r.charAt(0),u=e.lexical;u.type=="stat"&&i=="}"&&(u=u.prev);var s=u.type,k=i==s;return s=="vardef"?u.indented+4:s=="form"&&i=="{"?u.indented:s=="stat"||s=="form"?u.indented+n.unit:u.info=="switch"&&!k?u.indented+(/^(?:case|default)\b/.test(r)?n.unit:2*n.unit):u.align?u.column+(k?0:1):u.indented+(k?0:n.unit)},languageData:{indentOnInput:/^\s*[{}]$/,commentTokens:{line:"//",block:{open:"/*",close:"*/"}}}},se={startState:function(){return{define:!1,inString:!1}},token:function(e,r){var u=e.peek(),n=e.sol();if(u=="#")return e.skipToEnd(),"comment";if(n&&u=="-"){var i="variable-2";return e.eat(/-/),e.peek()=="-"&&(e.eat(/-/),i="keyword a"),e.peek()=="D"&&(e.eat(/[D]/),i="keyword c",r.define=!0),e.eatWhile(/[A-Z]/i),i}var u=e.peek();return r.inString==!1&&u=="'"&&(r.inString=!0,e.next()),r.inString==!0?(e.skipTo("'")||e.skipToEnd(),e.peek()=="'"&&(e.next(),r.inString=!1),"string"):(e.next(),null)},languageData:{commentTokens:{line:"#"}}};export{ce as haxe,se as hxml};
+function kw(type2) {
+  return { type: type2, style: "keyword" };
+}
+var A = kw("keyword a"), B = kw("keyword b"), C = kw("keyword c");
+var operator = kw("operator"), atom = { type: "atom", style: "atom" }, attribute = { type: "attribute", style: "attribute" };
+var type = kw("typedef");
+var keywords = {
+  "if": A,
+  "while": A,
+  "else": B,
+  "do": B,
+  "try": B,
+  "return": C,
+  "break": C,
+  "continue": C,
+  "new": C,
+  "throw": C,
+  "var": kw("var"),
+  "inline": attribute,
+  "static": attribute,
+  "using": kw("import"),
+  "public": attribute,
+  "private": attribute,
+  "cast": kw("cast"),
+  "import": kw("import"),
+  "macro": kw("macro"),
+  "function": kw("function"),
+  "catch": kw("catch"),
+  "untyped": kw("untyped"),
+  "callback": kw("cb"),
+  "for": kw("for"),
+  "switch": kw("switch"),
+  "case": kw("case"),
+  "default": kw("default"),
+  "in": operator,
+  "never": kw("property_access"),
+  "trace": kw("trace"),
+  "class": type,
+  "abstract": type,
+  "enum": type,
+  "interface": type,
+  "typedef": type,
+  "extends": type,
+  "implements": type,
+  "dynamic": type,
+  "true": atom,
+  "false": atom,
+  "null": atom
+};
+var isOperatorChar = /[+\-*&%=<>!?|]/;
+function chain(stream, state, f) {
+  state.tokenize = f;
+  return f(stream, state);
+}
+function toUnescaped(stream, end) {
+  var escaped = false, next;
+  while ((next = stream.next()) != null) {
+    if (next == end && !escaped)
+      return true;
+    escaped = !escaped && next == "\\";
+  }
+}
+var type, content;
+function ret(tp, style, cont2) {
+  type = tp;
+  content = cont2;
+  return style;
+}
+function haxeTokenBase(stream, state) {
+  var ch = stream.next();
+  if (ch == '"' || ch == "'") {
+    return chain(stream, state, haxeTokenString(ch));
+  } else if (/[\[\]{}\(\),;\:\.]/.test(ch)) {
+    return ret(ch);
+  } else if (ch == "0" && stream.eat(/x/i)) {
+    stream.eatWhile(/[\da-f]/i);
+    return ret("number", "number");
+  } else if (/\d/.test(ch) || ch == "-" && stream.eat(/\d/)) {
+    stream.match(/^\d*(?:\.\d*(?!\.))?(?:[eE][+\-]?\d+)?/);
+    return ret("number", "number");
+  } else if (state.reAllowed && (ch == "~" && stream.eat(/\//))) {
+    toUnescaped(stream, "/");
+    stream.eatWhile(/[gimsu]/);
+    return ret("regexp", "string.special");
+  } else if (ch == "/") {
+    if (stream.eat("*")) {
+      return chain(stream, state, haxeTokenComment);
+    } else if (stream.eat("/")) {
+      stream.skipToEnd();
+      return ret("comment", "comment");
+    } else {
+      stream.eatWhile(isOperatorChar);
+      return ret("operator", null, stream.current());
+    }
+  } else if (ch == "#") {
+    stream.skipToEnd();
+    return ret("conditional", "meta");
+  } else if (ch == "@") {
+    stream.eat(/:/);
+    stream.eatWhile(/[\w_]/);
+    return ret("metadata", "meta");
+  } else if (isOperatorChar.test(ch)) {
+    stream.eatWhile(isOperatorChar);
+    return ret("operator", null, stream.current());
+  } else {
+    var word;
+    if (/[A-Z]/.test(ch)) {
+      stream.eatWhile(/[\w_<>]/);
+      word = stream.current();
+      return ret("type", "type", word);
+    } else {
+      stream.eatWhile(/[\w_]/);
+      var word = stream.current(), known = keywords.propertyIsEnumerable(word) && keywords[word];
+      return known && state.kwAllowed ? ret(known.type, known.style, word) : ret("variable", "variable", word);
+    }
+  }
+}
+function haxeTokenString(quote) {
+  return function(stream, state) {
+    if (toUnescaped(stream, quote))
+      state.tokenize = haxeTokenBase;
+    return ret("string", "string");
+  };
+}
+function haxeTokenComment(stream, state) {
+  var maybeEnd = false, ch;
+  while (ch = stream.next()) {
+    if (ch == "/" && maybeEnd) {
+      state.tokenize = haxeTokenBase;
+      break;
+    }
+    maybeEnd = ch == "*";
+  }
+  return ret("comment", "comment");
+}
+var atomicTypes = { "atom": true, "number": true, "variable": true, "string": true, "regexp": true };
+function HaxeLexical(indented, column, type2, align, prev, info) {
+  this.indented = indented;
+  this.column = column;
+  this.type = type2;
+  this.prev = prev;
+  this.info = info;
+  if (align != null)
+    this.align = align;
+}
+function inScope(state, varname) {
+  for (var v = state.localVars; v; v = v.next)
+    if (v.name == varname)
+      return true;
+}
+function parseHaxe(state, style, type2, content2, stream) {
+  var cc = state.cc;
+  cx.state = state;
+  cx.stream = stream;
+  cx.marked = null, cx.cc = cc;
+  if (!state.lexical.hasOwnProperty("align"))
+    state.lexical.align = true;
+  while (true) {
+    var combinator = cc.length ? cc.pop() : statement;
+    if (combinator(type2, content2)) {
+      while (cc.length && cc[cc.length - 1].lex)
+        cc.pop()();
+      if (cx.marked)
+        return cx.marked;
+      if (type2 == "variable" && inScope(state, content2))
+        return "variableName.local";
+      if (type2 == "variable" && imported(state, content2))
+        return "variableName.special";
+      return style;
+    }
+  }
+}
+function imported(state, typename) {
+  if (/[a-z]/.test(typename.charAt(0)))
+    return false;
+  var len = state.importedtypes.length;
+  for (var i = 0; i < len; i++)
+    if (state.importedtypes[i] == typename)
+      return true;
+}
+function registerimport(importname) {
+  var state = cx.state;
+  for (var t = state.importedtypes; t; t = t.next)
+    if (t.name == importname)
+      return;
+  state.importedtypes = { name: importname, next: state.importedtypes };
+}
+var cx = { state: null, column: null, marked: null, cc: null };
+function pass() {
+  for (var i = arguments.length - 1; i >= 0; i--)
+    cx.cc.push(arguments[i]);
+}
+function cont() {
+  pass.apply(null, arguments);
+  return true;
+}
+function inList(name, list) {
+  for (var v = list; v; v = v.next)
+    if (v.name == name)
+      return true;
+  return false;
+}
+function register(varname) {
+  var state = cx.state;
+  if (state.context) {
+    cx.marked = "def";
+    if (inList(varname, state.localVars))
+      return;
+    state.localVars = { name: varname, next: state.localVars };
+  } else if (state.globalVars) {
+    if (inList(varname, state.globalVars))
+      return;
+    state.globalVars = { name: varname, next: state.globalVars };
+  }
+}
+var defaultVars = { name: "this", next: null };
+function pushcontext() {
+  if (!cx.state.context)
+    cx.state.localVars = defaultVars;
+  cx.state.context = { prev: cx.state.context, vars: cx.state.localVars };
+}
+function popcontext() {
+  cx.state.localVars = cx.state.context.vars;
+  cx.state.context = cx.state.context.prev;
+}
+popcontext.lex = true;
+function pushlex(type2, info) {
+  var result = function() {
+    var state = cx.state;
+    state.lexical = new HaxeLexical(state.indented, cx.stream.column(), type2, null, state.lexical, info);
+  };
+  result.lex = true;
+  return result;
+}
+function poplex() {
+  var state = cx.state;
+  if (state.lexical.prev) {
+    if (state.lexical.type == ")")
+      state.indented = state.lexical.indented;
+    state.lexical = state.lexical.prev;
+  }
+}
+poplex.lex = true;
+function expect(wanted) {
+  function f(type2) {
+    if (type2 == wanted)
+      return cont();
+    else if (wanted == ";")
+      return pass();
+    else
+      return cont(f);
+  }
+  return f;
+}
+function statement(type2) {
+  if (type2 == "@")
+    return cont(metadef);
+  if (type2 == "var")
+    return cont(pushlex("vardef"), vardef1, expect(";"), poplex);
+  if (type2 == "keyword a")
+    return cont(pushlex("form"), expression, statement, poplex);
+  if (type2 == "keyword b")
+    return cont(pushlex("form"), statement, poplex);
+  if (type2 == "{")
+    return cont(pushlex("}"), pushcontext, block, poplex, popcontext);
+  if (type2 == ";")
+    return cont();
+  if (type2 == "attribute")
+    return cont(maybeattribute);
+  if (type2 == "function")
+    return cont(functiondef);
+  if (type2 == "for")
+    return cont(
+      pushlex("form"),
+      expect("("),
+      pushlex(")"),
+      forspec1,
+      expect(")"),
+      poplex,
+      statement,
+      poplex
+    );
+  if (type2 == "variable")
+    return cont(pushlex("stat"), maybelabel);
+  if (type2 == "switch")
+    return cont(
+      pushlex("form"),
+      expression,
+      pushlex("}", "switch"),
+      expect("{"),
+      block,
+      poplex,
+      poplex
+    );
+  if (type2 == "case")
+    return cont(expression, expect(":"));
+  if (type2 == "default")
+    return cont(expect(":"));
+  if (type2 == "catch")
+    return cont(
+      pushlex("form"),
+      pushcontext,
+      expect("("),
+      funarg,
+      expect(")"),
+      statement,
+      poplex,
+      popcontext
+    );
+  if (type2 == "import")
+    return cont(importdef, expect(";"));
+  if (type2 == "typedef")
+    return cont(typedef);
+  return pass(pushlex("stat"), expression, expect(";"), poplex);
+}
+function expression(type2) {
+  if (atomicTypes.hasOwnProperty(type2))
+    return cont(maybeoperator);
+  if (type2 == "type")
+    return cont(maybeoperator);
+  if (type2 == "function")
+    return cont(functiondef);
+  if (type2 == "keyword c")
+    return cont(maybeexpression);
+  if (type2 == "(")
+    return cont(pushlex(")"), maybeexpression, expect(")"), poplex, maybeoperator);
+  if (type2 == "operator")
+    return cont(expression);
+  if (type2 == "[")
+    return cont(pushlex("]"), commasep(maybeexpression, "]"), poplex, maybeoperator);
+  if (type2 == "{")
+    return cont(pushlex("}"), commasep(objprop, "}"), poplex, maybeoperator);
+  return cont();
+}
+function maybeexpression(type2) {
+  if (type2.match(/[;\}\)\],]/))
+    return pass();
+  return pass(expression);
+}
+function maybeoperator(type2, value) {
+  if (type2 == "operator" && /\+\+|--/.test(value))
+    return cont(maybeoperator);
+  if (type2 == "operator" || type2 == ":")
+    return cont(expression);
+  if (type2 == ";")
+    return;
+  if (type2 == "(")
+    return cont(pushlex(")"), commasep(expression, ")"), poplex, maybeoperator);
+  if (type2 == ".")
+    return cont(property, maybeoperator);
+  if (type2 == "[")
+    return cont(pushlex("]"), expression, expect("]"), poplex, maybeoperator);
+}
+function maybeattribute(type2) {
+  if (type2 == "attribute")
+    return cont(maybeattribute);
+  if (type2 == "function")
+    return cont(functiondef);
+  if (type2 == "var")
+    return cont(vardef1);
+}
+function metadef(type2) {
+  if (type2 == ":")
+    return cont(metadef);
+  if (type2 == "variable")
+    return cont(metadef);
+  if (type2 == "(")
+    return cont(pushlex(")"), commasep(metaargs, ")"), poplex, statement);
+}
+function metaargs(type2) {
+  if (type2 == "variable")
+    return cont();
+}
+function importdef(type2, value) {
+  if (type2 == "variable" && /[A-Z]/.test(value.charAt(0))) {
+    registerimport(value);
+    return cont();
+  } else if (type2 == "variable" || type2 == "property" || type2 == "." || value == "*")
+    return cont(importdef);
+}
+function typedef(type2, value) {
+  if (type2 == "variable" && /[A-Z]/.test(value.charAt(0))) {
+    registerimport(value);
+    return cont();
+  } else if (type2 == "type" && /[A-Z]/.test(value.charAt(0))) {
+    return cont();
+  }
+}
+function maybelabel(type2) {
+  if (type2 == ":")
+    return cont(poplex, statement);
+  return pass(maybeoperator, expect(";"), poplex);
+}
+function property(type2) {
+  if (type2 == "variable") {
+    cx.marked = "property";
+    return cont();
+  }
+}
+function objprop(type2) {
+  if (type2 == "variable")
+    cx.marked = "property";
+  if (atomicTypes.hasOwnProperty(type2))
+    return cont(expect(":"), expression);
+}
+function commasep(what, end) {
+  function proceed(type2) {
+    if (type2 == ",")
+      return cont(what, proceed);
+    if (type2 == end)
+      return cont();
+    return cont(expect(end));
+  }
+  return function(type2) {
+    if (type2 == end)
+      return cont();
+    else
+      return pass(what, proceed);
+  };
+}
+function block(type2) {
+  if (type2 == "}")
+    return cont();
+  return pass(statement, block);
+}
+function vardef1(type2, value) {
+  if (type2 == "variable") {
+    register(value);
+    return cont(typeuse, vardef2);
+  }
+  return cont();
+}
+function vardef2(type2, value) {
+  if (value == "=")
+    return cont(expression, vardef2);
+  if (type2 == ",")
+    return cont(vardef1);
+}
+function forspec1(type2, value) {
+  if (type2 == "variable") {
+    register(value);
+    return cont(forin, expression);
+  } else {
+    return pass();
+  }
+}
+function forin(_type, value) {
+  if (value == "in")
+    return cont();
+}
+function functiondef(type2, value) {
+  if (type2 == "variable" || type2 == "type") {
+    register(value);
+    return cont(functiondef);
+  }
+  if (value == "new")
+    return cont(functiondef);
+  if (type2 == "(")
+    return cont(pushlex(")"), pushcontext, commasep(funarg, ")"), poplex, typeuse, statement, popcontext);
+}
+function typeuse(type2) {
+  if (type2 == ":")
+    return cont(typestring);
+}
+function typestring(type2) {
+  if (type2 == "type")
+    return cont();
+  if (type2 == "variable")
+    return cont();
+  if (type2 == "{")
+    return cont(pushlex("}"), commasep(typeprop, "}"), poplex);
+}
+function typeprop(type2) {
+  if (type2 == "variable")
+    return cont(typeuse);
+}
+function funarg(type2, value) {
+  if (type2 == "variable") {
+    register(value);
+    return cont(typeuse);
+  }
+}
+const haxe = {
+  startState: function(indentUnit) {
+    var defaulttypes = ["Int", "Float", "String", "Void", "Std", "Bool", "Dynamic", "Array"];
+    var state = {
+      tokenize: haxeTokenBase,
+      reAllowed: true,
+      kwAllowed: true,
+      cc: [],
+      lexical: new HaxeLexical(-indentUnit, 0, "block", false),
+      importedtypes: defaulttypes,
+      context: null,
+      indented: 0
+    };
+    return state;
+  },
+  token: function(stream, state) {
+    if (stream.sol()) {
+      if (!state.lexical.hasOwnProperty("align"))
+        state.lexical.align = false;
+      state.indented = stream.indentation();
+    }
+    if (stream.eatSpace())
+      return null;
+    var style = state.tokenize(stream, state);
+    if (type == "comment")
+      return style;
+    state.reAllowed = !!(type == "operator" || type == "keyword c" || type.match(/^[\[{}\(,;:]$/));
+    state.kwAllowed = type != ".";
+    return parseHaxe(state, style, type, content, stream);
+  },
+  indent: function(state, textAfter, cx2) {
+    if (state.tokenize != haxeTokenBase)
+      return 0;
+    var firstChar = textAfter && textAfter.charAt(0), lexical = state.lexical;
+    if (lexical.type == "stat" && firstChar == "}")
+      lexical = lexical.prev;
+    var type2 = lexical.type, closing = firstChar == type2;
+    if (type2 == "vardef")
+      return lexical.indented + 4;
+    else if (type2 == "form" && firstChar == "{")
+      return lexical.indented;
+    else if (type2 == "stat" || type2 == "form")
+      return lexical.indented + cx2.unit;
+    else if (lexical.info == "switch" && !closing)
+      return lexical.indented + (/^(?:case|default)\b/.test(textAfter) ? cx2.unit : 2 * cx2.unit);
+    else if (lexical.align)
+      return lexical.column + (closing ? 0 : 1);
+    else
+      return lexical.indented + (closing ? 0 : cx2.unit);
+  },
+  languageData: {
+    indentOnInput: /^\s*[{}]$/,
+    commentTokens: { line: "//", block: { open: "/*", close: "*/" } }
+  }
+};
+const hxml = {
+  startState: function() {
+    return {
+      define: false,
+      inString: false
+    };
+  },
+  token: function(stream, state) {
+    var ch = stream.peek();
+    var sol = stream.sol();
+    if (ch == "#") {
+      stream.skipToEnd();
+      return "comment";
+    }
+    if (sol && ch == "-") {
+      var style = "variable-2";
+      stream.eat(/-/);
+      if (stream.peek() == "-") {
+        stream.eat(/-/);
+        style = "keyword a";
+      }
+      if (stream.peek() == "D") {
+        stream.eat(/[D]/);
+        style = "keyword c";
+        state.define = true;
+      }
+      stream.eatWhile(/[A-Z]/i);
+      return style;
+    }
+    var ch = stream.peek();
+    if (state.inString == false && ch == "'") {
+      state.inString = true;
+      stream.next();
+    }
+    if (state.inString == true) {
+      if (stream.skipTo("'"))
+        ;
+      else {
+        stream.skipToEnd();
+      }
+      if (stream.peek() == "'") {
+        stream.next();
+        state.inString = false;
+      }
+      return "string";
+    }
+    stream.next();
+    return null;
+  },
+  languageData: {
+    commentTokens: { line: "#" }
+  }
+};
+export {
+  haxe,
+  hxml
+};
+//# sourceMappingURL=haxe.89b50351.js.map

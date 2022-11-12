@@ -1,1 +1,599 @@
-var B=["a","abbr","address","area","article","aside","audio","b","base","bdi","bdo","bgsound","blockquote","body","br","button","canvas","caption","cite","code","col","colgroup","data","datalist","dd","del","details","dfn","div","dl","dt","em","embed","fieldset","figcaption","figure","footer","form","h1","h2","h3","h4","h5","h6","head","header","hgroup","hr","html","i","iframe","img","input","ins","kbd","keygen","label","legend","li","link","main","map","mark","marquee","menu","menuitem","meta","meter","nav","nobr","noframes","noscript","object","ol","optgroup","option","output","p","param","pre","progress","q","rp","rt","ruby","s","samp","script","section","select","small","source","span","strong","style","sub","summary","sup","table","tbody","td","textarea","tfoot","th","thead","time","tr","track","u","ul","var","video"],$=["domain","regexp","url-prefix","url"],I=["all","aural","braille","handheld","print","projection","screen","tty","tv","embossed"],R=["width","min-width","max-width","height","min-height","max-height","device-width","min-device-width","max-device-width","device-height","min-device-height","max-device-height","aspect-ratio","min-aspect-ratio","max-aspect-ratio","device-aspect-ratio","min-device-aspect-ratio","max-device-aspect-ratio","color","min-color","max-color","color-index","min-color-index","max-color-index","monochrome","min-monochrome","max-monochrome","resolution","min-resolution","max-resolution","scan","grid","dynamic-range","video-dynamic-range"],O=["align-content","align-items","align-self","alignment-adjust","alignment-baseline","anchor-point","animation","animation-delay","animation-direction","animation-duration","animation-fill-mode","animation-iteration-count","animation-name","animation-play-state","animation-timing-function","appearance","azimuth","backface-visibility","background","background-attachment","background-clip","background-color","background-image","background-origin","background-position","background-repeat","background-size","baseline-shift","binding","bleed","bookmark-label","bookmark-level","bookmark-state","bookmark-target","border","border-bottom","border-bottom-color","border-bottom-left-radius","border-bottom-right-radius","border-bottom-style","border-bottom-width","border-collapse","border-color","border-image","border-image-outset","border-image-repeat","border-image-slice","border-image-source","border-image-width","border-left","border-left-color","border-left-style","border-left-width","border-radius","border-right","border-right-color","border-right-style","border-right-width","border-spacing","border-style","border-top","border-top-color","border-top-left-radius","border-top-right-radius","border-top-style","border-top-width","border-width","bottom","box-decoration-break","box-shadow","box-sizing","break-after","break-before","break-inside","caption-side","clear","clip","color","color-profile","column-count","column-fill","column-gap","column-rule","column-rule-color","column-rule-style","column-rule-width","column-span","column-width","columns","content","counter-increment","counter-reset","crop","cue","cue-after","cue-before","cursor","direction","display","dominant-baseline","drop-initial-after-adjust","drop-initial-after-align","drop-initial-before-adjust","drop-initial-before-align","drop-initial-size","drop-initial-value","elevation","empty-cells","fit","fit-position","flex","flex-basis","flex-direction","flex-flow","flex-grow","flex-shrink","flex-wrap","float","float-offset","flow-from","flow-into","font","font-feature-settings","font-family","font-kerning","font-language-override","font-size","font-size-adjust","font-stretch","font-style","font-synthesis","font-variant","font-variant-alternates","font-variant-caps","font-variant-east-asian","font-variant-ligatures","font-variant-numeric","font-variant-position","font-weight","grid","grid-area","grid-auto-columns","grid-auto-flow","grid-auto-position","grid-auto-rows","grid-column","grid-column-end","grid-column-start","grid-row","grid-row-end","grid-row-start","grid-template","grid-template-areas","grid-template-columns","grid-template-rows","hanging-punctuation","height","hyphens","icon","image-orientation","image-rendering","image-resolution","inline-box-align","justify-content","left","letter-spacing","line-break","line-height","line-stacking","line-stacking-ruby","line-stacking-shift","line-stacking-strategy","list-style","list-style-image","list-style-position","list-style-type","margin","margin-bottom","margin-left","margin-right","margin-top","marker-offset","marks","marquee-direction","marquee-loop","marquee-play-count","marquee-speed","marquee-style","max-height","max-width","min-height","min-width","move-to","nav-down","nav-index","nav-left","nav-right","nav-up","object-fit","object-position","opacity","order","orphans","outline","outline-color","outline-offset","outline-style","outline-width","overflow","overflow-style","overflow-wrap","overflow-x","overflow-y","padding","padding-bottom","padding-left","padding-right","padding-top","page","page-break-after","page-break-before","page-break-inside","page-policy","pause","pause-after","pause-before","perspective","perspective-origin","pitch","pitch-range","play-during","position","presentation-level","punctuation-trim","quotes","region-break-after","region-break-before","region-break-inside","region-fragment","rendering-intent","resize","rest","rest-after","rest-before","richness","right","rotation","rotation-point","ruby-align","ruby-overhang","ruby-position","ruby-span","shape-image-threshold","shape-inside","shape-margin","shape-outside","size","speak","speak-as","speak-header","speak-numeral","speak-punctuation","speech-rate","stress","string-set","tab-size","table-layout","target","target-name","target-new","target-position","text-align","text-align-last","text-decoration","text-decoration-color","text-decoration-line","text-decoration-skip","text-decoration-style","text-emphasis","text-emphasis-color","text-emphasis-position","text-emphasis-style","text-height","text-indent","text-justify","text-outline","text-overflow","text-shadow","text-size-adjust","text-space-collapse","text-transform","text-underline-position","text-wrap","top","transform","transform-origin","transform-style","transition","transition-delay","transition-duration","transition-property","transition-timing-function","unicode-bidi","vertical-align","visibility","voice-balance","voice-duration","voice-family","voice-pitch","voice-range","voice-rate","voice-stress","voice-volume","volume","white-space","widows","width","will-change","word-break","word-spacing","word-wrap","z-index","clip-path","clip-rule","mask","enable-background","filter","flood-color","flood-opacity","lighting-color","stop-color","stop-opacity","pointer-events","color-interpolation","color-interpolation-filters","color-rendering","fill","fill-opacity","fill-rule","image-rendering","marker","marker-end","marker-mid","marker-start","shape-rendering","stroke","stroke-dasharray","stroke-dashoffset","stroke-linecap","stroke-linejoin","stroke-miterlimit","stroke-opacity","stroke-width","text-rendering","baseline-shift","dominant-baseline","glyph-orientation-horizontal","glyph-orientation-vertical","text-anchor","writing-mode","font-smoothing","osx-font-smoothing"],W=["scrollbar-arrow-color","scrollbar-base-color","scrollbar-dark-shadow-color","scrollbar-face-color","scrollbar-highlight-color","scrollbar-shadow-color","scrollbar-3d-light-color","scrollbar-track-color","shape-inside","searchfield-cancel-button","searchfield-decoration","searchfield-results-button","searchfield-results-decoration","zoom"],N=["font-family","src","unicode-range","font-variant","font-feature-settings","font-stretch","font-weight","font-style"],S=["aliceblue","antiquewhite","aqua","aquamarine","azure","beige","bisque","black","blanchedalmond","blue","blueviolet","brown","burlywood","cadetblue","chartreuse","chocolate","coral","cornflowerblue","cornsilk","crimson","cyan","darkblue","darkcyan","darkgoldenrod","darkgray","darkgreen","darkkhaki","darkmagenta","darkolivegreen","darkorange","darkorchid","darkred","darksalmon","darkseagreen","darkslateblue","darkslategray","darkturquoise","darkviolet","deeppink","deepskyblue","dimgray","dodgerblue","firebrick","floralwhite","forestgreen","fuchsia","gainsboro","ghostwhite","gold","goldenrod","gray","grey","green","greenyellow","honeydew","hotpink","indianred","indigo","ivory","khaki","lavender","lavenderblush","lawngreen","lemonchiffon","lightblue","lightcoral","lightcyan","lightgoldenrodyellow","lightgray","lightgreen","lightpink","lightsalmon","lightseagreen","lightskyblue","lightslategray","lightsteelblue","lightyellow","lime","limegreen","linen","magenta","maroon","mediumaquamarine","mediumblue","mediumorchid","mediumpurple","mediumseagreen","mediumslateblue","mediumspringgreen","mediumturquoise","mediumvioletred","midnightblue","mintcream","mistyrose","moccasin","navajowhite","navy","oldlace","olive","olivedrab","orange","orangered","orchid","palegoldenrod","palegreen","paleturquoise","palevioletred","papayawhip","peachpuff","peru","pink","plum","powderblue","purple","rebeccapurple","red","rosybrown","royalblue","saddlebrown","salmon","sandybrown","seagreen","seashell","sienna","silver","skyblue","slateblue","slategray","snow","springgreen","steelblue","tan","teal","thistle","tomato","turquoise","violet","wheat","white","whitesmoke","yellow","yellowgreen"],T=["above","absolute","activeborder","additive","activecaption","afar","after-white-space","ahead","alias","all","all-scroll","alphabetic","alternate","always","amharic","amharic-abegede","antialiased","appworkspace","arabic-indic","armenian","asterisks","attr","auto","avoid","avoid-column","avoid-page","avoid-region","background","backwards","baseline","below","bidi-override","binary","bengali","blink","block","block-axis","bold","bolder","border","border-box","both","bottom","break","break-all","break-word","bullets","button","buttonface","buttonhighlight","buttonshadow","buttontext","calc","cambodian","capitalize","caps-lock-indicator","caption","captiontext","caret","cell","center","checkbox","circle","cjk-decimal","cjk-earthly-branch","cjk-heavenly-stem","cjk-ideographic","clear","clip","close-quote","col-resize","collapse","column","compact","condensed","conic-gradient","contain","content","contents","content-box","context-menu","continuous","copy","counter","counters","cover","crop","cross","crosshair","currentcolor","cursive","cyclic","dashed","decimal","decimal-leading-zero","default","default-button","destination-atop","destination-in","destination-out","destination-over","devanagari","disc","discard","disclosure-closed","disclosure-open","document","dot-dash","dot-dot-dash","dotted","double","down","e-resize","ease","ease-in","ease-in-out","ease-out","element","ellipse","ellipsis","embed","end","ethiopic","ethiopic-abegede","ethiopic-abegede-am-et","ethiopic-abegede-gez","ethiopic-abegede-ti-er","ethiopic-abegede-ti-et","ethiopic-halehame-aa-er","ethiopic-halehame-aa-et","ethiopic-halehame-am-et","ethiopic-halehame-gez","ethiopic-halehame-om-et","ethiopic-halehame-sid-et","ethiopic-halehame-so-et","ethiopic-halehame-ti-er","ethiopic-halehame-ti-et","ethiopic-halehame-tig","ethiopic-numeric","ew-resize","expanded","extends","extra-condensed","extra-expanded","fantasy","fast","fill","fixed","flat","flex","footnotes","forwards","from","geometricPrecision","georgian","graytext","groove","gujarati","gurmukhi","hand","hangul","hangul-consonant","hebrew","help","hidden","hide","high","higher","highlight","highlighttext","hiragana","hiragana-iroha","horizontal","hsl","hsla","icon","ignore","inactiveborder","inactivecaption","inactivecaptiontext","infinite","infobackground","infotext","inherit","initial","inline","inline-axis","inline-block","inline-flex","inline-table","inset","inside","intrinsic","invert","italic","japanese-formal","japanese-informal","justify","kannada","katakana","katakana-iroha","keep-all","khmer","korean-hangul-formal","korean-hanja-formal","korean-hanja-informal","landscape","lao","large","larger","left","level","lighter","line-through","linear","linear-gradient","lines","list-item","listbox","listitem","local","logical","loud","lower","lower-alpha","lower-armenian","lower-greek","lower-hexadecimal","lower-latin","lower-norwegian","lower-roman","lowercase","ltr","malayalam","match","matrix","matrix3d","media-play-button","media-slider","media-sliderthumb","media-volume-slider","media-volume-sliderthumb","medium","menu","menulist","menulist-button","menutext","message-box","middle","min-intrinsic","mix","mongolian","monospace","move","multiple","myanmar","n-resize","narrower","ne-resize","nesw-resize","no-close-quote","no-drop","no-open-quote","no-repeat","none","normal","not-allowed","nowrap","ns-resize","numbers","numeric","nw-resize","nwse-resize","oblique","octal","open-quote","optimizeLegibility","optimizeSpeed","oriya","oromo","outset","outside","outside-shape","overlay","overline","padding","padding-box","painted","page","paused","persian","perspective","plus-darker","plus-lighter","pointer","polygon","portrait","pre","pre-line","pre-wrap","preserve-3d","progress","push-button","radial-gradient","radio","read-only","read-write","read-write-plaintext-only","rectangle","region","relative","repeat","repeating-linear-gradient","repeating-radial-gradient","repeating-conic-gradient","repeat-x","repeat-y","reset","reverse","rgb","rgba","ridge","right","rotate","rotate3d","rotateX","rotateY","rotateZ","round","row-resize","rtl","run-in","running","s-resize","sans-serif","scale","scale3d","scaleX","scaleY","scaleZ","scroll","scrollbar","scroll-position","se-resize","searchfield","searchfield-cancel-button","searchfield-decoration","searchfield-results-button","searchfield-results-decoration","semi-condensed","semi-expanded","separate","serif","show","sidama","simp-chinese-formal","simp-chinese-informal","single","skew","skewX","skewY","skip-white-space","slide","slider-horizontal","slider-vertical","sliderthumb-horizontal","sliderthumb-vertical","slow","small","small-caps","small-caption","smaller","solid","somali","source-atop","source-in","source-out","source-over","space","spell-out","square","square-button","standard","start","static","status-bar","stretch","stroke","sub","subpixel-antialiased","super","sw-resize","symbolic","symbols","table","table-caption","table-cell","table-column","table-column-group","table-footer-group","table-header-group","table-row","table-row-group","tamil","telugu","text","text-bottom","text-top","textarea","textfield","thai","thick","thin","threeddarkshadow","threedface","threedhighlight","threedlightshadow","threedshadow","tibetan","tigre","tigrinya-er","tigrinya-er-abegede","tigrinya-et","tigrinya-et-abegede","to","top","trad-chinese-formal","trad-chinese-informal","translate","translate3d","translateX","translateY","translateZ","transparent","ultra-condensed","ultra-expanded","underline","up","upper-alpha","upper-armenian","upper-greek","upper-hexadecimal","upper-latin","upper-norwegian","upper-roman","uppercase","urdu","url","var","vertical","vertical-text","visible","visibleFill","visiblePainted","visibleStroke","visual","w-resize","wait","wave","wider","window","windowframe","windowtext","words","x-large","x-small","xor","xx-large","xx-small","bicubic","optimizespeed","grayscale","row","row-reverse","wrap","wrap-reverse","column-reverse","flex-start","flex-end","space-between","space-around","unset"],C=["in","and","or","not","is not","is a","is","isnt","defined","if unless"],E=["for","if","else","unless","from","to"],U=["null","true","false","href","title","type","not-allowed","readonly","disabled"],A=["@font-face","@keyframes","@media","@viewport","@page","@host","@supports","@block","@css"],G=B.concat($,I,R,O,W,S,T,N,C,E,U,A);function F(i){return i=i.sort(function(e,r){return r>e}),new RegExp("^(("+i.join(")|(")+"))\\b")}function p(i){for(var e={},r=0;r<i.length;++r)e[i[r]]=!0;return e}function H(i){return i.replace(/[-[\]{}()*+?.,\\^$|#\s]/g,"\\$&")}var J=p(B),j=/^(a|b|i|s|col|em)$/i,Q=p(O),ee=p(W),ie=p(T),re=p(S),ne=p($),oe=F($),te=p(R),ae=p(I),le=p(N),ce=/^\s*([.]{2,3}|&&|\|\||\*\*|[?!=:]?=|[-+*\/%<>]=?|\?:|\~)/,de=F(C),se=p(E),X=new RegExp(/^\-(moz|ms|o|webkit)-/i),ue=p(U),q="",c={},g,m,P,t;function fe(i,e){if(q=i.string.match(/(^[\w-]+\s*=\s*$)|(^\s*[\w-]+\s*=\s*[\w-])|(^\s*(\.|#|@|\$|\&|\[|\d|\+|::?|\{|\>|~|\/)?\s*[\w-]*([a-z0-9-]|\*|\/\*)(\(|,)?)/),e.context.line.firstWord=q?q[0].replace(/^\s*/,""):"",e.context.line.indent=i.indentation(),g=i.peek(),i.match("//"))return i.skipToEnd(),["comment","comment"];if(i.match("/*"))return e.tokenize=K,K(i,e);if(g=='"'||g=="'")return i.next(),e.tokenize=Y(g),e.tokenize(i,e);if(g=="@")return i.next(),i.eatWhile(/[\w\\-]/),["def",i.current()];if(g=="#"){if(i.next(),i.match(/^[0-9a-f]{3}([0-9a-f]([0-9a-f]{2}){0,2})?\b(?!-)/i))return["atom","atom"];if(i.match(/^[a-z][\w-]*/i))return["builtin","hash"]}return i.match(X)?["meta","vendor-prefixes"]:i.match(/^-?[0-9]?\.?[0-9]/)?(i.eatWhile(/[a-z%]/i),["number","unit"]):g=="!"?(i.next(),[i.match(/^(important|optional)/i)?"keyword":"operator","important"]):g=="."&&i.match(/^\.[a-z][\w-]*/i)?["qualifier","qualifier"]:i.match(oe)?(i.peek()=="("&&(e.tokenize=pe),["property","word"]):i.match(/^[a-z][\w-]*\(/i)?(i.backUp(1),["keyword","mixin"]):i.match(/^(\+|-)[a-z][\w-]*\(/i)?(i.backUp(1),["keyword","block-mixin"]):i.string.match(/^\s*&/)&&i.match(/^[-_]+[a-z][\w-]*/)?["qualifier","qualifier"]:i.match(/^(\/|&)(-|_|:|\.|#|[a-z])/)?(i.backUp(1),["variableName.special","reference"]):i.match(/^&{1}\s*$/)?["variableName.special","reference"]:i.match(de)?["operator","operator"]:i.match(/^\$?[-_]*[a-z0-9]+[\w-]*/i)?i.match(/^(\.|\[)[\w-\'\"\]]+/i,!1)&&!b(i.current())?(i.match("."),["variable","variable-name"]):["variable","word"]:i.match(ce)?["operator",i.current()]:/[:;,{}\[\]\(\)]/.test(g)?(i.next(),[null,g]):(i.next(),[null,null])}function K(i,e){for(var r=!1,o;(o=i.next())!=null;){if(r&&o=="/"){e.tokenize=null;break}r=o=="*"}return["comment","comment"]}function Y(i){return function(e,r){for(var o=!1,l;(l=e.next())!=null;){if(l==i&&!o){i==")"&&e.backUp(1);break}o=!o&&l=="\\"}return(l==i||!o&&i!=")")&&(r.tokenize=null),["string","string"]}}function pe(i,e){return i.next(),i.match(/\s*[\"\')]/,!1)?e.tokenize=null:e.tokenize=Y(")"),[null,"("]}function Z(i,e,r,o){this.type=i,this.indent=e,this.prev=r,this.line=o||{firstWord:"",indent:0}}function n(i,e,r,o){return o=o>=0?o:e.indentUnit,i.context=new Z(r,e.indentation()+o,i.context),r}function v(i,e,r){var o=i.context.indent-e.indentUnit;return r=r||!1,i.context=i.context.prev,r&&(i.context.indent=o),i.context.type}function he(i,e,r){return c[r.context.type](i,e,r)}function _(i,e,r,o){for(var l=o||1;l>0;l--)r.context=r.context.prev;return he(i,e,r)}function b(i){return i.toLowerCase()in J}function x(i){return i=i.toLowerCase(),i in Q||i in le}function w(i){return i.toLowerCase()in se}function L(i){return i.toLowerCase().match(X)}function y(i){var e=i.toLowerCase(),r="variable";return b(i)?r="tag":w(i)?r="block-keyword":x(i)?r="property":e in ie||e in ue?r="atom":e=="return"||e in re?r="keyword":i.match(/^[A-Z]/)&&(r="string"),r}function V(i,e){return a(e)&&(i=="{"||i=="]"||i=="hash"||i=="qualifier")||i=="block-mixin"}function D(i,e){return i=="{"&&e.match(/^\s*\$?[\w-]+/i,!1)}function M(i,e){return i==":"&&e.match(/^[a-z-]+/,!1)}function k(i){return i.sol()||i.string.match(new RegExp("^\\s*"+H(i.current())))}function a(i){return i.eol()||i.match(/^\s*$/,!1)}function u(i){var e=/^\s*[-_]*[a-z0-9]+[\w-]*/i,r=typeof i=="string"?i.match(e):i.string.match(e);return r?r[0].replace(/^\s*/,""):""}c.block=function(i,e,r){if(i=="comment"&&k(e)||i==","&&a(e)||i=="mixin")return n(r,e,"block",0);if(D(i,e))return n(r,e,"interpolation");if(a(e)&&i=="]"&&!/^\s*(\.|#|:|\[|\*|&)/.test(e.string)&&!b(u(e)))return n(r,e,"block",0);if(V(i,e))return n(r,e,"block");if(i=="}"&&a(e))return n(r,e,"block",0);if(i=="variable-name")return e.string.match(/^\s?\$[\w-\.\[\]\'\"]+$/)||w(u(e))?n(r,e,"variableName"):n(r,e,"variableName",0);if(i=="=")return!a(e)&&!w(u(e))?n(r,e,"block",0):n(r,e,"block");if(i=="*"&&(a(e)||e.match(/\s*(,|\.|#|\[|:|{)/,!1)))return t="tag",n(r,e,"block");if(M(i,e))return n(r,e,"pseudo");if(/@(font-face|media|supports|(-moz-)?document)/.test(i))return n(r,e,a(e)?"block":"atBlock");if(/@(-(moz|ms|o|webkit)-)?keyframes$/.test(i))return n(r,e,"keyframes");if(/@extends?/.test(i))return n(r,e,"extend",0);if(i&&i.charAt(0)=="@")return e.indentation()>0&&x(e.current().slice(1))?(t="variable","block"):/(@import|@require|@charset)/.test(i)?n(r,e,"block",0):n(r,e,"block");if(i=="reference"&&a(e))return n(r,e,"block");if(i=="(")return n(r,e,"parens");if(i=="vendor-prefixes")return n(r,e,"vendorPrefixes");if(i=="word"){var o=e.current();if(t=y(o),t=="property")return k(e)?n(r,e,"block",0):(t="atom","block");if(t=="tag"){if(/embed|menu|pre|progress|sub|table/.test(o)&&x(u(e))||e.string.match(new RegExp("\\[\\s*"+o+"|"+o+"\\s*\\]")))return t="atom","block";if(j.test(o)&&(k(e)&&e.string.match(/=/)||!k(e)&&!e.string.match(/^(\s*\.|#|\&|\[|\/|>|\*)/)&&!b(u(e))))return t="variable",w(u(e))?"block":n(r,e,"block",0);if(a(e))return n(r,e,"block")}if(t=="block-keyword")return t="keyword",e.current(/(if|unless)/)&&!k(e)?"block":n(r,e,"block");if(o=="return")return n(r,e,"block",0);if(t=="variable"&&e.string.match(/^\s?\$[\w-\.\[\]\'\"]+$/))return n(r,e,"block")}return r.context.type};c.parens=function(i,e,r){if(i=="(")return n(r,e,"parens");if(i==")")return r.context.prev.type=="parens"?v(r,e):e.string.match(/^[a-z][\w-]*\(/i)&&a(e)||w(u(e))||/(\.|#|:|\[|\*|&|>|~|\+|\/)/.test(u(e))||!e.string.match(/^-?[a-z][\w-\.\[\]\'\"]*\s*=/)&&b(u(e))?n(r,e,"block"):e.string.match(/^[\$-]?[a-z][\w-\.\[\]\'\"]*\s*=/)||e.string.match(/^\s*(\(|\)|[0-9])/)||e.string.match(/^\s+[a-z][\w-]*\(/i)||e.string.match(/^\s+[\$-]?[a-z]/i)?n(r,e,"block",0):a(e)?n(r,e,"block"):n(r,e,"block",0);if(i&&i.charAt(0)=="@"&&x(e.current().slice(1))&&(t="variable"),i=="word"){var o=e.current();t=y(o),t=="tag"&&j.test(o)&&(t="variable"),(t=="property"||o=="to")&&(t="atom")}return i=="variable-name"?n(r,e,"variableName"):M(i,e)?n(r,e,"pseudo"):r.context.type};c.vendorPrefixes=function(i,e,r){return i=="word"?(t="property",n(r,e,"block",0)):v(r,e)};c.pseudo=function(i,e,r){return x(u(e.string))?_(i,e,r):(e.match(/^[a-z-]+/),t="variableName.special",a(e)?n(r,e,"block"):v(r,e))};c.atBlock=function(i,e,r){if(i=="(")return n(r,e,"atBlock_parens");if(V(i,e))return n(r,e,"block");if(D(i,e))return n(r,e,"interpolation");if(i=="word"){var o=e.current().toLowerCase();if(/^(only|not|and|or)$/.test(o)?t="keyword":ne.hasOwnProperty(o)?t="tag":ae.hasOwnProperty(o)?t="attribute":te.hasOwnProperty(o)?t="property":ee.hasOwnProperty(o)?t="string.special":t=y(e.current()),t=="tag"&&a(e))return n(r,e,"block")}return i=="operator"&&/^(not|and|or)$/.test(e.current())&&(t="keyword"),r.context.type};c.atBlock_parens=function(i,e,r){if(i=="{"||i=="}")return r.context.type;if(i==")")return a(e)?n(r,e,"block"):n(r,e,"atBlock");if(i=="word"){var o=e.current().toLowerCase();return t=y(o),/^(max|min)/.test(o)&&(t="property"),t=="tag"&&(j.test(o)?t="variable":t="atom"),r.context.type}return c.atBlock(i,e,r)};c.keyframes=function(i,e,r){return e.indentation()=="0"&&(i=="}"&&k(e)||i=="]"||i=="hash"||i=="qualifier"||b(e.current()))?_(i,e,r):i=="{"?n(r,e,"keyframes"):i=="}"?k(e)?v(r,e,!0):n(r,e,"keyframes"):i=="unit"&&/^[0-9]+\%$/.test(e.current())?n(r,e,"keyframes"):i=="word"&&(t=y(e.current()),t=="block-keyword")?(t="keyword",n(r,e,"keyframes")):/@(font-face|media|supports|(-moz-)?document)/.test(i)?n(r,e,a(e)?"block":"atBlock"):i=="mixin"?n(r,e,"block",0):r.context.type};c.interpolation=function(i,e,r){return i=="{"&&v(r,e)&&n(r,e,"block"),i=="}"?e.string.match(/^\s*(\.|#|:|\[|\*|&|>|~|\+|\/)/i)||e.string.match(/^\s*[a-z]/i)&&b(u(e))?n(r,e,"block"):!e.string.match(/^(\{|\s*\&)/)||e.match(/\s*[\w-]/,!1)?n(r,e,"block",0):n(r,e,"block"):i=="variable-name"?n(r,e,"variableName",0):(i=="word"&&(t=y(e.current()),t=="tag"&&(t="atom")),r.context.type)};c.extend=function(i,e,r){return i=="["||i=="="?"extend":i=="]"?v(r,e):i=="word"?(t=y(e.current()),"extend"):v(r,e)};c.variableName=function(i,e,r){return i=="string"||i=="["||i=="]"||e.current().match(/^(\.|\$)/)?(e.current().match(/^\.[\w-]+/i)&&(t="variable"),"variableName"):_(i,e,r)};const ge={startState:function(){return{tokenize:null,state:"block",context:new Z("block",0,null)}},token:function(i,e){return!e.tokenize&&i.eatSpace()?null:(m=(e.tokenize||fe)(i,e),m&&typeof m=="object"&&(P=m[1],m=m[0]),t=m,e.state=c[e.state](P,i,e),t)},indent:function(i,e,r){var o=i.context,l=e&&e.charAt(0),f=o.indent,z=u(e),h=r.lineIndent(r.pos),d=i.context.prev?i.context.prev.line.firstWord:"",s=i.context.prev?i.context.prev.line.indent:h;return o.prev&&(l=="}"&&(o.type=="block"||o.type=="atBlock"||o.type=="keyframes")||l==")"&&(o.type=="parens"||o.type=="atBlock_parens")||l=="{"&&o.type=="at")?f=o.indent-r.unit:/(\})/.test(l)||(/@|\$|\d/.test(l)||/^\{/.test(e)||/^\s*\/(\/|\*)/.test(e)||/^\s*\/\*/.test(d)||/^\s*[\w-\.\[\]\'\"]+\s*(\?|:|\+)?=/i.test(e)||/^(\+|-)?[a-z][\w-]*\(/i.test(e)||/^return/.test(e)||w(z)?f=h:/(\.|#|:|\[|\*|&|>|~|\+|\/)/.test(l)||b(z)?/\,\s*$/.test(d)?f=s:!i.sol()&&(/(\.|#|:|\[|\*|&|>|~|\+|\/)/.test(d)||b(d))?f=h<=s?s:s+r.unit:f=h:!/,\s*$/.test(e)&&(L(z)||x(z))&&(w(d)?f=h<=s?s:s+r.unit:/^\{/.test(d)?f=h<=s?h:s+r.unit:L(d)||x(d)?f=h>=s?s:h:/^(\.|#|:|\[|\*|&|@|\+|\-|>|~|\/)/.test(d)||/=\s*$/.test(d)||b(d)||/^\$[\w-\.\[\]\'\"]/.test(d)?f=s+r.unit:f=h)),f},languageData:{indentOnInput:/^\s*\}$/,commentTokens:{line:"//",block:{open:"/*",close:"*/"}},autocomplete:G}};export{ge as stylus};
+var tagKeywords_ = ["a", "abbr", "address", "area", "article", "aside", "audio", "b", "base", "bdi", "bdo", "bgsound", "blockquote", "body", "br", "button", "canvas", "caption", "cite", "code", "col", "colgroup", "data", "datalist", "dd", "del", "details", "dfn", "div", "dl", "dt", "em", "embed", "fieldset", "figcaption", "figure", "footer", "form", "h1", "h2", "h3", "h4", "h5", "h6", "head", "header", "hgroup", "hr", "html", "i", "iframe", "img", "input", "ins", "kbd", "keygen", "label", "legend", "li", "link", "main", "map", "mark", "marquee", "menu", "menuitem", "meta", "meter", "nav", "nobr", "noframes", "noscript", "object", "ol", "optgroup", "option", "output", "p", "param", "pre", "progress", "q", "rp", "rt", "ruby", "s", "samp", "script", "section", "select", "small", "source", "span", "strong", "style", "sub", "summary", "sup", "table", "tbody", "td", "textarea", "tfoot", "th", "thead", "time", "tr", "track", "u", "ul", "var", "video"];
+var documentTypes_ = ["domain", "regexp", "url-prefix", "url"];
+var mediaTypes_ = ["all", "aural", "braille", "handheld", "print", "projection", "screen", "tty", "tv", "embossed"];
+var mediaFeatures_ = ["width", "min-width", "max-width", "height", "min-height", "max-height", "device-width", "min-device-width", "max-device-width", "device-height", "min-device-height", "max-device-height", "aspect-ratio", "min-aspect-ratio", "max-aspect-ratio", "device-aspect-ratio", "min-device-aspect-ratio", "max-device-aspect-ratio", "color", "min-color", "max-color", "color-index", "min-color-index", "max-color-index", "monochrome", "min-monochrome", "max-monochrome", "resolution", "min-resolution", "max-resolution", "scan", "grid", "dynamic-range", "video-dynamic-range"];
+var propertyKeywords_ = ["align-content", "align-items", "align-self", "alignment-adjust", "alignment-baseline", "anchor-point", "animation", "animation-delay", "animation-direction", "animation-duration", "animation-fill-mode", "animation-iteration-count", "animation-name", "animation-play-state", "animation-timing-function", "appearance", "azimuth", "backface-visibility", "background", "background-attachment", "background-clip", "background-color", "background-image", "background-origin", "background-position", "background-repeat", "background-size", "baseline-shift", "binding", "bleed", "bookmark-label", "bookmark-level", "bookmark-state", "bookmark-target", "border", "border-bottom", "border-bottom-color", "border-bottom-left-radius", "border-bottom-right-radius", "border-bottom-style", "border-bottom-width", "border-collapse", "border-color", "border-image", "border-image-outset", "border-image-repeat", "border-image-slice", "border-image-source", "border-image-width", "border-left", "border-left-color", "border-left-style", "border-left-width", "border-radius", "border-right", "border-right-color", "border-right-style", "border-right-width", "border-spacing", "border-style", "border-top", "border-top-color", "border-top-left-radius", "border-top-right-radius", "border-top-style", "border-top-width", "border-width", "bottom", "box-decoration-break", "box-shadow", "box-sizing", "break-after", "break-before", "break-inside", "caption-side", "clear", "clip", "color", "color-profile", "column-count", "column-fill", "column-gap", "column-rule", "column-rule-color", "column-rule-style", "column-rule-width", "column-span", "column-width", "columns", "content", "counter-increment", "counter-reset", "crop", "cue", "cue-after", "cue-before", "cursor", "direction", "display", "dominant-baseline", "drop-initial-after-adjust", "drop-initial-after-align", "drop-initial-before-adjust", "drop-initial-before-align", "drop-initial-size", "drop-initial-value", "elevation", "empty-cells", "fit", "fit-position", "flex", "flex-basis", "flex-direction", "flex-flow", "flex-grow", "flex-shrink", "flex-wrap", "float", "float-offset", "flow-from", "flow-into", "font", "font-feature-settings", "font-family", "font-kerning", "font-language-override", "font-size", "font-size-adjust", "font-stretch", "font-style", "font-synthesis", "font-variant", "font-variant-alternates", "font-variant-caps", "font-variant-east-asian", "font-variant-ligatures", "font-variant-numeric", "font-variant-position", "font-weight", "grid", "grid-area", "grid-auto-columns", "grid-auto-flow", "grid-auto-position", "grid-auto-rows", "grid-column", "grid-column-end", "grid-column-start", "grid-row", "grid-row-end", "grid-row-start", "grid-template", "grid-template-areas", "grid-template-columns", "grid-template-rows", "hanging-punctuation", "height", "hyphens", "icon", "image-orientation", "image-rendering", "image-resolution", "inline-box-align", "justify-content", "left", "letter-spacing", "line-break", "line-height", "line-stacking", "line-stacking-ruby", "line-stacking-shift", "line-stacking-strategy", "list-style", "list-style-image", "list-style-position", "list-style-type", "margin", "margin-bottom", "margin-left", "margin-right", "margin-top", "marker-offset", "marks", "marquee-direction", "marquee-loop", "marquee-play-count", "marquee-speed", "marquee-style", "max-height", "max-width", "min-height", "min-width", "move-to", "nav-down", "nav-index", "nav-left", "nav-right", "nav-up", "object-fit", "object-position", "opacity", "order", "orphans", "outline", "outline-color", "outline-offset", "outline-style", "outline-width", "overflow", "overflow-style", "overflow-wrap", "overflow-x", "overflow-y", "padding", "padding-bottom", "padding-left", "padding-right", "padding-top", "page", "page-break-after", "page-break-before", "page-break-inside", "page-policy", "pause", "pause-after", "pause-before", "perspective", "perspective-origin", "pitch", "pitch-range", "play-during", "position", "presentation-level", "punctuation-trim", "quotes", "region-break-after", "region-break-before", "region-break-inside", "region-fragment", "rendering-intent", "resize", "rest", "rest-after", "rest-before", "richness", "right", "rotation", "rotation-point", "ruby-align", "ruby-overhang", "ruby-position", "ruby-span", "shape-image-threshold", "shape-inside", "shape-margin", "shape-outside", "size", "speak", "speak-as", "speak-header", "speak-numeral", "speak-punctuation", "speech-rate", "stress", "string-set", "tab-size", "table-layout", "target", "target-name", "target-new", "target-position", "text-align", "text-align-last", "text-decoration", "text-decoration-color", "text-decoration-line", "text-decoration-skip", "text-decoration-style", "text-emphasis", "text-emphasis-color", "text-emphasis-position", "text-emphasis-style", "text-height", "text-indent", "text-justify", "text-outline", "text-overflow", "text-shadow", "text-size-adjust", "text-space-collapse", "text-transform", "text-underline-position", "text-wrap", "top", "transform", "transform-origin", "transform-style", "transition", "transition-delay", "transition-duration", "transition-property", "transition-timing-function", "unicode-bidi", "vertical-align", "visibility", "voice-balance", "voice-duration", "voice-family", "voice-pitch", "voice-range", "voice-rate", "voice-stress", "voice-volume", "volume", "white-space", "widows", "width", "will-change", "word-break", "word-spacing", "word-wrap", "z-index", "clip-path", "clip-rule", "mask", "enable-background", "filter", "flood-color", "flood-opacity", "lighting-color", "stop-color", "stop-opacity", "pointer-events", "color-interpolation", "color-interpolation-filters", "color-rendering", "fill", "fill-opacity", "fill-rule", "image-rendering", "marker", "marker-end", "marker-mid", "marker-start", "shape-rendering", "stroke", "stroke-dasharray", "stroke-dashoffset", "stroke-linecap", "stroke-linejoin", "stroke-miterlimit", "stroke-opacity", "stroke-width", "text-rendering", "baseline-shift", "dominant-baseline", "glyph-orientation-horizontal", "glyph-orientation-vertical", "text-anchor", "writing-mode", "font-smoothing", "osx-font-smoothing"];
+var nonStandardPropertyKeywords_ = ["scrollbar-arrow-color", "scrollbar-base-color", "scrollbar-dark-shadow-color", "scrollbar-face-color", "scrollbar-highlight-color", "scrollbar-shadow-color", "scrollbar-3d-light-color", "scrollbar-track-color", "shape-inside", "searchfield-cancel-button", "searchfield-decoration", "searchfield-results-button", "searchfield-results-decoration", "zoom"];
+var fontProperties_ = ["font-family", "src", "unicode-range", "font-variant", "font-feature-settings", "font-stretch", "font-weight", "font-style"];
+var colorKeywords_ = ["aliceblue", "antiquewhite", "aqua", "aquamarine", "azure", "beige", "bisque", "black", "blanchedalmond", "blue", "blueviolet", "brown", "burlywood", "cadetblue", "chartreuse", "chocolate", "coral", "cornflowerblue", "cornsilk", "crimson", "cyan", "darkblue", "darkcyan", "darkgoldenrod", "darkgray", "darkgreen", "darkkhaki", "darkmagenta", "darkolivegreen", "darkorange", "darkorchid", "darkred", "darksalmon", "darkseagreen", "darkslateblue", "darkslategray", "darkturquoise", "darkviolet", "deeppink", "deepskyblue", "dimgray", "dodgerblue", "firebrick", "floralwhite", "forestgreen", "fuchsia", "gainsboro", "ghostwhite", "gold", "goldenrod", "gray", "grey", "green", "greenyellow", "honeydew", "hotpink", "indianred", "indigo", "ivory", "khaki", "lavender", "lavenderblush", "lawngreen", "lemonchiffon", "lightblue", "lightcoral", "lightcyan", "lightgoldenrodyellow", "lightgray", "lightgreen", "lightpink", "lightsalmon", "lightseagreen", "lightskyblue", "lightslategray", "lightsteelblue", "lightyellow", "lime", "limegreen", "linen", "magenta", "maroon", "mediumaquamarine", "mediumblue", "mediumorchid", "mediumpurple", "mediumseagreen", "mediumslateblue", "mediumspringgreen", "mediumturquoise", "mediumvioletred", "midnightblue", "mintcream", "mistyrose", "moccasin", "navajowhite", "navy", "oldlace", "olive", "olivedrab", "orange", "orangered", "orchid", "palegoldenrod", "palegreen", "paleturquoise", "palevioletred", "papayawhip", "peachpuff", "peru", "pink", "plum", "powderblue", "purple", "rebeccapurple", "red", "rosybrown", "royalblue", "saddlebrown", "salmon", "sandybrown", "seagreen", "seashell", "sienna", "silver", "skyblue", "slateblue", "slategray", "snow", "springgreen", "steelblue", "tan", "teal", "thistle", "tomato", "turquoise", "violet", "wheat", "white", "whitesmoke", "yellow", "yellowgreen"];
+var valueKeywords_ = ["above", "absolute", "activeborder", "additive", "activecaption", "afar", "after-white-space", "ahead", "alias", "all", "all-scroll", "alphabetic", "alternate", "always", "amharic", "amharic-abegede", "antialiased", "appworkspace", "arabic-indic", "armenian", "asterisks", "attr", "auto", "avoid", "avoid-column", "avoid-page", "avoid-region", "background", "backwards", "baseline", "below", "bidi-override", "binary", "bengali", "blink", "block", "block-axis", "bold", "bolder", "border", "border-box", "both", "bottom", "break", "break-all", "break-word", "bullets", "button", "buttonface", "buttonhighlight", "buttonshadow", "buttontext", "calc", "cambodian", "capitalize", "caps-lock-indicator", "caption", "captiontext", "caret", "cell", "center", "checkbox", "circle", "cjk-decimal", "cjk-earthly-branch", "cjk-heavenly-stem", "cjk-ideographic", "clear", "clip", "close-quote", "col-resize", "collapse", "column", "compact", "condensed", "conic-gradient", "contain", "content", "contents", "content-box", "context-menu", "continuous", "copy", "counter", "counters", "cover", "crop", "cross", "crosshair", "currentcolor", "cursive", "cyclic", "dashed", "decimal", "decimal-leading-zero", "default", "default-button", "destination-atop", "destination-in", "destination-out", "destination-over", "devanagari", "disc", "discard", "disclosure-closed", "disclosure-open", "document", "dot-dash", "dot-dot-dash", "dotted", "double", "down", "e-resize", "ease", "ease-in", "ease-in-out", "ease-out", "element", "ellipse", "ellipsis", "embed", "end", "ethiopic", "ethiopic-abegede", "ethiopic-abegede-am-et", "ethiopic-abegede-gez", "ethiopic-abegede-ti-er", "ethiopic-abegede-ti-et", "ethiopic-halehame-aa-er", "ethiopic-halehame-aa-et", "ethiopic-halehame-am-et", "ethiopic-halehame-gez", "ethiopic-halehame-om-et", "ethiopic-halehame-sid-et", "ethiopic-halehame-so-et", "ethiopic-halehame-ti-er", "ethiopic-halehame-ti-et", "ethiopic-halehame-tig", "ethiopic-numeric", "ew-resize", "expanded", "extends", "extra-condensed", "extra-expanded", "fantasy", "fast", "fill", "fixed", "flat", "flex", "footnotes", "forwards", "from", "geometricPrecision", "georgian", "graytext", "groove", "gujarati", "gurmukhi", "hand", "hangul", "hangul-consonant", "hebrew", "help", "hidden", "hide", "high", "higher", "highlight", "highlighttext", "hiragana", "hiragana-iroha", "horizontal", "hsl", "hsla", "icon", "ignore", "inactiveborder", "inactivecaption", "inactivecaptiontext", "infinite", "infobackground", "infotext", "inherit", "initial", "inline", "inline-axis", "inline-block", "inline-flex", "inline-table", "inset", "inside", "intrinsic", "invert", "italic", "japanese-formal", "japanese-informal", "justify", "kannada", "katakana", "katakana-iroha", "keep-all", "khmer", "korean-hangul-formal", "korean-hanja-formal", "korean-hanja-informal", "landscape", "lao", "large", "larger", "left", "level", "lighter", "line-through", "linear", "linear-gradient", "lines", "list-item", "listbox", "listitem", "local", "logical", "loud", "lower", "lower-alpha", "lower-armenian", "lower-greek", "lower-hexadecimal", "lower-latin", "lower-norwegian", "lower-roman", "lowercase", "ltr", "malayalam", "match", "matrix", "matrix3d", "media-play-button", "media-slider", "media-sliderthumb", "media-volume-slider", "media-volume-sliderthumb", "medium", "menu", "menulist", "menulist-button", "menutext", "message-box", "middle", "min-intrinsic", "mix", "mongolian", "monospace", "move", "multiple", "myanmar", "n-resize", "narrower", "ne-resize", "nesw-resize", "no-close-quote", "no-drop", "no-open-quote", "no-repeat", "none", "normal", "not-allowed", "nowrap", "ns-resize", "numbers", "numeric", "nw-resize", "nwse-resize", "oblique", "octal", "open-quote", "optimizeLegibility", "optimizeSpeed", "oriya", "oromo", "outset", "outside", "outside-shape", "overlay", "overline", "padding", "padding-box", "painted", "page", "paused", "persian", "perspective", "plus-darker", "plus-lighter", "pointer", "polygon", "portrait", "pre", "pre-line", "pre-wrap", "preserve-3d", "progress", "push-button", "radial-gradient", "radio", "read-only", "read-write", "read-write-plaintext-only", "rectangle", "region", "relative", "repeat", "repeating-linear-gradient", "repeating-radial-gradient", "repeating-conic-gradient", "repeat-x", "repeat-y", "reset", "reverse", "rgb", "rgba", "ridge", "right", "rotate", "rotate3d", "rotateX", "rotateY", "rotateZ", "round", "row-resize", "rtl", "run-in", "running", "s-resize", "sans-serif", "scale", "scale3d", "scaleX", "scaleY", "scaleZ", "scroll", "scrollbar", "scroll-position", "se-resize", "searchfield", "searchfield-cancel-button", "searchfield-decoration", "searchfield-results-button", "searchfield-results-decoration", "semi-condensed", "semi-expanded", "separate", "serif", "show", "sidama", "simp-chinese-formal", "simp-chinese-informal", "single", "skew", "skewX", "skewY", "skip-white-space", "slide", "slider-horizontal", "slider-vertical", "sliderthumb-horizontal", "sliderthumb-vertical", "slow", "small", "small-caps", "small-caption", "smaller", "solid", "somali", "source-atop", "source-in", "source-out", "source-over", "space", "spell-out", "square", "square-button", "standard", "start", "static", "status-bar", "stretch", "stroke", "sub", "subpixel-antialiased", "super", "sw-resize", "symbolic", "symbols", "table", "table-caption", "table-cell", "table-column", "table-column-group", "table-footer-group", "table-header-group", "table-row", "table-row-group", "tamil", "telugu", "text", "text-bottom", "text-top", "textarea", "textfield", "thai", "thick", "thin", "threeddarkshadow", "threedface", "threedhighlight", "threedlightshadow", "threedshadow", "tibetan", "tigre", "tigrinya-er", "tigrinya-er-abegede", "tigrinya-et", "tigrinya-et-abegede", "to", "top", "trad-chinese-formal", "trad-chinese-informal", "translate", "translate3d", "translateX", "translateY", "translateZ", "transparent", "ultra-condensed", "ultra-expanded", "underline", "up", "upper-alpha", "upper-armenian", "upper-greek", "upper-hexadecimal", "upper-latin", "upper-norwegian", "upper-roman", "uppercase", "urdu", "url", "var", "vertical", "vertical-text", "visible", "visibleFill", "visiblePainted", "visibleStroke", "visual", "w-resize", "wait", "wave", "wider", "window", "windowframe", "windowtext", "words", "x-large", "x-small", "xor", "xx-large", "xx-small", "bicubic", "optimizespeed", "grayscale", "row", "row-reverse", "wrap", "wrap-reverse", "column-reverse", "flex-start", "flex-end", "space-between", "space-around", "unset"];
+var wordOperatorKeywords_ = ["in", "and", "or", "not", "is not", "is a", "is", "isnt", "defined", "if unless"], blockKeywords_ = ["for", "if", "else", "unless", "from", "to"], commonAtoms_ = ["null", "true", "false", "href", "title", "type", "not-allowed", "readonly", "disabled"], commonDef_ = ["@font-face", "@keyframes", "@media", "@viewport", "@page", "@host", "@supports", "@block", "@css"];
+var hintWords = tagKeywords_.concat(
+  documentTypes_,
+  mediaTypes_,
+  mediaFeatures_,
+  propertyKeywords_,
+  nonStandardPropertyKeywords_,
+  colorKeywords_,
+  valueKeywords_,
+  fontProperties_,
+  wordOperatorKeywords_,
+  blockKeywords_,
+  commonAtoms_,
+  commonDef_
+);
+function wordRegexp(words) {
+  words = words.sort(function(a, b) {
+    return b > a;
+  });
+  return new RegExp("^((" + words.join(")|(") + "))\\b");
+}
+function keySet(array) {
+  var keys = {};
+  for (var i = 0; i < array.length; ++i)
+    keys[array[i]] = true;
+  return keys;
+}
+function escapeRegExp(text) {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
+var tagKeywords = keySet(tagKeywords_), tagVariablesRegexp = /^(a|b|i|s|col|em)$/i, propertyKeywords = keySet(propertyKeywords_), nonStandardPropertyKeywords = keySet(nonStandardPropertyKeywords_), valueKeywords = keySet(valueKeywords_), colorKeywords = keySet(colorKeywords_), documentTypes = keySet(documentTypes_), documentTypesRegexp = wordRegexp(documentTypes_), mediaFeatures = keySet(mediaFeatures_), mediaTypes = keySet(mediaTypes_), fontProperties = keySet(fontProperties_), operatorsRegexp = /^\s*([.]{2,3}|&&|\|\||\*\*|[?!=:]?=|[-+*\/%<>]=?|\?:|\~)/, wordOperatorKeywordsRegexp = wordRegexp(wordOperatorKeywords_), blockKeywords = keySet(blockKeywords_), vendorPrefixesRegexp = new RegExp(/^\-(moz|ms|o|webkit)-/i), commonAtoms = keySet(commonAtoms_), firstWordMatch = "", states = {}, ch, style, type, override;
+function tokenBase(stream, state) {
+  firstWordMatch = stream.string.match(/(^[\w-]+\s*=\s*$)|(^\s*[\w-]+\s*=\s*[\w-])|(^\s*(\.|#|@|\$|\&|\[|\d|\+|::?|\{|\>|~|\/)?\s*[\w-]*([a-z0-9-]|\*|\/\*)(\(|,)?)/);
+  state.context.line.firstWord = firstWordMatch ? firstWordMatch[0].replace(/^\s*/, "") : "";
+  state.context.line.indent = stream.indentation();
+  ch = stream.peek();
+  if (stream.match("//")) {
+    stream.skipToEnd();
+    return ["comment", "comment"];
+  }
+  if (stream.match("/*")) {
+    state.tokenize = tokenCComment;
+    return tokenCComment(stream, state);
+  }
+  if (ch == '"' || ch == "'") {
+    stream.next();
+    state.tokenize = tokenString(ch);
+    return state.tokenize(stream, state);
+  }
+  if (ch == "@") {
+    stream.next();
+    stream.eatWhile(/[\w\\-]/);
+    return ["def", stream.current()];
+  }
+  if (ch == "#") {
+    stream.next();
+    if (stream.match(/^[0-9a-f]{3}([0-9a-f]([0-9a-f]{2}){0,2})?\b(?!-)/i)) {
+      return ["atom", "atom"];
+    }
+    if (stream.match(/^[a-z][\w-]*/i)) {
+      return ["builtin", "hash"];
+    }
+  }
+  if (stream.match(vendorPrefixesRegexp)) {
+    return ["meta", "vendor-prefixes"];
+  }
+  if (stream.match(/^-?[0-9]?\.?[0-9]/)) {
+    stream.eatWhile(/[a-z%]/i);
+    return ["number", "unit"];
+  }
+  if (ch == "!") {
+    stream.next();
+    return [stream.match(/^(important|optional)/i) ? "keyword" : "operator", "important"];
+  }
+  if (ch == "." && stream.match(/^\.[a-z][\w-]*/i)) {
+    return ["qualifier", "qualifier"];
+  }
+  if (stream.match(documentTypesRegexp)) {
+    if (stream.peek() == "(")
+      state.tokenize = tokenParenthesized;
+    return ["property", "word"];
+  }
+  if (stream.match(/^[a-z][\w-]*\(/i)) {
+    stream.backUp(1);
+    return ["keyword", "mixin"];
+  }
+  if (stream.match(/^(\+|-)[a-z][\w-]*\(/i)) {
+    stream.backUp(1);
+    return ["keyword", "block-mixin"];
+  }
+  if (stream.string.match(/^\s*&/) && stream.match(/^[-_]+[a-z][\w-]*/)) {
+    return ["qualifier", "qualifier"];
+  }
+  if (stream.match(/^(\/|&)(-|_|:|\.|#|[a-z])/)) {
+    stream.backUp(1);
+    return ["variableName.special", "reference"];
+  }
+  if (stream.match(/^&{1}\s*$/)) {
+    return ["variableName.special", "reference"];
+  }
+  if (stream.match(wordOperatorKeywordsRegexp)) {
+    return ["operator", "operator"];
+  }
+  if (stream.match(/^\$?[-_]*[a-z0-9]+[\w-]*/i)) {
+    if (stream.match(/^(\.|\[)[\w-\'\"\]]+/i, false)) {
+      if (!wordIsTag(stream.current())) {
+        stream.match(".");
+        return ["variable", "variable-name"];
+      }
+    }
+    return ["variable", "word"];
+  }
+  if (stream.match(operatorsRegexp)) {
+    return ["operator", stream.current()];
+  }
+  if (/[:;,{}\[\]\(\)]/.test(ch)) {
+    stream.next();
+    return [null, ch];
+  }
+  stream.next();
+  return [null, null];
+}
+function tokenCComment(stream, state) {
+  var maybeEnd = false, ch2;
+  while ((ch2 = stream.next()) != null) {
+    if (maybeEnd && ch2 == "/") {
+      state.tokenize = null;
+      break;
+    }
+    maybeEnd = ch2 == "*";
+  }
+  return ["comment", "comment"];
+}
+function tokenString(quote) {
+  return function(stream, state) {
+    var escaped = false, ch2;
+    while ((ch2 = stream.next()) != null) {
+      if (ch2 == quote && !escaped) {
+        if (quote == ")")
+          stream.backUp(1);
+        break;
+      }
+      escaped = !escaped && ch2 == "\\";
+    }
+    if (ch2 == quote || !escaped && quote != ")")
+      state.tokenize = null;
+    return ["string", "string"];
+  };
+}
+function tokenParenthesized(stream, state) {
+  stream.next();
+  if (!stream.match(/\s*[\"\')]/, false))
+    state.tokenize = tokenString(")");
+  else
+    state.tokenize = null;
+  return [null, "("];
+}
+function Context(type2, indent, prev, line) {
+  this.type = type2;
+  this.indent = indent;
+  this.prev = prev;
+  this.line = line || { firstWord: "", indent: 0 };
+}
+function pushContext(state, stream, type2, indent) {
+  indent = indent >= 0 ? indent : stream.indentUnit;
+  state.context = new Context(type2, stream.indentation() + indent, state.context);
+  return type2;
+}
+function popContext(state, stream, currentIndent) {
+  var contextIndent = state.context.indent - stream.indentUnit;
+  currentIndent = currentIndent || false;
+  state.context = state.context.prev;
+  if (currentIndent)
+    state.context.indent = contextIndent;
+  return state.context.type;
+}
+function pass(type2, stream, state) {
+  return states[state.context.type](type2, stream, state);
+}
+function popAndPass(type2, stream, state, n) {
+  for (var i = n || 1; i > 0; i--)
+    state.context = state.context.prev;
+  return pass(type2, stream, state);
+}
+function wordIsTag(word) {
+  return word.toLowerCase() in tagKeywords;
+}
+function wordIsProperty(word) {
+  word = word.toLowerCase();
+  return word in propertyKeywords || word in fontProperties;
+}
+function wordIsBlock(word) {
+  return word.toLowerCase() in blockKeywords;
+}
+function wordIsVendorPrefix(word) {
+  return word.toLowerCase().match(vendorPrefixesRegexp);
+}
+function wordAsValue(word) {
+  var wordLC = word.toLowerCase();
+  var override2 = "variable";
+  if (wordIsTag(word))
+    override2 = "tag";
+  else if (wordIsBlock(word))
+    override2 = "block-keyword";
+  else if (wordIsProperty(word))
+    override2 = "property";
+  else if (wordLC in valueKeywords || wordLC in commonAtoms)
+    override2 = "atom";
+  else if (wordLC == "return" || wordLC in colorKeywords)
+    override2 = "keyword";
+  else if (word.match(/^[A-Z]/))
+    override2 = "string";
+  return override2;
+}
+function typeIsBlock(type2, stream) {
+  return endOfLine(stream) && (type2 == "{" || type2 == "]" || type2 == "hash" || type2 == "qualifier") || type2 == "block-mixin";
+}
+function typeIsInterpolation(type2, stream) {
+  return type2 == "{" && stream.match(/^\s*\$?[\w-]+/i, false);
+}
+function typeIsPseudo(type2, stream) {
+  return type2 == ":" && stream.match(/^[a-z-]+/, false);
+}
+function startOfLine(stream) {
+  return stream.sol() || stream.string.match(new RegExp("^\\s*" + escapeRegExp(stream.current())));
+}
+function endOfLine(stream) {
+  return stream.eol() || stream.match(/^\s*$/, false);
+}
+function firstWordOfLine(line) {
+  var re = /^\s*[-_]*[a-z0-9]+[\w-]*/i;
+  var result = typeof line == "string" ? line.match(re) : line.string.match(re);
+  return result ? result[0].replace(/^\s*/, "") : "";
+}
+states.block = function(type2, stream, state) {
+  if (type2 == "comment" && startOfLine(stream) || type2 == "," && endOfLine(stream) || type2 == "mixin") {
+    return pushContext(state, stream, "block", 0);
+  }
+  if (typeIsInterpolation(type2, stream)) {
+    return pushContext(state, stream, "interpolation");
+  }
+  if (endOfLine(stream) && type2 == "]") {
+    if (!/^\s*(\.|#|:|\[|\*|&)/.test(stream.string) && !wordIsTag(firstWordOfLine(stream))) {
+      return pushContext(state, stream, "block", 0);
+    }
+  }
+  if (typeIsBlock(type2, stream)) {
+    return pushContext(state, stream, "block");
+  }
+  if (type2 == "}" && endOfLine(stream)) {
+    return pushContext(state, stream, "block", 0);
+  }
+  if (type2 == "variable-name") {
+    if (stream.string.match(/^\s?\$[\w-\.\[\]\'\"]+$/) || wordIsBlock(firstWordOfLine(stream))) {
+      return pushContext(state, stream, "variableName");
+    } else {
+      return pushContext(state, stream, "variableName", 0);
+    }
+  }
+  if (type2 == "=") {
+    if (!endOfLine(stream) && !wordIsBlock(firstWordOfLine(stream))) {
+      return pushContext(state, stream, "block", 0);
+    }
+    return pushContext(state, stream, "block");
+  }
+  if (type2 == "*") {
+    if (endOfLine(stream) || stream.match(/\s*(,|\.|#|\[|:|{)/, false)) {
+      override = "tag";
+      return pushContext(state, stream, "block");
+    }
+  }
+  if (typeIsPseudo(type2, stream)) {
+    return pushContext(state, stream, "pseudo");
+  }
+  if (/@(font-face|media|supports|(-moz-)?document)/.test(type2)) {
+    return pushContext(state, stream, endOfLine(stream) ? "block" : "atBlock");
+  }
+  if (/@(-(moz|ms|o|webkit)-)?keyframes$/.test(type2)) {
+    return pushContext(state, stream, "keyframes");
+  }
+  if (/@extends?/.test(type2)) {
+    return pushContext(state, stream, "extend", 0);
+  }
+  if (type2 && type2.charAt(0) == "@") {
+    if (stream.indentation() > 0 && wordIsProperty(stream.current().slice(1))) {
+      override = "variable";
+      return "block";
+    }
+    if (/(@import|@require|@charset)/.test(type2)) {
+      return pushContext(state, stream, "block", 0);
+    }
+    return pushContext(state, stream, "block");
+  }
+  if (type2 == "reference" && endOfLine(stream)) {
+    return pushContext(state, stream, "block");
+  }
+  if (type2 == "(") {
+    return pushContext(state, stream, "parens");
+  }
+  if (type2 == "vendor-prefixes") {
+    return pushContext(state, stream, "vendorPrefixes");
+  }
+  if (type2 == "word") {
+    var word = stream.current();
+    override = wordAsValue(word);
+    if (override == "property") {
+      if (startOfLine(stream)) {
+        return pushContext(state, stream, "block", 0);
+      } else {
+        override = "atom";
+        return "block";
+      }
+    }
+    if (override == "tag") {
+      if (/embed|menu|pre|progress|sub|table/.test(word)) {
+        if (wordIsProperty(firstWordOfLine(stream))) {
+          override = "atom";
+          return "block";
+        }
+      }
+      if (stream.string.match(new RegExp("\\[\\s*" + word + "|" + word + "\\s*\\]"))) {
+        override = "atom";
+        return "block";
+      }
+      if (tagVariablesRegexp.test(word)) {
+        if (startOfLine(stream) && stream.string.match(/=/) || !startOfLine(stream) && !stream.string.match(/^(\s*\.|#|\&|\[|\/|>|\*)/) && !wordIsTag(firstWordOfLine(stream))) {
+          override = "variable";
+          if (wordIsBlock(firstWordOfLine(stream)))
+            return "block";
+          return pushContext(state, stream, "block", 0);
+        }
+      }
+      if (endOfLine(stream))
+        return pushContext(state, stream, "block");
+    }
+    if (override == "block-keyword") {
+      override = "keyword";
+      if (stream.current(/(if|unless)/) && !startOfLine(stream)) {
+        return "block";
+      }
+      return pushContext(state, stream, "block");
+    }
+    if (word == "return")
+      return pushContext(state, stream, "block", 0);
+    if (override == "variable" && stream.string.match(/^\s?\$[\w-\.\[\]\'\"]+$/)) {
+      return pushContext(state, stream, "block");
+    }
+  }
+  return state.context.type;
+};
+states.parens = function(type2, stream, state) {
+  if (type2 == "(")
+    return pushContext(state, stream, "parens");
+  if (type2 == ")") {
+    if (state.context.prev.type == "parens") {
+      return popContext(state, stream);
+    }
+    if (stream.string.match(/^[a-z][\w-]*\(/i) && endOfLine(stream) || wordIsBlock(firstWordOfLine(stream)) || /(\.|#|:|\[|\*|&|>|~|\+|\/)/.test(firstWordOfLine(stream)) || !stream.string.match(/^-?[a-z][\w-\.\[\]\'\"]*\s*=/) && wordIsTag(firstWordOfLine(stream))) {
+      return pushContext(state, stream, "block");
+    }
+    if (stream.string.match(/^[\$-]?[a-z][\w-\.\[\]\'\"]*\s*=/) || stream.string.match(/^\s*(\(|\)|[0-9])/) || stream.string.match(/^\s+[a-z][\w-]*\(/i) || stream.string.match(/^\s+[\$-]?[a-z]/i)) {
+      return pushContext(state, stream, "block", 0);
+    }
+    if (endOfLine(stream))
+      return pushContext(state, stream, "block");
+    else
+      return pushContext(state, stream, "block", 0);
+  }
+  if (type2 && type2.charAt(0) == "@" && wordIsProperty(stream.current().slice(1))) {
+    override = "variable";
+  }
+  if (type2 == "word") {
+    var word = stream.current();
+    override = wordAsValue(word);
+    if (override == "tag" && tagVariablesRegexp.test(word)) {
+      override = "variable";
+    }
+    if (override == "property" || word == "to")
+      override = "atom";
+  }
+  if (type2 == "variable-name") {
+    return pushContext(state, stream, "variableName");
+  }
+  if (typeIsPseudo(type2, stream)) {
+    return pushContext(state, stream, "pseudo");
+  }
+  return state.context.type;
+};
+states.vendorPrefixes = function(type2, stream, state) {
+  if (type2 == "word") {
+    override = "property";
+    return pushContext(state, stream, "block", 0);
+  }
+  return popContext(state, stream);
+};
+states.pseudo = function(type2, stream, state) {
+  if (!wordIsProperty(firstWordOfLine(stream.string))) {
+    stream.match(/^[a-z-]+/);
+    override = "variableName.special";
+    if (endOfLine(stream))
+      return pushContext(state, stream, "block");
+    return popContext(state, stream);
+  }
+  return popAndPass(type2, stream, state);
+};
+states.atBlock = function(type2, stream, state) {
+  if (type2 == "(")
+    return pushContext(state, stream, "atBlock_parens");
+  if (typeIsBlock(type2, stream)) {
+    return pushContext(state, stream, "block");
+  }
+  if (typeIsInterpolation(type2, stream)) {
+    return pushContext(state, stream, "interpolation");
+  }
+  if (type2 == "word") {
+    var word = stream.current().toLowerCase();
+    if (/^(only|not|and|or)$/.test(word))
+      override = "keyword";
+    else if (documentTypes.hasOwnProperty(word))
+      override = "tag";
+    else if (mediaTypes.hasOwnProperty(word))
+      override = "attribute";
+    else if (mediaFeatures.hasOwnProperty(word))
+      override = "property";
+    else if (nonStandardPropertyKeywords.hasOwnProperty(word))
+      override = "string.special";
+    else
+      override = wordAsValue(stream.current());
+    if (override == "tag" && endOfLine(stream)) {
+      return pushContext(state, stream, "block");
+    }
+  }
+  if (type2 == "operator" && /^(not|and|or)$/.test(stream.current())) {
+    override = "keyword";
+  }
+  return state.context.type;
+};
+states.atBlock_parens = function(type2, stream, state) {
+  if (type2 == "{" || type2 == "}")
+    return state.context.type;
+  if (type2 == ")") {
+    if (endOfLine(stream))
+      return pushContext(state, stream, "block");
+    else
+      return pushContext(state, stream, "atBlock");
+  }
+  if (type2 == "word") {
+    var word = stream.current().toLowerCase();
+    override = wordAsValue(word);
+    if (/^(max|min)/.test(word))
+      override = "property";
+    if (override == "tag") {
+      tagVariablesRegexp.test(word) ? override = "variable" : override = "atom";
+    }
+    return state.context.type;
+  }
+  return states.atBlock(type2, stream, state);
+};
+states.keyframes = function(type2, stream, state) {
+  if (stream.indentation() == "0" && (type2 == "}" && startOfLine(stream) || type2 == "]" || type2 == "hash" || type2 == "qualifier" || wordIsTag(stream.current()))) {
+    return popAndPass(type2, stream, state);
+  }
+  if (type2 == "{")
+    return pushContext(state, stream, "keyframes");
+  if (type2 == "}") {
+    if (startOfLine(stream))
+      return popContext(state, stream, true);
+    else
+      return pushContext(state, stream, "keyframes");
+  }
+  if (type2 == "unit" && /^[0-9]+\%$/.test(stream.current())) {
+    return pushContext(state, stream, "keyframes");
+  }
+  if (type2 == "word") {
+    override = wordAsValue(stream.current());
+    if (override == "block-keyword") {
+      override = "keyword";
+      return pushContext(state, stream, "keyframes");
+    }
+  }
+  if (/@(font-face|media|supports|(-moz-)?document)/.test(type2)) {
+    return pushContext(state, stream, endOfLine(stream) ? "block" : "atBlock");
+  }
+  if (type2 == "mixin") {
+    return pushContext(state, stream, "block", 0);
+  }
+  return state.context.type;
+};
+states.interpolation = function(type2, stream, state) {
+  if (type2 == "{")
+    popContext(state, stream) && pushContext(state, stream, "block");
+  if (type2 == "}") {
+    if (stream.string.match(/^\s*(\.|#|:|\[|\*|&|>|~|\+|\/)/i) || stream.string.match(/^\s*[a-z]/i) && wordIsTag(firstWordOfLine(stream))) {
+      return pushContext(state, stream, "block");
+    }
+    if (!stream.string.match(/^(\{|\s*\&)/) || stream.match(/\s*[\w-]/, false)) {
+      return pushContext(state, stream, "block", 0);
+    }
+    return pushContext(state, stream, "block");
+  }
+  if (type2 == "variable-name") {
+    return pushContext(state, stream, "variableName", 0);
+  }
+  if (type2 == "word") {
+    override = wordAsValue(stream.current());
+    if (override == "tag")
+      override = "atom";
+  }
+  return state.context.type;
+};
+states.extend = function(type2, stream, state) {
+  if (type2 == "[" || type2 == "=")
+    return "extend";
+  if (type2 == "]")
+    return popContext(state, stream);
+  if (type2 == "word") {
+    override = wordAsValue(stream.current());
+    return "extend";
+  }
+  return popContext(state, stream);
+};
+states.variableName = function(type2, stream, state) {
+  if (type2 == "string" || type2 == "[" || type2 == "]" || stream.current().match(/^(\.|\$)/)) {
+    if (stream.current().match(/^\.[\w-]+/i))
+      override = "variable";
+    return "variableName";
+  }
+  return popAndPass(type2, stream, state);
+};
+const stylus = {
+  startState: function() {
+    return {
+      tokenize: null,
+      state: "block",
+      context: new Context("block", 0, null)
+    };
+  },
+  token: function(stream, state) {
+    if (!state.tokenize && stream.eatSpace())
+      return null;
+    style = (state.tokenize || tokenBase)(stream, state);
+    if (style && typeof style == "object") {
+      type = style[1];
+      style = style[0];
+    }
+    override = style;
+    state.state = states[state.state](type, stream, state);
+    return override;
+  },
+  indent: function(state, textAfter, iCx) {
+    var cx = state.context, ch2 = textAfter && textAfter.charAt(0), indent = cx.indent, lineFirstWord = firstWordOfLine(textAfter), lineIndent = iCx.lineIndent(iCx.pos), prevLineFirstWord = state.context.prev ? state.context.prev.line.firstWord : "", prevLineIndent = state.context.prev ? state.context.prev.line.indent : lineIndent;
+    if (cx.prev && (ch2 == "}" && (cx.type == "block" || cx.type == "atBlock" || cx.type == "keyframes") || ch2 == ")" && (cx.type == "parens" || cx.type == "atBlock_parens") || ch2 == "{" && cx.type == "at")) {
+      indent = cx.indent - iCx.unit;
+    } else if (!/(\})/.test(ch2)) {
+      if (/@|\$|\d/.test(ch2) || /^\{/.test(textAfter) || /^\s*\/(\/|\*)/.test(textAfter) || /^\s*\/\*/.test(prevLineFirstWord) || /^\s*[\w-\.\[\]\'\"]+\s*(\?|:|\+)?=/i.test(textAfter) || /^(\+|-)?[a-z][\w-]*\(/i.test(textAfter) || /^return/.test(textAfter) || wordIsBlock(lineFirstWord)) {
+        indent = lineIndent;
+      } else if (/(\.|#|:|\[|\*|&|>|~|\+|\/)/.test(ch2) || wordIsTag(lineFirstWord)) {
+        if (/\,\s*$/.test(prevLineFirstWord)) {
+          indent = prevLineIndent;
+        } else if (!state.sol() && (/(\.|#|:|\[|\*|&|>|~|\+|\/)/.test(prevLineFirstWord) || wordIsTag(prevLineFirstWord))) {
+          indent = lineIndent <= prevLineIndent ? prevLineIndent : prevLineIndent + iCx.unit;
+        } else {
+          indent = lineIndent;
+        }
+      } else if (!/,\s*$/.test(textAfter) && (wordIsVendorPrefix(lineFirstWord) || wordIsProperty(lineFirstWord))) {
+        if (wordIsBlock(prevLineFirstWord)) {
+          indent = lineIndent <= prevLineIndent ? prevLineIndent : prevLineIndent + iCx.unit;
+        } else if (/^\{/.test(prevLineFirstWord)) {
+          indent = lineIndent <= prevLineIndent ? lineIndent : prevLineIndent + iCx.unit;
+        } else if (wordIsVendorPrefix(prevLineFirstWord) || wordIsProperty(prevLineFirstWord)) {
+          indent = lineIndent >= prevLineIndent ? prevLineIndent : lineIndent;
+        } else if (/^(\.|#|:|\[|\*|&|@|\+|\-|>|~|\/)/.test(prevLineFirstWord) || /=\s*$/.test(prevLineFirstWord) || wordIsTag(prevLineFirstWord) || /^\$[\w-\.\[\]\'\"]/.test(prevLineFirstWord)) {
+          indent = prevLineIndent + iCx.unit;
+        } else {
+          indent = lineIndent;
+        }
+      }
+    }
+    return indent;
+  },
+  languageData: {
+    indentOnInput: /^\s*\}$/,
+    commentTokens: { line: "//", block: { open: "/*", close: "*/" } },
+    autocomplete: hintWords
+  }
+};
+export {
+  stylus
+};
+//# sourceMappingURL=stylus.516bd8ed.js.map

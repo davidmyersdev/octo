@@ -1,1 +1,136 @@
-function u(e){for(var r={},n=0,t=e.length;n<t;++n)r[e[n]]=!0;return r}var l=u(["note","across","when","variant","until","unique","undefine","then","strip","select","retry","rescue","require","rename","reference","redefine","prefix","once","old","obsolete","loop","local","like","is","inspect","infix","include","if","frozen","from","external","export","ensure","end","elseif","else","do","creation","create","check","alias","agent","separate","invariant","inherit","indexing","feature","expanded","deferred","class","Void","True","Result","Precursor","False","Current","create","attached","detachable","as","and","implies","not","or"]),c=u([":=","and then","and","or","<<",">>"]);function f(e,r,n){return n.tokenize.push(e),e(r,n)}function s(e,r){if(e.eatSpace())return null;var n=e.next();return n=='"'||n=="'"?f(p(n,"string"),e,r):n=="-"&&e.eat("-")?(e.skipToEnd(),"comment"):n==":"&&e.eat("=")?"operator":/[0-9]/.test(n)?(e.eatWhile(/[xXbBCc0-9\.]/),e.eat(/[\?\!]/),"variable"):/[a-zA-Z_0-9]/.test(n)?(e.eatWhile(/[a-zA-Z_0-9]/),e.eat(/[\?\!]/),"variable"):/[=+\-\/*^%<>~]/.test(n)?(e.eatWhile(/[=+\-\/*^%<>~]/),"operator"):null}function p(e,r,n){return function(t,o){for(var a=!1,i;(i=t.next())!=null;){if(i==e&&(n||!a)){o.tokenize.pop();break}a=!a&&i=="%"}return r}}const d={startState:function(){return{tokenize:[s]}},token:function(e,r){var n=r.tokenize[r.tokenize.length-1](e,r);if(n=="variable"){var t=e.current();n=l.propertyIsEnumerable(e.current())?"keyword":c.propertyIsEnumerable(e.current())?"operator":/^[A-Z][A-Z_0-9]*$/g.test(t)?"tag":/^0[bB][0-1]+$/g.test(t)||/^0[cC][0-7]+$/g.test(t)||/^0[xX][a-fA-F0-9]+$/g.test(t)||/^([0-9]+\.[0-9]*)|([0-9]*\.[0-9]+)$/g.test(t)||/^[0-9]+$/g.test(t)?"number":"variable"}return n},languageData:{commentTokens:{line:"--"}}};export{d as eiffel};
+function wordObj(words) {
+  var o = {};
+  for (var i = 0, e = words.length; i < e; ++i)
+    o[words[i]] = true;
+  return o;
+}
+var keywords = wordObj([
+  "note",
+  "across",
+  "when",
+  "variant",
+  "until",
+  "unique",
+  "undefine",
+  "then",
+  "strip",
+  "select",
+  "retry",
+  "rescue",
+  "require",
+  "rename",
+  "reference",
+  "redefine",
+  "prefix",
+  "once",
+  "old",
+  "obsolete",
+  "loop",
+  "local",
+  "like",
+  "is",
+  "inspect",
+  "infix",
+  "include",
+  "if",
+  "frozen",
+  "from",
+  "external",
+  "export",
+  "ensure",
+  "end",
+  "elseif",
+  "else",
+  "do",
+  "creation",
+  "create",
+  "check",
+  "alias",
+  "agent",
+  "separate",
+  "invariant",
+  "inherit",
+  "indexing",
+  "feature",
+  "expanded",
+  "deferred",
+  "class",
+  "Void",
+  "True",
+  "Result",
+  "Precursor",
+  "False",
+  "Current",
+  "create",
+  "attached",
+  "detachable",
+  "as",
+  "and",
+  "implies",
+  "not",
+  "or"
+]);
+var operators = wordObj([":=", "and then", "and", "or", "<<", ">>"]);
+function chain(newtok, stream, state) {
+  state.tokenize.push(newtok);
+  return newtok(stream, state);
+}
+function tokenBase(stream, state) {
+  if (stream.eatSpace())
+    return null;
+  var ch = stream.next();
+  if (ch == '"' || ch == "'") {
+    return chain(readQuoted(ch, "string"), stream, state);
+  } else if (ch == "-" && stream.eat("-")) {
+    stream.skipToEnd();
+    return "comment";
+  } else if (ch == ":" && stream.eat("=")) {
+    return "operator";
+  } else if (/[0-9]/.test(ch)) {
+    stream.eatWhile(/[xXbBCc0-9\.]/);
+    stream.eat(/[\?\!]/);
+    return "variable";
+  } else if (/[a-zA-Z_0-9]/.test(ch)) {
+    stream.eatWhile(/[a-zA-Z_0-9]/);
+    stream.eat(/[\?\!]/);
+    return "variable";
+  } else if (/[=+\-\/*^%<>~]/.test(ch)) {
+    stream.eatWhile(/[=+\-\/*^%<>~]/);
+    return "operator";
+  } else {
+    return null;
+  }
+}
+function readQuoted(quote, style, unescaped) {
+  return function(stream, state) {
+    var escaped = false, ch;
+    while ((ch = stream.next()) != null) {
+      if (ch == quote && (unescaped || !escaped)) {
+        state.tokenize.pop();
+        break;
+      }
+      escaped = !escaped && ch == "%";
+    }
+    return style;
+  };
+}
+const eiffel = {
+  startState: function() {
+    return { tokenize: [tokenBase] };
+  },
+  token: function(stream, state) {
+    var style = state.tokenize[state.tokenize.length - 1](stream, state);
+    if (style == "variable") {
+      var word = stream.current();
+      style = keywords.propertyIsEnumerable(stream.current()) ? "keyword" : operators.propertyIsEnumerable(stream.current()) ? "operator" : /^[A-Z][A-Z_0-9]*$/g.test(word) ? "tag" : /^0[bB][0-1]+$/g.test(word) ? "number" : /^0[cC][0-7]+$/g.test(word) ? "number" : /^0[xX][a-fA-F0-9]+$/g.test(word) ? "number" : /^([0-9]+\.[0-9]*)|([0-9]*\.[0-9]+)$/g.test(word) ? "number" : /^[0-9]+$/g.test(word) ? "number" : "variable";
+    }
+    return style;
+  },
+  languageData: {
+    commentTokens: { line: "--" }
+  }
+};
+export {
+  eiffel
+};
+//# sourceMappingURL=eiffel.9cb8ca3a.js.map

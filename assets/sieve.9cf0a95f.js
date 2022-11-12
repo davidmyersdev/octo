@@ -1,1 +1,137 @@
-function l(n){for(var e={},i=n.split(" "),r=0;r<i.length;++r)e[i[r]]=!0;return e}var f=l("if elsif else stop require"),p=l("true false not");function t(n,e){var i=n.next();if(i=="/"&&n.eat("*"))return e.tokenize=o,o(n,e);if(i==="#")return n.skipToEnd(),"comment";if(i=='"')return e.tokenize=d(i),e.tokenize(n,e);if(i=="(")return e._indent.push("("),e._indent.push("{"),null;if(i==="{")return e._indent.push("{"),null;if(i==")"&&(e._indent.pop(),e._indent.pop()),i==="}")return e._indent.pop(),null;if(i==","||i==";"||/[{}\(\),;]/.test(i))return null;if(/\d/.test(i))return n.eatWhile(/[\d]/),n.eat(/[KkMmGg]/),"number";if(i==":")return n.eatWhile(/[a-zA-Z_]/),n.eatWhile(/[a-zA-Z0-9_]/),"operator";n.eatWhile(/\w/);var r=n.current();return r=="text"&&n.eat(":")?(e.tokenize=k,"string"):f.propertyIsEnumerable(r)?"keyword":p.propertyIsEnumerable(r)?"atom":null}function k(n,e){return e._multiLineString=!0,n.sol()?(n.next()=="."&&n.eol()&&(e._multiLineString=!1,e.tokenize=t),"string"):(n.eatSpace(),n.peek()=="#"?(n.skipToEnd(),"comment"):(n.skipToEnd(),"string"))}function o(n,e){for(var i=!1,r;(r=n.next())!=null;){if(i&&r=="/"){e.tokenize=t;break}i=r=="*"}return"comment"}function d(n){return function(e,i){for(var r=!1,u;(u=e.next())!=null&&!(u==n&&!r);)r=!r&&u=="\\";return r||(i.tokenize=t),"string"}}const c={startState:function(n){return{tokenize:t,baseIndent:n||0,_indent:[]}},token:function(n,e){return n.eatSpace()?null:(e.tokenize||t)(n,e)},indent:function(n,e,i){var r=n._indent.length;return e&&e[0]=="}"&&r--,r<0&&(r=0),r*i.unit},languageData:{indentOnInput:/^\s*\}$/}};export{c as sieve};
+function words(str) {
+  var obj = {}, words2 = str.split(" ");
+  for (var i = 0; i < words2.length; ++i)
+    obj[words2[i]] = true;
+  return obj;
+}
+var keywords = words("if elsif else stop require");
+var atoms = words("true false not");
+function tokenBase(stream, state) {
+  var ch = stream.next();
+  if (ch == "/" && stream.eat("*")) {
+    state.tokenize = tokenCComment;
+    return tokenCComment(stream, state);
+  }
+  if (ch === "#") {
+    stream.skipToEnd();
+    return "comment";
+  }
+  if (ch == '"') {
+    state.tokenize = tokenString(ch);
+    return state.tokenize(stream, state);
+  }
+  if (ch == "(") {
+    state._indent.push("(");
+    state._indent.push("{");
+    return null;
+  }
+  if (ch === "{") {
+    state._indent.push("{");
+    return null;
+  }
+  if (ch == ")") {
+    state._indent.pop();
+    state._indent.pop();
+  }
+  if (ch === "}") {
+    state._indent.pop();
+    return null;
+  }
+  if (ch == ",")
+    return null;
+  if (ch == ";")
+    return null;
+  if (/[{}\(\),;]/.test(ch))
+    return null;
+  if (/\d/.test(ch)) {
+    stream.eatWhile(/[\d]/);
+    stream.eat(/[KkMmGg]/);
+    return "number";
+  }
+  if (ch == ":") {
+    stream.eatWhile(/[a-zA-Z_]/);
+    stream.eatWhile(/[a-zA-Z0-9_]/);
+    return "operator";
+  }
+  stream.eatWhile(/\w/);
+  var cur = stream.current();
+  if (cur == "text" && stream.eat(":")) {
+    state.tokenize = tokenMultiLineString;
+    return "string";
+  }
+  if (keywords.propertyIsEnumerable(cur))
+    return "keyword";
+  if (atoms.propertyIsEnumerable(cur))
+    return "atom";
+  return null;
+}
+function tokenMultiLineString(stream, state) {
+  state._multiLineString = true;
+  if (!stream.sol()) {
+    stream.eatSpace();
+    if (stream.peek() == "#") {
+      stream.skipToEnd();
+      return "comment";
+    }
+    stream.skipToEnd();
+    return "string";
+  }
+  if (stream.next() == "." && stream.eol()) {
+    state._multiLineString = false;
+    state.tokenize = tokenBase;
+  }
+  return "string";
+}
+function tokenCComment(stream, state) {
+  var maybeEnd = false, ch;
+  while ((ch = stream.next()) != null) {
+    if (maybeEnd && ch == "/") {
+      state.tokenize = tokenBase;
+      break;
+    }
+    maybeEnd = ch == "*";
+  }
+  return "comment";
+}
+function tokenString(quote) {
+  return function(stream, state) {
+    var escaped = false, ch;
+    while ((ch = stream.next()) != null) {
+      if (ch == quote && !escaped)
+        break;
+      escaped = !escaped && ch == "\\";
+    }
+    if (!escaped)
+      state.tokenize = tokenBase;
+    return "string";
+  };
+}
+const sieve = {
+  startState: function(base) {
+    return {
+      tokenize: tokenBase,
+      baseIndent: base || 0,
+      _indent: []
+    };
+  },
+  token: function(stream, state) {
+    if (stream.eatSpace())
+      return null;
+    return (state.tokenize || tokenBase)(stream, state);
+  },
+  indent: function(state, _textAfter, cx) {
+    var length = state._indent.length;
+    if (_textAfter && _textAfter[0] == "}")
+      length--;
+    if (length < 0)
+      length = 0;
+    return length * cx.unit;
+  },
+  languageData: {
+    indentOnInput: /^\s*\}$/
+  }
+};
+export {
+  sieve
+};
+//# sourceMappingURL=sieve.9cf0a95f.js.map

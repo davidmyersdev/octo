@@ -1,1 +1,547 @@
-var h=function(){function e(z){return{type:z,style:"keyword"}}for(var n=e("operator"),t={type:"atom",style:"atom"},i={type:"punctuation",style:null},c={type:"axis_specifier",style:"qualifier"},a={",":i},g=["after","all","allowing","ancestor","ancestor-or-self","any","array","as","ascending","at","attribute","base-uri","before","boundary-space","by","case","cast","castable","catch","child","collation","comment","construction","contains","content","context","copy","copy-namespaces","count","decimal-format","declare","default","delete","descendant","descendant-or-self","descending","diacritics","different","distance","document","document-node","element","else","empty","empty-sequence","encoding","end","entire","every","exactly","except","external","first","following","following-sibling","for","from","ftand","ftnot","ft-option","ftor","function","fuzzy","greatest","group","if","import","in","inherit","insensitive","insert","instance","intersect","into","invoke","is","item","language","last","lax","least","let","levels","lowercase","map","modify","module","most","namespace","next","no","node","nodes","no-inherit","no-preserve","not","occurs","of","only","option","order","ordered","ordering","paragraph","paragraphs","parent","phrase","preceding","preceding-sibling","preserve","previous","processing-instruction","relationship","rename","replace","return","revalidation","same","satisfies","schema","schema-attribute","schema-element","score","self","sensitive","sentence","sentences","sequence","skip","sliding","some","stable","start","stemming","stop","strict","strip","switch","text","then","thesaurus","times","to","transform","treat","try","tumbling","type","typeswitch","union","unordered","update","updating","uppercase","using","validate","value","variable","version","weight","when","where","wildcards","window","with","without","word","words","xquery"],r=0,o=g.length;r<o;r++)a[g[r]]=e(g[r]);for(var d=["xs:anyAtomicType","xs:anySimpleType","xs:anyType","xs:anyURI","xs:base64Binary","xs:boolean","xs:byte","xs:date","xs:dateTime","xs:dateTimeStamp","xs:dayTimeDuration","xs:decimal","xs:double","xs:duration","xs:ENTITIES","xs:ENTITY","xs:float","xs:gDay","xs:gMonth","xs:gMonthDay","xs:gYear","xs:gYearMonth","xs:hexBinary","xs:ID","xs:IDREF","xs:IDREFS","xs:int","xs:integer","xs:item","xs:java","xs:language","xs:long","xs:Name","xs:NCName","xs:negativeInteger","xs:NMTOKEN","xs:NMTOKENS","xs:nonNegativeInteger","xs:nonPositiveInteger","xs:normalizedString","xs:NOTATION","xs:numeric","xs:positiveInteger","xs:precisionDecimal","xs:QName","xs:short","xs:string","xs:time","xs:token","xs:unsignedByte","xs:unsignedInt","xs:unsignedLong","xs:unsignedShort","xs:untyped","xs:untypedAtomic","xs:yearMonthDuration"],r=0,o=d.length;r<o;r++)a[d[r]]=t;for(var f=["eq","ne","lt","le","gt","ge",":=","=",">",">=","<","<=",".","|","?","and","or","div","idiv","mod","*","/","+","-"],r=0,o=f.length;r<o;r++)a[f[r]]=n;for(var m=["self::","attribute::","child::","descendant::","descendant-or-self::","parent::","ancestor::","ancestor-or-self::","following::","preceding::","following-sibling::","preceding-sibling::"],r=0,o=m.length;r<o;r++)a[m[r]]=c;return a}();function p(e,n,t){return n.tokenize=t,t(e,n)}function u(e,n){var t=e.next(),i=!1,c=_(e);if(t=="<"){if(e.match("!--",!0))return p(e,n,S);if(e.match("![CDATA",!1))return n.tokenize=N,"tag";if(e.match("?",!1))return p(e,n,E);var a=e.eat("/");e.eatSpace();for(var g="",r;r=e.eat(/[^\s\u00a0=<>\"\'\/?]/);)g+=r;return p(e,n,T(g,a))}else{if(t=="{")return s(n,{type:"codeblock"}),null;if(t=="}")return l(n),null;if(b(n))return t==">"?"tag":t=="/"&&e.eat(">")?(l(n),"tag"):"variable";if(/\d/.test(t))return e.match(/^\d*(?:\.\d*)?(?:E[+\-]?\d+)?/),"atom";if(t==="("&&e.eat(":"))return s(n,{type:"comment"}),p(e,n,w);if(!c&&(t==='"'||t==="'"))return p(e,n,v(t));if(t==="$")return p(e,n,I);if(t===":"&&e.eat("="))return"keyword";if(t==="(")return s(n,{type:"paren"}),null;if(t===")")return l(n),null;if(t==="[")return s(n,{type:"bracket"}),null;if(t==="]")return l(n),null;var o=h.propertyIsEnumerable(t)&&h[t];if(c&&t==='"')for(;e.next()!=='"';);if(c&&t==="'")for(;e.next()!=="'";);o||e.eatWhile(/[\w\$_-]/);var d=e.eat(":");!e.eat(":")&&d&&e.eatWhile(/[\w\$_-]/),e.match(/^[ \t]*\(/,!1)&&(i=!0);var f=e.current();return o=h.propertyIsEnumerable(f)&&h[f],i&&!o&&(o={type:"function_call",style:"def"}),A(n)?(l(n),"variable"):((f=="element"||f=="attribute"||o.type=="axis_specifier")&&s(n,{type:"xmlconstructor"}),o?o.style:"variable")}}function w(e,n){for(var t=!1,i=!1,c=0,a;a=e.next();){if(a==")"&&t)if(c>0)c--;else{l(n);break}else a==":"&&i&&c++;t=a==":",i=a=="("}return"comment"}function v(e,n){return function(t,i){var c;if(D(i)&&t.current()==e)return l(i),n&&(i.tokenize=n),"string";if(s(i,{type:"string",name:e,tokenize:v(e,n)}),t.match("{",!1)&&x(i))return i.tokenize=u,"string";for(;c=t.next();)if(c==e){l(i),n&&(i.tokenize=n);break}else if(t.match("{",!1)&&x(i))return i.tokenize=u,"string";return"string"}}function I(e,n){var t=/[\w\$_-]/;if(e.eat('"')){for(;e.next()!=='"';);e.eat(":")}else e.eatWhile(t),e.match(":=",!1)||e.eat(":");return e.eatWhile(t),n.tokenize=u,"variable"}function T(e,n){return function(t,i){if(t.eatSpace(),n&&t.eat(">"))return l(i),i.tokenize=u,"tag";if(t.eat("/")||s(i,{type:"tag",name:e,tokenize:u}),t.eat(">"))i.tokenize=u;else return i.tokenize=k,"tag";return"tag"}}function k(e,n){var t=e.next();return t=="/"&&e.eat(">")?(x(n)&&l(n),b(n)&&l(n),"tag"):t==">"?(x(n)&&l(n),"tag"):t=="="?null:t=='"'||t=="'"?p(e,n,v(t,k)):(x(n)||s(n,{type:"attribute",tokenize:k}),e.eat(/[a-zA-Z_:]/),e.eatWhile(/[-a-zA-Z0-9_:.]/),e.eatSpace(),(e.match(">",!1)||e.match("/",!1))&&(l(n),n.tokenize=u),"attribute")}function S(e,n){for(var t;t=e.next();)if(t=="-"&&e.match("->",!0))return n.tokenize=u,"comment"}function N(e,n){for(var t;t=e.next();)if(t=="]"&&e.match("]",!0))return n.tokenize=u,"comment"}function E(e,n){for(var t;t=e.next();)if(t=="?"&&e.match(">",!0))return n.tokenize=u,"processingInstruction"}function b(e){return y(e,"tag")}function x(e){return y(e,"attribute")}function A(e){return y(e,"xmlconstructor")}function D(e){return y(e,"string")}function _(e){return e.current()==='"'?e.match(/^[^\"]+\"\:/,!1):e.current()==="'"?e.match(/^[^\"]+\'\:/,!1):!1}function y(e,n){return e.stack.length&&e.stack[e.stack.length-1].type==n}function s(e,n){e.stack.push(n)}function l(e){e.stack.pop();var n=e.stack.length&&e.stack[e.stack.length-1].tokenize;e.tokenize=n||u}const C={startState:function(){return{tokenize:u,cc:[],stack:[]}},token:function(e,n){if(e.eatSpace())return null;var t=n.tokenize(e,n);return t},languageData:{commentTokens:{block:{open:"(:",close:":)"}}}};export{C as xQuery};
+var keywords = function() {
+  function kw(type) {
+    return { type, style: "keyword" };
+  }
+  var operator = kw("operator"), atom = { type: "atom", style: "atom" }, punctuation = { type: "punctuation", style: null }, qualifier = { type: "axis_specifier", style: "qualifier" };
+  var kwObj = {
+    ",": punctuation
+  };
+  var basic = [
+    "after",
+    "all",
+    "allowing",
+    "ancestor",
+    "ancestor-or-self",
+    "any",
+    "array",
+    "as",
+    "ascending",
+    "at",
+    "attribute",
+    "base-uri",
+    "before",
+    "boundary-space",
+    "by",
+    "case",
+    "cast",
+    "castable",
+    "catch",
+    "child",
+    "collation",
+    "comment",
+    "construction",
+    "contains",
+    "content",
+    "context",
+    "copy",
+    "copy-namespaces",
+    "count",
+    "decimal-format",
+    "declare",
+    "default",
+    "delete",
+    "descendant",
+    "descendant-or-self",
+    "descending",
+    "diacritics",
+    "different",
+    "distance",
+    "document",
+    "document-node",
+    "element",
+    "else",
+    "empty",
+    "empty-sequence",
+    "encoding",
+    "end",
+    "entire",
+    "every",
+    "exactly",
+    "except",
+    "external",
+    "first",
+    "following",
+    "following-sibling",
+    "for",
+    "from",
+    "ftand",
+    "ftnot",
+    "ft-option",
+    "ftor",
+    "function",
+    "fuzzy",
+    "greatest",
+    "group",
+    "if",
+    "import",
+    "in",
+    "inherit",
+    "insensitive",
+    "insert",
+    "instance",
+    "intersect",
+    "into",
+    "invoke",
+    "is",
+    "item",
+    "language",
+    "last",
+    "lax",
+    "least",
+    "let",
+    "levels",
+    "lowercase",
+    "map",
+    "modify",
+    "module",
+    "most",
+    "namespace",
+    "next",
+    "no",
+    "node",
+    "nodes",
+    "no-inherit",
+    "no-preserve",
+    "not",
+    "occurs",
+    "of",
+    "only",
+    "option",
+    "order",
+    "ordered",
+    "ordering",
+    "paragraph",
+    "paragraphs",
+    "parent",
+    "phrase",
+    "preceding",
+    "preceding-sibling",
+    "preserve",
+    "previous",
+    "processing-instruction",
+    "relationship",
+    "rename",
+    "replace",
+    "return",
+    "revalidation",
+    "same",
+    "satisfies",
+    "schema",
+    "schema-attribute",
+    "schema-element",
+    "score",
+    "self",
+    "sensitive",
+    "sentence",
+    "sentences",
+    "sequence",
+    "skip",
+    "sliding",
+    "some",
+    "stable",
+    "start",
+    "stemming",
+    "stop",
+    "strict",
+    "strip",
+    "switch",
+    "text",
+    "then",
+    "thesaurus",
+    "times",
+    "to",
+    "transform",
+    "treat",
+    "try",
+    "tumbling",
+    "type",
+    "typeswitch",
+    "union",
+    "unordered",
+    "update",
+    "updating",
+    "uppercase",
+    "using",
+    "validate",
+    "value",
+    "variable",
+    "version",
+    "weight",
+    "when",
+    "where",
+    "wildcards",
+    "window",
+    "with",
+    "without",
+    "word",
+    "words",
+    "xquery"
+  ];
+  for (var i = 0, l = basic.length; i < l; i++) {
+    kwObj[basic[i]] = kw(basic[i]);
+  }
+  var types = [
+    "xs:anyAtomicType",
+    "xs:anySimpleType",
+    "xs:anyType",
+    "xs:anyURI",
+    "xs:base64Binary",
+    "xs:boolean",
+    "xs:byte",
+    "xs:date",
+    "xs:dateTime",
+    "xs:dateTimeStamp",
+    "xs:dayTimeDuration",
+    "xs:decimal",
+    "xs:double",
+    "xs:duration",
+    "xs:ENTITIES",
+    "xs:ENTITY",
+    "xs:float",
+    "xs:gDay",
+    "xs:gMonth",
+    "xs:gMonthDay",
+    "xs:gYear",
+    "xs:gYearMonth",
+    "xs:hexBinary",
+    "xs:ID",
+    "xs:IDREF",
+    "xs:IDREFS",
+    "xs:int",
+    "xs:integer",
+    "xs:item",
+    "xs:java",
+    "xs:language",
+    "xs:long",
+    "xs:Name",
+    "xs:NCName",
+    "xs:negativeInteger",
+    "xs:NMTOKEN",
+    "xs:NMTOKENS",
+    "xs:nonNegativeInteger",
+    "xs:nonPositiveInteger",
+    "xs:normalizedString",
+    "xs:NOTATION",
+    "xs:numeric",
+    "xs:positiveInteger",
+    "xs:precisionDecimal",
+    "xs:QName",
+    "xs:short",
+    "xs:string",
+    "xs:time",
+    "xs:token",
+    "xs:unsignedByte",
+    "xs:unsignedInt",
+    "xs:unsignedLong",
+    "xs:unsignedShort",
+    "xs:untyped",
+    "xs:untypedAtomic",
+    "xs:yearMonthDuration"
+  ];
+  for (var i = 0, l = types.length; i < l; i++) {
+    kwObj[types[i]] = atom;
+  }
+  var operators = ["eq", "ne", "lt", "le", "gt", "ge", ":=", "=", ">", ">=", "<", "<=", ".", "|", "?", "and", "or", "div", "idiv", "mod", "*", "/", "+", "-"];
+  for (var i = 0, l = operators.length; i < l; i++) {
+    kwObj[operators[i]] = operator;
+  }
+  var axis_specifiers = [
+    "self::",
+    "attribute::",
+    "child::",
+    "descendant::",
+    "descendant-or-self::",
+    "parent::",
+    "ancestor::",
+    "ancestor-or-self::",
+    "following::",
+    "preceding::",
+    "following-sibling::",
+    "preceding-sibling::"
+  ];
+  for (var i = 0, l = axis_specifiers.length; i < l; i++) {
+    kwObj[axis_specifiers[i]] = qualifier;
+  }
+  return kwObj;
+}();
+function chain(stream, state, f) {
+  state.tokenize = f;
+  return f(stream, state);
+}
+function tokenBase(stream, state) {
+  var ch = stream.next(), mightBeFunction = false, isEQName = isEQNameAhead(stream);
+  if (ch == "<") {
+    if (stream.match("!--", true))
+      return chain(stream, state, tokenXMLComment);
+    if (stream.match("![CDATA", false)) {
+      state.tokenize = tokenCDATA;
+      return "tag";
+    }
+    if (stream.match("?", false)) {
+      return chain(stream, state, tokenPreProcessing);
+    }
+    var isclose = stream.eat("/");
+    stream.eatSpace();
+    var tagName = "", c;
+    while (c = stream.eat(/[^\s\u00a0=<>\"\'\/?]/))
+      tagName += c;
+    return chain(stream, state, tokenTag(tagName, isclose));
+  } else if (ch == "{") {
+    pushStateStack(state, { type: "codeblock" });
+    return null;
+  } else if (ch == "}") {
+    popStateStack(state);
+    return null;
+  } else if (isInXmlBlock(state)) {
+    if (ch == ">")
+      return "tag";
+    else if (ch == "/" && stream.eat(">")) {
+      popStateStack(state);
+      return "tag";
+    } else
+      return "variable";
+  } else if (/\d/.test(ch)) {
+    stream.match(/^\d*(?:\.\d*)?(?:E[+\-]?\d+)?/);
+    return "atom";
+  } else if (ch === "(" && stream.eat(":")) {
+    pushStateStack(state, { type: "comment" });
+    return chain(stream, state, tokenComment);
+  } else if (!isEQName && (ch === '"' || ch === "'"))
+    return chain(stream, state, tokenString(ch));
+  else if (ch === "$") {
+    return chain(stream, state, tokenVariable);
+  } else if (ch === ":" && stream.eat("=")) {
+    return "keyword";
+  } else if (ch === "(") {
+    pushStateStack(state, { type: "paren" });
+    return null;
+  } else if (ch === ")") {
+    popStateStack(state);
+    return null;
+  } else if (ch === "[") {
+    pushStateStack(state, { type: "bracket" });
+    return null;
+  } else if (ch === "]") {
+    popStateStack(state);
+    return null;
+  } else {
+    var known = keywords.propertyIsEnumerable(ch) && keywords[ch];
+    if (isEQName && ch === '"')
+      while (stream.next() !== '"') {
+      }
+    if (isEQName && ch === "'")
+      while (stream.next() !== "'") {
+      }
+    if (!known)
+      stream.eatWhile(/[\w\$_-]/);
+    var foundColon = stream.eat(":");
+    if (!stream.eat(":") && foundColon) {
+      stream.eatWhile(/[\w\$_-]/);
+    }
+    if (stream.match(/^[ \t]*\(/, false)) {
+      mightBeFunction = true;
+    }
+    var word = stream.current();
+    known = keywords.propertyIsEnumerable(word) && keywords[word];
+    if (mightBeFunction && !known)
+      known = { type: "function_call", style: "def" };
+    if (isInXmlConstructor(state)) {
+      popStateStack(state);
+      return "variable";
+    }
+    if (word == "element" || word == "attribute" || known.type == "axis_specifier")
+      pushStateStack(state, { type: "xmlconstructor" });
+    return known ? known.style : "variable";
+  }
+}
+function tokenComment(stream, state) {
+  var maybeEnd = false, maybeNested = false, nestedCount = 0, ch;
+  while (ch = stream.next()) {
+    if (ch == ")" && maybeEnd) {
+      if (nestedCount > 0)
+        nestedCount--;
+      else {
+        popStateStack(state);
+        break;
+      }
+    } else if (ch == ":" && maybeNested) {
+      nestedCount++;
+    }
+    maybeEnd = ch == ":";
+    maybeNested = ch == "(";
+  }
+  return "comment";
+}
+function tokenString(quote, f) {
+  return function(stream, state) {
+    var ch;
+    if (isInString(state) && stream.current() == quote) {
+      popStateStack(state);
+      if (f)
+        state.tokenize = f;
+      return "string";
+    }
+    pushStateStack(state, { type: "string", name: quote, tokenize: tokenString(quote, f) });
+    if (stream.match("{", false) && isInXmlAttributeBlock(state)) {
+      state.tokenize = tokenBase;
+      return "string";
+    }
+    while (ch = stream.next()) {
+      if (ch == quote) {
+        popStateStack(state);
+        if (f)
+          state.tokenize = f;
+        break;
+      } else {
+        if (stream.match("{", false) && isInXmlAttributeBlock(state)) {
+          state.tokenize = tokenBase;
+          return "string";
+        }
+      }
+    }
+    return "string";
+  };
+}
+function tokenVariable(stream, state) {
+  var isVariableChar = /[\w\$_-]/;
+  if (stream.eat('"')) {
+    while (stream.next() !== '"') {
+    }
+    stream.eat(":");
+  } else {
+    stream.eatWhile(isVariableChar);
+    if (!stream.match(":=", false))
+      stream.eat(":");
+  }
+  stream.eatWhile(isVariableChar);
+  state.tokenize = tokenBase;
+  return "variable";
+}
+function tokenTag(name, isclose) {
+  return function(stream, state) {
+    stream.eatSpace();
+    if (isclose && stream.eat(">")) {
+      popStateStack(state);
+      state.tokenize = tokenBase;
+      return "tag";
+    }
+    if (!stream.eat("/"))
+      pushStateStack(state, { type: "tag", name, tokenize: tokenBase });
+    if (!stream.eat(">")) {
+      state.tokenize = tokenAttribute;
+      return "tag";
+    } else {
+      state.tokenize = tokenBase;
+    }
+    return "tag";
+  };
+}
+function tokenAttribute(stream, state) {
+  var ch = stream.next();
+  if (ch == "/" && stream.eat(">")) {
+    if (isInXmlAttributeBlock(state))
+      popStateStack(state);
+    if (isInXmlBlock(state))
+      popStateStack(state);
+    return "tag";
+  }
+  if (ch == ">") {
+    if (isInXmlAttributeBlock(state))
+      popStateStack(state);
+    return "tag";
+  }
+  if (ch == "=")
+    return null;
+  if (ch == '"' || ch == "'")
+    return chain(stream, state, tokenString(ch, tokenAttribute));
+  if (!isInXmlAttributeBlock(state))
+    pushStateStack(state, { type: "attribute", tokenize: tokenAttribute });
+  stream.eat(/[a-zA-Z_:]/);
+  stream.eatWhile(/[-a-zA-Z0-9_:.]/);
+  stream.eatSpace();
+  if (stream.match(">", false) || stream.match("/", false)) {
+    popStateStack(state);
+    state.tokenize = tokenBase;
+  }
+  return "attribute";
+}
+function tokenXMLComment(stream, state) {
+  var ch;
+  while (ch = stream.next()) {
+    if (ch == "-" && stream.match("->", true)) {
+      state.tokenize = tokenBase;
+      return "comment";
+    }
+  }
+}
+function tokenCDATA(stream, state) {
+  var ch;
+  while (ch = stream.next()) {
+    if (ch == "]" && stream.match("]", true)) {
+      state.tokenize = tokenBase;
+      return "comment";
+    }
+  }
+}
+function tokenPreProcessing(stream, state) {
+  var ch;
+  while (ch = stream.next()) {
+    if (ch == "?" && stream.match(">", true)) {
+      state.tokenize = tokenBase;
+      return "processingInstruction";
+    }
+  }
+}
+function isInXmlBlock(state) {
+  return isIn(state, "tag");
+}
+function isInXmlAttributeBlock(state) {
+  return isIn(state, "attribute");
+}
+function isInXmlConstructor(state) {
+  return isIn(state, "xmlconstructor");
+}
+function isInString(state) {
+  return isIn(state, "string");
+}
+function isEQNameAhead(stream) {
+  if (stream.current() === '"')
+    return stream.match(/^[^\"]+\"\:/, false);
+  else if (stream.current() === "'")
+    return stream.match(/^[^\"]+\'\:/, false);
+  else
+    return false;
+}
+function isIn(state, type) {
+  return state.stack.length && state.stack[state.stack.length - 1].type == type;
+}
+function pushStateStack(state, newState) {
+  state.stack.push(newState);
+}
+function popStateStack(state) {
+  state.stack.pop();
+  var reinstateTokenize = state.stack.length && state.stack[state.stack.length - 1].tokenize;
+  state.tokenize = reinstateTokenize || tokenBase;
+}
+const xQuery = {
+  startState: function() {
+    return {
+      tokenize: tokenBase,
+      cc: [],
+      stack: []
+    };
+  },
+  token: function(stream, state) {
+    if (stream.eatSpace())
+      return null;
+    var style = state.tokenize(stream, state);
+    return style;
+  },
+  languageData: {
+    commentTokens: { block: { open: "(:", close: ":)" } }
+  }
+};
+export {
+  xQuery
+};
+//# sourceMappingURL=xquery.4ff84527.js.map

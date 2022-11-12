@@ -1,1 +1,25 @@
-var o={"+":"inserted","-":"deleted","@":"meta"};const r={token:function(n){var e=n.string.search(/[\t ]+?$/);if(!n.sol()||e===0)return n.skipToEnd(),("error "+(o[n.string.charAt(0)]||"")).replace(/ $/,"");var i=o[n.peek()]||n.skipToEnd();return e===-1?n.skipToEnd():n.pos=e,i}};export{r as diff};
+var TOKEN_NAMES = {
+  "+": "inserted",
+  "-": "deleted",
+  "@": "meta"
+};
+const diff = {
+  token: function(stream) {
+    var tw_pos = stream.string.search(/[\t ]+?$/);
+    if (!stream.sol() || tw_pos === 0) {
+      stream.skipToEnd();
+      return ("error " + (TOKEN_NAMES[stream.string.charAt(0)] || "")).replace(/ $/, "");
+    }
+    var token_name = TOKEN_NAMES[stream.peek()] || stream.skipToEnd();
+    if (tw_pos === -1) {
+      stream.skipToEnd();
+    } else {
+      stream.pos = tw_pos;
+    }
+    return token_name;
+  }
+};
+export {
+  diff
+};
+//# sourceMappingURL=diff.67d66c7a.js.map

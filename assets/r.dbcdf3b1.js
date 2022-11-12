@@ -1,1 +1,197 @@
-function f(e){for(var n={},r=0;r<e.length;++r)n[e[r]]=!0;return n}var b=["NULL","NA","Inf","NaN","NA_integer_","NA_real_","NA_complex_","NA_character_","TRUE","FALSE"],g=["list","quote","bquote","eval","return","call","parse","deparse"],s=["if","else","repeat","while","function","for","in","next","break"],y=["if","else","repeat","while","function","for"],h=f(b),N=f(g),m=f(s),A=f(y),k=/[+\-*\/^<>=!&|~$:]/,t;function p(e,n){t=null;var r=e.next();if(r=="#")return e.skipToEnd(),"comment";if(r=="0"&&e.eat("x"))return e.eatWhile(/[\da-f]/i),"number";if(r=="."&&e.eat(/\d/))return e.match(/\d*(?:e[+\-]?\d+)?/),"number";if(/\d/.test(r))return e.match(/\d*(?:\.\d+)?(?:e[+\-]\d+)?L?/),"number";if(r=="'"||r=='"')return n.tokenize=E(r),"string";if(r=="`")return e.match(/[^`]+`/),"string.special";if(r=="."&&e.match(/.(?:[.]|\d+)/))return"keyword";if(/[a-zA-Z\.]/.test(r)){e.eatWhile(/[\w\.]/);var i=e.current();return h.propertyIsEnumerable(i)?"atom":m.propertyIsEnumerable(i)?(A.propertyIsEnumerable(i)&&!e.match(/\s*if(\s+|$)/,!1)&&(t="block"),"keyword"):N.propertyIsEnumerable(i)?"builtin":"variable"}else return r=="%"?(e.skipTo("%")&&e.next(),"variableName.special"):r=="<"&&e.eat("-")||r=="<"&&e.match("<-")||r=="-"&&e.match(/>>?/)||r=="="&&n.ctx.argList?"operator":k.test(r)?(r=="$"||e.eatWhile(k),"operator"):/[\(\){}\[\];]/.test(r)?(t=r,r==";"?"punctuation":null):null}function E(e){return function(n,r){if(n.eat("\\")){var i=n.next();return i=="x"?n.match(/^[a-f0-9]{2}/i):(i=="u"||i=="U")&&n.eat("{")&&n.skipTo("}")?n.next():i=="u"?n.match(/^[a-f0-9]{4}/i):i=="U"?n.match(/^[a-f0-9]{8}/i):/[0-7]/.test(i)&&n.match(/^[0-7]{1,2}/),"string.special"}else{for(var l;(l=n.next())!=null;){if(l==e){r.tokenize=p;break}if(l=="\\"){n.backUp(1);break}}return"string"}}}var v=1,u=2,c=4;function o(e,n,r){e.ctx={type:n,indent:e.indent,flags:0,column:r.column(),prev:e.ctx}}function x(e,n){var r=e.ctx;e.ctx={type:r.type,indent:r.indent,flags:r.flags|n,column:r.column,prev:r.prev}}function a(e){e.indent=e.ctx.indent,e.ctx=e.ctx.prev}const I={startState:function(e){return{tokenize:p,ctx:{type:"top",indent:-e,flags:u},indent:0,afterIdent:!1}},token:function(e,n){if(e.sol()&&((n.ctx.flags&3)==0&&(n.ctx.flags|=u),n.ctx.flags&c&&a(n),n.indent=e.indentation()),e.eatSpace())return null;var r=n.tokenize(e,n);return r!="comment"&&(n.ctx.flags&u)==0&&x(n,v),(t==";"||t=="{"||t=="}")&&n.ctx.type=="block"&&a(n),t=="{"?o(n,"}",e):t=="("?(o(n,")",e),n.afterIdent&&(n.ctx.argList=!0)):t=="["?o(n,"]",e):t=="block"?o(n,"block",e):t==n.ctx.type?a(n):n.ctx.type=="block"&&r!="comment"&&x(n,c),n.afterIdent=r=="variable"||r=="keyword",r},indent:function(e,n,r){if(e.tokenize!=p)return 0;var i=n&&n.charAt(0),l=e.ctx,d=i==l.type;return l.flags&c&&(l=l.prev),l.type=="block"?l.indent+(i=="{"?0:r.unit):l.flags&v?l.column+(d?0:1):l.indent+(d?0:r.unit)},languageData:{wordChars:".",commentTokens:{line:"#"},autocomplete:b.concat(g,s)}};export{I as r};
+function wordObj(words) {
+  var res = {};
+  for (var i = 0; i < words.length; ++i)
+    res[words[i]] = true;
+  return res;
+}
+var commonAtoms = ["NULL", "NA", "Inf", "NaN", "NA_integer_", "NA_real_", "NA_complex_", "NA_character_", "TRUE", "FALSE"];
+var commonBuiltins = ["list", "quote", "bquote", "eval", "return", "call", "parse", "deparse"];
+var commonKeywords = ["if", "else", "repeat", "while", "function", "for", "in", "next", "break"];
+var commonBlockKeywords = ["if", "else", "repeat", "while", "function", "for"];
+var atoms = wordObj(commonAtoms);
+var builtins = wordObj(commonBuiltins);
+var keywords = wordObj(commonKeywords);
+var blockkeywords = wordObj(commonBlockKeywords);
+var opChars = /[+\-*\/^<>=!&|~$:]/;
+var curPunc;
+function tokenBase(stream, state) {
+  curPunc = null;
+  var ch = stream.next();
+  if (ch == "#") {
+    stream.skipToEnd();
+    return "comment";
+  } else if (ch == "0" && stream.eat("x")) {
+    stream.eatWhile(/[\da-f]/i);
+    return "number";
+  } else if (ch == "." && stream.eat(/\d/)) {
+    stream.match(/\d*(?:e[+\-]?\d+)?/);
+    return "number";
+  } else if (/\d/.test(ch)) {
+    stream.match(/\d*(?:\.\d+)?(?:e[+\-]\d+)?L?/);
+    return "number";
+  } else if (ch == "'" || ch == '"') {
+    state.tokenize = tokenString(ch);
+    return "string";
+  } else if (ch == "`") {
+    stream.match(/[^`]+`/);
+    return "string.special";
+  } else if (ch == "." && stream.match(/.(?:[.]|\d+)/)) {
+    return "keyword";
+  } else if (/[a-zA-Z\.]/.test(ch)) {
+    stream.eatWhile(/[\w\.]/);
+    var word = stream.current();
+    if (atoms.propertyIsEnumerable(word))
+      return "atom";
+    if (keywords.propertyIsEnumerable(word)) {
+      if (blockkeywords.propertyIsEnumerable(word) && !stream.match(/\s*if(\s+|$)/, false))
+        curPunc = "block";
+      return "keyword";
+    }
+    if (builtins.propertyIsEnumerable(word))
+      return "builtin";
+    return "variable";
+  } else if (ch == "%") {
+    if (stream.skipTo("%"))
+      stream.next();
+    return "variableName.special";
+  } else if (ch == "<" && stream.eat("-") || ch == "<" && stream.match("<-") || ch == "-" && stream.match(/>>?/)) {
+    return "operator";
+  } else if (ch == "=" && state.ctx.argList) {
+    return "operator";
+  } else if (opChars.test(ch)) {
+    if (ch == "$")
+      return "operator";
+    stream.eatWhile(opChars);
+    return "operator";
+  } else if (/[\(\){}\[\];]/.test(ch)) {
+    curPunc = ch;
+    if (ch == ";")
+      return "punctuation";
+    return null;
+  } else {
+    return null;
+  }
+}
+function tokenString(quote) {
+  return function(stream, state) {
+    if (stream.eat("\\")) {
+      var ch = stream.next();
+      if (ch == "x")
+        stream.match(/^[a-f0-9]{2}/i);
+      else if ((ch == "u" || ch == "U") && stream.eat("{") && stream.skipTo("}"))
+        stream.next();
+      else if (ch == "u")
+        stream.match(/^[a-f0-9]{4}/i);
+      else if (ch == "U")
+        stream.match(/^[a-f0-9]{8}/i);
+      else if (/[0-7]/.test(ch))
+        stream.match(/^[0-7]{1,2}/);
+      return "string.special";
+    } else {
+      var next;
+      while ((next = stream.next()) != null) {
+        if (next == quote) {
+          state.tokenize = tokenBase;
+          break;
+        }
+        if (next == "\\") {
+          stream.backUp(1);
+          break;
+        }
+      }
+      return "string";
+    }
+  };
+}
+var ALIGN_YES = 1, ALIGN_NO = 2, BRACELESS = 4;
+function push(state, type, stream) {
+  state.ctx = {
+    type,
+    indent: state.indent,
+    flags: 0,
+    column: stream.column(),
+    prev: state.ctx
+  };
+}
+function setFlag(state, flag) {
+  var ctx = state.ctx;
+  state.ctx = {
+    type: ctx.type,
+    indent: ctx.indent,
+    flags: ctx.flags | flag,
+    column: ctx.column,
+    prev: ctx.prev
+  };
+}
+function pop(state) {
+  state.indent = state.ctx.indent;
+  state.ctx = state.ctx.prev;
+}
+const r = {
+  startState: function(indentUnit) {
+    return {
+      tokenize: tokenBase,
+      ctx: {
+        type: "top",
+        indent: -indentUnit,
+        flags: ALIGN_NO
+      },
+      indent: 0,
+      afterIdent: false
+    };
+  },
+  token: function(stream, state) {
+    if (stream.sol()) {
+      if ((state.ctx.flags & 3) == 0)
+        state.ctx.flags |= ALIGN_NO;
+      if (state.ctx.flags & BRACELESS)
+        pop(state);
+      state.indent = stream.indentation();
+    }
+    if (stream.eatSpace())
+      return null;
+    var style = state.tokenize(stream, state);
+    if (style != "comment" && (state.ctx.flags & ALIGN_NO) == 0)
+      setFlag(state, ALIGN_YES);
+    if ((curPunc == ";" || curPunc == "{" || curPunc == "}") && state.ctx.type == "block")
+      pop(state);
+    if (curPunc == "{")
+      push(state, "}", stream);
+    else if (curPunc == "(") {
+      push(state, ")", stream);
+      if (state.afterIdent)
+        state.ctx.argList = true;
+    } else if (curPunc == "[")
+      push(state, "]", stream);
+    else if (curPunc == "block")
+      push(state, "block", stream);
+    else if (curPunc == state.ctx.type)
+      pop(state);
+    else if (state.ctx.type == "block" && style != "comment")
+      setFlag(state, BRACELESS);
+    state.afterIdent = style == "variable" || style == "keyword";
+    return style;
+  },
+  indent: function(state, textAfter, cx) {
+    if (state.tokenize != tokenBase)
+      return 0;
+    var firstChar = textAfter && textAfter.charAt(0), ctx = state.ctx, closing = firstChar == ctx.type;
+    if (ctx.flags & BRACELESS)
+      ctx = ctx.prev;
+    if (ctx.type == "block")
+      return ctx.indent + (firstChar == "{" ? 0 : cx.unit);
+    else if (ctx.flags & ALIGN_YES)
+      return ctx.column + (closing ? 0 : 1);
+    else
+      return ctx.indent + (closing ? 0 : cx.unit);
+  },
+  languageData: {
+    wordChars: ".",
+    commentTokens: { line: "#" },
+    autocomplete: commonAtoms.concat(commonBuiltins, commonKeywords)
+  }
+};
+export {
+  r
+};
+//# sourceMappingURL=r.dbcdf3b1.js.map

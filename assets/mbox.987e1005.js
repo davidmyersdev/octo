@@ -1,1 +1,117 @@
-var o=["From","Sender","Reply-To","To","Cc","Bcc","Message-ID","In-Reply-To","References","Resent-From","Resent-Sender","Resent-To","Resent-Cc","Resent-Bcc","Resent-Message-ID","Return-Path","Received"],l=["Date","Subject","Comments","Keywords","Resent-Date"],u=/^[ \t]/,d=/^From /,f=new RegExp("^("+o.join("|")+"): "),c=new RegExp("^("+l.join("|")+"): "),t=/^[^:]+:/,p=/^[^ ]+@[^ ]+/,m=/^.*?(?=[^ ]+?@[^ ]+)/,H=/^<.*?>/,v=/^.*?(?=<.*>)/;function h(e){return e==="Subject"?"header":"string"}function R(e,r){if(e.sol()){if(r.inSeparator=!1,r.inHeader&&e.match(u))return null;if(r.inHeader=!1,r.header=null,e.match(d))return r.inHeaders=!0,r.inSeparator=!0,"atom";var n,i=!1;return(n=e.match(c))||(i=!0)&&(n=e.match(f))?(r.inHeaders=!0,r.inHeader=!0,r.emailPermitted=i,r.header=n[1],"atom"):r.inHeaders&&(n=e.match(t))?(r.inHeader=!0,r.emailPermitted=!0,r.header=n[1],"atom"):(r.inHeaders=!1,e.skipToEnd(),null)}if(r.inSeparator)return e.match(p)?"link":(e.match(m)||e.skipToEnd(),"atom");if(r.inHeader){var a=h(r.header);if(r.emailPermitted){if(e.match(H))return a+" link";if(e.match(v))return a}return e.skipToEnd(),a}return e.skipToEnd(),null}const k={startState:function(){return{inSeparator:!1,inHeader:!1,emailPermitted:!1,header:null,inHeaders:!1}},token:R,blankLine:function(e){e.inHeaders=e.inSeparator=e.inHeader=!1},languageData:{autocomplete:o.concat(l)}};export{k as mbox};
+var rfc2822 = [
+  "From",
+  "Sender",
+  "Reply-To",
+  "To",
+  "Cc",
+  "Bcc",
+  "Message-ID",
+  "In-Reply-To",
+  "References",
+  "Resent-From",
+  "Resent-Sender",
+  "Resent-To",
+  "Resent-Cc",
+  "Resent-Bcc",
+  "Resent-Message-ID",
+  "Return-Path",
+  "Received"
+];
+var rfc2822NoEmail = [
+  "Date",
+  "Subject",
+  "Comments",
+  "Keywords",
+  "Resent-Date"
+];
+var whitespace = /^[ \t]/;
+var separator = /^From /;
+var rfc2822Header = new RegExp("^(" + rfc2822.join("|") + "): ");
+var rfc2822HeaderNoEmail = new RegExp("^(" + rfc2822NoEmail.join("|") + "): ");
+var header = /^[^:]+:/;
+var email = /^[^ ]+@[^ ]+/;
+var untilEmail = /^.*?(?=[^ ]+?@[^ ]+)/;
+var bracketedEmail = /^<.*?>/;
+var untilBracketedEmail = /^.*?(?=<.*>)/;
+function styleForHeader(header2) {
+  if (header2 === "Subject")
+    return "header";
+  return "string";
+}
+function readToken(stream, state) {
+  if (stream.sol()) {
+    state.inSeparator = false;
+    if (state.inHeader && stream.match(whitespace)) {
+      return null;
+    } else {
+      state.inHeader = false;
+      state.header = null;
+    }
+    if (stream.match(separator)) {
+      state.inHeaders = true;
+      state.inSeparator = true;
+      return "atom";
+    }
+    var match;
+    var emailPermitted = false;
+    if ((match = stream.match(rfc2822HeaderNoEmail)) || (emailPermitted = true) && (match = stream.match(rfc2822Header))) {
+      state.inHeaders = true;
+      state.inHeader = true;
+      state.emailPermitted = emailPermitted;
+      state.header = match[1];
+      return "atom";
+    }
+    if (state.inHeaders && (match = stream.match(header))) {
+      state.inHeader = true;
+      state.emailPermitted = true;
+      state.header = match[1];
+      return "atom";
+    }
+    state.inHeaders = false;
+    stream.skipToEnd();
+    return null;
+  }
+  if (state.inSeparator) {
+    if (stream.match(email))
+      return "link";
+    if (stream.match(untilEmail))
+      return "atom";
+    stream.skipToEnd();
+    return "atom";
+  }
+  if (state.inHeader) {
+    var style = styleForHeader(state.header);
+    if (state.emailPermitted) {
+      if (stream.match(bracketedEmail))
+        return style + " link";
+      if (stream.match(untilBracketedEmail))
+        return style;
+    }
+    stream.skipToEnd();
+    return style;
+  }
+  stream.skipToEnd();
+  return null;
+}
+const mbox = {
+  startState: function() {
+    return {
+      inSeparator: false,
+      inHeader: false,
+      emailPermitted: false,
+      header: null,
+      inHeaders: false
+    };
+  },
+  token: readToken,
+  blankLine: function(state) {
+    state.inHeaders = state.inSeparator = state.inHeader = false;
+  },
+  languageData: {
+    autocomplete: rfc2822.concat(rfc2822NoEmail)
+  }
+};
+export {
+  mbox
+};
+//# sourceMappingURL=mbox.987e1005.js.map

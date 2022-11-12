@@ -1,1 +1,59 @@
-function t(e){var r=e.match(/^\s*\S/);return e.skipToEnd(),r?"error":null}const i={token:function(e,r){var n;if(r.state=="top")return e.sol()&&(n=e.match(/^-----BEGIN (.*)?-----\s*$/))?(r.state="headers",r.type=n[1],"tag"):t(e);if(r.state=="headers"){if(e.sol()&&e.match(/^\w+:/))return r.state="header","atom";var o=t(e);return o&&(r.state="body"),o}else{if(r.state=="header")return e.skipToEnd(),r.state="headers","string";if(r.state=="body")return e.sol()&&(n=e.match(/^-----END (.*)?-----\s*$/))?n[1]!=r.type?"error":(r.state="end","tag"):e.eatWhile(/[A-Za-z0-9+\/=]/)?null:(e.next(),"error");if(r.state=="end")return t(e)}},blankLine:function(e){e.state=="headers"&&(e.state="body")},startState:function(){return{state:"top",type:null}}};export{i as asciiArmor};
+function errorIfNotEmpty(stream) {
+  var nonWS = stream.match(/^\s*\S/);
+  stream.skipToEnd();
+  return nonWS ? "error" : null;
+}
+const asciiArmor = {
+  token: function(stream, state) {
+    var m;
+    if (state.state == "top") {
+      if (stream.sol() && (m = stream.match(/^-----BEGIN (.*)?-----\s*$/))) {
+        state.state = "headers";
+        state.type = m[1];
+        return "tag";
+      }
+      return errorIfNotEmpty(stream);
+    } else if (state.state == "headers") {
+      if (stream.sol() && stream.match(/^\w+:/)) {
+        state.state = "header";
+        return "atom";
+      } else {
+        var result = errorIfNotEmpty(stream);
+        if (result)
+          state.state = "body";
+        return result;
+      }
+    } else if (state.state == "header") {
+      stream.skipToEnd();
+      state.state = "headers";
+      return "string";
+    } else if (state.state == "body") {
+      if (stream.sol() && (m = stream.match(/^-----END (.*)?-----\s*$/))) {
+        if (m[1] != state.type)
+          return "error";
+        state.state = "end";
+        return "tag";
+      } else {
+        if (stream.eatWhile(/[A-Za-z0-9+\/=]/)) {
+          return null;
+        } else {
+          stream.next();
+          return "error";
+        }
+      }
+    } else if (state.state == "end") {
+      return errorIfNotEmpty(stream);
+    }
+  },
+  blankLine: function(state) {
+    if (state.state == "headers")
+      state.state = "body";
+  },
+  startState: function() {
+    return { state: "top", type: null };
+  }
+};
+export {
+  asciiArmor
+};
+//# sourceMappingURL=asciiarmor.36ede709.js.map

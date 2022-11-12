@@ -1,1 +1,294 @@
-function v(r){var u=[],b="",o={".abort":"builtin",".align":"builtin",".altmacro":"builtin",".ascii":"builtin",".asciz":"builtin",".balign":"builtin",".balignw":"builtin",".balignl":"builtin",".bundle_align_mode":"builtin",".bundle_lock":"builtin",".bundle_unlock":"builtin",".byte":"builtin",".cfi_startproc":"builtin",".comm":"builtin",".data":"builtin",".def":"builtin",".desc":"builtin",".dim":"builtin",".double":"builtin",".eject":"builtin",".else":"builtin",".elseif":"builtin",".end":"builtin",".endef":"builtin",".endfunc":"builtin",".endif":"builtin",".equ":"builtin",".equiv":"builtin",".eqv":"builtin",".err":"builtin",".error":"builtin",".exitm":"builtin",".extern":"builtin",".fail":"builtin",".file":"builtin",".fill":"builtin",".float":"builtin",".func":"builtin",".global":"builtin",".gnu_attribute":"builtin",".hidden":"builtin",".hword":"builtin",".ident":"builtin",".if":"builtin",".incbin":"builtin",".include":"builtin",".int":"builtin",".internal":"builtin",".irp":"builtin",".irpc":"builtin",".lcomm":"builtin",".lflags":"builtin",".line":"builtin",".linkonce":"builtin",".list":"builtin",".ln":"builtin",".loc":"builtin",".loc_mark_labels":"builtin",".local":"builtin",".long":"builtin",".macro":"builtin",".mri":"builtin",".noaltmacro":"builtin",".nolist":"builtin",".octa":"builtin",".offset":"builtin",".org":"builtin",".p2align":"builtin",".popsection":"builtin",".previous":"builtin",".print":"builtin",".protected":"builtin",".psize":"builtin",".purgem":"builtin",".pushsection":"builtin",".quad":"builtin",".reloc":"builtin",".rept":"builtin",".sbttl":"builtin",".scl":"builtin",".section":"builtin",".set":"builtin",".short":"builtin",".single":"builtin",".size":"builtin",".skip":"builtin",".sleb128":"builtin",".space":"builtin",".stab":"builtin",".string":"builtin",".struct":"builtin",".subsection":"builtin",".symver":"builtin",".tag":"builtin",".text":"builtin",".title":"builtin",".type":"builtin",".uleb128":"builtin",".val":"builtin",".version":"builtin",".vtable_entry":"builtin",".vtable_inherit":"builtin",".warning":"builtin",".weak":"builtin",".weakref":"builtin",".word":"builtin"},i={};function p(){b="#",i.al="variable",i.ah="variable",i.ax="variable",i.eax="variableName.special",i.rax="variableName.special",i.bl="variable",i.bh="variable",i.bx="variable",i.ebx="variableName.special",i.rbx="variableName.special",i.cl="variable",i.ch="variable",i.cx="variable",i.ecx="variableName.special",i.rcx="variableName.special",i.dl="variable",i.dh="variable",i.dx="variable",i.edx="variableName.special",i.rdx="variableName.special",i.si="variable",i.esi="variableName.special",i.rsi="variableName.special",i.di="variable",i.edi="variableName.special",i.rdi="variableName.special",i.sp="variable",i.esp="variableName.special",i.rsp="variableName.special",i.bp="variable",i.ebp="variableName.special",i.rbp="variableName.special",i.ip="variable",i.eip="variableName.special",i.rip="variableName.special",i.cs="keyword",i.ds="keyword",i.ss="keyword",i.es="keyword",i.fs="keyword",i.gs="keyword"}function f(){b="@",o.syntax="builtin",i.r0="variable",i.r1="variable",i.r2="variable",i.r3="variable",i.r4="variable",i.r5="variable",i.r6="variable",i.r7="variable",i.r8="variable",i.r9="variable",i.r10="variable",i.r11="variable",i.r12="variable",i.sp="variableName.special",i.lr="variableName.special",i.pc="variableName.special",i.r13=i.sp,i.r14=i.lr,i.r15=i.pc,u.push(function(l,n){if(l==="#")return n.eatWhile(/\w/),"number"})}r==="x86"?p():(r==="arm"||r==="armv6")&&f();function d(l,n){for(var e=!1,t;(t=l.next())!=null;){if(t===n&&!e)return!1;e=!e&&t==="\\"}return e}function s(l,n){for(var e=!1,t;(t=l.next())!=null;){if(t==="/"&&e){n.tokenize=null;break}e=t==="*"}return"comment"}return{startState:function(){return{tokenize:null}},token:function(l,n){if(n.tokenize)return n.tokenize(l,n);if(l.eatSpace())return null;var e,t,a=l.next();if(a==="/"&&l.eat("*"))return n.tokenize=s,s(l,n);if(a===b)return l.skipToEnd(),"comment";if(a==='"')return d(l,'"'),"string";if(a===".")return l.eatWhile(/\w/),t=l.current().toLowerCase(),e=o[t],e||null;if(a==="=")return l.eatWhile(/\w/),"tag";if(a==="{"||a==="}")return"bracket";if(/\d/.test(a))return a==="0"&&l.eat("x")?(l.eatWhile(/[0-9a-fA-F]/),"number"):(l.eatWhile(/\d/),"number");if(/\w/.test(a))return l.eatWhile(/\w/),l.eat(":")?"tag":(t=l.current().toLowerCase(),e=i[t],e||null);for(var c=0;c<u.length;c++)if(e=u[c](a,l,n),e)return e},languageData:{commentTokens:{line:b,block:{open:"/*",close:"*/"}}}}}const m=v("x86"),k=v("arm");export{m as gas,k as gasArm};
+function mkGas(arch) {
+  var custom = [];
+  var lineCommentStartSymbol = "";
+  var directives = {
+    ".abort": "builtin",
+    ".align": "builtin",
+    ".altmacro": "builtin",
+    ".ascii": "builtin",
+    ".asciz": "builtin",
+    ".balign": "builtin",
+    ".balignw": "builtin",
+    ".balignl": "builtin",
+    ".bundle_align_mode": "builtin",
+    ".bundle_lock": "builtin",
+    ".bundle_unlock": "builtin",
+    ".byte": "builtin",
+    ".cfi_startproc": "builtin",
+    ".comm": "builtin",
+    ".data": "builtin",
+    ".def": "builtin",
+    ".desc": "builtin",
+    ".dim": "builtin",
+    ".double": "builtin",
+    ".eject": "builtin",
+    ".else": "builtin",
+    ".elseif": "builtin",
+    ".end": "builtin",
+    ".endef": "builtin",
+    ".endfunc": "builtin",
+    ".endif": "builtin",
+    ".equ": "builtin",
+    ".equiv": "builtin",
+    ".eqv": "builtin",
+    ".err": "builtin",
+    ".error": "builtin",
+    ".exitm": "builtin",
+    ".extern": "builtin",
+    ".fail": "builtin",
+    ".file": "builtin",
+    ".fill": "builtin",
+    ".float": "builtin",
+    ".func": "builtin",
+    ".global": "builtin",
+    ".gnu_attribute": "builtin",
+    ".hidden": "builtin",
+    ".hword": "builtin",
+    ".ident": "builtin",
+    ".if": "builtin",
+    ".incbin": "builtin",
+    ".include": "builtin",
+    ".int": "builtin",
+    ".internal": "builtin",
+    ".irp": "builtin",
+    ".irpc": "builtin",
+    ".lcomm": "builtin",
+    ".lflags": "builtin",
+    ".line": "builtin",
+    ".linkonce": "builtin",
+    ".list": "builtin",
+    ".ln": "builtin",
+    ".loc": "builtin",
+    ".loc_mark_labels": "builtin",
+    ".local": "builtin",
+    ".long": "builtin",
+    ".macro": "builtin",
+    ".mri": "builtin",
+    ".noaltmacro": "builtin",
+    ".nolist": "builtin",
+    ".octa": "builtin",
+    ".offset": "builtin",
+    ".org": "builtin",
+    ".p2align": "builtin",
+    ".popsection": "builtin",
+    ".previous": "builtin",
+    ".print": "builtin",
+    ".protected": "builtin",
+    ".psize": "builtin",
+    ".purgem": "builtin",
+    ".pushsection": "builtin",
+    ".quad": "builtin",
+    ".reloc": "builtin",
+    ".rept": "builtin",
+    ".sbttl": "builtin",
+    ".scl": "builtin",
+    ".section": "builtin",
+    ".set": "builtin",
+    ".short": "builtin",
+    ".single": "builtin",
+    ".size": "builtin",
+    ".skip": "builtin",
+    ".sleb128": "builtin",
+    ".space": "builtin",
+    ".stab": "builtin",
+    ".string": "builtin",
+    ".struct": "builtin",
+    ".subsection": "builtin",
+    ".symver": "builtin",
+    ".tag": "builtin",
+    ".text": "builtin",
+    ".title": "builtin",
+    ".type": "builtin",
+    ".uleb128": "builtin",
+    ".val": "builtin",
+    ".version": "builtin",
+    ".vtable_entry": "builtin",
+    ".vtable_inherit": "builtin",
+    ".warning": "builtin",
+    ".weak": "builtin",
+    ".weakref": "builtin",
+    ".word": "builtin"
+  };
+  var registers = {};
+  function x86() {
+    lineCommentStartSymbol = "#";
+    registers.al = "variable";
+    registers.ah = "variable";
+    registers.ax = "variable";
+    registers.eax = "variableName.special";
+    registers.rax = "variableName.special";
+    registers.bl = "variable";
+    registers.bh = "variable";
+    registers.bx = "variable";
+    registers.ebx = "variableName.special";
+    registers.rbx = "variableName.special";
+    registers.cl = "variable";
+    registers.ch = "variable";
+    registers.cx = "variable";
+    registers.ecx = "variableName.special";
+    registers.rcx = "variableName.special";
+    registers.dl = "variable";
+    registers.dh = "variable";
+    registers.dx = "variable";
+    registers.edx = "variableName.special";
+    registers.rdx = "variableName.special";
+    registers.si = "variable";
+    registers.esi = "variableName.special";
+    registers.rsi = "variableName.special";
+    registers.di = "variable";
+    registers.edi = "variableName.special";
+    registers.rdi = "variableName.special";
+    registers.sp = "variable";
+    registers.esp = "variableName.special";
+    registers.rsp = "variableName.special";
+    registers.bp = "variable";
+    registers.ebp = "variableName.special";
+    registers.rbp = "variableName.special";
+    registers.ip = "variable";
+    registers.eip = "variableName.special";
+    registers.rip = "variableName.special";
+    registers.cs = "keyword";
+    registers.ds = "keyword";
+    registers.ss = "keyword";
+    registers.es = "keyword";
+    registers.fs = "keyword";
+    registers.gs = "keyword";
+  }
+  function armv6() {
+    lineCommentStartSymbol = "@";
+    directives.syntax = "builtin";
+    registers.r0 = "variable";
+    registers.r1 = "variable";
+    registers.r2 = "variable";
+    registers.r3 = "variable";
+    registers.r4 = "variable";
+    registers.r5 = "variable";
+    registers.r6 = "variable";
+    registers.r7 = "variable";
+    registers.r8 = "variable";
+    registers.r9 = "variable";
+    registers.r10 = "variable";
+    registers.r11 = "variable";
+    registers.r12 = "variable";
+    registers.sp = "variableName.special";
+    registers.lr = "variableName.special";
+    registers.pc = "variableName.special";
+    registers.r13 = registers.sp;
+    registers.r14 = registers.lr;
+    registers.r15 = registers.pc;
+    custom.push(function(ch, stream) {
+      if (ch === "#") {
+        stream.eatWhile(/\w/);
+        return "number";
+      }
+    });
+  }
+  if (arch === "x86") {
+    x86();
+  } else if (arch === "arm" || arch === "armv6") {
+    armv6();
+  }
+  function nextUntilUnescaped(stream, end) {
+    var escaped = false, next;
+    while ((next = stream.next()) != null) {
+      if (next === end && !escaped) {
+        return false;
+      }
+      escaped = !escaped && next === "\\";
+    }
+    return escaped;
+  }
+  function clikeComment(stream, state) {
+    var maybeEnd = false, ch;
+    while ((ch = stream.next()) != null) {
+      if (ch === "/" && maybeEnd) {
+        state.tokenize = null;
+        break;
+      }
+      maybeEnd = ch === "*";
+    }
+    return "comment";
+  }
+  return {
+    startState: function() {
+      return {
+        tokenize: null
+      };
+    },
+    token: function(stream, state) {
+      if (state.tokenize) {
+        return state.tokenize(stream, state);
+      }
+      if (stream.eatSpace()) {
+        return null;
+      }
+      var style, cur, ch = stream.next();
+      if (ch === "/") {
+        if (stream.eat("*")) {
+          state.tokenize = clikeComment;
+          return clikeComment(stream, state);
+        }
+      }
+      if (ch === lineCommentStartSymbol) {
+        stream.skipToEnd();
+        return "comment";
+      }
+      if (ch === '"') {
+        nextUntilUnescaped(stream, '"');
+        return "string";
+      }
+      if (ch === ".") {
+        stream.eatWhile(/\w/);
+        cur = stream.current().toLowerCase();
+        style = directives[cur];
+        return style || null;
+      }
+      if (ch === "=") {
+        stream.eatWhile(/\w/);
+        return "tag";
+      }
+      if (ch === "{") {
+        return "bracket";
+      }
+      if (ch === "}") {
+        return "bracket";
+      }
+      if (/\d/.test(ch)) {
+        if (ch === "0" && stream.eat("x")) {
+          stream.eatWhile(/[0-9a-fA-F]/);
+          return "number";
+        }
+        stream.eatWhile(/\d/);
+        return "number";
+      }
+      if (/\w/.test(ch)) {
+        stream.eatWhile(/\w/);
+        if (stream.eat(":")) {
+          return "tag";
+        }
+        cur = stream.current().toLowerCase();
+        style = registers[cur];
+        return style || null;
+      }
+      for (var i = 0; i < custom.length; i++) {
+        style = custom[i](ch, stream, state);
+        if (style) {
+          return style;
+        }
+      }
+    },
+    languageData: {
+      commentTokens: {
+        line: lineCommentStartSymbol,
+        block: { open: "/*", close: "*/" }
+      }
+    }
+  };
+}
+const gas = mkGas("x86");
+const gasArm = mkGas("arm");
+export {
+  gas,
+  gasArm
+};
+//# sourceMappingURL=gas.23b0e1a7.js.map

@@ -1,1 +1,133 @@
-var r;function p(e){return new RegExp("^(?:"+e.join("|")+")$","i")}p([]);var d=p(["@prefix","@base","a"]),f=/[*+\-<>=&|]/;function x(e,n){var t=e.next();if(r=null,t=="<"&&!e.match(/^[\s\u00a0=]/,!1))return e.match(/^[^\s\u00a0>]*>?/),"atom";if(t=='"'||t=="'")return n.tokenize=v(t),n.tokenize(e,n);if(/[{}\(\),\.;\[\]]/.test(t))return r=t,null;if(t=="#")return e.skipToEnd(),"comment";if(f.test(t))return e.eatWhile(f),null;if(t==":")return"operator";if(e.eatWhile(/[_\w\d]/),e.peek()==":")return"variableName.special";var i=e.current();return d.test(i)?"meta":t>="A"&&t<="Z"?"comment":"keyword";var i=e.current()}function v(e){return function(n,t){for(var i=!1,o;(o=n.next())!=null;){if(o==e&&!i){t.tokenize=x;break}i=!i&&o=="\\"}return"string"}}function l(e,n,t){e.context={prev:e.context,indent:e.indent,col:t,type:n}}function c(e){e.indent=e.context.indent,e.context=e.context.prev}const g={startState:function(){return{tokenize:x,context:null,indent:0,col:0}},token:function(e,n){if(e.sol()&&(n.context&&n.context.align==null&&(n.context.align=!1),n.indent=e.indentation()),e.eatSpace())return null;var t=n.tokenize(e,n);if(t!="comment"&&n.context&&n.context.align==null&&n.context.type!="pattern"&&(n.context.align=!0),r=="(")l(n,")",e.column());else if(r=="[")l(n,"]",e.column());else if(r=="{")l(n,"}",e.column());else if(/[\]\}\)]/.test(r)){for(;n.context&&n.context.type=="pattern";)c(n);n.context&&r==n.context.type&&c(n)}else r=="."&&n.context&&n.context.type=="pattern"?c(n):/atom|string|variable/.test(t)&&n.context&&(/[\}\]]/.test(n.context.type)?l(n,"pattern",e.column()):n.context.type=="pattern"&&!n.context.align&&(n.context.align=!0,n.context.col=e.column()));return t},indent:function(e,n,t){var i=n&&n.charAt(0),o=e.context;if(/[\]\}]/.test(i))for(;o&&o.type=="pattern";)o=o.prev;var u=o&&i==o.type;return o?o.type=="pattern"?o.col:o.align?o.col+(u?0:1):o.indent+(u?0:t.unit):0},languageData:{commentTokens:{line:"#"}}};export{g as turtle};
+var curPunc;
+function wordRegexp(words) {
+  return new RegExp("^(?:" + words.join("|") + ")$", "i");
+}
+wordRegexp([]);
+var keywords = wordRegexp(["@prefix", "@base", "a"]);
+var operatorChars = /[*+\-<>=&|]/;
+function tokenBase(stream, state) {
+  var ch = stream.next();
+  curPunc = null;
+  if (ch == "<" && !stream.match(/^[\s\u00a0=]/, false)) {
+    stream.match(/^[^\s\u00a0>]*>?/);
+    return "atom";
+  } else if (ch == '"' || ch == "'") {
+    state.tokenize = tokenLiteral(ch);
+    return state.tokenize(stream, state);
+  } else if (/[{}\(\),\.;\[\]]/.test(ch)) {
+    curPunc = ch;
+    return null;
+  } else if (ch == "#") {
+    stream.skipToEnd();
+    return "comment";
+  } else if (operatorChars.test(ch)) {
+    stream.eatWhile(operatorChars);
+    return null;
+  } else if (ch == ":") {
+    return "operator";
+  } else {
+    stream.eatWhile(/[_\w\d]/);
+    if (stream.peek() == ":") {
+      return "variableName.special";
+    } else {
+      var word = stream.current();
+      if (keywords.test(word)) {
+        return "meta";
+      }
+      if (ch >= "A" && ch <= "Z") {
+        return "comment";
+      } else {
+        return "keyword";
+      }
+    }
+    var word = stream.current();
+  }
+}
+function tokenLiteral(quote) {
+  return function(stream, state) {
+    var escaped = false, ch;
+    while ((ch = stream.next()) != null) {
+      if (ch == quote && !escaped) {
+        state.tokenize = tokenBase;
+        break;
+      }
+      escaped = !escaped && ch == "\\";
+    }
+    return "string";
+  };
+}
+function pushContext(state, type, col) {
+  state.context = { prev: state.context, indent: state.indent, col, type };
+}
+function popContext(state) {
+  state.indent = state.context.indent;
+  state.context = state.context.prev;
+}
+const turtle = {
+  startState: function() {
+    return {
+      tokenize: tokenBase,
+      context: null,
+      indent: 0,
+      col: 0
+    };
+  },
+  token: function(stream, state) {
+    if (stream.sol()) {
+      if (state.context && state.context.align == null)
+        state.context.align = false;
+      state.indent = stream.indentation();
+    }
+    if (stream.eatSpace())
+      return null;
+    var style = state.tokenize(stream, state);
+    if (style != "comment" && state.context && state.context.align == null && state.context.type != "pattern") {
+      state.context.align = true;
+    }
+    if (curPunc == "(")
+      pushContext(state, ")", stream.column());
+    else if (curPunc == "[")
+      pushContext(state, "]", stream.column());
+    else if (curPunc == "{")
+      pushContext(state, "}", stream.column());
+    else if (/[\]\}\)]/.test(curPunc)) {
+      while (state.context && state.context.type == "pattern")
+        popContext(state);
+      if (state.context && curPunc == state.context.type)
+        popContext(state);
+    } else if (curPunc == "." && state.context && state.context.type == "pattern")
+      popContext(state);
+    else if (/atom|string|variable/.test(style) && state.context) {
+      if (/[\}\]]/.test(state.context.type))
+        pushContext(state, "pattern", stream.column());
+      else if (state.context.type == "pattern" && !state.context.align) {
+        state.context.align = true;
+        state.context.col = stream.column();
+      }
+    }
+    return style;
+  },
+  indent: function(state, textAfter, cx) {
+    var firstChar = textAfter && textAfter.charAt(0);
+    var context = state.context;
+    if (/[\]\}]/.test(firstChar))
+      while (context && context.type == "pattern")
+        context = context.prev;
+    var closing = context && firstChar == context.type;
+    if (!context)
+      return 0;
+    else if (context.type == "pattern")
+      return context.col;
+    else if (context.align)
+      return context.col + (closing ? 0 : 1);
+    else
+      return context.indent + (closing ? 0 : cx.unit);
+  },
+  languageData: {
+    commentTokens: { line: "#" }
+  }
+};
+export {
+  turtle
+};
+//# sourceMappingURL=turtle.a34de549.js.map

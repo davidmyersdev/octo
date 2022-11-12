@@ -1,0 +1,9 @@
+
+/*
+This fix can be removed if the following PR is accepted.
+https://github.com/vasturiano/force-graph/pull/258
+*/
+.graph-tooltip {
+  left: 0;
+  top: 0;
+}

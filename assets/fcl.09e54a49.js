@@ -1,1 +1,152 @@
-var d={term:!0,method:!0,accu:!0,rule:!0,then:!0,is:!0,and:!0,or:!0,if:!0,default:!0},f={var_input:!0,var_output:!0,fuzzify:!0,defuzzify:!0,function_block:!0,ruleblock:!0},o={end_ruleblock:!0,end_defuzzify:!0,end_function_block:!0,end_fuzzify:!0,end_var:!0},p={true:!0,false:!0,nan:!0,real:!0,min:!0,max:!0,cog:!0,cogs:!0},l=/[+\-*&^%:=<>!|\/]/;function i(e,n){var t=e.next();if(/[\d\.]/.test(t))return t=="."?e.match(/^[0-9]+([eE][\-+]?[0-9]+)?/):t=="0"?e.match(/^[xX][0-9a-fA-F]+/)||e.match(/^0[0-7]+/):e.match(/^[0-9]*\.?[0-9]*([eE][\-+]?[0-9]+)?/),"number";if(t=="/"||t=="("){if(e.eat("*"))return n.tokenize=c,c(e,n);if(e.eat("/"))return e.skipToEnd(),"comment"}if(l.test(t))return e.eatWhile(l),"operator";e.eatWhile(/[\w\$_\xa1-\uffff]/);var r=e.current().toLowerCase();return d.propertyIsEnumerable(r)||f.propertyIsEnumerable(r)||o.propertyIsEnumerable(r)?"keyword":p.propertyIsEnumerable(r)?"atom":"variable"}function c(e,n){for(var t=!1,r;r=e.next();){if((r=="/"||r==")")&&t){n.tokenize=i;break}t=r=="*"}return"comment"}function a(e,n,t,r,u){this.indented=e,this.column=n,this.type=t,this.align=r,this.prev=u}function k(e,n,t){return e.context=new a(e.indented,n,t,null,e.context)}function v(e){if(!!e.context.prev){var n=e.context.type;return n=="end_block"&&(e.indented=e.context.indented),e.context=e.context.prev}}const x={startState:function(e){return{tokenize:null,context:new a(-e,0,"top",!1),indented:0,startOfLine:!0}},token:function(e,n){var t=n.context;if(e.sol()&&(t.align==null&&(t.align=!1),n.indented=e.indentation(),n.startOfLine=!0),e.eatSpace())return null;var r=(n.tokenize||i)(e,n);if(r=="comment")return r;t.align==null&&(t.align=!0);var u=e.current().toLowerCase();return f.propertyIsEnumerable(u)?k(n,e.column(),"end_block"):o.propertyIsEnumerable(u)&&v(n),n.startOfLine=!1,r},indent:function(e,n,t){if(e.tokenize!=i&&e.tokenize!=null)return 0;var r=e.context,u=o.propertyIsEnumerable(n);return r.align?r.column+(u?0:1):r.indented+(u?0:t.unit)},languageData:{commentTokens:{line:"//",block:{open:"(*",close:"*)"}}}};export{x as fcl};
+var keywords = {
+  "term": true,
+  "method": true,
+  "accu": true,
+  "rule": true,
+  "then": true,
+  "is": true,
+  "and": true,
+  "or": true,
+  "if": true,
+  "default": true
+};
+var start_blocks = {
+  "var_input": true,
+  "var_output": true,
+  "fuzzify": true,
+  "defuzzify": true,
+  "function_block": true,
+  "ruleblock": true
+};
+var end_blocks = {
+  "end_ruleblock": true,
+  "end_defuzzify": true,
+  "end_function_block": true,
+  "end_fuzzify": true,
+  "end_var": true
+};
+var atoms = {
+  "true": true,
+  "false": true,
+  "nan": true,
+  "real": true,
+  "min": true,
+  "max": true,
+  "cog": true,
+  "cogs": true
+};
+var isOperatorChar = /[+\-*&^%:=<>!|\/]/;
+function tokenBase(stream, state) {
+  var ch = stream.next();
+  if (/[\d\.]/.test(ch)) {
+    if (ch == ".") {
+      stream.match(/^[0-9]+([eE][\-+]?[0-9]+)?/);
+    } else if (ch == "0") {
+      stream.match(/^[xX][0-9a-fA-F]+/) || stream.match(/^0[0-7]+/);
+    } else {
+      stream.match(/^[0-9]*\.?[0-9]*([eE][\-+]?[0-9]+)?/);
+    }
+    return "number";
+  }
+  if (ch == "/" || ch == "(") {
+    if (stream.eat("*")) {
+      state.tokenize = tokenComment;
+      return tokenComment(stream, state);
+    }
+    if (stream.eat("/")) {
+      stream.skipToEnd();
+      return "comment";
+    }
+  }
+  if (isOperatorChar.test(ch)) {
+    stream.eatWhile(isOperatorChar);
+    return "operator";
+  }
+  stream.eatWhile(/[\w\$_\xa1-\uffff]/);
+  var cur = stream.current().toLowerCase();
+  if (keywords.propertyIsEnumerable(cur) || start_blocks.propertyIsEnumerable(cur) || end_blocks.propertyIsEnumerable(cur)) {
+    return "keyword";
+  }
+  if (atoms.propertyIsEnumerable(cur))
+    return "atom";
+  return "variable";
+}
+function tokenComment(stream, state) {
+  var maybeEnd = false, ch;
+  while (ch = stream.next()) {
+    if ((ch == "/" || ch == ")") && maybeEnd) {
+      state.tokenize = tokenBase;
+      break;
+    }
+    maybeEnd = ch == "*";
+  }
+  return "comment";
+}
+function Context(indented, column, type, align, prev) {
+  this.indented = indented;
+  this.column = column;
+  this.type = type;
+  this.align = align;
+  this.prev = prev;
+}
+function pushContext(state, col, type) {
+  return state.context = new Context(state.indented, col, type, null, state.context);
+}
+function popContext(state) {
+  if (!state.context.prev)
+    return;
+  var t = state.context.type;
+  if (t == "end_block")
+    state.indented = state.context.indented;
+  return state.context = state.context.prev;
+}
+const fcl = {
+  startState: function(indentUnit) {
+    return {
+      tokenize: null,
+      context: new Context(-indentUnit, 0, "top", false),
+      indented: 0,
+      startOfLine: true
+    };
+  },
+  token: function(stream, state) {
+    var ctx = state.context;
+    if (stream.sol()) {
+      if (ctx.align == null)
+        ctx.align = false;
+      state.indented = stream.indentation();
+      state.startOfLine = true;
+    }
+    if (stream.eatSpace())
+      return null;
+    var style = (state.tokenize || tokenBase)(stream, state);
+    if (style == "comment")
+      return style;
+    if (ctx.align == null)
+      ctx.align = true;
+    var cur = stream.current().toLowerCase();
+    if (start_blocks.propertyIsEnumerable(cur))
+      pushContext(state, stream.column(), "end_block");
+    else if (end_blocks.propertyIsEnumerable(cur))
+      popContext(state);
+    state.startOfLine = false;
+    return style;
+  },
+  indent: function(state, textAfter, cx) {
+    if (state.tokenize != tokenBase && state.tokenize != null)
+      return 0;
+    var ctx = state.context;
+    var closing = end_blocks.propertyIsEnumerable(textAfter);
+    if (ctx.align)
+      return ctx.column + (closing ? 0 : 1);
+    else
+      return ctx.indented + (closing ? 0 : cx.unit);
+  },
+  languageData: {
+    commentTokens: { line: "//", block: { open: "(*", close: "*)" } }
+  }
+};
+export {
+  fcl
+};
+//# sourceMappingURL=fcl.09e54a49.js.map

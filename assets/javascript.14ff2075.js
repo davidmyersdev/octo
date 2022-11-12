@@ -1,1 +1,1164 @@
-function fr(y){var br=y.statementIndent,ur=y.jsonld,pr=y.json||ur,k=y.typescript,U=y.wordCharacters||/[\w$\xa1-\uffff]/,wr=function(){function r(x){return{type:x,style:"keyword"}}var e=r("keyword a"),t=r("keyword b"),f=r("keyword c"),u=r("keyword d"),c=r("operator"),m={type:"atom",style:"atom"};return{if:r("if"),while:e,with:e,else:t,do:t,try:t,finally:t,return:u,break:u,continue:u,new:r("new"),delete:f,void:f,throw:f,debugger:r("debugger"),var:r("var"),const:r("var"),let:r("var"),function:r("function"),catch:r("catch"),for:r("for"),switch:r("switch"),case:r("case"),default:r("default"),in:c,typeof:c,instanceof:c,true:m,false:m,null:m,undefined:m,NaN:m,Infinity:m,this:r("this"),class:r("class"),super:r("atom"),yield:f,export:r("export"),import:r("import"),extends:f,await:f}}(),hr=/[+\-*&%=<>!?|~^@]/,Or=/^@(context|id|value|language|type|container|list|set|reverse|index|base|vocab|graph)"/;function qr(r){for(var e=!1,t,f=!1;(t=r.next())!=null;){if(!e){if(t=="/"&&!f)return;t=="["?f=!0:f&&t=="]"&&(f=!1)}e=!e&&t=="\\"}}var D,G;function p(r,e,t){return D=r,G=t,e}function j(r,e){var t=r.next();if(t=='"'||t=="'")return e.tokenize=Nr(t),e.tokenize(r,e);if(t=="."&&r.match(/^\d[\d_]*(?:[eE][+\-]?[\d_]+)?/))return p("number","number");if(t=="."&&r.match(".."))return p("spread","meta");if(/[\[\]{}\(\),;\:\.]/.test(t))return p(t);if(t=="="&&r.eat(">"))return p("=>","operator");if(t=="0"&&r.match(/^(?:x[\dA-Fa-f_]+|o[0-7_]+|b[01_]+)n?/))return p("number","number");if(/\d/.test(t))return r.match(/^[\d_]*(?:n|(?:\.[\d_]*)?(?:[eE][+\-]?[\d_]+)?)?/),p("number","number");if(t=="/")return r.eat("*")?(e.tokenize=H,H(r,e)):r.eat("/")?(r.skipToEnd(),p("comment","comment")):ce(r,e,1)?(qr(r),r.match(/^\b(([gimyus])(?![gimyus]*\2))+\b/),p("regexp","string.special")):(r.eat("="),p("operator","operator",r.current()));if(t=="`")return e.tokenize=L,L(r,e);if(t=="#"&&r.peek()=="!")return r.skipToEnd(),p("meta","meta");if(t=="#"&&r.eatWhile(U))return p("variable","property");if(t=="<"&&r.match("!--")||t=="-"&&r.match("->")&&!/\S/.test(r.string.slice(0,r.start)))return r.skipToEnd(),p("comment","comment");if(hr.test(t))return(t!=">"||!e.lexical||e.lexical.type!=">")&&(r.eat("=")?(t=="!"||t=="=")&&r.eat("="):/[<>*+\-|&?]/.test(t)&&(r.eat(t),t==">"&&r.eat(t))),t=="?"&&r.eat(".")?p("."):p("operator","operator",r.current());if(U.test(t)){r.eatWhile(U);var f=r.current();if(e.lastType!="."){if(wr.propertyIsEnumerable(f)){var u=wr[f];return p(u.type,u.style,f)}if(f=="async"&&r.match(/^(\s|\/\*([^*]|\*(?!\/))*?\*\/)*[\[\(\w]/,!1))return p("async","keyword",f)}return p("variable","variable",f)}}function Nr(r){return function(e,t){var f=!1,u;if(ur&&e.peek()=="@"&&e.match(Or))return t.tokenize=j,p("jsonld-keyword","meta");for(;(u=e.next())!=null&&!(u==r&&!f);)f=!f&&u=="\\";return f||(t.tokenize=j),p("string","string")}}function H(r,e){for(var t=!1,f;f=r.next();){if(f=="/"&&t){e.tokenize=j;break}t=f=="*"}return p("comment","comment")}function L(r,e){for(var t=!1,f;(f=r.next())!=null;){if(!t&&(f=="`"||f=="$"&&r.eat("{"))){e.tokenize=j;break}t=!t&&f=="\\"}return p("quasi","string.special",r.current())}var Br="([{}])";function ar(r,e){e.fatArrowAt&&(e.fatArrowAt=null);var t=r.string.indexOf("=>",r.start);if(!(t<0)){if(k){var f=/:\s*(?:\w+(?:<[^>]*>|\[\])?|\{[^}]*\})\s*$/.exec(r.string.slice(r.start,t));f&&(t=f.index)}for(var u=0,c=!1,m=t-1;m>=0;--m){var x=r.string.charAt(m),v=Br.indexOf(x);if(v>=0&&v<3){if(!u){++m;break}if(--u==0){x=="("&&(c=!0);break}}else if(v>=3&&v<6)++u;else if(U.test(x))c=!0;else if(/["'\/`]/.test(x))for(;;--m){if(m==0)return;var K=r.string.charAt(m-1);if(K==x&&r.string.charAt(m-2)!="\\"){m--;break}}else if(c&&!u){++m;break}}c&&!u&&(e.fatArrowAt=m)}}var Fr={atom:!0,number:!0,variable:!0,string:!0,regexp:!0,this:!0,import:!0,"jsonld-keyword":!0};function gr(r,e,t,f,u,c){this.indented=r,this.column=e,this.type=t,this.prev=u,this.info=c,f!=null&&(this.align=f)}function Jr(r,e){for(var t=r.localVars;t;t=t.next)if(t.name==e)return!0;for(var f=r.context;f;f=f.prev)for(var t=f.vars;t;t=t.next)if(t.name==e)return!0}function Mr(r,e,t,f,u){var c=r.cc;for(i.state=r,i.stream=u,i.marked=null,i.cc=c,i.style=e,r.lexical.hasOwnProperty("align")||(r.lexical.align=!0);;){var m=c.length?c.pop():pr?b:w;if(m(t,f)){for(;c.length&&c[c.length-1].lex;)c.pop()();return i.marked?i.marked:t=="variable"&&Jr(r,f)?"variableName.local":e}}}var i={state:null,column:null,marked:null,cc:null};function o(){for(var r=arguments.length-1;r>=0;r--)i.cc.push(arguments[r])}function n(){return o.apply(null,arguments),!0}function or(r,e){for(var t=e;t;t=t.next)if(t.name==r)return!0;return!1}function q(r){var e=i.state;if(i.marked="def",e.context){if(e.lexical.info=="var"&&e.context&&e.context.block){var t=xr(r,e.context);if(t!=null){e.context=t;return}}else if(!or(r,e.localVars)){e.localVars=new Q(r,e.localVars);return}}y.globalVars&&!or(r,e.globalVars)&&(e.globalVars=new Q(r,e.globalVars))}function xr(r,e){if(e)if(e.block){var t=xr(r,e.prev);return t?t==e.prev?e:new P(t,e.vars,!0):null}else return or(r,e.vars)?e:new P(e.prev,new Q(r,e.vars),!1);else return null}function X(r){return r=="public"||r=="private"||r=="protected"||r=="abstract"||r=="readonly"}function P(r,e,t){this.prev=r,this.vars=e,this.block=t}function Q(r,e){this.name=r,this.next=e}var Dr=new Q("this",new Q("arguments",null));function E(){i.state.context=new P(i.state.context,i.state.localVars,!1),i.state.localVars=Dr}function Y(){i.state.context=new P(i.state.context,i.state.localVars,!0),i.state.localVars=null}E.lex=Y.lex=!0;function T(){i.state.localVars=i.state.context.vars,i.state.context=i.state.context.prev}T.lex=!0;function s(r,e){var t=function(){var f=i.state,u=f.indented;if(f.lexical.type=="stat")u=f.lexical.indented;else for(var c=f.lexical;c&&c.type==")"&&c.align;c=c.prev)u=c.indented;f.lexical=new gr(u,i.stream.column(),r,null,f.lexical,e)};return t.lex=!0,t}function a(){var r=i.state;r.lexical.prev&&(r.lexical.type==")"&&(r.indented=r.lexical.indented),r.lexical=r.lexical.prev)}a.lex=!0;function l(r){function e(t){return t==r?n():r==";"||t=="}"||t==")"||t=="]"?o():n(e)}return e}function w(r,e){return r=="var"?n(s("vardef",e),mr,l(";"),a):r=="keyword a"?n(s("form"),sr,w,a):r=="keyword b"?n(s("form"),w,a):r=="keyword d"?i.stream.match(/^\s*$/,!1)?n():n(s("stat"),N,l(";"),a):r=="debugger"?n(l(";")):r=="{"?n(s("}"),Y,rr,a,T):r==";"?n():r=="if"?(i.state.lexical.info=="else"&&i.state.cc[i.state.cc.length-1]==a&&i.state.cc.pop()(),n(s("form"),sr,w,a,zr)):r=="function"?n(S):r=="for"?n(s("form"),Y,_r,w,T,a):r=="class"||k&&e=="interface"?(i.marked="keyword",n(s("form",r=="class"?r:e),jr,a)):r=="variable"?k&&e=="declare"?(i.marked="keyword",n(w)):k&&(e=="module"||e=="enum"||e=="type")&&i.stream.match(/^\s*\w/,!1)?(i.marked="keyword",e=="enum"?n($r):e=="type"?n(Sr,l("operator"),d,l(";")):n(s("form"),V,l("{"),s("}"),rr,a,a)):k&&e=="namespace"?(i.marked="keyword",n(s("form"),b,w,a)):k&&e=="abstract"?(i.marked="keyword",n(w)):n(s("stat"),Kr):r=="switch"?n(s("form"),sr,l("{"),s("}","switch"),Y,rr,a,a,T):r=="case"?n(b,l(":")):r=="default"?n(l(":")):r=="catch"?n(s("form"),E,Lr,w,a,T):r=="export"?n(s("stat"),fe,a):r=="import"?n(s("stat"),ue,a):r=="async"?n(w):e=="@"?n(b,w):o(s("stat"),b,l(";"),a)}function Lr(r){if(r=="(")return n(O,l(")"))}function b(r,e){return yr(r,e,!1)}function g(r,e){return yr(r,e,!0)}function sr(r){return r!="("?o():n(s(")"),N,l(")"),a)}function yr(r,e,t){if(i.state.fatArrowAt==i.stream.start){var f=t?Tr:vr;if(r=="(")return n(E,s(")"),h(O,")"),a,l("=>"),f,T);if(r=="variable")return o(E,V,l("=>"),f,T)}var u=t?B:I;return Fr.hasOwnProperty(r)?n(u):r=="function"?n(S,u):r=="class"||k&&e=="interface"?(i.marked="keyword",n(s("form"),ie,a)):r=="keyword c"||r=="async"?n(t?g:b):r=="("?n(s(")"),N,l(")"),a,u):r=="operator"||r=="spread"?n(t?g:b):r=="["?n(s("]"),oe,a,u):r=="{"?R(C,"}",null,u):r=="quasi"?o(Z,u):r=="new"?n(Qr(t)):n()}function N(r){return r.match(/[;\}\)\],]/)?o():o(b)}function I(r,e){return r==","?n(N):B(r,e,!1)}function B(r,e,t){var f=t==!1?I:B,u=t==!1?b:g;if(r=="=>")return n(E,t?Tr:vr,T);if(r=="operator")return/\+\+|--/.test(e)||k&&e=="!"?n(f):k&&e=="<"&&i.stream.match(/^([^<>]|<[^<>]*>)*>\s*\(/,!1)?n(s(">"),h(d,">"),a,f):e=="?"?n(b,l(":"),u):n(u);if(r=="quasi")return o(Z,f);if(r!=";"){if(r=="(")return R(g,")","call",f);if(r==".")return n(Ur,f);if(r=="[")return n(s("]"),N,l("]"),a,f);if(k&&e=="as")return i.marked="keyword",n(d,f);if(r=="regexp")return i.state.lastType=i.marked="operator",i.stream.backUp(i.stream.pos-i.stream.start-1),n(u)}}function Z(r,e){return r!="quasi"?o():e.slice(e.length-2)!="${"?n(Z):n(N,Pr)}function Pr(r){if(r=="}")return i.marked="string.special",i.state.tokenize=L,n(Z)}function vr(r){return ar(i.stream,i.state),o(r=="{"?w:b)}function Tr(r){return ar(i.stream,i.state),o(r=="{"?w:g)}function Qr(r){return function(e){return e=="."?n(r?Wr:Rr):e=="variable"&&k?n(Cr,r?B:I):o(r?g:b)}}function Rr(r,e){if(e=="target")return i.marked="keyword",n(I)}function Wr(r,e){if(e=="target")return i.marked="keyword",n(B)}function Kr(r){return r==":"?n(a,w):o(I,l(";"),a)}function Ur(r){if(r=="variable")return i.marked="property",n()}function C(r,e){if(r=="async")return i.marked="property",n(C);if(r=="variable"||i.style=="keyword"){if(i.marked="property",e=="get"||e=="set")return n(Gr);var t;return k&&i.state.fatArrowAt==i.stream.start&&(t=i.stream.match(/^\s*:\s*/,!1))&&(i.state.fatArrowAt=i.stream.pos+t[0].length),n($)}else{if(r=="number"||r=="string")return i.marked=ur?"property":i.style+" property",n($);if(r=="jsonld-keyword")return n($);if(k&&X(e))return i.marked="keyword",n(C);if(r=="[")return n(b,F,l("]"),$);if(r=="spread")return n(g,$);if(e=="*")return i.marked="keyword",n(C);if(r==":")return o($)}}function Gr(r){return r!="variable"?o($):(i.marked="property",n(S))}function $(r){if(r==":")return n(g);if(r=="(")return o(S)}function h(r,e,t){function f(u,c){if(t?t.indexOf(u)>-1:u==","){var m=i.state.lexical;return m.info=="call"&&(m.pos=(m.pos||0)+1),n(function(x,v){return x==e||v==e?o():o(r)},f)}return u==e||c==e?n():t&&t.indexOf(";")>-1?o(r):n(l(e))}return function(u,c){return u==e||c==e?n():o(r,f)}}function R(r,e,t){for(var f=3;f<arguments.length;f++)i.cc.push(arguments[f]);return n(s(e,t),h(r,e),a)}function rr(r){return r=="}"?n():o(w,rr)}function F(r,e){if(k){if(r==":")return n(d);if(e=="?")return n(F)}}function Hr(r,e){if(k&&(r==":"||e=="in"))return n(d)}function Vr(r){if(k&&r==":")return i.stream.match(/^\s*\w+\s+is\b/,!1)?n(b,Xr,d):n(d)}function Xr(r,e){if(e=="is")return i.marked="keyword",n()}function d(r,e){if(e=="keyof"||e=="typeof"||e=="infer"||e=="readonly")return i.marked="keyword",n(e=="typeof"?g:d);if(r=="variable"||e=="void")return i.marked="type",n(A);if(e=="|"||e=="&")return n(d);if(r=="string"||r=="number"||r=="atom")return n(A);if(r=="[")return n(s("]"),h(d,"]",","),a,A);if(r=="{")return n(s("}"),lr,a,A);if(r=="(")return n(h(dr,")"),Yr,A);if(r=="<")return n(h(d,">"),d);if(r=="quasi")return o(cr,A)}function Yr(r){if(r=="=>")return n(d)}function lr(r){return r.match(/[\}\)\]]/)?n():r==","||r==";"?n(lr):o(W,lr)}function W(r,e){if(r=="variable"||i.style=="keyword")return i.marked="property",n(W);if(e=="?"||r=="number"||r=="string")return n(W);if(r==":")return n(d);if(r=="[")return n(l("variable"),Hr,l("]"),W);if(r=="(")return o(M,W);if(!r.match(/[;\}\)\],]/))return n()}function cr(r,e){return r!="quasi"?o():e.slice(e.length-2)!="${"?n(cr):n(d,Zr)}function Zr(r){if(r=="}")return i.marked="string-2",i.state.tokenize=L,n(cr)}function dr(r,e){return r=="variable"&&i.stream.match(/^\s*[?:]/,!1)||e=="?"?n(dr):r==":"?n(d):r=="spread"?n(dr):o(d)}function A(r,e){if(e=="<")return n(s(">"),h(d,">"),a,A);if(e=="|"||r=="."||e=="&")return n(d);if(r=="[")return n(d,l("]"),A);if(e=="extends"||e=="implements")return i.marked="keyword",n(d);if(e=="?")return n(d,l(":"),d)}function Cr(r,e){if(e=="<")return n(s(">"),h(d,">"),a,A)}function er(){return o(d,re)}function re(r,e){if(e=="=")return n(d)}function mr(r,e){return e=="enum"?(i.marked="keyword",n($r)):o(V,F,_,ne)}function V(r,e){if(k&&X(e))return i.marked="keyword",n(V);if(r=="variable")return q(e),n();if(r=="spread")return n(V);if(r=="[")return R(ee,"]");if(r=="{")return R(Ar,"}")}function Ar(r,e){return r=="variable"&&!i.stream.match(/^\s*:/,!1)?(q(e),n(_)):(r=="variable"&&(i.marked="property"),r=="spread"?n(V):r=="}"?o():r=="["?n(b,l("]"),l(":"),Ar):n(l(":"),V,_))}function ee(){return o(V,_)}function _(r,e){if(e=="=")return n(g)}function ne(r){if(r==",")return n(mr)}function zr(r,e){if(r=="keyword b"&&e=="else")return n(s("form","else"),w,a)}function _r(r,e){if(e=="await")return n(_r);if(r=="(")return n(s(")"),te,a)}function te(r){return r=="var"?n(mr,J):r=="variable"?n(J):o(J)}function J(r,e){return r==")"?n():r==";"?n(J):e=="in"||e=="of"?(i.marked="keyword",n(b,J)):o(b,J)}function S(r,e){if(e=="*")return i.marked="keyword",n(S);if(r=="variable")return q(e),n(S);if(r=="(")return n(E,s(")"),h(O,")"),a,Vr,w,T);if(k&&e=="<")return n(s(">"),h(er,">"),a,S)}function M(r,e){if(e=="*")return i.marked="keyword",n(M);if(r=="variable")return q(e),n(M);if(r=="(")return n(E,s(")"),h(O,")"),a,Vr,T);if(k&&e=="<")return n(s(">"),h(er,">"),a,M)}function Sr(r,e){if(r=="keyword"||r=="variable")return i.marked="type",n(Sr);if(e=="<")return n(s(">"),h(er,">"),a)}function O(r,e){return e=="@"&&n(b,O),r=="spread"?n(O):k&&X(e)?(i.marked="keyword",n(O)):k&&r=="this"?n(F,_):o(V,F,_)}function ie(r,e){return r=="variable"?jr(r,e):nr(r,e)}function jr(r,e){if(r=="variable")return q(e),n(nr)}function nr(r,e){if(e=="<")return n(s(">"),h(er,">"),a,nr);if(e=="extends"||e=="implements"||k&&r==",")return e=="implements"&&(i.marked="keyword"),n(k?d:b,nr);if(r=="{")return n(s("}"),z,a)}function z(r,e){if(r=="async"||r=="variable"&&(e=="static"||e=="get"||e=="set"||k&&X(e))&&i.stream.match(/^\s+[\w$\xa1-\uffff]/,!1))return i.marked="keyword",n(z);if(r=="variable"||i.style=="keyword")return i.marked="property",n(tr,z);if(r=="number"||r=="string")return n(tr,z);if(r=="[")return n(b,F,l("]"),tr,z);if(e=="*")return i.marked="keyword",n(z);if(k&&r=="(")return o(M,z);if(r==";"||r==",")return n(z);if(r=="}")return n();if(e=="@")return n(b,z)}function tr(r,e){if(e=="!"||e=="?")return n(tr);if(r==":")return n(d,_);if(e=="=")return n(g);var t=i.state.lexical.prev,f=t&&t.info=="interface";return o(f?M:S)}function fe(r,e){return e=="*"?(i.marked="keyword",n(kr,l(";"))):e=="default"?(i.marked="keyword",n(b,l(";"))):r=="{"?n(h(Er,"}"),kr,l(";")):o(w)}function Er(r,e){if(e=="as")return i.marked="keyword",n(l("variable"));if(r=="variable")return o(g,Er)}function ue(r){return r=="string"?n():r=="("?o(b):r=="."?o(I):o(ir,Ir,kr)}function ir(r,e){return r=="{"?R(ir,"}"):(r=="variable"&&q(e),e=="*"&&(i.marked="keyword"),n(ae))}function Ir(r){if(r==",")return n(ir,Ir)}function ae(r,e){if(e=="as")return i.marked="keyword",n(ir)}function kr(r,e){if(e=="from")return i.marked="keyword",n(b)}function oe(r){return r=="]"?n():o(h(g,"]"))}function $r(){return o(s("form"),V,l("{"),s("}"),h(se,"}"),a,a)}function se(){return o(V,_)}function le(r,e){return r.lastType=="operator"||r.lastType==","||hr.test(e.charAt(0))||/[,.]/.test(e.charAt(0))}function ce(r,e,t){return e.tokenize==j&&/^(?:operator|sof|keyword [bcd]|case|new|export|default|spread|[\[{}\(,;:]|=>)$/.test(e.lastType)||e.lastType=="quasi"&&/\{\s*$/.test(r.string.slice(0,r.pos-(t||0)))}return{startState:function(r){var e={tokenize:j,lastType:"sof",cc:[],lexical:new gr(-r,0,"block",!1),localVars:y.localVars,context:y.localVars&&new P(null,null,!1),indented:0};return y.globalVars&&typeof y.globalVars=="object"&&(e.globalVars=y.globalVars),e},token:function(r,e){if(r.sol()&&(e.lexical.hasOwnProperty("align")||(e.lexical.align=!1),e.indented=r.indentation(),ar(r,e)),e.tokenize!=H&&r.eatSpace())return null;var t=e.tokenize(r,e);return D=="comment"?t:(e.lastType=D=="operator"&&(G=="++"||G=="--")?"incdec":D,Mr(e,t,D,G,r))},indent:function(r,e,t){if(r.tokenize==H||r.tokenize==L)return null;if(r.tokenize!=j)return 0;var f=e&&e.charAt(0),u=r.lexical,c;if(!/^\s*else\b/.test(e))for(var m=r.cc.length-1;m>=0;--m){var x=r.cc[m];if(x==a)u=u.prev;else if(x!=zr&&x!=T)break}for(;(u.type=="stat"||u.type=="form")&&(f=="}"||(c=r.cc[r.cc.length-1])&&(c==I||c==B)&&!/^[,\.=+\-*:?[\(]/.test(e));)u=u.prev;br&&u.type==")"&&u.prev.type=="stat"&&(u=u.prev);var v=u.type,K=f==v;return v=="vardef"?u.indented+(r.lastType=="operator"||r.lastType==","?u.info.length+1:0):v=="form"&&f=="{"?u.indented:v=="form"?u.indented+t.unit:v=="stat"?u.indented+(le(r,e)?br||t.unit:0):u.info=="switch"&&!K&&y.doubleIndentSwitch!=!1?u.indented+(/^(?:case|default)\b/.test(e)?t.unit:2*t.unit):u.align?u.column+(K?0:1):u.indented+(K?0:t.unit)},languageData:{indentOnInput:/^\s*(?:case .*?:|default:|\{|\})$/,commentTokens:pr?void 0:{line:"//",block:{open:"/*",close:"*/"}},closeBrackets:{brackets:["(","[","{","'",'"',"`"]},wordChars:"$"}}}const de=fr({}),me=fr({json:!0}),ke=fr({jsonld:!0}),be=fr({typescript:!0});export{de as javascript,me as json,ke as jsonld,be as typescript};
+function mkJavaScript(parserConfig) {
+  var statementIndent = parserConfig.statementIndent;
+  var jsonldMode = parserConfig.jsonld;
+  var jsonMode = parserConfig.json || jsonldMode;
+  var isTS = parserConfig.typescript;
+  var wordRE = parserConfig.wordCharacters || /[\w$\xa1-\uffff]/;
+  var keywords = function() {
+    function kw(type2) {
+      return { type: type2, style: "keyword" };
+    }
+    var A = kw("keyword a"), B = kw("keyword b"), C = kw("keyword c"), D = kw("keyword d");
+    var operator = kw("operator"), atom = { type: "atom", style: "atom" };
+    return {
+      "if": kw("if"),
+      "while": A,
+      "with": A,
+      "else": B,
+      "do": B,
+      "try": B,
+      "finally": B,
+      "return": D,
+      "break": D,
+      "continue": D,
+      "new": kw("new"),
+      "delete": C,
+      "void": C,
+      "throw": C,
+      "debugger": kw("debugger"),
+      "var": kw("var"),
+      "const": kw("var"),
+      "let": kw("var"),
+      "function": kw("function"),
+      "catch": kw("catch"),
+      "for": kw("for"),
+      "switch": kw("switch"),
+      "case": kw("case"),
+      "default": kw("default"),
+      "in": operator,
+      "typeof": operator,
+      "instanceof": operator,
+      "true": atom,
+      "false": atom,
+      "null": atom,
+      "undefined": atom,
+      "NaN": atom,
+      "Infinity": atom,
+      "this": kw("this"),
+      "class": kw("class"),
+      "super": kw("atom"),
+      "yield": C,
+      "export": kw("export"),
+      "import": kw("import"),
+      "extends": C,
+      "await": C
+    };
+  }();
+  var isOperatorChar = /[+\-*&%=<>!?|~^@]/;
+  var isJsonldKeyword = /^@(context|id|value|language|type|container|list|set|reverse|index|base|vocab|graph)"/;
+  function readRegexp(stream) {
+    var escaped = false, next, inSet = false;
+    while ((next = stream.next()) != null) {
+      if (!escaped) {
+        if (next == "/" && !inSet)
+          return;
+        if (next == "[")
+          inSet = true;
+        else if (inSet && next == "]")
+          inSet = false;
+      }
+      escaped = !escaped && next == "\\";
+    }
+  }
+  var type, content;
+  function ret(tp, style, cont2) {
+    type = tp;
+    content = cont2;
+    return style;
+  }
+  function tokenBase(stream, state) {
+    var ch = stream.next();
+    if (ch == '"' || ch == "'") {
+      state.tokenize = tokenString(ch);
+      return state.tokenize(stream, state);
+    } else if (ch == "." && stream.match(/^\d[\d_]*(?:[eE][+\-]?[\d_]+)?/)) {
+      return ret("number", "number");
+    } else if (ch == "." && stream.match("..")) {
+      return ret("spread", "meta");
+    } else if (/[\[\]{}\(\),;\:\.]/.test(ch)) {
+      return ret(ch);
+    } else if (ch == "=" && stream.eat(">")) {
+      return ret("=>", "operator");
+    } else if (ch == "0" && stream.match(/^(?:x[\dA-Fa-f_]+|o[0-7_]+|b[01_]+)n?/)) {
+      return ret("number", "number");
+    } else if (/\d/.test(ch)) {
+      stream.match(/^[\d_]*(?:n|(?:\.[\d_]*)?(?:[eE][+\-]?[\d_]+)?)?/);
+      return ret("number", "number");
+    } else if (ch == "/") {
+      if (stream.eat("*")) {
+        state.tokenize = tokenComment;
+        return tokenComment(stream, state);
+      } else if (stream.eat("/")) {
+        stream.skipToEnd();
+        return ret("comment", "comment");
+      } else if (expressionAllowed(stream, state, 1)) {
+        readRegexp(stream);
+        stream.match(/^\b(([gimyus])(?![gimyus]*\2))+\b/);
+        return ret("regexp", "string.special");
+      } else {
+        stream.eat("=");
+        return ret("operator", "operator", stream.current());
+      }
+    } else if (ch == "`") {
+      state.tokenize = tokenQuasi;
+      return tokenQuasi(stream, state);
+    } else if (ch == "#" && stream.peek() == "!") {
+      stream.skipToEnd();
+      return ret("meta", "meta");
+    } else if (ch == "#" && stream.eatWhile(wordRE)) {
+      return ret("variable", "property");
+    } else if (ch == "<" && stream.match("!--") || ch == "-" && stream.match("->") && !/\S/.test(stream.string.slice(0, stream.start))) {
+      stream.skipToEnd();
+      return ret("comment", "comment");
+    } else if (isOperatorChar.test(ch)) {
+      if (ch != ">" || !state.lexical || state.lexical.type != ">") {
+        if (stream.eat("=")) {
+          if (ch == "!" || ch == "=")
+            stream.eat("=");
+        } else if (/[<>*+\-|&?]/.test(ch)) {
+          stream.eat(ch);
+          if (ch == ">")
+            stream.eat(ch);
+        }
+      }
+      if (ch == "?" && stream.eat("."))
+        return ret(".");
+      return ret("operator", "operator", stream.current());
+    } else if (wordRE.test(ch)) {
+      stream.eatWhile(wordRE);
+      var word = stream.current();
+      if (state.lastType != ".") {
+        if (keywords.propertyIsEnumerable(word)) {
+          var kw = keywords[word];
+          return ret(kw.type, kw.style, word);
+        }
+        if (word == "async" && stream.match(/^(\s|\/\*([^*]|\*(?!\/))*?\*\/)*[\[\(\w]/, false))
+          return ret("async", "keyword", word);
+      }
+      return ret("variable", "variable", word);
+    }
+  }
+  function tokenString(quote) {
+    return function(stream, state) {
+      var escaped = false, next;
+      if (jsonldMode && stream.peek() == "@" && stream.match(isJsonldKeyword)) {
+        state.tokenize = tokenBase;
+        return ret("jsonld-keyword", "meta");
+      }
+      while ((next = stream.next()) != null) {
+        if (next == quote && !escaped)
+          break;
+        escaped = !escaped && next == "\\";
+      }
+      if (!escaped)
+        state.tokenize = tokenBase;
+      return ret("string", "string");
+    };
+  }
+  function tokenComment(stream, state) {
+    var maybeEnd = false, ch;
+    while (ch = stream.next()) {
+      if (ch == "/" && maybeEnd) {
+        state.tokenize = tokenBase;
+        break;
+      }
+      maybeEnd = ch == "*";
+    }
+    return ret("comment", "comment");
+  }
+  function tokenQuasi(stream, state) {
+    var escaped = false, next;
+    while ((next = stream.next()) != null) {
+      if (!escaped && (next == "`" || next == "$" && stream.eat("{"))) {
+        state.tokenize = tokenBase;
+        break;
+      }
+      escaped = !escaped && next == "\\";
+    }
+    return ret("quasi", "string.special", stream.current());
+  }
+  var brackets = "([{}])";
+  function findFatArrow(stream, state) {
+    if (state.fatArrowAt)
+      state.fatArrowAt = null;
+    var arrow = stream.string.indexOf("=>", stream.start);
+    if (arrow < 0)
+      return;
+    if (isTS) {
+      var m = /:\s*(?:\w+(?:<[^>]*>|\[\])?|\{[^}]*\})\s*$/.exec(stream.string.slice(stream.start, arrow));
+      if (m)
+        arrow = m.index;
+    }
+    var depth = 0, sawSomething = false;
+    for (var pos = arrow - 1; pos >= 0; --pos) {
+      var ch = stream.string.charAt(pos);
+      var bracket = brackets.indexOf(ch);
+      if (bracket >= 0 && bracket < 3) {
+        if (!depth) {
+          ++pos;
+          break;
+        }
+        if (--depth == 0) {
+          if (ch == "(")
+            sawSomething = true;
+          break;
+        }
+      } else if (bracket >= 3 && bracket < 6) {
+        ++depth;
+      } else if (wordRE.test(ch)) {
+        sawSomething = true;
+      } else if (/["'\/`]/.test(ch)) {
+        for (; ; --pos) {
+          if (pos == 0)
+            return;
+          var next = stream.string.charAt(pos - 1);
+          if (next == ch && stream.string.charAt(pos - 2) != "\\") {
+            pos--;
+            break;
+          }
+        }
+      } else if (sawSomething && !depth) {
+        ++pos;
+        break;
+      }
+    }
+    if (sawSomething && !depth)
+      state.fatArrowAt = pos;
+  }
+  var atomicTypes = {
+    "atom": true,
+    "number": true,
+    "variable": true,
+    "string": true,
+    "regexp": true,
+    "this": true,
+    "import": true,
+    "jsonld-keyword": true
+  };
+  function JSLexical(indented, column, type2, align, prev, info) {
+    this.indented = indented;
+    this.column = column;
+    this.type = type2;
+    this.prev = prev;
+    this.info = info;
+    if (align != null)
+      this.align = align;
+  }
+  function inScope(state, varname) {
+    for (var v = state.localVars; v; v = v.next)
+      if (v.name == varname)
+        return true;
+    for (var cx2 = state.context; cx2; cx2 = cx2.prev) {
+      for (var v = cx2.vars; v; v = v.next)
+        if (v.name == varname)
+          return true;
+    }
+  }
+  function parseJS(state, style, type2, content2, stream) {
+    var cc = state.cc;
+    cx.state = state;
+    cx.stream = stream;
+    cx.marked = null;
+    cx.cc = cc;
+    cx.style = style;
+    if (!state.lexical.hasOwnProperty("align"))
+      state.lexical.align = true;
+    while (true) {
+      var combinator = cc.length ? cc.pop() : jsonMode ? expression : statement;
+      if (combinator(type2, content2)) {
+        while (cc.length && cc[cc.length - 1].lex)
+          cc.pop()();
+        if (cx.marked)
+          return cx.marked;
+        if (type2 == "variable" && inScope(state, content2))
+          return "variableName.local";
+        return style;
+      }
+    }
+  }
+  var cx = { state: null, column: null, marked: null, cc: null };
+  function pass() {
+    for (var i = arguments.length - 1; i >= 0; i--)
+      cx.cc.push(arguments[i]);
+  }
+  function cont() {
+    pass.apply(null, arguments);
+    return true;
+  }
+  function inList(name, list) {
+    for (var v = list; v; v = v.next)
+      if (v.name == name)
+        return true;
+    return false;
+  }
+  function register(varname) {
+    var state = cx.state;
+    cx.marked = "def";
+    if (state.context) {
+      if (state.lexical.info == "var" && state.context && state.context.block) {
+        var newContext = registerVarScoped(varname, state.context);
+        if (newContext != null) {
+          state.context = newContext;
+          return;
+        }
+      } else if (!inList(varname, state.localVars)) {
+        state.localVars = new Var(varname, state.localVars);
+        return;
+      }
+    }
+    if (parserConfig.globalVars && !inList(varname, state.globalVars))
+      state.globalVars = new Var(varname, state.globalVars);
+  }
+  function registerVarScoped(varname, context) {
+    if (!context) {
+      return null;
+    } else if (context.block) {
+      var inner = registerVarScoped(varname, context.prev);
+      if (!inner)
+        return null;
+      if (inner == context.prev)
+        return context;
+      return new Context(inner, context.vars, true);
+    } else if (inList(varname, context.vars)) {
+      return context;
+    } else {
+      return new Context(context.prev, new Var(varname, context.vars), false);
+    }
+  }
+  function isModifier(name) {
+    return name == "public" || name == "private" || name == "protected" || name == "abstract" || name == "readonly";
+  }
+  function Context(prev, vars, block2) {
+    this.prev = prev;
+    this.vars = vars;
+    this.block = block2;
+  }
+  function Var(name, next) {
+    this.name = name;
+    this.next = next;
+  }
+  var defaultVars = new Var("this", new Var("arguments", null));
+  function pushcontext() {
+    cx.state.context = new Context(cx.state.context, cx.state.localVars, false);
+    cx.state.localVars = defaultVars;
+  }
+  function pushblockcontext() {
+    cx.state.context = new Context(cx.state.context, cx.state.localVars, true);
+    cx.state.localVars = null;
+  }
+  pushcontext.lex = pushblockcontext.lex = true;
+  function popcontext() {
+    cx.state.localVars = cx.state.context.vars;
+    cx.state.context = cx.state.context.prev;
+  }
+  popcontext.lex = true;
+  function pushlex(type2, info) {
+    var result = function() {
+      var state = cx.state, indent = state.indented;
+      if (state.lexical.type == "stat")
+        indent = state.lexical.indented;
+      else
+        for (var outer = state.lexical; outer && outer.type == ")" && outer.align; outer = outer.prev)
+          indent = outer.indented;
+      state.lexical = new JSLexical(indent, cx.stream.column(), type2, null, state.lexical, info);
+    };
+    result.lex = true;
+    return result;
+  }
+  function poplex() {
+    var state = cx.state;
+    if (state.lexical.prev) {
+      if (state.lexical.type == ")")
+        state.indented = state.lexical.indented;
+      state.lexical = state.lexical.prev;
+    }
+  }
+  poplex.lex = true;
+  function expect(wanted) {
+    function exp(type2) {
+      if (type2 == wanted)
+        return cont();
+      else if (wanted == ";" || type2 == "}" || type2 == ")" || type2 == "]")
+        return pass();
+      else
+        return cont(exp);
+    }
+    return exp;
+  }
+  function statement(type2, value) {
+    if (type2 == "var")
+      return cont(pushlex("vardef", value), vardef, expect(";"), poplex);
+    if (type2 == "keyword a")
+      return cont(pushlex("form"), parenExpr, statement, poplex);
+    if (type2 == "keyword b")
+      return cont(pushlex("form"), statement, poplex);
+    if (type2 == "keyword d")
+      return cx.stream.match(/^\s*$/, false) ? cont() : cont(pushlex("stat"), maybeexpression, expect(";"), poplex);
+    if (type2 == "debugger")
+      return cont(expect(";"));
+    if (type2 == "{")
+      return cont(pushlex("}"), pushblockcontext, block, poplex, popcontext);
+    if (type2 == ";")
+      return cont();
+    if (type2 == "if") {
+      if (cx.state.lexical.info == "else" && cx.state.cc[cx.state.cc.length - 1] == poplex)
+        cx.state.cc.pop()();
+      return cont(pushlex("form"), parenExpr, statement, poplex, maybeelse);
+    }
+    if (type2 == "function")
+      return cont(functiondef);
+    if (type2 == "for")
+      return cont(pushlex("form"), pushblockcontext, forspec, statement, popcontext, poplex);
+    if (type2 == "class" || isTS && value == "interface") {
+      cx.marked = "keyword";
+      return cont(pushlex("form", type2 == "class" ? type2 : value), className, poplex);
+    }
+    if (type2 == "variable") {
+      if (isTS && value == "declare") {
+        cx.marked = "keyword";
+        return cont(statement);
+      } else if (isTS && (value == "module" || value == "enum" || value == "type") && cx.stream.match(/^\s*\w/, false)) {
+        cx.marked = "keyword";
+        if (value == "enum")
+          return cont(enumdef);
+        else if (value == "type")
+          return cont(typename, expect("operator"), typeexpr, expect(";"));
+        else
+          return cont(pushlex("form"), pattern, expect("{"), pushlex("}"), block, poplex, poplex);
+      } else if (isTS && value == "namespace") {
+        cx.marked = "keyword";
+        return cont(pushlex("form"), expression, statement, poplex);
+      } else if (isTS && value == "abstract") {
+        cx.marked = "keyword";
+        return cont(statement);
+      } else {
+        return cont(pushlex("stat"), maybelabel);
+      }
+    }
+    if (type2 == "switch")
+      return cont(
+        pushlex("form"),
+        parenExpr,
+        expect("{"),
+        pushlex("}", "switch"),
+        pushblockcontext,
+        block,
+        poplex,
+        poplex,
+        popcontext
+      );
+    if (type2 == "case")
+      return cont(expression, expect(":"));
+    if (type2 == "default")
+      return cont(expect(":"));
+    if (type2 == "catch")
+      return cont(pushlex("form"), pushcontext, maybeCatchBinding, statement, poplex, popcontext);
+    if (type2 == "export")
+      return cont(pushlex("stat"), afterExport, poplex);
+    if (type2 == "import")
+      return cont(pushlex("stat"), afterImport, poplex);
+    if (type2 == "async")
+      return cont(statement);
+    if (value == "@")
+      return cont(expression, statement);
+    return pass(pushlex("stat"), expression, expect(";"), poplex);
+  }
+  function maybeCatchBinding(type2) {
+    if (type2 == "(")
+      return cont(funarg, expect(")"));
+  }
+  function expression(type2, value) {
+    return expressionInner(type2, value, false);
+  }
+  function expressionNoComma(type2, value) {
+    return expressionInner(type2, value, true);
+  }
+  function parenExpr(type2) {
+    if (type2 != "(")
+      return pass();
+    return cont(pushlex(")"), maybeexpression, expect(")"), poplex);
+  }
+  function expressionInner(type2, value, noComma) {
+    if (cx.state.fatArrowAt == cx.stream.start) {
+      var body = noComma ? arrowBodyNoComma : arrowBody;
+      if (type2 == "(")
+        return cont(pushcontext, pushlex(")"), commasep(funarg, ")"), poplex, expect("=>"), body, popcontext);
+      else if (type2 == "variable")
+        return pass(pushcontext, pattern, expect("=>"), body, popcontext);
+    }
+    var maybeop = noComma ? maybeoperatorNoComma : maybeoperatorComma;
+    if (atomicTypes.hasOwnProperty(type2))
+      return cont(maybeop);
+    if (type2 == "function")
+      return cont(functiondef, maybeop);
+    if (type2 == "class" || isTS && value == "interface") {
+      cx.marked = "keyword";
+      return cont(pushlex("form"), classExpression, poplex);
+    }
+    if (type2 == "keyword c" || type2 == "async")
+      return cont(noComma ? expressionNoComma : expression);
+    if (type2 == "(")
+      return cont(pushlex(")"), maybeexpression, expect(")"), poplex, maybeop);
+    if (type2 == "operator" || type2 == "spread")
+      return cont(noComma ? expressionNoComma : expression);
+    if (type2 == "[")
+      return cont(pushlex("]"), arrayLiteral, poplex, maybeop);
+    if (type2 == "{")
+      return contCommasep(objprop, "}", null, maybeop);
+    if (type2 == "quasi")
+      return pass(quasi, maybeop);
+    if (type2 == "new")
+      return cont(maybeTarget(noComma));
+    return cont();
+  }
+  function maybeexpression(type2) {
+    if (type2.match(/[;\}\)\],]/))
+      return pass();
+    return pass(expression);
+  }
+  function maybeoperatorComma(type2, value) {
+    if (type2 == ",")
+      return cont(maybeexpression);
+    return maybeoperatorNoComma(type2, value, false);
+  }
+  function maybeoperatorNoComma(type2, value, noComma) {
+    var me = noComma == false ? maybeoperatorComma : maybeoperatorNoComma;
+    var expr = noComma == false ? expression : expressionNoComma;
+    if (type2 == "=>")
+      return cont(pushcontext, noComma ? arrowBodyNoComma : arrowBody, popcontext);
+    if (type2 == "operator") {
+      if (/\+\+|--/.test(value) || isTS && value == "!")
+        return cont(me);
+      if (isTS && value == "<" && cx.stream.match(/^([^<>]|<[^<>]*>)*>\s*\(/, false))
+        return cont(pushlex(">"), commasep(typeexpr, ">"), poplex, me);
+      if (value == "?")
+        return cont(expression, expect(":"), expr);
+      return cont(expr);
+    }
+    if (type2 == "quasi") {
+      return pass(quasi, me);
+    }
+    if (type2 == ";")
+      return;
+    if (type2 == "(")
+      return contCommasep(expressionNoComma, ")", "call", me);
+    if (type2 == ".")
+      return cont(property, me);
+    if (type2 == "[")
+      return cont(pushlex("]"), maybeexpression, expect("]"), poplex, me);
+    if (isTS && value == "as") {
+      cx.marked = "keyword";
+      return cont(typeexpr, me);
+    }
+    if (type2 == "regexp") {
+      cx.state.lastType = cx.marked = "operator";
+      cx.stream.backUp(cx.stream.pos - cx.stream.start - 1);
+      return cont(expr);
+    }
+  }
+  function quasi(type2, value) {
+    if (type2 != "quasi")
+      return pass();
+    if (value.slice(value.length - 2) != "${")
+      return cont(quasi);
+    return cont(maybeexpression, continueQuasi);
+  }
+  function continueQuasi(type2) {
+    if (type2 == "}") {
+      cx.marked = "string.special";
+      cx.state.tokenize = tokenQuasi;
+      return cont(quasi);
+    }
+  }
+  function arrowBody(type2) {
+    findFatArrow(cx.stream, cx.state);
+    return pass(type2 == "{" ? statement : expression);
+  }
+  function arrowBodyNoComma(type2) {
+    findFatArrow(cx.stream, cx.state);
+    return pass(type2 == "{" ? statement : expressionNoComma);
+  }
+  function maybeTarget(noComma) {
+    return function(type2) {
+      if (type2 == ".")
+        return cont(noComma ? targetNoComma : target);
+      else if (type2 == "variable" && isTS)
+        return cont(maybeTypeArgs, noComma ? maybeoperatorNoComma : maybeoperatorComma);
+      else
+        return pass(noComma ? expressionNoComma : expression);
+    };
+  }
+  function target(_, value) {
+    if (value == "target") {
+      cx.marked = "keyword";
+      return cont(maybeoperatorComma);
+    }
+  }
+  function targetNoComma(_, value) {
+    if (value == "target") {
+      cx.marked = "keyword";
+      return cont(maybeoperatorNoComma);
+    }
+  }
+  function maybelabel(type2) {
+    if (type2 == ":")
+      return cont(poplex, statement);
+    return pass(maybeoperatorComma, expect(";"), poplex);
+  }
+  function property(type2) {
+    if (type2 == "variable") {
+      cx.marked = "property";
+      return cont();
+    }
+  }
+  function objprop(type2, value) {
+    if (type2 == "async") {
+      cx.marked = "property";
+      return cont(objprop);
+    } else if (type2 == "variable" || cx.style == "keyword") {
+      cx.marked = "property";
+      if (value == "get" || value == "set")
+        return cont(getterSetter);
+      var m;
+      if (isTS && cx.state.fatArrowAt == cx.stream.start && (m = cx.stream.match(/^\s*:\s*/, false)))
+        cx.state.fatArrowAt = cx.stream.pos + m[0].length;
+      return cont(afterprop);
+    } else if (type2 == "number" || type2 == "string") {
+      cx.marked = jsonldMode ? "property" : cx.style + " property";
+      return cont(afterprop);
+    } else if (type2 == "jsonld-keyword") {
+      return cont(afterprop);
+    } else if (isTS && isModifier(value)) {
+      cx.marked = "keyword";
+      return cont(objprop);
+    } else if (type2 == "[") {
+      return cont(expression, maybetype, expect("]"), afterprop);
+    } else if (type2 == "spread") {
+      return cont(expressionNoComma, afterprop);
+    } else if (value == "*") {
+      cx.marked = "keyword";
+      return cont(objprop);
+    } else if (type2 == ":") {
+      return pass(afterprop);
+    }
+  }
+  function getterSetter(type2) {
+    if (type2 != "variable")
+      return pass(afterprop);
+    cx.marked = "property";
+    return cont(functiondef);
+  }
+  function afterprop(type2) {
+    if (type2 == ":")
+      return cont(expressionNoComma);
+    if (type2 == "(")
+      return pass(functiondef);
+  }
+  function commasep(what, end, sep) {
+    function proceed(type2, value) {
+      if (sep ? sep.indexOf(type2) > -1 : type2 == ",") {
+        var lex = cx.state.lexical;
+        if (lex.info == "call")
+          lex.pos = (lex.pos || 0) + 1;
+        return cont(function(type3, value2) {
+          if (type3 == end || value2 == end)
+            return pass();
+          return pass(what);
+        }, proceed);
+      }
+      if (type2 == end || value == end)
+        return cont();
+      if (sep && sep.indexOf(";") > -1)
+        return pass(what);
+      return cont(expect(end));
+    }
+    return function(type2, value) {
+      if (type2 == end || value == end)
+        return cont();
+      return pass(what, proceed);
+    };
+  }
+  function contCommasep(what, end, info) {
+    for (var i = 3; i < arguments.length; i++)
+      cx.cc.push(arguments[i]);
+    return cont(pushlex(end, info), commasep(what, end), poplex);
+  }
+  function block(type2) {
+    if (type2 == "}")
+      return cont();
+    return pass(statement, block);
+  }
+  function maybetype(type2, value) {
+    if (isTS) {
+      if (type2 == ":")
+        return cont(typeexpr);
+      if (value == "?")
+        return cont(maybetype);
+    }
+  }
+  function maybetypeOrIn(type2, value) {
+    if (isTS && (type2 == ":" || value == "in"))
+      return cont(typeexpr);
+  }
+  function mayberettype(type2) {
+    if (isTS && type2 == ":") {
+      if (cx.stream.match(/^\s*\w+\s+is\b/, false))
+        return cont(expression, isKW, typeexpr);
+      else
+        return cont(typeexpr);
+    }
+  }
+  function isKW(_, value) {
+    if (value == "is") {
+      cx.marked = "keyword";
+      return cont();
+    }
+  }
+  function typeexpr(type2, value) {
+    if (value == "keyof" || value == "typeof" || value == "infer" || value == "readonly") {
+      cx.marked = "keyword";
+      return cont(value == "typeof" ? expressionNoComma : typeexpr);
+    }
+    if (type2 == "variable" || value == "void") {
+      cx.marked = "type";
+      return cont(afterType);
+    }
+    if (value == "|" || value == "&")
+      return cont(typeexpr);
+    if (type2 == "string" || type2 == "number" || type2 == "atom")
+      return cont(afterType);
+    if (type2 == "[")
+      return cont(pushlex("]"), commasep(typeexpr, "]", ","), poplex, afterType);
+    if (type2 == "{")
+      return cont(pushlex("}"), typeprops, poplex, afterType);
+    if (type2 == "(")
+      return cont(commasep(typearg, ")"), maybeReturnType, afterType);
+    if (type2 == "<")
+      return cont(commasep(typeexpr, ">"), typeexpr);
+    if (type2 == "quasi")
+      return pass(quasiType, afterType);
+  }
+  function maybeReturnType(type2) {
+    if (type2 == "=>")
+      return cont(typeexpr);
+  }
+  function typeprops(type2) {
+    if (type2.match(/[\}\)\]]/))
+      return cont();
+    if (type2 == "," || type2 == ";")
+      return cont(typeprops);
+    return pass(typeprop, typeprops);
+  }
+  function typeprop(type2, value) {
+    if (type2 == "variable" || cx.style == "keyword") {
+      cx.marked = "property";
+      return cont(typeprop);
+    } else if (value == "?" || type2 == "number" || type2 == "string") {
+      return cont(typeprop);
+    } else if (type2 == ":") {
+      return cont(typeexpr);
+    } else if (type2 == "[") {
+      return cont(expect("variable"), maybetypeOrIn, expect("]"), typeprop);
+    } else if (type2 == "(") {
+      return pass(functiondecl, typeprop);
+    } else if (!type2.match(/[;\}\)\],]/)) {
+      return cont();
+    }
+  }
+  function quasiType(type2, value) {
+    if (type2 != "quasi")
+      return pass();
+    if (value.slice(value.length - 2) != "${")
+      return cont(quasiType);
+    return cont(typeexpr, continueQuasiType);
+  }
+  function continueQuasiType(type2) {
+    if (type2 == "}") {
+      cx.marked = "string-2";
+      cx.state.tokenize = tokenQuasi;
+      return cont(quasiType);
+    }
+  }
+  function typearg(type2, value) {
+    if (type2 == "variable" && cx.stream.match(/^\s*[?:]/, false) || value == "?")
+      return cont(typearg);
+    if (type2 == ":")
+      return cont(typeexpr);
+    if (type2 == "spread")
+      return cont(typearg);
+    return pass(typeexpr);
+  }
+  function afterType(type2, value) {
+    if (value == "<")
+      return cont(pushlex(">"), commasep(typeexpr, ">"), poplex, afterType);
+    if (value == "|" || type2 == "." || value == "&")
+      return cont(typeexpr);
+    if (type2 == "[")
+      return cont(typeexpr, expect("]"), afterType);
+    if (value == "extends" || value == "implements") {
+      cx.marked = "keyword";
+      return cont(typeexpr);
+    }
+    if (value == "?")
+      return cont(typeexpr, expect(":"), typeexpr);
+  }
+  function maybeTypeArgs(_, value) {
+    if (value == "<")
+      return cont(pushlex(">"), commasep(typeexpr, ">"), poplex, afterType);
+  }
+  function typeparam() {
+    return pass(typeexpr, maybeTypeDefault);
+  }
+  function maybeTypeDefault(_, value) {
+    if (value == "=")
+      return cont(typeexpr);
+  }
+  function vardef(_, value) {
+    if (value == "enum") {
+      cx.marked = "keyword";
+      return cont(enumdef);
+    }
+    return pass(pattern, maybetype, maybeAssign, vardefCont);
+  }
+  function pattern(type2, value) {
+    if (isTS && isModifier(value)) {
+      cx.marked = "keyword";
+      return cont(pattern);
+    }
+    if (type2 == "variable") {
+      register(value);
+      return cont();
+    }
+    if (type2 == "spread")
+      return cont(pattern);
+    if (type2 == "[")
+      return contCommasep(eltpattern, "]");
+    if (type2 == "{")
+      return contCommasep(proppattern, "}");
+  }
+  function proppattern(type2, value) {
+    if (type2 == "variable" && !cx.stream.match(/^\s*:/, false)) {
+      register(value);
+      return cont(maybeAssign);
+    }
+    if (type2 == "variable")
+      cx.marked = "property";
+    if (type2 == "spread")
+      return cont(pattern);
+    if (type2 == "}")
+      return pass();
+    if (type2 == "[")
+      return cont(expression, expect("]"), expect(":"), proppattern);
+    return cont(expect(":"), pattern, maybeAssign);
+  }
+  function eltpattern() {
+    return pass(pattern, maybeAssign);
+  }
+  function maybeAssign(_type, value) {
+    if (value == "=")
+      return cont(expressionNoComma);
+  }
+  function vardefCont(type2) {
+    if (type2 == ",")
+      return cont(vardef);
+  }
+  function maybeelse(type2, value) {
+    if (type2 == "keyword b" && value == "else")
+      return cont(pushlex("form", "else"), statement, poplex);
+  }
+  function forspec(type2, value) {
+    if (value == "await")
+      return cont(forspec);
+    if (type2 == "(")
+      return cont(pushlex(")"), forspec1, poplex);
+  }
+  function forspec1(type2) {
+    if (type2 == "var")
+      return cont(vardef, forspec2);
+    if (type2 == "variable")
+      return cont(forspec2);
+    return pass(forspec2);
+  }
+  function forspec2(type2, value) {
+    if (type2 == ")")
+      return cont();
+    if (type2 == ";")
+      return cont(forspec2);
+    if (value == "in" || value == "of") {
+      cx.marked = "keyword";
+      return cont(expression, forspec2);
+    }
+    return pass(expression, forspec2);
+  }
+  function functiondef(type2, value) {
+    if (value == "*") {
+      cx.marked = "keyword";
+      return cont(functiondef);
+    }
+    if (type2 == "variable") {
+      register(value);
+      return cont(functiondef);
+    }
+    if (type2 == "(")
+      return cont(pushcontext, pushlex(")"), commasep(funarg, ")"), poplex, mayberettype, statement, popcontext);
+    if (isTS && value == "<")
+      return cont(pushlex(">"), commasep(typeparam, ">"), poplex, functiondef);
+  }
+  function functiondecl(type2, value) {
+    if (value == "*") {
+      cx.marked = "keyword";
+      return cont(functiondecl);
+    }
+    if (type2 == "variable") {
+      register(value);
+      return cont(functiondecl);
+    }
+    if (type2 == "(")
+      return cont(pushcontext, pushlex(")"), commasep(funarg, ")"), poplex, mayberettype, popcontext);
+    if (isTS && value == "<")
+      return cont(pushlex(">"), commasep(typeparam, ">"), poplex, functiondecl);
+  }
+  function typename(type2, value) {
+    if (type2 == "keyword" || type2 == "variable") {
+      cx.marked = "type";
+      return cont(typename);
+    } else if (value == "<") {
+      return cont(pushlex(">"), commasep(typeparam, ">"), poplex);
+    }
+  }
+  function funarg(type2, value) {
+    if (value == "@")
+      cont(expression, funarg);
+    if (type2 == "spread")
+      return cont(funarg);
+    if (isTS && isModifier(value)) {
+      cx.marked = "keyword";
+      return cont(funarg);
+    }
+    if (isTS && type2 == "this")
+      return cont(maybetype, maybeAssign);
+    return pass(pattern, maybetype, maybeAssign);
+  }
+  function classExpression(type2, value) {
+    if (type2 == "variable")
+      return className(type2, value);
+    return classNameAfter(type2, value);
+  }
+  function className(type2, value) {
+    if (type2 == "variable") {
+      register(value);
+      return cont(classNameAfter);
+    }
+  }
+  function classNameAfter(type2, value) {
+    if (value == "<")
+      return cont(pushlex(">"), commasep(typeparam, ">"), poplex, classNameAfter);
+    if (value == "extends" || value == "implements" || isTS && type2 == ",") {
+      if (value == "implements")
+        cx.marked = "keyword";
+      return cont(isTS ? typeexpr : expression, classNameAfter);
+    }
+    if (type2 == "{")
+      return cont(pushlex("}"), classBody, poplex);
+  }
+  function classBody(type2, value) {
+    if (type2 == "async" || type2 == "variable" && (value == "static" || value == "get" || value == "set" || isTS && isModifier(value)) && cx.stream.match(/^\s+[\w$\xa1-\uffff]/, false)) {
+      cx.marked = "keyword";
+      return cont(classBody);
+    }
+    if (type2 == "variable" || cx.style == "keyword") {
+      cx.marked = "property";
+      return cont(classfield, classBody);
+    }
+    if (type2 == "number" || type2 == "string")
+      return cont(classfield, classBody);
+    if (type2 == "[")
+      return cont(expression, maybetype, expect("]"), classfield, classBody);
+    if (value == "*") {
+      cx.marked = "keyword";
+      return cont(classBody);
+    }
+    if (isTS && type2 == "(")
+      return pass(functiondecl, classBody);
+    if (type2 == ";" || type2 == ",")
+      return cont(classBody);
+    if (type2 == "}")
+      return cont();
+    if (value == "@")
+      return cont(expression, classBody);
+  }
+  function classfield(type2, value) {
+    if (value == "!" || value == "?")
+      return cont(classfield);
+    if (type2 == ":")
+      return cont(typeexpr, maybeAssign);
+    if (value == "=")
+      return cont(expressionNoComma);
+    var context = cx.state.lexical.prev, isInterface = context && context.info == "interface";
+    return pass(isInterface ? functiondecl : functiondef);
+  }
+  function afterExport(type2, value) {
+    if (value == "*") {
+      cx.marked = "keyword";
+      return cont(maybeFrom, expect(";"));
+    }
+    if (value == "default") {
+      cx.marked = "keyword";
+      return cont(expression, expect(";"));
+    }
+    if (type2 == "{")
+      return cont(commasep(exportField, "}"), maybeFrom, expect(";"));
+    return pass(statement);
+  }
+  function exportField(type2, value) {
+    if (value == "as") {
+      cx.marked = "keyword";
+      return cont(expect("variable"));
+    }
+    if (type2 == "variable")
+      return pass(expressionNoComma, exportField);
+  }
+  function afterImport(type2) {
+    if (type2 == "string")
+      return cont();
+    if (type2 == "(")
+      return pass(expression);
+    if (type2 == ".")
+      return pass(maybeoperatorComma);
+    return pass(importSpec, maybeMoreImports, maybeFrom);
+  }
+  function importSpec(type2, value) {
+    if (type2 == "{")
+      return contCommasep(importSpec, "}");
+    if (type2 == "variable")
+      register(value);
+    if (value == "*")
+      cx.marked = "keyword";
+    return cont(maybeAs);
+  }
+  function maybeMoreImports(type2) {
+    if (type2 == ",")
+      return cont(importSpec, maybeMoreImports);
+  }
+  function maybeAs(_type, value) {
+    if (value == "as") {
+      cx.marked = "keyword";
+      return cont(importSpec);
+    }
+  }
+  function maybeFrom(_type, value) {
+    if (value == "from") {
+      cx.marked = "keyword";
+      return cont(expression);
+    }
+  }
+  function arrayLiteral(type2) {
+    if (type2 == "]")
+      return cont();
+    return pass(commasep(expressionNoComma, "]"));
+  }
+  function enumdef() {
+    return pass(pushlex("form"), pattern, expect("{"), pushlex("}"), commasep(enummember, "}"), poplex, poplex);
+  }
+  function enummember() {
+    return pass(pattern, maybeAssign);
+  }
+  function isContinuedStatement(state, textAfter) {
+    return state.lastType == "operator" || state.lastType == "," || isOperatorChar.test(textAfter.charAt(0)) || /[,.]/.test(textAfter.charAt(0));
+  }
+  function expressionAllowed(stream, state, backUp) {
+    return state.tokenize == tokenBase && /^(?:operator|sof|keyword [bcd]|case|new|export|default|spread|[\[{}\(,;:]|=>)$/.test(state.lastType) || state.lastType == "quasi" && /\{\s*$/.test(stream.string.slice(0, stream.pos - (backUp || 0)));
+  }
+  return {
+    startState: function(indentUnit) {
+      var state = {
+        tokenize: tokenBase,
+        lastType: "sof",
+        cc: [],
+        lexical: new JSLexical(-indentUnit, 0, "block", false),
+        localVars: parserConfig.localVars,
+        context: parserConfig.localVars && new Context(null, null, false),
+        indented: 0
+      };
+      if (parserConfig.globalVars && typeof parserConfig.globalVars == "object")
+        state.globalVars = parserConfig.globalVars;
+      return state;
+    },
+    token: function(stream, state) {
+      if (stream.sol()) {
+        if (!state.lexical.hasOwnProperty("align"))
+          state.lexical.align = false;
+        state.indented = stream.indentation();
+        findFatArrow(stream, state);
+      }
+      if (state.tokenize != tokenComment && stream.eatSpace())
+        return null;
+      var style = state.tokenize(stream, state);
+      if (type == "comment")
+        return style;
+      state.lastType = type == "operator" && (content == "++" || content == "--") ? "incdec" : type;
+      return parseJS(state, style, type, content, stream);
+    },
+    indent: function(state, textAfter, cx2) {
+      if (state.tokenize == tokenComment || state.tokenize == tokenQuasi)
+        return null;
+      if (state.tokenize != tokenBase)
+        return 0;
+      var firstChar = textAfter && textAfter.charAt(0), lexical = state.lexical, top;
+      if (!/^\s*else\b/.test(textAfter))
+        for (var i = state.cc.length - 1; i >= 0; --i) {
+          var c = state.cc[i];
+          if (c == poplex)
+            lexical = lexical.prev;
+          else if (c != maybeelse && c != popcontext)
+            break;
+        }
+      while ((lexical.type == "stat" || lexical.type == "form") && (firstChar == "}" || (top = state.cc[state.cc.length - 1]) && (top == maybeoperatorComma || top == maybeoperatorNoComma) && !/^[,\.=+\-*:?[\(]/.test(textAfter)))
+        lexical = lexical.prev;
+      if (statementIndent && lexical.type == ")" && lexical.prev.type == "stat")
+        lexical = lexical.prev;
+      var type2 = lexical.type, closing = firstChar == type2;
+      if (type2 == "vardef")
+        return lexical.indented + (state.lastType == "operator" || state.lastType == "," ? lexical.info.length + 1 : 0);
+      else if (type2 == "form" && firstChar == "{")
+        return lexical.indented;
+      else if (type2 == "form")
+        return lexical.indented + cx2.unit;
+      else if (type2 == "stat")
+        return lexical.indented + (isContinuedStatement(state, textAfter) ? statementIndent || cx2.unit : 0);
+      else if (lexical.info == "switch" && !closing && parserConfig.doubleIndentSwitch != false)
+        return lexical.indented + (/^(?:case|default)\b/.test(textAfter) ? cx2.unit : 2 * cx2.unit);
+      else if (lexical.align)
+        return lexical.column + (closing ? 0 : 1);
+      else
+        return lexical.indented + (closing ? 0 : cx2.unit);
+    },
+    languageData: {
+      indentOnInput: /^\s*(?:case .*?:|default:|\{|\})$/,
+      commentTokens: jsonMode ? void 0 : { line: "//", block: { open: "/*", close: "*/" } },
+      closeBrackets: { brackets: ["(", "[", "{", "'", '"', "`"] },
+      wordChars: "$"
+    }
+  };
+}
+const javascript = mkJavaScript({});
+const json = mkJavaScript({ json: true });
+const jsonld = mkJavaScript({ jsonld: true });
+const typescript = mkJavaScript({ typescript: true });
+export {
+  javascript,
+  json,
+  jsonld,
+  typescript
+};
+//# sourceMappingURL=javascript.14ff2075.js.map

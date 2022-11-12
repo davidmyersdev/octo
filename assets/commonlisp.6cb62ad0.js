@@ -1,1 +1,145 @@
-var u=/^(block|let*|return-from|catch|load-time-value|setq|eval-when|locally|symbol-macrolet|flet|macrolet|tagbody|function|multiple-value-call|the|go|multiple-value-prog1|throw|if|progn|unwind-protect|labels|progv|let|quote)$/,c=/^with|^def|^do|^prog|case$|^cond$|bind$|when$|unless$/,f=/^(?:[+\-]?(?:\d+|\d*\.\d+)(?:[efd][+\-]?\d+)?|[+\-]?\d+(?:\/[+\-]?\d+)?|#b[+\-]?[01]+|#o[+\-]?[0-7]+|#x[+\-]?[\da-f]+)/,d=/[^\s'`,@()\[\]";]/,l;function i(e){for(var n;n=e.next();)if(n=="\\")e.next();else if(!d.test(n)){e.backUp(1);break}return e.current()}function o(e,n){if(e.eatSpace())return l="ws",null;if(e.match(f))return"number";var t=e.next();if(t=="\\"&&(t=e.next()),t=='"')return(n.tokenize=p)(e,n);if(t=="(")return l="open","bracket";if(t==")"||t=="]")return l="close","bracket";if(t==";")return e.skipToEnd(),l="ws","comment";if(/['`,@]/.test(t))return null;if(t=="|")return e.skipTo("|")?(e.next(),"variableName"):(e.skipToEnd(),"error");if(t=="#"){var t=e.next();return t=="("?(l="open","bracket"):/[+\-=\.']/.test(t)||/\d/.test(t)&&e.match(/^\d*#/)?null:t=="|"?(n.tokenize=x)(e,n):t==":"?(i(e),"meta"):t=="\\"?(e.next(),i(e),"string.special"):"error"}else{var r=i(e);return r=="."?null:(l="symbol",r=="nil"||r=="t"||r.charAt(0)==":"?"atom":n.lastType=="open"&&(u.test(r)||c.test(r))?"keyword":r.charAt(0)=="&"?"variableName.special":"variableName")}}function p(e,n){for(var t=!1,r;r=e.next();){if(r=='"'&&!t){n.tokenize=o;break}t=!t&&r=="\\"}return"string"}function x(e,n){for(var t,r;t=e.next();){if(t=="#"&&r=="|"){n.tokenize=o;break}r=t}return l="ws","comment"}const s={startState:function(){return{ctx:{prev:null,start:0,indentTo:0},lastType:null,tokenize:o}},token:function(e,n){e.sol()&&typeof n.ctx.indentTo!="number"&&(n.ctx.indentTo=n.ctx.start+1),l=null;var t=n.tokenize(e,n);return l!="ws"&&(n.ctx.indentTo==null?l=="symbol"&&c.test(e.current())?n.ctx.indentTo=n.ctx.start+e.indentUnit:n.ctx.indentTo="next":n.ctx.indentTo=="next"&&(n.ctx.indentTo=e.column()),n.lastType=l),l=="open"?n.ctx={prev:n.ctx,start:e.column(),indentTo:null}:l=="close"&&(n.ctx=n.ctx.prev||n.ctx),t},indent:function(e){var n=e.ctx.indentTo;return typeof n=="number"?n:e.ctx.start+1},languageData:{commentTokens:{line:";;",block:{open:"#|",close:"|#"}},closeBrackets:{brackets:["(","[","{",'"']}}};export{s as commonLisp};
+var specialForm = /^(block|let*|return-from|catch|load-time-value|setq|eval-when|locally|symbol-macrolet|flet|macrolet|tagbody|function|multiple-value-call|the|go|multiple-value-prog1|throw|if|progn|unwind-protect|labels|progv|let|quote)$/;
+var assumeBody = /^with|^def|^do|^prog|case$|^cond$|bind$|when$|unless$/;
+var numLiteral = /^(?:[+\-]?(?:\d+|\d*\.\d+)(?:[efd][+\-]?\d+)?|[+\-]?\d+(?:\/[+\-]?\d+)?|#b[+\-]?[01]+|#o[+\-]?[0-7]+|#x[+\-]?[\da-f]+)/;
+var symbol = /[^\s'`,@()\[\]";]/;
+var type;
+function readSym(stream) {
+  var ch;
+  while (ch = stream.next()) {
+    if (ch == "\\")
+      stream.next();
+    else if (!symbol.test(ch)) {
+      stream.backUp(1);
+      break;
+    }
+  }
+  return stream.current();
+}
+function base(stream, state) {
+  if (stream.eatSpace()) {
+    type = "ws";
+    return null;
+  }
+  if (stream.match(numLiteral))
+    return "number";
+  var ch = stream.next();
+  if (ch == "\\")
+    ch = stream.next();
+  if (ch == '"')
+    return (state.tokenize = inString)(stream, state);
+  else if (ch == "(") {
+    type = "open";
+    return "bracket";
+  } else if (ch == ")" || ch == "]") {
+    type = "close";
+    return "bracket";
+  } else if (ch == ";") {
+    stream.skipToEnd();
+    type = "ws";
+    return "comment";
+  } else if (/['`,@]/.test(ch))
+    return null;
+  else if (ch == "|") {
+    if (stream.skipTo("|")) {
+      stream.next();
+      return "variableName";
+    } else {
+      stream.skipToEnd();
+      return "error";
+    }
+  } else if (ch == "#") {
+    var ch = stream.next();
+    if (ch == "(") {
+      type = "open";
+      return "bracket";
+    } else if (/[+\-=\.']/.test(ch))
+      return null;
+    else if (/\d/.test(ch) && stream.match(/^\d*#/))
+      return null;
+    else if (ch == "|")
+      return (state.tokenize = inComment)(stream, state);
+    else if (ch == ":") {
+      readSym(stream);
+      return "meta";
+    } else if (ch == "\\") {
+      stream.next();
+      readSym(stream);
+      return "string.special";
+    } else
+      return "error";
+  } else {
+    var name = readSym(stream);
+    if (name == ".")
+      return null;
+    type = "symbol";
+    if (name == "nil" || name == "t" || name.charAt(0) == ":")
+      return "atom";
+    if (state.lastType == "open" && (specialForm.test(name) || assumeBody.test(name)))
+      return "keyword";
+    if (name.charAt(0) == "&")
+      return "variableName.special";
+    return "variableName";
+  }
+}
+function inString(stream, state) {
+  var escaped = false, next;
+  while (next = stream.next()) {
+    if (next == '"' && !escaped) {
+      state.tokenize = base;
+      break;
+    }
+    escaped = !escaped && next == "\\";
+  }
+  return "string";
+}
+function inComment(stream, state) {
+  var next, last;
+  while (next = stream.next()) {
+    if (next == "#" && last == "|") {
+      state.tokenize = base;
+      break;
+    }
+    last = next;
+  }
+  type = "ws";
+  return "comment";
+}
+const commonLisp = {
+  startState: function() {
+    return { ctx: { prev: null, start: 0, indentTo: 0 }, lastType: null, tokenize: base };
+  },
+  token: function(stream, state) {
+    if (stream.sol() && typeof state.ctx.indentTo != "number")
+      state.ctx.indentTo = state.ctx.start + 1;
+    type = null;
+    var style = state.tokenize(stream, state);
+    if (type != "ws") {
+      if (state.ctx.indentTo == null) {
+        if (type == "symbol" && assumeBody.test(stream.current()))
+          state.ctx.indentTo = state.ctx.start + stream.indentUnit;
+        else
+          state.ctx.indentTo = "next";
+      } else if (state.ctx.indentTo == "next") {
+        state.ctx.indentTo = stream.column();
+      }
+      state.lastType = type;
+    }
+    if (type == "open")
+      state.ctx = { prev: state.ctx, start: stream.column(), indentTo: null };
+    else if (type == "close")
+      state.ctx = state.ctx.prev || state.ctx;
+    return style;
+  },
+  indent: function(state) {
+    var i = state.ctx.indentTo;
+    return typeof i == "number" ? i : state.ctx.start + 1;
+  },
+  languageData: {
+    commentTokens: { line: ";;", block: { open: "#|", close: "|#" } },
+    closeBrackets: { brackets: ["(", "[", "{", '"'] }
+  }
+};
+export {
+  commonLisp
+};
+//# sourceMappingURL=commonlisp.6cb62ad0.js.map

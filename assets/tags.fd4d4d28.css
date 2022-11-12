@@ -1,0 +1,19 @@
+
+.tag[data-v-32c5cbb6] {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+}
+.tag[data-v-32c5cbb6]:first-child {
+  margin-top: 1rem;
+}
+.hr[data-v-32c5cbb6] {
+  background-color: var(--gray-dark, grey);
+  height: 0.125rem;
+  margin: 0.75rem 0.75rem 0.75rem 1rem;
+}

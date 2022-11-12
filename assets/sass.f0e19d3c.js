@@ -1,1 +1,374 @@
-import{keywords as h}from"./css.3c26eb64.js";const w=new Set(h.properties),b=new Set(h.colors),T=new Set(h.values),v=new Set(h.fonts);function L(n){return new RegExp("^"+n.join("|"))}let R=["true","false","null","auto"],g=new RegExp("^"+R.join("|")),E=["\\(","\\)","=",">","<","==",">=","<=","\\+","-","\\!=","/","\\*","%","and","or","not",";","\\{","\\}",":"],z=L(E),O=/^::?[a-zA-Z_][\w\-]*/,f;function o(n){return!n.peek()||n.match(/\s+$/,!1)}function y(n,e){let r=n.peek();return r===")"?(n.next(),e.tokenizer=t,"operator"):r==="("?(n.next(),n.eatSpace(),"operator"):r==="'"||r==='"'?(e.tokenizer=x(n.next()),"string"):(e.tokenizer=x(")",!1),"string")}function H(n,e){return function(r,i){return r.sol()&&r.indentation()<=n?(i.tokenizer=t,t(r,i)):(e&&r.skipTo("*/")?(r.next(),r.next(),i.tokenizer=t):r.skipToEnd(),"comment")}}function x(n,e){e==null&&(e=!0);function r(i,k){let l=i.next(),c=i.peek(),p=i.string.charAt(i.pos-2);return l!=="\\"&&c===n||l===n&&p!=="\\"?(l!==n&&e&&i.next(),o(i)&&(k.cursorHalf=0),k.tokenizer=t,"string"):l==="#"&&c==="{"?(k.tokenizer=C(r),i.next(),"operator"):"string"}return r}function C(n){return function(e,r){return e.peek()==="}"?(e.next(),r.tokenizer=n,"operator"):t(e,r)}}function u(n,e){if(n.indentCount==0){n.indentCount++;let i=n.scopes[0].offset+e.indentUnit;n.scopes.unshift({offset:i})}}function S(n){n.scopes.length!=1&&n.scopes.shift()}function t(n,e){let r=n.peek();if(n.match("/*"))return e.tokenizer=H(n.indentation(),!0),e.tokenizer(n,e);if(n.match("//"))return e.tokenizer=H(n.indentation(),!1),e.tokenizer(n,e);if(n.match("#{"))return e.tokenizer=C(t),"operator";if(r==='"'||r==="'")return n.next(),e.tokenizer=x(r),"string";if(e.cursorHalf){if(r==="#"&&(n.next(),n.match(/[0-9a-fA-F]{6}|[0-9a-fA-F]{3}/))||n.match(/^-?[0-9\.]+/))return o(n)&&(e.cursorHalf=0),"number";if(n.match(/^(px|em|in)\b/))return o(n)&&(e.cursorHalf=0),"unit";if(n.match(g))return o(n)&&(e.cursorHalf=0),"keyword";if(n.match(/^url/)&&n.peek()==="(")return e.tokenizer=y,o(n)&&(e.cursorHalf=0),"atom";if(r==="$")return n.next(),n.eatWhile(/[\w-]/),o(n)&&(e.cursorHalf=0),"variable-2";if(r==="!")return n.next(),e.cursorHalf=0,n.match(/^[\w]+/)?"keyword":"operator";if(n.match(z))return o(n)&&(e.cursorHalf=0),"operator";if(n.eatWhile(/[\w-]/))return o(n)&&(e.cursorHalf=0),f=n.current().toLowerCase(),T.has(f)?"atom":b.has(f)?"keyword":w.has(f)?(e.prevProp=n.current().toLowerCase(),"property"):"tag";if(o(n))return e.cursorHalf=0,null}else{if(r==="-"&&n.match(/^-\w+-/))return"meta";if(r==="."){if(n.next(),n.match(/^[\w-]+/))return u(e,n),"qualifier";if(n.peek()==="#")return u(e,n),"tag"}if(r==="#"){if(n.next(),n.match(/^[\w-]+/))return u(e,n),"builtin";if(n.peek()==="#")return u(e,n),"tag"}if(r==="$")return n.next(),n.eatWhile(/[\w-]/),"variable-2";if(n.match(/^-?[0-9\.]+/))return"number";if(n.match(/^(px|em|in)\b/))return"unit";if(n.match(g))return"keyword";if(n.match(/^url/)&&n.peek()==="(")return e.tokenizer=y,"atom";if(r==="="&&n.match(/^=[\w-]+/))return u(e,n),"meta";if(r==="+"&&n.match(/^\+[\w-]+/))return"meta";if(r==="@"&&n.match("@extend")&&(n.match(/\s*[\w]/)||S(e)),n.match(/^@(else if|if|media|else|for|each|while|mixin|function)/))return u(e,n),"def";if(r==="@")return n.next(),n.eatWhile(/[\w-]/),"def";if(n.eatWhile(/[\w-]/))if(n.match(/ *: *[\w-\+\$#!\("']/,!1)){f=n.current().toLowerCase();let i=e.prevProp+"-"+f;return w.has(i)?"property":w.has(f)?(e.prevProp=f,"property"):v.has(f)?"property":"tag"}else return n.match(/ *:/,!1)?(u(e,n),e.cursorHalf=1,e.prevProp=n.current().toLowerCase(),"property"):(n.match(/ *,/,!1)||u(e,n),"tag");if(r===":")return n.match(O)?"type":(n.next(),e.cursorHalf=1,"operator")}return n.match(z)?"operator":(n.next(),null)}function P(n,e){n.sol()&&(e.indentCount=0);let r=e.tokenizer(n,e),i=n.current();if((i==="@return"||i==="}")&&S(e),r!==null){let l=n.pos-i.length+n.indentUnit*e.indentCount,c=[];for(let p=0;p<e.scopes.length;p++){let d=e.scopes[p];d.offset<=l&&c.push(d)}e.scopes=c}return r}const $={startState:function(){return{tokenizer:t,scopes:[{offset:0,type:"sass"}],indentCount:0,cursorHalf:0,definedVars:[],definedMixins:[]}},token:function(n,e){let r=P(n,e);return e.lastToken={style:r,content:n.current()},r},indent:function(n){return n.scopes[0].offset},languageData:{commentTokens:{line:"//",block:{open:"/*",close:"*/"}},autocomplete:h.all}};export{$ as sass};
+import { keywords as keywords$1 } from "./css.3c26eb64.js";
+const propertyKeywords = new Set(keywords$1.properties);
+const colorKeywords = new Set(keywords$1.colors);
+const valueKeywords = new Set(keywords$1.values);
+const fontProperties = new Set(keywords$1.fonts);
+function tokenRegexp(words) {
+  return new RegExp("^" + words.join("|"));
+}
+let keywords = ["true", "false", "null", "auto"];
+let keywordsRegexp = new RegExp("^" + keywords.join("|"));
+let operators = [
+  "\\(",
+  "\\)",
+  "=",
+  ">",
+  "<",
+  "==",
+  ">=",
+  "<=",
+  "\\+",
+  "-",
+  "\\!=",
+  "/",
+  "\\*",
+  "%",
+  "and",
+  "or",
+  "not",
+  ";",
+  "\\{",
+  "\\}",
+  ":"
+];
+let opRegexp = tokenRegexp(operators);
+let pseudoElementsRegexp = /^::?[a-zA-Z_][\w\-]*/;
+let word;
+function isEndLine(stream) {
+  return !stream.peek() || stream.match(/\s+$/, false);
+}
+function urlTokens(stream, state) {
+  let ch = stream.peek();
+  if (ch === ")") {
+    stream.next();
+    state.tokenizer = tokenBase;
+    return "operator";
+  } else if (ch === "(") {
+    stream.next();
+    stream.eatSpace();
+    return "operator";
+  } else if (ch === "'" || ch === '"') {
+    state.tokenizer = buildStringTokenizer(stream.next());
+    return "string";
+  } else {
+    state.tokenizer = buildStringTokenizer(")", false);
+    return "string";
+  }
+}
+function comment(indentation, multiLine) {
+  return function(stream, state) {
+    if (stream.sol() && stream.indentation() <= indentation) {
+      state.tokenizer = tokenBase;
+      return tokenBase(stream, state);
+    }
+    if (multiLine && stream.skipTo("*/")) {
+      stream.next();
+      stream.next();
+      state.tokenizer = tokenBase;
+    } else {
+      stream.skipToEnd();
+    }
+    return "comment";
+  };
+}
+function buildStringTokenizer(quote, greedy) {
+  if (greedy == null) {
+    greedy = true;
+  }
+  function stringTokenizer(stream, state) {
+    let nextChar = stream.next();
+    let peekChar = stream.peek();
+    let previousChar = stream.string.charAt(stream.pos - 2);
+    let endingString = nextChar !== "\\" && peekChar === quote || nextChar === quote && previousChar !== "\\";
+    if (endingString) {
+      if (nextChar !== quote && greedy) {
+        stream.next();
+      }
+      if (isEndLine(stream)) {
+        state.cursorHalf = 0;
+      }
+      state.tokenizer = tokenBase;
+      return "string";
+    } else if (nextChar === "#" && peekChar === "{") {
+      state.tokenizer = buildInterpolationTokenizer(stringTokenizer);
+      stream.next();
+      return "operator";
+    } else {
+      return "string";
+    }
+  }
+  return stringTokenizer;
+}
+function buildInterpolationTokenizer(currentTokenizer) {
+  return function(stream, state) {
+    if (stream.peek() === "}") {
+      stream.next();
+      state.tokenizer = currentTokenizer;
+      return "operator";
+    } else {
+      return tokenBase(stream, state);
+    }
+  };
+}
+function indent(state, stream) {
+  if (state.indentCount == 0) {
+    state.indentCount++;
+    let lastScopeOffset = state.scopes[0].offset;
+    let currentOffset = lastScopeOffset + stream.indentUnit;
+    state.scopes.unshift({ offset: currentOffset });
+  }
+}
+function dedent(state) {
+  if (state.scopes.length == 1)
+    return;
+  state.scopes.shift();
+}
+function tokenBase(stream, state) {
+  let ch = stream.peek();
+  if (stream.match("/*")) {
+    state.tokenizer = comment(stream.indentation(), true);
+    return state.tokenizer(stream, state);
+  }
+  if (stream.match("//")) {
+    state.tokenizer = comment(stream.indentation(), false);
+    return state.tokenizer(stream, state);
+  }
+  if (stream.match("#{")) {
+    state.tokenizer = buildInterpolationTokenizer(tokenBase);
+    return "operator";
+  }
+  if (ch === '"' || ch === "'") {
+    stream.next();
+    state.tokenizer = buildStringTokenizer(ch);
+    return "string";
+  }
+  if (!state.cursorHalf) {
+    if (ch === "-") {
+      if (stream.match(/^-\w+-/)) {
+        return "meta";
+      }
+    }
+    if (ch === ".") {
+      stream.next();
+      if (stream.match(/^[\w-]+/)) {
+        indent(state, stream);
+        return "qualifier";
+      } else if (stream.peek() === "#") {
+        indent(state, stream);
+        return "tag";
+      }
+    }
+    if (ch === "#") {
+      stream.next();
+      if (stream.match(/^[\w-]+/)) {
+        indent(state, stream);
+        return "builtin";
+      }
+      if (stream.peek() === "#") {
+        indent(state, stream);
+        return "tag";
+      }
+    }
+    if (ch === "$") {
+      stream.next();
+      stream.eatWhile(/[\w-]/);
+      return "variable-2";
+    }
+    if (stream.match(/^-?[0-9\.]+/))
+      return "number";
+    if (stream.match(/^(px|em|in)\b/))
+      return "unit";
+    if (stream.match(keywordsRegexp))
+      return "keyword";
+    if (stream.match(/^url/) && stream.peek() === "(") {
+      state.tokenizer = urlTokens;
+      return "atom";
+    }
+    if (ch === "=") {
+      if (stream.match(/^=[\w-]+/)) {
+        indent(state, stream);
+        return "meta";
+      }
+    }
+    if (ch === "+") {
+      if (stream.match(/^\+[\w-]+/)) {
+        return "meta";
+      }
+    }
+    if (ch === "@") {
+      if (stream.match("@extend")) {
+        if (!stream.match(/\s*[\w]/))
+          dedent(state);
+      }
+    }
+    if (stream.match(/^@(else if|if|media|else|for|each|while|mixin|function)/)) {
+      indent(state, stream);
+      return "def";
+    }
+    if (ch === "@") {
+      stream.next();
+      stream.eatWhile(/[\w-]/);
+      return "def";
+    }
+    if (stream.eatWhile(/[\w-]/)) {
+      if (stream.match(/ *: *[\w-\+\$#!\("']/, false)) {
+        word = stream.current().toLowerCase();
+        let prop = state.prevProp + "-" + word;
+        if (propertyKeywords.has(prop)) {
+          return "property";
+        } else if (propertyKeywords.has(word)) {
+          state.prevProp = word;
+          return "property";
+        } else if (fontProperties.has(word)) {
+          return "property";
+        }
+        return "tag";
+      } else if (stream.match(/ *:/, false)) {
+        indent(state, stream);
+        state.cursorHalf = 1;
+        state.prevProp = stream.current().toLowerCase();
+        return "property";
+      } else if (stream.match(/ *,/, false)) {
+        return "tag";
+      } else {
+        indent(state, stream);
+        return "tag";
+      }
+    }
+    if (ch === ":") {
+      if (stream.match(pseudoElementsRegexp)) {
+        return "type";
+      }
+      stream.next();
+      state.cursorHalf = 1;
+      return "operator";
+    }
+  } else {
+    if (ch === "#") {
+      stream.next();
+      if (stream.match(/[0-9a-fA-F]{6}|[0-9a-fA-F]{3}/)) {
+        if (isEndLine(stream)) {
+          state.cursorHalf = 0;
+        }
+        return "number";
+      }
+    }
+    if (stream.match(/^-?[0-9\.]+/)) {
+      if (isEndLine(stream)) {
+        state.cursorHalf = 0;
+      }
+      return "number";
+    }
+    if (stream.match(/^(px|em|in)\b/)) {
+      if (isEndLine(stream)) {
+        state.cursorHalf = 0;
+      }
+      return "unit";
+    }
+    if (stream.match(keywordsRegexp)) {
+      if (isEndLine(stream)) {
+        state.cursorHalf = 0;
+      }
+      return "keyword";
+    }
+    if (stream.match(/^url/) && stream.peek() === "(") {
+      state.tokenizer = urlTokens;
+      if (isEndLine(stream)) {
+        state.cursorHalf = 0;
+      }
+      return "atom";
+    }
+    if (ch === "$") {
+      stream.next();
+      stream.eatWhile(/[\w-]/);
+      if (isEndLine(stream)) {
+        state.cursorHalf = 0;
+      }
+      return "variable-2";
+    }
+    if (ch === "!") {
+      stream.next();
+      state.cursorHalf = 0;
+      return stream.match(/^[\w]+/) ? "keyword" : "operator";
+    }
+    if (stream.match(opRegexp)) {
+      if (isEndLine(stream)) {
+        state.cursorHalf = 0;
+      }
+      return "operator";
+    }
+    if (stream.eatWhile(/[\w-]/)) {
+      if (isEndLine(stream)) {
+        state.cursorHalf = 0;
+      }
+      word = stream.current().toLowerCase();
+      if (valueKeywords.has(word)) {
+        return "atom";
+      } else if (colorKeywords.has(word)) {
+        return "keyword";
+      } else if (propertyKeywords.has(word)) {
+        state.prevProp = stream.current().toLowerCase();
+        return "property";
+      } else {
+        return "tag";
+      }
+    }
+    if (isEndLine(stream)) {
+      state.cursorHalf = 0;
+      return null;
+    }
+  }
+  if (stream.match(opRegexp))
+    return "operator";
+  stream.next();
+  return null;
+}
+function tokenLexer(stream, state) {
+  if (stream.sol())
+    state.indentCount = 0;
+  let style = state.tokenizer(stream, state);
+  let current = stream.current();
+  if (current === "@return" || current === "}") {
+    dedent(state);
+  }
+  if (style !== null) {
+    let startOfToken = stream.pos - current.length;
+    let withCurrentIndent = startOfToken + stream.indentUnit * state.indentCount;
+    let newScopes = [];
+    for (let i = 0; i < state.scopes.length; i++) {
+      let scope = state.scopes[i];
+      if (scope.offset <= withCurrentIndent)
+        newScopes.push(scope);
+    }
+    state.scopes = newScopes;
+  }
+  return style;
+}
+const sass = {
+  startState: function() {
+    return {
+      tokenizer: tokenBase,
+      scopes: [{ offset: 0, type: "sass" }],
+      indentCount: 0,
+      cursorHalf: 0,
+      definedVars: [],
+      definedMixins: []
+    };
+  },
+  token: function(stream, state) {
+    let style = tokenLexer(stream, state);
+    state.lastToken = { style, content: stream.current() };
+    return style;
+  },
+  indent: function(state) {
+    return state.scopes[0].offset;
+  },
+  languageData: {
+    commentTokens: { line: "//", block: { open: "/*", close: "*/" } },
+    autocomplete: keywords$1.all
+  }
+};
+export {
+  sass
+};
+//# sourceMappingURL=sass.f0e19d3c.js.map

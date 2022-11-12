@@ -1,1 +1,54 @@
-const f={token:function(e,i){var o=e.sol()||i.afterSection,l=e.eol();if(i.afterSection=!1,o&&(i.nextMultiline?(i.inMultiline=!0,i.nextMultiline=!1):i.position="def"),l&&!i.nextMultiline&&(i.inMultiline=!1,i.position="def"),o)for(;e.eatSpace(););var n=e.next();return o&&(n==="#"||n==="!"||n===";")?(i.position="comment",e.skipToEnd(),"comment"):o&&n==="["?(i.afterSection=!0,e.skipTo("]"),e.eat("]"),"header"):n==="="||n===":"?(i.position="quote",null):(n==="\\"&&i.position==="quote"&&e.eol()&&(i.nextMultiline=!0),i.position)},startState:function(){return{position:"def",nextMultiline:!1,inMultiline:!1,afterSection:!1}}};export{f as properties};
+const properties = {
+  token: function(stream, state) {
+    var sol = stream.sol() || state.afterSection;
+    var eol = stream.eol();
+    state.afterSection = false;
+    if (sol) {
+      if (state.nextMultiline) {
+        state.inMultiline = true;
+        state.nextMultiline = false;
+      } else {
+        state.position = "def";
+      }
+    }
+    if (eol && !state.nextMultiline) {
+      state.inMultiline = false;
+      state.position = "def";
+    }
+    if (sol) {
+      while (stream.eatSpace()) {
+      }
+    }
+    var ch = stream.next();
+    if (sol && (ch === "#" || ch === "!" || ch === ";")) {
+      state.position = "comment";
+      stream.skipToEnd();
+      return "comment";
+    } else if (sol && ch === "[") {
+      state.afterSection = true;
+      stream.skipTo("]");
+      stream.eat("]");
+      return "header";
+    } else if (ch === "=" || ch === ":") {
+      state.position = "quote";
+      return null;
+    } else if (ch === "\\" && state.position === "quote") {
+      if (stream.eol()) {
+        state.nextMultiline = true;
+      }
+    }
+    return state.position;
+  },
+  startState: function() {
+    return {
+      position: "def",
+      nextMultiline: false,
+      inMultiline: false,
+      afterSection: false
+    };
+  }
+};
+export {
+  properties
+};
+//# sourceMappingURL=properties.0156ad53.js.map

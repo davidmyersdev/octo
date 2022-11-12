@@ -1,1 +1,675 @@
-var S=["-type","-spec","-export_type","-opaque"],x=["after","begin","catch","case","cond","end","fun","if","let","of","query","receive","try","when"],z=/[\->,;]/,E=["->",";",","],T=["and","andalso","band","bnot","bor","bsl","bsr","bxor","div","not","or","orelse","rem","xor"],R=/[\+\-\*\/<>=\|:!]/,A=["=","+","-","*","/",">",">=","<","=<","=:=","==","=/=","/=","||","<-","!"],U=/[<\(\[\{]/,b=["<<","(","[","{"],Z=/[>\)\]\}]/,y=["}","]",")",">>"],P=["is_atom","is_binary","is_bitstring","is_boolean","is_float","is_function","is_integer","is_list","is_number","is_pid","is_port","is_record","is_reference","is_tuple","atom","binary","bitstring","boolean","function","integer","list","number","pid","port","record","reference","tuple"],m=["abs","adler32","adler32_combine","alive","apply","atom_to_binary","atom_to_list","binary_to_atom","binary_to_existing_atom","binary_to_list","binary_to_term","bit_size","bitstring_to_list","byte_size","check_process_code","contact_binary","crc32","crc32_combine","date","decode_packet","delete_module","disconnect_node","element","erase","exit","float","float_to_list","garbage_collect","get","get_keys","group_leader","halt","hd","integer_to_list","internal_bif","iolist_size","iolist_to_binary","is_alive","is_atom","is_binary","is_bitstring","is_boolean","is_float","is_function","is_integer","is_list","is_number","is_pid","is_port","is_process_alive","is_record","is_reference","is_tuple","length","link","list_to_atom","list_to_binary","list_to_bitstring","list_to_existing_atom","list_to_float","list_to_integer","list_to_pid","list_to_tuple","load_module","make_ref","module_loaded","monitor_node","node","node_link","node_unlink","nodes","notalive","now","open_port","pid_to_list","port_close","port_command","port_connect","port_control","pre_loaded","process_flag","process_info","processes","purge_module","put","register","registered","round","self","setelement","size","spawn","spawn_link","spawn_monitor","spawn_opt","split_binary","statistics","term_to_binary","time","throw","tl","trunc","tuple_size","tuple_to_list","unlink","unregister","whereis"],p=/[\w@Ø-ÞÀ-Öß-öø-ÿ]/,q=/[0-7]{1,3}|[bdefnrstv\\"']|\^[a-zA-Z]|x[0-9a-zA-Z]{2}|x{[0-9a-zA-Z]+}/;function j(e,n){if(n.in_string)return n.in_string=!v(e),t(n,e,"string");if(n.in_atom)return n.in_atom=!h(e),t(n,e,"atom");if(e.eatSpace())return t(n,e,"whitespace");if(!_(n)&&e.match(/-\s*[a-zß-öø-ÿ][\wØ-ÞÀ-Öß-öø-ÿ]*/))return u(e.current(),S)?t(n,e,"type"):t(n,e,"attribute");var r=e.next();if(r=="%")return e.skipToEnd(),t(n,e,"comment");if(r==":")return t(n,e,"colon");if(r=="?")return e.eatSpace(),e.eatWhile(p),t(n,e,"macro");if(r=="#")return e.eatSpace(),e.eatWhile(p),t(n,e,"record");if(r=="$")return e.next()=="\\"&&!e.match(q)?t(n,e,"error"):t(n,e,"number");if(r==".")return t(n,e,"dot");if(r=="'"){if(!(n.in_atom=!h(e))){if(e.match(/\s*\/\s*[0-9]/,!1))return e.match(/\s*\/\s*[0-9]/,!0),t(n,e,"fun");if(e.match(/\s*\(/,!1)||e.match(/\s*:/,!1))return t(n,e,"function")}return t(n,e,"atom")}if(r=='"')return n.in_string=!v(e),t(n,e,"string");if(/[A-Z_Ø-ÞÀ-Ö]/.test(r))return e.eatWhile(p),t(n,e,"variable");if(/[a-z_ß-öø-ÿ]/.test(r)){if(e.eatWhile(p),e.match(/\s*\/\s*[0-9]/,!1))return e.match(/\s*\/\s*[0-9]/,!0),t(n,e,"fun");var i=e.current();return u(i,x)?t(n,e,"keyword"):u(i,T)?t(n,e,"operator"):e.match(/\s*\(/,!1)?u(i,m)&&(_(n).token!=":"||_(n,2).token=="erlang")?t(n,e,"builtin"):u(i,P)?t(n,e,"guard"):t(n,e,"function"):Q(e)==":"?i=="erlang"?t(n,e,"builtin"):t(n,e,"function"):u(i,["true","false"])?t(n,e,"boolean"):t(n,e,"atom")}var l=/[0-9]/,o=/[0-9a-zA-Z]/;return l.test(r)?(e.eatWhile(l),e.eat("#")?e.eatWhile(o)||e.backUp(1):e.eat(".")&&(e.eatWhile(l)?e.eat(/[eE]/)&&(e.eat(/[-+]/)?e.eatWhile(l)||e.backUp(2):e.eatWhile(l)||e.backUp(1)):e.backUp(1)),t(n,e,"number")):g(e,U,b)?t(n,e,"open_paren"):g(e,Z,y)?t(n,e,"close_paren"):k(e,z,E)?t(n,e,"separator"):k(e,R,A)?t(n,e,"operator"):t(n,e,null)}function g(e,n,r){if(e.current().length==1&&n.test(e.current())){for(e.backUp(1);n.test(e.peek());)if(e.next(),u(e.current(),r))return!0;e.backUp(e.current().length-1)}return!1}function k(e,n,r){if(e.current().length==1&&n.test(e.current())){for(;n.test(e.peek());)e.next();for(;0<e.current().length;){if(u(e.current(),r))return!0;e.backUp(1)}e.next()}return!1}function v(e){return w(e,'"',"\\")}function h(e){return w(e,"'","\\")}function w(e,n,r){for(;!e.eol();){var i=e.next();if(i==n)return!0;i==r&&e.next()}return!1}function Q(e){var n=e.match(/^\s*([^\s%])/,!1);return n?n[1]:""}function u(e,n){return-1<n.indexOf(e)}function t(e,n,r){switch(N(e,D(r,n)),r){case"atom":return"atom";case"attribute":return"attribute";case"boolean":return"atom";case"builtin":return"builtin";case"close_paren":return null;case"colon":return null;case"comment":return"comment";case"dot":return null;case"error":return"error";case"fun":return"meta";case"function":return"tag";case"guard":return"property";case"keyword":return"keyword";case"macro":return"macroName";case"number":return"number";case"open_paren":return null;case"operator":return"operator";case"record":return"bracket";case"separator":return null;case"string":return"string";case"type":return"def";case"variable":return"variable";default:return null}}function W(e,n,r,i){return{token:e,column:n,indent:r,type:i}}function D(e,n){return W(n.current(),n.column(),n.indentation(),e)}function I(e){return W(e,0,0,e)}function _(e,n){var r=e.tokenStack.length,i=n||1;return r<i?!1:e.tokenStack[r-i]}function N(e,n){n.type=="comment"||n.type=="whitespace"||(e.tokenStack=O(e.tokenStack,n),e.tokenStack=$(e.tokenStack))}function O(e,n){var r=e.length-1;return 0<r&&e[r].type==="record"&&n.type==="dot"?e.pop():(0<r&&e[r].type==="group"&&e.pop(),e.push(n)),e}function $(e){if(!e.length)return e;var n=e.length-1;if(e[n].type==="dot")return[];if(n>1&&e[n].type==="fun"&&e[n-1].token==="fun")return e.slice(0,n-1);switch(e[n].token){case"}":return a(e,{g:["{"]});case"]":return a(e,{i:["["]});case")":return a(e,{i:["("]});case">>":return a(e,{i:["<<"]});case"end":return a(e,{i:["begin","case","fun","if","receive","try"]});case",":return a(e,{e:["begin","try","when","->",",","(","[","{","<<"]});case"->":return a(e,{r:["when"],m:["try","if","case","receive"]});case";":return a(e,{E:["case","fun","if","receive","try","when"]});case"catch":return a(e,{e:["try"]});case"of":return a(e,{e:["case"]});case"after":return a(e,{e:["receive","try"]});default:return e}}function a(e,n){for(var r in n)for(var i=e.length-1,l=n[r],o=i-1;-1<o;o--)if(u(e[o].token,l)){var c=e.slice(0,o);switch(r){case"m":return c.concat(e[o]).concat(e[i]);case"r":return c.concat(e[i]);case"i":return c;case"g":return c.concat(I("group"));case"E":return c.concat(e[o]);case"e":return c.concat(e[o])}}return r=="E"?[]:e}function B(e,n,r){var i,l=C(n),o=_(e,1),c=_(e,2);return e.in_string||e.in_atom?null:c?o.token=="when"?o.column+r.unit:l==="when"&&c.type==="function"?c.indent+r.unit:l==="("&&o.token==="fun"?o.column+3:l==="catch"&&(i=s(e,["try"]))?i.column:u(l,["end","after","of"])?(i=s(e,["begin","case","fun","if","receive","try"]),i?i.column:null):u(l,y)?(i=s(e,b),i?i.column:null):u(o.token,[",","|","||"])||u(l,[",","|","||"])?(i=F(e),i?i.column+i.token.length:r.unit):o.token=="->"?u(c.token,["receive","case","if","try"])?c.column+r.unit+r.unit:c.column+r.unit:u(o.token,b)?o.column+o.token.length:(i=G(e),f(i)?i.column+r.unit:0):0}function C(e){var n=e.match(/,|[a-z]+|\}|\]|\)|>>|\|+|\(/);return f(n)&&n.index===0?n[0]:""}function F(e){var n=e.tokenStack.slice(0,-1),r=d(n,"type",["open_paren"]);return f(n[r])?n[r]:!1}function G(e){var n=e.tokenStack,r=d(n,"type",["open_paren","separator","keyword"]),i=d(n,"type",["operator"]);return f(r)&&f(i)&&r<i?n[r+1]:f(r)?n[r]:!1}function s(e,n){var r=e.tokenStack,i=d(r,"token",n);return f(r[i])?r[i]:!1}function d(e,n,r){for(var i=e.length-1;-1<i;i--)if(u(e[i][n],r))return i;return!1}function f(e){return e!==!1&&e!=null}const H={startState(){return{tokenStack:[],in_string:!1,in_atom:!1}},token:j,indent:B,languageData:{commentTokens:{line:"%"}}};export{H as erlang};
+var typeWords = [
+  "-type",
+  "-spec",
+  "-export_type",
+  "-opaque"
+];
+var keywordWords = [
+  "after",
+  "begin",
+  "catch",
+  "case",
+  "cond",
+  "end",
+  "fun",
+  "if",
+  "let",
+  "of",
+  "query",
+  "receive",
+  "try",
+  "when"
+];
+var separatorRE = /[\->,;]/;
+var separatorWords = [
+  "->",
+  ";",
+  ","
+];
+var operatorAtomWords = [
+  "and",
+  "andalso",
+  "band",
+  "bnot",
+  "bor",
+  "bsl",
+  "bsr",
+  "bxor",
+  "div",
+  "not",
+  "or",
+  "orelse",
+  "rem",
+  "xor"
+];
+var operatorSymbolRE = /[\+\-\*\/<>=\|:!]/;
+var operatorSymbolWords = [
+  "=",
+  "+",
+  "-",
+  "*",
+  "/",
+  ">",
+  ">=",
+  "<",
+  "=<",
+  "=:=",
+  "==",
+  "=/=",
+  "/=",
+  "||",
+  "<-",
+  "!"
+];
+var openParenRE = /[<\(\[\{]/;
+var openParenWords = [
+  "<<",
+  "(",
+  "[",
+  "{"
+];
+var closeParenRE = /[>\)\]\}]/;
+var closeParenWords = [
+  "}",
+  "]",
+  ")",
+  ">>"
+];
+var guardWords = [
+  "is_atom",
+  "is_binary",
+  "is_bitstring",
+  "is_boolean",
+  "is_float",
+  "is_function",
+  "is_integer",
+  "is_list",
+  "is_number",
+  "is_pid",
+  "is_port",
+  "is_record",
+  "is_reference",
+  "is_tuple",
+  "atom",
+  "binary",
+  "bitstring",
+  "boolean",
+  "function",
+  "integer",
+  "list",
+  "number",
+  "pid",
+  "port",
+  "record",
+  "reference",
+  "tuple"
+];
+var bifWords = [
+  "abs",
+  "adler32",
+  "adler32_combine",
+  "alive",
+  "apply",
+  "atom_to_binary",
+  "atom_to_list",
+  "binary_to_atom",
+  "binary_to_existing_atom",
+  "binary_to_list",
+  "binary_to_term",
+  "bit_size",
+  "bitstring_to_list",
+  "byte_size",
+  "check_process_code",
+  "contact_binary",
+  "crc32",
+  "crc32_combine",
+  "date",
+  "decode_packet",
+  "delete_module",
+  "disconnect_node",
+  "element",
+  "erase",
+  "exit",
+  "float",
+  "float_to_list",
+  "garbage_collect",
+  "get",
+  "get_keys",
+  "group_leader",
+  "halt",
+  "hd",
+  "integer_to_list",
+  "internal_bif",
+  "iolist_size",
+  "iolist_to_binary",
+  "is_alive",
+  "is_atom",
+  "is_binary",
+  "is_bitstring",
+  "is_boolean",
+  "is_float",
+  "is_function",
+  "is_integer",
+  "is_list",
+  "is_number",
+  "is_pid",
+  "is_port",
+  "is_process_alive",
+  "is_record",
+  "is_reference",
+  "is_tuple",
+  "length",
+  "link",
+  "list_to_atom",
+  "list_to_binary",
+  "list_to_bitstring",
+  "list_to_existing_atom",
+  "list_to_float",
+  "list_to_integer",
+  "list_to_pid",
+  "list_to_tuple",
+  "load_module",
+  "make_ref",
+  "module_loaded",
+  "monitor_node",
+  "node",
+  "node_link",
+  "node_unlink",
+  "nodes",
+  "notalive",
+  "now",
+  "open_port",
+  "pid_to_list",
+  "port_close",
+  "port_command",
+  "port_connect",
+  "port_control",
+  "pre_loaded",
+  "process_flag",
+  "process_info",
+  "processes",
+  "purge_module",
+  "put",
+  "register",
+  "registered",
+  "round",
+  "self",
+  "setelement",
+  "size",
+  "spawn",
+  "spawn_link",
+  "spawn_monitor",
+  "spawn_opt",
+  "split_binary",
+  "statistics",
+  "term_to_binary",
+  "time",
+  "throw",
+  "tl",
+  "trunc",
+  "tuple_size",
+  "tuple_to_list",
+  "unlink",
+  "unregister",
+  "whereis"
+];
+var anumRE = /[\w@Ø-ÞÀ-Öß-öø-ÿ]/;
+var escapesRE = /[0-7]{1,3}|[bdefnrstv\\"']|\^[a-zA-Z]|x[0-9a-zA-Z]{2}|x{[0-9a-zA-Z]+}/;
+function tokenizer(stream, state) {
+  if (state.in_string) {
+    state.in_string = !doubleQuote(stream);
+    return rval(state, stream, "string");
+  }
+  if (state.in_atom) {
+    state.in_atom = !singleQuote(stream);
+    return rval(state, stream, "atom");
+  }
+  if (stream.eatSpace()) {
+    return rval(state, stream, "whitespace");
+  }
+  if (!peekToken(state) && stream.match(/-\s*[a-zß-öø-ÿ][\wØ-ÞÀ-Öß-öø-ÿ]*/)) {
+    if (is_member(stream.current(), typeWords)) {
+      return rval(state, stream, "type");
+    } else {
+      return rval(state, stream, "attribute");
+    }
+  }
+  var ch = stream.next();
+  if (ch == "%") {
+    stream.skipToEnd();
+    return rval(state, stream, "comment");
+  }
+  if (ch == ":") {
+    return rval(state, stream, "colon");
+  }
+  if (ch == "?") {
+    stream.eatSpace();
+    stream.eatWhile(anumRE);
+    return rval(state, stream, "macro");
+  }
+  if (ch == "#") {
+    stream.eatSpace();
+    stream.eatWhile(anumRE);
+    return rval(state, stream, "record");
+  }
+  if (ch == "$") {
+    if (stream.next() == "\\" && !stream.match(escapesRE)) {
+      return rval(state, stream, "error");
+    }
+    return rval(state, stream, "number");
+  }
+  if (ch == ".") {
+    return rval(state, stream, "dot");
+  }
+  if (ch == "'") {
+    if (!(state.in_atom = !singleQuote(stream))) {
+      if (stream.match(/\s*\/\s*[0-9]/, false)) {
+        stream.match(/\s*\/\s*[0-9]/, true);
+        return rval(state, stream, "fun");
+      }
+      if (stream.match(/\s*\(/, false) || stream.match(/\s*:/, false)) {
+        return rval(state, stream, "function");
+      }
+    }
+    return rval(state, stream, "atom");
+  }
+  if (ch == '"') {
+    state.in_string = !doubleQuote(stream);
+    return rval(state, stream, "string");
+  }
+  if (/[A-Z_Ø-ÞÀ-Ö]/.test(ch)) {
+    stream.eatWhile(anumRE);
+    return rval(state, stream, "variable");
+  }
+  if (/[a-z_ß-öø-ÿ]/.test(ch)) {
+    stream.eatWhile(anumRE);
+    if (stream.match(/\s*\/\s*[0-9]/, false)) {
+      stream.match(/\s*\/\s*[0-9]/, true);
+      return rval(state, stream, "fun");
+    }
+    var w = stream.current();
+    if (is_member(w, keywordWords)) {
+      return rval(state, stream, "keyword");
+    } else if (is_member(w, operatorAtomWords)) {
+      return rval(state, stream, "operator");
+    } else if (stream.match(/\s*\(/, false)) {
+      if (is_member(w, bifWords) && (peekToken(state).token != ":" || peekToken(state, 2).token == "erlang")) {
+        return rval(state, stream, "builtin");
+      } else if (is_member(w, guardWords)) {
+        return rval(state, stream, "guard");
+      } else {
+        return rval(state, stream, "function");
+      }
+    } else if (lookahead(stream) == ":") {
+      if (w == "erlang") {
+        return rval(state, stream, "builtin");
+      } else {
+        return rval(state, stream, "function");
+      }
+    } else if (is_member(w, ["true", "false"])) {
+      return rval(state, stream, "boolean");
+    } else {
+      return rval(state, stream, "atom");
+    }
+  }
+  var digitRE = /[0-9]/;
+  var radixRE = /[0-9a-zA-Z]/;
+  if (digitRE.test(ch)) {
+    stream.eatWhile(digitRE);
+    if (stream.eat("#")) {
+      if (!stream.eatWhile(radixRE)) {
+        stream.backUp(1);
+      }
+    } else if (stream.eat(".")) {
+      if (!stream.eatWhile(digitRE)) {
+        stream.backUp(1);
+      } else {
+        if (stream.eat(/[eE]/)) {
+          if (stream.eat(/[-+]/)) {
+            if (!stream.eatWhile(digitRE)) {
+              stream.backUp(2);
+            }
+          } else {
+            if (!stream.eatWhile(digitRE)) {
+              stream.backUp(1);
+            }
+          }
+        }
+      }
+    }
+    return rval(state, stream, "number");
+  }
+  if (nongreedy(stream, openParenRE, openParenWords)) {
+    return rval(state, stream, "open_paren");
+  }
+  if (nongreedy(stream, closeParenRE, closeParenWords)) {
+    return rval(state, stream, "close_paren");
+  }
+  if (greedy(stream, separatorRE, separatorWords)) {
+    return rval(state, stream, "separator");
+  }
+  if (greedy(stream, operatorSymbolRE, operatorSymbolWords)) {
+    return rval(state, stream, "operator");
+  }
+  return rval(state, stream, null);
+}
+function nongreedy(stream, re, words) {
+  if (stream.current().length == 1 && re.test(stream.current())) {
+    stream.backUp(1);
+    while (re.test(stream.peek())) {
+      stream.next();
+      if (is_member(stream.current(), words)) {
+        return true;
+      }
+    }
+    stream.backUp(stream.current().length - 1);
+  }
+  return false;
+}
+function greedy(stream, re, words) {
+  if (stream.current().length == 1 && re.test(stream.current())) {
+    while (re.test(stream.peek())) {
+      stream.next();
+    }
+    while (0 < stream.current().length) {
+      if (is_member(stream.current(), words)) {
+        return true;
+      } else {
+        stream.backUp(1);
+      }
+    }
+    stream.next();
+  }
+  return false;
+}
+function doubleQuote(stream) {
+  return quote(stream, '"', "\\");
+}
+function singleQuote(stream) {
+  return quote(stream, "'", "\\");
+}
+function quote(stream, quoteChar, escapeChar) {
+  while (!stream.eol()) {
+    var ch = stream.next();
+    if (ch == quoteChar) {
+      return true;
+    } else if (ch == escapeChar) {
+      stream.next();
+    }
+  }
+  return false;
+}
+function lookahead(stream) {
+  var m = stream.match(/^\s*([^\s%])/, false);
+  return m ? m[1] : "";
+}
+function is_member(element, list) {
+  return -1 < list.indexOf(element);
+}
+function rval(state, stream, type) {
+  pushToken(state, realToken(type, stream));
+  switch (type) {
+    case "atom":
+      return "atom";
+    case "attribute":
+      return "attribute";
+    case "boolean":
+      return "atom";
+    case "builtin":
+      return "builtin";
+    case "close_paren":
+      return null;
+    case "colon":
+      return null;
+    case "comment":
+      return "comment";
+    case "dot":
+      return null;
+    case "error":
+      return "error";
+    case "fun":
+      return "meta";
+    case "function":
+      return "tag";
+    case "guard":
+      return "property";
+    case "keyword":
+      return "keyword";
+    case "macro":
+      return "macroName";
+    case "number":
+      return "number";
+    case "open_paren":
+      return null;
+    case "operator":
+      return "operator";
+    case "record":
+      return "bracket";
+    case "separator":
+      return null;
+    case "string":
+      return "string";
+    case "type":
+      return "def";
+    case "variable":
+      return "variable";
+    default:
+      return null;
+  }
+}
+function aToken(tok, col, ind, typ) {
+  return {
+    token: tok,
+    column: col,
+    indent: ind,
+    type: typ
+  };
+}
+function realToken(type, stream) {
+  return aToken(
+    stream.current(),
+    stream.column(),
+    stream.indentation(),
+    type
+  );
+}
+function fakeToken(type) {
+  return aToken(type, 0, 0, type);
+}
+function peekToken(state, depth) {
+  var len = state.tokenStack.length;
+  var dep = depth ? depth : 1;
+  if (len < dep) {
+    return false;
+  } else {
+    return state.tokenStack[len - dep];
+  }
+}
+function pushToken(state, token) {
+  if (!(token.type == "comment" || token.type == "whitespace")) {
+    state.tokenStack = maybe_drop_pre(state.tokenStack, token);
+    state.tokenStack = maybe_drop_post(state.tokenStack);
+  }
+}
+function maybe_drop_pre(s, token) {
+  var last = s.length - 1;
+  if (0 < last && s[last].type === "record" && token.type === "dot") {
+    s.pop();
+  } else if (0 < last && s[last].type === "group") {
+    s.pop();
+    s.push(token);
+  } else {
+    s.push(token);
+  }
+  return s;
+}
+function maybe_drop_post(s) {
+  if (!s.length)
+    return s;
+  var last = s.length - 1;
+  if (s[last].type === "dot") {
+    return [];
+  }
+  if (last > 1 && s[last].type === "fun" && s[last - 1].token === "fun") {
+    return s.slice(0, last - 1);
+  }
+  switch (s[last].token) {
+    case "}":
+      return d(s, { g: ["{"] });
+    case "]":
+      return d(s, { i: ["["] });
+    case ")":
+      return d(s, { i: ["("] });
+    case ">>":
+      return d(s, { i: ["<<"] });
+    case "end":
+      return d(s, { i: ["begin", "case", "fun", "if", "receive", "try"] });
+    case ",":
+      return d(s, { e: [
+        "begin",
+        "try",
+        "when",
+        "->",
+        ",",
+        "(",
+        "[",
+        "{",
+        "<<"
+      ] });
+    case "->":
+      return d(s, {
+        r: ["when"],
+        m: ["try", "if", "case", "receive"]
+      });
+    case ";":
+      return d(s, { E: ["case", "fun", "if", "receive", "try", "when"] });
+    case "catch":
+      return d(s, { e: ["try"] });
+    case "of":
+      return d(s, { e: ["case"] });
+    case "after":
+      return d(s, { e: ["receive", "try"] });
+    default:
+      return s;
+  }
+}
+function d(stack, tt) {
+  for (var type in tt) {
+    var len = stack.length - 1;
+    var tokens = tt[type];
+    for (var i = len - 1; -1 < i; i--) {
+      if (is_member(stack[i].token, tokens)) {
+        var ss = stack.slice(0, i);
+        switch (type) {
+          case "m":
+            return ss.concat(stack[i]).concat(stack[len]);
+          case "r":
+            return ss.concat(stack[len]);
+          case "i":
+            return ss;
+          case "g":
+            return ss.concat(fakeToken("group"));
+          case "E":
+            return ss.concat(stack[i]);
+          case "e":
+            return ss.concat(stack[i]);
+        }
+      }
+    }
+  }
+  return type == "E" ? [] : stack;
+}
+function indenter(state, textAfter, cx) {
+  var t;
+  var wordAfter = wordafter(textAfter);
+  var currT = peekToken(state, 1);
+  var prevT = peekToken(state, 2);
+  if (state.in_string || state.in_atom) {
+    return null;
+  } else if (!prevT) {
+    return 0;
+  } else if (currT.token == "when") {
+    return currT.column + cx.unit;
+  } else if (wordAfter === "when" && prevT.type === "function") {
+    return prevT.indent + cx.unit;
+  } else if (wordAfter === "(" && currT.token === "fun") {
+    return currT.column + 3;
+  } else if (wordAfter === "catch" && (t = getToken(state, ["try"]))) {
+    return t.column;
+  } else if (is_member(wordAfter, ["end", "after", "of"])) {
+    t = getToken(state, ["begin", "case", "fun", "if", "receive", "try"]);
+    return t ? t.column : null;
+  } else if (is_member(wordAfter, closeParenWords)) {
+    t = getToken(state, openParenWords);
+    return t ? t.column : null;
+  } else if (is_member(currT.token, [",", "|", "||"]) || is_member(wordAfter, [",", "|", "||"])) {
+    t = postcommaToken(state);
+    return t ? t.column + t.token.length : cx.unit;
+  } else if (currT.token == "->") {
+    if (is_member(prevT.token, ["receive", "case", "if", "try"])) {
+      return prevT.column + cx.unit + cx.unit;
+    } else {
+      return prevT.column + cx.unit;
+    }
+  } else if (is_member(currT.token, openParenWords)) {
+    return currT.column + currT.token.length;
+  } else {
+    t = defaultToken(state);
+    return truthy(t) ? t.column + cx.unit : 0;
+  }
+}
+function wordafter(str) {
+  var m = str.match(/,|[a-z]+|\}|\]|\)|>>|\|+|\(/);
+  return truthy(m) && m.index === 0 ? m[0] : "";
+}
+function postcommaToken(state) {
+  var objs = state.tokenStack.slice(0, -1);
+  var i = getTokenIndex(objs, "type", ["open_paren"]);
+  return truthy(objs[i]) ? objs[i] : false;
+}
+function defaultToken(state) {
+  var objs = state.tokenStack;
+  var stop = getTokenIndex(objs, "type", ["open_paren", "separator", "keyword"]);
+  var oper = getTokenIndex(objs, "type", ["operator"]);
+  if (truthy(stop) && truthy(oper) && stop < oper) {
+    return objs[stop + 1];
+  } else if (truthy(stop)) {
+    return objs[stop];
+  } else {
+    return false;
+  }
+}
+function getToken(state, tokens) {
+  var objs = state.tokenStack;
+  var i = getTokenIndex(objs, "token", tokens);
+  return truthy(objs[i]) ? objs[i] : false;
+}
+function getTokenIndex(objs, propname, propvals) {
+  for (var i = objs.length - 1; -1 < i; i--) {
+    if (is_member(objs[i][propname], propvals)) {
+      return i;
+    }
+  }
+  return false;
+}
+function truthy(x) {
+  return x !== false && x != null;
+}
+const erlang = {
+  startState() {
+    return {
+      tokenStack: [],
+      in_string: false,
+      in_atom: false
+    };
+  },
+  token: tokenizer,
+  indent: indenter,
+  languageData: {
+    commentTokens: { line: "%" }
+  }
+};
+export {
+  erlang
+};
+//# sourceMappingURL=erlang.1383a233.js.map

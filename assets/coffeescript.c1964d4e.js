@@ -1,1 +1,315 @@
-var t="error";function p(e){return new RegExp("^(("+e.join(")|(")+"))\\b")}var g=/^(?:->|=>|\+[+=]?|-[\-=]?|\*[\*=]?|\/[\/=]?|[=!]=|<[><]?=?|>>?=?|%=?|&=?|\|=?|\^=?|\~|!|\?|(or|and|\|\||&&|\?)=)/,y=/^(?:[()\[\]{},:`=;]|\.\.?\.?)/,h=/^[_A-Za-z$][_A-Za-z$0-9]*/,w=/^@[_A-Za-z$][_A-Za-z$0-9]*/,z=p(["and","or","not","is","isnt","in","instanceof","typeof"]),l=["for","while","loop","if","unless","else","switch","try","catch","finally","class"],x=["break","by","continue","debugger","delete","do","in","of","new","return","then","this","@","throw","when","until","extends"],a=p(l.concat(x));l=p(l);var b=/^('{3}|\"{3}|['\"])/,A=/^(\/{3}|\/)/,S=["Infinity","NaN","undefined","null","true","false","on","off","yes","no"],O=p(S);function u(e,n){if(e.sol()){n.scope.align===null&&(n.scope.align=!1);var i=n.scope.offset;if(e.eatSpace()){var f=e.indentation();return f>i&&n.scope.type=="coffee"?"indent":f<i?"dedent":null}else i>0&&v(e,n)}if(e.eatSpace())return null;var r=e.peek();if(e.match("####"))return e.skipToEnd(),"comment";if(e.match("###"))return n.tokenize=R,n.tokenize(e,n);if(r==="#")return e.skipToEnd(),"comment";if(e.match(/^-?[0-9\.]/,!1)){var c=!1;if(e.match(/^-?\d*\.\d+(e[\+\-]?\d+)?/i)&&(c=!0),e.match(/^-?\d+\.\d*/)&&(c=!0),e.match(/^-?\.\d+/)&&(c=!0),c)return e.peek()=="."&&e.backUp(1),"number";var o=!1;if(e.match(/^-?0x[0-9a-f]+/i)&&(o=!0),e.match(/^-?[1-9]\d*(e[\+\-]?\d+)?/)&&(o=!0),e.match(/^-?0(?![\dx])/i)&&(o=!0),o)return"number"}if(e.match(b))return n.tokenize=k(e.current(),!1,"string"),n.tokenize(e,n);if(e.match(A)){if(e.current()!="/"||e.match(/^.*\//,!1))return n.tokenize=k(e.current(),!0,"string.special"),n.tokenize(e,n);e.backUp(1)}return e.match(g)||e.match(z)?"operator":e.match(y)?"punctuation":e.match(O)?"atom":e.match(w)||n.prop&&e.match(h)?"property":e.match(a)?"keyword":e.match(h)?"variable":(e.next(),t)}function k(e,n,i){return function(f,r){for(;!f.eol();)if(f.eatWhile(/[^'"\/\\]/),f.eat("\\")){if(f.next(),n&&f.eol())return i}else{if(f.match(e))return r.tokenize=u,i;f.eat(/['"\/]/)}return n&&(r.tokenize=u),i}}function R(e,n){for(;!e.eol();){if(e.eatWhile(/[^#]/),e.match("###")){n.tokenize=u;break}e.eatWhile("#")}return"comment"}function d(e,n,i="coffee"){for(var f=0,r=!1,c=null,o=n.scope;o;o=o.prev)if(o.type==="coffee"||o.type=="}"){f=o.offset+e.indentUnit;break}i!=="coffee"?(r=null,c=e.column()+e.current().length):n.scope.align&&(n.scope.align=!1),n.scope={offset:f,type:i,prev:n.scope,align:r,alignOffset:c}}function v(e,n){if(!!n.scope.prev)if(n.scope.type==="coffee"){for(var i=e.indentation(),f=!1,r=n.scope;r;r=r.prev)if(i===r.offset){f=!0;break}if(!f)return!0;for(;n.scope.prev&&n.scope.offset!==i;)n.scope=n.scope.prev;return!1}else return n.scope=n.scope.prev,!1}function E(e,n){var i=n.tokenize(e,n),f=e.current();f==="return"&&(n.dedent=!0),((f==="->"||f==="=>")&&e.eol()||i==="indent")&&d(e,n);var r="[({".indexOf(f);if(r!==-1&&d(e,n,"])}".slice(r,r+1)),l.exec(f)&&d(e,n),f=="then"&&v(e,n),i==="dedent"&&v(e,n))return t;if(r="])}".indexOf(f),r!==-1){for(;n.scope.type=="coffee"&&n.scope.prev;)n.scope=n.scope.prev;n.scope.type==f&&(n.scope=n.scope.prev)}return n.dedent&&e.eol()&&(n.scope.type=="coffee"&&n.scope.prev&&(n.scope=n.scope.prev),n.dedent=!1),i=="indent"||i=="dedent"?null:i}const Z={startState:function(){return{tokenize:u,scope:{offset:0,type:"coffee",prev:null,align:!1},prop:!1,dedent:0}},token:function(e,n){var i=n.scope.align===null&&n.scope;i&&e.sol()&&(i.align=!1);var f=E(e,n);return f&&f!="comment"&&(i&&(i.align=!0),n.prop=f=="punctuation"&&e.current()=="."),f},indent:function(e,n){if(e.tokenize!=u)return 0;var i=e.scope,f=n&&"])}".indexOf(n.charAt(0))>-1;if(f)for(;i.type=="coffee"&&i.prev;)i=i.prev;var r=f&&i.type===n.charAt(0);return i.align?i.alignOffset-(r?1:0):(r?i.prev:i).offset},languageData:{commentTokens:{line:"#"}}};export{Z as coffeeScript};
+var ERRORCLASS = "error";
+function wordRegexp(words) {
+  return new RegExp("^((" + words.join(")|(") + "))\\b");
+}
+var operators = /^(?:->|=>|\+[+=]?|-[\-=]?|\*[\*=]?|\/[\/=]?|[=!]=|<[><]?=?|>>?=?|%=?|&=?|\|=?|\^=?|\~|!|\?|(or|and|\|\||&&|\?)=)/;
+var delimiters = /^(?:[()\[\]{},:`=;]|\.\.?\.?)/;
+var identifiers = /^[_A-Za-z$][_A-Za-z$0-9]*/;
+var atProp = /^@[_A-Za-z$][_A-Za-z$0-9]*/;
+var wordOperators = wordRegexp([
+  "and",
+  "or",
+  "not",
+  "is",
+  "isnt",
+  "in",
+  "instanceof",
+  "typeof"
+]);
+var indentKeywords = [
+  "for",
+  "while",
+  "loop",
+  "if",
+  "unless",
+  "else",
+  "switch",
+  "try",
+  "catch",
+  "finally",
+  "class"
+];
+var commonKeywords = [
+  "break",
+  "by",
+  "continue",
+  "debugger",
+  "delete",
+  "do",
+  "in",
+  "of",
+  "new",
+  "return",
+  "then",
+  "this",
+  "@",
+  "throw",
+  "when",
+  "until",
+  "extends"
+];
+var keywords = wordRegexp(indentKeywords.concat(commonKeywords));
+indentKeywords = wordRegexp(indentKeywords);
+var stringPrefixes = /^('{3}|\"{3}|['\"])/;
+var regexPrefixes = /^(\/{3}|\/)/;
+var commonConstants = ["Infinity", "NaN", "undefined", "null", "true", "false", "on", "off", "yes", "no"];
+var constants = wordRegexp(commonConstants);
+function tokenBase(stream, state) {
+  if (stream.sol()) {
+    if (state.scope.align === null)
+      state.scope.align = false;
+    var scopeOffset = state.scope.offset;
+    if (stream.eatSpace()) {
+      var lineOffset = stream.indentation();
+      if (lineOffset > scopeOffset && state.scope.type == "coffee") {
+        return "indent";
+      } else if (lineOffset < scopeOffset) {
+        return "dedent";
+      }
+      return null;
+    } else {
+      if (scopeOffset > 0) {
+        dedent(stream, state);
+      }
+    }
+  }
+  if (stream.eatSpace()) {
+    return null;
+  }
+  var ch = stream.peek();
+  if (stream.match("####")) {
+    stream.skipToEnd();
+    return "comment";
+  }
+  if (stream.match("###")) {
+    state.tokenize = longComment;
+    return state.tokenize(stream, state);
+  }
+  if (ch === "#") {
+    stream.skipToEnd();
+    return "comment";
+  }
+  if (stream.match(/^-?[0-9\.]/, false)) {
+    var floatLiteral = false;
+    if (stream.match(/^-?\d*\.\d+(e[\+\-]?\d+)?/i)) {
+      floatLiteral = true;
+    }
+    if (stream.match(/^-?\d+\.\d*/)) {
+      floatLiteral = true;
+    }
+    if (stream.match(/^-?\.\d+/)) {
+      floatLiteral = true;
+    }
+    if (floatLiteral) {
+      if (stream.peek() == ".") {
+        stream.backUp(1);
+      }
+      return "number";
+    }
+    var intLiteral = false;
+    if (stream.match(/^-?0x[0-9a-f]+/i)) {
+      intLiteral = true;
+    }
+    if (stream.match(/^-?[1-9]\d*(e[\+\-]?\d+)?/)) {
+      intLiteral = true;
+    }
+    if (stream.match(/^-?0(?![\dx])/i)) {
+      intLiteral = true;
+    }
+    if (intLiteral) {
+      return "number";
+    }
+  }
+  if (stream.match(stringPrefixes)) {
+    state.tokenize = tokenFactory(stream.current(), false, "string");
+    return state.tokenize(stream, state);
+  }
+  if (stream.match(regexPrefixes)) {
+    if (stream.current() != "/" || stream.match(/^.*\//, false)) {
+      state.tokenize = tokenFactory(stream.current(), true, "string.special");
+      return state.tokenize(stream, state);
+    } else {
+      stream.backUp(1);
+    }
+  }
+  if (stream.match(operators) || stream.match(wordOperators)) {
+    return "operator";
+  }
+  if (stream.match(delimiters)) {
+    return "punctuation";
+  }
+  if (stream.match(constants)) {
+    return "atom";
+  }
+  if (stream.match(atProp) || state.prop && stream.match(identifiers)) {
+    return "property";
+  }
+  if (stream.match(keywords)) {
+    return "keyword";
+  }
+  if (stream.match(identifiers)) {
+    return "variable";
+  }
+  stream.next();
+  return ERRORCLASS;
+}
+function tokenFactory(delimiter, singleline, outclass) {
+  return function(stream, state) {
+    while (!stream.eol()) {
+      stream.eatWhile(/[^'"\/\\]/);
+      if (stream.eat("\\")) {
+        stream.next();
+        if (singleline && stream.eol()) {
+          return outclass;
+        }
+      } else if (stream.match(delimiter)) {
+        state.tokenize = tokenBase;
+        return outclass;
+      } else {
+        stream.eat(/['"\/]/);
+      }
+    }
+    if (singleline) {
+      state.tokenize = tokenBase;
+    }
+    return outclass;
+  };
+}
+function longComment(stream, state) {
+  while (!stream.eol()) {
+    stream.eatWhile(/[^#]/);
+    if (stream.match("###")) {
+      state.tokenize = tokenBase;
+      break;
+    }
+    stream.eatWhile("#");
+  }
+  return "comment";
+}
+function indent(stream, state, type = "coffee") {
+  var offset = 0, align = false, alignOffset = null;
+  for (var scope = state.scope; scope; scope = scope.prev) {
+    if (scope.type === "coffee" || scope.type == "}") {
+      offset = scope.offset + stream.indentUnit;
+      break;
+    }
+  }
+  if (type !== "coffee") {
+    align = null;
+    alignOffset = stream.column() + stream.current().length;
+  } else if (state.scope.align) {
+    state.scope.align = false;
+  }
+  state.scope = {
+    offset,
+    type,
+    prev: state.scope,
+    align,
+    alignOffset
+  };
+}
+function dedent(stream, state) {
+  if (!state.scope.prev)
+    return;
+  if (state.scope.type === "coffee") {
+    var _indent = stream.indentation();
+    var matched = false;
+    for (var scope = state.scope; scope; scope = scope.prev) {
+      if (_indent === scope.offset) {
+        matched = true;
+        break;
+      }
+    }
+    if (!matched) {
+      return true;
+    }
+    while (state.scope.prev && state.scope.offset !== _indent) {
+      state.scope = state.scope.prev;
+    }
+    return false;
+  } else {
+    state.scope = state.scope.prev;
+    return false;
+  }
+}
+function tokenLexer(stream, state) {
+  var style = state.tokenize(stream, state);
+  var current = stream.current();
+  if (current === "return") {
+    state.dedent = true;
+  }
+  if ((current === "->" || current === "=>") && stream.eol() || style === "indent") {
+    indent(stream, state);
+  }
+  var delimiter_index = "[({".indexOf(current);
+  if (delimiter_index !== -1) {
+    indent(stream, state, "])}".slice(delimiter_index, delimiter_index + 1));
+  }
+  if (indentKeywords.exec(current)) {
+    indent(stream, state);
+  }
+  if (current == "then") {
+    dedent(stream, state);
+  }
+  if (style === "dedent") {
+    if (dedent(stream, state)) {
+      return ERRORCLASS;
+    }
+  }
+  delimiter_index = "])}".indexOf(current);
+  if (delimiter_index !== -1) {
+    while (state.scope.type == "coffee" && state.scope.prev)
+      state.scope = state.scope.prev;
+    if (state.scope.type == current)
+      state.scope = state.scope.prev;
+  }
+  if (state.dedent && stream.eol()) {
+    if (state.scope.type == "coffee" && state.scope.prev)
+      state.scope = state.scope.prev;
+    state.dedent = false;
+  }
+  return style == "indent" || style == "dedent" ? null : style;
+}
+const coffeeScript = {
+  startState: function() {
+    return {
+      tokenize: tokenBase,
+      scope: { offset: 0, type: "coffee", prev: null, align: false },
+      prop: false,
+      dedent: 0
+    };
+  },
+  token: function(stream, state) {
+    var fillAlign = state.scope.align === null && state.scope;
+    if (fillAlign && stream.sol())
+      fillAlign.align = false;
+    var style = tokenLexer(stream, state);
+    if (style && style != "comment") {
+      if (fillAlign)
+        fillAlign.align = true;
+      state.prop = style == "punctuation" && stream.current() == ".";
+    }
+    return style;
+  },
+  indent: function(state, text) {
+    if (state.tokenize != tokenBase)
+      return 0;
+    var scope = state.scope;
+    var closer = text && "])}".indexOf(text.charAt(0)) > -1;
+    if (closer)
+      while (scope.type == "coffee" && scope.prev)
+        scope = scope.prev;
+    var closes = closer && scope.type === text.charAt(0);
+    if (scope.align)
+      return scope.alignOffset - (closes ? 1 : 0);
+    else
+      return (closes ? scope.prev : scope).offset;
+  },
+  languageData: {
+    commentTokens: { line: "#" }
+  }
+};
+export {
+  coffeeScript
+};
+//# sourceMappingURL=coffeescript.c1964d4e.js.map

@@ -1,1 +1,54 @@
-var f="><+-.,[]".split("");const r={startState:function(){return{commentLine:!1,left:0,right:0,commentLoop:!1}},token:function(i,n){if(i.eatSpace())return null;i.sol()&&(n.commentLine=!1);var e=i.next().toString();if(f.indexOf(e)!==-1){if(n.commentLine===!0)return i.eol()&&(n.commentLine=!1),"comment";if(e==="]"||e==="[")return e==="["?n.left++:n.right++,"bracket";if(e==="+"||e==="-")return"keyword";if(e==="<"||e===">")return"atom";if(e==="."||e===",")return"def"}else return n.commentLine=!0,i.eol()&&(n.commentLine=!1),"comment";i.eol()&&(n.commentLine=!1)}};export{r as brainfuck};
+var reserve = "><+-.,[]".split("");
+const brainfuck = {
+  startState: function() {
+    return {
+      commentLine: false,
+      left: 0,
+      right: 0,
+      commentLoop: false
+    };
+  },
+  token: function(stream, state) {
+    if (stream.eatSpace())
+      return null;
+    if (stream.sol()) {
+      state.commentLine = false;
+    }
+    var ch = stream.next().toString();
+    if (reserve.indexOf(ch) !== -1) {
+      if (state.commentLine === true) {
+        if (stream.eol()) {
+          state.commentLine = false;
+        }
+        return "comment";
+      }
+      if (ch === "]" || ch === "[") {
+        if (ch === "[") {
+          state.left++;
+        } else {
+          state.right++;
+        }
+        return "bracket";
+      } else if (ch === "+" || ch === "-") {
+        return "keyword";
+      } else if (ch === "<" || ch === ">") {
+        return "atom";
+      } else if (ch === "." || ch === ",") {
+        return "def";
+      }
+    } else {
+      state.commentLine = true;
+      if (stream.eol()) {
+        state.commentLine = false;
+      }
+      return "comment";
+    }
+    if (stream.eol()) {
+      state.commentLine = false;
+    }
+  }
+};
+export {
+  brainfuck
+};
+//# sourceMappingURL=brainfuck.e6564070.js.map

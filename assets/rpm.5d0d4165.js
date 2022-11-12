@@ -1,1 +1,108 @@
-var o=/^-+$/,i=/^(Mon|Tue|Wed|Thu|Fri|Sat|Sun) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)  ?\d{1,2} \d{2}:\d{2}(:\d{2})? [A-Z]{3,4} \d{4} - /,c=/^[\w+.-]+@[\w.-]+/;const h={token:function(r){return r.sol()&&(r.match(o)||r.match(i))?"tag":r.match(c)?"string":(r.next(),null)}};var a=/^(i386|i586|i686|x86_64|ppc64le|ppc64|ppc|ia64|s390x|s390|sparc64|sparcv9|sparc|noarch|alphaev6|alpha|hppa|mipsel)/,t=/^[a-zA-Z0-9()]+:/,l=/^%(debug_package|package|description|prep|build|install|files|clean|changelog|preinstall|preun|postinstall|postun|pretrans|posttrans|pre|post|triggerin|triggerun|verifyscript|check|triggerpostun|triggerprein|trigger)/,f=/^%(ifnarch|ifarch|if)/,p=/^%(else|endif)/,u=/^(\!|\?|\<\=|\<|\>\=|\>|\=\=|\&\&|\|\|)/;const d={startState:function(){return{controlFlow:!1,macroParameters:!1,section:!1}},token:function(r,e){var n=r.peek();if(n=="#")return r.skipToEnd(),"comment";if(r.sol()){if(r.match(t))return"header";if(r.match(l))return"atom"}if(r.match(/^\$\w+/)||r.match(/^\$\{\w+\}/))return"def";if(r.match(p))return"keyword";if(r.match(f))return e.controlFlow=!0,"keyword";if(e.controlFlow){if(r.match(u))return"operator";if(r.match(/^(\d+)/))return"number";r.eol()&&(e.controlFlow=!1)}if(r.match(a))return r.eol()&&(e.controlFlow=!1),"number";if(r.match(/^%[\w]+/))return r.match("(")&&(e.macroParameters=!0),"keyword";if(e.macroParameters){if(r.match(/^\d+/))return"number";if(r.match(")"))return e.macroParameters=!1,"keyword"}return r.match(/^%\{\??[\w \-\:\!]+\}/)?(r.eol()&&(e.controlFlow=!1),"def"):(r.next(),null)}};export{h as rpmChanges,d as rpmSpec};
+var headerSeparator = /^-+$/;
+var headerLine = /^(Mon|Tue|Wed|Thu|Fri|Sat|Sun) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)  ?\d{1,2} \d{2}:\d{2}(:\d{2})? [A-Z]{3,4} \d{4} - /;
+var simpleEmail = /^[\w+.-]+@[\w.-]+/;
+const rpmChanges = {
+  token: function(stream) {
+    if (stream.sol()) {
+      if (stream.match(headerSeparator)) {
+        return "tag";
+      }
+      if (stream.match(headerLine)) {
+        return "tag";
+      }
+    }
+    if (stream.match(simpleEmail)) {
+      return "string";
+    }
+    stream.next();
+    return null;
+  }
+};
+var arch = /^(i386|i586|i686|x86_64|ppc64le|ppc64|ppc|ia64|s390x|s390|sparc64|sparcv9|sparc|noarch|alphaev6|alpha|hppa|mipsel)/;
+var preamble = /^[a-zA-Z0-9()]+:/;
+var section = /^%(debug_package|package|description|prep|build|install|files|clean|changelog|preinstall|preun|postinstall|postun|pretrans|posttrans|pre|post|triggerin|triggerun|verifyscript|check|triggerpostun|triggerprein|trigger)/;
+var control_flow_complex = /^%(ifnarch|ifarch|if)/;
+var control_flow_simple = /^%(else|endif)/;
+var operators = /^(\!|\?|\<\=|\<|\>\=|\>|\=\=|\&\&|\|\|)/;
+const rpmSpec = {
+  startState: function() {
+    return {
+      controlFlow: false,
+      macroParameters: false,
+      section: false
+    };
+  },
+  token: function(stream, state) {
+    var ch = stream.peek();
+    if (ch == "#") {
+      stream.skipToEnd();
+      return "comment";
+    }
+    if (stream.sol()) {
+      if (stream.match(preamble)) {
+        return "header";
+      }
+      if (stream.match(section)) {
+        return "atom";
+      }
+    }
+    if (stream.match(/^\$\w+/)) {
+      return "def";
+    }
+    if (stream.match(/^\$\{\w+\}/)) {
+      return "def";
+    }
+    if (stream.match(control_flow_simple)) {
+      return "keyword";
+    }
+    if (stream.match(control_flow_complex)) {
+      state.controlFlow = true;
+      return "keyword";
+    }
+    if (state.controlFlow) {
+      if (stream.match(operators)) {
+        return "operator";
+      }
+      if (stream.match(/^(\d+)/)) {
+        return "number";
+      }
+      if (stream.eol()) {
+        state.controlFlow = false;
+      }
+    }
+    if (stream.match(arch)) {
+      if (stream.eol()) {
+        state.controlFlow = false;
+      }
+      return "number";
+    }
+    if (stream.match(/^%[\w]+/)) {
+      if (stream.match("(")) {
+        state.macroParameters = true;
+      }
+      return "keyword";
+    }
+    if (state.macroParameters) {
+      if (stream.match(/^\d+/)) {
+        return "number";
+      }
+      if (stream.match(")")) {
+        state.macroParameters = false;
+        return "keyword";
+      }
+    }
+    if (stream.match(/^%\{\??[\w \-\:\!]+\}/)) {
+      if (stream.eol()) {
+        state.controlFlow = false;
+      }
+      return "def";
+    }
+    stream.next();
+    return null;
+  }
+};
+export {
+  rpmChanges,
+  rpmSpec
+};
+//# sourceMappingURL=rpm.5d0d4165.js.map

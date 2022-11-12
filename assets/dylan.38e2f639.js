@@ -1,1 +1,294 @@
-function p(e,i){for(var n=0;n<e.length;n++)i(e[n],n)}function x(e,i){for(var n=0;n<e.length;n++)if(i(e[n],n))return!0;return!1}var t={unnamedDefinition:["interface"],namedDefinition:["module","library","macro","C-struct","C-union","C-function","C-callable-wrapper"],typeParameterizedDefinition:["class","C-subtype","C-mapped-subtype"],otherParameterizedDefinition:["method","function","C-variable","C-address"],constantSimpleDefinition:["constant"],variableSimpleDefinition:["variable"],otherSimpleDefinition:["generic","domain","C-pointer-type","table"],statement:["if","block","begin","method","case","for","select","when","unless","until","while","iterate","profiling","dynamic-bind"],separator:["finally","exception","cleanup","else","elseif","afterwards"],other:["above","below","by","from","handler","in","instance","let","local","otherwise","slot","subclass","then","to","keyed-by","virtual"],signalingCalls:["signal","error","cerror","break","check-type","abort"]};t.otherDefinition=t.unnamedDefinition.concat(t.namedDefinition).concat(t.otherParameterizedDefinition);t.definition=t.typeParameterizedDefinition.concat(t.otherDefinition);t.parameterizedDefinition=t.typeParameterizedDefinition.concat(t.otherParameterizedDefinition);t.simpleDefinition=t.constantSimpleDefinition.concat(t.variableSimpleDefinition).concat(t.otherSimpleDefinition);t.keyword=t.statement.concat(t.separator).concat(t.other);var f="[-_a-zA-Z?!*@<>$%]+",v=new RegExp("^"+f),a={symbolKeyword:f+":",symbolClass:"<"+f+">",symbolGlobal:"\\*"+f+"\\*",symbolConstant:"\\$"+f},w={symbolKeyword:"atom",symbolClass:"tag",symbolGlobal:"variableName.standard",symbolConstant:"variableName.constant"};for(var c in a)a.hasOwnProperty(c)&&(a[c]=new RegExp("^"+a[c]));a.keyword=[/^with(?:out)?-[-_a-zA-Z?!*@<>$%]+/];var u={};u.keyword="keyword";u.definition="def";u.simpleDefinition="def";u.signalingCalls="builtin";var y={},k={};p(["keyword","definition","simpleDefinition","signalingCalls"],function(e){p(t[e],function(i){y[i]=e,k[i]=u[e]})});function s(e,i,n){return i.tokenize=n,n(e,i)}function d(e,i){var n=e.peek();if(n=="'"||n=='"')return e.next(),s(e,i,h(n,"string"));if(n=="/"){if(e.next(),e.eat("*"))return s(e,i,D);if(e.eat("/"))return e.skipToEnd(),"comment";e.backUp(1)}else if(/[+\-\d\.]/.test(n)){if(e.match(/^[+-]?[0-9]*\.[0-9]*([esdx][+-]?[0-9]+)?/i)||e.match(/^[+-]?[0-9]+([esdx][+-]?[0-9]+)/i)||e.match(/^[+-]?\d+/))return"number"}else{if(n=="#")return e.next(),n=e.peek(),n=='"'?(e.next(),s(e,i,h('"',"string"))):n=="b"?(e.next(),e.eatWhile(/[01]/),"number"):n=="x"?(e.next(),e.eatWhile(/[\da-f]/i),"number"):n=="o"?(e.next(),e.eatWhile(/[0-7]/),"number"):n=="#"?(e.next(),"punctuation"):n=="["||n=="("?(e.next(),"bracket"):e.match(/f|t|all-keys|include|key|next|rest/i)?"atom":(e.eatWhile(/[-a-zA-Z]/),"error");if(n=="~")return e.next(),n=e.peek(),n=="="?(e.next(),n=e.peek(),n=="="&&e.next(),"operator"):"operator";if(n==":"){if(e.next(),n=e.peek(),n=="=")return e.next(),"operator";if(n==":")return e.next(),"punctuation"}else{if("[](){}".indexOf(n)!=-1)return e.next(),"bracket";if(".,".indexOf(n)!=-1)return e.next(),"punctuation";if(e.match("end"))return"keyword"}}for(var l in a)if(a.hasOwnProperty(l)){var r=a[l];if(r instanceof Array&&x(r,function(o){return e.match(o)})||e.match(r))return w[l]}return/[+\-*\/^=<>&|]/.test(n)?(e.next(),"operator"):e.match("define")?"def":(e.eatWhile(/[\w\-]/),y.hasOwnProperty(e.current())?k[e.current()]:e.current().match(v)?"variable":(e.next(),"variableName.standard"))}function D(e,i){for(var n=!1,l=!1,r=0,o;o=e.next();){if(o=="/"&&n)if(r>0)r--;else{i.tokenize=d;break}else o=="*"&&l&&r++;n=o=="*",l=o=="/"}return"comment"}function h(e,i){return function(n,l){for(var r=!1,o,b=!1;(o=n.next())!=null;){if(o==e&&!r){b=!0;break}r=!r&&o=="\\"}return(b||!r)&&(l.tokenize=d),i}}const g={startState:function(){return{tokenize:d,currentIndent:0}},token:function(e,i){if(e.eatSpace())return null;var n=i.tokenize(e,i);return n},languageData:{commentTokens:{block:{open:"/*",close:"*/"}}}};export{g as dylan};
+function forEach(arr, f) {
+  for (var i = 0; i < arr.length; i++)
+    f(arr[i], i);
+}
+function some(arr, f) {
+  for (var i = 0; i < arr.length; i++)
+    if (f(arr[i], i))
+      return true;
+  return false;
+}
+var words = {
+  unnamedDefinition: ["interface"],
+  namedDefinition: [
+    "module",
+    "library",
+    "macro",
+    "C-struct",
+    "C-union",
+    "C-function",
+    "C-callable-wrapper"
+  ],
+  typeParameterizedDefinition: ["class", "C-subtype", "C-mapped-subtype"],
+  otherParameterizedDefinition: [
+    "method",
+    "function",
+    "C-variable",
+    "C-address"
+  ],
+  constantSimpleDefinition: ["constant"],
+  variableSimpleDefinition: ["variable"],
+  otherSimpleDefinition: [
+    "generic",
+    "domain",
+    "C-pointer-type",
+    "table"
+  ],
+  statement: [
+    "if",
+    "block",
+    "begin",
+    "method",
+    "case",
+    "for",
+    "select",
+    "when",
+    "unless",
+    "until",
+    "while",
+    "iterate",
+    "profiling",
+    "dynamic-bind"
+  ],
+  separator: [
+    "finally",
+    "exception",
+    "cleanup",
+    "else",
+    "elseif",
+    "afterwards"
+  ],
+  other: [
+    "above",
+    "below",
+    "by",
+    "from",
+    "handler",
+    "in",
+    "instance",
+    "let",
+    "local",
+    "otherwise",
+    "slot",
+    "subclass",
+    "then",
+    "to",
+    "keyed-by",
+    "virtual"
+  ],
+  signalingCalls: [
+    "signal",
+    "error",
+    "cerror",
+    "break",
+    "check-type",
+    "abort"
+  ]
+};
+words["otherDefinition"] = words["unnamedDefinition"].concat(words["namedDefinition"]).concat(words["otherParameterizedDefinition"]);
+words["definition"] = words["typeParameterizedDefinition"].concat(words["otherDefinition"]);
+words["parameterizedDefinition"] = words["typeParameterizedDefinition"].concat(words["otherParameterizedDefinition"]);
+words["simpleDefinition"] = words["constantSimpleDefinition"].concat(words["variableSimpleDefinition"]).concat(words["otherSimpleDefinition"]);
+words["keyword"] = words["statement"].concat(words["separator"]).concat(words["other"]);
+var symbolPattern = "[-_a-zA-Z?!*@<>$%]+";
+var symbol = new RegExp("^" + symbolPattern);
+var patterns = {
+  symbolKeyword: symbolPattern + ":",
+  symbolClass: "<" + symbolPattern + ">",
+  symbolGlobal: "\\*" + symbolPattern + "\\*",
+  symbolConstant: "\\$" + symbolPattern
+};
+var patternStyles = {
+  symbolKeyword: "atom",
+  symbolClass: "tag",
+  symbolGlobal: "variableName.standard",
+  symbolConstant: "variableName.constant"
+};
+for (var patternName in patterns)
+  if (patterns.hasOwnProperty(patternName))
+    patterns[patternName] = new RegExp("^" + patterns[patternName]);
+patterns["keyword"] = [/^with(?:out)?-[-_a-zA-Z?!*@<>$%]+/];
+var styles = {};
+styles["keyword"] = "keyword";
+styles["definition"] = "def";
+styles["simpleDefinition"] = "def";
+styles["signalingCalls"] = "builtin";
+var wordLookup = {};
+var styleLookup = {};
+forEach([
+  "keyword",
+  "definition",
+  "simpleDefinition",
+  "signalingCalls"
+], function(type) {
+  forEach(words[type], function(word) {
+    wordLookup[word] = type;
+    styleLookup[word] = styles[type];
+  });
+});
+function chain(stream, state, f) {
+  state.tokenize = f;
+  return f(stream, state);
+}
+function tokenBase(stream, state) {
+  var ch = stream.peek();
+  if (ch == "'" || ch == '"') {
+    stream.next();
+    return chain(stream, state, tokenString(ch, "string"));
+  } else if (ch == "/") {
+    stream.next();
+    if (stream.eat("*")) {
+      return chain(stream, state, tokenComment);
+    } else if (stream.eat("/")) {
+      stream.skipToEnd();
+      return "comment";
+    }
+    stream.backUp(1);
+  } else if (/[+\-\d\.]/.test(ch)) {
+    if (stream.match(/^[+-]?[0-9]*\.[0-9]*([esdx][+-]?[0-9]+)?/i) || stream.match(/^[+-]?[0-9]+([esdx][+-]?[0-9]+)/i) || stream.match(/^[+-]?\d+/)) {
+      return "number";
+    }
+  } else if (ch == "#") {
+    stream.next();
+    ch = stream.peek();
+    if (ch == '"') {
+      stream.next();
+      return chain(stream, state, tokenString('"', "string"));
+    } else if (ch == "b") {
+      stream.next();
+      stream.eatWhile(/[01]/);
+      return "number";
+    } else if (ch == "x") {
+      stream.next();
+      stream.eatWhile(/[\da-f]/i);
+      return "number";
+    } else if (ch == "o") {
+      stream.next();
+      stream.eatWhile(/[0-7]/);
+      return "number";
+    } else if (ch == "#") {
+      stream.next();
+      return "punctuation";
+    } else if (ch == "[" || ch == "(") {
+      stream.next();
+      return "bracket";
+    } else if (stream.match(/f|t|all-keys|include|key|next|rest/i)) {
+      return "atom";
+    } else {
+      stream.eatWhile(/[-a-zA-Z]/);
+      return "error";
+    }
+  } else if (ch == "~") {
+    stream.next();
+    ch = stream.peek();
+    if (ch == "=") {
+      stream.next();
+      ch = stream.peek();
+      if (ch == "=") {
+        stream.next();
+        return "operator";
+      }
+      return "operator";
+    }
+    return "operator";
+  } else if (ch == ":") {
+    stream.next();
+    ch = stream.peek();
+    if (ch == "=") {
+      stream.next();
+      return "operator";
+    } else if (ch == ":") {
+      stream.next();
+      return "punctuation";
+    }
+  } else if ("[](){}".indexOf(ch) != -1) {
+    stream.next();
+    return "bracket";
+  } else if (".,".indexOf(ch) != -1) {
+    stream.next();
+    return "punctuation";
+  } else if (stream.match("end")) {
+    return "keyword";
+  }
+  for (var name in patterns) {
+    if (patterns.hasOwnProperty(name)) {
+      var pattern = patterns[name];
+      if (pattern instanceof Array && some(pattern, function(p) {
+        return stream.match(p);
+      }) || stream.match(pattern))
+        return patternStyles[name];
+    }
+  }
+  if (/[+\-*\/^=<>&|]/.test(ch)) {
+    stream.next();
+    return "operator";
+  }
+  if (stream.match("define")) {
+    return "def";
+  } else {
+    stream.eatWhile(/[\w\-]/);
+    if (wordLookup.hasOwnProperty(stream.current())) {
+      return styleLookup[stream.current()];
+    } else if (stream.current().match(symbol)) {
+      return "variable";
+    } else {
+      stream.next();
+      return "variableName.standard";
+    }
+  }
+}
+function tokenComment(stream, state) {
+  var maybeEnd = false, maybeNested = false, nestedCount = 0, ch;
+  while (ch = stream.next()) {
+    if (ch == "/" && maybeEnd) {
+      if (nestedCount > 0) {
+        nestedCount--;
+      } else {
+        state.tokenize = tokenBase;
+        break;
+      }
+    } else if (ch == "*" && maybeNested) {
+      nestedCount++;
+    }
+    maybeEnd = ch == "*";
+    maybeNested = ch == "/";
+  }
+  return "comment";
+}
+function tokenString(quote, style) {
+  return function(stream, state) {
+    var escaped = false, next, end = false;
+    while ((next = stream.next()) != null) {
+      if (next == quote && !escaped) {
+        end = true;
+        break;
+      }
+      escaped = !escaped && next == "\\";
+    }
+    if (end || !escaped) {
+      state.tokenize = tokenBase;
+    }
+    return style;
+  };
+}
+const dylan = {
+  startState: function() {
+    return {
+      tokenize: tokenBase,
+      currentIndent: 0
+    };
+  },
+  token: function(stream, state) {
+    if (stream.eatSpace())
+      return null;
+    var style = state.tokenize(stream, state);
+    return style;
+  },
+  languageData: {
+    commentTokens: { block: { open: "/*", close: "*/" } }
+  }
+};
+export {
+  dylan
+};
+//# sourceMappingURL=dylan.38e2f639.js.map

@@ -1,1 +1,140 @@
-var i={slash:0,parenthesis:1},n={comment:0,_string:1,characterClass:2};const l={startState:function(){return{stringType:null,commentType:null,braced:0,lhs:!0,localState:null,stack:[],inDefinition:!1}},token:function(e,c){if(!!e){switch(c.stack.length===0&&(e.peek()=='"'||e.peek()=="'"?(c.stringType=e.peek(),e.next(),c.stack.unshift(n._string)):e.match("/*")?(c.stack.unshift(n.comment),c.commentType=i.slash):e.match("(*")&&(c.stack.unshift(n.comment),c.commentType=i.parenthesis)),c.stack[0]){case n._string:for(;c.stack[0]===n._string&&!e.eol();)e.peek()===c.stringType?(e.next(),c.stack.shift()):e.peek()==="\\"?(e.next(),e.next()):e.match(/^.[^\\\"\']*/);return c.lhs?"property":"string";case n.comment:for(;c.stack[0]===n.comment&&!e.eol();)c.commentType===i.slash&&e.match("*/")||c.commentType===i.parenthesis&&e.match("*)")?(c.stack.shift(),c.commentType=null):e.match(/^.[^\*]*/);return"comment";case n.characterClass:for(;c.stack[0]===n.characterClass&&!e.eol();)e.match(/^[^\]\\]+/)||e.match(".")||c.stack.shift();return"operator"}var t=e.peek();switch(t){case"[":return e.next(),c.stack.unshift(n.characterClass),"bracket";case":":case"|":case";":return e.next(),"operator";case"%":if(e.match("%%"))return"header";if(e.match(/[%][A-Za-z]+/))return"keyword";if(e.match(/[%][}]/))return"bracket";break;case"/":if(e.match(/[\/][A-Za-z]+/))return"keyword";case"\\":if(e.match(/[\][a-z]+/))return"string.special";case".":if(e.match("."))return"atom";case"*":case"-":case"+":case"^":if(e.match(t))return"atom";case"$":if(e.match("$$"))return"builtin";if(e.match(/[$][0-9]+/))return"variableName.special";case"<":if(e.match(/<<[a-zA-Z_]+>>/))return"builtin"}return e.match("//")?(e.skipToEnd(),"comment"):e.match("return")?"operator":e.match(/^[a-zA-Z_][a-zA-Z0-9_]*/)?e.match(/(?=[\(.])/)?"variable":e.match(/(?=[\s\n]*[:=])/)?"def":"variableName.special":["[","]","(",")"].indexOf(e.peek())!=-1?(e.next(),"bracket"):(e.eatSpace()||e.next(),null)}}};export{l as ebnf};
+var commentType = { slash: 0, parenthesis: 1 };
+var stateType = { comment: 0, _string: 1, characterClass: 2 };
+const ebnf = {
+  startState: function() {
+    return {
+      stringType: null,
+      commentType: null,
+      braced: 0,
+      lhs: true,
+      localState: null,
+      stack: [],
+      inDefinition: false
+    };
+  },
+  token: function(stream, state) {
+    if (!stream)
+      return;
+    if (state.stack.length === 0) {
+      if (stream.peek() == '"' || stream.peek() == "'") {
+        state.stringType = stream.peek();
+        stream.next();
+        state.stack.unshift(stateType._string);
+      } else if (stream.match("/*")) {
+        state.stack.unshift(stateType.comment);
+        state.commentType = commentType.slash;
+      } else if (stream.match("(*")) {
+        state.stack.unshift(stateType.comment);
+        state.commentType = commentType.parenthesis;
+      }
+    }
+    switch (state.stack[0]) {
+      case stateType._string:
+        while (state.stack[0] === stateType._string && !stream.eol()) {
+          if (stream.peek() === state.stringType) {
+            stream.next();
+            state.stack.shift();
+          } else if (stream.peek() === "\\") {
+            stream.next();
+            stream.next();
+          } else {
+            stream.match(/^.[^\\\"\']*/);
+          }
+        }
+        return state.lhs ? "property" : "string";
+      case stateType.comment:
+        while (state.stack[0] === stateType.comment && !stream.eol()) {
+          if (state.commentType === commentType.slash && stream.match("*/")) {
+            state.stack.shift();
+            state.commentType = null;
+          } else if (state.commentType === commentType.parenthesis && stream.match("*)")) {
+            state.stack.shift();
+            state.commentType = null;
+          } else {
+            stream.match(/^.[^\*]*/);
+          }
+        }
+        return "comment";
+      case stateType.characterClass:
+        while (state.stack[0] === stateType.characterClass && !stream.eol()) {
+          if (!(stream.match(/^[^\]\\]+/) || stream.match("."))) {
+            state.stack.shift();
+          }
+        }
+        return "operator";
+    }
+    var peek = stream.peek();
+    switch (peek) {
+      case "[":
+        stream.next();
+        state.stack.unshift(stateType.characterClass);
+        return "bracket";
+      case ":":
+      case "|":
+      case ";":
+        stream.next();
+        return "operator";
+      case "%":
+        if (stream.match("%%")) {
+          return "header";
+        } else if (stream.match(/[%][A-Za-z]+/)) {
+          return "keyword";
+        } else if (stream.match(/[%][}]/)) {
+          return "bracket";
+        }
+        break;
+      case "/":
+        if (stream.match(/[\/][A-Za-z]+/)) {
+          return "keyword";
+        }
+      case "\\":
+        if (stream.match(/[\][a-z]+/)) {
+          return "string.special";
+        }
+      case ".":
+        if (stream.match(".")) {
+          return "atom";
+        }
+      case "*":
+      case "-":
+      case "+":
+      case "^":
+        if (stream.match(peek)) {
+          return "atom";
+        }
+      case "$":
+        if (stream.match("$$")) {
+          return "builtin";
+        } else if (stream.match(/[$][0-9]+/)) {
+          return "variableName.special";
+        }
+      case "<":
+        if (stream.match(/<<[a-zA-Z_]+>>/)) {
+          return "builtin";
+        }
+    }
+    if (stream.match("//")) {
+      stream.skipToEnd();
+      return "comment";
+    } else if (stream.match("return")) {
+      return "operator";
+    } else if (stream.match(/^[a-zA-Z_][a-zA-Z0-9_]*/)) {
+      if (stream.match(/(?=[\(.])/)) {
+        return "variable";
+      } else if (stream.match(/(?=[\s\n]*[:=])/)) {
+        return "def";
+      }
+      return "variableName.special";
+    } else if (["[", "]", "(", ")"].indexOf(stream.peek()) != -1) {
+      stream.next();
+      return "bracket";
+    } else if (!stream.eatSpace()) {
+      stream.next();
+    }
+    return null;
+  }
+};
+export {
+  ebnf
+};
+//# sourceMappingURL=ebnf.5c30a706.js.map

@@ -1,1 +1,231 @@
-function o(e){return new RegExp("^(("+e.join(")|(")+"))\\b")}var k=/[\^@!\|<>#~\.\*\-\+\\/,=]/,s=/(<-)|(:=)|(=<)|(>=)|(<=)|(<:)|(>:)|(=:)|(\\=)|(\\=:)|(!!)|(==)|(::)/,p=/(:::)|(\.\.\.)|(=<:)|(>=:)/,f=["in","then","else","of","elseof","elsecase","elseif","catch","finally","with","require","prepare","import","export","define","do"],l=["end"],z=o(["true","false","nil","unit"]),v=o(["andthen","at","attr","declare","feat","from","lex","mod","div","mode","orelse","parser","prod","prop","scanner","self","syn","token"]),g=o(["local","proc","fun","case","class","if","cond","or","dis","choice","not","thread","try","raise","lock","for","suchthat","meth","functor"]),d=o(f),h=o(l);function i(e,n){if(e.eatSpace())return null;if(e.match(/[{}]/))return"bracket";if(e.match("[]"))return"keyword";if(e.match(p)||e.match(s))return"operator";if(e.match(z))return"atom";var t=e.match(g);if(t)return n.doInCurrentLine?n.doInCurrentLine=!1:n.currentIndent++,t[0]=="proc"||t[0]=="fun"?n.tokenize=x:t[0]=="class"?n.tokenize=m:t[0]=="meth"&&(n.tokenize=w),"keyword";if(e.match(d)||e.match(v))return"keyword";if(e.match(h))return n.currentIndent--,"keyword";var r=e.next();if(r=='"'||r=="'")return n.tokenize=y(r),n.tokenize(e,n);if(/[~\d]/.test(r)){if(r=="~")if(/^[0-9]/.test(e.peek())){if(e.next()=="0"&&e.match(/^[xX][0-9a-fA-F]+/)||e.match(/^[0-9]*(\.[0-9]+)?([eE][~+]?[0-9]+)?/))return"number"}else return null;return r=="0"&&e.match(/^[xX][0-9a-fA-F]+/)||e.match(/^[0-9]*(\.[0-9]+)?([eE][~+]?[0-9]+)?/)?"number":null}return r=="%"?(e.skipToEnd(),"comment"):r=="/"&&e.eat("*")?(n.tokenize=a,a(e,n)):k.test(r)?"operator":(e.eatWhile(/\w/),"variable")}function m(e,n){return e.eatSpace()?null:(e.match(/([A-Z][A-Za-z0-9_]*)|(`.+`)/),n.tokenize=i,"type")}function w(e,n){return e.eatSpace()?null:(e.match(/([a-zA-Z][A-Za-z0-9_]*)|(`.+`)/),n.tokenize=i,"def")}function x(e,n){return e.eatSpace()?null:!n.hasPassedFirstStage&&e.eat("{")?(n.hasPassedFirstStage=!0,"bracket"):n.hasPassedFirstStage?(e.match(/([A-Z][A-Za-z0-9_]*)|(`.+`)|\$/),n.hasPassedFirstStage=!1,n.tokenize=i,"def"):(n.tokenize=i,null)}function a(e,n){for(var t=!1,r;r=e.next();){if(r=="/"&&t){n.tokenize=i;break}t=r=="*"}return"comment"}function y(e){return function(n,t){for(var r=!1,u,c=!1;(u=n.next())!=null;){if(u==e&&!r){c=!0;break}r=!r&&u=="\\"}return(c||!r)&&(t.tokenize=i),"string"}}function b(){var e=f.concat(l);return new RegExp("[\\[\\]]|("+e.join("|")+")$")}const I={startState:function(){return{tokenize:i,currentIndent:0,doInCurrentLine:!1,hasPassedFirstStage:!1}},token:function(e,n){return e.sol()&&(n.doInCurrentLine=0),n.tokenize(e,n)},indent:function(e,n,t){var r=n.replace(/^\s+|\s+$/g,"");return r.match(h)||r.match(d)||r.match(/(\[])/)?t.unit*(e.currentIndent-1):e.currentIndent<0?0:e.currentIndent*t.unit},languageData:{indentOnInut:b(),commentTokens:{line:"%",block:{open:"/*",close:"*/"}}}};export{I as oz};
+function wordRegexp(words) {
+  return new RegExp("^((" + words.join(")|(") + "))\\b");
+}
+var singleOperators = /[\^@!\|<>#~\.\*\-\+\\/,=]/;
+var doubleOperators = /(<-)|(:=)|(=<)|(>=)|(<=)|(<:)|(>:)|(=:)|(\\=)|(\\=:)|(!!)|(==)|(::)/;
+var tripleOperators = /(:::)|(\.\.\.)|(=<:)|(>=:)/;
+var middle = [
+  "in",
+  "then",
+  "else",
+  "of",
+  "elseof",
+  "elsecase",
+  "elseif",
+  "catch",
+  "finally",
+  "with",
+  "require",
+  "prepare",
+  "import",
+  "export",
+  "define",
+  "do"
+];
+var end = ["end"];
+var atoms = wordRegexp(["true", "false", "nil", "unit"]);
+var commonKeywords = wordRegexp([
+  "andthen",
+  "at",
+  "attr",
+  "declare",
+  "feat",
+  "from",
+  "lex",
+  "mod",
+  "div",
+  "mode",
+  "orelse",
+  "parser",
+  "prod",
+  "prop",
+  "scanner",
+  "self",
+  "syn",
+  "token"
+]);
+var openingKeywords = wordRegexp([
+  "local",
+  "proc",
+  "fun",
+  "case",
+  "class",
+  "if",
+  "cond",
+  "or",
+  "dis",
+  "choice",
+  "not",
+  "thread",
+  "try",
+  "raise",
+  "lock",
+  "for",
+  "suchthat",
+  "meth",
+  "functor"
+]);
+var middleKeywords = wordRegexp(middle);
+var endKeywords = wordRegexp(end);
+function tokenBase(stream, state) {
+  if (stream.eatSpace()) {
+    return null;
+  }
+  if (stream.match(/[{}]/)) {
+    return "bracket";
+  }
+  if (stream.match("[]")) {
+    return "keyword";
+  }
+  if (stream.match(tripleOperators) || stream.match(doubleOperators)) {
+    return "operator";
+  }
+  if (stream.match(atoms)) {
+    return "atom";
+  }
+  var matched = stream.match(openingKeywords);
+  if (matched) {
+    if (!state.doInCurrentLine)
+      state.currentIndent++;
+    else
+      state.doInCurrentLine = false;
+    if (matched[0] == "proc" || matched[0] == "fun")
+      state.tokenize = tokenFunProc;
+    else if (matched[0] == "class")
+      state.tokenize = tokenClass;
+    else if (matched[0] == "meth")
+      state.tokenize = tokenMeth;
+    return "keyword";
+  }
+  if (stream.match(middleKeywords) || stream.match(commonKeywords)) {
+    return "keyword";
+  }
+  if (stream.match(endKeywords)) {
+    state.currentIndent--;
+    return "keyword";
+  }
+  var ch = stream.next();
+  if (ch == '"' || ch == "'") {
+    state.tokenize = tokenString(ch);
+    return state.tokenize(stream, state);
+  }
+  if (/[~\d]/.test(ch)) {
+    if (ch == "~") {
+      if (!/^[0-9]/.test(stream.peek()))
+        return null;
+      else if (stream.next() == "0" && stream.match(/^[xX][0-9a-fA-F]+/) || stream.match(/^[0-9]*(\.[0-9]+)?([eE][~+]?[0-9]+)?/))
+        return "number";
+    }
+    if (ch == "0" && stream.match(/^[xX][0-9a-fA-F]+/) || stream.match(/^[0-9]*(\.[0-9]+)?([eE][~+]?[0-9]+)?/))
+      return "number";
+    return null;
+  }
+  if (ch == "%") {
+    stream.skipToEnd();
+    return "comment";
+  } else if (ch == "/") {
+    if (stream.eat("*")) {
+      state.tokenize = tokenComment;
+      return tokenComment(stream, state);
+    }
+  }
+  if (singleOperators.test(ch)) {
+    return "operator";
+  }
+  stream.eatWhile(/\w/);
+  return "variable";
+}
+function tokenClass(stream, state) {
+  if (stream.eatSpace()) {
+    return null;
+  }
+  stream.match(/([A-Z][A-Za-z0-9_]*)|(`.+`)/);
+  state.tokenize = tokenBase;
+  return "type";
+}
+function tokenMeth(stream, state) {
+  if (stream.eatSpace()) {
+    return null;
+  }
+  stream.match(/([a-zA-Z][A-Za-z0-9_]*)|(`.+`)/);
+  state.tokenize = tokenBase;
+  return "def";
+}
+function tokenFunProc(stream, state) {
+  if (stream.eatSpace()) {
+    return null;
+  }
+  if (!state.hasPassedFirstStage && stream.eat("{")) {
+    state.hasPassedFirstStage = true;
+    return "bracket";
+  } else if (state.hasPassedFirstStage) {
+    stream.match(/([A-Z][A-Za-z0-9_]*)|(`.+`)|\$/);
+    state.hasPassedFirstStage = false;
+    state.tokenize = tokenBase;
+    return "def";
+  } else {
+    state.tokenize = tokenBase;
+    return null;
+  }
+}
+function tokenComment(stream, state) {
+  var maybeEnd = false, ch;
+  while (ch = stream.next()) {
+    if (ch == "/" && maybeEnd) {
+      state.tokenize = tokenBase;
+      break;
+    }
+    maybeEnd = ch == "*";
+  }
+  return "comment";
+}
+function tokenString(quote) {
+  return function(stream, state) {
+    var escaped = false, next, end2 = false;
+    while ((next = stream.next()) != null) {
+      if (next == quote && !escaped) {
+        end2 = true;
+        break;
+      }
+      escaped = !escaped && next == "\\";
+    }
+    if (end2 || !escaped)
+      state.tokenize = tokenBase;
+    return "string";
+  };
+}
+function buildElectricInputRegEx() {
+  var allClosings = middle.concat(end);
+  return new RegExp("[\\[\\]]|(" + allClosings.join("|") + ")$");
+}
+const oz = {
+  startState: function() {
+    return {
+      tokenize: tokenBase,
+      currentIndent: 0,
+      doInCurrentLine: false,
+      hasPassedFirstStage: false
+    };
+  },
+  token: function(stream, state) {
+    if (stream.sol())
+      state.doInCurrentLine = 0;
+    return state.tokenize(stream, state);
+  },
+  indent: function(state, textAfter, cx) {
+    var trueText = textAfter.replace(/^\s+|\s+$/g, "");
+    if (trueText.match(endKeywords) || trueText.match(middleKeywords) || trueText.match(/(\[])/))
+      return cx.unit * (state.currentIndent - 1);
+    if (state.currentIndent < 0)
+      return 0;
+    return state.currentIndent * cx.unit;
+  },
+  languageData: {
+    indentOnInut: buildElectricInputRegEx(),
+    commentTokens: { line: "%", block: { open: "/*", close: "*/" } }
+  }
+};
+export {
+  oz
+};
+//# sourceMappingURL=oz.a11dadbd.js.map

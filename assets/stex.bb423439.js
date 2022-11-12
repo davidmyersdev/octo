@@ -1,1 +1,231 @@
-function k(b){function h(t,n){t.cmdState.push(n)}function g(t){return t.cmdState.length>0?t.cmdState[t.cmdState.length-1]:null}function p(t){var n=t.cmdState.pop();n&&n.closeBracket()}function s(t){for(var n=t.cmdState,e=n.length-1;e>=0;e--){var i=n[e];if(i.name!="DEFAULT")return i}return{styleIdentifier:function(){return null}}}function a(t,n,e){return function(){this.name=t,this.bracketNo=0,this.style=n,this.styles=e,this.argument=null,this.styleIdentifier=function(){return this.styles[this.bracketNo-1]||null},this.openBracket=function(){return this.bracketNo++,"bracket"},this.closeBracket=function(){}}}var r={};r.importmodule=a("importmodule","tag",["string","builtin"]),r.documentclass=a("documentclass","tag",["","atom"]),r.usepackage=a("usepackage","tag",["atom"]),r.begin=a("begin","tag",["atom"]),r.end=a("end","tag",["atom"]),r.label=a("label","tag",["atom"]),r.ref=a("ref","tag",["atom"]),r.eqref=a("eqref","tag",["atom"]),r.cite=a("cite","tag",["atom"]),r.bibitem=a("bibitem","tag",["atom"]),r.Bibitem=a("Bibitem","tag",["atom"]),r.RBibitem=a("RBibitem","tag",["atom"]),r.DEFAULT=function(){this.name="DEFAULT",this.style="tag",this.styleIdentifier=this.openBracket=this.closeBracket=function(){}};function u(t,n){t.f=n}function l(t,n){var e;if(t.match(/^\\[a-zA-Z@]+/)){var i=t.current().slice(1);return e=r.hasOwnProperty(i)?r[i]:r.DEFAULT,e=new e,h(n,e),u(n,d),e.style}if(t.match(/^\\[$&%#{}_]/)||t.match(/^\\[,;!\/\\]/))return"tag";if(t.match("\\["))return u(n,function(m,c){return o(m,c,"\\]")}),"keyword";if(t.match("\\("))return u(n,function(m,c){return o(m,c,"\\)")}),"keyword";if(t.match("$$"))return u(n,function(m,c){return o(m,c,"$$")}),"keyword";if(t.match("$"))return u(n,function(m,c){return o(m,c,"$")}),"keyword";var f=t.next();if(f=="%")return t.skipToEnd(),"comment";if(f=="}"||f=="]"){if(e=g(n),e)e.closeBracket(f),u(n,d);else return"error";return"bracket"}else return f=="{"||f=="["?(e=r.DEFAULT,e=new e,h(n,e),"bracket"):/\d/.test(f)?(t.eatWhile(/[\w.%]/),"atom"):(t.eatWhile(/[\w\-_]/),e=s(n),e.name=="begin"&&(e.argument=t.current()),e.styleIdentifier())}function o(t,n,e){if(t.eatSpace())return null;if(e&&t.match(e))return u(n,l),"keyword";if(t.match(/^\\[a-zA-Z@]+/))return"tag";if(t.match(/^[a-zA-Z]+/))return"variableName.special";if(t.match(/^\\[$&%#{}_]/)||t.match(/^\\[,;!\/]/)||t.match(/^[\^_&]/))return"tag";if(t.match(/^[+\-<>|=,\/@!*:;'"`~#?]/))return null;if(t.match(/^(\d+\.\d*|\d*\.\d+|\d+)/))return"number";var i=t.next();return i=="{"||i=="}"||i=="["||i=="]"||i=="("||i==")"?"bracket":i=="%"?(t.skipToEnd(),"comment"):"error"}function d(t,n){var e=t.peek(),i;return e=="{"||e=="["?(i=g(n),i.openBracket(e),t.eat(e),u(n,l),"bracket"):/[ \t\r]/.test(e)?(t.eat(e),null):(u(n,l),p(n),l(t,n))}return{startState:function(){var t=b?function(n,e){return o(n,e)}:l;return{cmdState:[],f:t}},copyState:function(t){return{cmdState:t.cmdState.slice(),f:t.f}},token:function(t,n){return n.f(t,n)},blankLine:function(t){t.f=l,t.cmdState.length=0},languageData:{commentTokens:{line:"%"}}}}const y=k(!1),S=k(!0);export{y as stex,S as stexMath};
+function mkStex(mathMode) {
+  function pushCommand(state, command) {
+    state.cmdState.push(command);
+  }
+  function peekCommand(state) {
+    if (state.cmdState.length > 0) {
+      return state.cmdState[state.cmdState.length - 1];
+    } else {
+      return null;
+    }
+  }
+  function popCommand(state) {
+    var plug = state.cmdState.pop();
+    if (plug) {
+      plug.closeBracket();
+    }
+  }
+  function getMostPowerful(state) {
+    var context = state.cmdState;
+    for (var i = context.length - 1; i >= 0; i--) {
+      var plug = context[i];
+      if (plug.name == "DEFAULT") {
+        continue;
+      }
+      return plug;
+    }
+    return { styleIdentifier: function() {
+      return null;
+    } };
+  }
+  function addPluginPattern(pluginName, cmdStyle, styles) {
+    return function() {
+      this.name = pluginName;
+      this.bracketNo = 0;
+      this.style = cmdStyle;
+      this.styles = styles;
+      this.argument = null;
+      this.styleIdentifier = function() {
+        return this.styles[this.bracketNo - 1] || null;
+      };
+      this.openBracket = function() {
+        this.bracketNo++;
+        return "bracket";
+      };
+      this.closeBracket = function() {
+      };
+    };
+  }
+  var plugins = {};
+  plugins["importmodule"] = addPluginPattern("importmodule", "tag", ["string", "builtin"]);
+  plugins["documentclass"] = addPluginPattern("documentclass", "tag", ["", "atom"]);
+  plugins["usepackage"] = addPluginPattern("usepackage", "tag", ["atom"]);
+  plugins["begin"] = addPluginPattern("begin", "tag", ["atom"]);
+  plugins["end"] = addPluginPattern("end", "tag", ["atom"]);
+  plugins["label"] = addPluginPattern("label", "tag", ["atom"]);
+  plugins["ref"] = addPluginPattern("ref", "tag", ["atom"]);
+  plugins["eqref"] = addPluginPattern("eqref", "tag", ["atom"]);
+  plugins["cite"] = addPluginPattern("cite", "tag", ["atom"]);
+  plugins["bibitem"] = addPluginPattern("bibitem", "tag", ["atom"]);
+  plugins["Bibitem"] = addPluginPattern("Bibitem", "tag", ["atom"]);
+  plugins["RBibitem"] = addPluginPattern("RBibitem", "tag", ["atom"]);
+  plugins["DEFAULT"] = function() {
+    this.name = "DEFAULT";
+    this.style = "tag";
+    this.styleIdentifier = this.openBracket = this.closeBracket = function() {
+    };
+  };
+  function setState(state, f) {
+    state.f = f;
+  }
+  function normal(source, state) {
+    var plug;
+    if (source.match(/^\\[a-zA-Z@]+/)) {
+      var cmdName = source.current().slice(1);
+      plug = plugins.hasOwnProperty(cmdName) ? plugins[cmdName] : plugins["DEFAULT"];
+      plug = new plug();
+      pushCommand(state, plug);
+      setState(state, beginParams);
+      return plug.style;
+    }
+    if (source.match(/^\\[$&%#{}_]/)) {
+      return "tag";
+    }
+    if (source.match(/^\\[,;!\/\\]/)) {
+      return "tag";
+    }
+    if (source.match("\\[")) {
+      setState(state, function(source2, state2) {
+        return inMathMode(source2, state2, "\\]");
+      });
+      return "keyword";
+    }
+    if (source.match("\\(")) {
+      setState(state, function(source2, state2) {
+        return inMathMode(source2, state2, "\\)");
+      });
+      return "keyword";
+    }
+    if (source.match("$$")) {
+      setState(state, function(source2, state2) {
+        return inMathMode(source2, state2, "$$");
+      });
+      return "keyword";
+    }
+    if (source.match("$")) {
+      setState(state, function(source2, state2) {
+        return inMathMode(source2, state2, "$");
+      });
+      return "keyword";
+    }
+    var ch = source.next();
+    if (ch == "%") {
+      source.skipToEnd();
+      return "comment";
+    } else if (ch == "}" || ch == "]") {
+      plug = peekCommand(state);
+      if (plug) {
+        plug.closeBracket(ch);
+        setState(state, beginParams);
+      } else {
+        return "error";
+      }
+      return "bracket";
+    } else if (ch == "{" || ch == "[") {
+      plug = plugins["DEFAULT"];
+      plug = new plug();
+      pushCommand(state, plug);
+      return "bracket";
+    } else if (/\d/.test(ch)) {
+      source.eatWhile(/[\w.%]/);
+      return "atom";
+    } else {
+      source.eatWhile(/[\w\-_]/);
+      plug = getMostPowerful(state);
+      if (plug.name == "begin") {
+        plug.argument = source.current();
+      }
+      return plug.styleIdentifier();
+    }
+  }
+  function inMathMode(source, state, endModeSeq) {
+    if (source.eatSpace()) {
+      return null;
+    }
+    if (endModeSeq && source.match(endModeSeq)) {
+      setState(state, normal);
+      return "keyword";
+    }
+    if (source.match(/^\\[a-zA-Z@]+/)) {
+      return "tag";
+    }
+    if (source.match(/^[a-zA-Z]+/)) {
+      return "variableName.special";
+    }
+    if (source.match(/^\\[$&%#{}_]/)) {
+      return "tag";
+    }
+    if (source.match(/^\\[,;!\/]/)) {
+      return "tag";
+    }
+    if (source.match(/^[\^_&]/)) {
+      return "tag";
+    }
+    if (source.match(/^[+\-<>|=,\/@!*:;'"`~#?]/)) {
+      return null;
+    }
+    if (source.match(/^(\d+\.\d*|\d*\.\d+|\d+)/)) {
+      return "number";
+    }
+    var ch = source.next();
+    if (ch == "{" || ch == "}" || ch == "[" || ch == "]" || ch == "(" || ch == ")") {
+      return "bracket";
+    }
+    if (ch == "%") {
+      source.skipToEnd();
+      return "comment";
+    }
+    return "error";
+  }
+  function beginParams(source, state) {
+    var ch = source.peek(), lastPlug;
+    if (ch == "{" || ch == "[") {
+      lastPlug = peekCommand(state);
+      lastPlug.openBracket(ch);
+      source.eat(ch);
+      setState(state, normal);
+      return "bracket";
+    }
+    if (/[ \t\r]/.test(ch)) {
+      source.eat(ch);
+      return null;
+    }
+    setState(state, normal);
+    popCommand(state);
+    return normal(source, state);
+  }
+  return {
+    startState: function() {
+      var f = mathMode ? function(source, state) {
+        return inMathMode(source, state);
+      } : normal;
+      return {
+        cmdState: [],
+        f
+      };
+    },
+    copyState: function(s) {
+      return {
+        cmdState: s.cmdState.slice(),
+        f: s.f
+      };
+    },
+    token: function(stream, state) {
+      return state.f(stream, state);
+    },
+    blankLine: function(state) {
+      state.f = normal;
+      state.cmdState.length = 0;
+    },
+    languageData: {
+      commentTokens: { line: "%" }
+    }
+  };
+}
+const stex = mkStex(false);
+const stexMath = mkStex(true);
+export {
+  stex,
+  stexMath
+};
+//# sourceMappingURL=stex.bb423439.js.map

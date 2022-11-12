@@ -1,1 +1,76 @@
-const l={startState:function(){return{inString:!1,stringType:"",lhs:!0,inArray:0}},token:function(n,e){if(!e.inString&&(n.peek()=='"'||n.peek()=="'")&&(e.stringType=n.peek(),n.next(),e.inString=!0),n.sol()&&e.inArray===0&&(e.lhs=!0),e.inString){for(;e.inString&&!n.eol();)n.peek()===e.stringType?(n.next(),e.inString=!1):n.peek()==="\\"?(n.next(),n.next()):n.match(/^.[^\\\"\']*/);return e.lhs?"property":"string"}else{if(e.inArray&&n.peek()==="]")return n.next(),e.inArray--,"bracket";if(e.lhs&&n.peek()==="["&&n.skipTo("]"))return n.next(),n.peek()==="]"&&n.next(),"atom";if(n.peek()==="#")return n.skipToEnd(),"comment";if(n.eatSpace())return null;if(e.lhs&&n.eatWhile(function(i){return i!="="&&i!=" "}))return"property";if(e.lhs&&n.peek()==="=")return n.next(),e.lhs=!1,null;if(!e.lhs&&n.match(/^\d\d\d\d[\d\-\:\.T]*Z/))return"atom";if(!e.lhs&&(n.match("true")||n.match("false")))return"atom";if(!e.lhs&&n.peek()==="[")return e.inArray++,n.next(),"bracket";if(!e.lhs&&n.match(/^\-?\d+(?:\.\d+)?/))return"number";n.eatSpace()||n.next()}return null},languageData:{commentTokens:{line:"#"}}};export{l as toml};
+const toml = {
+  startState: function() {
+    return {
+      inString: false,
+      stringType: "",
+      lhs: true,
+      inArray: 0
+    };
+  },
+  token: function(stream, state) {
+    if (!state.inString && (stream.peek() == '"' || stream.peek() == "'")) {
+      state.stringType = stream.peek();
+      stream.next();
+      state.inString = true;
+    }
+    if (stream.sol() && state.inArray === 0) {
+      state.lhs = true;
+    }
+    if (state.inString) {
+      while (state.inString && !stream.eol()) {
+        if (stream.peek() === state.stringType) {
+          stream.next();
+          state.inString = false;
+        } else if (stream.peek() === "\\") {
+          stream.next();
+          stream.next();
+        } else {
+          stream.match(/^.[^\\\"\']*/);
+        }
+      }
+      return state.lhs ? "property" : "string";
+    } else if (state.inArray && stream.peek() === "]") {
+      stream.next();
+      state.inArray--;
+      return "bracket";
+    } else if (state.lhs && stream.peek() === "[" && stream.skipTo("]")) {
+      stream.next();
+      if (stream.peek() === "]")
+        stream.next();
+      return "atom";
+    } else if (stream.peek() === "#") {
+      stream.skipToEnd();
+      return "comment";
+    } else if (stream.eatSpace()) {
+      return null;
+    } else if (state.lhs && stream.eatWhile(function(c) {
+      return c != "=" && c != " ";
+    })) {
+      return "property";
+    } else if (state.lhs && stream.peek() === "=") {
+      stream.next();
+      state.lhs = false;
+      return null;
+    } else if (!state.lhs && stream.match(/^\d\d\d\d[\d\-\:\.T]*Z/)) {
+      return "atom";
+    } else if (!state.lhs && (stream.match("true") || stream.match("false"))) {
+      return "atom";
+    } else if (!state.lhs && stream.peek() === "[") {
+      state.inArray++;
+      stream.next();
+      return "bracket";
+    } else if (!state.lhs && stream.match(/^\-?\d+(?:\.\d+)?/)) {
+      return "number";
+    } else if (!stream.eatSpace()) {
+      stream.next();
+    }
+    return null;
+  },
+  languageData: {
+    commentTokens: { line: "#" }
+  }
+};
+export {
+  toml
+};
+//# sourceMappingURL=toml.5f62c289.js.map

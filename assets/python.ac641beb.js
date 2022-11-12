@@ -1,1 +1,450 @@
-function s(o){return new RegExp("^(("+o.join(")|(")+"))\\b")}var U=s(["and","or","not","is"]),F=["as","assert","break","class","continue","def","del","elif","else","except","finally","for","from","global","if","import","lambda","pass","raise","return","try","while","with","yield","in"],E=["abs","all","any","bin","bool","bytearray","callable","chr","classmethod","compile","complex","delattr","dict","dir","divmod","enumerate","eval","filter","float","format","frozenset","getattr","globals","hasattr","hash","help","hex","id","input","int","isinstance","issubclass","iter","len","list","locals","map","max","memoryview","min","next","object","oct","open","ord","pow","property","range","repr","reversed","round","set","setattr","slice","sorted","staticmethod","str","sum","super","tuple","type","vars","zip","__import__","NotImplemented","Ellipsis","__debug__"];function c(o){return o.scopes[o.scopes.length-1]}function A(o){for(var p="error",O=o.delimiters||o.singleDelimiters||/^[\(\)\[\]\{\}@,:`=;\.\\]/,h=[o.singleOperators,o.doubleOperators,o.doubleDelimiters,o.tripleDelimiters,o.operators||/^([-+*/%\/&|^]=?|[<>=]+|\/\/=?|\*\*=?|!=|[~!@]|\.\.\.)/],g=0;g<h.length;g++)h[g]||h.splice(g--,1);var k=o.hangingIndent,d=F,a=E;o.extra_keywords!=null&&(d=d.concat(o.extra_keywords)),o.extra_builtins!=null&&(a=a.concat(o.extra_builtins));var x=!(o.version&&Number(o.version)<3);if(x){var y=o.identifiers||/^[_A-Za-z\u00A1-\uFFFF][_A-Za-z0-9\u00A1-\uFFFF]*/;d=d.concat(["nonlocal","False","True","None","async","await"]),a=a.concat(["ascii","bytes","exec","print"]);var w=new RegExp(`^(([rbuf]|(br)|(rb)|(fr)|(rf))?('{3}|"{3}|['"]))`,"i")}else{var y=o.identifiers||/^[_A-Za-z][_A-Za-z0-9]*/;d=d.concat(["exec","print"]),a=a.concat(["apply","basestring","buffer","cmp","coerce","execfile","file","intern","long","raw_input","reduce","reload","unichr","unicode","xrange","False","True","None"]);var w=new RegExp(`^(([rubf]|(ur)|(br))?('{3}|"{3}|['"]))`,"i")}var I=s(d),L=s(a);function z(n,e){var r=n.sol()&&e.lastToken!="\\";if(r&&(e.indent=n.indentation()),r&&c(e).type=="py"){var i=c(e).offset;if(n.eatSpace()){var l=n.indentation();return l>i?S(n,e):l<i&&_(n,e)&&n.peek()!="#"&&(e.errorToken=!0),null}else{var t=v(n,e);return i>0&&_(n,e)&&(t+=" "+p),t}}return v(n,e)}function v(n,e,r){if(n.eatSpace())return null;if(!r&&n.match(/^#.*/))return"comment";if(n.match(/^[0-9\.]/,!1)){var i=!1;if(n.match(/^[\d_]*\.\d+(e[\+\-]?\d+)?/i)&&(i=!0),n.match(/^[\d_]+\.\d*/)&&(i=!0),n.match(/^\.\d+/)&&(i=!0),i)return n.eat(/J/i),"number";var l=!1;if(n.match(/^0x[0-9a-f_]+/i)&&(l=!0),n.match(/^0b[01_]+/i)&&(l=!0),n.match(/^0o[0-7_]+/i)&&(l=!0),n.match(/^[1-9][\d_]*(e[\+\-]?[\d_]+)?/)&&(n.eat(/J/i),l=!0),n.match(/^0(?![\dx])/i)&&(l=!0),l)return n.eat(/L/i),"number"}if(n.match(w)){var t=n.current().toLowerCase().indexOf("f")!==-1;return t?(e.tokenize=R(n.current(),e.tokenize),e.tokenize(n,e)):(e.tokenize=B(n.current(),e.tokenize),e.tokenize(n,e))}for(var u=0;u<h.length;u++)if(n.match(h[u]))return"operator";return n.match(O)?"punctuation":e.lastToken=="."&&n.match(y)?"property":n.match(I)||n.match(U)?"keyword":n.match(L)?"builtin":n.match(/^(self|cls)\b/)?"self":n.match(y)?e.lastToken=="def"||e.lastToken=="class"?"def":"variable":(n.next(),r?null:p)}function R(n,e){for(;"rubf".indexOf(n.charAt(0).toLowerCase())>=0;)n=n.substr(1);var r=n.length==1,i="string";function l(u){return function(f,b){var T=v(f,b,!0);return T=="punctuation"&&(f.current()=="{"?b.tokenize=l(u+1):f.current()=="}"&&(u>1?b.tokenize=l(u-1):b.tokenize=t)),T}}function t(u,f){for(;!u.eol();)if(u.eatWhile(/[^'"\{\}\\]/),u.eat("\\")){if(u.next(),r&&u.eol())return i}else{if(u.match(n))return f.tokenize=e,i;if(u.match("{{"))return i;if(u.match("{",!1))return f.tokenize=l(0),u.current()?i:f.tokenize(u,f);if(u.match("}}"))return i;if(u.match("}"))return p;u.eat(/['"]/)}if(r){if(o.singleLineStringErrors)return p;f.tokenize=e}return i}return t.isString=!0,t}function B(n,e){for(;"rubf".indexOf(n.charAt(0).toLowerCase())>=0;)n=n.substr(1);var r=n.length==1,i="string";function l(t,u){for(;!t.eol();)if(t.eatWhile(/[^'"\\]/),t.eat("\\")){if(t.next(),r&&t.eol())return i}else{if(t.match(n))return u.tokenize=e,i;t.eat(/['"]/)}if(r){if(o.singleLineStringErrors)return p;u.tokenize=e}return i}return l.isString=!0,l}function S(n,e){for(;c(e).type!="py";)e.scopes.pop();e.scopes.push({offset:c(e).offset+n.indentUnit,type:"py",align:null})}function D(n,e,r){var i=n.match(/^[\s\[\{\(]*(?:#|$)/,!1)?null:n.column()+1;e.scopes.push({offset:e.indent+(k||n.indentUnit),type:r,align:i})}function _(n,e){for(var r=n.indentation();e.scopes.length>1&&c(e).offset>r;){if(c(e).type!="py")return!0;e.scopes.pop()}return c(e).offset!=r}function N(n,e){n.sol()&&(e.beginningOfLine=!0,e.dedent=!1);var r=e.tokenize(n,e),i=n.current();if(e.beginningOfLine&&i=="@")return n.match(y,!1)?"meta":x?"operator":p;if(/\S/.test(i)&&(e.beginningOfLine=!1),(r=="variable"||r=="builtin")&&e.lastToken=="meta"&&(r="meta"),(i=="pass"||i=="return")&&(e.dedent=!0),i=="lambda"&&(e.lambda=!0),i==":"&&!e.lambda&&c(e).type=="py"&&n.match(/^\s*(?:#|$)/,!1)&&S(n,e),i.length==1&&!/string|comment/.test(r)){var l="[({".indexOf(i);if(l!=-1&&D(n,e,"])}".slice(l,l+1)),l="])}".indexOf(i),l!=-1)if(c(e).type==i)e.indent=e.scopes.pop().offset-(k||n.indentUnit);else return p}return e.dedent&&n.eol()&&c(e).type=="py"&&e.scopes.length>1&&e.scopes.pop(),r}return{startState:function(){return{tokenize:z,scopes:[{offset:0,type:"py",align:null}],indent:0,lastToken:null,lambda:!1,dedent:0}},token:function(n,e){var r=e.errorToken;r&&(e.errorToken=!1);var i=N(n,e);return i&&i!="comment"&&(e.lastToken=i=="keyword"||i=="punctuation"?n.current():i),i=="punctuation"&&(i=null),n.eol()&&e.lambda&&(e.lambda=!1),r?p:i},indent:function(n,e,r){if(n.tokenize!=z)return n.tokenize.isString?null:0;var i=c(n),l=i.type==e.charAt(0)||i.type=="py"&&!n.dedent&&/^(else:|elif |except |finally:)/.test(e);return i.align!=null?i.align-(l?1:0):i.offset-(l?k||r.unit:0)},languageData:{autocomplete:F.concat(E),indentOnInput:/^\s*([\}\]\)]|else:|elif |except |finally:)$/,commentTokens:{line:"#"},closeBrackets:{brackets:["(","[","{","'",'"',"'''",'"""']}}}}var Z=function(o){return o.split(" ")};const m=A({}),P=A({extra_keywords:Z("by cdef cimport cpdef ctypedef enum except extern gil include nogil property public readonly struct union DEF IF ELIF ELSE")});export{P as cython,A as mkPython,m as python};
+function wordRegexp(words2) {
+  return new RegExp("^((" + words2.join(")|(") + "))\\b");
+}
+var wordOperators = wordRegexp(["and", "or", "not", "is"]);
+var commonKeywords = [
+  "as",
+  "assert",
+  "break",
+  "class",
+  "continue",
+  "def",
+  "del",
+  "elif",
+  "else",
+  "except",
+  "finally",
+  "for",
+  "from",
+  "global",
+  "if",
+  "import",
+  "lambda",
+  "pass",
+  "raise",
+  "return",
+  "try",
+  "while",
+  "with",
+  "yield",
+  "in"
+];
+var commonBuiltins = [
+  "abs",
+  "all",
+  "any",
+  "bin",
+  "bool",
+  "bytearray",
+  "callable",
+  "chr",
+  "classmethod",
+  "compile",
+  "complex",
+  "delattr",
+  "dict",
+  "dir",
+  "divmod",
+  "enumerate",
+  "eval",
+  "filter",
+  "float",
+  "format",
+  "frozenset",
+  "getattr",
+  "globals",
+  "hasattr",
+  "hash",
+  "help",
+  "hex",
+  "id",
+  "input",
+  "int",
+  "isinstance",
+  "issubclass",
+  "iter",
+  "len",
+  "list",
+  "locals",
+  "map",
+  "max",
+  "memoryview",
+  "min",
+  "next",
+  "object",
+  "oct",
+  "open",
+  "ord",
+  "pow",
+  "property",
+  "range",
+  "repr",
+  "reversed",
+  "round",
+  "set",
+  "setattr",
+  "slice",
+  "sorted",
+  "staticmethod",
+  "str",
+  "sum",
+  "super",
+  "tuple",
+  "type",
+  "vars",
+  "zip",
+  "__import__",
+  "NotImplemented",
+  "Ellipsis",
+  "__debug__"
+];
+function top(state) {
+  return state.scopes[state.scopes.length - 1];
+}
+function mkPython(parserConf) {
+  var ERRORCLASS = "error";
+  var delimiters = parserConf.delimiters || parserConf.singleDelimiters || /^[\(\)\[\]\{\}@,:`=;\.\\]/;
+  var operators = [
+    parserConf.singleOperators,
+    parserConf.doubleOperators,
+    parserConf.doubleDelimiters,
+    parserConf.tripleDelimiters,
+    parserConf.operators || /^([-+*/%\/&|^]=?|[<>=]+|\/\/=?|\*\*=?|!=|[~!@]|\.\.\.)/
+  ];
+  for (var i = 0; i < operators.length; i++)
+    if (!operators[i])
+      operators.splice(i--, 1);
+  var hangingIndent = parserConf.hangingIndent;
+  var myKeywords = commonKeywords, myBuiltins = commonBuiltins;
+  if (parserConf.extra_keywords != void 0)
+    myKeywords = myKeywords.concat(parserConf.extra_keywords);
+  if (parserConf.extra_builtins != void 0)
+    myBuiltins = myBuiltins.concat(parserConf.extra_builtins);
+  var py3 = !(parserConf.version && Number(parserConf.version) < 3);
+  if (py3) {
+    var identifiers = parserConf.identifiers || /^[_A-Za-z\u00A1-\uFFFF][_A-Za-z0-9\u00A1-\uFFFF]*/;
+    myKeywords = myKeywords.concat(["nonlocal", "False", "True", "None", "async", "await"]);
+    myBuiltins = myBuiltins.concat(["ascii", "bytes", "exec", "print"]);
+    var stringPrefixes = new RegExp(`^(([rbuf]|(br)|(rb)|(fr)|(rf))?('{3}|"{3}|['"]))`, "i");
+  } else {
+    var identifiers = parserConf.identifiers || /^[_A-Za-z][_A-Za-z0-9]*/;
+    myKeywords = myKeywords.concat(["exec", "print"]);
+    myBuiltins = myBuiltins.concat([
+      "apply",
+      "basestring",
+      "buffer",
+      "cmp",
+      "coerce",
+      "execfile",
+      "file",
+      "intern",
+      "long",
+      "raw_input",
+      "reduce",
+      "reload",
+      "unichr",
+      "unicode",
+      "xrange",
+      "False",
+      "True",
+      "None"
+    ]);
+    var stringPrefixes = new RegExp(`^(([rubf]|(ur)|(br))?('{3}|"{3}|['"]))`, "i");
+  }
+  var keywords = wordRegexp(myKeywords);
+  var builtins = wordRegexp(myBuiltins);
+  function tokenBase(stream, state) {
+    var sol = stream.sol() && state.lastToken != "\\";
+    if (sol)
+      state.indent = stream.indentation();
+    if (sol && top(state).type == "py") {
+      var scopeOffset = top(state).offset;
+      if (stream.eatSpace()) {
+        var lineOffset = stream.indentation();
+        if (lineOffset > scopeOffset)
+          pushPyScope(stream, state);
+        else if (lineOffset < scopeOffset && dedent(stream, state) && stream.peek() != "#")
+          state.errorToken = true;
+        return null;
+      } else {
+        var style = tokenBaseInner(stream, state);
+        if (scopeOffset > 0 && dedent(stream, state))
+          style += " " + ERRORCLASS;
+        return style;
+      }
+    }
+    return tokenBaseInner(stream, state);
+  }
+  function tokenBaseInner(stream, state, inFormat) {
+    if (stream.eatSpace())
+      return null;
+    if (!inFormat && stream.match(/^#.*/))
+      return "comment";
+    if (stream.match(/^[0-9\.]/, false)) {
+      var floatLiteral = false;
+      if (stream.match(/^[\d_]*\.\d+(e[\+\-]?\d+)?/i)) {
+        floatLiteral = true;
+      }
+      if (stream.match(/^[\d_]+\.\d*/)) {
+        floatLiteral = true;
+      }
+      if (stream.match(/^\.\d+/)) {
+        floatLiteral = true;
+      }
+      if (floatLiteral) {
+        stream.eat(/J/i);
+        return "number";
+      }
+      var intLiteral = false;
+      if (stream.match(/^0x[0-9a-f_]+/i))
+        intLiteral = true;
+      if (stream.match(/^0b[01_]+/i))
+        intLiteral = true;
+      if (stream.match(/^0o[0-7_]+/i))
+        intLiteral = true;
+      if (stream.match(/^[1-9][\d_]*(e[\+\-]?[\d_]+)?/)) {
+        stream.eat(/J/i);
+        intLiteral = true;
+      }
+      if (stream.match(/^0(?![\dx])/i))
+        intLiteral = true;
+      if (intLiteral) {
+        stream.eat(/L/i);
+        return "number";
+      }
+    }
+    if (stream.match(stringPrefixes)) {
+      var isFmtString = stream.current().toLowerCase().indexOf("f") !== -1;
+      if (!isFmtString) {
+        state.tokenize = tokenStringFactory(stream.current(), state.tokenize);
+        return state.tokenize(stream, state);
+      } else {
+        state.tokenize = formatStringFactory(stream.current(), state.tokenize);
+        return state.tokenize(stream, state);
+      }
+    }
+    for (var i2 = 0; i2 < operators.length; i2++)
+      if (stream.match(operators[i2]))
+        return "operator";
+    if (stream.match(delimiters))
+      return "punctuation";
+    if (state.lastToken == "." && stream.match(identifiers))
+      return "property";
+    if (stream.match(keywords) || stream.match(wordOperators))
+      return "keyword";
+    if (stream.match(builtins))
+      return "builtin";
+    if (stream.match(/^(self|cls)\b/))
+      return "self";
+    if (stream.match(identifiers)) {
+      if (state.lastToken == "def" || state.lastToken == "class")
+        return "def";
+      return "variable";
+    }
+    stream.next();
+    return inFormat ? null : ERRORCLASS;
+  }
+  function formatStringFactory(delimiter, tokenOuter) {
+    while ("rubf".indexOf(delimiter.charAt(0).toLowerCase()) >= 0)
+      delimiter = delimiter.substr(1);
+    var singleline = delimiter.length == 1;
+    var OUTCLASS = "string";
+    function tokenNestedExpr(depth) {
+      return function(stream, state) {
+        var inner = tokenBaseInner(stream, state, true);
+        if (inner == "punctuation") {
+          if (stream.current() == "{") {
+            state.tokenize = tokenNestedExpr(depth + 1);
+          } else if (stream.current() == "}") {
+            if (depth > 1)
+              state.tokenize = tokenNestedExpr(depth - 1);
+            else
+              state.tokenize = tokenString;
+          }
+        }
+        return inner;
+      };
+    }
+    function tokenString(stream, state) {
+      while (!stream.eol()) {
+        stream.eatWhile(/[^'"\{\}\\]/);
+        if (stream.eat("\\")) {
+          stream.next();
+          if (singleline && stream.eol())
+            return OUTCLASS;
+        } else if (stream.match(delimiter)) {
+          state.tokenize = tokenOuter;
+          return OUTCLASS;
+        } else if (stream.match("{{")) {
+          return OUTCLASS;
+        } else if (stream.match("{", false)) {
+          state.tokenize = tokenNestedExpr(0);
+          if (stream.current())
+            return OUTCLASS;
+          else
+            return state.tokenize(stream, state);
+        } else if (stream.match("}}")) {
+          return OUTCLASS;
+        } else if (stream.match("}")) {
+          return ERRORCLASS;
+        } else {
+          stream.eat(/['"]/);
+        }
+      }
+      if (singleline) {
+        if (parserConf.singleLineStringErrors)
+          return ERRORCLASS;
+        else
+          state.tokenize = tokenOuter;
+      }
+      return OUTCLASS;
+    }
+    tokenString.isString = true;
+    return tokenString;
+  }
+  function tokenStringFactory(delimiter, tokenOuter) {
+    while ("rubf".indexOf(delimiter.charAt(0).toLowerCase()) >= 0)
+      delimiter = delimiter.substr(1);
+    var singleline = delimiter.length == 1;
+    var OUTCLASS = "string";
+    function tokenString(stream, state) {
+      while (!stream.eol()) {
+        stream.eatWhile(/[^'"\\]/);
+        if (stream.eat("\\")) {
+          stream.next();
+          if (singleline && stream.eol())
+            return OUTCLASS;
+        } else if (stream.match(delimiter)) {
+          state.tokenize = tokenOuter;
+          return OUTCLASS;
+        } else {
+          stream.eat(/['"]/);
+        }
+      }
+      if (singleline) {
+        if (parserConf.singleLineStringErrors)
+          return ERRORCLASS;
+        else
+          state.tokenize = tokenOuter;
+      }
+      return OUTCLASS;
+    }
+    tokenString.isString = true;
+    return tokenString;
+  }
+  function pushPyScope(stream, state) {
+    while (top(state).type != "py")
+      state.scopes.pop();
+    state.scopes.push({
+      offset: top(state).offset + stream.indentUnit,
+      type: "py",
+      align: null
+    });
+  }
+  function pushBracketScope(stream, state, type) {
+    var align = stream.match(/^[\s\[\{\(]*(?:#|$)/, false) ? null : stream.column() + 1;
+    state.scopes.push({
+      offset: state.indent + (hangingIndent || stream.indentUnit),
+      type,
+      align
+    });
+  }
+  function dedent(stream, state) {
+    var indented = stream.indentation();
+    while (state.scopes.length > 1 && top(state).offset > indented) {
+      if (top(state).type != "py")
+        return true;
+      state.scopes.pop();
+    }
+    return top(state).offset != indented;
+  }
+  function tokenLexer(stream, state) {
+    if (stream.sol()) {
+      state.beginningOfLine = true;
+      state.dedent = false;
+    }
+    var style = state.tokenize(stream, state);
+    var current = stream.current();
+    if (state.beginningOfLine && current == "@")
+      return stream.match(identifiers, false) ? "meta" : py3 ? "operator" : ERRORCLASS;
+    if (/\S/.test(current))
+      state.beginningOfLine = false;
+    if ((style == "variable" || style == "builtin") && state.lastToken == "meta")
+      style = "meta";
+    if (current == "pass" || current == "return")
+      state.dedent = true;
+    if (current == "lambda")
+      state.lambda = true;
+    if (current == ":" && !state.lambda && top(state).type == "py" && stream.match(/^\s*(?:#|$)/, false))
+      pushPyScope(stream, state);
+    if (current.length == 1 && !/string|comment/.test(style)) {
+      var delimiter_index = "[({".indexOf(current);
+      if (delimiter_index != -1)
+        pushBracketScope(stream, state, "])}".slice(delimiter_index, delimiter_index + 1));
+      delimiter_index = "])}".indexOf(current);
+      if (delimiter_index != -1) {
+        if (top(state).type == current)
+          state.indent = state.scopes.pop().offset - (hangingIndent || stream.indentUnit);
+        else
+          return ERRORCLASS;
+      }
+    }
+    if (state.dedent && stream.eol() && top(state).type == "py" && state.scopes.length > 1)
+      state.scopes.pop();
+    return style;
+  }
+  return {
+    startState: function() {
+      return {
+        tokenize: tokenBase,
+        scopes: [{ offset: 0, type: "py", align: null }],
+        indent: 0,
+        lastToken: null,
+        lambda: false,
+        dedent: 0
+      };
+    },
+    token: function(stream, state) {
+      var addErr = state.errorToken;
+      if (addErr)
+        state.errorToken = false;
+      var style = tokenLexer(stream, state);
+      if (style && style != "comment")
+        state.lastToken = style == "keyword" || style == "punctuation" ? stream.current() : style;
+      if (style == "punctuation")
+        style = null;
+      if (stream.eol() && state.lambda)
+        state.lambda = false;
+      return addErr ? ERRORCLASS : style;
+    },
+    indent: function(state, textAfter, cx) {
+      if (state.tokenize != tokenBase)
+        return state.tokenize.isString ? null : 0;
+      var scope = top(state);
+      var closing = scope.type == textAfter.charAt(0) || scope.type == "py" && !state.dedent && /^(else:|elif |except |finally:)/.test(textAfter);
+      if (scope.align != null)
+        return scope.align - (closing ? 1 : 0);
+      else
+        return scope.offset - (closing ? hangingIndent || cx.unit : 0);
+    },
+    languageData: {
+      autocomplete: commonKeywords.concat(commonBuiltins),
+      indentOnInput: /^\s*([\}\]\)]|else:|elif |except |finally:)$/,
+      commentTokens: { line: "#" },
+      closeBrackets: { brackets: ["(", "[", "{", "'", '"', "'''", '"""'] }
+    }
+  };
+}
+var words = function(str) {
+  return str.split(" ");
+};
+const python = mkPython({});
+const cython = mkPython({
+  extra_keywords: words("by cdef cimport cpdef ctypedef enum except extern gil include nogil property public readonly struct union DEF IF ELIF ELSE")
+});
+export {
+  cython,
+  mkPython,
+  python
+};
+//# sourceMappingURL=python.ac641beb.js.map

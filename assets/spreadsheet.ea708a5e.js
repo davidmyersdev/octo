@@ -1,1 +1,91 @@
-const i={startState:function(){return{stringType:null,stack:[]}},token:function(e,n){if(!!e){switch(n.stack.length===0&&(e.peek()=='"'||e.peek()=="'")&&(n.stringType=e.peek(),e.next(),n.stack.unshift("string")),n.stack[0]){case"string":for(;n.stack[0]==="string"&&!e.eol();)e.peek()===n.stringType?(e.next(),n.stack.shift()):e.peek()==="\\"?(e.next(),e.next()):e.match(/^.[^\\\"\']*/);return"string";case"characterClass":for(;n.stack[0]==="characterClass"&&!e.eol();)e.match(/^[^\]\\]+/)||e.match(/^\\./)||n.stack.shift();return"operator"}var c=e.peek();switch(c){case"[":return e.next(),n.stack.unshift("characterClass"),"bracket";case":":return e.next(),"operator";case"\\":return e.match(/\\[a-z]+/)?"string.special":(e.next(),"atom");case".":case",":case";":case"*":case"-":case"+":case"^":case"<":case"/":case"=":return e.next(),"atom";case"$":return e.next(),"builtin"}return e.match(/\d+/)?e.match(/^\w+/)?"error":"number":e.match(/^[a-zA-Z_]\w*/)?e.match(/(?=[\(.])/,!1)?"keyword":"variable":["[","]","(",")","{","}"].indexOf(c)!=-1?(e.next(),"bracket"):(e.eatSpace()||e.next(),null)}}};export{i as spreadsheet};
+const spreadsheet = {
+  startState: function() {
+    return {
+      stringType: null,
+      stack: []
+    };
+  },
+  token: function(stream, state) {
+    if (!stream)
+      return;
+    if (state.stack.length === 0) {
+      if (stream.peek() == '"' || stream.peek() == "'") {
+        state.stringType = stream.peek();
+        stream.next();
+        state.stack.unshift("string");
+      }
+    }
+    switch (state.stack[0]) {
+      case "string":
+        while (state.stack[0] === "string" && !stream.eol()) {
+          if (stream.peek() === state.stringType) {
+            stream.next();
+            state.stack.shift();
+          } else if (stream.peek() === "\\") {
+            stream.next();
+            stream.next();
+          } else {
+            stream.match(/^.[^\\\"\']*/);
+          }
+        }
+        return "string";
+      case "characterClass":
+        while (state.stack[0] === "characterClass" && !stream.eol()) {
+          if (!(stream.match(/^[^\]\\]+/) || stream.match(/^\\./)))
+            state.stack.shift();
+        }
+        return "operator";
+    }
+    var peek = stream.peek();
+    switch (peek) {
+      case "[":
+        stream.next();
+        state.stack.unshift("characterClass");
+        return "bracket";
+      case ":":
+        stream.next();
+        return "operator";
+      case "\\":
+        if (stream.match(/\\[a-z]+/))
+          return "string.special";
+        else {
+          stream.next();
+          return "atom";
+        }
+      case ".":
+      case ",":
+      case ";":
+      case "*":
+      case "-":
+      case "+":
+      case "^":
+      case "<":
+      case "/":
+      case "=":
+        stream.next();
+        return "atom";
+      case "$":
+        stream.next();
+        return "builtin";
+    }
+    if (stream.match(/\d+/)) {
+      if (stream.match(/^\w+/))
+        return "error";
+      return "number";
+    } else if (stream.match(/^[a-zA-Z_]\w*/)) {
+      if (stream.match(/(?=[\(.])/, false))
+        return "keyword";
+      return "variable";
+    } else if (["[", "]", "(", ")", "{", "}"].indexOf(peek) != -1) {
+      stream.next();
+      return "bracket";
+    } else if (!stream.eatSpace()) {
+      stream.next();
+    }
+    return null;
+  }
+};
+export {
+  spreadsheet
+};
+//# sourceMappingURL=spreadsheet.ea708a5e.js.map

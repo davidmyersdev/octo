@@ -4,6 +4,13 @@
       What's New
     </template>
     <div class="flex flex-col gap-12">
+      <ChangeLogEntry header="Monday, November 14th, 2022">
+        <p>Introducing a new way to sign in.</p>
+        <template #items>
+          <li>Send yourself a <strong>magic link</strong> to sign in with your email address.</li>
+          <li>If you already have an account with a social provider, your email address will be linked to that account.</li>
+        </template>
+      </ChangeLogEntry>
       <ChangeLogEntry header="Sunday, October 16th, 2022">
         <p>Today's updates focus on <strong>portability</strong>.</p><p>Vendor lock-in has become commonplace, but you deserve the right to take your data with you <strong>anywhere</strong> you choose. Thanks to recent community contributions, transferring your data into or out of Octo has become much simpler.</p>
         <template #items>
@@ -78,7 +85,7 @@ onMounted(async () => {
   try {
     // Make sure this timestamp is updated when new entries are added.
     // (new Date()).toISOString()
-    const lastEntryTimestamp = '2022-10-16T21:38:09.137Z'
+    const lastEntryTimestamp = '2022-11-14T04:15:07.232Z'
     const lastClientTimestamp = localStorage.getItem('changelog:v1')
 
     if (!lastClientTimestamp || new Date(lastEntryTimestamp) > new Date(lastClientTimestamp)) {

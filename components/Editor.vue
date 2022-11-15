@@ -76,6 +76,11 @@ export default defineComponent({
       }
     },
   },
+  data() {
+    return {
+      lazyPlugins: [],
+    }
+  },
   computed: {
     docs() {
       return this.$store.getters.kept.reduce((docs, doc) => {
@@ -102,6 +107,9 @@ export default defineComponent({
       return wordCount(this.text)
     },
     options() {
+      const isExperimentalEnabled = this.$store.state.settings.experimental
+      const hasLazyPlugins = this.lazyPlugins.length > 0
+
       return {
         files: {
           clipboard: this.pro,
@@ -124,7 +132,7 @@ export default defineComponent({
         // Todo: Make these configurable.
         plugins: [
           ...this.plugins,
-          ...(this.$store.state.settings.experimental ? mermaid() : []),
+          ...(isExperimentalEnabled && hasLazyPlugins ? this.lazyPlugins : []),
         ],
         selections: this.initialSelections || [],
         toolbar: {
@@ -227,6 +235,13 @@ export default defineComponent({
       )
     },
   },
+  beforeMount() {
+    mermaid().then((plugins) => {
+      this.lazyPlugins.push(...plugins)
+    }).catch((error) => {
+      console.log('[mermaid]', error)
+    })
+  },
   mounted() {
     this.focusInitial()
   }
@@ -267,6 +282,10 @@ export default defineComponent({
 
   :deep(.ink-editor > div:first-child), :deep(.ink-editor .cm-editor) {
     height: 100%;
+  }
+
+  :deep(.ink-editor .ink-mde-widget svg) {
+    margin: auto;
   }
 
   .ink-editor :deep(.cm-editor.cm-focused) {

@@ -70,7 +70,7 @@ const makeScale = (index: number, color: string) => {
   }
 }
 
-export const updateSvg = (html: string) => {
+export const buildSvg = (html: string) => {
   const svg = toEl<SVGElement>(html)
   const colorKeys = Object.keys(colors) as Array<keyof typeof colors>
 
@@ -81,7 +81,79 @@ export const updateSvg = (html: string) => {
   return svg
 }
 
-export const theme = {
+export const themeCss = `
+  .edgeLabel:not(:empty) {
+    border-radius: 2px;
+    padding: 2px 4px;
+  }
+
+  svg {
+    stroke-linejoin: round;
+    line-height: 1.5;
+    margin: auto;
+    max-width: 100%;
+  }
+
+  svg marker#arrowhead path {
+    d: path('M 1,1 L5,5 L1,9 L10,5 Z');
+  }
+
+  svg marker#crosshead path:first-child {
+    d: path('M 10,1.75 L12,4 L10,6.25 L15,4 Z');
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 0.5px;
+  }
+
+  svg marker#crosshead path:last-child {
+    d: path('M2.5,1.5 L7.5,6.5 M7.5,1.5 L2.5,6.5');
+    stroke-linecap: round;
+    stroke-width: 0.75px;
+    stroke-linejoin: round;
+  }
+
+  svg marker#flowchart-pointEnd path {
+    d: path('M 1,1 L5,5 L1,9 L10,5 Z');
+  }
+
+  svg circle:not(.ignore),
+  svg line:not(.ignore),
+  svg polygon:not(.ignore),
+  svg rect:not(.ignore) {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2px !important;
+  }
+
+  svg .commit-label-bkg {
+    stroke: ${darken(colors.inactive.background, 30)};
+    stroke-linejoin: round;
+    stroke-width: 2px !important;
+  }
+
+  svg .edge-pattern-dotted {
+    stroke-linecap: round;
+    stroke-dasharray: 2, 4 !important;
+  }
+
+  svg .loopLine {
+    opacity: 0.8;
+    stroke-dasharray: 2, 4 !important;
+  }
+
+  svg .mindmap-node {
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2px !important;
+  }
+
+  svg .section,
+  svg .task {
+    opacity: 0.75;
+  }
+`
+
+export const themeVariables = {
   // Shared
   background,
   primaryColor: colors.primary.background,
@@ -208,68 +280,3 @@ export const theme = {
   ...makeScale(10, colors.eleventh.background),
   ...makeScale(11, colors.twelfth.background),
 }
-
-export const themeStyles = `
-  .edgeLabel:not(:empty) {
-    border-radius: 2px;
-    padding: 2px 4px;
-  }
-
-  svg {
-    stroke-linejoin: round;
-    line-height: 1.5;
-    margin: auto;
-  }
-
-  svg marker#arrowhead path {
-    d: path('M 1,1 L5,5 L1,9 L10,5 Z');
-  }
-
-  svg marker#crosshead path:first-child {
-    d: path('M 10,1.75 L12,4 L10,6.25 L15,4 Z');
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: 0.5px;
-  }
-
-  svg marker#crosshead path:last-child {
-    d: path('M2.5,1.5 L7.5,6.5 M7.5,1.5 L2.5,6.5');
-    stroke-linecap: round;
-    stroke-width: 0.75px;
-    stroke-linejoin: round;
-  }
-
-  svg marker#flowchart-pointEnd path {
-    d: path('M 1,1 L5,5 L1,9 L10,5 Z');
-  }
-
-  svg circle:not(.ignore),
-  svg line:not(.ignore),
-  svg polygon:not(.ignore),
-  svg rect:not(.ignore) {
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: 2px !important;
-  }
-
-  svg .commit-label-bkg {
-    stroke: ${darken(colors.inactive.background, 30)};
-    stroke-linejoin: round;
-    stroke-width: 2px !important;
-  }
-
-  svg .edge-pattern-dotted {
-    stroke-linecap: round;
-    stroke-dasharray: 2, 4 !important;
-  }
-
-  svg .loopLine {
-    opacity: 0.8;
-    stroke-dasharray: 2, 4 !important;
-  }
-
-  svg .section,
-  svg .task {
-    opacity: 0.75;
-  }
-`

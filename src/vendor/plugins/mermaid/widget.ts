@@ -3,10 +3,9 @@ import { RangeSet, StateField } from '@codemirror/state'
 import { Decoration, DecorationSet, EditorView } from '@codemirror/view'
 import type { EditorState, Extension, Range } from '@codemirror/state'
 import type { WidgetType } from '@codemirror/view'
-import mermaid from 'mermaid'
 import { customAlphabet } from 'nanoid'
 import type { Config } from '../index'
-import { theme, themeStyles, updateSvg } from './theme'
+import { buildSvg, themeCss as themeCSS, themeVariables } from './theme'
 
 interface PreviewWidget extends WidgetType {
   compare: (widget: PreviewWidget) => boolean
@@ -14,6 +13,7 @@ interface PreviewWidget extends WidgetType {
 }
 
 const alpha = customAlphabet('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
+const state = { isMermaidLoaded: false }
 
 const preview = (text: string): PreviewWidget => {
   return {
@@ -32,24 +32,33 @@ const preview = (text: string): PreviewWidget => {
       const content = document.createElement('div')
       const targetId = alpha()
 
+      container.className = 'ink-mde-widget'
       container.style.paddingBottom = '0.5rem'
       container.style.paddingTop = '0.5rem'
       container.setAttribute('aria-hidden', 'true')
-      content.id = targetId
       content.style.backgroundColor = '#121212'
       content.style.borderRadius = '0.25rem'
+      content.style.minHeight = '0'
+      content.style.width = '100%'
 
       container.appendChild(content)
 
-      try {
-        if (mermaid.parse(text)) {
-          mermaid.render(targetId, text, (svg) => {
-            content.replaceChildren(updateSvg(svg))
-          })
-        }
-      } catch (error) {
+      import('mermaid').then(({ default: mermaid }) => {
+        mermaid.renderAsync(targetId, text, (svgCode, bindFunctions) => {
+          const svg = buildSvg(svgCode)
+
+          svg.setAttribute('height', '100%')
+          svg.setAttribute('width', '100%')
+
+          content.replaceChildren(svg)
+
+          if (bindFunctions) {
+            bindFunctions(svg)
+          }
+        })
+      }).catch((error) => {
         console.log('[mermaid]', error)
-      }
+      })
 
       return container
     },
@@ -57,8 +66,30 @@ const preview = (text: string): PreviewWidget => {
   }
 }
 
-export const widget = (_config: Config): Extension => {
-  mermaid.initialize({ theme: 'base', themeCSS: themeStyles, themeVariables: theme })
+export const widget = async (_config: Config): Promise<Extension> => {
+  if (!state.isMermaidLoaded) {
+    try {
+      const { default: mermaid } = await import('mermaid')
+
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'base',
+        themeCSS,
+        themeVariables,
+      })
+
+      const { default: mindmap } = await import('@mermaid-js/mermaid-mindmap')
+
+      await mermaid.registerExternalDiagrams([mindmap], { lazyLoad: true })
+
+      // This will prevent mermaid from being loaded multiple times in a single session.
+      state.isMermaidLoaded = true
+    } catch (error) {
+      console.log('[mermaid]', error)
+
+      return []
+    }
+  }
 
   const previewDecoration = (text: string) => Decoration.widget({
     block: true,

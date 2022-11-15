@@ -2458,6 +2458,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@mermaid-js/mermaid-mindmap@npm:^9.2.2":
+  version: 9.2.2
+  resolution: "@mermaid-js/mermaid-mindmap@npm:9.2.2"
+  dependencies:
+    "@braintree/sanitize-url": ^6.0.0
+    cytoscape: ^3.23.0
+    cytoscape-cose-bilkent: ^4.1.0
+    cytoscape-fcose: ^2.1.0
+    d3: ^7.0.0
+    non-layered-tidy-tree-layout: ^2.0.2
+  checksum: 6a60d7d3e11e465f4bd7140b41df2d165ae7031b227d25d3bc6d1bcd90653e031878909f9f57e5be624987c24b044d4e95581340e7970a17c3fe8cfd4a4b3794
+  languageName: node
+  linkType: hard
+
 "@netlify/functions@npm:^1.2.0":
   version: 1.2.0
   resolution: "@netlify/functions@npm:1.2.0"
@@ -3309,6 +3323,7 @@ __metadata:
   resolution: "@voraciousdev/octo@workspace:."
   dependencies:
     "@heroicons/vue": ^2.0.12
+    "@mermaid-js/mermaid-mindmap": ^9.2.2
     "@tailwindcss/aspect-ratio": ^0.4.0
     "@types/file-saver": ^2.0.5
     "@types/mime-types": ^2.1.1
@@ -3322,11 +3337,11 @@ __metadata:
     file-saver: ^2.0.5
     firebase: ^9.9.0
     force-graph: ^1.35.1
-    ink-mde: ^0.15.3
+    ink-mde: ^0.16.0
     jszip: ^3.10.1
     khroma: ^2.0.0
     localforage: ^1.10.0
-    mermaid: ^9.2.0
+    mermaid: ^9.2.2
     mime-types: ^2.1.35
     moment: ^2.29.4
     mousetrap: ^1.6.5
@@ -4618,6 +4633,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cose-base@npm:^1.0.0":
+  version: 1.0.3
+  resolution: "cose-base@npm:1.0.3"
+  dependencies:
+    layout-base: ^1.0.0
+  checksum: 3f3d592316df74adb215ca91e430f1c22b6e890bc0025b32ae1f6464c73fdb9614816cb40a8d38b40c6a3e9e7b8c64eda90d53fb9a4a6948abec17dad496f30b
+  languageName: node
+  linkType: hard
+
+"cose-base@npm:^2.0.0":
+  version: 2.1.0
+  resolution: "cose-base@npm:2.1.0"
+  dependencies:
+    layout-base: ^2.0.0
+  checksum: 264653ee406aff5ec237f5f34a18001113d869c4e4e9836f61b4d9f782a5c977e005a57b8b6e1e53b0761631a89ac31a9a4f8eb980f13bc0bf7ea3bed2daff75
+  languageName: node
+  linkType: hard
+
 "crc-32@npm:^1.2.0":
   version: 1.2.2
   resolution: "crc-32@npm:1.2.2"
@@ -4805,6 +4838,38 @@ __metadata:
   version: 0.2.2
   resolution: "cuint@npm:0.2.2"
   checksum: b8127a93a7f16ce120ffcb22108014327c9808b258ee20e7dbb4c6740d7cb0f0c12d18a054eb716b0f2470090666abaae8a082d3cd5ef0e94fa447dd155842c4
+  languageName: node
+  linkType: hard
+
+"cytoscape-cose-bilkent@npm:^4.1.0":
+  version: 4.1.0
+  resolution: "cytoscape-cose-bilkent@npm:4.1.0"
+  dependencies:
+    cose-base: ^1.0.0
+  peerDependencies:
+    cytoscape: ^3.2.0
+  checksum: bea6aa139e21bf4135b01b99f8778eed061e074d1a1689771597e8164a999d66f4075d46be584b0a88a5447f9321f38c90c8821df6a9322faaf5afebf4848d97
+  languageName: node
+  linkType: hard
+
+"cytoscape-fcose@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "cytoscape-fcose@npm:2.1.0"
+  dependencies:
+    cose-base: ^2.0.0
+  peerDependencies:
+    cytoscape: ^3.2.0
+  checksum: 3bf302d8e043dbeb737171f29ddfaa395f67bb430b7ff9b0ec02b8b1de09fe7cc51d7446f5b048215844c4ff99097e58c17804094a959dc1805bafa22ddd57df
+  languageName: node
+  linkType: hard
+
+"cytoscape@npm:^3.23.0":
+  version: 3.23.0
+  resolution: "cytoscape@npm:3.23.0"
+  dependencies:
+    heap: ^0.2.6
+    lodash: ^4.17.21
+  checksum: bcb3c48068384309287553a8b2561bf500562548563ef900c43d011b4a2c8e7cbf0c44f40f7f4ad1b661ff959385c627027f7e7a642021a3716054ae093d3749
   languageName: node
   linkType: hard
 
@@ -7461,6 +7526,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"heap@npm:^0.2.6":
+  version: 0.2.7
+  resolution: "heap@npm:0.2.7"
+  checksum: b0f3963a799e02173f994c452921a777f2b895b710119df999736bfed7477235c2860c423d9aea18a9f3b3d065cb1114d605c208cfcb8d0ac550f97ec5d28cb0
+  languageName: node
+  linkType: hard
+
 "highlight.js@npm:^9.7.0":
   version: 9.18.5
   resolution: "highlight.js@npm:9.18.5"
@@ -7714,9 +7786,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ink-mde@npm:0.15.3, ink-mde@npm:^0.15.3":
-  version: 0.15.3
-  resolution: "ink-mde@npm:0.15.3"
+"ink-mde@npm:0.16.0, ink-mde@npm:^0.16.0":
+  version: 0.16.0
+  resolution: "ink-mde@npm:0.16.0"
   dependencies:
     "@codemirror/autocomplete": ^6.3.0
     "@codemirror/commands": ^6.1.2
@@ -7730,7 +7802,7 @@ __metadata:
     "@lezer/highlight": ^1.1.2
     "@lezer/markdown": ^1.0.2
     "@replit/codemirror-vim": ^6.0.3
-    ink-mde: 0.15.3
+    ink-mde: 0.16.0
     solid-js: ^1.6.0
     style-mod: ^4.0.0
   peerDependencies:
@@ -7738,7 +7810,7 @@ __metadata:
   peerDependenciesMeta:
     vue:
       optional: true
-  checksum: bb8bf25d6d717a85a8fb8f43191bb0a9c1574d9e5455b202ad2b17cdc987dffd5334239ccfbadacfc3a4debc41d86b78e18e22c7cc7c9bd5e3cb5c23829a15c0
+  checksum: e8d4ceca2657c9db6073439418e18080b2945b42b5adadab93654d6c9bb6f88fb79f8a756093ff8a8ab0c9e8e3a65c27773d708cde8aff8168a8994d66b4c8a7
   languageName: node
   linkType: hard
 
@@ -8351,6 +8423,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"layout-base@npm:^1.0.0":
+  version: 1.0.2
+  resolution: "layout-base@npm:1.0.2"
+  checksum: e4c312765ac4fa13b49c940e701461309c7a0aa07f784f81d31f626b945dced90a8abf83222388a5af16b7074271f745501a90ef5a3af676abb2e7eb16d55b2e
+  languageName: node
+  linkType: hard
+
+"layout-base@npm:^2.0.0":
+  version: 2.0.1
+  resolution: "layout-base@npm:2.0.1"
+  checksum: ef93baf044f67c3680f4f3a6d628bf4c7faba0f70f3e0abb16e4811bed087045208560347ca749e123d169cbf872505ad84e11fb21b0be925997227e042c7f43
+  languageName: node
+  linkType: hard
+
 "lazystream@npm:^1.0.0":
   version: 1.0.1
   resolution: "lazystream@npm:1.0.1"
@@ -8708,9 +8794,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mermaid@npm:^9.2.0":
-  version: 9.2.0
-  resolution: "mermaid@npm:9.2.0"
+"mermaid@npm:^9.2.2":
+  version: 9.2.2
+  resolution: "mermaid@npm:9.2.2"
   dependencies:
     "@braintree/sanitize-url": ^6.0.0
     d3: ^7.0.0
@@ -8725,7 +8811,7 @@ __metadata:
     non-layered-tidy-tree-layout: ^2.0.2
     stylis: ^4.1.2
     uuid: ^9.0.0
-  checksum: 23cf5ec4465cfb828053cea51e0c641c0925b60357b1e0dc3162bbb248bcd129c6593732d6e9bb465d781fd19f46bc94c3352459c2ac94c97add7a007de8a0b3
+  checksum: 866573c13d92af3098dbbeb7afbd852645b641a45f8106a5bcbbd3eaf8da33453aac4471da8149f15f29126e4ea86c747d81e8fe6de8f877b6d178f83639edc4
   languageName: node
   linkType: hard
 

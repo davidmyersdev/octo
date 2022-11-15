@@ -1,8 +1,8 @@
 import { widget } from './widget'
 import type { Config } from '../index'
 
-export const mermaid = (config: Config) => {
+export const mermaid = async (config: Config) => {
   return [
-    { type: 'default', value: widget(config) },
+    { type: 'default', value: await widget(config) },
   ]
 }

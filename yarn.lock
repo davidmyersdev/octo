@@ -2910,15 +2910,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tailwindcss/aspect-ratio@npm:^0.4.0":
-  version: 0.4.0
-  resolution: "@tailwindcss/aspect-ratio@npm:0.4.0"
-  peerDependencies:
-    tailwindcss: ">=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1"
-  checksum: 106ee15ce10445006a0b6cfb70bf37fc9b47b4e4e146455e61ed6c0c6b6d18255175d8f6991df9ee686d9b5afe4edc3158a22266f22a6b6e8878fd73212efef5
-  languageName: node
-  linkType: hard
-
 "@tailwindcss/typography@npm:^0.5.8":
   version: 0.5.8
   resolution: "@tailwindcss/typography@npm:0.5.8"
@@ -3323,7 +3314,6 @@ __metadata:
   dependencies:
     "@heroicons/vue": ^2.0.12
     "@mermaid-js/mermaid-mindmap": ^9.2.2
-    "@tailwindcss/aspect-ratio": ^0.4.0
     "@tailwindcss/typography": ^0.5.8
     "@types/file-saver": ^2.0.5
     "@types/mime-types": ^2.1.1
@@ -3336,8 +3326,8 @@ __metadata:
     deepmerge-ts: ^4.2.1
     file-saver: ^2.0.5
     firebase: ^9.9.0
-    force-graph: ^1.35.1
-    ink-mde: ^0.18.0
+    force-graph: ^1.42.16
+    ink-mde: ^0.18.1
     jszip: ^3.10.1
     khroma: ^2.0.0
     localforage: ^1.10.0
@@ -3360,6 +3350,7 @@ __metadata:
     vite: ^3.2.3
     vite-plugin-html: ^3.2.0
     vite-plugin-pwa: ^0.13.3
+    vite-svg-loader: ^3.6.0
     vue: ^3.2.36
     vue-router: ^4.0.13
     vue-tsc: ^0.38.9
@@ -3406,6 +3397,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vue/compiler-core@npm:3.2.45":
+  version: 3.2.45
+  resolution: "@vue/compiler-core@npm:3.2.45"
+  dependencies:
+    "@babel/parser": ^7.16.4
+    "@vue/shared": 3.2.45
+    estree-walker: ^2.0.2
+    source-map: ^0.6.1
+  checksum: e3c687b24c16c2b320c02ed38960f8bee7dcb88bddb09e60a80d2d4dc004070cbbd4eccbc99cc168d48d753ff60d0b9eefba835e1dec3b7f233a98c89af31c07
+  languageName: node
+  linkType: hard
+
 "@vue/compiler-dom@npm:3.2.40, @vue/compiler-dom@npm:^3.2.37":
   version: 3.2.40
   resolution: "@vue/compiler-dom@npm:3.2.40"
@@ -3413,6 +3416,16 @@ __metadata:
     "@vue/compiler-core": 3.2.40
     "@vue/shared": 3.2.40
   checksum: d928a16ebdda9d91a579546d108c9399f8c9a5c9c976196cfefa32f10c0ecb3111233c3291ba05898def85fcfccdc71e3446b977a7cdbc0d47d5d47b0dac75a3
+  languageName: node
+  linkType: hard
+
+"@vue/compiler-dom@npm:3.2.45":
+  version: 3.2.45
+  resolution: "@vue/compiler-dom@npm:3.2.45"
+  dependencies:
+    "@vue/compiler-core": 3.2.45
+    "@vue/shared": 3.2.45
+  checksum: 89115538635f0da9cce615de5488d2759256fa573976a09a049536dbb94e9b5086b46f2f11e743cf0a7b14837161b3191c67611e0493054a5d4c4b96a322c901
   languageName: node
   linkType: hard
 
@@ -3434,6 +3447,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vue/compiler-sfc@npm:^3.2.20":
+  version: 3.2.45
+  resolution: "@vue/compiler-sfc@npm:3.2.45"
+  dependencies:
+    "@babel/parser": ^7.16.4
+    "@vue/compiler-core": 3.2.45
+    "@vue/compiler-dom": 3.2.45
+    "@vue/compiler-ssr": 3.2.45
+    "@vue/reactivity-transform": 3.2.45
+    "@vue/shared": 3.2.45
+    estree-walker: ^2.0.2
+    magic-string: ^0.25.7
+    postcss: ^8.1.10
+    source-map: ^0.6.1
+  checksum: bec375faa0012e953dc0887482cc01d52003ad424b6a8a9c8a2506fd4f0197ad62be22f77ce5691c2306068ae7bc0028399f25399e7d4beee668285d431f4d8f
+  languageName: node
+  linkType: hard
+
 "@vue/compiler-ssr@npm:3.2.40":
   version: 3.2.40
   resolution: "@vue/compiler-ssr@npm:3.2.40"
@@ -3441,6 +3472,16 @@ __metadata:
     "@vue/compiler-dom": 3.2.40
     "@vue/shared": 3.2.40
   checksum: 026461fcee54cf9968b1e12c32dada6dcde0a322919aa5a2c2e6e13cff7b6b2bdbc06860796895a8deef03ed1f8000e4320878576c498a1f218a62aa3e1c0bf6
+  languageName: node
+  linkType: hard
+
+"@vue/compiler-ssr@npm:3.2.45":
+  version: 3.2.45
+  resolution: "@vue/compiler-ssr@npm:3.2.45"
+  dependencies:
+    "@vue/compiler-dom": 3.2.45
+    "@vue/shared": 3.2.45
+  checksum: 830c475506d2b6d1a6872b3fde1024ef5132f725121fd9c34832c5cefcc8cfddf0dcaa3acc9b2da4754162fccdff48b3275b9ff31415a7793b224c04355dc632
   languageName: node
   linkType: hard
 
@@ -3461,6 +3502,19 @@ __metadata:
     estree-walker: ^2.0.2
     magic-string: ^0.25.7
   checksum: b86fc29b52f2460801a3c820370104b734b33cc3a66dbe0ad389a00a62b7a1069121b1ef5dfa50ca3530cbfa98c158743eee0e25af54ca45806f9497757db8c0
+  languageName: node
+  linkType: hard
+
+"@vue/reactivity-transform@npm:3.2.45":
+  version: 3.2.45
+  resolution: "@vue/reactivity-transform@npm:3.2.45"
+  dependencies:
+    "@babel/parser": ^7.16.4
+    "@vue/compiler-core": 3.2.45
+    "@vue/shared": 3.2.45
+    estree-walker: ^2.0.2
+    magic-string: ^0.25.7
+  checksum: 401040818947eb04c782487a7861d3ba20f95c9f3ca14282b3d7624002bfe6000547bb48c561afe87ae6d302143fec71a7e0bc3ed3ae2bfad8a228adf7fd90d6
   languageName: node
   linkType: hard
 
@@ -3510,6 +3564,13 @@ __metadata:
   version: 3.2.40
   resolution: "@vue/shared@npm:3.2.40"
   checksum: d91a1e12ffb106a444dcb42c0a54d39f6688f98151dc3b77e8da1e7d3cfd09e1761268d11e7f920f233b43162e727d06f3af4408ef59c53ac2dce9c1d2881511
+  languageName: node
+  linkType: hard
+
+"@vue/shared@npm:3.2.45":
+  version: 3.2.45
+  resolution: "@vue/shared@npm:3.2.45"
+  checksum: ff3205056caed2a965aa0980e21319515ce13c859a9b269fdab0ee8b3c9f3d8eec7eefdb7fd6c6b47c12acdc7bf23c6c187b6191054221b4a29108139b20c221
   languageName: node
   linkType: hard
 
@@ -6797,9 +6858,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"force-graph@npm:^1.35.1":
-  version: 1.42.9
-  resolution: "force-graph@npm:1.42.9"
+"force-graph@npm:^1.42.16":
+  version: 1.42.16
+  resolution: "force-graph@npm:1.42.16"
   dependencies:
     "@tweenjs/tween.js": 18
     accessor-fn: 1
@@ -6815,7 +6876,7 @@ __metadata:
     index-array-by: 1
     kapsule: ^1.13
     lodash.throttle: 4
-  checksum: ba2ba8a113a57cef42a8fd12f45d30792c1db0a2446521e631c9db5e26eb74b8df0d84b4b2a6e4eac38675b22ea0d44dead1e3e4f8540756b3749afd45ebd705
+  checksum: c9e0d84c8ad9b8df8c1195161bf3188801359f1266bc3f32f691d9c731f1f78e79a4ff0e6c5f13762372b57a08fcbb9552db728e4bea9d479480ce42c1822153
   languageName: node
   linkType: hard
 
@@ -7562,9 +7623,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ink-mde@npm:0.18.0, ink-mde@npm:^0.18.0":
-  version: 0.18.0
-  resolution: "ink-mde@npm:0.18.0"
+"ink-mde@npm:0.18.1, ink-mde@npm:^0.18.1":
+  version: 0.18.1
+  resolution: "ink-mde@npm:0.18.1"
   dependencies:
     "@codemirror/autocomplete": ^6.3.4
     "@codemirror/commands": ^6.1.2
@@ -7578,7 +7639,7 @@ __metadata:
     "@lezer/highlight": ^1.1.3
     "@lezer/markdown": ^1.0.2
     "@replit/codemirror-vim": ^6.0.3
-    ink-mde: 0.18.0
+    ink-mde: 0.18.1
     solid-js: ^1.6.2
     style-mod: ^4.0.0
   peerDependencies:
@@ -7586,7 +7647,7 @@ __metadata:
   peerDependenciesMeta:
     vue:
       optional: true
-  checksum: 0a7382abfea9b732791fa35d6aff0f8d2ec70dba5144eef37fa22e9ccbc9c3ba57bb18c36ba96e1aa811fe65c86931712cda0a3932d610e27710574e964beea3
+  checksum: 0f6d44b020b2fbaf0b8c39e1035f83c46e5fca8c41bd27c07e15135d4b906a64de362c7a3f3f8c30b3f5e64a6c01c3523762a6c35c5118bef41e640736f0a33e
   languageName: node
   linkType: hard
 
@@ -12178,6 +12239,16 @@ __metadata:
     workbox-build: ^6.5.4
     workbox-window: ^6.5.4
   checksum: be1e8699e2fb4fea98454d20c8df4bcbd828aecb2b714a1251405fde4dc9ac9c95520b33fdfc1a3d91d51f9d920501d93f57f4f0a2f1361ba38785c86e4756a4
+  languageName: node
+  linkType: hard
+
+"vite-svg-loader@npm:^3.6.0":
+  version: 3.6.0
+  resolution: "vite-svg-loader@npm:3.6.0"
+  dependencies:
+    "@vue/compiler-sfc": ^3.2.20
+    svgo: ^2.7.0
+  checksum: 1ee96ce9de04b728c9d6b53f7bb8228b5e6ceb3a7c72fd341da333a8c027d5e9f7e928cbd923dd3b2b3adff4ec764f2a0b98551592e8820e409d66d51fc0c421
   languageName: node
   linkType: hard
 

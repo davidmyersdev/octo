@@ -1,12 +1,12 @@
 import { useStorage } from '@vueuse/core'
 import { getAuth } from 'firebase/auth'
 import { createPinia } from 'pinia'
-import { createApp, h, provide, ref } from 'vue'
+import { createApp, h, provide } from 'vue'
 // @ts-ignore
 import { Vue3Mq } from 'vue3-mq'
 import CoreScrollable from '/components/CoreScrollable.vue'
 import Extendable from '/components/Extendable.vue'
-import { type User } from '/composables'
+import { type User, useAppearance } from '/composables'
 import App from '/src/App.vue'
 import { init } from '/src/firebase'
 import { globalConfig } from '/src/global'
@@ -62,7 +62,7 @@ if (!navigator.onLine) {
 // TODO: Determine whether we need both of these.
 // @ts-ignore
 if (/Mac|iPod|iPhone|iPad/.test(navigator.platform || navigator.userAgentData.platform)) {
-  store.dispatch(SET_MOD_KEY, '⌘ cmd')
+  store.dispatch(SET_MOD_KEY, '⌘')
 }
 
 const app = createApp({
@@ -75,7 +75,9 @@ const app = createApp({
       providers: [],
       roles: [],
     }, undefined, { mergeDefaults: true })
+    const { appearance } = useAppearance()
 
+    provide('appearance', appearance)
     provide('email', email)
     provide('user', user)
 

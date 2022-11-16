@@ -40,7 +40,7 @@ export const store = createStore({
         tags: [],
       },
       editor: null,
-      modKey: '⌃ ctrl',
+      modKey: '⌃',
       online: true,
       showLeftSidebar: true,
       showRightSidebar: true,

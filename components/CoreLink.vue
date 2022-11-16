@@ -1,0 +1,29 @@
+<script lang="ts">
+import { type PropType, computed, defineComponent } from 'vue'
+import { type RouterLinkProps } from 'vue-router'
+
+export default defineComponent({
+  props: {
+    to: {
+      required: true,
+      type: [String, Object] as PropType<string | RouterLinkProps['to']>
+    },
+  },
+  setup(props) {
+    const isExternal = computed(() => typeof props.to === 'string')
+    const toExternal = computed(() => props.to as string)
+    const toInternal = computed(() => props.to as RouterLinkProps)
+
+    return {
+      isExternal,
+      toExternal,
+      toInternal,
+    }
+  },
+})
+</script>
+
+<template>
+  <a v-if="isExternal" :href="toExternal" rel="noopener noreferrer" target="_blank"><slot /></a>
+  <RouterLink v-else :to="toInternal"><slot /></RouterLink>
+</template>

@@ -1,24 +1,16 @@
 <template>
   <CoreScrollable class="meta p-4 md:p-2">
     <div class="flex flex-col flex-grow">
-      <div class="hidden mb-4 md:flex justify-end">
-        <button @click="toggleMeta" class="sidebar-button">
-          <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-          <span class="ml-3">Hide</span>
-        </button>
-      </div>
       <div v-if="doc" class="flex flex-col flex-grow">
         <div>
-          <DiscardableAction v-if="doc.id" :discardedAt="doc.discardedAt" :onDiscard="discardDocument" :onRestore="restoreDocument" class="sidebar-button w-full"></DiscardableAction>
-          <button @click.stop="duplicateDocument" class="sidebar-button w-full">
+          <button @click.stop="duplicateDocument" class="sidebar-link w-full">
             <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
             </svg>
             <span class="ml-6 md:ml-3 flex-grow text-left">Duplicate</span>
           </button>
-          <button v-if="hasCodeblocks" @click="openSandbox" class="sidebar-button w-full">
+          <DiscardableAction v-if="doc.id" :discardedAt="doc.discardedAt" :onDiscard="discardDocument" :onRestore="restoreDocument" class="sidebar-link w-full"></DiscardableAction>
+          <button v-if="hasCodeblocks" @click="openSandbox" class="sidebar-link w-full">
             <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
             </svg>
@@ -26,13 +18,13 @@
           </button>
           <div>
             <div v-if="doc.public">
-              <button @click="restrictDocument" class="sidebar-button w-full">
+              <button @click="restrictDocument" class="sidebar-link w-full">
                 <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
                 <span class="ml-6 md:ml-3 flex-grow text-left">Make Private</span>
               </button>
-              <button @click="copyPublicUrl" class="sidebar-button w-full">
+              <button @click="copyPublicUrl" class="sidebar-link w-full">
                 <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
                 </svg>
@@ -41,7 +33,7 @@
               <input ref="link" :value="publicUrl" type="text" class="form-text w-full mb-2" readonly>
             </div>
             <div v-else class="mb-2">
-              <button @click="shareDocument" class="sidebar-button w-full">
+              <button @click="shareDocument" class="sidebar-link w-full">
                 <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
                 </svg>

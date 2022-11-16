@@ -1,4 +1,5 @@
 import Doc from '/src/models/doc'
+import { useRecentDocs } from '/src/stores/useRecentDocs'
 
 import {
   ADD_DOCUMENT,
@@ -107,6 +108,12 @@ export default {
     },
     [SET_DOCUMENT] (state, { id }) {
       state.currentId = id
+
+      if (id) {
+        const recentDocs = useRecentDocs()
+
+        recentDocs.add(id)
+      }
     },
     [SHARE_DOCUMENT] (state, { id }) {
       findDoc(state, id).share();
@@ -162,8 +169,8 @@ export default {
     async [RESTRICT_DOCUMENT] (context, doc) {
       context.commit(RESTRICT_DOCUMENT, doc);
     },
-    async [SET_DOCUMENT] (context, doc) {
-      context.commit(SET_DOCUMENT, doc)
+    async [SET_DOCUMENT] (context, { id }) {
+      context.commit(SET_DOCUMENT, { id })
     },
     async [SHARE_DOCUMENT] (context, doc) {
       context.commit(SHARE_DOCUMENT, doc);

@@ -13,11 +13,6 @@ export default {
     AsyncChangeLog,
   },
   inject: ["mq"],
-  watch: {
-    theme(value) {
-      this.updateTheme()
-    },
-  },
   computed: {
     flow() {
       // A param to indicate a user flow (e.g. completing sign-up or sign-in).
@@ -41,45 +36,11 @@ export default {
 
       return []
     },
-    theme() {
-      return this.$store.state.settings.theme
-    },
   },
   methods: {
     closeChangelog() {
       this.showChangelog = false
     },
-    updateTheme() {
-      document.documentElement.classList.remove("auto", "dark", "light", "october")
-
-      switch (this.theme) {
-        case "dark":
-          document.documentElement.classList.add("dark")
-          break
-        case "light":
-          document.documentElement.classList.add("light")
-          break
-        case "october":
-          document.documentElement.classList.add("dark", "october")
-          break
-        case "auto":
-          const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-          const preferredTheme = isDark ? "dark" : "light"
-
-          document.documentElement.classList.add("auto", preferredTheme)
-          break
-        default:
-          document.documentElement.classList.add("dark")
-          break
-      }
-    },
-  },
-  created() {
-    this.updateTheme()
-
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
-      this.updateTheme()
-    })
   },
 }
 </script>
@@ -232,5 +193,11 @@ hr {
 /* When overlay scrollbars are mounted, we need to remove overflow from the host element. */
 [data-overlayscrollbars=host] {
   overflow: hidden !important;
+}
+
+[data-overlayscrollbars=host] .os-viewport {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 </style>

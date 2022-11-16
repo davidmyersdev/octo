@@ -3,7 +3,7 @@
     <div>
       <div v-if="github" class="mb-4">
         <div class="flex items-center">
-          <GitHubIcon class="h-5 w-5" />
+          <IconGitHub class="h-5 w-5" />
           <span class="font-bold text-lg ml-3">GitHub</span>
           <span class="bg-gray-100 dark:bg-gray-800 text-base font-normal px-1 rounded ml-2">Linked</span>
         </div>
@@ -12,7 +12,7 @@
 
       <div v-if="google" class="mb-4">
         <div class="flex items-center">
-          <GoogleIcon class="h-5 w-5" />
+          <IconGoogle class="h-5 w-5" />
           <span class="font-bold text-lg ml-3">Google</span>
           <span class="bg-gray-100 dark:bg-gray-800 text-base font-normal px-1 rounded ml-2">Linked</span>
         </div>
@@ -21,7 +21,7 @@
 
       <div v-if="twitter" class="mb-4">
         <div class="flex items-center">
-          <TwitterIcon class="h-5 w-5" />
+          <IconTwitter class="h-5 w-5" />
           <span class="font-bold text-lg ml-3">Twitter</span>
           <span class="bg-gray-100 dark:bg-gray-800 text-base font-normal px-1 rounded ml-2">Linked</span>
         </div>
@@ -31,17 +31,17 @@
 
     <div class="flex flex-col gap-2 lg:max-w-xs">
       <button v-if="!github" @click="linkGitHub" class="button-base button-size-medium button-color-gray shadow w-full lg:w-auto whitespace-nowrap justify-start">
-        <GitHubIcon class="h-5 w-5" />
+        <IconGitHub class="h-5 w-5" />
         <span class="ml-3">Link GitHub</span>
       </button>
 
       <button v-if="!google" @click="linkGoogle" class="button-base button-size-medium button-color-gray shadow w-full lg:w-auto whitespace-nowrap justify-start">
-        <GoogleIcon class="h-5 w-5" />
+        <IconGoogle class="h-5 w-5" />
         <span class="ml-3">Link Google</span>
       </button>
 
       <button v-if="!twitter" @click="linkTwitter" class="button-base button-size-medium button-color-gray shadow w-full lg:w-auto whitespace-nowrap justify-start">
-        <TwitterIcon class="h-5 w-5" />
+        <IconTwitter class="h-5 w-5" />
         <span class="ml-3">Link Twitter</span>
       </button>
 
@@ -58,16 +58,16 @@
 <script lang="ts">
 import { getAuth, getRedirectResult, linkWithRedirect, GithubAuthProvider, GoogleAuthProvider, TwitterAuthProvider } from 'firebase/auth'
 import { computed, defineComponent } from 'vue'
-import GitHubIcon from '/components/LocalIcons/GitHub.vue'
-import GoogleIcon from '/components/LocalIcons/Google.vue'
-import TwitterIcon from '/components/LocalIcons/Twitter.vue'
+import IconGitHub from '/assets/github.svg?component'
+import IconGoogle from '/assets/google.svg?component'
+import IconTwitter from '/assets/twitter.svg?component'
 import { useUser } from '/composables'
 
 export default defineComponent({
   components: {
-    GitHubIcon,
-    GoogleIcon,
-    TwitterIcon,
+    IconGitHub,
+    IconGoogle,
+    IconTwitter,
   },
   setup() {
     const user = useUser()

@@ -22,6 +22,7 @@ export default {
   },
   computed: {
     appearance() {
+      // Todo: Wire up new vueuse appearance util with these editor references.
       if (this.$store.state.settings.theme === 'october') { return 'dark' }
 
       return this.$store.state.settings.theme

@@ -331,8 +331,8 @@
             <router-link :to="{ path: '/privacy-policy' }">Privacy Policy</router-link>
             <router-link :to="{ path: '/terms-and-conditions' }">Terms &amp; Conditions</router-link>
             <div class="flex items-center gap-2 mt-1 lg:mt-0">
-              <a href="https://twitter.com/voraciousdev" target="_blank" rel="noopener noreferrer"><TwitterIcon class="h-6 lg:h-4" /></a>
-              <a href="https://github.com/voracious" target="_blank" rel="noopener noreferrer"><GitHubIcon class="h-6 lg:h-4" /></a>
+              <a href="https://twitter.com/voraciousdev" target="_blank" rel="noopener noreferrer"><IconTwitter class="h-6 lg:h-4" /></a>
+              <a href="https://github.com/voracious" target="_blank" rel="noopener noreferrer"><IconGitHub class="h-6 lg:h-4" /></a>
             </div>
           </div>
           <p class="mt-4">&copy; 2022 Octo</p>
@@ -344,16 +344,16 @@
 
 <script>
 import AuthTiers from '/components/AuthTiers.vue'
-import GitHubIcon from '/components/LocalIcons/GitHub.vue'
-import TwitterIcon from '/components/LocalIcons/Twitter.vue'
-import TheLogo from '/components/TheLogo.vue'
+import IconGitHub from '/assets/github.svg?component'
+import IconTwitter from '/assets/twitter.svg?component'
+import TheLogo from '/assets/logo.svg?component'
 import { globalConfig } from '/src/global'
 
 export default {
   components: {
     AuthTiers,
-    GitHubIcon,
-    TwitterIcon,
+    IconGitHub,
+    IconTwitter,
     TheLogo,
   },
   data() {

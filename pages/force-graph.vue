@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-end h-full relative">
-    <DocumentList v-if="tag" :tag="tag" :cols="1" class="h-full w-full md:w-1/3 z-index-1 px-4 mt-96" />
+    <DocList v-if="tag" :tag="tag" :cols="1" class="h-full w-full md:w-1/3 z-index-1 px-4 mt-96" />
     <div ref="graph" class="absolute inset-0"></div>
   </div>
 </template>
@@ -8,11 +8,11 @@
 <script>
 import ForceGraph from 'force-graph'
 
-import DocumentList from '/components/DocumentList.vue'
+import DocList from '/components/DocList.vue'
 
 export default {
   components: {
-    DocumentList,
+    DocList,
   },
   inject: ['mq'],
   data() {
@@ -29,10 +29,14 @@ export default {
   },
   computed: {
     colors() {
+      const rootElement = window.getComputedStyle(document.documentElement)
+      const text = rootElement.getPropertyValue('--colors-text')
+      const line = rootElement.getPropertyValue('--colors-layer-3')
+
       return {
-        edge: this.theme === 'light' ? '#aaa' : '#333',
-        label: this.theme === 'light' ? 'rgba(17, 17, 17, 0.8)' : 'rgba(200, 200, 200, 0.8)',
-        node: 'rgba(224, 108, 117, 0.9)',
+        edge: line,
+        label: text,
+        node: text,
       }
     },
     connections() {

@@ -1,2 +1,5 @@
+export * from './useAppearance'
 export * from './useAuth'
+export * from './useLayout'
+export * from './usePinnedDocs'
 export * from './useTiers'

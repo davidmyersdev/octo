@@ -1,6 +1,5 @@
-import { open } from '/src/router'
-
 import { bind, bindGlobal, unbind } from '/src/common/keybindings'
+import { open } from '/src/router'
 
 export const DISABLE_LISTENER = 'DISABLE_LISTENER'
 export const DISABLE_LISTENERS = 'DISABLE_LISTENERS'

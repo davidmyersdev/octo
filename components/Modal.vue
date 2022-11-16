@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center fixed inset-0 z-50 bg-gray-100 bg-opacity-50 dark:bg-darkest dark:bg-opacity-50">
+  <div class="flex items-center justify-center fixed inset-0 z-50 bg-gray-100 dark:bg-darkest bg-opacity-50 dark:bg-opacity-50">
     <div class="w-full max-w-2xl p-4">
       <article class="bg-gray-100 dark:bg-gray-800 rounded shadow overflow-hidden">
         <header class="flex items-center justify-between p-4">

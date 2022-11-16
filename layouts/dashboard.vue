@@ -1,33 +1,51 @@
-<template>
-  <div class="flex flex-col h-full min-h-0">
-    <TheNavbar ref="navbar" />
-    <div class="flex flex-grow flex-shrink overflow-hidden w-screen min-w-0">
-      <TheLeftSidebar v-if="!mobile && showLeftSidebar" class="hidden w-72 bg-gray-100 dark:bg-darkest md:flex border-r-2 border-white dark:border-gray-900 flex-shrink-0" />
-      <RouterView ref="content" :inheritAttrs="true" :key="routeKey" class="dashboard-content flex-grow flex-shrink h-full overflow-x-hidden relative" />
-      <TheRightSidebar v-if="!mobile && showRightSidebar && currentDoc" class="hidden w-72 bg-gray-100 dark:bg-darkest md:flex border-l-2 border-white dark:border-gray-900 flex-shrink-0" />
-    </div>
-  </div>
-</template>
-
-<script>
+<script lang="ts">
 import { nanoid } from 'nanoid'
-import { defineComponent } from 'vue'
+import { ViewColumnsIcon } from '@heroicons/vue/24/outline'
+import { CalendarIcon, Cog8ToothIcon, DocumentPlusIcon, HeartIcon, InboxIcon, UserCircleIcon, XMarkIcon } from '@heroicons/vue/24/solid'
+import { computed, defineComponent, onBeforeUnmount, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+import { useMq } from 'vue3-mq'
+import DiscordIcon from '/assets/discord.svg?component'
+import GraphIcon from '/assets/graph.svg?component'
+import CoreButton from '/components/CoreButton.vue'
+import CoreDivider from '/components/CoreDivider.vue'
+import CoreLink from '/components/CoreLink.vue'
+import Key from '/components/Key.vue'
+import LayoutNavbar from '/components/LayoutNavbar.vue'
 import TheContent from '/components/TheContent.vue'
+import TheLogo from '/components/TheLogo.vue'
+import { useLayout, usePinnedDocs } from '/composables'
 import TheLeftSidebar from '/pages/menu.vue'
-import TheNavbar from '/components/TheNavbar.vue'
 import TheRightSidebar from '/pages/docs/[doc]/meta.vue'
+import { bindGlobal } from '/src/common/keybindings'
 
 export default defineComponent({
   components: {
+    CalendarIcon,
+    Cog8ToothIcon,
+    CoreButton,
+    CoreDivider,
+    CoreLink,
+    DiscordIcon,
+    DocumentPlusIcon,
+    GraphIcon,
+    HeartIcon,
+    InboxIcon,
+    Key,
+    LayoutNavbar,
     TheContent,
     TheLeftSidebar,
-    TheNavbar,
+    TheLogo,
     TheRightSidebar,
+    UserCircleIcon,
+    ViewColumnsIcon,
+    XMarkIcon,
   },
   inject: ['mq'],
   data() {
     return {
-      routeKey: null,
+      routeKey: '',
     }
   },
   watch: {
@@ -40,38 +58,193 @@ export default defineComponent({
       },
     },
   },
-  computed: {
-    currentDoc() {
-      // only show the right sidebar while a document is selected (for now)
-      return this.$store.getters.currentDoc
-    },
-    mobile() {
-      return ['xs', 'sm'].includes(this.mq.current)
-    },
-    showLeftSidebar() {
-      return this.$store.state.showLeftSidebar
-    },
-    showRightSidebar() {
-      return this.$route.name === 'docs-doc' && this.$store.state.showRightSidebar
-    },
-  },
-  methods: {
-    scrollListener(event) {
+  setup() {
+    const mq = useMq()
+    const store = useStore()
+    const router = useRouter()
+    const currentDoc = computed(() => store.getters.currentDoc)
+    const { showMenu, showMeta, toggleMenu, toggleMeta } = useLayout()
+    const { pinnedDocs, unpinDoc } = usePinnedDocs()
+    const linkToDiscord = import.meta.env.VITE_DISCORD_INVITE_LINK
+    const modKey = computed(() => store.state.modKey)
+    const mobile = computed(() => ['xs', 'sm'].includes(mq.current))
+    const isDoc = computed(() => router.currentRoute.value.name === 'docs-doc')
+    const isNew = computed(() => router.currentRoute.value.path === '/docs/new')
+
+    const handleQuickActionClose = () => {
+      if (currentDoc.value) {
+        return router.push({ path: `/docs/${currentDoc.value.id}` })
+      }
+
+      router.push({ path: '/docs/new' })
+    }
+
+    const handleLayoutChange = () => {
+      toggleMenu()
+      toggleMeta()
+    }
+
+    // Todo: Migrate keybindings to composables.
+    bindGlobal('mod+\\', () => {
+      toggleMenu()
+      toggleMeta()
+    })
+
+    const handleTabClose = (id: string) => {
+      if (currentDoc.value?.id === id) {
+        router.push({ path: '/docs/new' })
+      }
+
+      unpinDoc(id)
+    }
+
+    const scrollListener = (event: Event) => {
       event.preventDefault()
       event.stopImmediatePropagation()
       event.stopPropagation()
 
       window.scrollTo(0, 0)
-    },
-  },
-  mounted() {
-    window.addEventListener('scroll', this.scrollListener)
-  },
-  beforeUnmount() {
-    window.removeEventListener('scroll', this.scrollListener)
+    }
+
+    onMounted(() => {
+      window.addEventListener('scroll', scrollListener)
+    })
+
+    onBeforeUnmount(() => {
+      window.removeEventListener('scroll', scrollListener)
+    })
+
+    return {
+      currentDoc,
+      handleLayoutChange,
+      handleQuickActionClose,
+      handleTabClose,
+      isDoc,
+      isNew,
+      linkToDiscord,
+      mobile,
+      modKey,
+      pinnedDocs,
+      showMenu,
+      showMeta,
+    }
   },
 })
 </script>
+
+<template>
+  <div class="flex h-full w-screen min-h-0 min-w-0 overflow-hidden border-t-2 border-white dark:border-gray-900">
+    <section v-if="!mobile" class="flex flex-col items-center justify-between gap-4 h-full w-14 bg-gray-100 dark:bg-darkest md:flex">
+      <div class="flex flex-col">
+        <div class="flex flex-col flex-shrink-0 items-center justify-center w-14">
+          <button @click="handleLayoutChange" class="flex items-center justify-center p-2 h-14">
+            <TheLogo class="h-8 text-theme" />
+          </button>
+        </div>
+        <CoreDivider class="mx-2" />
+        <div class="flex flex-col gap-4 pt-4 items-center">
+          <CoreLink :to="{ path: '/docs/new' }">
+            <DocumentPlusIcon class="w-6" />
+          </CoreLink>
+          <CoreLink :to="{ path: '/notepad' }">
+            <CalendarIcon class="w-6" />
+          </CoreLink>
+          <CoreLink :to="{ path: '/force-graph' }">
+            <GraphIcon class="w-6" />
+          </CoreLink>
+        </div>
+      </div>
+      <div class="flex flex-col gap-4 pb-4 items-center">
+        <div class="flex flex-col gap-4 pb-4 items-center opacity-25">
+          <CoreLink :to="linkToDiscord">
+            <DiscordIcon class="w-6 px-px" />
+          </CoreLink>
+          <HeartIcon v-if="false" class="w-6" />
+        </div>
+        <CoreLink :to="{ path: '/settings' }">
+          <Cog8ToothIcon class="w-6" />
+        </CoreLink>
+        <CoreLink :to="{ path: '/account' }">
+          <UserCircleIcon class="w-6" />
+        </CoreLink>
+      </div>
+    </section>
+    <CoreDivider :vertical="true" />
+    <section class="flex flex-col flex-grow flex-shrink min-h-0 min-w-0">
+      <nav class="flex items-center justify-between py-2 bg-gray-100 dark:bg-darkest h-14">
+        <CoreLink v-if="mobile" :to="{ path: '/docs/new' }" class="flex items-center justify-center p-2 h-14">
+          <TheLogo class="h-8 text-theme" />
+        </CoreLink>
+        <div v-if="mobile" class="flex items-center">
+          <router-link class="button-flat button-size-medium" :to="{ path: '/menu' }" role="button" aria-haspopup="true" aria-expanded="false">
+            <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+            <span class="ml-2">Menu</span>
+          </router-link>
+          <router-link v-if="isNew" :to="{ path: '/quick-action' }" class="button-flat button-size-medium">
+            <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </router-link>
+          <router-link v-else-if="isDoc" :to="{ path: `/docs/${currentDoc?.id}/meta` }" class="button-flat button-size-medium">
+            <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </router-link>
+          <button v-else @click="handleQuickActionClose" class="button-flat button-size-medium">
+            <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <section v-if="!mobile" class="flex-shrink-0 px-2 w-64">
+          <CoreLink :to="{ path: '/docs' }" class="core-button core-button-layer-1 border border-white dark:border-gray-900 justify-between w-full">
+            <div class="flex gap-3 items-center">
+              <svg class="w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <span>Search</span>
+            </div>
+            <span class="hidden md:flex text-gray-500">
+              <Key>{{ modKey }}</Key>
+              <Key>⇧</Key>
+              <Key>f</Key>
+            </span>
+          </CoreLink>
+        </section>
+        <CoreDivider v-if="!mobile" :vertical="true" />
+        <section v-if="!mobile" class="flex flex-grow flex-shrink gap-2 bg-gray-100 dark:bg-darkest px-2 min-w-0">
+          <CoreLink v-for="doc in pinnedDocs" :key="doc.id" :to="{ path: `/docs/${doc.id}` }" class="core-button core-button-layer-1 flex flex-shrink justify-between min-w-[4rem] max-w-[20rem]" :class="{ 'bg-layer-2': isDoc && doc.id === currentDoc?.id }">
+            <span class="text-ellipsis overflow-hidden">{{ doc.headers[0] || doc.text.substring(0, 25) }}</span>
+            <XMarkIcon @click.prevent.stop="() => handleTabClose(doc.id)" class="w-4 transition hover:scale-125" />
+          </CoreLink>
+        </section>
+        <CoreDivider v-if="!mobile" :vertical="true" />
+        <section v-if="!mobile" class="flex-shrink-0 px-2 w-64">
+          <CoreButton :layer="1" @click="handleLayoutChange" class="border border-white dark:border-gray-900 justify-between w-full">
+            <div class="flex gap-3 items-center">
+              <ViewColumnsIcon class="w-5" />
+              <span>Toggle Sidebars</span>
+            </div>
+            <span class="hidden md:flex text-gray-500">
+              <Key>{{ modKey }}</Key>
+              <Key>\</Key>
+            </span>
+          </CoreButton>
+        </section>
+      </nav>
+      <CoreDivider />
+      <section class="flex flex-grow flex-shrink overflow-hidden min-w-0">
+        <TheLeftSidebar v-if="(!mobile && showMenu)" class="hidden w-64 bg-gray-100 dark:bg-darkest md:flex flex-shrink-0" />
+        <CoreDivider v-if="(!mobile && showMenu)" :vertical="true" />
+        <RouterView :inheritAttrs="true" :key="routeKey" class="dashboard-content flex-grow flex-shrink h-full overflow-x-hidden relative" />
+        <CoreDivider v-if="(!mobile && showMeta && currentDoc)" :vertical="true" />
+        <TheRightSidebar v-if="(!mobile && showMeta && currentDoc && isDoc)" class="hidden w-64 bg-gray-100 dark:bg-darkest md:flex flex-shrink-0" />
+      </section>
+    </section>
+  </div>
+</template>
 
 <style>
 .dark .dashboard-content {

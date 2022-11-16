@@ -12,16 +12,14 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-import Editor from "/components/Editor.vue"
-import { fetchSharedDoc } from "/src/firebase/firestore"
+import { defineComponent, inject } from 'vue'
+import Editor from '/components/Editor.vue'
+import { setTitle } from '/src/common/title'
+import { fetchSharedDoc } from '/src/firebase/firestore'
+import Doc, { unpack } from '/src/models/doc'
+import { ADD_DOCUMENT, EDIT_DOCUMENT, SET_DOCUMENT } from '/src/store/actions'
 
-import { setTitle } from "/src/common/title.js"
-import Doc, { unpack } from "/src/models/doc.js"
-
-import { ADD_DOCUMENT, EDIT_DOCUMENT, SET_DOCUMENT } from "/src/store/actions.js"
-
-const formatTags = (tags, delimiter = ", ") => {
+const formatTags = (tags, delimiter = ', ') => {
   return tags.map((tag) => `#${tag}`).join(delimiter)
 }
 
@@ -33,8 +31,8 @@ export default defineComponent({
     docId: String,
     initialFocus: {
       type: String,
-      default: () => "any",
-      validator: (position) => ["any", "start", "end"].includes(position),
+      default: () => 'any',
+      validator: (position) => ['any', 'start', 'end'].includes(position),
     },
     initialSelections: {
       type: Array,
@@ -46,7 +44,14 @@ export default defineComponent({
   data() {
     return {
       editor: null,
-      placeholder: new Doc({ text: formatTags(this.$store.state.context.tags, " ") }),
+      placeholder: new Doc({ text: formatTags(this.$store.state.context.tags, ' ') }),
+    }
+  },
+  setup() {
+    const appearance = inject('appearance')
+
+    return {
+      appearance: appearance.value === 'october' ? 'dark' : appearance.value,
     }
   },
   watch: {
@@ -62,7 +67,7 @@ export default defineComponent({
   },
   computed: {
     appearance() {
-      if (this.$store.state.settings.theme === "october") { return "dark" }
+      if (this.$store.state.settings.theme === 'october') { return 'dark' }
 
       return this.$store.state.settings.theme
     },
@@ -120,7 +125,7 @@ export default defineComponent({
     },
   },
   beforeRouteUpdate(to, _from, next) {
-    if (to.name === "docs-doc") {
+    if (to.name === 'docs-doc') {
       this.$store.dispatch(SET_DOCUMENT, { id: to.params.docId })
     }
 
@@ -129,7 +134,7 @@ export default defineComponent({
   async mounted() {
     this.updateTitle()
 
-    // might want to pass another prop to represent "shared" since readonly might have multiple use cases
+    // might want to pass another prop to represent 'shared' since readonly might have multiple use cases
     if (this.readonly) {
       this.placeholder = await this.findSharedDocument()
     }

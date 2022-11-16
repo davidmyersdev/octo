@@ -48,9 +48,6 @@ export default {
     isDashboard() {
       return this.$route.path === '/docs/new'
     },
-    october() {
-      return this.$store.state.settings.theme === 'october'
-    },
   },
   methods: {
     close() {

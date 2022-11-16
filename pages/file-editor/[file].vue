@@ -9,7 +9,7 @@ import { useStore } from 'vuex'
 import Doc from '/src/models/doc'
 import Debouncer from '/src/common/debouncer'
 import Editor from '/components/Editor.vue'
-import { useFiles } from '/src/stores/files'
+import { useFiles } from '/src/stores/useFiles'
 
 const { id } = defineProps({ id: String })
 const fileStore = useFiles()

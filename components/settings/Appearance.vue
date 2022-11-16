@@ -2,24 +2,24 @@
   <section>
     <h3 class="text-3xl">Appearance</h3>
     <hr class="mt-2 mb-4" />
-    <Extendable scope="app.settings.theme">
+    <Extendable scope="app.settings.appearance">
       <div class="mb-4">
         <div>
           <label class="button button-size-medium button-color-gray">
-            <input v-model="theme" type="radio" value="auto" class="radio" />
+            <input v-model="appearance" type="radio" value="auto" class="radio" />
             <span class="ml-3">Auto</span>
           </label>
           <label class="button button-size-medium button-color-gray ml-2">
-            <input v-model="theme" type="radio" value="dark" class="radio" />
+            <input v-model="appearance" type="radio" value="dark" class="radio" />
             <span class="ml-3">Dark</span>
           </label>
           <label class="button button-size-medium button-color-gray ml-2">
-            <input v-model="theme" type="radio" value="light" class="radio" />
+            <input v-model="appearance" type="radio" value="light" class="radio" />
             <span class="ml-3">Light</span>
           </label>
           <label class="button button-size-medium button-color-gray ml-2">
-            <input v-model="theme" type="radio" value="october" class="radio" />
-            <span class="ml-3">Halloween</span>
+            <input v-model="appearance" type="radio" value="october" class="radio" />
+            <span class="ml-3">Spooky</span>
           </label>
         </div>
       </div>
@@ -28,18 +28,15 @@
 </template>
 
 <script>
-import { SET_THEME } from "/src/store/modules/settings.js"
+import { defineComponent, inject } from 'vue'
 
-export default {
-  computed: {
-    theme: {
-      get() {
-        return this.$store.state.settings.theme
-      },
-      set(value) {
-        this.$store.dispatch(SET_THEME, value)
-      },
-    },
-  },
-}
+export default defineComponent({
+  setup() {
+    const appearance = inject('appearance')
+
+    return {
+      appearance,
+    }
+  }
+})
 </script>

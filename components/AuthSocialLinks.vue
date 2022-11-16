@@ -1,10 +1,9 @@
 <script lang="ts">
-import { format } from 'path'
 import { type PropType, computed, defineComponent } from 'vue'
 import Button from './CoreButton.vue'
-import LocalGitHubIcon from '/components/LocalIcons/GitHub.vue'
-import LocalGoogleIcon from '/components/LocalIcons/Google.vue'
-import LocalTwitterIcon from '/components/LocalIcons/Twitter.vue'
+import LocalGitHubIcon from '/assets/github.svg?component'
+import LocalGoogleIcon from '/assets/google.svg?component'
+import LocalTwitterIcon from '/assets/twitter.svg?component'
 import { type AuthSocialForm } from '/composables'
 
 /**

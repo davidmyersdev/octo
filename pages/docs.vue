@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto p-4 md:px-16 md:py-8">
-    <DocumentList v-model:query="query" :filter="filter" :tag="tag" />
+    <DocList v-model:query="query" :filter="filter" :tag="tag" />
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 import { ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-import DocumentList from '/components/DocumentList.vue'
+import DocList from '/components/DocList.vue'
 
 const route = useRoute()
 const router = useRouter()

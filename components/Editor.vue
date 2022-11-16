@@ -214,19 +214,23 @@ export default defineComponent({
     const editorContent = document.querySelector('.ink-mde-editor')
     const editorToolbar = document.querySelector('.ink-mde-toolbar')
 
-    OverlayScrollbars(editorContent, {
-      scrollbars: {
-        autoHide: 'leave',
-        autoHideDelay: 200,
-      },
-    })
+    if (editorContent) {
+      OverlayScrollbars(editorContent, {
+        scrollbars: {
+          autoHide: 'leave',
+          autoHideDelay: 200,
+        },
+      })
+    }
 
-    OverlayScrollbars(editorToolbar, {
-      scrollbars: {
-        autoHide: 'leave',
-        autoHideDelay: 200,
-      },
-    })
+    if (editorToolbar) {
+      OverlayScrollbars(editorToolbar, {
+        scrollbars: {
+          autoHide: 'leave',
+          autoHideDelay: 200,
+        },
+      })
+    }
 
     this.focusInitial()
   }
@@ -262,6 +266,21 @@ export default defineComponent({
       top: 0;
       right: 0;
       z-index: -1;
+    }
+  }
+
+  @media (min-width: 768px) {
+    :deep(.ink-mde .ink-mde-toolbar) {
+      background-color: transparent;
+      background: repeating-linear-gradient(135deg, transparent, transparent 10px, var(--colors-layer-1) 10px, var(--colors-layer-1) 11px);
+      border-bottom: 2px solid var(--colors-layer-1);
+      padding-bottom: calc(0.25rem + 2px);
+    }
+
+    :deep(.ink-mde .ink-mde-toolbar .ink-mde-container) {
+      background-color: var(--colors-layer-1);
+      border-radius: 0.25rem;
+      padding: 0.25rem;
     }
   }
 

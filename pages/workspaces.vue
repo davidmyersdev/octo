@@ -1,14 +1,14 @@
 <template>
   <div class="container flex flex-col mx-auto p-4 md:px-16 md:py-8">
     <div>
-      <h2 class="text-2xl">Context Switching</h2>
+      <h2 class="text-2xl">Workspaces</h2>
       <p class="mt-1 text-gray-500">
-        A context allows you to focus on what's important now by filtering your docs down to just a handful of relevant tags.
+        A Workspace allows you to focus on what's important now by filtering your docs down to just a handful of relevant tags.
       </p>
       <div class="mt-4">
         <label for="context-name">Name it and save it (optional)</label>
         <div class="flex items-center mt-2">
-          <input v-model="contextName" type="text" class="form-text w-full shadow" id="context-name" placeholder="Give this context a name...">
+          <input v-model="contextName" type="text" class="form-text w-full shadow" id="context-name" placeholder="Give this Workspace a name...">
           <button @click="save" :disabled="!(tags.length && contextName)" class="button button-size-medium button-color-gray disabled:text-gray-900 ml-2">Save</button>
         </div>
         <small class="text-gray-700 mt-1 hidden md:block">You must add at least one tag and give the context a name in order to save it.</small>
@@ -18,37 +18,33 @@
         <input v-model="input" @input="first" @keydown.space.prevent="toggleTag" @keydown.enter.exact="toggleTag" @keydown.221.prevent="down" @keydown.down.prevent="down" @keydown.219.prevent="up" @keydown.up.prevent="up" ref="input" type="text" class="form-text w-full mt-2" id="tag-search" placeholder="Start typing to filter the list..." autocomplete="off">
         <small class="text-gray-700 mt-1 hidden md:block">Navigate the list below with <span class="key">up</span> or <span class="key">down</span> and toggle tags with <span class="key">space</span> or <span class="key">enter</span></small>
       </div>
-      <CoreScrollable ref="tagsContainer" class="border rounded mt-4 overflow-hidden bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700">
+      <CoreScrollable ref="tagsContainer" class="border rounded mt-4 max-h-[20rem] bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700">
         <div>
-          <div v-if="filtered.length">
-            <div v-for="(tag, index) in filtered" @click="selectTag(tag)" :key="tag" ref="tags" class="flex justify-between cursor-pointer p-6 md:p-3 focus-within:ring" :class="{ 'bg-gray-200 dark:bg-gray-700': isSelected(tag), 'bg-blue-300 dark:bg-blue-500': (index === activeIndex) }">
+          <div v-if="filtered.length" class="flex flex-col gap-1 p-2">
+            <CoreButton v-for="(tag, index) in filtered" @click="selectTag(tag)" :key="tag" ref="tags" class="flex justify-between cursor-pointer p-6 md:p-3 focus-within:ring" :class="{ 'bg-gray-200 dark:bg-gray-700': isSelected(tag), 'bg-blue-300 dark:bg-blue-500': (index === activeIndex) }">
               <Tag>{{ tag }}</Tag>
               <span v-if="isSelected(tag)">selected</span>
-            </div>
+            </CoreButton>
           </div>
           <div v-else class="flex justify-between p-3">No results...</div>
         </div>
       </CoreScrollable>
       <div class="mt-4">
-        <h3 class="text-xl mb-4">Saved Contexts</h3>
+        <h3 class="text-xl mb-4">Workspaces</h3>
         <div class="grid gap-4 grid-cols-1 lg:grid-cols-2">
           <div v-for="context in contexts" :key="context.id" class="shadow relative flex flex-col min-w-0 rounded p-4 bg-gray-100 dark:bg-gray-800 dark:text-gray-300">
             <div class="flex items-center justify-between mb-4">
               <h4 class="text-lg flex items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
+                <WorkspaceIcon class="w-5" />
                 <span class="ml-2">{{ context.name }}</span>
               </h4>
               <button @click="discard(context)" class="button-flat button-size-medium text-sm text-red-500 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700">
-                <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                </svg>
+                <TrashIcon class="w-5" />
                 <span class="ml-2">Discard</span>
               </button>
             </div>
-            <div class="flex items-center flex-wrap">
-              <Tag v-for="tag in context.tags" :key="tag" class="mr-6">{{ tag }}</Tag>
+            <div class="flex items-center flex-wrap gap-4">
+              <Tag v-for="tag in context.tags" :key="tag">{{ tag }}</Tag>
             </div>
           </div>
         </div>
@@ -58,8 +54,9 @@
 </template>
 
 <script>
+import { TrashIcon, Square2StackIcon as WorkspaceIcon } from '@heroicons/vue/24/outline'
 import { nanoid } from 'nanoid'
-
+import CoreButton from '/components/CoreButton.vue'
 import Tag from '/components/Tag.vue'
 
 import {
@@ -73,7 +70,10 @@ import {
 
 export default {
   components: {
+    CoreButton,
     Tag,
+    TrashIcon,
+    WorkspaceIcon,
   },
   data() {
     return {
@@ -153,8 +153,6 @@ export default {
       this.activeIndex = this.filtered.findIndex(t => t === tag);
 
       this.toggleTag();
-      this.focusInput();
-      this.scroll();
     },
     isSelected(tag) {
       return this.tags.includes(tag);

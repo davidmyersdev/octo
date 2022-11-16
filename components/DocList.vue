@@ -14,6 +14,13 @@
       </strong>
     </p>
     <div class="mb-4 mt-8">
+      <button @click="toggleIsEditing" class="button button-size-medium button-color-gray shadow">{{ isEditing ? 'Cancel' : 'Manage Docs' }}</button>
+      <button v-if="canMerge" @click="mergeDocs" class="button button-size-medium button-color-gray shadow ml-2">Merge Docs</button>
+      <div>
+        <p v-if="isEditing" class="text-gray-700 mt-2">Select two or more docs to merge them together.</p>
+      </div>
+    </div>
+    <div class="mb-4">
       <div class="flex align-items-bottom">
         <div class="flex-grow">
           <div class="flex">
@@ -22,17 +29,10 @@
         </div>
       </div>
     </div>
-    <div class="mb-4">
-      <button @click="toggleIsEditing" class="button button-size-medium button-color-gray shadow">{{ isEditing ? 'Cancel' : 'Edit Documents' }}</button>
-      <button v-if="canMerge" @click="mergeDocuments" class="button button-size-medium button-color-gray shadow ml-2">Merge Documents</button>
-    </div>
-    <div>
-      <p v-if="isEditing" class="text-gray-700">Select two or more documents to merge them together.</p>
-    </div>
     <div class="grid gap-4 grid-cols-1" :class="cols === 2 && 'lg:grid-cols-2'">
-      <div v-for="document in visibleDocuments" :key="document.id" @keypress.enter.prevent="selectDocument(document.id)" @click="selectDocument(document.id)" tabindex="0" class="rounded relative cursor-pointer outline-none focus:ring">
-        <Document v-bind="document" class="h-96"></Document>
-        <div v-if="document.selected" class="flex items-center justify-center rounded absolute inset-0 bg-black bg-opacity-10 dark:bg-opacity-50">
+      <div v-for="doc in visibleDocs" :key="doc.id" @keypress.enter.prevent="selectDoc(doc.id)" @click="selectDoc(doc.id)" tabindex="0" class="rounded relative cursor-pointer outline-none focus:ring">
+        <Doc v-bind="doc" :allowDiscard="isEditing" class="h-96" />
+        <div v-if="doc.selected" class="flex items-center justify-center rounded absolute inset-0 bg-black bg-opacity-10 dark:bg-opacity-50">
           <svg height="3em" width="3em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
           </svg>
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import Document from '/components/Document.vue'
+import Doc from '/components/Doc.vue'
 import Tag from '/components/Tag.vue'
 
 import { open } from '/src/router.js'
@@ -65,7 +65,7 @@ const REGEX_QUERY = /^\/(?<regex>.+)\/(?<flags>[a-z]*)$/s
 export default {
   emits: ['update:query'],
   components: {
-    Document,
+    Doc,
     Tag,
   },
   props: {
@@ -81,7 +81,7 @@ export default {
     return {
       isEditing: false,
       q: this.query,
-      selectedDocuments: [],
+      selectedDocs: [],
       visibleCount: 25,
     }
   },
@@ -95,9 +95,9 @@ export default {
       return this.tag || this.filter || 'My docs'
     },
     canMerge() {
-      return this.selectedDocuments.length > 1
+      return this.selectedDocs.length > 1
     },
-    documents() {
+    docs() {
       if (this.tag) { return this.$store.getters.withTag(this.tag) }
       if (this.filter === 'tasks') { return this.$store.getters.tasks }
       if (this.filter === 'discarded') { return this.$store.getters.discarded }
@@ -105,8 +105,8 @@ export default {
 
       return this.$store.getters.kept
     },
-    filteredDocuments() {
-      return this.documents.filter((doc) => {
+    filteredDocs() {
+      return this.docs.filter((doc) => {
         if (!this.q) { return true }
 
         try {
@@ -118,41 +118,41 @@ export default {
         }
       })
     },
-    finalDocuments() {
-      return this.filteredDocuments.map((doc) => ({
+    finalDocs() {
+      return this.filteredDocs.map((doc) => ({
         ...doc,
-        selected: this.selectedDocuments.includes(doc),
+        selected: this.selectedDocs.includes(doc),
       }))
     },
     showLoadMore() {
-      return this.visibleCount <= this.finalDocuments.length
+      return this.visibleCount <= this.finalDocs.length
     },
-    visibleDocuments() {
-      return this.finalDocuments.slice(0, this.visibleCount)
+    visibleDocs() {
+      return this.finalDocs.slice(0, this.visibleCount)
     },
   },
   methods: {
     loadMore() {
       this.visibleCount += 25
     },
-    mergeDocuments() {
-      this.$store.dispatch(MERGE_DOCUMENTS, this.selectedDocuments)
+    mergeDocs() {
+      this.$store.dispatch(MERGE_DOCUMENTS, this.selectedDocs)
 
-      this.selectedDocuments = []
+      this.selectedDocs = []
     },
     toggleIsEditing() {
       this.isEditing = !this.isEditing
 
       if (!this.isEditing) {
-        this.selectedDocuments = []
+        this.selectedDocs = []
       }
     },
-    selectDocument(id) {
+    selectDoc(id) {
       if (this.isEditing) {
-        if (this.selectedDocuments.find(doc => doc.id === id)) {
-          this.selectedDocuments = this.selectedDocuments.filter(doc => doc.id !== id)
+        if (this.selectedDocs.find(doc => doc.id === id)) {
+          this.selectedDocs = this.selectedDocs.filter(doc => doc.id !== id)
         } else {
-          this.selectedDocuments.push(this.filteredDocuments.find(doc => doc.id === id))
+          this.selectedDocs.push(this.filteredDocs.find(doc => doc.id === id))
         }
       } else {
         open({ path: `/docs/${id}` })

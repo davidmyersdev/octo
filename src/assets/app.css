@@ -2,7 +2,63 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer variables {
+  :root {
+    --colors-brand: rgb(255 102 102);
+    --colors-primary: rgb(59 130 246);
+  }
+
+  html.dark {
+    --colors-layer-0: rgb(24 24 27);
+    --colors-layer-1: rgb(18 18 18);
+    --colors-layer-2: rgb(24 24 27);
+    --colors-layer-3: rgb(39 39 42);
+    --colors-layer-4: rgb(63 63 70);
+    --colors-layer-5: rgb(82 82 91);
+    --colors-text: rgb(212 212 216);
+  }
+
+  html.light {
+    --colors-layer-0: rgb(255 255 255);
+    --colors-layer-1: rgb(244 244 245);
+    --colors-layer-2: rgb(228 228 231);
+    --colors-layer-3: rgb(212 212 216);
+    --colors-layer-4: rgb(161 161 170);
+    --colors-layer-5: rgb(113 113 122);
+    --colors-text: rgb(24 24 27);
+  }
+}
+
 @layer components {
+  .button {
+    @apply inline-flex items-center rounded cursor-pointer focus:outline-none focus:ring focus-within:ring;
+  }
+
+  .core-button {
+    @apply cursor-pointer outline-none focus:ring focus-within:ring px-3 py-2 rounded whitespace-nowrap flex gap-3 items-center justify-center;
+  }
+
+  .core-button-layer-0 {
+    @apply bg-layer-0 hover:bg-layer-1;
+  }
+
+  .core-button-layer-1 {
+    @apply bg-layer-1 hover:bg-layer-2;
+  }
+
+  .core-button-layer-2 {
+    @apply bg-layer-2 hover:bg-layer-3;
+  }
+
+  .core-button-layer-3 {
+    @apply bg-layer-3 hover:bg-layer-4;
+  }
+
+  .core-button-layer-4 {
+    @apply bg-layer-4 hover:bg-layer-5;
+  }
+
+
   .text-theme {
     @apply text-brand;
   }
@@ -108,7 +164,7 @@
   }
 
   .sidebar-link {
-    @apply flex items-center justify-between rounded mb-2 md:mb-1 p-6 md:p-2 bg-gray-100 dark:bg-gray-800 md:bg-transparent md:dark:bg-transparent hover:bg-gray-200 dark:hover:bg-gray-700 md:dark:hover:bg-gray-900 focus:outline-none focus:ring;
+    @apply flex items-center justify-between rounded mb-2 md:mb-1 px-3 py-2 bg-layer-1 hover:bg-layer-2 focus:outline-none focus:ring;
   }
 
   .context-label {

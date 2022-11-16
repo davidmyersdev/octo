@@ -1,9 +1,9 @@
 import dotenv from 'dotenv'
 import { defineConfig } from 'vite'
-import { createHtmlPlugin } from 'vite-plugin-html'
-import { VitePWA } from 'vite-plugin-pwa'
-import vue from '@vitejs/plugin-vue'
-
+import { createHtmlPlugin as htmlPlugin } from 'vite-plugin-html'
+import { VitePWA as pwaPlugin } from 'vite-plugin-pwa'
+import svgPlugin from 'vite-svg-loader'
+import vuePlugin from '@vitejs/plugin-vue'
 import { config as pwaConfig } from './pwa.config'
 
 const { parsed = {} } = dotenv.config()
@@ -24,8 +24,7 @@ export default defineConfig({
     sourcemap: true,
   },
   plugins: [
-    vue(),
-    createHtmlPlugin({
+    htmlPlugin({
       inject: {
         data: {
           ...parsed,
@@ -33,6 +32,8 @@ export default defineConfig({
         },
       },
     }),
-    VitePWA(pwaConfig),
+    pwaPlugin(pwaConfig),
+    svgPlugin(),
+    vuePlugin(),
   ],
 })

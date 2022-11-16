@@ -72,6 +72,7 @@ export const router = createRouter({
             },
             {
               path: '/docs/:docId/meta',
+              name: 'docs-doc-meta',
               component: () => import('/pages/docs/[doc]/meta.vue'),
               props: true,
               beforeEnter(to, from, next) {
@@ -101,9 +102,9 @@ export const router = createRouter({
               component: () => import('/pages/menu.vue'),
             },
             {
-              path: '/contexts',
-              meta: { title: 'Context Switching', track: true },
-              component: () => import('/pages/contexts.vue'),
+              path: '/workspaces',
+              meta: { title: 'Workspaces', track: true },
+              component: () => import('/pages/workspaces.vue'),
             },
             {
               path: '/tags',
@@ -252,7 +253,11 @@ export const router = createRouter({
         },
         {
           path: '/context',
-          redirect: { path: '/contexts' },
+          redirect: { path: '/workspaces' },
+        },
+        {
+          path: '/contexts',
+          redirect: { path: '/workspaces' },
         },
         {
           path: '/tags/:tag',

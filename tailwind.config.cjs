@@ -2,6 +2,7 @@ const colors = require('tailwindcss/colors')
 
 module.exports = {
   content: [
+    './src/assets/app.css',
     './index.html',
     './**/*.vue',
   ],
@@ -9,15 +10,23 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        brand: '#ff6666',
-        primary: 'rgb(59 130 246)',
+        brand: 'var(--colors-brand)',
         darkest: '#121212',
         gray: colors.zinc,
+        layer: {
+          0: 'var(--colors-layer-0)',
+          1: 'var(--colors-layer-1)',
+          2: 'var(--colors-layer-2)',
+          3: 'var(--colors-layer-3)',
+          4: 'var(--colors-layer-4)',
+          5: 'var(--colors-layer-5)',
+        },
+        primary: 'var(--colors-primary)',
+        text: 'var(--colors-text)',
       },
     },
   },
   plugins: [
-    require('@tailwindcss/aspect-ratio'),
     require('@tailwindcss/typography'),
   ],
 }

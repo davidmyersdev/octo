@@ -1,12 +1,23 @@
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { type PropType, computed, defineComponent } from 'vue'
+
+const layers = {
+  0: 'core-button-layer-0',
+  1: 'core-button-layer-1',
+  2: 'core-button-layer-2',
+  3: 'core-button-layer-3',
+  4: 'core-button-layer-4',
+}
 
 export default defineComponent({
-  setup() {
-    const accessibility = 'cursor-pointer outline-none focus:ring focus-within:ring'
-    const design = 'bg-gray-200 hover:bg-gray-300 dark:bg-gray-900 dark:hover:bg-gray-800 px-3 py-2 rounded shadow whitespace-nowrap'
-    const layout = 'flex gap-3 items-center justify-center'
-    const classes = [accessibility, design, layout].join(' ')
+  props: {
+    layer: {
+      default: 2,
+      type: Number as PropType<keyof typeof layers>,
+    },
+  },
+  setup(props) {
+    const classes = computed(() => layers[props.layer])
 
     return {
       classes,
@@ -16,7 +27,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <button :class="classes">
+  <button class="core-button" :class="classes">
     <slot />
   </button>
 </template>

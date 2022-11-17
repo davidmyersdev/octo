@@ -1,9 +1,8 @@
 <template>
-  <div class="shadow relative flex flex-col min-w-0 rounded text-sm overflow-hidden cursor-pointer bg-gray-100 dark:bg-gray-800 dark:text-gray-300">
-    <div class="flex-grow flex-shrink overflow-hidden p-4">
-      <pre>{{ text }}</pre>
-    </div>
-    <div class="flex items-center justify-between p-4 bg-gray-200 dark:bg-gray-900">
+  <div class="shadow relative flex flex-col min-w-0 rounded text-sm overflow-hidden cursor-pointer bg-gray-100 dark:bg-darkest dark:text-gray-300">
+    <div v-html="html" class="flex-grow flex-shrink overflow-hidden p-4 prose max-w-none prose-sm prose-img:rounded prose-h1:font-normal prose-h1:text-2xl dark:prose-invert"></div>
+    <hr class="border-white dark:border-gray-900 mx-2">
+    <div class="flex items-center justify-between p-4">
       <p class="text-gray-500">{{ updated }}</p>
       <div>
         <button v-if="discardedAt" @click.stop="restore" class="destroy button-flat button-size-medium text-sm bg-gray-200 hover:bg-gray-300 dark:bg-gray-900 dark:hover:bg-gray-800">
@@ -24,6 +23,8 @@
 </template>
 
 <script>
+import { micromark } from 'micromark'
+import { gfm, gfmHtml } from 'micromark-extension-gfm'
 import moment from 'moment'
 
 import {
@@ -39,6 +40,9 @@ export default {
     discardedAt: Date,
   },
   computed: {
+    html() {
+      return micromark(this.text, { extensions: [gfm()], htmlExtensions: [gfmHtml()] })
+    },
     updated() {
       return `Updated on ${moment(this.updatedAt).format('ddd, MMM Do, YYYY [at] h:mm A')}`;
     },

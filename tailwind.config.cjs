@@ -12,11 +12,12 @@ module.exports = {
         brand: '#ff6666',
         primary: 'rgb(59 130 246)',
         darkest: '#121212',
-        gray: colors.neutral,
+        gray: colors.zinc,
       },
     },
   },
   plugins: [
     require('@tailwindcss/aspect-ratio'),
+    require('@tailwindcss/typography'),
   ],
 }

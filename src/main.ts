@@ -1,12 +1,12 @@
 import { useStorage } from '@vueuse/core'
 import { getAuth } from 'firebase/auth'
 import { createPinia } from 'pinia'
-import { createApp, h, provide } from 'vue'
+import { createApp, h, provide, ref } from 'vue'
 // @ts-ignore
 import { Vue3Mq } from 'vue3-mq'
+import CoreScrollable from '/components/CoreScrollable.vue'
 import Extendable from '/components/Extendable.vue'
 import { type User } from '/composables'
-import SimpleBar from '/lib/simplebar/src/SimpleBar.vue'
 import App from '/src/App.vue'
 import { init } from '/src/firebase'
 import { globalConfig } from '/src/global'
@@ -15,6 +15,7 @@ import { store } from '/src/store'
 import { caching } from '/src/stores/plugins'
 
 import '/src/assets/app.css'
+import 'overlayscrollbars/overlayscrollbars.css'
 
 // import the service worker
 import '/src/sw.js'
@@ -30,8 +31,17 @@ import { SET_SUBSCRIPTION, SET_USER } from '/src/store/modules/auth'
 
 import PackageManager from '/src/packages/manager.js'
 
+const updateAppHeight = () => {
+  document.documentElement.style.setProperty('--app-height', `calc(${window.visualViewport.height}px - 1px)`)
+}
+
 // init firebase
 init()
+
+// set the app height
+updateAppHeight()
+
+window.visualViewport.addEventListener('resize', updateAppHeight)
 
 if (localStorage.getItem('octo/welcome/v1') === null) {
   store.dispatch(SET_SHOW_WELCOME, true)
@@ -122,8 +132,8 @@ app.config.globalProperties.$packageManager = PackageManager
 app.use(pinia)
 app.use(router)
 app.use(store)
+app.component('CoreScrollable', CoreScrollable)
 app.component('Extendable', Extendable)
-app.component('SimpleBar', SimpleBar)
 app.use(Vue3Mq, {
   breakpoints: {
     xs: 0,

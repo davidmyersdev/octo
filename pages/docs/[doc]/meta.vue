@@ -1,5 +1,5 @@
 <template>
-  <SimpleBar class="meta p-4 md:p-2">
+  <CoreScrollable class="meta p-4 md:p-2">
     <div class="flex flex-col flex-grow">
       <div class="hidden mb-4 md:flex justify-end">
         <button @click="toggleMeta" class="sidebar-button">
@@ -84,7 +84,7 @@
         </div>
       </div>
     </div>
-  </SimpleBar>
+  </CoreScrollable>
 </template>
 
 <script>

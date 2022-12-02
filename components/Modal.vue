@@ -12,9 +12,9 @@
             </svg>
           </button>
         </header>
-        <SimpleBar class="max-h-96 p-4">
+        <CoreScrollable class="max-h-96 p-4">
           <slot></slot>
-        </SimpleBar>
+        </CoreScrollable>
         <footer v-if="hasFooter" class="px-4 py-2">
           <slot name="footer"></slot>
         </footer>

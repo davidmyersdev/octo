@@ -1,5 +1,5 @@
 <template>
-  <SimpleBar class="p-4 md:p-2">
+  <CoreScrollable class="p-4 md:p-2">
     <div class="hidden md:flex items-center justify-center pb-2">
       <router-link class="flex p-2" :to="{ path: '/docs/new' }">
         <TheLogo class="h-10 text-theme" />
@@ -207,7 +207,7 @@
         </router-link>
       </div>
     </div>
-  </SimpleBar>
+  </CoreScrollable>
 </template>
 
 <script>

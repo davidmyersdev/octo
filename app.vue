@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="h-screen" :class="sizes.concat([!ligatures && 'ligatures-none'])">
+  <div id="app" :class="sizes.concat([!ligatures && 'ligatures-none'])">
     <NuxtLayout name="editor">
       <NuxtPage />
     </NuxtLayout>
@@ -91,8 +91,6 @@ export default defineComponent({
 </script>
 
 <style>
-@import '~/lib/simplebar/src/lib.css';
-
 html, body, #__nuxt, #app {
   height: 100vh;
   height: -webkit-fill-available;
@@ -228,17 +226,6 @@ svg {
   min-width: 0 !important;
 }
 
-.simplebar-scrollbar::before {
-  bottom: 0.25rem !important;
-  top: 0.25rem !important;
-}
-
-.simplebar-content {
-  display: flex;
-  flex-direction: column;
-  min-height: 100% !important;
-}
-
 /* theming */
 
 .dark .notification {
@@ -251,14 +238,6 @@ svg {
 
 hr {
   background-color: #aaa;
-}
-
-.dark .simplebar-scrollbar::before {
-  background-color: rgba(255, 255, 255, 0.25);
-}
-
-.light .simplebar-scrollbar::before {
-  background-color: rgba(0, 0, 0, 0.5);
 }
 
 @tailwind base;

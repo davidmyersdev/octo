@@ -1,12 +1,7 @@
 <template>
-  <div @click="focusEditor" class="flex flex-col flex-grow">
-    <div class="min-w-0 flex flex-grow p-4 md:px-16 md:py-0">
-      <div class="editor flex flex-col flex-grow w-full mx-auto" :style="styles">
-        <div class="gutter h-8" @click="focusEditorStart"></div>
-        <Ink ref="editable" class="ink-editor" :options="options" v-model="text" />
-        <p v-if="showReadabilityBar" class="text-gray-400 dark:text-gray-600 text-right">{{ numberOfWords }} words | {{ readTimeDescription }}</p>
-        <div class="gutter h-8 flex-grow" @click="focusEditorEnd"></div>
-      </div>
+  <div @click="focusEditor" class="flex flex-col flex-grow relative">
+    <div class="editor flex flex-col flex-grow flex-shrink min-h-0 min-w-0 w-full">
+      <Ink ref="editable" class="ink-editor flex flex-col flex-grow flex-shrink min-h-0" :options="options" v-model="text" />
     </div>
     <div v-if="!readonly && !showRightSidebar && text" class="fixed top-4 right-4 z-index-10 hidden md:block">
       <button @click="toggleMeta" class="button button-size-medium button-color-gray">
@@ -21,10 +16,10 @@
 
 <script>
 import Ink from 'ink-mde/vue'
+import { OverlayScrollbars } from 'overlayscrollbars'
 import { defineComponent } from 'vue'
 import { subscription } from '/src/common/account'
-import { readTime, wordCount } from '/src/common/readability.ts'
-import { addFile } from '/src/firebase/storage.ts'
+import { addFile } from '/src/firebase/storage'
 import { mermaid, plugins } from '/src/vendor/plugins'
 
 import {
@@ -36,7 +31,7 @@ export default defineComponent({
   components: {
     Ink,
   },
-  inject: ["mq"],
+  inject: ['mq'],
   props: {
     appearance: {
       type: String,
@@ -82,6 +77,9 @@ export default defineComponent({
     }
   },
   computed: {
+    cssMaxWidth() {
+      return `${this.maxWidthInChars}ch`
+    },
     docs() {
       return this.$store.getters.kept.reduce((docs, doc) => {
         if (doc.id && doc.id !== this.doc.id && doc.headers.length > 0) {
@@ -99,12 +97,6 @@ export default defineComponent({
     },
     maxWidthInChars() {
       return this.settings.readability.maxWidthInChars
-    },
-    mediumPlus() {
-      return ['md', 'lg', 'xl'].includes(this.mq.current)
-    },
-    numberOfWords() {
-      return wordCount(this.text)
     },
     options() {
       const isExperimentalEnabled = this.$store.state.settings.experimental
@@ -134,6 +126,7 @@ export default defineComponent({
           ...this.plugins,
           ...(isExperimentalEnabled && hasLazyPlugins ? this.lazyPlugins : []),
         ],
+        readability: this.settings.readability.enabled,
         selections: this.initialSelections || [],
         toolbar: {
           upload: this.pro,
@@ -150,33 +143,11 @@ export default defineComponent({
     pro() {
       return subscription.value.pro
     },
-    readTime() {
-      return readTime(this.text, this.wordsPerMinute)
-    },
-    readTimeDescription() {
-      if (this.readTimeMinutes === 0) return `${this.readTimeSeconds}s to read`
-
-      return `${this.readTimeMinutes}m ${this.readTimeSeconds}s to read`
-    },
-    readTimeMinutes() {
-      return Math.floor(this.readTime)
-    },
-    readTimeSeconds() {
-      return Math.floor((this.readTime % 1) * 60)
-    },
-    showReadabilityBar() {
-      return this.settings.readability.enabled
-    },
     showRightSidebar() {
       return this.$store.state.showRightSidebar
     },
     spellcheck() {
       return this.settings.spellcheck
-    },
-    styles() {
-      return {
-        maxWidth: `${this.maxWidthInChars}ch`,
-      }
     },
     tags() {
       return this.$store.getters.allTags.filter((tag) => {
@@ -190,9 +161,6 @@ export default defineComponent({
       set(value) {
         this.input(value)
       },
-    },
-    wordsPerMinute() {
-      return this.settings.readability.wordsPerMinute
     },
   },
   methods: {
@@ -243,6 +211,23 @@ export default defineComponent({
     })
   },
   mounted() {
+    const editorContent = document.querySelector('.ink-mde-editor')
+    const editorToolbar = document.querySelector('.ink-mde-toolbar')
+
+    OverlayScrollbars(editorContent, {
+      scrollbars: {
+        autoHide: 'leave',
+        autoHideDelay: 200,
+      },
+    })
+
+    OverlayScrollbars(editorToolbar, {
+      scrollbars: {
+        autoHide: 'leave',
+        autoHideDelay: 200,
+      },
+    })
+
     this.focusInitial()
   }
 })
@@ -254,34 +239,39 @@ export default defineComponent({
   }
 
   .editor {
-    --ink-flex-direction: column-reverse;
     --ink-font-family: 'Inter', helvetica, sans-serif;
     --ink-code-font-family: 'Fira Code', monospace;
-    --ink-editor-padding: 0;
   }
 
-  @media (min-width: 768px) {
-    .editor {
-      --ink-flex-direction: column;
+  @media (max-width: 767px) {
+    :deep(.ink-mde-toolbar) {
+      order: 1;
+    }
+
+    :deep(.ink-mde .ink-mde-toolbar .ink-mde-container) {
+      gap: 0;
+    }
+
+    :deep(.ink-mde .ink-mde-editor) {
+      padding-top: 2rem;
+    }
+
+    :deep(.ink-mde .ink-mde-details) {
+      background-color: transparent;
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: -1;
     }
   }
 
-  .editor .editable {
-    white-space: pre-wrap;
+  :deep(.ink-mde) {
+    border: none;
+    border-radius: 0;
   }
 
-  .editor .gutter {
-    cursor: text;
-    min-height: 1rem;
-    width: 100%;
-  }
-
-  .ink-editor {
-    height: 100%;
-  }
-
-  :deep(.ink-editor > div:first-child), :deep(.ink-editor .cm-editor) {
-    height: 100%;
+  :deep(.ink-mde .ink-mde-container) {
+    max-width: v-bind('cssMaxWidth');
   }
 
   :deep(.ink-editor .ink-mde-widget svg) {

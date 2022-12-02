@@ -18,7 +18,7 @@
         <input v-model="input" @input="first" @keydown.space.prevent="toggleTag" @keydown.enter.exact="toggleTag" @keydown.221.prevent="down" @keydown.down.prevent="down" @keydown.219.prevent="up" @keydown.up.prevent="up" ref="input" type="text" class="form-text w-full mt-2" id="tag-search" placeholder="Start typing to filter the list..." autocomplete="off">
         <small class="text-gray-700 mt-1 hidden md:block">Navigate the list below with <span class="key">up</span> or <span class="key">down</span> and toggle tags with <span class="key">space</span> or <span class="key">enter</span></small>
       </div>
-      <SimpleBar ref="tagsContainer" class="border rounded mt-4 overflow-hidden bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700">
+      <CoreScrollable ref="tagsContainer" class="border rounded mt-4 overflow-hidden bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700">
         <div>
           <div v-if="filtered.length">
             <div v-for="(tag, index) in filtered" @click="selectTag(tag)" :key="tag" ref="tags" class="flex justify-between cursor-pointer p-6 md:p-3 focus-within:ring" :class="{ 'bg-gray-200 dark:bg-gray-700': isSelected(tag), 'bg-blue-300 dark:bg-blue-500': (index === activeIndex) }">
@@ -28,7 +28,7 @@
           </div>
           <div v-else class="flex justify-between p-3">No results...</div>
         </div>
-      </SimpleBar>
+      </CoreScrollable>
       <div class="mt-4">
         <h3 class="text-xl mb-4">Saved Contexts</h3>
         <div class="grid gap-4 grid-cols-1 lg:grid-cols-2">

@@ -26,33 +26,109 @@ export const router = createRouter({
     },
     {
       path: '/',
-      component: () => import('/layouts/editor.vue'),
+      component: () => import('/layouts/dashboard.vue'),
       children: [
-        // editor views
+        // dashboard views
         {
           path: '/',
-          meta: { track: true },
-          beforeEnter(to, from, next) {
-            if (globalConfig.supportsFirebase && store.state.showWelcome) {
-              next({ path: '/home' })
-            } else {
-              next({ path: '/docs/new' })
-            }
-          },
-        },
-        {
-          path: '/_routes',
-          component: () => import('/pages/_routes.vue'),
-        },
-        {
-          path: '/account',
-          meta: { title: 'My Account', track: true },
-          component: () => import('/pages/account.vue'),
-        },
-        {
-          path: '/docs',
-          meta: { title: 'My Docs', track: true },
-          component: () => import('/pages/docs.vue'),
+          component: () => import('/layouts/page.vue'),
+          children: [
+            {
+              path: '/',
+              meta: { track: true },
+              beforeEnter(to, from, next) {
+                if (globalConfig.supportsFirebase && store.state.showWelcome) {
+                  next({ path: '/home' })
+                } else {
+                  next({ path: '/docs/new' })
+                }
+              },
+            },
+            {
+              path: '/_routes',
+              component: () => import('/pages/_routes.vue'),
+            },
+            {
+              path: '/account',
+              meta: { title: 'My Account', track: true },
+              component: () => import('/pages/account.vue'),
+            },
+            {
+              path: '/docs',
+              meta: { title: 'My Docs', track: true },
+              component: () => import('/pages/docs.vue'),
+            },
+            {
+              path: '/docs/f/:filter',
+              meta: { title: 'My Docs' },
+              component: () => import('/pages/docs.vue'),
+              props: true
+            },
+            {
+              path: '/docs/t/:tag(.*)',
+              meta: { title: 'My Docs' },
+              component: () => import('/pages/docs.vue'),
+              props: true
+            },
+            {
+              path: '/docs/:docId/meta',
+              component: () => import('/pages/docs/[doc]/meta.vue'),
+              props: true,
+              beforeEnter(to, from, next) {
+                store.dispatch(SET_DOCUMENT, { id: to.params.docId })
+                next()
+              },
+            },
+            {
+              path: '/docs/export',
+              meta: { title: 'Export Docs', track: true },
+              component: () => import('/pages/docs/export.vue'),
+            },
+            {
+              path: '/docs/import',
+              meta: { title: 'Import Docs', track: true },
+              component: () => import('/pages/docs/import.vue'),
+            },
+            {
+              path: '/quick-action',
+              meta: { title: 'Quick Action', track: true },
+              component: () => import('/pages/quick-action.vue'),
+            },
+            // menu
+            {
+              path: '/menu',
+              meta: { track: true },
+              component: () => import('/pages/menu.vue'),
+            },
+            {
+              path: '/contexts',
+              meta: { title: 'Context Switching', track: true },
+              component: () => import('/pages/contexts.vue'),
+            },
+            {
+              path: '/tags',
+              meta: { title: 'Tags', track: true },
+              component: () => import('/pages/tags.vue'),
+              props: true,
+            },
+            // settings
+            {
+              path: '/settings',
+              meta: { title: 'App Settings', track: true },
+              component: () => import('/pages/settings.vue'),
+            },
+            // privacy & terms
+            {
+              path: '/privacy-policy',
+              meta: { title: 'Privacy Policy', track: true },
+              component: () => import('/pages/privacy-policy.vue'),
+            },
+            {
+              path: '/terms-and-conditions',
+              meta: { title: 'Terms & Conditions', track: true },
+              component: () => import('/pages/terms-and-conditions.vue'),
+            },
+          ],
         },
         {
           path: '/docs/new',
@@ -73,18 +149,6 @@ export const router = createRouter({
           },
         },
         {
-          path: '/docs/f/:filter',
-          meta: { title: 'My Docs' },
-          component: () => import('/pages/docs.vue'),
-          props: true
-        },
-        {
-          path: '/docs/t/:tag(.*)',
-          meta: { title: 'My Docs' },
-          component: () => import('/pages/docs.vue'),
-          props: true
-        },
-        {
           path: '/docs/:docId',
           name: 'docs-doc',
           component: () => import('/pages/docs/[doc].vue'),
@@ -98,15 +162,6 @@ export const router = createRouter({
 
             return params
           },
-          beforeEnter(to, from, next) {
-            store.dispatch(SET_DOCUMENT, { id: to.params.docId })
-            next()
-          },
-        },
-        {
-          path: '/docs/:docId/meta',
-          component: () => import('/pages/docs/[doc]/meta.vue'),
-          props: true,
           beforeEnter(to, from, next) {
             store.dispatch(SET_DOCUMENT, { id: to.params.docId })
             next()
@@ -131,16 +186,6 @@ export const router = createRouter({
           props: true,
         },
         {
-          path: '/docs/export',
-          meta: { title: 'Export Docs', track: true },
-          component: () => import('/pages/docs/export.vue'),
-        },
-        {
-          path: '/docs/import',
-          meta: { title: 'Import Docs', track: true },
-          component: () => import('/pages/docs/import.vue'),
-        },
-        {
           path: '/example',
           meta: { title: 'Example', track: true },
           component: () => import('/pages/example.vue'),
@@ -151,45 +196,6 @@ export const router = createRouter({
           meta: { title: 'File Editor' },
           component: () => import('/pages/file-editor/[file].vue'),
           props: true,
-        },
-        {
-          path: '/quick-action',
-          meta: { title: 'Quick Action', track: true },
-          component: () => import('/pages/quick-action.vue'),
-        },
-        // menu
-        {
-          path: '/menu',
-          meta: { track: true },
-          component: () => import('/pages/menu.vue'),
-        },
-        {
-          path: '/contexts',
-          meta: { title: 'Context Switching', track: true },
-          component: () => import('/pages/contexts.vue'),
-        },
-        {
-          path: '/tags',
-          meta: { title: 'Tags', track: true },
-          component: () => import('/pages/tags.vue'),
-          props: true,
-        },
-        // settings
-        {
-          path: '/settings',
-          meta: { title: 'App Settings', track: true },
-          component: () => import('/pages/settings.vue'),
-        },
-        // privacy & terms
-        {
-          path: '/privacy-policy',
-          meta: { title: 'Privacy Policy', track: true },
-          component: () => import('/pages/privacy-policy.vue'),
-        },
-        {
-          path: '/terms-and-conditions',
-          meta: { title: 'Terms & Conditions', track: true },
-          component: () => import('/pages/terms-and-conditions.vue'),
         },
         // Deprecated routes.
         {

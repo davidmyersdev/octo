@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="h-screen" :class="sizes.concat([!ligatures && 'ligatures-none'])">
+  <div id="app" class="h-full" :class="sizes.concat([!ligatures && 'ligatures-none'])">
     <AsyncChangeLog v-if="!home && !publicDoc && !flow" />
     <router-view :inheritAttrs="true" class="flex-grow flex-shrink min-h-0"></router-view>
   </div>
@@ -85,6 +85,10 @@ export default {
 </script>
 
 <style>
+:root {
+  --app-height: 100vh;
+}
+
 .october {
   --ink-syntax-name-color: #eb6123;
   --ink-syntax-name-label-color: #abb2bf;
@@ -209,17 +213,6 @@ svg {
   min-width: 0 !important;
 }
 
-.simplebar-scrollbar::before {
-  bottom: 0.25rem !important;
-  top: 0.25rem !important;
-}
-
-.simplebar-content {
-  display: flex;
-  flex-direction: column;
-  min-height: 100% !important;
-}
-
 /* theming */
 
 .dark .notification {
@@ -232,13 +225,5 @@ svg {
 
 hr {
   background-color: #aaa;
-}
-
-.dark .simplebar-scrollbar::before {
-  background-color: rgba(255, 255, 255, 0.25);
-}
-
-.light .simplebar-scrollbar::before {
-  background-color: rgba(0, 0, 0, 0.5);
 }
 </style>

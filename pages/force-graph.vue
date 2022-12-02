@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-end h-screen relative">
+  <div class="flex justify-end h-full relative">
     <DocumentList v-if="tag" :tag="tag" :cols="1" class="h-full w-full md:w-1/3 z-index-1 px-4 mt-96" />
     <div ref="graph" class="absolute inset-0"></div>
   </div>

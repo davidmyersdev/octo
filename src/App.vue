@@ -226,4 +226,11 @@ svg {
 hr {
   background-color: #aaa;
 }
+
+/* lib */
+
+/* When overlay scrollbars are mounted, we need to remove overflow from the host element. */
+[data-overlayscrollbars=host] {
+  overflow: hidden !important;
+}
 </style>

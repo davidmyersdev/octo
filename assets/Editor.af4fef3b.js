@@ -21200,14 +21200,14 @@ function legacy(parser2) {
   return new LanguageSupport(StreamLanguage.define(parser2));
 }
 function sql(dialectName) {
-  return __vitePreload(() => import("./index.097cac25.js"), true ? ["assets/index.097cac25.js","assets/index.65602d5f.js","assets/index.af8b11eb.css","assets/account.36f48ae2.js"] : void 0).then((m) => m.sql({ dialect: m[dialectName] }));
+  return __vitePreload(() => import("./index.097cac25.js"), true ? ["assets/index.097cac25.js","assets/index.65602d5f.js","assets/index.0e1cdd67.css","assets/account.36f48ae2.js"] : void 0).then((m) => m.sql({ dialect: m[dialectName] }));
 }
 const languages = [
   /* @__PURE__ */ LanguageDescription.of({
     name: "C",
     extensions: ["c", "h", "ino"],
     load() {
-      return __vitePreload(() => import("./index.b1540631.js"), true ? ["assets/index.b1540631.js","assets/index.65602d5f.js","assets/index.af8b11eb.css","assets/account.36f48ae2.js"] : void 0).then((m) => m.cpp());
+      return __vitePreload(() => import("./index.b1540631.js"), true ? ["assets/index.b1540631.js","assets/index.65602d5f.js","assets/index.0e1cdd67.css","assets/account.36f48ae2.js"] : void 0).then((m) => m.cpp());
     }
   }),
   /* @__PURE__ */ LanguageDescription.of({
@@ -21215,7 +21215,7 @@ const languages = [
     alias: ["cpp"],
     extensions: ["cpp", "c++", "cc", "cxx", "hpp", "h++", "hh", "hxx"],
     load() {
-      return __vitePreload(() => import("./index.b1540631.js"), true ? ["assets/index.b1540631.js","assets/index.65602d5f.js","assets/index.af8b11eb.css","assets/account.36f48ae2.js"] : void 0).then((m) => m.cpp());
+      return __vitePreload(() => import("./index.b1540631.js"), true ? ["assets/index.b1540631.js","assets/index.65602d5f.js","assets/index.0e1cdd67.css","assets/account.36f48ae2.js"] : void 0).then((m) => m.cpp());
     }
   }),
   /* @__PURE__ */ LanguageDescription.of({
@@ -21245,7 +21245,7 @@ const languages = [
     name: "Java",
     extensions: ["java"],
     load() {
-      return __vitePreload(() => import("./index.2532a0d8.js"), true ? ["assets/index.2532a0d8.js","assets/index.65602d5f.js","assets/index.af8b11eb.css","assets/account.36f48ae2.js"] : void 0).then((m) => m.java());
+      return __vitePreload(() => import("./index.2532a0d8.js"), true ? ["assets/index.2532a0d8.js","assets/index.65602d5f.js","assets/index.0e1cdd67.css","assets/account.36f48ae2.js"] : void 0).then((m) => m.java());
     }
   }),
   /* @__PURE__ */ LanguageDescription.of({
@@ -21261,7 +21261,7 @@ const languages = [
     alias: ["json5"],
     extensions: ["json", "map"],
     load() {
-      return __vitePreload(() => import("./index.25eabfcf.js"), true ? ["assets/index.25eabfcf.js","assets/index.65602d5f.js","assets/index.af8b11eb.css","assets/account.36f48ae2.js"] : void 0).then((m) => m.json());
+      return __vitePreload(() => import("./index.25eabfcf.js"), true ? ["assets/index.25eabfcf.js","assets/index.65602d5f.js","assets/index.0e1cdd67.css","assets/account.36f48ae2.js"] : void 0).then((m) => m.json());
     }
   }),
   /* @__PURE__ */ LanguageDescription.of({
@@ -21300,7 +21300,7 @@ const languages = [
     name: "PHP",
     extensions: ["php", "php3", "php4", "php5", "php7", "phtml"],
     load() {
-      return __vitePreload(() => import("./index.34ecb18d.js"), true ? ["assets/index.34ecb18d.js","assets/index.65602d5f.js","assets/index.af8b11eb.css","assets/account.36f48ae2.js"] : void 0).then((m) => m.php());
+      return __vitePreload(() => import("./index.34ecb18d.js"), true ? ["assets/index.34ecb18d.js","assets/index.65602d5f.js","assets/index.0e1cdd67.css","assets/account.36f48ae2.js"] : void 0).then((m) => m.php());
     }
   }),
   /* @__PURE__ */ LanguageDescription.of({
@@ -21321,14 +21321,14 @@ const languages = [
     extensions: ["BUILD", "bzl", "py", "pyw"],
     filename: /^(BUCK|BUILD)$/,
     load() {
-      return __vitePreload(() => import("./index.0baac1a6.js"), true ? ["assets/index.0baac1a6.js","assets/index.65602d5f.js","assets/index.af8b11eb.css","assets/account.36f48ae2.js"] : void 0).then((m) => m.python());
+      return __vitePreload(() => import("./index.0baac1a6.js"), true ? ["assets/index.0baac1a6.js","assets/index.65602d5f.js","assets/index.0e1cdd67.css","assets/account.36f48ae2.js"] : void 0).then((m) => m.python());
     }
   }),
   /* @__PURE__ */ LanguageDescription.of({
     name: "Rust",
     extensions: ["rs"],
     load() {
-      return __vitePreload(() => import("./index.692237cf.js"), true ? ["assets/index.692237cf.js","assets/index.65602d5f.js","assets/index.af8b11eb.css","assets/account.36f48ae2.js"] : void 0).then((m) => m.rust());
+      return __vitePreload(() => import("./index.692237cf.js"), true ? ["assets/index.692237cf.js","assets/index.65602d5f.js","assets/index.0e1cdd67.css","assets/account.36f48ae2.js"] : void 0).then((m) => m.rust());
     }
   }),
   /* @__PURE__ */ LanguageDescription.of({
@@ -21363,7 +21363,7 @@ const languages = [
     name: "WebAssembly",
     extensions: ["wat", "wast"],
     load() {
-      return __vitePreload(() => import("./index.b143e027.js"), true ? ["assets/index.b143e027.js","assets/index.65602d5f.js","assets/index.af8b11eb.css","assets/account.36f48ae2.js"] : void 0).then((m) => m.wast());
+      return __vitePreload(() => import("./index.b143e027.js"), true ? ["assets/index.b143e027.js","assets/index.65602d5f.js","assets/index.0e1cdd67.css","assets/account.36f48ae2.js"] : void 0).then((m) => m.wast());
     }
   }),
   /* @__PURE__ */ LanguageDescription.of({
@@ -21371,7 +21371,7 @@ const languages = [
     alias: ["rss", "wsdl", "xsd"],
     extensions: ["xml", "xsl", "xsd", "svg"],
     load() {
-      return __vitePreload(() => import("./index.43125d2c.js"), true ? ["assets/index.43125d2c.js","assets/index.65602d5f.js","assets/index.af8b11eb.css","assets/account.36f48ae2.js"] : void 0).then((m) => m.xml());
+      return __vitePreload(() => import("./index.43125d2c.js"), true ? ["assets/index.43125d2c.js","assets/index.65602d5f.js","assets/index.0e1cdd67.css","assets/account.36f48ae2.js"] : void 0).then((m) => m.xml());
     }
   }),
   /* @__PURE__ */ LanguageDescription.of({
@@ -23292,42 +23292,42 @@ const ye = () => document.createElement("div"), Se = () => window.matchMedia("(p
 ], Vn = [
   async (e, n) => {
     if (e.interface.autocomplete) {
-      const { autocomplete: t2 } = await __vitePreload(() => import("./autocomplete.0c233232.e69df8c2.js"), true ? ["assets/autocomplete.0c233232.e69df8c2.js","assets/index.65602d5f.js","assets/index.af8b11eb.css","assets/account.36f48ae2.js"] : void 0);
+      const { autocomplete: t2 } = await __vitePreload(() => import("./autocomplete.0c233232.e69df8c2.js"), true ? ["assets/autocomplete.0c233232.e69df8c2.js","assets/index.65602d5f.js","assets/index.0e1cdd67.css","assets/account.36f48ae2.js"] : void 0);
       return n.reconfigure(t2(e));
     }
     return n.reconfigure([]);
   },
   async (e, n) => {
     if (e.interface.images) {
-      const { images: t2 } = await __vitePreload(() => import("./images.0bde9a43.f799833f.js"), true ? ["assets/images.0bde9a43.f799833f.js","assets/index.65602d5f.js","assets/index.af8b11eb.css","assets/account.36f48ae2.js"] : void 0);
+      const { images: t2 } = await __vitePreload(() => import("./images.0bde9a43.f799833f.js"), true ? ["assets/images.0bde9a43.f799833f.js","assets/index.65602d5f.js","assets/index.0e1cdd67.css","assets/account.36f48ae2.js"] : void 0);
       return n.reconfigure(t2());
     }
     return n.reconfigure([]);
   },
   async (e, n) => {
     if (e.interface.lists) {
-      const { lists: t2 } = await __vitePreload(() => import("./lists.b465ff74.1e0f0c9a.js"), true ? ["assets/lists.b465ff74.1e0f0c9a.js","assets/index.65602d5f.js","assets/index.af8b11eb.css","assets/account.36f48ae2.js"] : void 0);
+      const { lists: t2 } = await __vitePreload(() => import("./lists.b465ff74.1e0f0c9a.js"), true ? ["assets/lists.b465ff74.1e0f0c9a.js","assets/index.65602d5f.js","assets/index.0e1cdd67.css","assets/account.36f48ae2.js"] : void 0);
       return n.reconfigure(t2());
     }
     return n.reconfigure([]);
   },
   async (e, n) => {
     if (e.interface.readonly) {
-      const { readonly: t2 } = await __vitePreload(() => import("./readonly.90b28a57.9c53e549.js"), true ? ["assets/readonly.90b28a57.9c53e549.js","assets/index.65602d5f.js","assets/index.af8b11eb.css","assets/account.36f48ae2.js"] : void 0);
+      const { readonly: t2 } = await __vitePreload(() => import("./readonly.90b28a57.9c53e549.js"), true ? ["assets/readonly.90b28a57.9c53e549.js","assets/index.65602d5f.js","assets/index.0e1cdd67.css","assets/account.36f48ae2.js"] : void 0);
       return n.reconfigure(t2());
     }
     return n.reconfigure([]);
   },
   async (e, n) => {
     if (e.interface.spellcheck) {
-      const { spellcheck: t2 } = await __vitePreload(() => import("./spellcheck.7e0765c7.c71ece65.js"), true ? ["assets/spellcheck.7e0765c7.c71ece65.js","assets/index.65602d5f.js","assets/index.af8b11eb.css","assets/account.36f48ae2.js"] : void 0);
+      const { spellcheck: t2 } = await __vitePreload(() => import("./spellcheck.7e0765c7.c71ece65.js"), true ? ["assets/spellcheck.7e0765c7.c71ece65.js","assets/index.65602d5f.js","assets/index.0e1cdd67.css","assets/account.36f48ae2.js"] : void 0);
       return n.reconfigure(t2());
     }
     return n.reconfigure([]);
   },
   async (e, n) => {
     if (e.vim) {
-      const { vim: t2 } = await __vitePreload(() => import("./vim.e0ec79d3.f2ee048b.js"), true ? ["assets/vim.e0ec79d3.f2ee048b.js","assets/index.65602d5f.js","assets/index.af8b11eb.css","assets/account.36f48ae2.js"] : void 0);
+      const { vim: t2 } = await __vitePreload(() => import("./vim.e0ec79d3.f2ee048b.js"), true ? ["assets/vim.e0ec79d3.f2ee048b.js","assets/index.65602d5f.js","assets/index.0e1cdd67.css","assets/account.36f48ae2.js"] : void 0);
       return n.reconfigure(t2());
     }
     return n.reconfigure([]);
@@ -36171,7 +36171,7 @@ const preview = (text) => {
       content2.style.minHeight = "0";
       content2.style.width = "100%";
       container.appendChild(content2);
-      __vitePreload(() => import("./mermaid.core.6dd74da0.js"), true ? ["assets/mermaid.core.6dd74da0.js","assets/index.65602d5f.js","assets/index.af8b11eb.css","assets/transform.11eec644.js","assets/ordinal.f87dfb70.js","assets/account.36f48ae2.js"] : void 0).then(({ default: mermaid2 }) => {
+      __vitePreload(() => import("./mermaid.core.6dd74da0.js"), true ? ["assets/mermaid.core.6dd74da0.js","assets/index.65602d5f.js","assets/index.0e1cdd67.css","assets/transform.11eec644.js","assets/ordinal.f87dfb70.js","assets/account.36f48ae2.js"] : void 0).then(({ default: mermaid2 }) => {
         mermaid2.renderAsync(targetId, text, (svgCode, bindFunctions) => {
           const svg = buildSvg(svgCode);
           svg.setAttribute("height", "100%");
@@ -36192,14 +36192,14 @@ const preview = (text) => {
 const widget = async (_config) => {
   if (!state.isMermaidLoaded) {
     try {
-      const { default: mermaid2 } = await __vitePreload(() => import("./mermaid.core.6dd74da0.js"), true ? ["assets/mermaid.core.6dd74da0.js","assets/index.65602d5f.js","assets/index.af8b11eb.css","assets/transform.11eec644.js","assets/ordinal.f87dfb70.js","assets/account.36f48ae2.js"] : void 0);
+      const { default: mermaid2 } = await __vitePreload(() => import("./mermaid.core.6dd74da0.js"), true ? ["assets/mermaid.core.6dd74da0.js","assets/index.65602d5f.js","assets/index.0e1cdd67.css","assets/transform.11eec644.js","assets/ordinal.f87dfb70.js","assets/account.36f48ae2.js"] : void 0);
       mermaid2.initialize({
         startOnLoad: false,
         theme: "base",
         themeCSS: themeCss,
         themeVariables
       });
-      const { default: mindmap } = await __vitePreload(() => import("./mermaid-mindmap.core.cc8eb8bf.js"), true ? ["assets/mermaid-mindmap.core.cc8eb8bf.js","assets/index.65602d5f.js","assets/index.af8b11eb.css"] : void 0);
+      const { default: mindmap } = await __vitePreload(() => import("./mermaid-mindmap.core.cc8eb8bf.js"), true ? ["assets/mermaid-mindmap.core.cc8eb8bf.js","assets/index.65602d5f.js","assets/index.0e1cdd67.css"] : void 0);
       await mermaid2.registerExternalDiagrams([mindmap], { lazyLoad: true });
       state.isMermaidLoaded = true;
     } catch (error) {

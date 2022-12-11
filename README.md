@@ -10,16 +10,17 @@ Build your knowledge base at [octo.app](https://octo.app)
 ## Features
 
 - [x] Dark and light themes
-- [x] Plain-text docs with in-place styling
-- [x] Syntax highlighting for many languages
+- [x] Plain-text docs with hybrid rendering
+- [x] Automatic syntax highlighting for code blocks
 - [x] Keyboard navigation and shortcuts
 - [x] End-to-End Encryption (E2EE) support
 - [x] Cross-platform and offline-first web app
 - [x] Full-text exact match or regex search
 - [x] Organize your docs with plain-text hashtags
-- [x] File attachments
-- [x] Context management
+- [x] Drag-and-drop or paste file attachments
+- [x] Workspaces for high-level organization
 - [x] Optional Vim Mode editing
+- [x] Tabs for recent docs
 
 ## Contributions
 

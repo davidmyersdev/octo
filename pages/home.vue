@@ -31,7 +31,7 @@
     <section class="p-4 lg:p-8">
       <div class="container mx-auto mb-8 lg:mt-20">
         <div class="aspect-w-16 aspect-h-9 w-full">
-          <img src="/img/screenshot.png" class="w-full" />
+          <img src="/img/screenshot.png?v=MjAyMi0xMi0xMVQxMDoxMjoyMS0wNTAwCg==" class="w-full" />
         </div>
       </div>
     </section>

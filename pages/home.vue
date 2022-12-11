@@ -99,7 +99,7 @@
           <rect x="585.40551" y="281.79004" width="2" height="6" fill="#cbcbcb"/>
         </svg>
         <div class="flex flex-col gap-4">
-          <h2 class="text-2xl lg:text-4xl">Portable</h2>
+          <h2 class="text-2xl lg:text-4xl">Portability</h2>
           <p class="lg:text-xl mt-2">Import or export your entire knowledge base as plain-text Markdown files, and take your work with you wherever you choose to go.</p>
         </div>
       </div>
@@ -166,7 +166,7 @@
           <circle cx="505.9858" cy="513.72706" r="5.31496" fill="#f2f2f2"/>
         </svg>
         <div class="flex flex-col gap-4">
-          <h2 class="text-2xl lg:text-4xl">Transparent</h2>
+          <h2 class="text-2xl lg:text-4xl">Transparency</h2>
           <p class="lg:text-xl mt-2">Octo is <a class="underline" href="https://github.com/voracious/octo" target="_blank" rel="noopener noreferrer">Open Source</a>. Even if something were to happen to us, our community can take the reins and keep it alive.</p>
         </div>
       </div>
@@ -224,7 +224,7 @@
           <circle cx="232.39196" cy="147.33817" r="15.00444" fill="#e6e6e6"/>
         </svg>
         <div class="flex flex-col gap-4">
-          <h2 class="text-2xl lg:text-4xl">Community driven</h2>
+          <h2 class="text-2xl lg:text-4xl">Community</h2>
           <p class="lg:text-xl mt-2">We are knowledge workers just like you. Join the <a class="underline" :href="discordInviteLink" target="_blank" rel="noopener noreferrer">Voracious Community</a> server on Discord to help us shape Octo into a tool we all love.</p>
         </div>
       </div>
@@ -278,7 +278,7 @@
           <path d="M1032.26181,768.12193h-381a1,1,0,0,1,0-2h381a1,1,0,0,1,0,2Z" transform="translate(-166.73819 -131.47186)" fill="#cbcbcb"/>
         </svg>
         <div class="flex flex-col gap-4">
-          <h2 class="text-2xl lg:text-4xl">Secure</h2>
+          <h2 class="text-2xl lg:text-4xl">Security</h2>
           <p class="lg:text-xl"><strong class="font-semibold">Trust is earned</strong>, yet many organizations expect you to give it away freely. With client-side encryption, <strong class="font-semibold">you decide</strong> whether you trust us with your information.</p>
         </div>
       </div>
@@ -310,8 +310,8 @@
           <circle cx="662.70442" cy="581.35092" r="17.80969" fill="#ff6666"/>
         </svg>
         <div class="flex flex-col gap-4">
-          <h2 class="text-2xl lg:text-4xl">Private</h2>
-          <p class="lg:text-xl mt-2">In a world of surveillance, we choose to empower you rather than spy on you. We use privacy-first analytics, and all collected information is completely anonymous and available to view on our <a class="underline" href="https://app.usefathom.com/share/npcchoaz/octo.app" target="_blank" rel="noopener noreferrer">public analytics dashboard</a>.</p>
+          <h2 class="text-2xl lg:text-4xl">Privacy</h2>
+          <p class="lg:text-xl mt-2">In a world of surveillance, we choose to protect you with privacy-first, anonymous analytics. All collected metrics are publicly available to view on our <a class="underline" href="https://app.usefathom.com/share/npcchoaz/octo.app" target="_blank" rel="noopener noreferrer">public analytics dashboard</a>.</p>
         </div>
       </div>
     </section>
@@ -380,7 +380,6 @@ export default {
 <style scoped>
 .home {
   background: radial-gradient(rgba(23, 23, 23, 1) 10%, transparent 10%) max(1vw, 1vh) max(1vw, 1vh);
-  background-color: #121212;
   background-size: max(1vw, 1vh) max(1vw, 1vh);
 }
 </style>

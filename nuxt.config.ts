@@ -14,7 +14,7 @@ export default defineNuxtConfig({
       link: [
         { href: '/img/icons/favicon.ico', rel: 'icon' },
         { href: 'https://fonts.googleapis.com', rel: 'preconnect' },
-        { crossorigin: true, href: 'https://fonts.gstatic.com', rel: 'preconnect' },
+        { crossorigin: '', href: 'https://fonts.gstatic.com', rel: 'preconnect' },
         { href: 'https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@300;400;600;700&display=swap', rel: 'stylesheet' },
       ],
       script: [
@@ -37,14 +37,12 @@ export default defineNuxtConfig({
     },
   },
   router: {
-    trailingSlash: false,
     options: {
       strict: true,
     },
   },
   ssr: true,
-  tailwindcss: {
-    configPath: '~/tailwind.config.cjs',
-  },
-  target: 'static',
+  // tailwindcss: {
+  //   configPath: '~/tailwind.config.cjs',
+  // },
 })

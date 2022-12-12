@@ -9,21 +9,15 @@
 <script>
 import Ink from 'ink-mde/vue'
 import { OverlayScrollbars } from 'overlayscrollbars'
-import { defineComponent } from 'vue'
-import { subscription } from '/src/common/account'
 import { addFile } from '/src/firebase/storage'
 import { mermaid, plugins } from '/src/vendor/plugins'
-
-import {
-  SET_RIGHT_SIDEBAR_VISIBILITY,
-} from '/src/store/actions.js'
 
 export default defineComponent({
   emits: ['input'],
   components: {
     Ink,
   },
-  inject: ['mq'],
+  inject: ['mq', 'user'],
   props: {
     appearance: {
       type: String,
@@ -133,10 +127,7 @@ export default defineComponent({
       return plugins(this)
     },
     pro() {
-      return subscription.value.pro
-    },
-    showRightSidebar() {
-      return this.$store.state.showRightSidebar
+      return this.user.value.roles.includes('ambassador') || this.user.value.roles.includes('subscriber')
     },
     spellcheck() {
       return this.settings.spellcheck
@@ -178,9 +169,6 @@ export default defineComponent({
     },
     async input(text) {
       this.$emit('input', text)
-    },
-    async toggleMeta() {
-      this.$store.dispatch(SET_RIGHT_SIDEBAR_VISIBILITY, !this.showRightSidebar)
     },
     uploadFiles(files) {
       return Promise.all(

@@ -15,6 +15,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@antfu/utils@npm:^0.7.0":
+  version: 0.7.2
+  resolution: "@antfu/utils@npm:0.7.2"
+  checksum: ada98dde0a06bc10129ad7bc9d0007c1cf7e36eeb9e8ca93ea5173bc1e1d351afee8511c9e8e182b3105b787ce0ce813afc4ab283b511374f1e56a085f60a2c6
+  languageName: node
+  linkType: hard
+
 "@apideck/better-ajv-errors@npm:^0.3.1":
   version: 0.3.3
   resolution: "@apideck/better-ajv-errors@npm:0.3.3"
@@ -3758,6 +3765,8 @@ __metadata:
     remarkable-front-matter: ^1.0.1-beta.1
     tailwindcss: ^3.2.4
     typescript: ^4.7.4
+    unplugin-auto-import: ^0.12.0
+    unplugin-vue-components: ^0.22.11
     vercel: ^28.0.1
     vite: ^4.0.0
     vite-plugin-html: ^3.2.0
@@ -12831,6 +12840,49 @@ __metadata:
   version: 2.0.0
   resolution: "universalify@npm:2.0.0"
   checksum: 2406a4edf4a8830aa6813278bab1f953a8e40f2f63a37873ffa9a3bc8f9745d06cc8e88f3572cb899b7e509013f7f6fcc3e37e8a6d914167a5381d8440518c44
+  languageName: node
+  linkType: hard
+
+"unplugin-auto-import@npm:^0.12.0":
+  version: 0.12.0
+  resolution: "unplugin-auto-import@npm:0.12.0"
+  dependencies:
+    "@antfu/utils": ^0.7.0
+    "@rollup/pluginutils": ^5.0.2
+    local-pkg: ^0.4.2
+    magic-string: ^0.26.7
+    unimport: ^1.0.1
+    unplugin: ^1.0.0
+  peerDependencies:
+    "@vueuse/core": "*"
+  peerDependenciesMeta:
+    "@vueuse/core":
+      optional: true
+  checksum: d7a1be0b41ba394b1d5c6511862e376f02eeee9337e636c71abada1328a209d2930e5382cc50eceef4035cc53d1bde96b49a7cb9737f0c799d4757d49d7acf87
+  languageName: node
+  linkType: hard
+
+"unplugin-vue-components@npm:^0.22.11":
+  version: 0.22.11
+  resolution: "unplugin-vue-components@npm:0.22.11"
+  dependencies:
+    "@antfu/utils": ^0.7.0
+    "@rollup/pluginutils": ^5.0.2
+    chokidar: ^3.5.3
+    debug: ^4.3.4
+    fast-glob: ^3.2.12
+    local-pkg: ^0.4.2
+    magic-string: ^0.26.7
+    minimatch: ^5.1.0
+    resolve: ^1.22.1
+    unplugin: ^1.0.0
+  peerDependencies:
+    "@babel/parser": ^7.15.8
+    vue: 2 || 3
+  peerDependenciesMeta:
+    "@babel/parser":
+      optional: true
+  checksum: 2820b8df44640d4450c002697d9be89a9c131d0e761c1a212d074e75e276594109bd5991edc0049230b162a006614bc4170a666981c995e6771abf3aceb21c34
   languageName: node
   linkType: hard
 

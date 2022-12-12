@@ -1,4 +1,6 @@
 import dotenv from 'dotenv'
+import autoImportPlugin from 'unplugin-auto-import/vite'
+import autoImportVuePlugin from 'unplugin-vue-components/vite'
 import { defineConfig } from 'vite'
 import { createHtmlPlugin as htmlPlugin } from 'vite-plugin-html'
 import { VitePWA as pwaPlugin } from 'vite-plugin-pwa'
@@ -24,6 +26,23 @@ export default defineConfig({
     sourcemap: true,
   },
   plugins: [
+    autoImportPlugin({
+      dirs: [
+        './composables/**',
+      ],
+      imports: [
+        '@vueuse/core',
+        'pinia',
+        'vue',
+        'vue-router',
+      ],
+      vueTemplate: true,
+    }),
+    autoImportVuePlugin({
+      dirs: [
+        './components/**',
+      ],
+    }),
     htmlPlugin({
       inject: {
         data: {

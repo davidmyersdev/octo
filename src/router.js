@@ -178,7 +178,7 @@ export const router = createRouter({
           path: '/public/:docId',
           name: 'public-doc',
           component: () => import('/pages/docs/[doc].vue'),
-          props: { readonly: true },
+          props: { ro: true },
         },
         {
           path: '/force-graph',

@@ -5,7 +5,7 @@
     :doc="doc"
     :initialFocus="initialFocus"
     :initialSelections="initialSelections"
-    :readonly="readonly"
+    :ro="ro"
     :settings="settings"
     @input="input"
   />
@@ -37,7 +37,7 @@ export default defineComponent({
     initialSelections: {
       type: Array,
     },
-    readonly: {
+    ro: {
       type: Boolean,
     },
   },
@@ -86,7 +86,7 @@ export default defineComponent({
   },
   methods: {
     input(text) {
-      if (!this.readonly) {
+      if (!this.ro) {
         // ReadOnly mode means we are viewing a shared doc.
         // Todo: Create a new view for shared docs, and store shared docs in a new collection.
         if (this.docId) {
@@ -134,8 +134,8 @@ export default defineComponent({
   async mounted() {
     this.updateTitle()
 
-    // might want to pass another prop to represent 'shared' since readonly might have multiple use cases
-    if (this.readonly) {
+    // might want to pass another prop to represent 'shared' since ro might have multiple use cases
+    if (this.ro) {
       this.placeholder = await this.findSharedDocument()
     }
   },

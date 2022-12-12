@@ -61,14 +61,14 @@ export const router = createRouter({
             {
               path: '/docs/f/:filter',
               meta: { title: 'My Docs' },
-              component: () => import('/pages/docs.vue'),
-              props: true
+              component: () => import('/pages/docs/f/[filter].vue'),
+              props: true,
             },
             {
               path: '/docs/t/:tag(.*)',
               meta: { title: 'My Docs' },
-              component: () => import('/pages/docs.vue'),
-              props: true
+              component: () => import('/pages/docs/t/[...tag].vue'),
+              props: true,
             },
             {
               path: '/docs/:docId/meta',

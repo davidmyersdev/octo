@@ -46,7 +46,14 @@ export default {
   },
   computed: {
     html() {
-      return micromark(this.text, { extensions: [gfm()], htmlExtensions: [gfmHtml()] })
+      const html = micromark(this.text, { extensions: [gfm()], htmlExtensions: [gfmHtml()] })
+
+      if (html.includes('href')) {
+        // Todo: Figure out how to intercept links in micromark.
+        return html.replace(/href=".*?"/g, '')
+      }
+
+      return html
     },
     updated() {
       return `Updated on ${moment(this.updatedAt).format('ddd, MMM Do, YYYY [at] h:mm A')}`;

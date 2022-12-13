@@ -37,7 +37,7 @@ export const router = createRouter({
               path: '/',
               meta: { track: true },
               beforeEnter(to, from, next) {
-                if (globalConfig.supportsFirebase && store.state.showWelcome) {
+                if (store.state.showWelcome) {
                   next({ path: '/home' })
                 } else {
                   next({ path: '/docs/new' })
@@ -139,7 +139,7 @@ export const router = createRouter({
           beforeEnter(to, from, next) {
             store.dispatch(SET_DOCUMENT, { id: null })
 
-            if (globalConfig.supportsFirebase && store.state.showWelcome) {
+            if (store.state.showWelcome) {
               localStorage.setItem('octo/welcome/v1', 'done')
               store.dispatch(SET_SHOW_WELCOME, false)
 

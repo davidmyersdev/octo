@@ -3,6 +3,7 @@
     ref="editable"
     :appearance="appearance"
     :doc="doc"
+    :key="doc.id"
     :initialFocus="initialFocus"
     :initialSelections="initialSelections"
     :ro="ro"
@@ -17,7 +18,7 @@ import Editor from '/components/Editor.vue'
 import { setTitle } from '/src/common/title'
 import { fetchSharedDoc } from '/src/firebase/firestore'
 import Doc, { unpack } from '/src/models/doc'
-import { ADD_DOCUMENT, EDIT_DOCUMENT, SET_DOCUMENT } from '/src/store/actions'
+import { EDIT_DOCUMENT, SET_DOCUMENT } from '/src/store/actions'
 
 const formatTags = (tags, delimiter = ', ') => {
   return tags.map((tag) => `#${tag}`).join(delimiter)
@@ -66,11 +67,6 @@ export default defineComponent({
     },
   },
   computed: {
-    appearance() {
-      if (this.$store.state.settings.theme === 'october') { return 'dark' }
-
-      return this.$store.state.settings.theme
-    },
     doc() {
       return this.$store.getters.decrypted.find((doc) => doc.id === this.docId) || this.placeholder
     },
@@ -86,14 +82,12 @@ export default defineComponent({
   },
   methods: {
     input(text) {
+      // ReadOnly mode means we are viewing a shared doc.
+      // Todo: Create a new view for shared docs, and store shared docs in a new collection.
       if (!this.ro) {
-        // ReadOnly mode means we are viewing a shared doc.
-        // Todo: Create a new view for shared docs, and store shared docs in a new collection.
-        if (this.docId) {
-          this.$store.commit(EDIT_DOCUMENT, { id: this.doc.id, text })
-        } else {
-          this.$store.commit(ADD_DOCUMENT, new Doc({ id: this.doc.id, text }))
+        this.$store.commit(EDIT_DOCUMENT, new Doc({ ...this.doc, text }))
 
+        if (!this.docId) {
           this.$router.replace({
             path: `/docs/${this.doc.id}`,
             query: {

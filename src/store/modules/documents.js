@@ -82,17 +82,21 @@ export default {
     },
   },
   mutations: {
-    [ADD_DOCUMENT] (state, doc) {
-      state.all.push(doc)
-    },
     [DISCARD_DOCUMENT] (state, { id }) {
       findDoc(state, id).discard()
     },
     [DOCUMENTS_LOADED] (state) {
       state.loaded = true
     },
-    [EDIT_DOCUMENT] (state, { id, text }) {
-      findDoc(state, id).update({ text })
+    [EDIT_DOCUMENT] (state, doc) {
+      const found = findDoc(state, doc.id)
+
+      if (found) {
+        found.update({ text: doc.text })
+      } else {
+        state.all.push(doc)
+      }
+
     },
     [LOAD_DOCUMENT] (state, doc) {
       state.all.push(doc)
@@ -123,9 +127,6 @@ export default {
     },
   },
   actions: {
-    async [ADD_DOCUMENT] (context, doc) {
-      context.commit(ADD_DOCUMENT, doc)
-    },
     async [DISCARD_DOCUMENT] (context, doc) {
       context.commit(DISCARD_DOCUMENT, doc)
     },
@@ -135,7 +136,7 @@ export default {
     async [DUPLICATE_DOCUMENT] (context, { id }) {
       const newDoc = findDoc(context.state, id).duplicate()
 
-      context.commit(ADD_DOCUMENT, newDoc)
+      context.commit(EDIT_DOCUMENT, newDoc)
 
       return newDoc.id
     },
@@ -159,7 +160,7 @@ export default {
         text: originalDocs.map(doc => doc.text).join("\n\n"),
       })
 
-      context.commit(ADD_DOCUMENT, newDoc)
+      context.commit(EDIT_DOCUMENT, newDoc)
 
       return originalDocs.map((doc) => context.dispatch(DISCARD_DOCUMENT, doc))
     },

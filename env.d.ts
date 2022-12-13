@@ -1,8 +1,15 @@
 /// <reference types="vite/client" />
 
-declare module '*.vue' {
-  import type { DefineComponent } from 'vue'
+import { type Instance } from 'ink-mde'
+import { type DefineComponent } from 'vue'
 
+declare global {
+  interface Window {
+    inkMde: Instance
+  }
+}
+
+declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
 
   export default component

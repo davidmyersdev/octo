@@ -78,7 +78,7 @@ export default {
         }
       }
 
-      return this.$store.commit('ADD_DOCUMENT', new Doc({ text }))
+      return this.$store.commit('EDIT_DOCUMENT', new Doc({ text }))
     },
     selectFiles() {
       this.$refs.uploads.click()

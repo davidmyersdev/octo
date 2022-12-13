@@ -8,8 +8,8 @@ import Editor from '/pages/docs/[doc].vue'
 import Doc from '/src/models/doc.js'
 
 import {
-  ADD_DOCUMENT,
   DOCUMENTS_LOADED,
+  EDIT_DOCUMENT,
 } from '/src/store/actions.js'
 
 export default {
@@ -45,7 +45,7 @@ export default {
         const template = await this.buildTemplate()
         const doc = new Doc({ text: template, daily: true })
 
-        this.$store.commit(ADD_DOCUMENT, doc)
+        this.$store.commit(EDIT_DOCUMENT, doc)
       }
     },
   },

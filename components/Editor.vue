@@ -49,14 +49,6 @@ export default defineComponent({
       type: Object,
     },
   },
-  watch: {
-    text(value) {
-      // If a text value is being passed in that doesn't match the editor, then we likely need to load a new doc.
-      if (value !== this.editor.getDoc()) {
-        this.editor.load(value)
-      }
-    },
-  },
   data() {
     return {
       lazyPlugins: [],
@@ -191,6 +183,9 @@ export default defineComponent({
     })
   },
   mounted() {
+    // Exposed for Cypress
+    window.inkMde = this.editor
+
     const editorContent = document.querySelector('.ink-mde-editor')
     const editorToolbar = document.querySelector('.ink-mde-toolbar')
 

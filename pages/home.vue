@@ -5,7 +5,7 @@
         <div class="flex flex-col gap-32 lg:gap-40 py-10">
           <div class="flex flex-col text-center gap-8">
             <TheLogo class="h-32 lg:h-48 text-brand" />
-            <h1 class="text-4xl lg:text-6xl font-semibold">Build <span class="underline underline-offset-8 decoration-2">your</span> knowledge base.</h1>
+            <h1 class="text-4xl lg:text-6xl font-semibold">Build <span class="underline underline-offset-8 decoration-2">your</span> second brain.</h1>
           </div>
           <div class="flex flex-col gap-4 items-center text-center">
             <router-link v-if="user" :to="{ path: '/docs/new' }" class="button-base bg-brand transition shadow whitespace-nowrap justify-center gap-3 text-black text-xl py-2 px-8 hover:scale-125">

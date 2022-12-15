@@ -3,7 +3,7 @@
 
 # Octo
 
-Build your knowledge base at [octo.app](https://octo.app)
+Build your second brain at [octo.app](https://octo.app)
 
 [![screenshot](public/img/screenshot.png)](https://octo.app)
 

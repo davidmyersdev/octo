@@ -1,7 +1,7 @@
 {
-  "name": "@voraciousdev/octo",
-  "license": "MIT",
-  "version": "v0.20.3",
+  "name": "octo",
+  "author": "David R. Myers <david@voracious.dev>",
+  "funding": "https://github.com/sponsors/voracious",
   "private": true,
   "type": "module",
   "scripts": {

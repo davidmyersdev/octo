@@ -1,0 +1,1 @@
+{"version":3,"file":"title-23c0a2fd.js","sources":["../../src/common/title.js"],"sourcesContent":["export const DEFAULT_TITLE = \"Build your second brain\"\n\nexport const setTitle = (title) => {\n  document.title = `${title ? title : DEFAULT_TITLE} | Octo`\n}\n"],"names":[],"mappings":"AAAO,MAAM,gBAAgB;AAEjB,MAAC,WAAW,CAAC,UAAU;AACjC,WAAS,QAAQ,GAAG,QAAQ,QAAQ;AACtC;"}

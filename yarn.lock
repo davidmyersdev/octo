@@ -3800,62 +3800,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@voraciousdev/octo@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "@voraciousdev/octo@workspace:."
-  dependencies:
-    "@heroicons/vue": ^2.0.12
-    "@mermaid-js/mermaid-mindmap": ^9.2.2
-    "@tailwindcss/typography": ^0.5.8
-    "@types/file-saver": ^2.0.5
-    "@types/mime-types": ^2.1.1
-    "@types/node": ^18.0.6
-    "@types/remarkable": ^2.0.3
-    "@vitejs/plugin-vue": ^3.2.0
-    "@vueuse/core": ^9.4.0
-    autoprefixer: ^10.4.13
-    cypress: ^12.0.2
-    deepmerge: ^4.2.2
-    deepmerge-ts: ^4.2.1
-    file-saver: ^2.0.5
-    firebase: ^9.9.0
-    force-graph: ^1.42.16
-    ink-mde: ^0.18.1
-    jszip: ^3.10.1
-    khroma: ^2.0.0
-    localforage: ^1.10.0
-    mermaid: ^9.2.2
-    micromark: ^3.1.0
-    micromark-extension-gfm: ^2.0.1
-    mime-types: ^2.1.35
-    moment: ^2.29.4
-    mousetrap: ^1.6.5
-    nanoid: ^3.3.1
-    nuxt: ^3.0.0
-    overlayscrollbars: ^2.0.1
-    pinia: ^2.0.14
-    postcss: ^8.4.20
-    remarkable: ^2.0.1
-    remarkable-front-matter: ^1.0.1-beta.1
-    tailwindcss: ^3.2.4
-    typescript: ^4.7.4
-    unplugin-auto-import: ^0.12.0
-    unplugin-vue-components: ^0.22.11
-    vercel: ^28.0.1
-    vite: ^4.0.1
-    vite-plugin-html: ^3.2.0
-    vite-plugin-pwa: ^0.13.3
-    vite-svg-loader: ^3.6.0
-    vue: ^3.2.36
-    vue-router: ^4.0.13
-    vue-tsc: ^0.38.9
-    vue3-mq: ^3.0.3
-    vuex: ^4.0.2
-    workbox-build: ^6.3.0
-    workbox-window: ^6.3.0
-  languageName: unknown
-  linkType: soft
-
 "@vue/babel-helper-vue-transform-on@npm:^1.0.2":
   version: 1.0.2
   resolution: "@vue/babel-helper-vue-transform-on@npm:1.0.2"
@@ -11028,6 +10972,62 @@ __metadata:
   checksum: d621d832ed7b16ac74027adb87196804a500d80d9aca536fccb7ba48d33a7e9306a75f94c1d29cbfa324bc091bfc530bc24789568efdaee6a47fcfa298993814
   languageName: node
   linkType: hard
+
+"octo@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "octo@workspace:."
+  dependencies:
+    "@heroicons/vue": ^2.0.12
+    "@mermaid-js/mermaid-mindmap": ^9.2.2
+    "@tailwindcss/typography": ^0.5.8
+    "@types/file-saver": ^2.0.5
+    "@types/mime-types": ^2.1.1
+    "@types/node": ^18.0.6
+    "@types/remarkable": ^2.0.3
+    "@vitejs/plugin-vue": ^3.2.0
+    "@vueuse/core": ^9.4.0
+    autoprefixer: ^10.4.13
+    cypress: ^12.0.2
+    deepmerge: ^4.2.2
+    deepmerge-ts: ^4.2.1
+    file-saver: ^2.0.5
+    firebase: ^9.9.0
+    force-graph: ^1.42.16
+    ink-mde: ^0.18.1
+    jszip: ^3.10.1
+    khroma: ^2.0.0
+    localforage: ^1.10.0
+    mermaid: ^9.2.2
+    micromark: ^3.1.0
+    micromark-extension-gfm: ^2.0.1
+    mime-types: ^2.1.35
+    moment: ^2.29.4
+    mousetrap: ^1.6.5
+    nanoid: ^3.3.1
+    nuxt: ^3.0.0
+    overlayscrollbars: ^2.0.1
+    pinia: ^2.0.14
+    postcss: ^8.4.20
+    remarkable: ^2.0.1
+    remarkable-front-matter: ^1.0.1-beta.1
+    tailwindcss: ^3.2.4
+    typescript: ^4.7.4
+    unplugin-auto-import: ^0.12.0
+    unplugin-vue-components: ^0.22.11
+    vercel: ^28.0.1
+    vite: ^4.0.1
+    vite-plugin-html: ^3.2.0
+    vite-plugin-pwa: ^0.13.3
+    vite-svg-loader: ^3.6.0
+    vue: ^3.2.36
+    vue-router: ^4.0.13
+    vue-tsc: ^0.38.9
+    vue3-mq: ^3.0.3
+    vuex: ^4.0.2
+    workbox-build: ^6.3.0
+    workbox-window: ^6.3.0
+  languageName: unknown
+  linkType: soft
 
 "ofetch@npm:^1.0.0":
   version: 1.0.0

@@ -50,6 +50,7 @@ declare module '@vue/runtime-core' {
     Providers: typeof import('./components/Providers.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SettingsEditor: typeof import('./components/SettingsEditor.vue')['default']
     Tag: typeof import('./components/Tag.vue')['default']
     TagLink: typeof import('./components/TagLink.vue')['default']
     TheContent: typeof import('./components/TheContent.vue')['default']

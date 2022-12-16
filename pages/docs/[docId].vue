@@ -16,9 +16,8 @@
 import { defineComponent, inject } from 'vue'
 import Editor from '/components/Editor.vue'
 import { setTitle } from '/src/common/title'
-import { fetchSharedDoc } from '/src/firebase/firestore'
-import Doc, { unpack } from '/src/models/doc'
-import { EDIT_DOCUMENT, SET_DOCUMENT } from '/src/store/actions'
+import Doc from '/src/models/doc'
+import { EDIT_DOCUMENT } from '/src/store/actions'
 
 const formatTags = (tags, delimiter = ', ') => {
   return tags.map((tag) => `#${tag}`).join(delimiter)
@@ -39,6 +38,7 @@ export default defineComponent({
       type: Array,
     },
     ro: {
+      default: false,
       type: Boolean,
     },
   },
@@ -82,8 +82,6 @@ export default defineComponent({
   },
   methods: {
     input(text) {
-      // ReadOnly mode means we are viewing a shared doc.
-      // Todo: Create a new view for shared docs, and store shared docs in a new collection.
       if (!this.ro) {
         this.$store.commit(EDIT_DOCUMENT, new Doc({ ...this.doc, text }))
 
@@ -97,41 +95,12 @@ export default defineComponent({
         }
       }
     },
-    async findSharedDocument() {
-      const docRef = await fetchSharedDoc({ docId: this.$route.params.docId })
-      const serverDoc = docRef.data()
-      const packed = {
-        ...serverDoc,
-        id: serverDoc.id || serverDoc.clientId,
-        firebaseId: docRef.id,
-        textKey: serverDoc.textKey || serverDoc.dataKey,
-        createdAt: serverDoc.createdAt ? serverDoc.createdAt.toDate() : null,
-        discardedAt: serverDoc.discardedAt ? serverDoc.discardedAt.toDate() : null,
-        updatedAt: serverDoc.updatedAt ? serverDoc.updatedAt.toDate() : null,
-        touchedAt: serverDoc.touchedAt ? serverDoc.touchedAt.toDate() : null,
-        syncedAt: serverDoc.syncedAt.toDate(),
-      }
-
-      return unpack(packed, { privateKey: this.$store.state.settings.crypto.privateKey })
-    },
     updateTitle() {
       setTitle(this.header || formatTags(this.doc.tags))
     },
   },
-  beforeRouteUpdate(to, _from, next) {
-    if (to.name === 'docs-doc') {
-      this.$store.dispatch(SET_DOCUMENT, { id: to.params.docId })
-    }
-
-    next()
-  },
   async mounted() {
     this.updateTitle()
-
-    // might want to pass another prop to represent 'shared' since ro might have multiple use cases
-    if (this.ro) {
-      this.placeholder = await this.findSharedDocument()
-    }
   },
 })
 </script>

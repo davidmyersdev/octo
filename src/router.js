@@ -73,12 +73,8 @@ export const router = createRouter({
             {
               path: '/docs/:docId/meta',
               name: 'docs-doc-meta',
-              component: () => import('/pages/docs/[doc]/meta.vue'),
+              component: () => import('/pages/docs/[docId]/meta.vue'),
               props: true,
-              beforeEnter(to, from, next) {
-                store.dispatch(SET_DOCUMENT, { id: to.params.docId })
-                next()
-              },
             },
             {
               path: '/docs/export',
@@ -133,12 +129,11 @@ export const router = createRouter({
         },
         {
           path: '/docs/new',
+          name: 'docs-new',
           meta: { track: true },
-          component: () => import('/pages/docs/[doc].vue'),
+          component: () => import('/pages/docs/[docId].vue'),
           props: true,
           beforeEnter(to, from, next) {
-            store.dispatch(SET_DOCUMENT, { id: null })
-
             if (store.state.showWelcome) {
               localStorage.setItem('octo/welcome/v1', 'done')
               store.dispatch(SET_SHOW_WELCOME, false)
@@ -152,7 +147,7 @@ export const router = createRouter({
         {
           path: '/docs/:docId',
           name: 'docs-doc',
-          component: () => import('/pages/docs/[doc].vue'),
+          component: () => import('/pages/docs/[docId].vue'),
           props({ params }) {
             if (typeof params?.props === 'string') {
               return {
@@ -162,10 +157,6 @@ export const router = createRouter({
             }
 
             return params
-          },
-          beforeEnter(to, from, next) {
-            store.dispatch(SET_DOCUMENT, { id: to.params.docId })
-            next()
           },
         },
         {
@@ -177,7 +168,7 @@ export const router = createRouter({
         {
           path: '/public/:docId',
           name: 'public-doc',
-          component: () => import('/pages/docs/[doc].vue'),
+          component: () => import('/pages/public/[docId].vue'),
           props: { ro: true },
         },
         {
@@ -275,6 +266,8 @@ export const router = createRouter({
 router.beforeEach((to) => {
   if (to.meta.title) setTitle(to.meta.title)
   if (to.meta.track) window.fathom?.trackPageview()
+  if (to.name === 'docs-doc') store.dispatch(SET_DOCUMENT, { id: to.params.docId })
+  if (to.name === 'docs-new') store.dispatch(SET_DOCUMENT, { id: null })
 
   return true
 })

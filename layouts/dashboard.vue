@@ -17,7 +17,7 @@ import TheContent from '/components/TheContent.vue'
 import TheLogo from '/components/TheLogo.vue'
 import { useLayout, usePinnedDocs } from '/composables'
 import TheLeftSidebar from '/pages/menu.vue'
-import TheRightSidebar from '/pages/docs/[doc]/meta.vue'
+import TheRightSidebar from '/pages/docs/[docId]/meta.vue'
 import { bindGlobal } from '/src/common/keybindings'
 
 export default defineComponent({

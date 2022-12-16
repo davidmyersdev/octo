@@ -81,7 +81,7 @@ export const fetchSharedDoc = async ({ docId }: FetchDocParams) => {
     )
   )
 
-  return querySnapshot.docs[0]
+  return unwrapDoc(querySnapshot.docs[0])
 }
 
 export const updateDoc = async ({ doc, docId }: UpdateDocParams) => {
@@ -99,4 +99,24 @@ export const updateDoc = async ({ doc, docId }: UpdateDocParams) => {
       syncedAt: db.serverTimestamp(),
     }
   )
+}
+
+export const unwrapDoc = async (doc: db.DocumentSnapshot<db.DocumentData>) => {
+  const data = doc.data()
+
+  if (!data) {
+    return {}
+  }
+
+  return {
+    ...data,
+    id: (data.id || data.clientId),
+    firebaseId: doc.id,
+    textKey: (data.textKey || data.dataKey),
+    createdAt: (data.createdAt ? data.createdAt.toDate() : null),
+    discardedAt: (data.discardedAt ? data.discardedAt.toDate() : null),
+    updatedAt: (data.updatedAt ? data.updatedAt.toDate() : null),
+    touchedAt: (data.touchedAt ? data.touchedAt.toDate() : null),
+    syncedAt: data.syncedAt.toDate(),
+  }
 }

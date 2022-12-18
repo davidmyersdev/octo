@@ -41,8 +41,8 @@ export default defineNuxtConfig({
       strict: true,
     },
   },
-  ssr: true,
-  // tailwindcss: {
-  //   configPath: '~/tailwind.config.cjs',
-  // },
+  ssr: false,
+  tailwindcss: {
+    configPath: '~/tailwind.config.cjs',
+  },
 })

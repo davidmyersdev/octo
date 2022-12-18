@@ -18,5 +18,5 @@
     "types": ["vite/client"],
     "useDefineForClassFields": true
   },
-  "include": ["./**/*.ts", "./**/*.d.ts", "./**/*.tsx", "./**/*.vue"]
+  "extends": "./.nuxt/tsconfig.json"
 }

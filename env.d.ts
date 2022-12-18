@@ -1,11 +1,18 @@
+/// <reference types="cypress" />
 /// <reference types="vite/client" />
 
 import { type Instance } from 'ink-mde'
 import { type DefineComponent } from 'vue'
 
 declare global {
+  namespace Cypress {
+    interface Chainable {
+      clearIDB(): Cypress.Promise,
+    }
+  }
+
   interface Window {
-    inkMde: Instance
+    inkMde: Instance,
   }
 }
 

@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 describe('editor', () => {
   beforeEach(() => {
     cy.visit('/docs/new')

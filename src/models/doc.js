@@ -110,8 +110,9 @@ export const unpack = async (packed, { privateKey }) => {
         })
       )
     }
-  } catch (_error) {
+  } catch (error) {
     // suppress decryption errors and load encrypted document
+    console.error(error)
   }
 
   return new Doc(packed)

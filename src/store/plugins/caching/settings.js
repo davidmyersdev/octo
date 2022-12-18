@@ -1,5 +1,5 @@
 import localforage from 'localforage'
-
+import Debouncer from '/src/common/debouncer'
 import { unwrap } from '/src/common/vue'
 
 import {
@@ -25,6 +25,8 @@ const CACHE_KEY = 'main'
 const cache = localforage.createInstance({
   name: 'settings',
 })
+
+const debouncer = new Debouncer(20)
 
 export default (store) => {
   cache.getItem(CACHE_KEY).then((settings) => {
@@ -53,7 +55,9 @@ export default (store) => {
       case SET_EDITOR_TOOLBAR:
       case SET_EXPERIMENTAL:
       case SET_THEME:
-        cache.setItem(CACHE_KEY, unwrap(state.settings))
+        debouncer.debounce(CACHE_KEY, () => {
+          cache.setItem(CACHE_KEY, unwrap(state.settings))
+        })
 
         break
       default:

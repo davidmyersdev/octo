@@ -8,20 +8,40 @@
     <div class="mb-4">
       <div>
         <label class="button button-size-medium button-color-gray">
-          <input v-model="toggleCrypto" :disabled="!allowCrypto || togglingCrypto" type="checkbox" class="checkbox">
+          <input
+            v-model="toggleCrypto"
+            :disabled="!allowCrypto || togglingCrypto"
+            type="checkbox"
+            class="checkbox"
+            data-test-toggle-crypto
+          >
           <span class="ml-3">Enable Encryption</span>
         </label>
       </div>
       <small class="text-gray-700">Note: Toggling encryption will encrypt/decrypt all existing documents. <span v-if="!allowCrypto">Enabling encryption <strong>requires</strong> private/public keys. Generate or supply them below to enable.</span></small>
     </div>
     <div class="mb-4">
-      <label for="tags-search">Private Key</label>
-      <textarea v-model="privateKey" class="form-text w-full" rows="5" placeholder="Private key" autocomplete="off"></textarea>
+      <label>Private Key</label>
+      <textarea
+        v-model="privateKey"
+        class="form-text w-full"
+        rows="5"
+        placeholder="Private key"
+        autocomplete="off"
+        data-test-private-key
+      ></textarea>
       <small class="text-gray-700">This key is used to <em>decrypt</em> documents. It <strong>will not</strong> be synced across devices when signed in.</small>
     </div>
     <div class="mb-4">
-      <label for="tags-search">Public Key</label>
-      <textarea v-model="publicKey" class="form-text w-full" rows="5" placeholder="Public key" autocomplete="off"></textarea>
+      <label>Public Key</label>
+      <textarea
+        v-model="publicKey"
+        class="form-text w-full"
+        rows="5"
+        placeholder="Public key"
+        autocomplete="off"
+        data-test-public-key
+      ></textarea>
       <small class="text-gray-700">This key is used to <em>encrypt</em> documents. It <strong>will</strong> be synced across devices when signed in.</small>
     </div>
     <div class="mb-4">
@@ -55,8 +75,8 @@ export default {
         return this.$store.state.settings.crypto.privateKey;
       },
       set(value) {
-        this.$store.dispatch(SET_CRYPTO_KEYS, {
-          privateKey: value,
+        this.$store.commit(SET_CRYPTO_KEYS, {
+          privateKey: value.trim(),
         });
       },
     },
@@ -65,8 +85,8 @@ export default {
         return this.$store.state.settings.crypto.publicKey;
       },
       set(value) {
-        this.$store.dispatch(SET_CRYPTO_KEYS, {
-          publicKey: value,
+        this.$store.commit(SET_CRYPTO_KEYS, {
+          publicKey: value.trim(),
         });
       },
     },

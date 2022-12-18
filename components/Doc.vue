@@ -1,5 +1,8 @@
 <template>
-  <div class="shadow relative flex flex-col min-w-0 rounded text-sm overflow-hidden cursor-pointer bg-gray-100 dark:bg-darkest dark:text-gray-300">
+  <div
+    class="shadow relative flex flex-col min-w-0 rounded text-sm overflow-hidden cursor-pointer bg-gray-100 dark:bg-darkest dark:text-gray-300"
+    data-test-doc
+  >
     <div v-html="html" class="flex-grow flex-shrink overflow-hidden p-4 prose max-w-none prose-sm prose-img:rounded prose-h1:font-normal prose-h1:text-2xl dark:prose-invert"></div>
     <CoreDivider class="mx-2" />
     <div class="flex items-center justify-between p-4">

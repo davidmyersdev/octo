@@ -3,7 +3,6 @@ import localforage from 'localforage'
 import Debouncer from '/src/common/debouncer'
 
 import { pack, unpack } from '/src/models/doc'
-import { unwrap } from '/src/common/vue'
 
 import {
   ADD_DOCUMENT,

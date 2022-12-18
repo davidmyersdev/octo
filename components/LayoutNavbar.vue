@@ -29,14 +29,14 @@ export default defineComponent({
 <template>
   <nav class="flex items-center max-w-[100vw] py-2 bg-gray-100 dark:bg-darkest border-b border-white dark:border-gray-900">
     <section class="flex flex-shrink-0 items-center justify-center w-14">
-      <router-link class="flex p-2" :to="{ path: '/docs/new' }">
+      <CoreLink class="flex p-2" :to="{ path: '/docs/new' }">
         <TheLogo class="h-8 text-theme" />
-      </router-link>
+      </CoreLink>
     </section>
     <CoreDivider :vertical="true" />
     <section class="flex-shrink-0 px-2 w-72">
       <div>
-        <router-link :to="{ path: '/docs' }" class="block">
+        <CoreLink :to="{ path: '/docs' }" class="block">
           <CoreButton class="bg-transparent dark:bg-transparent border justify-between w-full">
             <div class="flex gap-3 items-center">
               <svg class="w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -50,7 +50,7 @@ export default defineComponent({
               <Key>f</Key>
             </span>
           </CoreButton>
-        </router-link>
+        </CoreLink>
       </div>
     </section>
     <CoreDivider :vertical="true" />

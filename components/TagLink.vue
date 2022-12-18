@@ -1,7 +1,7 @@
 <template>
-  <router-link :to="route" class="flex items-center">
+  <CoreLink :to="route" class="flex items-center">
     <Tag>{{ tag }}</Tag>
-  </router-link>
+  </CoreLink>
 </template>
 
 <script setup>

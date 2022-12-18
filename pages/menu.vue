@@ -8,20 +8,20 @@
             <span>Search</span>
           </div>
         </CoreLink>
-        <router-link :to="{ path: '/docs/f/untagged' }" class="sidebar-link">
+        <CoreLink :to="{ path: '/docs/f/untagged' }" class="sidebar-link">
           <InboxIcon class="w-5" />
           <span class="action flex flex-grow items-stretch justify-between ml-3">
             <span>Inbox</span>
             <ModKKey class="text-gray-500">U</ModKKey>
           </span>
-        </router-link>
-        <router-link :to="{ path: '/contexts' }" class="sidebar-link">
+        </CoreLink>
+        <CoreLink :to="{ path: '/contexts' }" class="sidebar-link">
           <WorkspacesIcon class="w-5" />
           <span class="action flex flex-grow items-stretch justify-between ml-3">
             <span class="action">Workspaces</span>
             <ModKKey class="text-gray-500">C</ModKKey>
           </span>
-        </router-link>
+        </CoreLink>
         <CoreLink v-if="!mediumPlus" :to="{ path: '/account' }" class="sidebar-link">
           <div class="flex gap-3 items-center">
             <AccountIcon class="w-5" />
@@ -43,30 +43,30 @@
             </span>
           </button>
         </div>
-        <router-link v-if="supportsFirebase && !user.id" @click="trackCta" :to="{ path: '/account' }" class="sidebar-link text-theme">
+        <CoreLink v-if="supportsFirebase && !user.id" @click="trackCta" :to="{ path: '/account' }" class="sidebar-link text-theme">
           <SaveIcon class="w-5" />
           <span class="action flex flex-grow items-stretch justify-between ml-3">
             <span>Save Docs</span>
           </span>
-        </router-link>
+        </CoreLink>
         <CoreDivider />
         <h6 class="px-1 pt-2 sidebar-label cursor-pointer">
           <span class="flex items-center gap-2"><ChevronUpDownIcon class="h-4" /> Filters</span>
         </h6>
-        <router-link :to="{ path: '/docs/f/tasks' }" class="sidebar-link">
+        <CoreLink :to="{ path: '/docs/f/tasks' }" class="sidebar-link">
           <CheckIcon class="w-5" />
           <span class="action flex flex-grow items-stretch justify-between ml-3">
             <span>Tasks</span>
             <ModKKey class="text-gray-500">T</ModKKey>
           </span>
-        </router-link>
-        <router-link :to="{ path: '/docs/f/discarded' }" class="sidebar-link">
+        </CoreLink>
+        <CoreLink :to="{ path: '/docs/f/discarded' }" class="sidebar-link">
           <TrashIcon class="w-5" />
           <span class="action flex flex-grow items-stretch justify-between ml-3">
             <span>Discarded</span>
             <ModKKey class="text-gray-500">D</ModKKey>
           </span>
-        </router-link>
+        </CoreLink>
         <div v-if="context.active || context.editing">
           <CoreDivider />
           <h6 class="px-1 pt-2 sidebar-label cursor-pointer">
@@ -96,10 +96,10 @@
         <h6 class="px-1 pt-2 sidebar-label cursor-pointer">
           <span class="flex items-center gap-2"><ChevronUpDownIcon class="h-4" /> Tags</span>
         </h6>
-        <router-link class="sidebar-link md:hidden" :to="{ path: '/tags' }">
+        <CoreLink class="sidebar-link md:hidden" :to="{ path: '/tags' }">
           <TagIcon class="w-5" />
           <span class="ml-3 flex-grow">Tags</span>
-        </router-link>
+        </CoreLink>
         <div v-if="mediumPlus">
           <TagLink v-for="tag in tags" :key="tag" :tag="tag" class="sidebar-link"></TagLink>
         </div>
@@ -107,18 +107,18 @@
         <h6 class="px-1 pt-2 sidebar-label cursor-pointer">
           <span class="flex items-center gap-2"><ChevronUpDownIcon class="h-4" /> Policies</span>
         </h6>
-        <router-link :to="{ path: '/privacy-policy' }" class="sidebar-link">
+        <CoreLink :to="{ path: '/privacy-policy' }" class="sidebar-link">
           <DocumentTextIcon class="w-5" />
           <span class="action flex flex-grow items-stretch justify-between ml-3">
             <span>Privacy Policy</span>
           </span>
-        </router-link>
-        <router-link :to="{ path: 'terms-and-conditions' }" class="sidebar-link">
+        </CoreLink>
+        <CoreLink :to="{ path: 'terms-and-conditions' }" class="sidebar-link">
           <DocumentTextIcon class="w-5" />
           <span class="action flex flex-grow items-stretch justify-between ml-3">
             <span>Terms &amp; Conditions</span>
           </span>
-        </router-link>
+        </CoreLink>
       </div>
     </div>
   </CoreScrollable>

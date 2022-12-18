@@ -8,14 +8,14 @@
             <h1 class="text-4xl lg:text-6xl font-semibold">Build <span class="underline underline-offset-8 decoration-2">your</span> second brain.</h1>
           </div>
           <div class="flex flex-col gap-4 items-center text-center">
-            <router-link v-if="user" :to="{ path: '/docs/new' }" class="button-base bg-brand transition shadow whitespace-nowrap justify-center gap-3 text-black text-xl py-2 px-8 hover:scale-125">
+            <CoreLink v-if="user" :to="{ path: '/docs/new' }" class="button-base bg-brand transition shadow whitespace-nowrap justify-center gap-3 text-black text-xl py-2 px-8 hover:scale-125">
               <span class="flex items-center gap-3 align-center">
                 <span>Open the app</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
               </span>
-            </router-link>
+            </CoreLink>
             <a v-else @click="trackCtaSignUpNow" href="#pricing" class="button-base bg-brand transition shadow whitespace-nowrap justify-center gap-3 text-black text-xl py-2 px-8 hover:scale-125">
               <span class="flex items-center gap-3 align-center">
                 <span>Get started for free</span>
@@ -319,7 +319,7 @@
       <div class="container mx-auto">
         <div class="max-w-[80ch] mx-auto mb-8">
           <h2 id="pricing" class="text-2xl lg:text-4xl font-bold">Pricing</h2>
-          <p class="my-4">Accounts are recommended, but they are not required. Feel free to just <router-link :to="{ path: '/docs/new' }" class="underline">open the app</router-link> instead.</p>
+          <p class="my-4">Accounts are recommended, but they are not required. Feel free to just <CoreLink :to="{ path: '/docs/new' }" class="underline">open the app</CoreLink> instead.</p>
           <AuthTiers />
         </div>
       </div>
@@ -328,8 +328,8 @@
       <div class="max-w-[80ch] mx-auto mb-8">
         <div class="flex flex-col items-center lg:items-start gap-2">
           <div class="flex flex-col items-center lg:flex-row gap-2 lg:gap-4">
-            <router-link :to="{ path: '/privacy-policy' }">Privacy Policy</router-link>
-            <router-link :to="{ path: '/terms-and-conditions' }">Terms &amp; Conditions</router-link>
+            <CoreLink :to="{ path: '/privacy-policy' }">Privacy Policy</CoreLink>
+            <CoreLink :to="{ path: '/terms-and-conditions' }">Terms &amp; Conditions</CoreLink>
             <div class="flex items-center gap-2 mt-1 lg:mt-0">
               <a href="https://twitter.com/voraciousdev" target="_blank" rel="noopener noreferrer"><IconTwitter class="h-6 lg:h-4" /></a>
               <a href="https://github.com/voracious" target="_blank" rel="noopener noreferrer"><IconGitHub class="h-6 lg:h-4" /></a>

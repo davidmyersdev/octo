@@ -1,16 +1,16 @@
 <template>
   <tr>
     <td class="py-1 px-2">
-      <RouterLink :to="route.path">{{ path }}</RouterLink>
+      <CoreLink :to="route.path">{{ path }}</CoreLink>
     </td>
     <td class="py-1 px-2">
-      <RouterLink :to="route.path">{{ route.name }}</RouterLink>
+      <CoreLink :to="route.path">{{ route.name }}</CoreLink>
     </td>
     <td class="py-1 px-2">
-      <RouterLink :to="route.path">{{ route.redirect }}</RouterLink>
+      <CoreLink :to="route.path">{{ route.redirect }}</CoreLink>
     </td>
     <td class="py-1 px-2">
-      <RouterLink :to="route.path">{{ route.component }}</RouterLink>
+      <CoreLink :to="route.path">{{ route.component }}</CoreLink>
     </td>
   </tr>
   <DevRoute v-if="children" v-for="child in children" :parent="path" :route="child" />

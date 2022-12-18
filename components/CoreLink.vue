@@ -10,12 +10,14 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { isNuxt } = useIsNuxt()
     const isExternal = computed(() => typeof props.to === 'string')
     const toExternal = computed(() => props.to as string)
     const toInternal = computed(() => props.to as RouterLinkProps)
 
     return {
       isExternal,
+      isNuxt,
       toExternal,
       toInternal,
     }
@@ -25,5 +27,6 @@ export default defineComponent({
 
 <template>
   <a v-if="isExternal" :href="toExternal" rel="noopener noreferrer" target="_blank"><slot /></a>
-  <RouterLink v-else :to="toInternal"><slot /></RouterLink>
+  <RouterLink v-else-if="!isNuxt" :to="toInternal"><slot /></RouterLink>
+  <NuxtLink v-else :to="toInternal"><slot /></NuxtLink>
 </template>

@@ -9,6 +9,7 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Alert: typeof import('./components/Alert.vue')['default']
     Appearance: typeof import('./components/settings/Appearance.vue')['default']
+    AppPage: typeof import('./components/AppPage.vue')['default']
     AsyncChangeLog: typeof import('./components/AsyncChangeLog.vue')['default']
     AuthMagicLink: typeof import('./components/AuthMagicLink.vue')['default']
     AuthMagicLinkModal: typeof import('./components/AuthMagicLinkModal.vue')['default']

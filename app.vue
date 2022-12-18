@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="h-full" :class="sizes.concat([!ligatures && 'ligatures-none'])">
     <AsyncChangeLog v-if="!home && !publicDoc && !flow" />
-    <router-view :inheritAttrs="true" class="flex-grow flex-shrink min-h-0"></router-view>
+    <AppPage class="flex-grow flex-shrink min-h-0" />
   </div>
 </template>
 

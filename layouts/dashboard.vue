@@ -238,7 +238,7 @@ export default defineComponent({
       <section class="flex flex-grow flex-shrink overflow-hidden min-w-0">
         <TheLeftSidebar v-if="(!mobile && showMenu)" class="hidden w-64 bg-gray-100 dark:bg-darkest md:flex flex-shrink-0" />
         <CoreDivider v-if="(!mobile && showMenu)" :vertical="true" />
-        <RouterView :inheritAttrs="true" :key="routeKey" class="dashboard-content flex-grow flex-shrink h-full overflow-x-hidden relative" />
+        <AppPage :key="routeKey" class="dashboard-content flex-grow flex-shrink h-full overflow-x-hidden relative" />
         <CoreDivider v-if="(!mobile && showMeta && currentDoc)" :vertical="true" />
         <TheRightSidebar v-if="(!mobile && showMeta && currentDoc && isDoc)" class="hidden w-64 bg-gray-100 dark:bg-darkest md:flex flex-shrink-0" />
       </section>

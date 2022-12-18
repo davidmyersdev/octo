@@ -1,6 +1,6 @@
 <template>
   <CoreScrollable class="the-content">
-    <router-view :inheritAttrs="true" :key="routeKey" class="flex"></router-view>
+    <AppPage :key="routeKey" class="flex" />
   </CoreScrollable>
 </template>
 

@@ -18,6 +18,9 @@
 .vscode
 dist
 node_modules
+test/cypress/downloads
+test/cypress/screenshots
+test/cypress/videos
 
 # We are not using Zero-Installs.
 # https://yarnpkg.com/getting-started/qa/#which-files-should-be-gitignored

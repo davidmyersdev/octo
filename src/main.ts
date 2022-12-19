@@ -14,7 +14,7 @@ import { router } from '/src/router'
 import { store } from '/src/store'
 import { caching } from '/src/stores/plugins'
 
-import '/src/assets/app.css'
+import '/assets/css/tailwind.css'
 import 'overlayscrollbars/overlayscrollbars.css'
 
 // import the service worker

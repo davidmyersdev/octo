@@ -343,6 +343,7 @@
 </template>
 
 <script>
+import { useStore } from 'vuex'
 import AuthTiers from '/components/AuthTiers.vue'
 import IconGitHub from '/assets/github.svg?component'
 import IconTwitter from '/assets/twitter.svg?component'
@@ -355,6 +356,11 @@ export default {
     IconGitHub,
     IconTwitter,
     TheLogo,
+  },
+  setup() {
+    const store = useStore()
+
+    store.commit('SET_SHOW_WELCOME', false)
   },
   data() {
     return {

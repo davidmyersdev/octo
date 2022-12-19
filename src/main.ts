@@ -1,15 +1,12 @@
-import { useStorage } from '@vueuse/core'
-import { getAuth } from 'firebase/auth'
 import { createPinia } from 'pinia'
-import { createApp, h, provide } from 'vue'
+import { createApp, h } from 'vue'
 // @ts-ignore
 import { Vue3Mq } from 'vue3-mq'
 import CoreScrollable from '/components/CoreScrollable.vue'
 import Extendable from '/components/Extendable.vue'
-import { type User, useAppearance } from '/composables'
 import App from '/app.vue'
 import { init } from '/src/firebase'
-import { globalConfig } from '/src/global'
+
 import { router } from '/src/router'
 import { store } from '/src/store'
 import { caching } from '/src/stores/plugins'
@@ -26,8 +23,6 @@ import {
   SET_ONLINE,
   SET_SHOW_WELCOME,
 } from '/src/store/actions.js'
-
-import { SET_SUBSCRIPTION, SET_USER } from '/src/store/modules/auth'
 
 import PackageManager from '/src/packages/manager.js'
 
@@ -67,64 +62,6 @@ if (/Mac|iPod|iPhone|iPad/.test(navigator.platform || navigator.userAgentData.pl
 
 const app = createApp({
   render: () => h(App),
-  setup() {
-    // https://github.com/vueuse/vueuse/issues/1595
-    const email = useStorage<string>('email', '')
-    const user = useStorage<User>('user', {
-      id: undefined,
-      providers: [],
-      roles: [],
-    }, undefined, { mergeDefaults: true })
-    const { appearance } = useAppearance()
-
-    provide('appearance', appearance)
-    provide('email', email)
-    provide('user', user)
-
-    if (globalConfig.supportsFirebase) {
-      getAuth().onIdTokenChanged(async (authUser) => {
-
-        if (authUser) {
-          user.value = {
-            ...user.value,
-            id: authUser.uid,
-            providers: [...authUser.providerData],
-          }
-
-          store.commit(SET_USER, authUser)
-
-          const token = await authUser.getIdTokenResult(true)
-
-          if (token.claims.ambassador && !user.value.roles.includes('ambassador')) {
-            user.value = {
-              ...user.value,
-              roles: [...user.value.roles, 'ambassador'],
-            }
-
-            store.commit(SET_SUBSCRIPTION, { pro: true })
-          }
-
-          if (token.claims.stripeRole === 'subscriber' && !user.value.roles.includes('subscriber')) {
-            user.value = {
-              ...user.value,
-              roles: [...user.value.roles, 'subscriber'],
-            }
-
-            store.commit(SET_SUBSCRIPTION, { pro: true })
-          }
-        } else {
-          user.value = {
-            id: undefined,
-            providers: [],
-            roles: [],
-          }
-
-          store.commit(SET_USER, null)
-          store.commit(SET_SUBSCRIPTION, { pro: false })
-        }
-      })
-    }
-  },
 })
 const pinia = createPinia()
 

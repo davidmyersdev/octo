@@ -6,13 +6,11 @@
 </template>
 
 <script>
-import AsyncChangeLog from '/components/AsyncChangeLog.vue'
-
 export default {
-  components: {
-    AsyncChangeLog,
-  },
   inject: ["mq"],
+  setup() {
+    useRoot()
+  },
   computed: {
     flow() {
       // A param to indicate a user flow (e.g. completing sign-up or sign-in).

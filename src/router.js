@@ -5,7 +5,6 @@ import {
   SET_SHOW_WELCOME,
 } from '/src/store/actions.js'
 import { setTitle } from '/src/common/title.js'
-import { globalConfig } from '/src/global'
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -15,14 +14,6 @@ export const router = createRouter({
       name: 'home',
       meta: { track: true },
       component: () => import('/pages/home.vue'),
-      beforeEnter(to, from, next) {
-        if (store.state.showWelcome) {
-          localStorage.setItem('octo/welcome/v1', 'done')
-          store.dispatch(SET_SHOW_WELCOME, false)
-        }
-
-        next()
-      },
     },
     {
       path: '/',
@@ -56,7 +47,7 @@ export const router = createRouter({
             {
               path: '/docs',
               meta: { title: 'My Docs', track: true },
-              component: () => import('/pages/docs.vue'),
+              component: () => import('/pages/docs/index.vue'),
             },
             {
               path: '/docs/f/:filter',
@@ -273,6 +264,8 @@ router.beforeEach((to) => {
 })
 
 export const open = (to) => {
+  const router = useRouter()
+
   if (to.params?.props) {
     to.params.props = JSON.stringify(to.params.props)
   }

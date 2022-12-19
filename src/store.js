@@ -105,6 +105,10 @@ export const store = createStore({
       state.showStripeModal = isVisible
     },
     [SET_SHOW_WELCOME] (state, shouldShowWelcome) {
+      if (!shouldShowWelcome) {
+        window.localStorage.setItem('octo/welcome/v1', 'done')
+      }
+
       state.showWelcome = shouldShowWelcome
     },
   },

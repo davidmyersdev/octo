@@ -14,6 +14,7 @@
 
 <script>
 import { defineComponent, inject } from 'vue'
+import { useStore } from 'vuex'
 import Editor from '/components/Editor.vue'
 import { setTitle } from '/src/common/title'
 import Doc from '/src/models/doc'
@@ -50,9 +51,12 @@ export default defineComponent({
   },
   setup() {
     const appearance = inject('appearance')
+    const store = useStore()
+    const settings = computed(() => store.state.settings.editor)
 
     return {
       appearance: appearance.value === 'october' ? 'dark' : appearance.value,
+      settings,
     }
   },
   watch: {
@@ -69,9 +73,6 @@ export default defineComponent({
   computed: {
     doc() {
       return this.$store.getters.decrypted.find((doc) => doc.id === this.docId) || this.placeholder
-    },
-    settings() {
-      return this.$store.state.settings.editor
     },
     tags() {
       return this.doc.tags

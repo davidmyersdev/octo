@@ -1,10 +1,10 @@
 <template>
-  <Editor v-if="daily" :id="daily.id" initialFocus="end" />
+  <EditorPage v-if="daily" :id="daily.id" />
 </template>
 
 <script>
 import moment from 'moment'
-import Editor from '/pages/docs/[docId].vue'
+import EditorPage from '/pages/docs/[docId].vue'
 import Doc from '/src/models/doc.js'
 
 import {
@@ -14,7 +14,7 @@ import {
 
 export default {
   components: {
-    Editor,
+    EditorPage,
   },
   computed: {
     daily() {

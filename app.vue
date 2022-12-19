@@ -1,15 +1,34 @@
 <template>
   <div id="app" class="h-full" :class="sizes.concat([!ligatures && 'ligatures-none'])">
     <AsyncChangeLog v-if="!home && !publicDoc && !flow" />
-    <AppPage class="flex-grow flex-shrink min-h-0" />
+    <AppLayout name="dashboard">
+      <AppPage :pageKey="pageKey" class="dashboard-content flex-grow flex-shrink h-full overflow-x-hidden relative" />
+    </AppLayout>
   </div>
 </template>
 
 <script>
-export default {
-  inject: ["mq"],
+import { nanoid } from 'nanoid'
+
+import 'overlayscrollbars/overlayscrollbars.css'
+
+export default defineComponent({
+  inject: ['mq'],
   setup() {
     useRoot()
+
+    const pageKey = ref('')
+    const router = useRouter()
+
+    router.beforeEach((to) => {
+      if (!to.query.p) {
+        pageKey.value = nanoid()
+      }
+    })
+
+    return {
+      pageKey,
+    }
   },
   computed: {
     flow() {
@@ -17,35 +36,34 @@ export default {
       return this.$route.query.flow
     },
     home() {
-      return this.$route.name === "home"
+      return this.$route.name === 'home'
     },
     ligatures() {
       return this.$store.state.settings.editor.ligatures
     },
     publicDoc() {
-      return this.$route.name === "public-doc"
+      return this.$route.name === 'public-doc'
     },
     sizes() {
-      if (this.mq.current === "xs") return ["xs xs-plus"]
-      if (this.mq.current === "sm") return ["sm xs-plus sm-plus"]
-      if (this.mq.current === "md") return ["md xs-plus sm-plus md-plus"]
-      if (this.mq.current === "lg") return ["lg xs-plus sm-plus md-plus lg-plus"]
-      if (this.mq.current === "xl") return ["xl xs-plus sm-plus md-plus lg-plus xl-plus"]
+      if (this.mq.current === 'xs') return ['xs xs-plus']
+      if (this.mq.current === 'sm') return ['sm xs-plus sm-plus']
+      if (this.mq.current === 'md') return ['md xs-plus sm-plus md-plus']
+      if (this.mq.current === 'lg') return ['lg xs-plus sm-plus md-plus lg-plus']
+      if (this.mq.current === 'xl') return ['xl xs-plus sm-plus md-plus lg-plus xl-plus']
 
       return []
     },
   },
-  methods: {
-    closeChangelog() {
-      this.showChangelog = false
-    },
-  },
-}
+})
 </script>
 
 <style>
 :root {
   --app-height: 100vh;
+}
+
+html, body, #app, .__nuxt {
+  height: var(--app-height, 100vh);
 }
 
 .october {
@@ -97,10 +115,6 @@ pre {
 
 .notification .notification-body {
   padding: 1rem;
-}
-
-hr {
-  margin-top: 0.5rem;
 }
 
 svg {

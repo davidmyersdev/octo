@@ -1,7 +1,7 @@
 <script lang="ts">
 export default defineComponent({
   props: {
-    key: {
+    pageKey: {
       type: String,
     },
   },
@@ -16,6 +16,6 @@ export default defineComponent({
 </script>
 
 <template>
-  <RouterView v-if="!isNuxt" :inheritAttrs="true" :key="key" />
-  <NuxtPage :pageKey="key" v-else />
+  <NuxtPage v-if="isNuxt" :pageKey="pageKey" />
+  <RouterView v-else :inheritAttrs="true" :key="pageKey" />
 </template>

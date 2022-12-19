@@ -12,7 +12,6 @@ import { store } from '/src/store'
 import { caching } from '/src/stores/plugins'
 
 import '/assets/css/tailwind.css'
-import 'overlayscrollbars/overlayscrollbars.css'
 
 // import the service worker
 import '/src/sw.js'

@@ -1,6 +1,6 @@
 <template>
   <CoreScrollable class="the-content">
-    <AppPage :key="routeKey" class="flex" />
+    <AppPage :pageKey="routeKey" class="flex" />
   </CoreScrollable>
 </template>
 

@@ -43,22 +43,8 @@ export default defineComponent({
     XMarkIcon,
   },
   inject: ['mq'],
-  data() {
-    return {
-      routeKey: '',
-    }
-  },
-  watch: {
-    $route: {
-      deep: true,
-      handler(route) {
-        if (route.query.p) { return }
-
-        this.routeKey = nanoid()
-      },
-    },
-  },
   setup() {
+    const { isNuxt } = useIsNuxt()
     const mq = useMq()
     const store = useStore()
     const router = useRouter()
@@ -121,6 +107,7 @@ export default defineComponent({
       handleTabClose,
       isDoc,
       isNew,
+      isNuxt,
       linkToDiscord,
       mobile,
       modKey,
@@ -238,7 +225,7 @@ export default defineComponent({
       <section class="flex flex-grow flex-shrink overflow-hidden min-w-0">
         <TheLeftSidebar v-if="(!mobile && showMenu)" class="hidden w-64 bg-gray-100 dark:bg-darkest md:flex flex-shrink-0" />
         <CoreDivider v-if="(!mobile && showMenu)" :vertical="true" />
-        <AppPage :key="routeKey" class="dashboard-content flex-grow flex-shrink h-full overflow-x-hidden relative" />
+        <slot />
         <CoreDivider v-if="(!mobile && showMeta && currentDoc)" :vertical="true" />
         <TheRightSidebar v-if="(!mobile && showMeta && currentDoc && isDoc)" class="hidden w-64 bg-gray-100 dark:bg-darkest md:flex flex-shrink-0" />
       </section>

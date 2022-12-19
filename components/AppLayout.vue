@@ -1,0 +1,30 @@
+<script lang="ts">
+import Dashboard from '/layouts/dashboard.vue'
+
+export default defineComponent({
+  components: {
+    Dashboard,
+  },
+  props: {
+    name: {
+      type: String,
+    },
+  },
+  setup() {
+    const { isNuxt } = useIsNuxt()
+    const router = useRouter()
+    const isDashboard = computed(() => router.currentRoute.value.name !== 'home')
+
+    return {
+      isDashboard,
+      isNuxt,
+    }
+  },
+})
+</script>
+
+<template>
+  <NuxtLayout v-if="isNuxt" :name="name"><slot /></NuxtLayout>
+  <Dashboard v-else-if="isDashboard"><slot /></Dashboard>
+  <slot v-else />
+</template>

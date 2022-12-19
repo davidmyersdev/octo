@@ -1,6 +1,6 @@
 export const useIsNuxt = () => {
   // @ts-ignore
-  const isNuxt = typeof useNuxtApp !== 'undefined'
+  const { isNuxt } = globalThis
 
   return {
     isNuxt,

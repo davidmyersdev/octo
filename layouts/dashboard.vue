@@ -143,7 +143,7 @@ export default defineComponent({
       </div>
       <div class="flex flex-col gap-4 pb-4 items-center">
         <div class="flex flex-col gap-4 pb-4 items-center opacity-25">
-          <CoreLink :to="linkToDiscord">
+          <CoreLink v-if="linkToDiscord" :to="linkToDiscord">
             <DiscordIcon class="w-6 px-px" />
           </CoreLink>
           <HeartIcon v-if="false" class="w-6" />

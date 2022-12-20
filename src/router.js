@@ -21,6 +21,7 @@ export const router = createRouter({
       children: [
         {
           path: '/',
+          name: 'root',
           meta: { track: true },
           beforeEnter(to, from, next) {
             if (store.state.showWelcome) {

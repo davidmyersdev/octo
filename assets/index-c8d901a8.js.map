@@ -1,0 +1,1 @@
+{"version":3,"file":"index-c8d901a8.js","sources":["../../pages/docs/index.vue"],"sourcesContent":["<template>\n  <DocList v-model:query=\"query\" />\n</template>\n\n<script lang=\"ts\" setup>\nconst { query } = useRouteQuery()\n</script>\n"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;AAKA,UAAA,EAAA,UAAA;;;;;;;;;;"}

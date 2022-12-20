@@ -1,0 +1,1 @@
+{"version":3,"file":"useIsNuxt-03feeb69.js","sources":["../../composables/useIsNuxt.ts"],"sourcesContent":["export const useIsNuxt = () => {\n  // @ts-ignore\n  const { isNuxt } = globalThis\n\n  return {\n    isNuxt,\n  }\n}\n"],"names":[],"mappings":"AAAO,MAAM,YAAY,MAAM;AAEvB,QAAA,EAAE,OAAW,IAAA;AAEZ,SAAA;AAAA,IACL;AAAA,EAAA;AAEJ;"}

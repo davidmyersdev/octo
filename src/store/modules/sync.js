@@ -3,7 +3,6 @@ import { pack, unpack } from '/src/models/doc'
 import { unwrap } from '/src/common/vue'
 
 import {
-  ADD_DOCUMENT,
   MERGE_DOCUMENT,
   SYNC,
 } from '/src/store/actions'
@@ -50,7 +49,7 @@ export default {
         }
       } else {
         // file does not exist on client
-        return context.dispatch(ADD_DOCUMENT, doc)
+        return context.dispatch('EDIT_DOCUMENT', doc)
       }
     },
     async [PULL_DOCUMENTS] (context) {

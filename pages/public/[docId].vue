@@ -45,7 +45,7 @@ export default defineComponent({
   methods: {
     async findSharedDocument() {
       // Todo: Provide info to the user about what is happening here. Redirect on error.
-      const packed = await fetchSharedDoc({ docId: this.docId })
+      const packed = await fetchSharedDoc({ docId: this.$route.params.docId })
 
       return unpack(packed, { privateKey: this.$store.state.settings.crypto.privateKey })
     },

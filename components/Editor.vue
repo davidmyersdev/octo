@@ -97,7 +97,7 @@ export default defineComponent({
           lists: this.settings.lists.enabled,
           readonly: this.ro,
           spellcheck: this.settings.spellcheck,
-          toolbar: this.settings.toolbar,
+          toolbar: this.settings.toolbar && !this.ro,
         },
         // Todo: Make these configurable.
         plugins: [

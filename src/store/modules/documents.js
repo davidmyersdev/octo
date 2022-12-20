@@ -2,7 +2,6 @@ import Doc from '/src/models/doc'
 import { useRecentDocs } from '/src/stores/useRecentDocs'
 
 import {
-  ADD_DOCUMENT,
   DISCARD_DOCUMENT,
   DUPLICATE_DOCUMENT,
   DOCUMENTS_LOADED,

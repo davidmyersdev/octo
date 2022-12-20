@@ -1,4 +1,4 @@
-import { E as Editor } from "./Editor-ed41721e.js";
+import { E as Editor } from "./Editor-c4265d13.js";
 import { s as setTitle } from "./title-23c0a2fd.js";
 import { c as fetchSharedDoc } from "./firestore-a0851d35.js";
 import { D as Doc, u as unpack } from "./doc-018f7423.js";
@@ -52,7 +52,7 @@ const _sfc_main = defineComponent({
   },
   methods: {
     async findSharedDocument() {
-      const packed = await fetchSharedDoc({ docId: this.docId });
+      const packed = await fetchSharedDoc({ docId: this.$route.params.docId });
       return unpack(packed, { privateKey: this.$store.state.settings.crypto.privateKey });
     },
     updateTitle() {
@@ -78,4 +78,4 @@ const _docId_ = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]
 export {
   _docId_ as default
 };
-//# sourceMappingURL=_docId_-a0afb3c7.js.map
+//# sourceMappingURL=_docId_-7775941e.js.map

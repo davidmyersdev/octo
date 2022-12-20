@@ -6,7 +6,7 @@ import { _ as __unplugin_components_0$1 } from "./CoreLink-6737d303.js";
 import { n as nanoid } from "./index.browser-0a05c6e5.js";
 import { _ as __unplugin_components_1$1 } from "./CoreButton-765ee119.js";
 import { _ as __unplugin_components_0$2 } from "./TheLogo-3b3b0e0c.js";
-import { o as open } from "./router-85b0f62c.js";
+import { o as open } from "./router-109e19e2.js";
 import { u as useFiles } from "./useFiles-7bacb5ca.js";
 import { g as globalConfig } from "./global-6817a2cb.js";
 import { n as DEACTIVATE_CONTEXT, o as SET_CONTEXT_TAGS } from "./actions-a6a34f3c.js";
@@ -764,4 +764,4 @@ export {
   __unplugin_components_3 as _,
   menu as m
 };
-//# sourceMappingURL=menu-198433e5.js.map
+//# sourceMappingURL=menu-f2d5e837.js.map

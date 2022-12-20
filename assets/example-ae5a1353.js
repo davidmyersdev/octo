@@ -1,4 +1,4 @@
-import { E as Editor } from "./Editor-ed41721e.js";
+import { E as Editor } from "./Editor-c4265d13.js";
 import { D as Doc } from "./doc-018f7423.js";
 import { _ as _export_sfc, o as openBlock, k as createBlock } from "./_plugin-vue_export-helper-ea9be126.js";
 import "./runtime-dom.esm-bundler-eaea4b0e.js";
@@ -65,4 +65,4 @@ const example = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]
 export {
   example as default
 };
-//# sourceMappingURL=example-12501371.js.map
+//# sourceMappingURL=example-ae5a1353.js.map

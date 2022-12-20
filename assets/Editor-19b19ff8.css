@@ -1,24 +1,24 @@
 
-.md-plus .editable[data-v-7f40820b] {
+.md-plus .editable[data-v-405f00c3] {
     font-size: 1.1em;
 }
-.editor[data-v-7f40820b] {
+.editor[data-v-405f00c3] {
     --ink-font-family: 'Inter', helvetica, sans-serif;
     --ink-code-font-family: 'Fira Code', monospace;
 }
 @media (max-width: 767px) {
-[data-v-7f40820b] .ink-mde-toolbar {
+[data-v-405f00c3] .ink-mde-toolbar {
       -webkit-box-ordinal-group: 2;
           -ms-flex-order: 1;
               order: 1;
 }
-[data-v-7f40820b] .ink-mde .ink-mde-toolbar .ink-mde-container {
+[data-v-405f00c3] .ink-mde .ink-mde-toolbar .ink-mde-container {
       gap: 0;
 }
-[data-v-7f40820b] .ink-mde .ink-mde-editor {
+[data-v-405f00c3] .ink-mde .ink-mde-editor {
       padding-top: 2rem;
 }
-[data-v-7f40820b] .ink-mde .ink-mde-details {
+[data-v-405f00c3] .ink-mde .ink-mde-details {
       background-color: transparent;
       position: absolute;
       top: 0;
@@ -27,28 +27,28 @@
 }
 }
 @media (min-width: 768px) {
-[data-v-7f40820b] .ink-mde .ink-mde-toolbar {
+[data-v-405f00c3] .ink-mde .ink-mde-toolbar {
       background-color: transparent;
       background: repeating-linear-gradient(135deg, transparent, transparent 10px, var(--colors-layer-1) 10px, var(--colors-layer-1) 11px);
       border-bottom: 2px solid var(--colors-layer-1);
       padding-bottom: calc(0.25rem + 2px);
 }
-[data-v-7f40820b] .ink-mde .ink-mde-toolbar .ink-mde-container {
+[data-v-405f00c3] .ink-mde .ink-mde-toolbar .ink-mde-container {
       background-color: var(--colors-layer-1);
       border-radius: 0.25rem;
       padding: 0.25rem;
 }
 }
-[data-v-7f40820b] .ink-mde {
+[data-v-405f00c3] .ink-mde {
     border: none;
     border-radius: 0;
 }
-[data-v-7f40820b] .ink-mde .ink-mde-container {
-    max-width: var(--fa3de250);
+[data-v-405f00c3] .ink-mde .ink-mde-container {
+    max-width: var(--1070ec12);
 }
-[data-v-7f40820b] .ink-editor .ink-mde-widget svg {
+[data-v-405f00c3] .ink-editor .ink-mde-widget svg {
     margin: auto;
 }
-.ink-editor[data-v-7f40820b] .cm-editor.cm-focused {
+.ink-editor[data-v-405f00c3] .cm-editor.cm-focused {
     outline: none;
 }

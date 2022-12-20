@@ -11622,7 +11622,7 @@ const plugins = (config) => {
     ...urls()
   ];
 };
-const Editor_vue_vue_type_style_index_0_scoped_7f40820b_lang = "";
+const Editor_vue_vue_type_style_index_0_scoped_405f00c3_lang = "";
 const __default__ = defineComponent({
   emits: ["input"],
   components: {
@@ -11703,7 +11703,7 @@ const __default__ = defineComponent({
           lists: this.settings.lists.enabled,
           readonly: this.ro,
           spellcheck: this.settings.spellcheck,
-          toolbar: this.settings.toolbar
+          toolbar: this.settings.toolbar && !this.ro
         },
         plugins: [
           ...this.plugins,
@@ -11807,7 +11807,7 @@ const __default__ = defineComponent({
 });
 const __injectCSSVars__ = () => {
   useCssVars((_ctx) => ({
-    "fa3de250": _ctx.cssMaxWidth
+    "1070ec12": _ctx.cssMaxWidth
   }));
 };
 const __setup__ = __default__.setup;
@@ -11834,8 +11834,8 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     ])
   ]);
 }
-const Editor = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-7f40820b"]]);
+const Editor = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render], ["__scopeId", "data-v-405f00c3"]]);
 export {
   Editor as E
 };
-//# sourceMappingURL=Editor-ed41721e.js.map
+//# sourceMappingURL=Editor-c4265d13.js.map

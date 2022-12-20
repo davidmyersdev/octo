@@ -4,7 +4,7 @@ import { D as DISCARD_DOCUMENT, R as RESTORE_DOCUMENT, k as MERGE_DOCUMENTS } fr
 import { w as withModifiers, v as vModelText, b as withKeys } from "./runtime-dom.esm-bundler-eaea4b0e.js";
 import { _ as _export_sfc, o as openBlock, c as createElementBlock, d as createBaseVNode, h as createVNode, t as toDisplayString, n as createCommentVNode, j as createTextVNode, ab as withDirectives, F as Fragment, p as renderList, ac as mergeProps, q as normalizeClass } from "./_plugin-vue_export-helper-ea9be126.js";
 import { _ as _sfc_main$2 } from "./Tag.vue_vue_type_script_setup_true_lang-65429ac4.js";
-import { o as open } from "./router-85b0f62c.js";
+import { o as open } from "./router-109e19e2.js";
 const element = document.createElement("i");
 function decodeNamedCharacterReference(value) {
   const characterReference2 = "&" + value + ";";
@@ -6346,4 +6346,4 @@ const __unplugin_components_0 = /* @__PURE__ */ _export_sfc(_sfc_main, [["render
 export {
   __unplugin_components_0 as _
 };
-//# sourceMappingURL=DocList-52960600.js.map
+//# sourceMappingURL=DocList-199f4778.js.map

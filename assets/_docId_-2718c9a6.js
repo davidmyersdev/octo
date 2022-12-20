@@ -1,4 +1,4 @@
-import { E as Editor } from "./Editor-ed41721e.js";
+import { E as Editor } from "./Editor-c4265d13.js";
 import { u as useStore } from "./vuex.esm-bundler-99de9736.js";
 import { s as setTitle } from "./title-23c0a2fd.js";
 import { D as Doc } from "./doc-018f7423.js";
@@ -124,4 +124,4 @@ const EditorPage = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_rende
 export {
   EditorPage as default
 };
-//# sourceMappingURL=_docId_-858669f9.js.map
+//# sourceMappingURL=_docId_-2718c9a6.js.map

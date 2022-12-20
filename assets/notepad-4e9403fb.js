@@ -1,10 +1,10 @@
 import { _ as __vitePreload } from "./preload-helper-5f15640e.js";
 import { h as hooks } from "./moment-f63e338d.js";
-import EditorPage from "./_docId_-858669f9.js";
+import EditorPage from "./_docId_-2718c9a6.js";
 import { D as Doc } from "./doc-018f7423.js";
 import { E as EDIT_DOCUMENT, e as DOCUMENTS_LOADED } from "./actions-a6a34f3c.js";
 import { _ as _export_sfc, g as resolveComponent, o as openBlock, k as createBlock, n as createCommentVNode } from "./_plugin-vue_export-helper-ea9be126.js";
-import "./Editor-ed41721e.js";
+import "./Editor-c4265d13.js";
 import "./runtime-dom.esm-bundler-eaea4b0e.js";
 import "./client-2de13258.js";
 import "./index-73136136.js";
@@ -93,4 +93,4 @@ const notepad = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_render]]
 export {
   notepad as default
 };
-//# sourceMappingURL=notepad-23bd6b11.js.map
+//# sourceMappingURL=notepad-4e9403fb.js.map

@@ -5,7 +5,7 @@ import { _ as _sfc_main$3 } from "./TagLink-3b631b6d.js";
 import { w as withModifiers } from "./runtime-dom.esm-bundler-eaea4b0e.js";
 import { h as hooks } from "./moment-f63e338d.js";
 import { a as parseCodeblocks, b as parseReferences } from "./doc-018f7423.js";
-import { o as open$1 } from "./router-85b0f62c.js";
+import { o as open$1 } from "./router-109e19e2.js";
 import { D as DISCARD_DOCUMENT, i as DUPLICATE_DOCUMENT, R as RESTORE_DOCUMENT, f as RESTRICT_DOCUMENT, h as SHARE_DOCUMENT, q as SET_RIGHT_SIDEBAR_VISIBILITY } from "./actions-a6a34f3c.js";
 import "./overlayscrollbars.esm-084eb65b.js";
 import "./useIsNuxt-03feeb69.js";
@@ -490,4 +490,4 @@ const TheRightSidebar = /* @__PURE__ */ _export_sfc(_sfc_main, [["render", _sfc_
 export {
   TheRightSidebar as default
 };
-//# sourceMappingURL=meta-876f760a.js.map
+//# sourceMappingURL=meta-be73d70c.js.map

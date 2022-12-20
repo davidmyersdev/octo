@@ -6,7 +6,7 @@ import { _ as __unplugin_components_0$4 } from "./Extendable-dea60239.js";
 import { u as useIsNuxt } from "./useIsNuxt-03feeb69.js";
 import { u as useRouter } from "./vue-router-bb5abae0.js";
 import { _ as __unplugin_components_1 } from "./CoreButton-765ee119.js";
-import { _ as __unplugin_components_3, T as TheLeftSidebar } from "./menu-198433e5.js";
+import { _ as __unplugin_components_3, T as TheLeftSidebar } from "./menu-f2d5e837.js";
 import { _ as __unplugin_components_0$2 } from "./CoreLink-6737d303.js";
 import { _ as __unplugin_components_0 } from "./CoreDivider-0e2c45f2.js";
 import { _ as __unplugin_components_0$1 } from "./TheLogo-3b3b0e0c.js";
@@ -17,8 +17,8 @@ import { g as getAuth, r as registerVersion, i as initializeApp, c as connectAut
 import { u as useColorMode, a as useStorage } from "./index-70a6365e.js";
 import { u as useRecentDocs } from "./useRecentDocs-b417f68b.js";
 import { $ as $a, O, R as Ra, B as Ba } from "./firestore-a0851d35.js";
-import TheRightSidebar from "./meta-876f760a.js";
-import { b as bindGlobal, u as unwrap, l as localforage, s as store, r as router } from "./router-85b0f62c.js";
+import TheRightSidebar from "./meta-be73d70c.js";
+import { b as bindGlobal, u as unwrap, l as localforage, s as store, r as router } from "./router-109e19e2.js";
 import { _ as __vitePreload } from "./preload-helper-5f15640e.js";
 import { g as globalConfig, u as updateGlobalConfig } from "./global-6817a2cb.js";
 import { c as connectStorageEmulator, g as getStorage } from "./index.esm2017-1fab45ee.js";
@@ -1814,4 +1814,4 @@ app.use(plugin, {
   }
 });
 app.mount("#app");
-//# sourceMappingURL=index-36b0310f.js.map
+//# sourceMappingURL=index-506e08db.js.map

@@ -1,4 +1,4 @@
-import { _ as __unplugin_components_0 } from "./DocList-52960600.js";
+import { _ as __unplugin_components_0 } from "./DocList-199f4778.js";
 import { b as useRoute } from "./vue-router-bb5abae0.js";
 import { u as useRouteQuery } from "./useRouteQuery-1f894c77.js";
 import { e as defineComponent, o as openBlock, k as createBlock, v as unref, D as isRef } from "./_plugin-vue_export-helper-ea9be126.js";
@@ -8,7 +8,7 @@ import "./actions-a6a34f3c.js";
 import "./runtime-dom.esm-bundler-eaea4b0e.js";
 import "./Tag.vue_vue_type_script_setup_true_lang-65429ac4.js";
 import "./TheLogo-3b3b0e0c.js";
-import "./router-85b0f62c.js";
+import "./router-109e19e2.js";
 import "./preload-helper-5f15640e.js";
 import "./vuex.esm-bundler-99de9736.js";
 import "./index-90ebcfae-3aa38dd7.js";
@@ -46,4 +46,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as default
 };
-//# sourceMappingURL=_...tag_-21eca5eb.js.map
+//# sourceMappingURL=_...tag_-1c384c19.js.map

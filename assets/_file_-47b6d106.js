@@ -1,7 +1,7 @@
 import { u as useStore } from "./vuex.esm-bundler-99de9736.js";
 import { D as Doc } from "./doc-018f7423.js";
 import { D as Debouncer } from "./debouncer-2293cf40.js";
-import { E as Editor } from "./Editor-ed41721e.js";
+import { E as Editor } from "./Editor-c4265d13.js";
 import { u as useFiles } from "./useFiles-7bacb5ca.js";
 import { e as defineComponent, f as computed, r as ref, a7 as watchEffect, o as openBlock, k as createBlock, v as unref } from "./_plugin-vue_export-helper-ea9be126.js";
 import "./index.browser-0a05c6e5.js";
@@ -74,4 +74,4 @@ const _sfc_main = /* @__PURE__ */ defineComponent({
 export {
   _sfc_main as default
 };
-//# sourceMappingURL=_file_-3af462ad.js.map
+//# sourceMappingURL=_file_-47b6d106.js.map

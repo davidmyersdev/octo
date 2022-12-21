@@ -10,8 +10,8 @@ describe('editor', () => {
 
   it('is editable', () => {
     cy.get('.ink-mde-editor-content').type('# Hello, World!{enter}{enter}What is going on?')
-    cy.window().then((window) => {
-      expect(window.inkMde.getDoc()).to.equal('# Hello, World!\n\nWhat is going on?')
+    cy.window().its('inkMde').should('exist').then((inkMde) => {
+      expect(inkMde.getDoc()).to.equal('# Hello, World!\n\nWhat is going on?')
     })
   })
 

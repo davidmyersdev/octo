@@ -54,7 +54,10 @@ export default defineComponent({
     },
   },
   async mounted() {
+    const { emit } = useHooks()
+
     this.doc = await this.findSharedDocument()
+    emit('public_doc_found')
     this.updateTitle()
   },
 })

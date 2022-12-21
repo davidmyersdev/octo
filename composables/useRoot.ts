@@ -14,6 +14,7 @@ export const useRoot = () => {
   }, undefined, { mergeDefaults: true })
   const { appearance } = useAppearance()
   const store = useStore()
+  const { emit } = useHooks()
 
   provide('appearance', appearance)
   provide('email', email)
@@ -21,7 +22,6 @@ export const useRoot = () => {
 
   if (globalConfig.supportsFirebase) {
     getAuth().onIdTokenChanged(async (authUser) => {
-
       if (authUser) {
         user.value = {
           ...user.value,
@@ -50,6 +50,8 @@ export const useRoot = () => {
 
           store.commit('SET_SUBSCRIPTION', { pro: true })
         }
+
+        emit('user_logged_in')
       } else {
         user.value = {
           id: undefined,
@@ -59,6 +61,8 @@ export const useRoot = () => {
 
         store.commit('SET_USER', null)
         store.commit('SET_SUBSCRIPTION', { pro: false })
+
+        emit('user_logged_out')
       }
     })
   }

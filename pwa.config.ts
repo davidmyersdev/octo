@@ -1,6 +1,10 @@
 import { VitePWAOptions } from 'vite-plugin-pwa'
 
-export const config: Partial<VitePWAOptions> = {
+const defineConfig = (config: Partial<VitePWAOptions>): Partial<VitePWAOptions> => {
+  return config
+}
+
+export const config = defineConfig({
   includeAssets: ['img/icons/favicon.ico'],
   registerType: 'autoUpdate',
   strategies: 'generateSW',
@@ -14,6 +18,9 @@ export const config: Partial<VitePWAOptions> = {
     navigateFallback: '/index.html',
     navigateFallbackDenylist: [
       new RegExp('/manifest.json$'),
+      // Cypress e2e testing
+      new RegExp('/__'),
+      new RegExp('cypress'),
     ],
     runtimeCaching: [
       {
@@ -109,4 +116,4 @@ export const config: Partial<VitePWAOptions> = {
       },
     ],
   },
-}
+})

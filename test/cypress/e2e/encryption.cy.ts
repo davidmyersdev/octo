@@ -3,12 +3,12 @@ import docs from '/test/fixtures/encryption/docs.json'
 
 describe('encryption', () => {
   beforeEach(() => {
-    cy.visit('/')
     cy.clearIDB().then(() => {
       const cache = localforage.createInstance({ name: 'firebase/documents' })
 
       return Promise.all(docs.map(doc => cache.setItem(doc.id, doc)))
     })
+    cy.visit('/')
   })
 
   it('does not show docs that cannot be decrypted', () => {

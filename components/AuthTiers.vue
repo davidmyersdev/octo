@@ -151,7 +151,13 @@ export default defineComponent({
 
 <template>
   <section class="flex flex-col justify-center lg:flex-row gap-4">
-    <AuthTier :tier="personalTier" @magic-link="onMagicLink" @social-link="onSocialLink" @upgrade="onUpgrade">
+    <AuthTier
+      :tier="personalTier"
+      @magic-link="onMagicLink"
+      @social-link="onSocialLink"
+      @upgrade="onUpgrade"
+      data-test-auth-tier-personal
+    >
       <template #perks>
         <CheckList>
           <CheckListItem>Unlimited private docs</CheckListItem>
@@ -161,7 +167,13 @@ export default defineComponent({
         </CheckList>
       </template>
     </AuthTier>
-    <AuthTier :tier="proTier" @magic-link="onMagicLink" @social-link="onSocialLink" @upgrade="onUpgrade">
+    <AuthTier
+      :tier="proTier"
+      @magic-link="onMagicLink"
+      @social-link="onSocialLink"
+      @upgrade="onUpgrade"
+      data-test-auth-tier-pro
+    >
       <template #price>
         <span><small class="font-normal text-base align-text-top">$</small>{{ proTier.price }}</span>
       </template>

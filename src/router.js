@@ -25,6 +25,8 @@ export const router = createRouter({
           meta: { track: true },
           beforeEnter(to, from, next) {
             if (store.state.showWelcome) {
+              store.commit(SET_SHOW_WELCOME, false)
+
               next({ path: '/home' })
             } else {
               next({ path: '/docs/new' })
@@ -122,8 +124,7 @@ export const router = createRouter({
       props: true,
       beforeEnter(to, from, next) {
         if (store.state.showWelcome) {
-          localStorage.setItem('octo/welcome/v1', 'done')
-          store.dispatch(SET_SHOW_WELCOME, false)
+          store.commit(SET_SHOW_WELCOME, false)
 
           next({ path: '/home' })
         } else {

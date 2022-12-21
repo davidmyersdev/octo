@@ -5439,6 +5439,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cypress-network-idle@npm:^1.11.2":
+  version: 1.11.2
+  resolution: "cypress-network-idle@npm:1.11.2"
+  checksum: 916d8d5f7917591bf4aec5fde5d8044b7a420c7d75d3575caeb5d5d17da5afa725b75ef47dd10c18e579fa1f8b4db6f61cc48c7d30113e04548a721e004f34f4
+  languageName: node
+  linkType: hard
+
 "cypress@npm:^12.0.2":
   version: 12.0.2
   resolution: "cypress@npm:12.0.2"
@@ -10887,6 +10894,7 @@ __metadata:
     "@vueuse/core": ^9.4.0
     autoprefixer: ^10.4.13
     cypress: ^12.0.2
+    cypress-network-idle: ^1.11.2
     deepmerge: ^4.2.2
     deepmerge-ts: ^4.2.1
     file-saver: ^2.0.5

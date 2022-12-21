@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="h-full" :class="sizes.concat([!ligatures && 'ligatures-none'])">
-    <AsyncChangeLog v-if="!home && !publicDoc && !flow" />
+    <AsyncChangeLog v-if="showChangeLog && !flow" />
     <AppLayout name="dashboard">
       <AppPage :pageKey="pageKey" class="dashboard-content flex-grow flex-shrink h-full overflow-x-hidden relative" />
     </AppLayout>
@@ -35,14 +35,11 @@ export default defineComponent({
       // A param to indicate a user flow (e.g. completing sign-up or sign-in).
       return this.$route.query.flow
     },
-    home() {
-      return this.$route.name === 'home'
+    showChangeLog() {
+      return this.$route.path === '/docs/new' && !this.$route.query.ci
     },
     ligatures() {
       return this.$store.state.settings.editor.ligatures
-    },
-    publicDoc() {
-      return this.$route.name === 'public-doc'
     },
     sizes() {
       if (this.mq.current === 'xs') return ['xs xs-plus']

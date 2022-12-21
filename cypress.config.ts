@@ -4,6 +4,7 @@ export default defineConfig({
   downloadsFolder: 'test/cypress/downloads',
   e2e: {
     baseUrl: 'http://localhost:8888',
+    modifyObstructiveCode: false,
     specPattern: 'test/cypress/e2e/**/*.cy.{ts,tsx}',
     supportFile: 'test/cypress/support/e2e.{ts,tsx}',
     viewportHeight: 1080,

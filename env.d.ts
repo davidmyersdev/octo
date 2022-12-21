@@ -7,7 +7,8 @@ import { type DefineComponent } from 'vue'
 declare global {
   namespace Cypress {
     interface Chainable {
-      clearIDB(): Cypress.Promise,
+      clearIDB: () => Cypress.Promise,
+      waitForHook: (name: string) => Cypress.Promise,
     }
   }
 

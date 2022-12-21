@@ -1,6 +1,6 @@
+import { unwrap } from '/src/common/vue'
 import { addDoc, fetchDocs, updateDoc } from '/src/firebase/firestore'
 import { pack, unpack } from '/src/models/doc'
-import { unwrap } from '/src/common/vue'
 
 import {
   MERGE_DOCUMENT,
@@ -107,6 +107,8 @@ export default {
       )
     },
     async [SYNC] (context) {
+      const { emit } = useHooks()
+
       // pull from firebase
       await context.dispatch(PULL_DOCUMENTS)
 
@@ -115,6 +117,8 @@ export default {
 
       // pull from firebase again (for syncedAt)
       await context.dispatch(PULL_DOCUMENTS)
+
+      emit('docs_synced')
     },
   },
 }

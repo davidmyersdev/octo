@@ -41,7 +41,6 @@ export const init = () => {
 
   setLogLevel(import.meta.env.VITE_FIREBASE_LOG_LEVEL || 'error')
 
-
   // use emulators in development
   if (location.hostname === 'localhost' && !import.meta.env.VITE_FIREBASE_EMULATOR_BYPASS) {
     connectAuthEmulator(

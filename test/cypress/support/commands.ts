@@ -1,4 +1,7 @@
 import localforage from 'localforage'
+import { useHooks } from '/composables/useHooks'
+
+import 'cypress-network-idle'
 
 const signOut = async () => {
   const firebaseDb = localforage.createInstance({
@@ -25,5 +28,20 @@ Cypress.Commands.add('clearIDB', () => {
         resolve(things)
       })
     }).catch(reject)
+  })
+})
+
+Cypress.Commands.add('waitForHook', (targetHook: string) => {
+  cy.window().then({ timeout: 30000 }, (window) => {
+    return new Cypress.Promise((resolve, reject) => {
+      const { subscribe } = useHooks(window)
+
+      const unsubscribe = subscribe((hook) => {
+        if (hook === targetHook) {
+          unsubscribe()
+          resolve()
+        }
+      })
+    })
   })
 })

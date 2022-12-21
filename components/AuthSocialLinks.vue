@@ -60,15 +60,15 @@ export default defineComponent({
 
 <template>
   <section class="flex flex-col gap-2">
-    <Button v-if="allowGitHub" @click="clickProvider('github')">
+    <Button v-if="allowGitHub" @click="clickProvider('github')" data-test-auth-social-github>
       <LocalGitHubIcon class="h-5 w-5" />
       <span>Continue with GitHub</span>
     </Button>
-    <Button @click="clickProvider('google')">
+    <Button @click="clickProvider('google')" data-test-auth-social-google>
       <LocalGoogleIcon class="h-5 w-5" />
       <span>Continue with Google</span>
     </Button>
-    <Button @click="clickProvider('twitter')">
+    <Button @click="clickProvider('twitter')" data-test-auth-social-twitter>
       <LocalTwitterIcon class="h-5 w-5" />
       <span>Continue with Twitter</span>
     </Button>

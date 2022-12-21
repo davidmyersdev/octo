@@ -30,10 +30,10 @@
                 </svg>
                 <span class="ml-6 md:ml-3 flex-grow text-left">Copy Link</span>
               </button>
-              <input ref="link" :value="publicUrl" type="text" class="form-text w-full mb-2" readonly>
+              <input ref="link" :value="publicUrl" type="text" class="form-text w-full mb-2" readonly data-test-public-url>
             </div>
             <div v-else class="mb-2">
-              <button @click="shareDocument" class="sidebar-link w-full">
+              <button @click="shareDocument" class="sidebar-link w-full" data-test-share-doc>
                 <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z" />
                 </svg>

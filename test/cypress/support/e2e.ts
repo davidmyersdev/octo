@@ -16,5 +16,8 @@
 // Import commands.js using ES2015 syntax:
 import './commands'
 
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
+// https://github.com/cypress-io/cypress/issues/702#issuecomment-587127275
+Cypress.on('window:before:load', (window) => {
+  // @ts-expect-error Disable service workers for our test suite.
+  delete window.navigator.__proto__.serviceWorker
+})

@@ -1,5 +1,6 @@
 describe('editor', () => {
   beforeEach(() => {
+    cy.clearIDB()
     cy.visit('/docs/new')
     cy.visit('/docs/new')
   })

@@ -3847,15 +3847,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vueuse/core@npm:^9.4.0":
-  version: 9.4.0
-  resolution: "@vueuse/core@npm:9.4.0"
+"@vueuse/core@npm:9.9.0, @vueuse/core@npm:^9.9.0":
+  version: 9.9.0
+  resolution: "@vueuse/core@npm:9.9.0"
   dependencies:
     "@types/web-bluetooth": ^0.0.16
-    "@vueuse/metadata": 9.4.0
-    "@vueuse/shared": 9.4.0
+    "@vueuse/metadata": 9.9.0
+    "@vueuse/shared": 9.9.0
     vue-demi: "*"
-  checksum: 9b6c8fdb8181e5775790b52e26cdeaaad1f240aaec1a3b840ded8846fca1f63ffc07a77a86e7fa644b534f94e3d5015fe411cb2c9244bfba44427828611ddbbe
+  checksum: a3edc33994515a2d91fe84767a5230d51debcf7f4a53afc9c56c3793d4f47771fbcf43d32f3e33b1db316267a7607a60d31de068ef86d8fb77e7c4e050e29b36
   languageName: node
   linkType: hard
 
@@ -3873,19 +3873,34 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vueuse/metadata@npm:9.4.0":
-  version: 9.4.0
-  resolution: "@vueuse/metadata@npm:9.4.0"
-  checksum: c00af0262b6a23af9df80bd0facdb1da91894839e2386442ca74f374105babe9d6bd99a16c89646b720a09d529cb7fd7005afce8d392941ccf86200cef0e53f8
+"@vueuse/metadata@npm:9.9.0":
+  version: 9.9.0
+  resolution: "@vueuse/metadata@npm:9.9.0"
+  checksum: d0dd631f79d515c4650eb35671a38b282cf9458f3b86768a97a5d74fb1836440db1e0fed178d084d5174c926aa586509ed31597f0b062240ce268e6fe1f6c6fd
   languageName: node
   linkType: hard
 
-"@vueuse/shared@npm:9.4.0":
-  version: 9.4.0
-  resolution: "@vueuse/shared@npm:9.4.0"
+"@vueuse/nuxt@npm:^9.9.0":
+  version: 9.9.0
+  resolution: "@vueuse/nuxt@npm:9.9.0"
+  dependencies:
+    "@nuxt/kit": ^3.0.0
+    "@vueuse/core": 9.9.0
+    "@vueuse/metadata": 9.9.0
+    local-pkg: ^0.4.2
+    vue-demi: "*"
+  peerDependencies:
+    nuxt: ^3.0.0
+  checksum: 8815ed30138dad8f5597bbb02c4efdec49204c868e5ce344d692f9f876a1b8b1c960f8733f9ae69d5fcfb7286ecdec9271ee6af3e5d07577f0e46180bdcd5dd6
+  languageName: node
+  linkType: hard
+
+"@vueuse/shared@npm:9.9.0":
+  version: 9.9.0
+  resolution: "@vueuse/shared@npm:9.9.0"
   dependencies:
     vue-demi: "*"
-  checksum: 4eb1d81587c49023a62553e5f7ec230cd399ab43b9fc8d06a0a8f95088e5231de5645355afbdaad87101cf34edb3a1d831b766de91e441662c6f1b1c81ea4f3f
+  checksum: 590ffe76c883f7c53acecd1dfa34eea148d88a4bd17642bbaef10f8aed2b558cb50dbeeb1e07827f589a6b96a2bb2cc57dab576b20c34a6e5ab4b517d47b7b9d
   languageName: node
   linkType: hard
 
@@ -10891,7 +10906,8 @@ __metadata:
     "@types/node": ^18.0.6
     "@types/remarkable": ^2.0.3
     "@vitejs/plugin-vue": ^3.2.0
-    "@vueuse/core": ^9.4.0
+    "@vueuse/core": ^9.9.0
+    "@vueuse/nuxt": ^9.9.0
     autoprefixer: ^10.4.13
     cypress: ^12.0.2
     cypress-network-idle: ^1.11.2

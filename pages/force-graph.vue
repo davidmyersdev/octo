@@ -107,9 +107,6 @@ export default {
         return nodes
       }, [])
     },
-    theme() {
-      return this.$store.state.settings.theme
-    },
   },
   methods: {
     resize() {

@@ -1,5 +1,3 @@
-import { useColorMode } from '@vueuse/core'
-
 export const useAppearance = () => {
   const appearance = useColorMode({
     emitAuto: true,

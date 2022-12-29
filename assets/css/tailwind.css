@@ -8,7 +8,7 @@
     --colors-primary: rgb(59 130 246);
   }
 
-  html.dark {
+  .dark {
     --colors-layer-0: rgb(24 24 27);
     --colors-layer-1: rgb(18 18 18);
     --colors-layer-2: rgb(24 24 27);
@@ -18,7 +18,7 @@
     --colors-text: rgb(212 212 216);
   }
 
-  html.light {
+  .light {
     --colors-layer-0: rgb(255 255 255);
     --colors-layer-1: rgb(244 244 245);
     --colors-layer-2: rgb(228 228 231);

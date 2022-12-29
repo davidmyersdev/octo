@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="h-full" :class="sizes.concat([!ligatures && 'ligatures-none'])">
     <AsyncChangeLog v-if="showChangeLog && !flow" />
-    <AppLayout name="dashboard">
+    <AppLayout>
       <AppPage :pageKey="pageKey" class="dashboard-content flex-grow flex-shrink h-full overflow-x-hidden relative" />
     </AppLayout>
   </div>

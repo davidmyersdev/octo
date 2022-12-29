@@ -1,5 +1,4 @@
 <script lang="ts">
-import { nanoid } from 'nanoid'
 import { ViewColumnsIcon } from '@heroicons/vue/24/outline'
 import { CalendarIcon, Cog8ToothIcon, DocumentPlusIcon, HeartIcon, InboxIcon, UserCircleIcon, XMarkIcon } from '@heroicons/vue/24/solid'
 import { computed, defineComponent, onBeforeUnmount, onMounted } from 'vue'

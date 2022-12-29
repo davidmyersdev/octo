@@ -350,6 +350,12 @@ import IconTwitter from '/assets/twitter.svg?component'
 import TheLogo from '/assets/logo.svg?component'
 import { globalConfig } from '/src/global'
 
+if (globalThis.isNuxt) {
+  definePageMeta({
+    layout: 'bare',
+  })
+}
+
 export default {
   components: {
     AuthTiers,

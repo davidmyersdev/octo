@@ -8,7 +8,7 @@ export default defineNuxtConfig({
         class: 'flex flex-col flex-grow text-gray-900 dark:text-gray-300 bg-white dark:bg-gray-900',
       },
       htmlAttrs: {
-        class: 'dark flex scroll-smooth scroll-pt-4',
+        class: 'flex scroll-smooth scroll-pt-4',
         lang: 'en',
       },
       link: [
@@ -29,6 +29,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
+    '@vueuse/nuxt',
   ],
   postcss: {
     plugins: {

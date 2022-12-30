@@ -1,5 +1,5 @@
 <template>
-  <div class="container flex flex-col mx-auto p-4 md:px-16 md:py-8">
+  <CorePage>
     <div>
       <h2 class="text-2xl">Workspaces</h2>
       <p class="mt-1 text-gray-500">
@@ -50,7 +50,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </CorePage>
 </template>
 
 <script>

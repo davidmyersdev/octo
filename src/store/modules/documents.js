@@ -35,9 +35,6 @@ export default {
     daily(_state, getters) {
       return getters.sortedByCreated.find(doc => doc.daily)
     },
-    currentDoc(state, getters) {
-      return getters.decrypted.find(doc => doc.id === state.currentId)
-    },
     decrypted(state) {
       return state.all.filter(doc => !doc.encrypted)
     },

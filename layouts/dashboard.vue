@@ -47,7 +47,7 @@ export default defineComponent({
     const mq = useMq()
     const store = useStore()
     const router = useRouter()
-    const currentDoc = computed(() => store.getters.currentDoc)
+    const { doc } = useDocs()
     const { showMenu, showMeta, toggleMenu, toggleMeta } = useLayout()
     const { pinnedDocs, unpinDoc } = usePinnedDocs()
     const linkToDiscord = import.meta.env.VITE_DISCORD_INVITE_LINK
@@ -57,8 +57,8 @@ export default defineComponent({
     const isNew = computed(() => router.currentRoute.value.path === '/docs/new')
 
     const handleQuickActionClose = () => {
-      if (currentDoc.value) {
-        return router.push({ path: `/docs/${currentDoc.value.id}` })
+      if (doc.value) {
+        return router.push({ path: `/docs/${doc.value.id}` })
       }
 
       router.push({ path: '/docs/new' })
@@ -76,7 +76,7 @@ export default defineComponent({
     })
 
     const handleTabClose = (id: string) => {
-      if (currentDoc.value?.id === id) {
+      if (doc.value?.id === id) {
         router.push({ path: '/docs/new' })
       }
 
@@ -100,7 +100,7 @@ export default defineComponent({
     })
 
     return {
-      currentDoc,
+      doc,
       handleLayoutChange,
       handleQuickActionClose,
       handleTabClose,
@@ -173,7 +173,7 @@ export default defineComponent({
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </CoreLink>
-          <CoreLink v-else-if="isDoc" :to="{ path: `/docs/${currentDoc?.id}/meta` }" class="button-flat button-size-medium">
+          <CoreLink v-else-if="isDoc" :to="{ path: `/docs/${doc?.id}/meta` }" class="button-flat button-size-medium">
             <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -201,9 +201,9 @@ export default defineComponent({
         </section>
         <CoreDivider v-if="!mobile" :vertical="true" />
         <section v-if="!mobile" class="flex flex-grow flex-shrink gap-2 bg-gray-100 dark:bg-darkest px-2 min-w-0">
-          <CoreLink v-for="doc in pinnedDocs" :key="doc.id" :to="{ path: `/docs/${doc.id}` }" class="core-button core-button-layer-1 flex flex-shrink justify-between min-w-[4rem] max-w-[20rem]" :class="{ 'bg-layer-2': isDoc && doc.id === currentDoc?.id }">
-            <span class="text-ellipsis overflow-hidden">{{ doc.headers[0] || doc.text.substring(0, 25) }}</span>
-            <XMarkIcon @click.prevent.stop="() => handleTabClose(doc.id)" class="w-4 transition hover:scale-125" />
+          <CoreLink v-for="pinnedDoc in pinnedDocs" :key="pinnedDoc.id" :to="{ path: `/docs/${pinnedDoc.id}` }" class="core-button core-button-layer-1 flex flex-shrink justify-between min-w-[4rem] max-w-[20rem]" :class="{ 'bg-layer-2': isDoc && pinnedDoc.id === doc?.id }">
+            <span class="text-ellipsis overflow-hidden">{{ pinnedDoc.headers[0] || pinnedDoc.text.substring(0, 25) }}</span>
+            <XMarkIcon @click.prevent.stop="() => handleTabClose(pinnedDoc.id)" class="w-4 transition hover:scale-125" />
           </CoreLink>
         </section>
         <CoreDivider v-if="!mobile" :vertical="true" />
@@ -225,8 +225,8 @@ export default defineComponent({
         <TheLeftSidebar v-if="(!mobile && showMenu)" class="hidden w-64 bg-gray-100 dark:bg-darkest md:flex flex-shrink-0" />
         <CoreDivider v-if="(!mobile && showMenu)" :vertical="true" />
         <slot />
-        <CoreDivider v-if="(!mobile && showMeta && currentDoc)" :vertical="true" />
-        <TheRightSidebar v-if="(!mobile && showMeta && currentDoc && isDoc)" class="hidden w-64 bg-gray-100 dark:bg-darkest md:flex flex-shrink-0" />
+        <CoreDivider v-if="(!mobile && showMeta && doc)" :vertical="true" />
+        <TheRightSidebar v-if="(!mobile && showMeta && doc && isDoc)" class="hidden w-64 bg-gray-100 dark:bg-darkest md:flex flex-shrink-0" />
       </section>
     </section>
   </div>

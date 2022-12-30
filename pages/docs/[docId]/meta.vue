@@ -126,7 +126,7 @@ export default {
       return moment(this.doc.discardedAt).format('ddd, MMM Do, YYYY [at] h:mm A')
     },
     doc() {
-      return this.$store.getters.currentDoc
+      return this.$store.getters.decrypted.find((doc) => doc.id === this.$route.params.docId)
     },
     hasCodeblocks() {
       return this.codeblocks.length > 0

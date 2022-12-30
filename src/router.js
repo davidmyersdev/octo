@@ -4,7 +4,7 @@ import {
   SET_DOCUMENT,
   SET_SHOW_WELCOME,
 } from '/src/store/actions.js'
-import { setTitle } from '/src/common/title.js'
+import { setTitle } from './common/title'
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -61,7 +61,7 @@ export const router = createRouter({
         },
         {
           path: '/docs/:docId/meta',
-          name: 'docs-doc-meta',
+          name: 'docs-docId-meta',
           component: () => import('/pages/docs/[docId]/meta.vue'),
           props: true,
         },
@@ -118,9 +118,8 @@ export const router = createRouter({
     },
     {
       path: '/docs/new',
-      name: 'docs-new',
       meta: { track: true },
-      component: () => import('/pages/docs/[docId].vue'),
+      component: () => import('/pages/docs/[docId]/index.vue'),
       props: true,
       beforeEnter(to, from, next) {
         if (store.state.showWelcome) {
@@ -134,8 +133,8 @@ export const router = createRouter({
     },
     {
       path: '/docs/:docId',
-      name: 'docs-doc',
-      component: () => import('/pages/docs/[docId].vue'),
+      name: 'docs-docId',
+      component: () => import('/pages/docs/[docId]/index.vue'),
       props({ params }) {
         if (typeof params?.props === 'string') {
           return {
@@ -155,7 +154,6 @@ export const router = createRouter({
     },
     {
       path: '/public/:docId',
-      name: 'public-doc',
       component: () => import('/pages/public/[docId].vue'),
       props: { ro: true },
     },
@@ -252,8 +250,8 @@ export const router = createRouter({
 router.beforeEach((to) => {
   if (to.meta.title) setTitle(to.meta.title)
   if (to.meta.track) window.fathom?.trackPageview()
-  if (to.name === 'docs-doc') store.dispatch(SET_DOCUMENT, { id: to.params.docId })
-  if (to.name === 'docs-new') store.dispatch(SET_DOCUMENT, { id: null })
+  if (to.name === 'docs-docId') store.dispatch(SET_DOCUMENT, { id: to.params.docId })
+  if (to.path === '/docs/new') store.dispatch(SET_DOCUMENT, { id: null })
 
   return true
 })

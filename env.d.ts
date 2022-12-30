@@ -13,6 +13,10 @@ declare global {
   }
 
   interface Window {
+    fathom?: {
+      trackGoal: (id: string, value: number) => void,
+      trackPageview: () => void,
+    },
     inkMde: Instance,
   }
 }

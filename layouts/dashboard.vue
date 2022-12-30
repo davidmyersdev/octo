@@ -53,7 +53,7 @@ export default defineComponent({
     const linkToDiscord = import.meta.env.VITE_DISCORD_INVITE_LINK
     const modKey = computed(() => store.state.modKey)
     const mobile = computed(() => ['xs', 'sm'].includes(mq.current))
-    const isDoc = computed(() => router.currentRoute.value.name === 'docs-doc')
+    const isDoc = computed(() => router.currentRoute.value.name === 'docs-docId')
     const isNew = computed(() => router.currentRoute.value.path === '/docs/new')
 
     const handleQuickActionClose = () => {

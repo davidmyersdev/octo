@@ -43,7 +43,7 @@ export default {
       return this.$store.getters.currentDoc
     },
     isDoc() {
-      return this.doc && this.$route.name === 'docs-doc'
+      return this.doc && this.$route.name === 'docs-docId'
     },
     isDashboard() {
       return this.$route.path === '/docs/new'

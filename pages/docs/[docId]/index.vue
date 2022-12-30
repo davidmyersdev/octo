@@ -72,7 +72,7 @@ export default defineComponent({
   },
   computed: {
     doc() {
-      return this.$store.getters.decrypted.find((doc) => doc.id === this.docId) || this.placeholder
+      return this.$store.getters.decrypted.find((doc) => doc.id === (this.docId || this.$route.params.docId)) || this.placeholder
     },
     tags() {
       return this.doc.tags

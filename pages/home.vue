@@ -1,5 +1,5 @@
 <template>
-  <div class="dark text-gray-100 text-lg overflow-auto home">
+  <div class="text-lg overflow-auto home">
     <section class="p-4 lg:p-8 container mx-auto">
       <div class="max-w-[80ch] mx-auto mb-8">
         <div class="flex flex-col gap-32 lg:gap-40 py-10">
@@ -315,7 +315,7 @@
         </div>
       </div>
     </section>
-    <section v-if="supportsFirebase" class="p-4 lg:p-8 bg-gray-900">
+    <section v-if="supportsFirebase" class="p-4 lg:p-8">
       <div class="container mx-auto">
         <div class="max-w-[80ch] mx-auto mb-8">
           <h2 id="pricing" class="text-2xl lg:text-4xl font-bold">Pricing</h2>
@@ -391,7 +391,7 @@ export default {
 
 <style scoped>
 .home {
-  background: radial-gradient(rgba(23, 23, 23, 1) 10%, transparent 10%) max(1vw, 1vh) max(1vw, 1vh);
+  background: radial-gradient(var(--colors-layer-1), 10%, transparent 10%) max(1vw, 1vh) max(1vw, 1vh);
   background-size: max(1vw, 1vh) max(1vw, 1vh);
 }
 </style>

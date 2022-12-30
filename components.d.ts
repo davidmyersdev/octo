@@ -28,6 +28,7 @@ declare module '@vue/runtime-core' {
     CoreButton: typeof import('./components/CoreButton.vue')['default']
     CoreDivider: typeof import('./components/CoreDivider.vue')['default']
     CoreLink: typeof import('./components/CoreLink.vue')['default']
+    CorePage: typeof import('./components/CorePage.vue')['default']
     CorePanel: typeof import('./components/CorePanel.vue')['default']
     CoreScrollable: typeof import('./components/CoreScrollable.vue')['default']
     DevRoute: typeof import('./components/DevRoute.vue')['default']

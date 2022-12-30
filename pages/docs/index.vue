@@ -1,5 +1,7 @@
 <template>
-  <DocList v-model:query="query" />
+  <CorePage>
+    <DocList v-model:query="query" />
+  </CorePage>
 </template>
 
 <script lang="ts" setup>

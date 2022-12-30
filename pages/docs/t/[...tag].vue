@@ -1,11 +1,13 @@
 <template>
-  <DocList v-model:query="query" :tag="tag" />
+  <CorePage>
+    <DocList v-model:query="query" :tag="tag" />
+  </CorePage>
 </template>
 
 <script lang="ts" setup>
 const props = defineProps<{ tag: string }>()
-const route = useRoute()
+const router = useRouter()
 const { query } = useRouteQuery()
-const paramTag = computed(() => Array.isArray(route.params.tag) ? route.params.tag.join('/') : undefined)
-const tag = computed(() => props.tag || paramTag.value || route.query.tag as string)
+const tagParam = computed(() => Array.isArray(router.currentRoute.value.params.tag) ? router.currentRoute.value.params.tag.join('/') : undefined)
+const tag = computed(() => tagParam.value || props.tag || router.currentRoute.value.query.tag as string)
 </script>

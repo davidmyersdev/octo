@@ -1,7 +1,7 @@
 <template>
-  <div class="flex flex-col p-4 md:p-2">
+  <CorePage>
     <TagLink class="sidebar-link mb-2" v-for="tag in tags" :key="tag" :tag="tag"></TagLink>
-  </div>
+  </CorePage>
 </template>
 
 <script>

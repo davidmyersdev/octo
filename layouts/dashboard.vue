@@ -12,7 +12,6 @@ import CoreDivider from '/components/CoreDivider.vue'
 import CoreLink from '/components/CoreLink.vue'
 import Key from '/components/Key.vue'
 import LayoutNavbar from '/components/LayoutNavbar.vue'
-import TheContent from '/components/TheContent.vue'
 import TheLogo from '/components/TheLogo.vue'
 import { useLayout, usePinnedDocs } from '/composables'
 import TheLeftSidebar from '/pages/menu.vue'
@@ -33,7 +32,6 @@ export default defineComponent({
     InboxIcon,
     Key,
     LayoutNavbar,
-    TheContent,
     TheLeftSidebar,
     TheLogo,
     TheRightSidebar,

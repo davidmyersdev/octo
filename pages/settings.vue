@@ -1,5 +1,5 @@
 <template>
-  <PageContainer>
+  <CorePage>
     <div>
       <h2 class="text-4xl">App Settings</h2>
       <p class="mt-1 mb-8 text-gray-500">Make yourself comfortable</p>
@@ -13,13 +13,12 @@
         <Experimental class="mb-8" />
       </Extendable>
     </div>
-  </PageContainer>
+  </CorePage>
 </template>
 
 <script lang="ts" setup>
 import Appearance from '/components/settings/Appearance.vue'
 import Banner from '/components/Banner.vue'
-import PageContainer from '/components/PageContainer.vue'
 import Editor from '/components/SettingsEditor.vue'
 import Encryption from '/components/settings/Encryption.vue'
 import Experimental from '/components/settings/Experimental.vue'

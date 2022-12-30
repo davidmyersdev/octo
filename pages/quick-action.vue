@@ -1,5 +1,5 @@
 <template>
-  <div class="md:container md:mx-auto flex flex-col p-4 md:px-16 md:py-8">
+  <CorePage>
     <h2 class="text-2xl mb-3">Quick Actions</h2>
     <h6 class="font-normal mb-5">The Quick Action button is always visible, and its function changes depending on what you are doing.</h6>
     <div class="mb-8">
@@ -29,5 +29,5 @@
       </h4>
       <p>This button is visible on the dashboard, and it takes you to this page.</p>
     </div>
-  </div>
+  </CorePage>
 </template>

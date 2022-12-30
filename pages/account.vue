@@ -1,5 +1,5 @@
 <template>
-  <div class="container flex flex-col mx-auto p-4 md:px-16 md:py-8">
+  <CorePage>
     <h2 class="text-4xl mb-1">My Account</h2>
     <p class="text-gray-500 mb-8">Manage account settings and subscriptions</p>
     <p v-if="!user.id" class="mb-4">By default, docs are only stored in your browser. This means some actions, such as clearing your history, could <strong>erase everything</strong>. To protect your data, you should sign up for an account.</p>
@@ -26,7 +26,7 @@
       <h3 class="text-3xl mb-4">Providers</h3>
       <Providers />
     </section>
-  </div>
+  </CorePage>
 </template>
 
 <script lang="ts">

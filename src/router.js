@@ -17,104 +17,115 @@ export const router = createRouter({
     },
     {
       path: '/',
-      component: () => import('/layouts/page.vue'),
-      children: [
-        {
-          path: '/',
-          name: 'root',
-          meta: { track: true },
-          beforeEnter(to, from, next) {
-            if (store.state.showWelcome) {
-              store.commit(SET_SHOW_WELCOME, false)
+      name: 'root',
+      meta: { track: true },
+      beforeEnter(to, from, next) {
+        if (store.state.showWelcome) {
+          store.commit(SET_SHOW_WELCOME, false)
 
-              next({ path: '/home' })
-            } else {
-              next({ path: '/docs/new' })
-            }
-          },
-        },
-        {
-          path: '/_routes',
-          component: () => import('/pages/_routes.vue'),
-        },
-        {
-          path: '/account',
-          meta: { title: 'My Account', track: true },
-          component: () => import('/pages/account.vue'),
-        },
-        {
-          path: '/docs',
-          meta: { title: 'My Docs', track: true },
-          component: () => import('/pages/docs/index.vue'),
-        },
-        {
-          path: '/docs/f/:filter',
-          meta: { title: 'My Docs' },
-          component: () => import('/pages/docs/f/[filter].vue'),
-          props: true,
-        },
-        {
-          path: '/docs/t/:tag(.*)',
-          meta: { title: 'My Docs' },
-          component: () => import('/pages/docs/t/[...tag].vue'),
-          props: true,
-        },
-        {
-          path: '/docs/:docId/meta',
-          name: 'docs-docId-meta',
-          component: () => import('/pages/docs/[docId]/meta.vue'),
-          props: true,
-        },
-        {
-          path: '/docs/export',
-          meta: { title: 'Export Docs', track: true },
-          component: () => import('/pages/docs/export.vue'),
-        },
-        {
-          path: '/docs/import',
-          meta: { title: 'Import Docs', track: true },
-          component: () => import('/pages/docs/import.vue'),
-        },
-        {
-          path: '/quick-action',
-          meta: { title: 'Quick Action', track: true },
-          component: () => import('/pages/quick-action.vue'),
-        },
-        // menu
-        {
-          path: '/menu',
-          meta: { track: true },
-          component: () => import('/pages/menu.vue'),
-        },
-        {
-          path: '/workspaces',
-          meta: { title: 'Workspaces', track: true },
-          component: () => import('/pages/workspaces.vue'),
-        },
-        {
-          path: '/tags',
-          meta: { title: 'Tags', track: true },
-          component: () => import('/pages/tags.vue'),
-          props: true,
-        },
-        // settings
-        {
-          path: '/settings',
-          meta: { title: 'App Settings', track: true },
-          component: () => import('/pages/settings.vue'),
-        },
-        // privacy & terms
-        {
-          path: '/privacy-policy',
-          meta: { title: 'Privacy Policy', track: true },
-          component: () => import('/pages/privacy-policy.vue'),
-        },
-        {
-          path: '/terms-and-conditions',
-          meta: { title: 'Terms & Conditions', track: true },
-          component: () => import('/pages/terms-and-conditions.vue'),
-        },
-      ],
+          next({ path: '/home' })
+        } else {
+          next({ path: '/docs/new' })
+        }
+      },
+    },
+    {
+      // skipped (special case)
+      path: '/_routes',
+      component: () => import('/pages/_routes.vue'),
+    },
+    {
+      // done
+      path: '/account',
+      meta: { title: 'My Account', track: true },
+      component: () => import('/pages/account.vue'),
+    },
+    {
+      // done
+      path: '/docs',
+      meta: { title: 'My Docs', track: true },
+      component: () => import('/pages/docs/index.vue'),
+    },
+    {
+      // done
+      path: '/docs/f/:filter',
+      meta: { title: 'My Docs' },
+      component: () => import('/pages/docs/f/[filter].vue'),
+      props: true,
+    },
+    {
+      // done
+      path: '/docs/t/:tag(.*)',
+      meta: { title: 'My Docs' },
+      component: () => import('/pages/docs/t/[...tag].vue'),
+      props: true,
+    },
+    {
+      // skipped (special case)
+      // Todo: Create separate components for standalone page and panel.
+      path: '/docs/:docId/meta',
+      name: 'docs-docId-meta',
+      component: () => import('/pages/docs/[docId]/meta.vue'),
+      props: true,
+    },
+    {
+      // skipped (special case)
+      path: '/docs/export',
+      meta: { title: 'Export Docs', track: true },
+      component: () => import('/pages/docs/export.vue'),
+    },
+    {
+      // skipped (special case)
+      path: '/docs/import',
+      meta: { title: 'Import Docs', track: true },
+      component: () => import('/pages/docs/import.vue'),
+    },
+    {
+      // done
+      path: '/quick-action',
+      meta: { title: 'Quick Action', track: true },
+      component: () => import('/pages/quick-action.vue'),
+    },
+    // menu
+    {
+      // skipped (special case)
+      // Todo: Create separate components for standalone page and panel.
+      path: '/menu',
+      meta: { track: true },
+      component: () => import('/pages/menu.vue'),
+    },
+    {
+      // done
+      path: '/workspaces',
+      meta: { title: 'Workspaces', track: true },
+      component: () => import('/pages/workspaces.vue'),
+    },
+    {
+      // done
+      path: '/tags',
+      meta: { title: 'Tags', track: true },
+      component: () => import('/pages/tags.vue'),
+      props: true,
+    },
+    // settings
+    {
+      // done
+      path: '/settings',
+      meta: { title: 'App Settings', track: true },
+      component: () => import('/pages/settings.vue'),
+    },
+    // privacy & terms
+    {
+      // done
+      path: '/privacy-policy',
+      meta: { title: 'Privacy Policy', track: true },
+      component: () => import('/pages/privacy-policy.vue'),
+    },
+    {
+      // done
+      path: '/terms-and-conditions',
+      meta: { title: 'Terms & Conditions', track: true },
+      component: () => import('/pages/terms-and-conditions.vue'),
     },
     {
       path: '/docs/new',

@@ -26,24 +26,6 @@ env:
   VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VUE_APP_FIREBASE_STORAGE_BUCKET }}
   VITE_STRIPE_MONTHLY_PRICE: ${{ secrets.VUE_APP_STRIPE_MONTHLY_PRICE }}
 jobs:
-  deploy_github_pages:
-    runs-on: ubuntu-latest
-    environment: github-pages
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: yarn
-      - run: yarn install --immutable
-      - run: yarn build
-      - run: cp ./dist/index.html ./dist/404.html
-      - run: cp ./dist/manifest.webmanifest ./dist/manifest.json
-      - run: cp ./dist/sw.js ./dist/service-worker.js
-      - uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
   deploy_vercel:
     runs-on: ubuntu-latest
     steps:

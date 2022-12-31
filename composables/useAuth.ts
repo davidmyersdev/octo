@@ -71,6 +71,7 @@ export const useMagicLink = () => {
   const isOriginalClient = computed(() => !!emailAddress)
   const router = useRouter()
   const store = useStore()
+  const { public: { fathomEventAccountRegistration } } = useConfig()
 
   return {
     emailAddress,
@@ -139,8 +140,7 @@ export const useMagicLink = () => {
       return signInWithEmailLink(getAuth(), form.email, location.href).then((result) => {
         // @ts-ignore
         if (result.additionalUserInfo && result.additionalUserInfo.isNewUser) {
-          // @ts-ignore
-          window.fathom.trackGoal(import.meta.env.VITE_FATHOM_GOAL_ACCOUNT_REGISTRATION, 0)
+          window.fathom?.trackGoal(fathomEventAccountRegistration, 0)
         }
 
         form.confirming = false

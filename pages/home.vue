@@ -365,8 +365,18 @@ export default {
   },
   setup() {
     const store = useStore()
+    const { public: { discordInviteLink, fathomEventCtaSignUpNow } } = useConfig()
+
+    const trackCtaSignUpNow = () => {
+      window.fathom?.trackGoal(fathomEventCtaSignUpNow, 0)
+    }
 
     store.commit('SET_SHOW_WELCOME', false)
+
+    return {
+      discordInviteLink,
+      trackCtaSignUpNow,
+    }
   },
   data() {
     return {
@@ -374,16 +384,8 @@ export default {
     }
   },
   computed: {
-    discordInviteLink() {
-      return import.meta.env.VITE_DISCORD_INVITE_LINK
-    },
     user() {
       return this.$store.state.auth.user
-    },
-  },
-  methods: {
-    trackCtaSignUpNow() {
-      window.fathom.trackGoal(import.meta.env.VITE_FATHOM_EVENT_CTA_SIGN_UP_NOW, 0)
     },
   },
 }

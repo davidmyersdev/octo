@@ -49,15 +49,12 @@ declare module '@vue/runtime-core' {
     Modal: typeof import('./components/Modal.vue')['default']
     ModK: typeof import('./components/ModK.vue')['default']
     ModKKey: typeof import('./components/ModKKey.vue')['default']
-    PageContainer: typeof import('./components/PageContainer.vue')['default']
     Providers: typeof import('./components/Providers.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SettingsEditor: typeof import('./components/SettingsEditor.vue')['default']
     Tag: typeof import('./components/Tag.vue')['default']
     TagLink: typeof import('./components/TagLink.vue')['default']
-    TheContent: typeof import('./components/TheContent.vue')['default']
     TheLogo: typeof import('./components/TheLogo.vue')['default']
-    TheNavbar: typeof import('./components/TheNavbar.vue')['default']
   }
 }

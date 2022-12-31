@@ -3,6 +3,8 @@ import * as db from 'firebase/firestore'
 import type { AddCheckoutParams, AddDocParams, FetchDocParams, FetchDocsParams, UpdateDocParams } from '/types/types'
 
 export const addCheckout = async ({ userId }: AddCheckoutParams) => {
+  const { public: { stripeMonthlyPrice } } = useConfig()
+
   const addRef = await db.addDoc(
     db.collection(
       db.doc(
@@ -16,8 +18,7 @@ export const addCheckout = async ({ userId }: AddCheckoutParams) => {
     ),
     {
       cancel_url: window.location.href,
-      // @ts-ignore
-      price: import.meta.env.VITE_STRIPE_MONTHLY_PRICE,
+      price: stripeMonthlyPrice,
       success_url: window.location.href,
     }
   )

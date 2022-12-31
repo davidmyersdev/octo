@@ -72,13 +72,14 @@ import ChangeLogEntry from '/components/ChangeLogEntry.vue'
 import Code from '/components/Code.vue'
 import Modal from '/components/Modal.vue'
 
+const { public: { fathomEventCtaModalUpgrade } } = useConfig()
+
 const showChangeLog = ref(false)
 const closeChangeLog = () => { showChangeLog.value = false }
 const trackCta = () => {
   closeChangeLog()
 
-  // @ts-ignore
-  window.fathom?.trackGoal(import.meta.env.VITE_FATHOM_EVENT_CTA_MODAL_UPGRADE, 0)
+  window.fathom?.trackGoal(fathomEventCtaModalUpgrade, 0)
 }
 
 onMounted(async () => {

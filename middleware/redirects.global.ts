@@ -1,5 +1,4 @@
-import { RouteLocation } from 'vue-router'
-import { useStore } from 'vuex'
+import { type RouteLocation } from 'vue-router'
 import { setTitle } from '/src/common/title'
 
 const legacyRoutes = [
@@ -23,7 +22,7 @@ const legacyRoutes = [
 ]
 
 export default defineNuxtRouteMiddleware((to, from) => {
-  const store = useStore()
+  const isNewVisitor = !window?.localStorage.getItem('octo/welcome/v1')
 
   // Set the title if necessary.
   if (typeof to.meta.title === 'string') setTitle(to.meta.title)
@@ -31,17 +30,18 @@ export default defineNuxtRouteMiddleware((to, from) => {
   // Track the pageview if applicable.
   if (to.meta.track) window.fathom?.trackPageview()
 
-  // Handle root redirect.
-  if (to.path === '/') {
-    if (typeof window === 'undefined') {
-      return navigateTo('/home')
-    }
+  // Handle first-time visitor redirects.
+  if (isNewVisitor) {
+    if (to.path === '/' || to.path === '/docs/new') {
+      window?.localStorage.setItem('octo/welcome/v1', 'done')
 
-    if (window.localStorage.getItem('octo/welcome/v1')) {
-      return navigateTo({ path: '/docs/new' })
-    } else {
       return navigateTo({ path: '/home' })
     }
+  }
+
+  // Handle the root redirect.
+  if (to.path === '/') {
+    return navigateTo({ path: '/docs/new' })
   }
 
   // Handle legacy redirects.

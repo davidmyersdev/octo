@@ -48,7 +48,7 @@ export default defineComponent({
     const { doc } = useDocs()
     const { showMenu, showMeta, toggleMenu, toggleMeta } = useLayout()
     const { pinnedDocs, unpinDoc } = usePinnedDocs()
-    const linkToDiscord = import.meta.env.VITE_DISCORD_INVITE_LINK
+    const { public: { discordInviteLink } } = useConfig()
     const modKey = computed(() => store.state.modKey)
     const mobile = computed(() => ['xs', 'sm'].includes(mq.current))
     const isDoc = computed(() => router.currentRoute.value.name === 'docs-docId')
@@ -98,6 +98,7 @@ export default defineComponent({
     })
 
     return {
+      discordInviteLink,
       doc,
       handleLayoutChange,
       handleQuickActionClose,
@@ -105,7 +106,6 @@ export default defineComponent({
       isDoc,
       isNew,
       isNuxt,
-      linkToDiscord,
       mobile,
       modKey,
       pinnedDocs,
@@ -140,7 +140,7 @@ export default defineComponent({
       </div>
       <div class="flex flex-col gap-4 pb-4 items-center">
         <div class="flex flex-col gap-4 pb-4 items-center opacity-25">
-          <CoreLink v-if="linkToDiscord" :to="linkToDiscord">
+          <CoreLink v-if="discordInviteLink" :to="discordInviteLink">
             <DiscordIcon class="w-6 px-px" />
           </CoreLink>
           <HeartIcon v-if="false" class="w-6" />

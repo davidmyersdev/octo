@@ -11,8 +11,8 @@ import { config as pwaConfig } from './pwa.config'
 const { parsed = {} } = dotenv.config()
 const fathom = {
   script: '',
-  siteId: process.env.VITE_FATHOM_SITE_ID || parsed.VITE_FATHOM_SITE_ID,
-  siteUrl: process.env.VITE_FATHOM_SITE_URL || parsed.VITE_FATHOM_SITE_URL,
+  siteId: process.env.NUXT_PUBLIC_FATHOM_SITE_ID || parsed.NUXT_PUBLIC_FATHOM_SITE_ID,
+  siteUrl: process.env.NUXT_PUBLIC_FATHOM_SITE_URL || parsed.NUXT_PUBLIC_FATHOM_SITE_URL,
 }
 
 if (fathom.siteId && fathom.siteUrl) {
@@ -25,6 +25,7 @@ export default defineConfig({
     minify: false,
     sourcemap: true,
   },
+  envPrefix: 'NUXT_PUBLIC_',
   plugins: [
     autoImportPlugin({
       dirs: [

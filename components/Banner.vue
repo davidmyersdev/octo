@@ -17,9 +17,9 @@
 
 <script lang="ts" setup>
 import { subscription } from '/src/common/account'
+const { public: { fathomEventCtaSettingsUpgrade } } = useConfig()
 
 const trackCta = () => {
-  // @ts-ignore
-  window.fathom.trackGoal(import.meta.env.VITE_FATHOM_EVENT_CTA_SETTINGS_UPGRADE, 0)
+  window.fathom?.trackGoal(fathomEventCtaSettingsUpgrade, 0)
 }
 </script>

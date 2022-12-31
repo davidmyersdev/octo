@@ -15,7 +15,7 @@
             <ModKKey class="text-gray-500">U</ModKKey>
           </span>
         </CoreLink>
-        <CoreLink :to="{ path: '/contexts' }" class="sidebar-link">
+        <CoreLink :to="{ path: '/workspaces' }" class="sidebar-link">
           <WorkspacesIcon class="w-5" />
           <span class="action flex flex-grow items-stretch justify-between ml-3">
             <span class="action">Workspaces</span>
@@ -192,9 +192,6 @@ export default {
     contexts() {
       return this.$store.getters.sortedContexts
     },
-    discordInviteLink() {
-      return import.meta.env.VITE_DISCORD_INVITE_LINK
-    },
     experimentalFeaturesEnabled() {
       return this.$store.state.settings.experimental
     },
@@ -234,14 +231,17 @@ export default {
     setContext(context) {
       this.$store.dispatch(SET_CONTEXT_TAGS, { context })
     },
-    trackCta() {
-      window.fathom.trackGoal(import.meta.env.VITE_FATHOM_GOAL_CTA_SYNC_DOCS, 0)
-    },
   },
   setup() {
     const user = inject('user')
+    const { public: { fathomEventCtaSaveDocs } } = useConfig()
+
+    const trackCta = () => {
+      window.fathom.trackGoal(fathomEventCtaSaveDocs, 0)
+    }
 
     return {
+      trackCta,
       user,
     }
   },

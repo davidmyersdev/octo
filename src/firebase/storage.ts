@@ -19,10 +19,12 @@ export const addFile = async (file: File) => {
     }
 
     return uploadBytes(fileRef, file, metadata).then((_snapshot) => {
+      const { public: { cdnUrl } } = useConfig()
+
       return {
         extension: fileExtension,
         mimeType: file.type,
-        url: `${import.meta.env.VITE_APP_CDN_URL}/${fileName}`,
+        url: `${cdnUrl}/${fileName}`,
       }
     })
   }

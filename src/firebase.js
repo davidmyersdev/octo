@@ -4,18 +4,7 @@ import { connectFirestoreEmulator, getFirestore, initializeFirestore, setLogLeve
 import { connectStorageEmulator, getStorage } from 'firebase/storage'
 import { updateGlobalConfig } from '/src/global'
 
-// firebase config
-const config = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
-}
-
-const verifyConfig = () => {
+const verifyConfig = (config) => {
   const missingKeys = Object.keys(config).filter(key => !config[key])
 
   if (missingKeys.length > 0) {
@@ -30,7 +19,20 @@ const verifyConfig = () => {
 }
 
 export const init = () => {
-  if (!verifyConfig()) { return }
+  const { public: publicConfig } = useConfig()
+
+  // firebase config
+  const config = {
+    apiKey: publicConfig.firebaseApiKey,
+    appId: publicConfig.firebaseAppId,
+    authDomain: publicConfig.firebaseAuthDomain,
+    databaseURL: publicConfig.firebaseDatabaseUrl,
+    messagingSenderId: publicConfig.firebaseMessagingSenderId,
+    projectId: publicConfig.firebaseProjectId,
+    storageBucket: publicConfig.firebaseStorageBucket,
+  }
+
+  if (!verifyConfig(config)) { return }
 
   // init firebase
   const app = initializeApp(config)
@@ -39,13 +41,13 @@ export const init = () => {
     experimentalAutoDetectLongPolling: true
   })
 
-  setLogLevel(import.meta.env.VITE_FIREBASE_LOG_LEVEL || 'error')
+  setLogLevel(publicConfig.firebaseLogLevel || 'error')
 
   // use emulators in development
-  if (location.hostname === 'localhost' && !import.meta.env.VITE_FIREBASE_EMULATOR_BYPASS) {
+  if (location.hostname === 'localhost' && !publicConfig.firebaseEmulatorBypass) {
     connectAuthEmulator(
       getAuth(),
-      import.meta.env.VITE_FIREBASE_EMULATOR_AUTH,
+      publicConfig.firebaseEmulatorAuth,
       {
         disableWarnings: true,
       }
@@ -53,14 +55,14 @@ export const init = () => {
 
     connectFirestoreEmulator(
       getFirestore(),
-      import.meta.env.VITE_FIREBASE_EMULATOR_FIRESTORE_HOST,
-      import.meta.env.VITE_FIREBASE_EMULATOR_FIRESTORE_PORT,
+      publicConfig.firebaseEmulatorFirestoreHost,
+      publicConfig.firebaseEmulatorFirestorePort,
     )
 
     connectStorageEmulator(
       getStorage(),
-      import.meta.env.VITE_FIREBASE_EMULATOR_STORAGE_HOST,
-      import.meta.env.VITE_FIREBASE_EMULATOR_STORAGE_PORT,
+      publicConfig.firebaseEmulatorStorageHost,
+      publicConfig.firebaseEmulatorStoragePort,
     )
   }
 

@@ -2,6 +2,8 @@ describe('editor', () => {
   beforeEach(() => {
     cy.clearIDB()
     cy.visit('/docs/new')
+    // Todo: Determine if there is a better way to wait for the initial redirect.
+    cy.wait(100)
     cy.visit('/docs/new')
   })
 

@@ -63,3 +63,18 @@ jobs:
           build: yarn build
           start: yarn preview:latest
           wait-on: http://localhost:32777
+  test-cypress-nuxt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+      - run: docker-compose up -d
+      - uses: cypress-io/github-action@v4.2.2
+        with:
+          config: baseUrl=http://localhost:3000
+          build: yarn nuxt:build
+          start: yarn nuxt:preview
+          wait-on: http://localhost:32777

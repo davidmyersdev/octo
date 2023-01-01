@@ -11,6 +11,7 @@
 import { nanoid } from 'nanoid'
 
 import 'overlayscrollbars/overlayscrollbars.css'
+import '/src/sw.js'
 
 export default defineComponent({
   inject: ['mq'],

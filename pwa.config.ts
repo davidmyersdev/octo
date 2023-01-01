@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid'
 import { VitePWAOptions } from 'vite-plugin-pwa'
 
 const defineConfig = (config: Partial<VitePWAOptions>): Partial<VitePWAOptions> => {
@@ -10,15 +11,15 @@ export const config = defineConfig({
   strategies: 'generateSW',
   workbox: {
     additionalManifestEntries: [
+      { url: '/', revision: nanoid() },
       { url: 'https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@300;400;700&display=swap', revision: 'v1' },
     ],
     cleanupOutdatedCaches: true,
     clientsClaim: true,
     maximumFileSizeToCacheInBytes: (5 * 1024 * 1024),
-    navigateFallback: '/index.html',
+    navigateFallback: '/',
     navigateFallbackDenylist: [
-      new RegExp('/manifest.json$'),
-      // Cypress e2e testing
+      // Ignore Cypress routes.
       new RegExp('/__'),
       new RegExp('cypress'),
     ],
@@ -44,6 +45,7 @@ export const config = defineConfig({
     background_color: '#171717',
     theme_color: '#121212',
     name: 'Octo',
+    scope: '/',
     short_name: 'Octo',
     start_url: '/docs/new',
     icons: [

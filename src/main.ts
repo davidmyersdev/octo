@@ -1,20 +1,15 @@
 import { createPinia } from 'pinia'
 import { createApp, h } from 'vue'
-// @ts-ignore
 import { Vue3Mq } from 'vue3-mq'
 import CoreScrollable from '/components/CoreScrollable.vue'
 import Extendable from '/components/Extendable.vue'
 import App from '/app.vue'
-
 import { router } from '/src/router'
 import { store } from '/src/store'
 import { caching } from '/src/stores/plugins'
 
 // Auto-imported by Nuxt
 import '/assets/css/tailwind.css'
-
-// import the service worker
-import '/src/sw.js'
 
 import PackageManager from '/src/packages/manager.js'
 

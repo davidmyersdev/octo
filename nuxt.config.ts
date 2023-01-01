@@ -12,6 +12,7 @@ export default defineNuxtConfig({
         lang: 'en',
       },
       link: [
+        { href: '/manifest.webmanifest', rel: 'manifest' },
         { href: '/img/icons/favicon.ico', rel: 'icon' },
         { href: 'https://fonts.googleapis.com', rel: 'preconnect' },
         { crossorigin: '', href: 'https://fonts.gstatic.com', rel: 'preconnect' },

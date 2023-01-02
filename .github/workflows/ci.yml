@@ -77,4 +77,4 @@ jobs:
           config: baseUrl=http://localhost:3000
           build: yarn nuxt:build
           start: yarn nuxt:preview
-          wait-on: http://localhost:32777
+          wait-on: 'http://localhost:3000,http://localhost:32777'

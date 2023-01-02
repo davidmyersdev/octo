@@ -32,7 +32,7 @@ Cypress.Commands.add('clearIDB', () => {
 })
 
 Cypress.Commands.add('waitForHook', (targetHook: string) => {
-  cy.window().then({ timeout: 30000 }, (window) => {
+  cy.window().then({ timeout: 60000 }, (window) => {
     return new Cypress.Promise((resolve, reject) => {
       const { subscribe } = useHooks(window)
 

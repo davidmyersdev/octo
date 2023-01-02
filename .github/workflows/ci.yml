@@ -78,3 +78,13 @@ jobs:
           build: yarn nuxt:build
           start: yarn nuxt:preview
           wait-on: 'http://localhost:3000,http://localhost:32777'
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: test/cypress/screenshots
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: cypress-videos
+          path: test/cypress/videos

@@ -1,5 +1,12 @@
 import { defineNuxtConfig } from 'nuxt/config'
 
+const fathomScript = process.env.NUXT_PUBLIC_FATHOM_SITE_URL ? {
+  'data-auto': false,
+  'data-site': process.env.NUXT_PUBLIC_FATHOM_SITE_ID || '',
+  'defer': true,
+  'src': `${process.env.NUXT_PUBLIC_FATHOM_SITE_URL}/script.js`,
+} : {}
+
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   app: {
@@ -19,12 +26,7 @@ export default defineNuxtConfig({
         { href: 'https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@300;400;600;700&display=swap', rel: 'stylesheet' },
       ],
       script: [
-        {
-          'data-auto': false,
-          'data-site': process.env.NUXT_PUBLIC_FATHOM_SITE_ID || '',
-          'defer': '',
-          'src': `${process.env.NUXT_PUBLIC_FATHOM_SITE_URL}/script.js`,
-        },
+        fathomScript,
       ],
     },
   },

@@ -28,7 +28,9 @@ export default defineNuxtRouteMiddleware((to, from) => {
   if (typeof to.meta.title === 'string') setTitle(to.meta.title)
 
   // Track the pageview if applicable.
-  if (to.meta.track) window.fathom?.trackPageview()
+  if (to.meta.track) {
+    window?.fathom?.trackPageview()
+  }
 
   // Handle first-time visitor redirects.
   if (isNewVisitor) {

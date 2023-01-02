@@ -19,7 +19,12 @@ export default defineNuxtConfig({
         { href: 'https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@300;400;600;700&display=swap', rel: 'stylesheet' },
       ],
       script: [
-        // Todo: Add Fathom script
+        {
+          'data-auto': false,
+          'data-site': process.env.NUXT_PUBLIC_FATHOM_SITE_ID || '',
+          'defer': '',
+          'src': `${process.env.NUXT_PUBLIC_FATHOM_SITE_URL}/script.js`,
+        },
       ],
     },
   },

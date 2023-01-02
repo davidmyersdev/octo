@@ -1,0 +1,25 @@
+const staticPaths = [
+  '/',
+  '/account',
+  '/docs',
+  '/docs/export',
+  '/docs/import',
+  '/example',
+  '/force-graph',
+  '/home',
+  '/menu',
+  '/notepad',
+  '/privacy-policy',
+  '/quick-action',
+  '/settings',
+  '/tags',
+  '/terms-and-conditions',
+  '/workspaces',
+]
+
+export default defineNuxtRouteMiddleware((to, _from) => {
+  // Handle all static paths.
+  if (staticPaths.includes(to.path)) {
+    window?.fathom?.trackPageview()
+  }
+})

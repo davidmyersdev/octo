@@ -15,7 +15,7 @@ declare global {
   interface Window {
     fathom?: {
       trackGoal: (id: string, value: number) => void,
-      trackPageview: () => void,
+      trackPageview: (options?: { url: string }) => void,
     },
     inkMde: Instance,
   }

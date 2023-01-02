@@ -5,7 +5,6 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "assets": "node ./build_assets.js",
     "build": "nuxt prepare && vue-tsc --noEmit && yarn build:unsafe",
     "build:unsafe": "vite -c vite.base-config.ts build",
     "dev": "vite -c vite.base-config.ts --port 8888",

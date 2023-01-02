@@ -46,6 +46,10 @@ export default defineComponent({
     const online = computed(() => store.state.online)
     const user = useUser()
 
+    useHead({
+      title: 'Account',
+    })
+
     return {
       online,
       user,

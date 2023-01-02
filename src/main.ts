@@ -1,3 +1,4 @@
+import { createHead } from '@vueuse/head'
 import { createPinia } from 'pinia'
 import { createApp, h } from 'vue'
 import { Vue3Mq } from 'vue3-mq'
@@ -16,6 +17,7 @@ import PackageManager from '/src/packages/manager.js'
 const app = createApp({
   render: () => h(App),
 })
+const head = createHead()
 const pinia = createPinia()
 
 pinia.use(caching)
@@ -23,6 +25,7 @@ pinia.use(caching)
 // plugins/plugins.ts
 app.config.globalProperties.$packageManager = PackageManager
 
+app.use(head)
 app.use(pinia)
 app.use(router)
 app.use(store)

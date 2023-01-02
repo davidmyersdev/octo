@@ -192,6 +192,11 @@ export default {
   beforeUnmount() {
     this.$store.state.context.editing = false;
   },
+  setup() {
+    useHead({
+      title: 'Workspaces',
+    })
+  },
 };
 </script>
 

@@ -1,3 +1,9 @@
+<script lang="ts" setup>
+useHead({
+  title: 'Privacy Policy',
+})
+</script>
+
 <template>
   <CorePage>
     <div class="prose m-auto">

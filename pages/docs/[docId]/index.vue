@@ -16,7 +16,6 @@
 import { defineComponent, inject } from 'vue'
 import { useStore } from 'vuex'
 import Editor from '/components/Editor.vue'
-import { setTitle } from '/src/common/title'
 import Doc from '/src/models/doc'
 import { EDIT_DOCUMENT } from '/src/store/actions'
 
@@ -97,7 +96,9 @@ export default defineComponent({
       }
     },
     updateTitle() {
-      setTitle(this.header || formatTags(this.doc.tags))
+      useHead({
+        title: this.header || formatTags(this.doc.tags) || 'Build your second brain',
+      })
     },
   },
   async mounted() {

@@ -24,4 +24,8 @@ import Encryption from '/components/settings/Encryption.vue'
 import Experimental from '/components/settings/Experimental.vue'
 import Export from '/components/settings/Export.vue'
 import Import from '/components/settings/Import.vue'
+
+useHead({
+  title: 'Settings',
+})
 </script>

@@ -60,5 +60,10 @@ export default {
       })
     }
   },
+  setup() {
+    useHead({
+      title: 'Notepad',
+    })
+  },
 }
 </script>

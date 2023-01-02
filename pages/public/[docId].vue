@@ -10,7 +10,6 @@
 
 <script>
 import { defineComponent, inject } from 'vue'
-import { setTitle } from '/src/common/title'
 import { fetchSharedDoc } from '/src/firebase/firestore'
 import Doc, { unpack } from '/src/models/doc'
 
@@ -50,7 +49,9 @@ export default defineComponent({
       return unpack(packed, { privateKey: this.$store.state.settings.crypto.privateKey })
     },
     updateTitle() {
-      setTitle(this.header || formatTags(this.doc.tags))
+      useHead({
+        title: this.header || formatTags(this.doc.tags) || 'Build your second brain',
+      })
     },
   },
   async mounted() {

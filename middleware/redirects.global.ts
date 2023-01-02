@@ -1,5 +1,4 @@
 import { type RouteLocation } from 'vue-router'
-import { setTitle } from '/src/common/title'
 
 const legacyRoutes = [
   { path: /^\/context$/, redirect: (route: RouteLocation) => ({ path: '/workspaces' }) },
@@ -23,9 +22,6 @@ const legacyRoutes = [
 
 export default defineNuxtRouteMiddleware((to, from) => {
   const isNewVisitor = !window?.localStorage.getItem('octo/welcome/v1')
-
-  // Set the title if necessary.
-  if (typeof to.meta.title === 'string') setTitle(to.meta.title)
 
   // Track the pageview if applicable.
   if (to.meta.track) {

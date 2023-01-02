@@ -33,6 +33,7 @@ export default defineConfig({
       ],
       imports: [
         '@vueuse/core',
+        '@vueuse/head',
         'pinia',
         'vue',
         'vue-router',

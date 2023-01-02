@@ -163,6 +163,11 @@ export default {
   beforeUnmount() {
     window.removeEventListener('resize', this.listener)
   },
+  setup() {
+    useHead({
+      title: 'Force Graph',
+    })
+  },
 }
 </script>
 

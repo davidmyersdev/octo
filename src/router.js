@@ -4,7 +4,6 @@ import {
   SET_DOCUMENT,
   SET_SHOW_WELCOME,
 } from '/src/store/actions.js'
-import { setTitle } from './common/title'
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -259,7 +258,7 @@ export const router = createRouter({
 })
 
 router.beforeEach((to) => {
-  if (to.meta.title) setTitle(to.meta.title)
+  if (to.meta.title) useHead({ title: to.meta.title })
   if (to.meta.track) window.fathom?.trackPageview()
   if (to.name === 'docs-docId') store.dispatch(SET_DOCUMENT, { id: to.params.docId })
   if (to.path === '/docs/new') store.dispatch(SET_DOCUMENT, { id: null })

@@ -1,3 +1,9 @@
+<script lang="ts" setup>
+useHead({
+  title: 'Quick Action',
+})
+</script>
+
 <template>
   <CorePage>
     <h2 class="text-2xl mb-3">Quick Actions</h2>

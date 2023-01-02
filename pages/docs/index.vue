@@ -6,4 +6,8 @@
 
 <script lang="ts" setup>
 const { query } = useRouteQuery()
+
+useHead({
+  title: 'Docs',
+})
 </script>

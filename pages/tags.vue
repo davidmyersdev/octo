@@ -16,6 +16,11 @@ export default {
       return this.$store.getters.tags;
     },
   },
+  setup() {
+    useHead({
+      title: 'Tags',
+    })
+  },
 };
 </script>
 

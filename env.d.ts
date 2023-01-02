@@ -5,6 +5,8 @@ import { type Instance } from 'ink-mde'
 import { type DefineComponent } from 'vue'
 
 declare global {
+  var isNuxt: boolean
+
   namespace Cypress {
     interface Chainable {
       clearIDB: () => Cypress.Promise,

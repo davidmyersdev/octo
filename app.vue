@@ -17,6 +17,10 @@ export default defineComponent({
   inject: ['mq'],
   setup() {
     useRoot()
+    useHead({
+      title: 'Build your second brain',
+      titleTemplate: (title) => `${title} | Octo`,
+    })
 
     const pageKey = ref('')
     const router = useRouter()

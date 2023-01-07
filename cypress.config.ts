@@ -11,6 +11,9 @@ export default defineConfig({
     viewportWidth: 1920,
   },
   fixturesFolder: 'test/fixtures',
+  retries: {
+    runMode: 1,
+  },
   screenshotsFolder: 'test/cypress/screenshots',
   videosFolder: 'test/cypress/videos',
 })

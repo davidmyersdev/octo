@@ -44,9 +44,9 @@ export const config = defineConfig({
   manifest: {
     background_color: '#171717',
     theme_color: '#121212',
-    name: 'Octo',
+    name: process.env.OCTO_NAME || 'Octo',
     scope: '/',
-    short_name: 'Octo',
+    short_name: process.env.OCTO_NAME || 'Octo',
     start_url: '/docs/new',
     icons: [
       {

@@ -64,7 +64,7 @@ export default defineComponent({
   --app-height: 100vh;
 }
 
-html, body, #app, .__nuxt {
+.dashboard {
   height: var(--app-height, 100vh);
 }
 

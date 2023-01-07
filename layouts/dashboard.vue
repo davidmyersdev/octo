@@ -117,7 +117,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="flex h-full w-screen min-h-0 min-w-0 overflow-hidden border-t-2 border-white dark:border-gray-900">
+  <div class="dashboard flex h-screen w-screen min-h-0 min-w-0 overflow-hidden border-t-2 border-white dark:border-gray-900">
     <section v-if="!mobile" class="flex flex-col items-center justify-between gap-4 h-full w-14 bg-gray-100 dark:bg-darkest md:flex">
       <div class="flex flex-col">
         <div class="flex flex-col flex-shrink-0 items-center justify-center w-14">

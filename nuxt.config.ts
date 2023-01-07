@@ -12,10 +12,10 @@ export default defineNuxtConfig({
   app: {
     head: {
       bodyAttrs: {
-        class: 'flex flex-col flex-grow text-gray-900 dark:text-gray-300 bg-white dark:bg-gray-900',
+        class: 'text-gray-900 dark:text-gray-300 bg-white dark:bg-gray-900',
       },
       htmlAttrs: {
-        class: 'flex scroll-smooth scroll-pt-4',
+        class: 'scroll-smooth scroll-pt-4',
         lang: 'en',
       },
       link: [

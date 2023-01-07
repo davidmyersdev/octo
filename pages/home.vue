@@ -1,5 +1,5 @@
 <template>
-  <div class="text-lg overflow-auto home">
+  <div class="home block text-lg">
     <section class="p-4 lg:p-8 container mx-auto">
       <div class="max-w-[80ch] mx-auto mb-8">
         <div class="flex flex-col gap-32 lg:gap-40 py-10">
@@ -8,7 +8,7 @@
             <h1 class="text-4xl lg:text-6xl font-semibold">Build <span class="underline underline-offset-8 decoration-2">your</span> second brain.</h1>
           </div>
           <div class="flex flex-col gap-4 items-center text-center">
-            <CoreLink v-if="user" :to="{ path: '/docs/new' }" class="button-base bg-brand transition shadow whitespace-nowrap justify-center gap-3 text-black text-xl py-2 px-8 hover:scale-125">
+            <CoreLink v-if="user || !supportsFirebase" :to="{ path: '/docs/new' }" class="button-base bg-brand transition shadow whitespace-nowrap justify-center gap-3 text-black text-xl py-2 px-8 hover:scale-125">
               <span class="flex items-center gap-3 align-center">
                 <span>Open the app</span>
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -30,9 +30,7 @@
     </section>
     <section class="p-4 lg:p-8">
       <div class="container mx-auto mb-8 lg:mt-20">
-        <div class="aspect-w-16 aspect-h-9 w-full">
-          <img src="/img/screenshot.png?v=MjAyMi0xMi0xMVQxMDoxMjoyMS0wNTAwCg==" class="w-full" />
-        </div>
+        <img src="/img/screenshot.png?v=MjAyMi0xMi0xMVQxMDoxMjoyMS0wNTAwCg==" width="1600" height="900" class="w-full" />
       </div>
     </section>
     <section class="p-4 lg:p-8 container mx-auto">

@@ -18,6 +18,7 @@ import { useStore } from 'vuex'
 import Editor from '/components/Editor.vue'
 import Doc from '/src/models/doc'
 import { EDIT_DOCUMENT } from '/src/store/actions'
+import { useRecentDocs } from '/src/stores/useRecentDocs'
 
 const formatTags = (tags, delimiter = ', ') => {
   return tags.map((tag) => `#${tag}`).join(delimiter)
@@ -48,10 +49,18 @@ export default defineComponent({
       placeholder: new Doc({ text: formatTags(this.$store.state.context.tags, ' ') }),
     }
   },
-  setup() {
+  setup(props) {
     const appearance = inject('appearance')
+    const router = useRouter()
     const store = useStore()
     const settings = computed(() => store.state.settings.editor)
+    const recentDocs = useRecentDocs()
+    const docId = computed(() => props.docId || router.currentRoute.value.params.docId)
+
+    // Todo: Keep a centralized list of docId exclusions.
+    if (docId.value && docId.value !== 'new') {
+      recentDocs.add(docId.value)
+    }
 
     return {
       appearance: appearance.value === 'october' ? 'dark' : appearance.value,

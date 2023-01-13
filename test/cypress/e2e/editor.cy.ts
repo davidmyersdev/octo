@@ -3,7 +3,7 @@ describe('editor', () => {
     cy.clearIDB()
     cy.visit('/docs/new')
     // Todo: Determine if there is a better way to wait for the initial redirect.
-    cy.wait(100)
+    cy.wait(300)
     cy.visit('/docs/new')
   })
 
@@ -21,6 +21,6 @@ describe('editor', () => {
   it('redirects to /docs/:docId after typing anything', () => {
     cy.get('.ink-mde-editor-content').type('a')
     cy.url().should('not.match', /\/docs\/new$/)
-    cy.url().should('match', /\/docs\/.{4,}\?p=true$/)
+    cy.url().should('match', /\/docs\/.{4,}\?p=1$/)
   })
 })

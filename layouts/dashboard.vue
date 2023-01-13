@@ -2,7 +2,6 @@
 import { ViewColumnsIcon } from '@heroicons/vue/24/outline'
 import { CalendarIcon, Cog8ToothIcon, DocumentPlusIcon, HeartIcon, InboxIcon, UserCircleIcon, XMarkIcon } from '@heroicons/vue/24/solid'
 import { computed, defineComponent, onBeforeUnmount, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 import { useMq } from 'vue3-mq'
 import DiscordIcon from '/assets/discord.svg?component'
@@ -73,9 +72,9 @@ export default defineComponent({
       toggleMeta()
     })
 
-    const handleTabClose = (id: string) => {
+    const handleTabClose = async (id: string) => {
       if (doc.value?.id === id) {
-        router.push({ path: '/docs/new' })
+        await router.push({ path: '/docs/new' })
       }
 
       unpinDoc(id)

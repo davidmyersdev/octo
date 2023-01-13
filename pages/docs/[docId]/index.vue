@@ -1,26 +1,12 @@
-<template>
-  <Editor
-    ref="editable"
-    :appearance="appearance"
-    :doc="doc"
-    :key="doc.id"
-    :initialFocus="initialFocus"
-    :initialSelections="initialSelections"
-    :ro="ro"
-    :settings="settings"
-    @input="input"
-  />
-</template>
-
-<script>
-import { defineComponent, inject } from 'vue'
+<script lang="ts">
+import { type Ref, defineComponent, inject } from 'vue'
 import { useStore } from 'vuex'
 import Editor from '/components/Editor.vue'
 import Doc from '/src/models/doc'
 import { EDIT_DOCUMENT } from '/src/store/actions'
 import { useRecentDocs } from '/src/stores/useRecentDocs'
 
-const formatTags = (tags, delimiter = ', ') => {
+const formatTags = (tags: string[], delimiter = ', ') => {
   return tags.map((tag) => `#${tag}`).join(delimiter)
 }
 
@@ -33,7 +19,7 @@ export default defineComponent({
     initialFocus: {
       type: String,
       default: () => 'any',
-      validator: (position) => ['any', 'start', 'end'].includes(position),
+      validator: (position: string) => ['any', 'start', 'end'].includes(position),
     },
     initialSelections: {
       type: Array,
@@ -43,75 +29,73 @@ export default defineComponent({
       type: Boolean,
     },
   },
-  data() {
-    return {
-      editor: null,
-      placeholder: new Doc({ text: formatTags(this.$store.state.context.tags, ' ') }),
-    }
-  },
   setup(props) {
-    const appearance = inject('appearance')
+    const appearance = inject<Ref<string>>('appearance', ref('auto'))
+    const editor = ref()
     const router = useRouter()
     const store = useStore()
+    const placeholder = new Doc({ text: formatTags(store.state.context.tags, ' ') })
     const settings = computed(() => store.state.settings.editor)
     const recentDocs = useRecentDocs()
-    const docId = computed(() => props.docId || router.currentRoute.value.params.docId)
+    const docId = computed(() => props.docId || router.currentRoute.value.params.docId as string)
+    const doc = computed(() => store.getters.decrypted.find((d: Doc) => d.id === docId.value) || placeholder)
+    const tags = computed(() => doc.value.tags)
+    const header = computed(() => doc.value.headers[0])
 
-    // Todo: Keep a centralized list of docId exclusions.
-    if (docId.value && docId.value !== 'new') {
-      recentDocs.add(docId.value)
+    const onInput = async (text: string) => {
+      if (!props.ro) {
+        store.commit(EDIT_DOCUMENT, new Doc({ ...doc.value, text }))
+
+        if (!docId.value || docId.value === 'new') {
+          await router.replace({
+            path: `/docs/${doc.value.id}`,
+            query: {
+              p: '1',
+            },
+          })
+
+          recentDocs.add(docId.value)
+        }
+      }
     }
+
+    onMounted(() => {
+      // Todo: Keep a centralized list of docId exclusions.
+      if (docId.value && docId.value !== 'new') {
+        recentDocs.add(docId.value)
+      }
+    })
+
+    watchEffect(() => {
+      useHead({
+        title: header.value || formatTags(tags.value) || 'Build your second brain',
+      })
+    })
 
     return {
       appearance: appearance.value === 'october' ? 'dark' : appearance.value,
+      doc,
+      editor,
+      header,
+      onInput,
+      placeholder,
       settings,
+      tags,
     }
-  },
-  watch: {
-    tags: {
-      deep: true,
-      handler() {
-        this.updateTitle()
-      },
-    },
-    header() {
-      this.updateTitle()
-    },
-  },
-  computed: {
-    doc() {
-      return this.$store.getters.decrypted.find((doc) => doc.id === (this.docId || this.$route.params.docId)) || this.placeholder
-    },
-    tags() {
-      return this.doc.tags
-    },
-    header() {
-      return this.doc.headers[0]
-    },
-  },
-  methods: {
-    input(text) {
-      if (!this.ro) {
-        this.$store.commit(EDIT_DOCUMENT, new Doc({ ...this.doc, text }))
-
-        if (!this.docId) {
-          this.$router.replace({
-            path: `/docs/${this.doc.id}`,
-            query: {
-              p: true,
-            },
-          })
-        }
-      }
-    },
-    updateTitle() {
-      useHead({
-        title: this.header || formatTags(this.doc.tags) || 'Build your second brain',
-      })
-    },
-  },
-  async mounted() {
-    this.updateTitle()
   },
 })
 </script>
+
+<template>
+  <Editor
+    ref="editable"
+    :appearance="appearance"
+    :doc="doc"
+    :key="doc.id"
+    :initialFocus="initialFocus"
+    :initialSelections="initialSelections"
+    :ro="ro"
+    :settings="settings"
+    @input="onInput"
+  />
+</template>

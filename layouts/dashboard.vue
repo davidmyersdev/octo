@@ -152,7 +152,7 @@ export default defineComponent({
         </CoreLink>
       </div>
     </section>
-    <CoreDivider :vertical="true" />
+    <CoreDivider v-if="!mobile" :vertical="true" />
     <section class="flex flex-col flex-grow flex-shrink min-h-0 min-w-0">
       <nav class="flex items-center justify-between py-2 bg-gray-100 dark:bg-darkest h-14">
         <CoreLink v-if="mobile" :to="{ path: '/docs/new' }" class="flex items-center justify-center p-2 h-14">

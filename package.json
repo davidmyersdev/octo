@@ -5,14 +5,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt prepare && vue-tsc --noEmit && yarn build:unsafe",
-    "build:unsafe": "vite -c vite.base-config.ts build",
-    "dev": "vite -c vite.base-config.ts --port 8888",
-    "nuxt:build": "nuxt generate",
-    "nuxt:dev": "nuxt dev",
-    "nuxt:preview": "nuxt preview",
-    "preview": "yarn build && yarn preview:latest",
-    "preview:latest": "vite -c vite.base-config.ts preview --port 8889"
+    "build": "nuxt prepare && nuxt typecheck && nuxt generate",
+    "dev": "nuxt dev --port 8888",
+    "legacy:build": "nuxt prepare && vue-tsc --noEmit && vite -c vite.base-config.ts build",
+    "legacy:dev": "vite -c vite.base-config.ts --port 8888",
+    "legacy:preview": "yarn build && vite -c vite.base-config.ts preview --port 8889",
+    "preview": "nuxt preview"
   },
   "dependencies": {
     "@mermaid-js/mermaid-mindmap": "^9.2.2",

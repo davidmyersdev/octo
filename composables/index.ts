@@ -1,5 +1,6 @@
 export * from './useAppearance'
 export * from './useAuth'
+export * from './useDatabase'
 export * from './useLayout'
 export * from './usePinnedDocs'
 export * from './useTiers'

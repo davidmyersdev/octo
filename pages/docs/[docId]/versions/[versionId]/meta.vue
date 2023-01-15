@@ -1,5 +1,5 @@
-<script lang="ts" setup></script>
-
 <template>
   <DocMeta />
 </template>
+
+<script lang="ts" setup></script>

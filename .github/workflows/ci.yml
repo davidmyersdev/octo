@@ -38,16 +38,6 @@ env:
   NUXT_PUBLIC_FIREBASE_STORAGE_BUCKET: fake
   NUXT_PUBLIC_STRIPE_MONTHLY_PRICE:
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: yarn
-      - run: yarn install --immutable
-      - run: yarn build
   test-cypress:
     runs-on: ubuntu-latest
     steps:
@@ -56,27 +46,13 @@ jobs:
         with:
           node-version: 16
           cache: yarn
-      - run: docker-compose up -d
-      - uses: cypress-io/github-action@v4.2.2
-        with:
-          config: baseUrl=http://localhost:8889
-          build: yarn build
-          start: yarn preview:latest
-          wait-on: http://localhost:32777
-  test-cypress-nuxt:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: yarn
+      - run: yarn install --immutable
       - run: docker-compose up -d
       - uses: cypress-io/github-action@v4.2.2
         with:
           config: baseUrl=http://localhost:3000
-          build: yarn nuxt:build
-          start: yarn nuxt:preview
+          build: yarn build
+          start: yarn preview
           wait-on: 'http://localhost:3000,http://localhost:32777'
       - uses: actions/upload-artifact@v3
         if: failure()
@@ -84,7 +60,7 @@ jobs:
           name: cypress-screenshots
           path: test/cypress/screenshots
       - uses: actions/upload-artifact@v3
-        if: always()
+        if: failure()
         with:
           name: cypress-videos
           path: test/cypress/videos

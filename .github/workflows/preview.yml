@@ -3,7 +3,6 @@ on:
   pull_request:
   workflow_dispatch:
 env:
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   NODE_OPTIONS: --max-old-space-size=4096
   NUXT_PUBLIC_CDN_URL: ${{ secrets.VITE_APP_CDN_URL }}
   NUXT_PUBLIC_DISCORD_INVITE_LINK: ${{ secrets.VITE_DISCORD_INVITE_LINK }}
@@ -27,7 +26,8 @@ env:
   NUXT_PUBLIC_FIREBASE_PROJECT_ID: ${{ secrets.VUE_APP_FIREBASE_PROJECT_ID }}
   NUXT_PUBLIC_FIREBASE_STORAGE_BUCKET: ${{ secrets.VUE_APP_FIREBASE_STORAGE_BUCKET }}
   NUXT_PUBLIC_STRIPE_MONTHLY_PRICE: ${{ secrets.VUE_APP_STRIPE_MONTHLY_PRICE }}
-  OCTO_NAME: Octo (Test)
+  OCTO_NAME: Octo (Preview)
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
 jobs:
   deploy_vercel:
     env:
@@ -50,26 +50,4 @@ jobs:
       - id: deploy
         run: |
           url=`yarn vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}`
-          echo "::set-output name=url::$url"
-  deploy_vercel_nuxt:
-    env:
-      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_TEST_PROJECT_ID }}
-    environment:
-      name: preview
-      url: ${{ steps.deploy.outputs.url }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: yarn
-      - run: yarn install --immutable
-      - run: yarn vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
-      - run: yarn vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
-      - run: cp ./.vercel/output/static/manifest.webmanifest ./.vercel/output/static/manifest.json
-      - run: cp ./.vercel/output/static/sw.js ./.vercel/output/static/service-worker.js
-      - id: deploy
-        run: |
-          url=`yarn vercel deploy --prod --prebuilt --token=${{ secrets.VERCEL_TOKEN }}`
           echo "::set-output name=url::$url"

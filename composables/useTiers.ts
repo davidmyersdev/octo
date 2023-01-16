@@ -1,5 +1,3 @@
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
 import { type AuthMagicLinkForm, type AuthSocialForm, useAuthForm, useSubscription, useUser } from '/composables/useAuth'
 import { addCheckout } from '/src/firebase/firestore'
 

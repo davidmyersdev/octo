@@ -1,7 +1,6 @@
 import { useOnline } from '@vueuse/core'
 import { type AuthProvider, type UserInfo as ProviderInfo, getAuth, getRedirectResult, GithubAuthProvider, GoogleAuthProvider, isSignInWithEmailLink, sendSignInLinkToEmail, signInWithEmailLink, signInWithRedirect, TwitterAuthProvider } from 'firebase/auth'
-import { type Ref, computed, inject, reactive, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import { type Ref } from 'vue'
 import { useStore } from 'vuex'
 import { type Tier } from '/composables/useTiers'
 

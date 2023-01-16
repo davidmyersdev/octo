@@ -54,8 +54,6 @@
 import Doc from '/components/Doc.vue'
 import Tag from '/components/Tag.vue'
 
-import { open } from '/src/router.js'
-
 import {
   MERGE_DOCUMENTS,
 } from '/src/store/actions.js'
@@ -155,7 +153,7 @@ export default {
           this.selectedDocs.push(this.filteredDocs.find(doc => doc.id === id))
         }
       } else {
-        open({ path: `/docs/${id}` })
+        this.$router.push({ path: `/docs/${id}` })
       }
     },
   },

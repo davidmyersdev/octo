@@ -136,7 +136,6 @@ import ModK from '/components/ModK.vue'
 import ModKKey from '/components/ModKKey.vue'
 import TagLink from '/components/TagLink.vue'
 import TheLogo from '/components/TheLogo.vue'
-import { open } from '/src/router'
 import { useFiles } from '/src/stores/useFiles'
 import { AsyncIterable } from '/src/utils/iterables'
 import { globalConfig } from '/src/global'
@@ -219,14 +218,14 @@ export default {
         })
 
         if (id) {
-          return open({ path: `/file-editor/${id}` })
+          return this.$router.push({ path: `/file-editor/${id}` })
         }
       } catch {}
 
       await handle.createWritable()
 
       useFiles().add({ id, handle })
-      return open({ path: `/file-editor/${id}` })
+      return this.$router.push({ path: `/file-editor/${id}` })
     },
     setContext(context) {
       this.$store.dispatch(SET_CONTEXT_TAGS, { context })

@@ -1,5 +1,5 @@
 import { bind, bindGlobal, unbind } from '/src/common/keybindings'
-import { open } from '/src/router'
+import { useRouter } from '#imports'
 
 export const DISABLE_LISTENER = 'DISABLE_LISTENER'
 export const DISABLE_LISTENERS = 'DISABLE_LISTENERS'
@@ -10,7 +10,8 @@ export const LOAD_KEYBINDINGS = 'LOAD_KEYBINDINGS'
 export const TOGGLE_LISTENERS = 'TOGGLE_LISTENERS'
 
 const goTo = (path) => {
-  open({ path })
+  const router = useRouter()
+  router.push({ path })
 }
 
 const makeCallback = (callback, context) => {

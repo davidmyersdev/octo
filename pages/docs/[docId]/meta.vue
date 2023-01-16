@@ -88,7 +88,6 @@ import TagLink from '/components/TagLink.vue'
 
 import CodeSandbox from '/src/common/code_sandbox.js'
 import { parseCodeblocks, parseReferences } from '/src/common/parsers'
-import { open } from '/src/router.js'
 
 import {
   DISCARD_DOCUMENT,
@@ -172,12 +171,12 @@ export default {
     async discardDocument() {
       this.$store.dispatch(DISCARD_DOCUMENT, { id: this.doc.id })
 
-      open({ path: '/docs/new' })
+      this.$router.push({ path: '/docs/new' })
     },
     async duplicateDocument() {
       const newDocId = await this.$store.dispatch(DUPLICATE_DOCUMENT, { id: this.doc.id })
 
-      open({ path: `/docs/${newDocId}` })
+      this.$router.push({ path: `/docs/${newDocId}` })
     },
     async openSandbox() {
       const files = this.codeblocks.reduce((agg, codeblock, index) => {

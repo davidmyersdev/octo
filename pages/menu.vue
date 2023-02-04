@@ -43,7 +43,7 @@
             </span>
           </button>
         </div>
-        <CoreLink v-if="supportsFirebase && !user.id" @click="trackCta" :to="{ path: '/account' }" class="sidebar-link text-theme">
+        <CoreLink v-if="!firebaseDisabled && !user.id" @click="trackCta" :to="{ path: '/account' }" class="sidebar-link text-theme">
           <SaveIcon class="w-5" />
           <span class="action flex flex-grow items-stretch justify-between ml-3">
             <span>Save Docs</span>
@@ -138,7 +138,6 @@ import TagLink from '/components/TagLink.vue'
 import TheLogo from '/components/TheLogo.vue'
 import { useFiles } from '/src/stores/useFiles'
 import { AsyncIterable } from '/src/utils/iterables'
-import { globalConfig } from '/src/global'
 
 import {
   DEACTIVATE_CONTEXT,
@@ -172,12 +171,6 @@ export default {
     WorkspacesIcon,
   },
   inject: ['mq'],
-  data() {
-    return {
-      globalConfig,
-      supportsFirebase: globalConfig.supportsFirebase,
-    }
-  },
   computed: {
     authIsEvaluated() {
       return this.$store.state.auth.isEvaluated
@@ -233,13 +226,14 @@ export default {
   },
   setup() {
     const user = inject('user')
-    const { public: { fathomEventCtaSaveDocs } } = useConfig()
+    const { public: { fathomEventCtaSaveDocs, firebaseDisabled } } = useConfig()
 
     const trackCta = () => {
       window.fathom.trackGoal(fathomEventCtaSaveDocs, 0)
     }
 
     return {
+      firebaseDisabled,
       trackCta,
       user,
     }

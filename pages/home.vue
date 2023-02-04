@@ -1,35 +1,74 @@
+<script lang="ts">
+import { useStore } from 'vuex'
+import IconGitHub from '/assets/github.svg?component'
+import IconTwitter from '/assets/twitter.svg?component'
+import TheLogo from '/assets/logo.svg?component'
+
+if (globalThis.isNuxt) {
+  definePageMeta({
+    layout: 'bare',
+  })
+}
+
+export default defineComponent({
+  components: {
+    IconGitHub,
+    IconTwitter,
+    TheLogo,
+  },
+  setup() {
+    const store = useStore()
+    const user = useUser()
+    const { public: { appSubtitle, appTitle, discordInviteLink, fathomEventCtaSignUpNow, firebaseDisabled } } = useConfig()
+    const isCtaRelevant = computed(() => !(user.value.id || firebaseDisabled))
+
+    const ctaLabel = computed(() => isCtaRelevant.value ? 'Get started for free' : 'Open the app')
+    const ctaRoute = computed(() => isCtaRelevant.value ? { hash: '#pricing' } : { path: '/docs/new' })
+    const ctaHandler = () => () => {
+      if (isCtaRelevant.value) {
+        window.fathom?.trackGoal(fathomEventCtaSignUpNow, 0)
+      }
+    }
+
+    store.commit('SET_SHOW_WELCOME', false)
+
+    return {
+      appSubtitle,
+      appTitle,
+      ctaHandler,
+      ctaLabel,
+      ctaRoute,
+      discordInviteLink,
+      firebaseDisabled,
+      user,
+    }
+  },
+})
+</script>
+
 <template>
   <div class="home block text-lg">
     <section class="p-4 lg:p-8 container mx-auto">
-      <div class="max-w-[80ch] mx-auto mb-8">
-        <div class="flex flex-col gap-32 lg:gap-40 py-10">
-          <div class="flex flex-col text-center gap-8">
-            <TheLogo class="h-32 lg:h-48 text-brand" />
-            <h1 class="text-4xl lg:text-6xl font-semibold">Build <span class="underline underline-offset-8 decoration-2">your</span> second brain.</h1>
+      <div class="max-w-[90ch] mx-auto">
+        <div class="flex flex-col items-center text-center gap-8 lg:gap-16 py-8 lg:py-16">
+          <TheLogo class="h-24 lg:h-48 text-brand" />
+          <div class="flex flex-col gap-4 lg:gap-8">
+            <h1 class="text-4xl lg:text-6xl font-semibold">{{ appTitle }}</h1>
+            <p class="text-2xl lg:text-4xl brightness-75">{{ appSubtitle }}</p>
           </div>
-          <div class="flex flex-col gap-4 items-center text-center">
-            <CoreLink v-if="user || !supportsFirebase" :to="{ path: '/docs/new' }" class="button-base bg-brand transition shadow whitespace-nowrap justify-center gap-3 text-black text-xl py-2 px-8 hover:scale-125">
-              <span class="flex items-center gap-3 align-center">
-                <span>Open the app</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </span>
-            </CoreLink>
-            <a v-else @click="trackCtaSignUpNow" href="#pricing" class="button-base bg-brand transition shadow whitespace-nowrap justify-center gap-3 text-black text-xl py-2 px-8 hover:scale-125">
-              <span class="flex items-center gap-3 align-center">
-                <span>Get started for free</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </span>
-            </a>
-          </div>
+          <CoreLink :to="ctaRoute" @click="ctaHandler" class="button-base bg-brand transition shadow whitespace-nowrap justify-center gap-3 text-layer-0 text-xl py-2 px-8 hover:scale-125 focus:scale-125">
+            <span class="flex items-center gap-3 align-center">
+              <span>{{ ctaLabel }}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </span>
+          </CoreLink>
         </div>
       </div>
     </section>
     <section class="p-4 lg:p-8">
-      <div class="container mx-auto mb-8 lg:mt-20">
+      <div class="container mx-auto">
         <img src="/img/screenshot.png?v=MjAyMi0xMi0xMVQxMDoxMjoyMS0wNTAwCg==" width="1600" height="900" class="w-full" />
       </div>
     </section>
@@ -313,7 +352,7 @@
         </div>
       </div>
     </section>
-    <section v-if="supportsFirebase" class="p-4 lg:p-8">
+    <section v-if="!firebaseDisabled" class="p-4 lg:p-8">
       <div class="container mx-auto">
         <div class="max-w-[80ch] mx-auto mb-8">
           <h2 id="pricing" class="text-2xl lg:text-4xl font-bold">Pricing</h2>
@@ -339,55 +378,6 @@
     </footer>
   </div>
 </template>
-
-<script>
-import { useStore } from 'vuex'
-import AuthTiers from '/components/AuthTiers.vue'
-import IconGitHub from '/assets/github.svg?component'
-import IconTwitter from '/assets/twitter.svg?component'
-import TheLogo from '/assets/logo.svg?component'
-import { globalConfig } from '/src/global'
-
-if (globalThis.isNuxt) {
-  definePageMeta({
-    layout: 'bare',
-  })
-}
-
-export default {
-  components: {
-    AuthTiers,
-    IconGitHub,
-    IconTwitter,
-    TheLogo,
-  },
-  setup() {
-    const store = useStore()
-    const { public: { discordInviteLink, fathomEventCtaSignUpNow } } = useConfig()
-
-    const trackCtaSignUpNow = () => {
-      window.fathom?.trackGoal(fathomEventCtaSignUpNow, 0)
-    }
-
-    store.commit('SET_SHOW_WELCOME', false)
-
-    return {
-      discordInviteLink,
-      trackCtaSignUpNow,
-    }
-  },
-  data() {
-    return {
-      supportsFirebase: globalConfig.supportsFirebase,
-    }
-  },
-  computed: {
-    user() {
-      return this.$store.state.auth.user
-    },
-  },
-}
-</script>
 
 <style scoped>
 .home {

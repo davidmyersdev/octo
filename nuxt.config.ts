@@ -52,6 +52,9 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
+      appName: 'Octo',
+      appTitle: 'Unlock your potential',
+      appSubtitle: 'The ultimate tool for personal knowledge management, anywhere you go.',
       cdnUrl: '',
       discordInviteLink: '',
       fathomEventAccountRegistration: '',
@@ -77,6 +80,7 @@ export default defineNuxtConfig({
       firebaseEmulatorFunctionsPort: '',
       firebaseEmulatorStorageHost: '',
       firebaseEmulatorStoragePort: '',
+      firebaseDisabled: '',
       firebaseLogLevel: '',
       firebaseMessagingSenderId: '',
       firebaseProjectId: '',

@@ -2,7 +2,6 @@ import { initializeApp } from 'firebase/app'
 import { connectAuthEmulator, getAuth } from 'firebase/auth'
 import { connectFirestoreEmulator, getFirestore, initializeFirestore, setLogLevel } from 'firebase/firestore'
 import { connectStorageEmulator, getStorage } from 'firebase/storage'
-import { updateGlobalConfig } from '/src/global'
 
 const verifyConfig = (config) => {
   const missingKeys = Object.keys(config).filter(key => !config[key])
@@ -65,6 +64,4 @@ export const init = () => {
       publicConfig.firebaseEmulatorStoragePort,
     )
   }
-
-  updateGlobalConfig({ supportsFirebase: true })
 }

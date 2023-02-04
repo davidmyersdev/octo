@@ -38,18 +38,18 @@ export default defineComponent({
 </script>
 
 <template>
-  <section class="flex flex-col gap-2">
+  <form @submit.prevent="send" class="flex flex-col gap-2">
     <FormText v-model="form.email" placeholder="Enter your email address" type="email">
       <template #icon>
         <EnvelopeIcon class="h-5 w-5" />
       </template>
     </FormText>
-    <Button @click="send">
+    <Button type="submit">
       <span>Send me a <strong>magic link</strong></span>
     </Button>
     <p v-if="form.error" class="text-red-500">{{ form.error }}</p>
     <p v-else-if="form.confirming || form.confirmed">
       <span>Sending your magic link... <strong v-if="form.confirmed">email sent</strong></span>
     </p>
-  </section>
+  </form>
 </template>

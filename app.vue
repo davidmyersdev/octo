@@ -2,7 +2,7 @@
   <div id="app" class="h-full" :class="sizes.concat([!ligatures && 'ligatures-none'])">
     <AsyncChangeLog v-if="showChangeLog && !flow" />
     <AppLayout>
-      <AppPage :pageKey="pageKey" class="dashboard-content flex-grow flex-shrink h-full overflow-x-hidden relative" />
+      <AppPage :pageKey="pageKey" class="bg-opacity-25 flex-grow flex-shrink h-full overflow-x-hidden relative" />
     </AppLayout>
   </div>
 </template>
@@ -16,10 +16,11 @@ import '/src/sw.js'
 export default defineComponent({
   inject: ['mq'],
   setup() {
+    const { public: { appName, appTitle } } = useConfig()
     useRoot()
     useHead({
-      title: 'Build your second brain',
-      titleTemplate: (title) => `${title} | Octo`,
+      title: appTitle,
+      titleTemplate: (title) => `${title} | ${appName}`,
     })
 
     const pageKey = ref('')

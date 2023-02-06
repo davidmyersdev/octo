@@ -3,7 +3,7 @@
 
 # Octo
 
-Build your second brain at [octo.app](https://octo.app)
+The ultimate open source tool for personal knowledge management. Sign up at [octo.app](https://octo.app).
 
 [![screenshot](public/img/screenshot.png)](https://octo.app)
 

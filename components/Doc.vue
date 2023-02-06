@@ -47,17 +47,24 @@ export default {
     discardedAt: Date,
     allowDiscard: Boolean,
   },
-  computed: {
-    html() {
-      const html = micromark(this.text, { extensions: [gfm()], htmlExtensions: [gfmHtml()] })
+  setup(props) {
+    const { toHtml } = useMarkdown()
+    const html = computed(() => {
+      const rawHtml = toHtml(props.text)
 
-      if (html.includes('href')) {
+      if (rawHtml.includes('href')) {
         // Todo: Figure out how to intercept links in micromark.
-        return html.replace(/href=".*?"/g, '')
+        return rawHtml.replace(/href=".*?"/g, '')
       }
 
-      return html
-    },
+      return rawHtml
+    })
+
+    return {
+      html,
+    }
+  },
+  computed: {
     updated() {
       return `Updated on ${moment(this.updatedAt).format('ddd, MMM Do, YYYY [at] h:mm A')}`;
     },

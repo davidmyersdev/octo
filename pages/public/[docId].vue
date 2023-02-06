@@ -10,6 +10,7 @@
 
 <script>
 import { defineComponent, inject } from 'vue'
+import { useStore } from 'vuex'
 import { fetchSharedDoc } from '/src/firebase/firestore'
 import Doc, { unpack } from '/src/models/doc'
 
@@ -21,45 +22,39 @@ export default defineComponent({
   props: {
     docId: String,
   },
-  data() {
-    return {
-      doc: new Doc(),
-    }
-  },
   setup() {
     const appearance = inject('appearance')
+    const { public: { appTitle } } = useConfig()
+    const doc = ref(new Doc())
+    const header = computed(() => doc.headers[0])
+    const router = useRouter()
+    const store = useStore()
+    const settings = computed(() => store.state.settings.editor)
+
+    const findSharedDocument = async () => {
+      // Todo: Provide info to the user about what is happening here. Redirect on error.
+      const packed = await fetchSharedDoc({ docId: router.currentRoute.value.params.docId })
+
+      return unpack(packed, { privateKey: store.state.settings.crypto.privateKey })
+    }
+
+    onMounted(async () => {
+      const { emit } = useHooks()
+
+      doc.value = await findSharedDocument()
+
+      emit('public_doc_found')
+
+      useHead({
+        title: header.value || formatTags(doc.value.tags) || appTitle,
+      })
+    })
 
     return {
       appearance: appearance.value === 'october' ? 'dark' : appearance.value,
+      doc,
+      settings,
     }
-  },
-  computed: {
-    settings() {
-      return this.$store.state.settings.editor
-    },
-    header() {
-      return this.doc.headers[0]
-    },
-  },
-  methods: {
-    async findSharedDocument() {
-      // Todo: Provide info to the user about what is happening here. Redirect on error.
-      const packed = await fetchSharedDoc({ docId: this.$route.params.docId })
-
-      return unpack(packed, { privateKey: this.$store.state.settings.crypto.privateKey })
-    },
-    updateTitle() {
-      useHead({
-        title: this.header || formatTags(this.doc.tags) || 'Build your second brain',
-      })
-    },
-  },
-  async mounted() {
-    const { emit } = useHooks()
-
-    this.doc = await this.findSharedDocument()
-    emit('public_doc_found')
-    this.updateTitle()
   },
 })
 </script>

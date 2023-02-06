@@ -41,6 +41,7 @@ export default defineComponent({
     const doc = computed(() => store.getters.decrypted.find((d: Doc) => d.id === docId.value) || placeholder)
     const tags = computed(() => doc.value.tags)
     const header = computed(() => doc.value.headers[0])
+    const { public: { appTitle } } = useConfig()
 
     const onInput = async (text: string) => {
       if (!props.ro) {
@@ -68,7 +69,7 @@ export default defineComponent({
 
     watchEffect(() => {
       useHead({
-        title: header.value || formatTags(tags.value) || 'Build your second brain',
+        title: header.value || formatTags(tags.value) || appTitle,
       })
     })
 

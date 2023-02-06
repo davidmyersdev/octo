@@ -7,7 +7,8 @@
   "scripts": {
     "build": "nuxt prepare && nuxt typecheck && nuxt generate",
     "dev": "nuxt dev --port 8888",
-    "preview": "nuxt preview"
+    "preview": "nuxt preview",
+    "test": "cypress run"
   },
   "dependencies": {
     "@mermaid-js/mermaid-mindmap": "^9.2.2",

@@ -53,8 +53,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       appName: 'Octo',
-      appTitle: 'Unlock your potential',
-      appSubtitle: 'The ultimate tool for personal knowledge management, anywhere you go.',
+      appTitle: 'Unlock your full potential',
+      appSubtitle: 'Octo is the ultimate open source tool for personal knowledge management.',
       cdnUrl: '',
       discordInviteLink: '',
       fathomEventAccountRegistration: '',

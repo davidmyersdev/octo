@@ -50,7 +50,7 @@
     "cypress-network-idle": "^1.11.2",
     "deepmerge-ts": "^4.2.1",
     "micromark": "^3.1.0",
-    "nuxt": "^3.0.0",
+    "nuxt": "^3.1.2",
     "postcss": "^8.4.20",
     "remarkable-front-matter": "^1.0.1-beta.1",
     "serve": "^14.1.2",

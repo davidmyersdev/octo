@@ -10,6 +10,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       md: 769,
       lg: 993,
       xl: 1201,
+      xxl: 1501,
     },
     defaultBreakpoint: 'xl',
   })

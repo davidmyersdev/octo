@@ -7,7 +7,7 @@
   "scripts": {
     "build": "nuxt prepare && nuxt typecheck && nuxt generate",
     "dev": "nuxt dev --port 8888",
-    "preview": "nuxt preview",
+    "preview": "serve -s ./.output/public",
     "test": "cypress run"
   },
   "dependencies": {

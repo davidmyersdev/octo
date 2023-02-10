@@ -1,5 +1,6 @@
 <template>
   <div id="app" class="h-full" :class="sizes.concat([!ligatures && 'ligatures-none'])">
+    <VitePwaManifest />
     <AsyncChangeLog v-if="showChangeLog && !flow" />
     <AppLayout>
       <AppPage :pageKey="pageKey" class="bg-opacity-25 flex-grow flex-shrink h-full overflow-x-hidden relative" />
@@ -16,6 +17,7 @@ export default defineComponent({
   inject: ['mq'],
   setup() {
     const { public: { appName, appTitle } } = useConfig()
+
     useRoot()
     useHead({
       title: appTitle,

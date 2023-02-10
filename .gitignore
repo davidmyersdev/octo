@@ -16,6 +16,7 @@
 .output
 .vercel
 .vscode
+dev-dist
 dist
 node_modules
 test/cypress/downloads

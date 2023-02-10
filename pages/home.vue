@@ -79,7 +79,7 @@ export default defineComponent({
     </section>
     <section class="p-4 lg:p-8">
       <div class="container mx-auto max-w-[100ch]">
-        <img src="/img/screenshot.png?v=MjAyMi0xMi0xMVQxMDoxMjoyMS0wNTAwCg==" alt="The Octo editor with an in-progress Markdown document in focus." width="1600" height="900" class="w-full" />
+        <img src="~/assets/screenshot.png" alt="The Octo editor with an in-progress Markdown document in focus." width="1600" height="900" class="w-full" />
       </div>
     </section>
     <section class="p-4 lg:p-8">

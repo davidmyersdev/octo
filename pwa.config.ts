@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid'
 import { VitePWAOptions } from 'vite-plugin-pwa'
 
 const defineConfig = (config: Partial<VitePWAOptions>): Partial<VitePWAOptions> => {
@@ -11,16 +10,16 @@ export const config = defineConfig({
   strategies: 'generateSW',
   workbox: {
     additionalManifestEntries: [
-      { url: '/', revision: nanoid() },
       { url: 'https://fonts.googleapis.com/css2?family=Fira+Code&family=Inter:wght@300;400;700&display=swap', revision: 'v1' },
     ],
     cleanupOutdatedCaches: true,
     clientsClaim: true,
+    globPatterns: ['**/*.{css,html,ico,jpeg,jpg,js,png,svg,txt}'],
     maximumFileSizeToCacheInBytes: (5 * 1024 * 1024),
     navigateFallback: '/',
     navigateFallbackDenylist: [
       // Ignore Cypress routes.
-      new RegExp('/__'),
+      new RegExp('^/__'),
       new RegExp('cypress'),
     ],
     runtimeCaching: [
@@ -44,9 +43,9 @@ export const config = defineConfig({
   manifest: {
     background_color: '#171717',
     theme_color: '#121212',
-    name: process.env.OCTO_NAME || 'Octo',
+    name: process.env.NUXT_PUBLIC_APP_NAME || 'Octo',
     scope: '/',
-    short_name: process.env.OCTO_NAME || 'Octo',
+    short_name: process.env.NUXT_PUBLIC_APP_NAME || 'Octo',
     start_url: '/docs/new',
     icons: [
       {

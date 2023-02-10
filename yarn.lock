@@ -3257,7 +3257,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nuxt/kit@npm:3.1.2":
+"@nuxt/kit@npm:3.1.2, @nuxt/kit@npm:^3.1.1":
   version: 3.1.2
   resolution: "@nuxt/kit@npm:3.1.2"
   dependencies:
@@ -3712,18 +3712,6 @@ __metadata:
   peerDependencies:
     rollup: ^1.20.0 || ^2.0.0
   checksum: b2f1618ee5526d288e2f8ae328dcb326e20e8dc8bd1f60d3e14d6708a5832e4aa44811f7d493f4aed2deeadca86e3b6b0503cd39bf50cfb4b595bb9da027fad0
-  languageName: node
-  linkType: hard
-
-"@rollup/plugin-replace@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "@rollup/plugin-replace@npm:4.0.0"
-  dependencies:
-    "@rollup/pluginutils": ^3.1.0
-    magic-string: ^0.25.7
-  peerDependencies:
-    rollup: ^1.20.0 || ^2.0.0
-  checksum: b61701e612661a46da06ca88f390c3839b586708abc0329a476411b90aa8ac59fe94437ede4c3fe53fea268b3054ea9d7d4ee851d7bd0cb7a5f06906002067cb
   languageName: node
   linkType: hard
 
@@ -4311,6 +4299,18 @@ __metadata:
     json-schema-to-ts: 1.6.4
     ts-morph: 12.0.0
   checksum: a1aa38a9fa36bf25783bf5beb89a1004b832b5c57ed9354694993a928dd20a86d8e5a9cb38913aec1d0f48fae11d733726790c78ad61e032eab8a592b98e4f2d
+  languageName: node
+  linkType: hard
+
+"@vite-pwa/nuxt@npm:^0.0.4":
+  version: 0.0.4
+  resolution: "@vite-pwa/nuxt@npm:0.0.4"
+  dependencies:
+    "@nuxt/kit": ^3.1.1
+  peerDependencies:
+    "@nuxt/kit": ^3.0.0 || ^3.1.0
+    vite-plugin-pwa: ^0.14.0
+  checksum: c3afd1ac4b41a7eb9ff51466943aa130ddc264f382789fa0ce9096b28bb08f17fbfc603c4ec16c800ba15a044962c43d8ea7473be699a403295be8b92539725e
   languageName: node
   linkType: hard
 
@@ -12029,6 +12029,7 @@ __metadata:
     "@types/mime-types": ^2.1.1
     "@types/node": ^18.0.6
     "@types/remarkable": ^2.0.3
+    "@vite-pwa/nuxt": ^0.0.4
     "@vueuse/core": ^9.9.0
     "@vueuse/head": ^1.0.22
     "@vueuse/nuxt": ^9.9.0
@@ -12063,7 +12064,7 @@ __metadata:
     typescript: ^4.7.4
     vercel: ^28.10.1
     vite: ^4.0.2
-    vite-plugin-pwa: ^0.13.3
+    vite-plugin-pwa: ^0.14.1
     vite-svg-loader: ^3.6.0
     vue-tsc: ^0.38.9
     vue3-mq: ^3.0.3
@@ -13042,14 +13043,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pretty-bytes@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "pretty-bytes@npm:6.0.0"
-  checksum: 0bb9f95e617236404b29a8392c6efd82d65805f622f5e809ecd70068102be857d4e3276c86d2a32fa2ef851cc29472e380945dab7bec83ec79bd57a19a10faf7
-  languageName: node
-  linkType: hard
-
-"pretty-bytes@npm:^6.1.0":
+"pretty-bytes@npm:^6.0.0, pretty-bytes@npm:^6.1.0":
   version: 6.1.0
   resolution: "pretty-bytes@npm:6.1.0"
   checksum: cca3be45a299a28d1d3d95056ac709b8aeb01540aae7d906ed674c076b5f4b48cb6bf118f172d486c17e47b092a00e827b7f69608bc731ca35ca6f8d93e130f1
@@ -13696,7 +13690,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^2.43.1, rollup@npm:^2.79.0, rollup@npm:^2.79.1":
+"rollup@npm:^2.43.1, rollup@npm:^2.79.1":
   version: 2.79.1
   resolution: "rollup@npm:2.79.1"
   dependencies:
@@ -13710,7 +13704,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:^3.10.0, rollup@npm:^3.12.1, rollup@npm:^3.14.0":
+"rollup@npm:^3.10.0, rollup@npm:^3.12.1, rollup@npm:^3.14.0, rollup@npm:^3.7.2":
   version: 3.14.0
   resolution: "rollup@npm:3.14.0"
   dependencies:
@@ -15389,22 +15383,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-pwa@npm:^0.13.3":
-  version: 0.13.3
-  resolution: "vite-plugin-pwa@npm:0.13.3"
+"vite-plugin-pwa@npm:^0.14.1":
+  version: 0.14.1
+  resolution: "vite-plugin-pwa@npm:0.14.1"
   dependencies:
-    "@rollup/plugin-replace": ^4.0.0
+    "@rollup/plugin-replace": ^5.0.1
     debug: ^4.3.4
-    fast-glob: ^3.2.11
+    fast-glob: ^3.2.12
     pretty-bytes: ^6.0.0
-    rollup: ^2.79.0
+    rollup: ^3.7.2
     workbox-build: ^6.5.4
     workbox-window: ^6.5.4
   peerDependencies:
-    vite: ^3.1.0
+    vite: ^3.1.0 || ^4.0.0
     workbox-build: ^6.5.4
     workbox-window: ^6.5.4
-  checksum: be1e8699e2fb4fea98454d20c8df4bcbd828aecb2b714a1251405fde4dc9ac9c95520b33fdfc1a3d91d51f9d920501d93f57f4f0a2f1361ba38785c86e4756a4
+  checksum: 7915b273b4abaf5f87abea1a8a39167ccd8e565c66344b2eb7f8e678e358d2d119f67deb9cfdd76113ad3df4d1006e8122093fdfa95b026ddeab138c9d42aaa0
   languageName: node
   linkType: hard
 

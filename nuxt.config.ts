@@ -1,5 +1,6 @@
 import { defineNuxtConfig } from 'nuxt/config'
 import { resolve } from 'path'
+import { config as pwaConfig } from './pwa.config'
 
 const fathomScript = process.env.NUXT_PUBLIC_FATHOM_SITE_URL ? {
   'data-auto': false,
@@ -23,7 +24,6 @@ export default defineNuxtConfig({
         lang: 'en',
       },
       link: [
-        { href: '/manifest.webmanifest', rel: 'manifest' },
         { href: '/img/icons/favicon.ico', rel: 'icon' },
         { href: 'https://fonts.googleapis.com', rel: 'preconnect' },
         { crossorigin: '', href: 'https://fonts.gstatic.com', rel: 'preconnect' },
@@ -57,13 +57,38 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
+    '@vite-pwa/nuxt',
     '@vueuse/nuxt',
   ],
+  nitro: {
+    prerender: {
+      routes: [
+        '/',
+        '/home',
+        '/settings',
+      ],
+    },
+  },
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
     },
+  },
+  pwa: {
+    ...pwaConfig,
+    base: '/',
+    client: {
+      registerPlugin: true,
+    },
+    devOptions: {
+      enabled: true,
+      type: 'module',
+    },
+    includeManifestIcons: true,
+    registerWebManifestInRouteRules: true,
+    scope: '/',
+    writePlugin: true,
   },
   router: {
     options: {

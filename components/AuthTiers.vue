@@ -28,17 +28,26 @@ export default defineComponent({
     const { redirectToStripe } = useStripe()
 
     if (activeTier) {
-      const flowSocialForm = isSocialFlow.value ? activeTier.value.forms.social : undefined
+      if (isSocialFlow.value) {
+        const flowSocialForm = computed({
+          get: () => {
+            return activeTier.value.forms.social
+          },
+          set: (value) => {
+            activeTier.value.forms.social = value
+          },
+        })
 
-      if (flowSocialForm) {
         signInWithSocial(flowSocialForm).then((result) => {
           if (!result) {
-            flowSocialForm.error = 'You were not signed in. Please try again.'
+            if (!flowSocialForm.value.error) {
+              flowSocialForm.value.error = 'You were not signed in. Please try again.'
+            }
 
             return false
           }
 
-          flowSocialForm.confirmed = true
+          flowSocialForm.value.confirmed = true
 
           if (activeTier.value.isPaying) {
             isRedirecting.value = true

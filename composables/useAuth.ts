@@ -191,7 +191,7 @@ export const useSocial = () => {
 
       return signInWithRedirect(getAuth(), provider())
     },
-    signInWithSocial: async (form: AuthSocialForm) => {
+    signInWithSocial: async (form: Ref<AuthSocialForm>) => {
       return getRedirectResult(getAuth()).then((result) => {
         if (!result) {
           return false as const
@@ -200,12 +200,10 @@ export const useSocial = () => {
         return result
       }).catch((error) => {
         if (error.code === 'auth/account-exists-with-different-credential') {
-          form.error = 'This email address is already linked to another account'
+          form.value.error = 'This email address is already linked to an account.'
 
           return false
         }
-
-        form.error = 'An unknown error occurred'
 
         // Unknown error
         console.warn({ error })

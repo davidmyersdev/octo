@@ -1,6 +1,6 @@
-import asym from '/src/common/crypto/asymmetric';
-import sym from '/src/common/crypto/symmetric';
-import { pack, unpack } from '/src/common/crypto/utils';
+import asym from '#root/src/common/crypto/asymmetric';
+import sym from '#root/src/common/crypto/symmetric';
+import { pack, unpack } from '#root/src/common/crypto/utils';
 
 // decrypt the data key with our private key
 const unwrapKey = async (wrappedKey, privateKey) => {

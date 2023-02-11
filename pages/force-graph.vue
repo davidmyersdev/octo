@@ -8,7 +8,7 @@
 <script>
 import ForceGraph from 'force-graph'
 
-import DocList from '/components/DocList.vue'
+import DocList from '#root/components/DocList.vue'
 
 export default {
   components: {

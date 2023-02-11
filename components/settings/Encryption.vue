@@ -51,9 +51,9 @@
 </template>
 
 <script>
-import { exportKeys, generateKeys } from '/src/common/crypto/asymmetric.js';
+import { exportKeys, generateKeys } from '#root/src/common/crypto/asymmetric.js';
 
-import { TOUCH_DOCUMENT } from '/src/store/actions.js';
+import { TOUCH_DOCUMENT } from '#root/src/store/actions.js';
 
 import {
   SET_CRYPTO_ENABLED,

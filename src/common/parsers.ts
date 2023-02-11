@@ -1,4 +1,4 @@
-import { hashtagWithBoundary } from '/lib/hashtagged/parser'
+import { hashtagWithBoundary } from '#root/lib/hashtagged/parser'
 
 // Todo: Determine if we need to support more than 5 backticks for code blocks.
 const codeBlockIndicators = ['`````', '````', '```']

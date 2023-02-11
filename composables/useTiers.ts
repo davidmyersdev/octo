@@ -1,5 +1,5 @@
-import { type AuthMagicLinkForm, type AuthSocialForm, useAuthForm, useSubscription, useUser } from '/composables/useAuth'
-import { addCheckout } from '/src/firebase/firestore'
+import { type AuthMagicLinkForm, type AuthSocialForm, useAuthForm, useSubscription, useUser } from '#root/composables/useAuth'
+import { addCheckout } from '#root/src/firebase/firestore'
 
 export interface Tier {
   active: boolean,

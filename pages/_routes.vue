@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts" setup>
-import DevRoutes from '/components/DevRoutes.vue'
+import DevRoutes from '#root/components/DevRoutes.vue'
 
 const routes = computed(() => [...useRouter().options.routes])
 </script>

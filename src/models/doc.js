@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid'
 
-import { decrypt, encrypt } from '/src/common/crypto/crypto'
-import { parseTags, parseTasks, parseHeaders } from '/src/common/parsers'
+import { decrypt, encrypt } from '#root/src/common/crypto/crypto'
+import { parseTags, parseTasks, parseHeaders } from '#root/src/common/parsers'
 
 class Doc {
   constructor(attributes = {}) {

@@ -1,7 +1,7 @@
 import localforage from 'localforage'
 
-import Debouncer from '/src/common/debouncer'
-import { unwrap } from '/src/common/vue'
+import Debouncer from '#root/src/common/debouncer'
+import { unwrap } from '#root/src/common/vue'
 
 import {
   ADD_CONTEXT,
@@ -9,7 +9,7 @@ import {
   REMOVE_CONTEXT,
 } from '/src/store/modules/contexts'
 
-import { SETTINGS_LOADED } from '/src/store/modules/settings'
+import { SETTINGS_LOADED } from '#root/src/store/modules/settings'
 
 const cache = localforage.createInstance({
   name: 'contexts',

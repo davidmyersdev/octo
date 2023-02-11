@@ -1,5 +1,5 @@
 import localforage from 'localforage'
-import { useHooks } from '/composables/useHooks'
+import { useHooks } from '#root/composables/useHooks'
 
 import 'cypress-network-idle'
 

@@ -1,10 +1,10 @@
 <script lang="ts">
 import { type Ref, defineComponent, inject } from 'vue'
 import { useStore } from 'vuex'
-import Editor from '/components/Editor.vue'
-import Doc from '/src/models/doc'
-import { EDIT_DOCUMENT } from '/src/store/actions'
-import { useRecentDocs } from '/src/stores/useRecentDocs'
+import Editor from '#root/components/Editor.vue'
+import Doc from '#root/src/models/doc'
+import { EDIT_DOCUMENT } from '#root/src/store/actions'
+import { useRecentDocs } from '#root/src/stores/useRecentDocs'
 
 const formatTags = (tags: string[], delimiter = ', ') => {
   return tags.map((tag) => `#${tag}`).join(delimiter)

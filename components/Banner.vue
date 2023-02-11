@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts" setup>
-import { subscription } from '/src/common/account'
+import { subscription } from '#root/src/common/account'
 const { public: { fathomEventCtaSettingsUpgrade } } = useConfig()
 
 const trackCta = () => {

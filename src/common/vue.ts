@@ -1,4 +1,4 @@
-import { isArray, isDate, isObject } from '/src/common/ducks'
+import { isArray, isDate, isObject } from '#root/src/common/ducks'
 
 // Convert reactive objects into regular objects. https://github.com/vuejs/Discussion/issues/292
 export const unwrap = (object: any): any => {

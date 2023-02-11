@@ -19,7 +19,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { type RouteRecordRaw } from 'vue-router'
-import DevRoute from '/components/DevRoute.vue'
+import DevRoute from '#root/components/DevRoute.vue'
 
 const props = defineProps<{ parent: string, route: RouteRecordRaw }>()
 const path = computed(() => `${props.parent} -> ${props.route.path}`)

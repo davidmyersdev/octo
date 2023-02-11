@@ -1,4 +1,4 @@
-import { decode, encode, generateIv, pack, unpack } from '/src/common/crypto/utils';
+import { decode, encode, generateIv, pack, unpack } from '#root/src/common/crypto/utils';
 
 export const algorithm = {
   name: 'AES-GCM',

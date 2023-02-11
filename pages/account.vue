@@ -32,9 +32,9 @@
 <script lang="ts">
 import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
-import AuthTiers from '/components/AuthTiers.vue'
-import Providers from '/components/Providers.vue'
-import { useUser } from '/composables'
+import AuthTiers from '#root/components/AuthTiers.vue'
+import Providers from '#root/components/Providers.vue'
+import { useUser } from '#root/composables'
 
 export default defineComponent({
   components: {

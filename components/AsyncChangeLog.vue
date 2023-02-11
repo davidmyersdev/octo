@@ -2,7 +2,7 @@
 import { defineAsyncComponent } from 'vue'
 
 const AsyncChangeLog = defineAsyncComponent(() => {
-  return import('/components/ChangeLog.vue')
+  return import('#root/components/ChangeLog.vue')
 })
 </script>
 

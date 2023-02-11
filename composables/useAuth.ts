@@ -2,7 +2,7 @@ import { useOnline } from '@vueuse/core'
 import { type AuthProvider, type UserInfo as ProviderInfo, getAuth, getRedirectResult, GithubAuthProvider, GoogleAuthProvider, isSignInWithEmailLink, sendSignInLinkToEmail, signInWithEmailLink, signInWithRedirect, TwitterAuthProvider } from 'firebase/auth'
 import { type Ref } from 'vue'
 import { useStore } from 'vuex'
-import { type Tier } from '/composables/useTiers'
+import { type Tier } from '#root/composables/useTiers'
 
 export interface AuthMagicLinkForm {
   confirmed: boolean,

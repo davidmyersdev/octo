@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import Exporter from '/pages/docs/export.vue'
+import Exporter from '#root/pages/docs/export.vue'
 </script>
 
 <template>

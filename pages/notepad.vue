@@ -4,8 +4,8 @@
 
 <script>
 import moment from 'moment'
-import EditorPage from '/pages/docs/[docId]/index.vue'
-import Doc from '/src/models/doc.js'
+import EditorPage from '#root/pages/docs/[docId]/index.vue'
+import Doc from '#root/src/models/doc.js'
 
 import {
   DOCUMENTS_LOADED,
@@ -24,7 +24,7 @@ export default {
   methods: {
     async buildTemplate() {
       try {
-        const quotes = (await import('/src/data/quotes.json')).default
+        const quotes = (await import('#root/src/data/quotes.json')).default
         const quote = quotes[Math.floor(Math.random() * quotes.length)]
 
         return `#daily\n\n# ${moment().format('dddd, MMMM Do, YYYY')}\n\n> ${quote.text}\n> ${quote.author || 'Unknown'}\n\n`

@@ -7,9 +7,6 @@
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
-    "paths": {
-      "/*": ["./*"],
-    },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,

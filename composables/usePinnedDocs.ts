@@ -1,6 +1,6 @@
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-import { useRecentDocs } from '/src/stores/useRecentDocs'
+import { useRecentDocs } from '#root/src/stores/useRecentDocs'
 
 interface Doc {
   id: string,

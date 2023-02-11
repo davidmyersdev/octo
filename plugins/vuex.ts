@@ -1,4 +1,4 @@
-import { store } from '/src/store'
+import { store } from '#root/src/store'
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.use(store)

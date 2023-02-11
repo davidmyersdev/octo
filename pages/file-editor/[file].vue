@@ -6,10 +6,10 @@
 import { computed, ref, watchEffect } from 'vue'
 import { useStore } from 'vuex'
 
-import Doc from '/src/models/doc'
-import Debouncer from '/src/common/debouncer'
-import Editor from '/components/Editor.vue'
-import { useFiles } from '/src/stores/useFiles'
+import Doc from '#root/src/models/doc'
+import Debouncer from '#root/src/common/debouncer'
+import Editor from '#root/components/Editor.vue'
+import { useFiles } from '#root/src/stores/useFiles'
 
 const { id } = defineProps({ id: String })
 const fileStore = useFiles()

@@ -1,11 +1,11 @@
 <script lang="ts">
 import { ArrowUpCircleIcon } from '@heroicons/vue/24/outline'
 import { type PropType, defineComponent } from 'vue'
-import AuthMagicLink from '/components/AuthMagicLink.vue'
-import AuthSocialLinks from '/components/AuthSocialLinks.vue'
-import CoreButton from '/components/CoreButton.vue'
-import CorePanel from '/components/CorePanel.vue'
-import { type AuthMagicLinkForm, type Tier } from '/composables'
+import AuthMagicLink from '#root/components/AuthMagicLink.vue'
+import AuthSocialLinks from '#root/components/AuthSocialLinks.vue'
+import CoreButton from '#root/components/CoreButton.vue'
+import CorePanel from '#root/components/CorePanel.vue'
+import { type AuthMagicLinkForm, type Tier } from '#root/composables'
 
 export default defineComponent({
   components: {

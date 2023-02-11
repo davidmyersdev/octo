@@ -29,7 +29,7 @@
 import { micromark } from 'micromark'
 import { gfm, gfmHtml } from 'micromark-extension-gfm'
 import moment from 'moment'
-import CoreDivider from '/components/CoreDivider.vue'
+import CoreDivider from '#root/components/CoreDivider.vue'
 
 import {
   DISCARD_DOCUMENT,

@@ -66,6 +66,11 @@
     "workbox-build": "^6.3.0",
     "workbox-window": "^6.3.0"
   },
+  "imports": {
+    "#root/*": {
+      "default": "./*"
+    }
+  },
   "packageManager": "yarn@3.3.0",
   "resolutions": {
     "terser": "^5.14.2"

@@ -3,7 +3,7 @@ import Hello from './Hello'
 // Test package
 // To use this package, register it in /src/main.js
 //
-// import TestPackage from '/src/packages/test/index'
+// import TestPackage from '#root/src/packages/test/index'
 // PackageManager.register(TestPackage)
 class Test {
   constructor() {

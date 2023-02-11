@@ -1,6 +1,6 @@
 import { deepmerge } from 'deepmerge-ts'
 import localforage from 'localforage'
-import { unwrap } from '/src/common/vue'
+import { unwrap } from '#root/src/common/vue'
 
 import type { PiniaPlugin } from 'pinia'
 

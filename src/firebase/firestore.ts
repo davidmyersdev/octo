@@ -1,6 +1,6 @@
 import * as db from 'firebase/firestore'
 
-import type { AddCheckoutParams, AddDocParams, FetchDocParams, FetchDocsParams, UpdateDocParams } from '/types/types'
+import type { AddCheckoutParams, AddDocParams, FetchDocParams, FetchDocsParams, UpdateDocParams } from '#root/types/types'
 
 export const addCheckout = async ({ userId }: AddCheckoutParams) => {
   const { public: { stripeMonthlyPrice } } = useConfig()

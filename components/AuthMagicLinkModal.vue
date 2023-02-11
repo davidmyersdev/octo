@@ -1,8 +1,8 @@
 <script lang="ts">
 import { EnvelopeIcon } from '@heroicons/vue/24/solid'
 import { type PropType, defineComponent } from 'vue'
-import Modal from '/components/Modal.vue'
-import { type AuthMagicLinkForm } from '/composables'
+import Modal from '#root/components/Modal.vue'
+import { type AuthMagicLinkForm } from '#root/composables'
 
 export default defineComponent({
   components: {

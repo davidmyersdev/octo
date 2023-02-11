@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import Doc from '/src/models/doc.js'
+import Doc from '#root/src/models/doc.js'
 import { Remarkable } from 'remarkable';
 import frontMatterPlugin from 'remarkable-front-matter';
 var md = new Remarkable();

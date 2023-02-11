@@ -9,8 +9,8 @@
 <script>
 import Ink from 'ink-mde/vue'
 import { OverlayScrollbars } from 'overlayscrollbars'
-import { addFile } from '/src/firebase/storage'
-import { mermaid, plugins } from '/src/vendor/plugins'
+import { addFile } from '#root/src/firebase/storage'
+import { mermaid, plugins } from '#root/src/vendor/plugins'
 
 export default defineComponent({
   emits: ['input'],

@@ -2,10 +2,10 @@
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
-import CoreButton from '/components/CoreButton.vue'
-import CoreDivider from '/components/CoreDivider.vue'
-import Key from '/components/Key.vue'
-import TheLogo from '/components/TheLogo.vue'
+import CoreButton from '#root/components/CoreButton.vue'
+import CoreDivider from '#root/components/CoreDivider.vue'
+import Key from '#root/components/Key.vue'
+import TheLogo from '#root/components/TheLogo.vue'
 
 export default defineComponent({
   components: {

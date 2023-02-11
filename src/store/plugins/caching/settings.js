@@ -1,6 +1,6 @@
 import localforage from 'localforage'
-import Debouncer from '/src/common/debouncer'
-import { unwrap } from '/src/common/vue'
+import Debouncer from '#root/src/common/debouncer'
+import { unwrap } from '#root/src/common/vue'
 
 import {
   LOAD_SETTINGS,

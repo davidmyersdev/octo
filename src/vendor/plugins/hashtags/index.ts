@@ -1,7 +1,7 @@
 // https://discuss.codemirror.net/t/adding-support-for-the-additional-inline-syntax-to-markdown/3099
 import { HighlightStyle, syntaxHighlighting } from '@codemirror/language'
 import { Tag } from '@lezer/highlight'
-import { HASHTAG_CODES, matchHashtag, matchHashtagPrefix } from '/lib/hashtagged/parser'
+import { HASHTAG_CODES, matchHashtag, matchHashtagPrefix } from '#root/lib/hashtagged/parser'
 import { completions } from './completions'
 import type { InlineContext, MarkdownConfig } from '@lezer/markdown'
 import type * as Ink from 'ink-mde'

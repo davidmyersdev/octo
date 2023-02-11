@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Key from '/components/Key.vue';
+import Key from '#root/components/Key.vue';
 
 export default {
   components: {

@@ -1,4 +1,4 @@
-import { matchStarts } from '/lib/hashtagged/parser'
+import { matchStarts } from '#root/lib/hashtagged/parser'
 import { Config } from '../index'
 import type { CompletionContext, CompletionResult } from '@codemirror/autocomplete'
 

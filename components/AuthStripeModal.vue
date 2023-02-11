@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Modal from '/components/Modal.vue'
+import Modal from '#root/components/Modal.vue'
 
 export default defineComponent({
   components: {

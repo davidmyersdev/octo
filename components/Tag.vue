@@ -11,7 +11,7 @@
 <script lang="ts" setup>
 import { HashtagIcon as TagIcon } from '@heroicons/vue/24/outline'
 import { useSlots } from 'vue'
-import TheLogo from '/components/TheLogo.vue'
+import TheLogo from '#root/components/TheLogo.vue'
 
 const slotNodes = useSlots().default?.()
 const isOcto = slotNodes?.some((node) => {

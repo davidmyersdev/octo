@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import Editor from '/components/Editor.vue'
-import Doc from '/src/models/doc'
+import Editor from '#root/components/Editor.vue'
+import Doc from '#root/src/models/doc'
 
 export default {
   components: {

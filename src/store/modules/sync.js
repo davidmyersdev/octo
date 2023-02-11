@@ -1,6 +1,6 @@
-import { unwrap } from '/src/common/vue'
-import { addDoc, fetchDocs, updateDoc } from '/src/firebase/firestore'
-import { pack, unpack } from '/src/models/doc'
+import { unwrap } from '#root/src/common/vue'
+import { addDoc, fetchDocs, updateDoc } from '#root/src/firebase/firestore'
+import { pack, unpack } from '#root/src/models/doc'
 
 import {
   MERGE_DOCUMENT,

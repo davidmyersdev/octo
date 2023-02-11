@@ -1,5 +1,5 @@
-import Doc from '/src/models/doc'
-import { useRecentDocs } from '/src/stores/useRecentDocs'
+import Doc from '#root/src/models/doc'
+import { useRecentDocs } from '#root/src/stores/useRecentDocs'
 
 import {
   DISCARD_DOCUMENT,

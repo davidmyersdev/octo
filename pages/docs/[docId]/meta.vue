@@ -82,12 +82,12 @@
 <script>
 import moment from 'moment'
 
-import DiscardableAction from '/components/DiscardableAction.vue'
-import DocLink from '/components/DocLink.vue'
-import TagLink from '/components/TagLink.vue'
+import DiscardableAction from '#root/components/DiscardableAction.vue'
+import DocLink from '#root/components/DocLink.vue'
+import TagLink from '#root/components/TagLink.vue'
 
-import CodeSandbox from '/src/common/code_sandbox.js'
-import { parseCodeblocks, parseReferences } from '/src/common/parsers'
+import CodeSandbox from '#root/src/common/code_sandbox.js'
+import { parseCodeblocks, parseReferences } from '#root/src/common/parsers'
 
 import {
   DISCARD_DOCUMENT,

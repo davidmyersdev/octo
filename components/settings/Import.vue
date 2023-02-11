@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import Importer from '/pages/docs/import.vue'
+import Importer from '#root/pages/docs/import.vue'
 </script>
 
 <template>

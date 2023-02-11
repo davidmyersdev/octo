@@ -1,8 +1,8 @@
 import { useStorage } from '@vueuse/core'
 import { getAuth } from 'firebase/auth'
 import { useStore } from 'vuex'
-import { type User } from '/composables'
-import { init } from '/src/firebase'
+import { type User } from '#root/composables'
+import { init } from '#root/src/firebase'
 
 const updateAppHeight = () => {
   document.documentElement.style.setProperty('--app-height', `calc(${window.visualViewport.height}px - 1px)`)

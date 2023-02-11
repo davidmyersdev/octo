@@ -1,12 +1,12 @@
 <script lang="ts">
 import { useStore } from 'vuex'
-import IconGitHub from '/assets/github.svg?component'
-import IconTwitter from '/assets/twitter.svg?component'
-import SceneCommunity from '/assets/scene-community.svg?component'
-import SceneOSS from '/assets/scene-oss.svg?component'
-import ScenePortable from '/assets/scene-portable.svg?component'
-import SceneSecure from '/assets/scene-secure.svg?component'
-import SceneSurveillance from '/assets/scene-surveillance.svg?component'
+import IconGitHub from '#root/assets/github.svg?component'
+import IconTwitter from '#root/assets/twitter.svg?component'
+import SceneCommunity from '#root/assets/scene-community.svg?component'
+import SceneOSS from '#root/assets/scene-oss.svg?component'
+import ScenePortable from '#root/assets/scene-portable.svg?component'
+import SceneSecure from '#root/assets/scene-secure.svg?component'
+import SceneSurveillance from '#root/assets/scene-surveillance.svg?component'
 
 if (globalThis.isNuxt) {
   definePageMeta({

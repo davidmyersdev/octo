@@ -58,10 +58,10 @@
 <script lang="ts">
 import { getAuth, getRedirectResult, linkWithRedirect, GithubAuthProvider, GoogleAuthProvider, TwitterAuthProvider } from 'firebase/auth'
 import { computed, defineComponent } from 'vue'
-import IconGitHub from '/assets/github.svg?component'
-import IconGoogle from '/assets/google.svg?component'
-import IconTwitter from '/assets/twitter.svg?component'
-import { useUser } from '/composables'
+import IconGitHub from '#root/assets/github.svg?component'
+import IconGoogle from '#root/assets/google.svg?component'
+import IconTwitter from '#root/assets/twitter.svg?component'
+import { useUser } from '#root/composables'
 
 export default defineComponent({
   components: {

@@ -1,6 +1,6 @@
 // https://github.com/mermaid-js/mermaid/blob/449dfe8b8ef41909eeef65f2adbd8a0411b36396/packages/mermaid/src/themes/theme-base.js
 import { adjust, contrast, darken, invert, lighten } from 'khroma'
-import { toEl } from '/src/utils/dom'
+import { toEl } from '#root/src/utils/dom'
 
 // Todo: Pull this from the app configuration.
 const background = '#121212'

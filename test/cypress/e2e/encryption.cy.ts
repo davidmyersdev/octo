@@ -1,5 +1,5 @@
 import localforage from 'localforage'
-import docs from '/test/fixtures/encryption/docs.json'
+import docs from '#root/test/fixtures/encryption/docs.json'
 
 describe('encryption', () => {
   beforeEach(() => {

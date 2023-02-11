@@ -1,10 +1,10 @@
 <script lang="ts">
-import AuthMagicLinkModal from '/components/AuthMagicLinkModal.vue'
-import AuthStripeModal from '/components/AuthStripeModal.vue'
-import AuthTier from '/components/AuthTier.vue'
-import CheckList from '/components/CheckList.vue'
-import CheckListItem from '/components/CheckListItem.vue'
-import { type AuthMagicLinkForm, type AuthProviderType, type Tier, useAuthFlow, useAuthForm, useMagicLink, useSocial, useStripe, useTiers } from '/composables'
+import AuthMagicLinkModal from '#root/components/AuthMagicLinkModal.vue'
+import AuthStripeModal from '#root/components/AuthStripeModal.vue'
+import AuthTier from '#root/components/AuthTier.vue'
+import CheckList from '#root/components/CheckList.vue'
+import CheckListItem from '#root/components/CheckListItem.vue'
+import { type AuthMagicLinkForm, type AuthProviderType, type Tier, useAuthFlow, useAuthForm, useMagicLink, useSocial, useStripe, useTiers } from '#root/composables'
 
 export default defineComponent({
   components: {

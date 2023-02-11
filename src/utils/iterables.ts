@@ -1,4 +1,4 @@
-import { defineProperties } from '/src/utils/objects'
+import { defineProperties } from '#root/src/utils/objects'
 
 type Predicate<T> = (item: T, index: number, items: T[]) => Promise<boolean>
 

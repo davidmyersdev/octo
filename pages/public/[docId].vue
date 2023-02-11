@@ -11,8 +11,8 @@
 <script>
 import { defineComponent, inject } from 'vue'
 import { useStore } from 'vuex'
-import { fetchSharedDoc } from '/src/firebase/firestore'
-import Doc, { unpack } from '/src/models/doc'
+import { fetchSharedDoc } from '#root/src/firebase/firestore'
+import Doc, { unpack } from '#root/src/models/doc'
 
 const formatTags = (tags, delimiter = ', ') => {
   return tags.map((tag) => `#${tag}`).join(delimiter)

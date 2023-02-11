@@ -1,4 +1,4 @@
-import PackageManager from '/src/packages/manager'
+import PackageManager from '#root/src/packages/manager'
 
 import {
   ADD_DOCUMENT,

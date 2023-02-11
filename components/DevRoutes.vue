@@ -13,7 +13,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { type RouteRecordRaw } from 'vue-router'
-import DevRoute from '/components/DevRoute.vue'
+import DevRoute from '#root/components/DevRoute.vue'
 
 const props = defineProps<{ routes: RouteRecordRaw[] }>()
 const routes = computed(() => props.routes.sort((a, b) => a.path < b.path ? -1 : 1))

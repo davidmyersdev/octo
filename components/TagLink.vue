@@ -5,7 +5,7 @@
 </template>
 
 <script setup>
-import Tag from '/components/Tag.vue'
+import Tag from '#root/components/Tag.vue'
 
 const { tag } = defineProps(['tag'])
 const route = { path: `/docs/t/${tag}` }

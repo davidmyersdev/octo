@@ -56,8 +56,8 @@
 <script>
 import { TrashIcon, Square2StackIcon as WorkspaceIcon } from '@heroicons/vue/24/outline'
 import { nanoid } from 'nanoid'
-import CoreButton from '/components/CoreButton.vue'
-import Tag from '/components/Tag.vue'
+import CoreButton from '#root/components/CoreButton.vue'
+import Tag from '#root/components/Tag.vue'
 
 import {
   SET_CONTEXT_TAGS,

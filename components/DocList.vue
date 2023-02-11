@@ -51,8 +51,8 @@
 </template>
 
 <script>
-import Doc from '/components/Doc.vue'
-import Tag from '/components/Tag.vue'
+import Doc from '#root/components/Doc.vue'
+import Tag from '#root/components/Tag.vue'
 
 import {
   MERGE_DOCUMENTS,

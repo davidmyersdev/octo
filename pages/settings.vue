@@ -17,13 +17,13 @@
 </template>
 
 <script lang="ts" setup>
-import Appearance from '/components/settings/Appearance.vue'
-import Banner from '/components/Banner.vue'
-import Editor from '/components/SettingsEditor.vue'
-import Encryption from '/components/settings/Encryption.vue'
-import Experimental from '/components/settings/Experimental.vue'
-import Export from '/components/settings/Export.vue'
-import Import from '/components/settings/Import.vue'
+import Appearance from '#root/components/settings/Appearance.vue'
+import Banner from '#root/components/Banner.vue'
+import Editor from '#root/components/SettingsEditor.vue'
+import Encryption from '#root/components/settings/Encryption.vue'
+import Experimental from '#root/components/settings/Experimental.vue'
+import Export from '#root/components/settings/Export.vue'
+import Import from '#root/components/settings/Import.vue'
 
 useHead({
   title: 'Settings',

@@ -1,4 +1,4 @@
-import Debouncer from '/src/common/debouncer'
+import Debouncer from '#root/src/common/debouncer'
 
 import {
   ADD_DOCUMENT,
@@ -13,7 +13,7 @@ import {
   TOUCH_DOCUMENT,
 } from '/src/store/actions'
 
-import { SET_USER } from '/src/store/modules/auth'
+import { SET_USER } from '#root/src/store/modules/auth'
 
 const debouncer = new Debouncer(1500)
 

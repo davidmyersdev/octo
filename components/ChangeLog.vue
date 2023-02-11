@@ -67,10 +67,10 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
 
-import { subscription, user } from '/src/common/account'
-import ChangeLogEntry from '/components/ChangeLogEntry.vue'
-import Code from '/components/Code.vue'
-import Modal from '/components/Modal.vue'
+import { subscription, user } from '#root/src/common/account'
+import ChangeLogEntry from '#root/components/ChangeLogEntry.vue'
+import Code from '#root/components/Code.vue'
+import Modal from '#root/components/Modal.vue'
 
 const { public: { fathomEventCtaModalUpgrade } } = useConfig()
 

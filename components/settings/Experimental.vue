@@ -21,7 +21,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import { useStore } from 'vuex'
-import { SET_EXPERIMENTAL } from '/src/store/modules/settings'
+import { SET_EXPERIMENTAL } from '#root/src/store/modules/settings'
 
 const { commit, state } = useStore()
 const experimental = computed({

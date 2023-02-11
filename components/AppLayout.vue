@@ -1,5 +1,5 @@
 <script lang="ts">
-import Dashboard from '/layouts/dashboard.vue'
+import Dashboard from '#root/layouts/dashboard.vue'
 
 export default defineComponent({
   components: {

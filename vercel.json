@@ -1,6 +1,7 @@
 {
   "cleanUrls": true,
   "rewrites": [
+    { "source": "/__/auth/:match(.*)", "destination": "https://api.octo.app/__/auth/:match*" },
     { "source": "/(.*)", "destination": "/" }
   ],
   "trailingSlash": false

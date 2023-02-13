@@ -58,15 +58,8 @@ import { TrashIcon, Square2StackIcon as WorkspaceIcon } from '@heroicons/vue/24/
 import { nanoid } from 'nanoid'
 import CoreButton from '#root/components/CoreButton.vue'
 import Tag from '#root/components/Tag.vue'
-
-import {
-  SET_CONTEXT_TAGS,
-} from '/src/store/actions.js';
-
-import {
-  ADD_CONTEXT,
-  REMOVE_CONTEXT,
-} from '/src/store/modules/contexts.js'
+import { SET_CONTEXT_TAGS } from '#root/src/store/actions'
+import { ADD_CONTEXT, REMOVE_CONTEXT } from '#root/src/store/modules/contexts'
 
 export default {
   components: {

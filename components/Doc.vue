@@ -26,15 +26,9 @@
 </template>
 
 <script>
-import { micromark } from 'micromark'
-import { gfm, gfmHtml } from 'micromark-extension-gfm'
 import moment from 'moment'
 import CoreDivider from '#root/components/CoreDivider.vue'
-
-import {
-  DISCARD_DOCUMENT,
-  RESTORE_DOCUMENT,
-} from '/src/store/actions.js';
+import { DISCARD_DOCUMENT, RESTORE_DOCUMENT } from '#root/src/store/actions'
 
 export default {
   components: {

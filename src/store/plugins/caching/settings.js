@@ -19,7 +19,7 @@ import {
   SET_EXPERIMENTAL,
   SET_THEME,
   SETTINGS_LOADED,
-} from '/src/store/modules/settings'
+} from '#root/src/store/modules/settings'
 
 const CACHE_KEY = 'main'
 const cache = localforage.createInstance({

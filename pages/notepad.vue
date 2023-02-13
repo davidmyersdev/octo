@@ -6,11 +6,7 @@
 import moment from 'moment'
 import EditorPage from '#root/pages/docs/[docId]/index.vue'
 import Doc from '#root/src/models/doc.js'
-
-import {
-  DOCUMENTS_LOADED,
-  EDIT_DOCUMENT,
-} from '/src/store/actions.js'
+import { DOCUMENTS_LOADED, EDIT_DOCUMENT } from '#root/src/store/actions'
 
 export default {
   components: {

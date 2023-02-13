@@ -1,8 +1,5 @@
 import { getAuth } from 'firebase/auth'
-
-import {
-  SIGN_OUT,
-} from '/src/store/actions'
+import { SIGN_OUT } from '#root/src/store/actions'
 
 export const SET_SUBSCRIPTION = 'SET_SUBSCRIPTION'
 export const SET_USER = 'SET_USER'

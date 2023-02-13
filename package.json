@@ -5,7 +5,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt prepare && nuxt typecheck && nuxt generate",
+    "build": "nuxt prepare && nuxt typecheck && tsx manifest.ts && nuxt generate",
     "clean": "rimraf .output dev-dist dist",
     "dev": "nuxt dev --port 8888",
     "preview": "serve -s ./.output/public",
@@ -58,6 +58,7 @@
     "rimraf": "^4.1.2",
     "serve": "^14.1.2",
     "tailwindcss": "^3.2.6",
+    "tsx": "^3.12.3",
     "typescript": "^4.7.4",
     "vercel": "^28.10.1",
     "vite-plugin-pwa": "^0.14.1",

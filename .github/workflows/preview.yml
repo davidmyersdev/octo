@@ -41,13 +41,13 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: yarn
-      - run: yarn install --immutable
-      - run: yarn vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
-      - run: yarn vercel build --token=${{ secrets.VERCEL_TOKEN }}
+      - uses: pnpm/action-setup@v2
+      - run: pnpm install --shamefully-hoist
+      - run: pnpm vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+      - run: pnpm vercel build --token=${{ secrets.VERCEL_TOKEN }}
       - run: cp ./.vercel/output/static/manifest.webmanifest ./.vercel/output/static/manifest.json
       - run: cp ./.vercel/output/static/sw.js ./.vercel/output/static/service-worker.js
       - id: deploy
         run: |
-          url=`yarn vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}`
+          url=`pnpm vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}`
           echo "::set-output name=url::$url"

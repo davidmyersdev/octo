@@ -45,14 +45,14 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: yarn
-      - run: yarn install --immutable
+      - uses: pnpm/action-setup@v2
+      - run: pnpm install --shamefully-hoist
       - run: docker-compose up -d
       - uses: cypress-io/github-action@v4.2.2
         with:
           config: baseUrl=http://localhost:3000
-          build: yarn build
-          start: yarn preview
+          build: pnpm build
+          start: pnpm preview
           wait-on: 'http://localhost:3000,http://localhost:32777'
       - uses: actions/upload-artifact@v3
         if: failure()

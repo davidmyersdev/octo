@@ -72,7 +72,7 @@
       "default": "./*"
     }
   },
-  "packageManager": "yarn@3.3.0",
+  "packageManager": "pnpm@7.27.0",
   "resolutions": {
     "terser": "^5.14.2"
   }

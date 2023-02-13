@@ -143,13 +143,9 @@ import ModK from '#root/components/ModK.vue'
 import ModKKey from '#root/components/ModKKey.vue'
 import TagLink from '#root/components/TagLink.vue'
 import TheLogo from '#root/components/TheLogo.vue'
+import { DEACTIVATE_CONTEXT, SET_CONTEXT_TAGS } from '#root/src/store/actions'
 import { useFiles } from '#root/src/stores/useFiles'
 import { AsyncIterable } from '#root/src/utils/iterables'
-
-import {
-  DEACTIVATE_CONTEXT,
-  SET_CONTEXT_TAGS,
-} from '/src/store/actions.js'
 
 export default {
   components: {

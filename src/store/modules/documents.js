@@ -15,7 +15,7 @@ import {
   SET_DOCUMENT,
   SHARE_DOCUMENT,
   TOUCH_DOCUMENT,
-} from '/src/store/actions'
+} from '#root/src/store/actions'
 
 const findDoc = (state, id) => {
   // only return docs that are decrypted

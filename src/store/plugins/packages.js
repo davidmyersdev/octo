@@ -8,7 +8,7 @@ import {
   LOAD_DOCUMENTS,
   RESTORE_DOCUMENT,
   TOUCH_DOCUMENT,
-} from '/src/store/actions';
+} from '#root/src/store/actions'
 
 export default (store) => {
   store.subscribe(({ type, payload: { id } }, state) => {

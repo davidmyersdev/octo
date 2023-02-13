@@ -110,7 +110,7 @@ import {
   SET_EDITOR_SPELLCHECK,
   SET_EDITOR_TAB_SIZE,
   SET_EDITOR_TOOLBAR,
-} from '/src/store/modules/settings.js'
+} from '#root/src/store/modules/settings'
 
 export default {
   computed: {

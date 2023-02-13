@@ -11,7 +11,7 @@ import {
   SHARE_DOCUMENT,
   SYNC,
   TOUCH_DOCUMENT,
-} from '/src/store/actions'
+} from '#root/src/store/actions'
 
 import { SET_USER } from '#root/src/store/modules/auth'
 

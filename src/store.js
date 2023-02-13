@@ -29,7 +29,7 @@ import {
   SET_ONLINE,
   SET_RIGHT_SIDEBAR_VISIBILITY,
   SET_SHOW_WELCOME,
-} from '/src/store/actions'
+} from '#root/src/store/actions'
 
 export const store = createStore({
   state() {

@@ -40,7 +40,7 @@ Here are a few resources to learn more about the process!
 Install the dependencies.
 
 ```bash
-yarn install
+pnpm install --shamefully-hoist
 ```
 
 Copy `.env.example` to `.env`.
@@ -55,16 +55,7 @@ Run the app in `development` mode.
 
 ```bash
 # binds to localhost:8888
-yarn dev
-```
-
-Run the app in `production` mode (to test the PWA).
-
-_Note: Offline functionality is only available in `production` mode._
-
-```bash
-# binds to localhost:8889
-yarn preview
+pnpm dev
 ```
 
 ### Launch the Firebase Emulator
@@ -81,7 +72,14 @@ The Firebase Emulator dashboard is available at [localhost:32777](http://localho
 
 ```bash
 # compiles to ./dist
-yarn build
+pnpm build
 ```
 
-The built files (static assets) will be available in the `dist` directory.
+The build output will be available in the `.output` directory.
+
+### Run the `production` preview
+
+```bash
+# binds to localhost:3000
+pnpm preview
+```

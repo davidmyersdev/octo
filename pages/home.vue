@@ -62,9 +62,9 @@ export default defineComponent({
           <div class="w-full flex flex-col lg:flex-row-reverse justify-between gap-12">
             <TheLogo class="h-24 lg:h-48 text-brand" />
             <div class="flex flex-col items-center lg:items-start gap-8 lg:text-left w-full">
-              <h1 v-html="appTitle" class="text-4xl lg:text-4xl font-semibold"></h1>
-              <p v-html="appSubtitle" class="text-2xl lg:text-2xl brightness-75"></p>
-              <CoreLink :to="ctaRoute" @click="ctaHandler" class="button-base bg-brand transition shadow whitespace-nowrap justify-center gap-3 text-layer-0 text-xl py-2 px-8 lg:origin-left hover:scale-125 focus:scale-125">
+              <h1 class="text-4xl lg:text-5xl font-semibold">{{ appTitle }}</h1>
+              <p v-html="appSubtitle" class="text-2xl lg:text-2xl"></p>
+              <CoreLink :to="ctaRoute" @click="ctaHandler" class="button-base bg-brand transition shadow whitespace-nowrap justify-center gap-3 mt-1 text-layer-0 text-xl py-2 px-8 lg:origin-left hover:scale-110 focus:scale-110">
                 <span class="flex items-center gap-3 align-center">
                   <span>{{ ctaLabel }}</span>
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -100,7 +100,7 @@ export default defineComponent({
           <ScenePortable class="h-20 lg:h-40" />
           <div class="flex flex-col gap-4">
             <h2 class="text-2xl lg:text-4xl">Portable</h2>
-            <p class="lg:text-xl mt-2 max-w-[60ch]">Nobody wants to be locked into a single tool. Import or export your entire knowledge base as plain-text Markdown files, and take your work with you wherever you choose to go.</p>
+            <p class="lg:text-xl mt-2 max-w-[40ch]">Nobody wants to be locked into a single tool. Import or export your entire knowledge base as plain-text Markdown files, and take your work with you wherever you choose to go.</p>
           </div>
         </div>
       </section>
@@ -109,7 +109,7 @@ export default defineComponent({
           <SceneOSS class="h-20 lg:h-40" />
           <div class="flex flex-col gap-4">
             <h2 class="text-2xl lg:text-4xl">Open Source</h2>
-            <p class="lg:text-xl mt-2 max-w-[60ch]">It's hard to know what closed source software is doing with your data. We are committed to a level of transparency that only open source software can provide.</p>
+            <p class="lg:text-xl mt-2 max-w-[40ch]">It's hard to know what closed source software is doing with your data. We are committed to a level of transparency that only open source software can provide.</p>
           </div>
         </div>
       </section>
@@ -118,7 +118,7 @@ export default defineComponent({
           <SceneCommunity class="h-20 lg:h-40" />
           <div class="flex flex-col gap-4">
             <h2 class="text-2xl lg:text-4xl">Community-driven</h2>
-            <p class="lg:text-xl mt-2 max-w-[60ch]">We are knowledge workers just like you. Join the <a class="underline" :href="discordInviteLink" target="_blank" rel="noopener noreferrer">Voracious Community</a> on Discord to help shape Octo into a tool we all love.</p>
+            <p class="lg:text-xl mt-2 max-w-[40ch]">We are knowledge workers just like you. Join the <a class="underline" :href="discordInviteLink" target="_blank" rel="noopener noreferrer">Voracious Community</a> on Discord to help shape Octo into a tool we all love.</p>
           </div>
         </div>
       </section>
@@ -127,7 +127,7 @@ export default defineComponent({
           <SceneSecure class="h-20 lg:h-40" />
           <div class="flex flex-col gap-4">
             <h2 class="text-2xl lg:text-4xl">Secure</h2>
-            <p class="lg:text-xl"><strong class="font-semibold">Trust is earned</strong>, yet many organizations expect you to give it away freely. With client-side (end-to-end) encryption, <strong class="font-semibold">you decide</strong> whether you trust us with your information.</p>
+            <p class="lg:text-xl mt-2 max-w-[40ch]"><strong class="font-semibold">Trust is earned</strong>, yet many organizations expect you to give it away freely. With client-side (end-to-end) encryption, <strong class="font-semibold">you decide</strong> whether you trust us with your information.</p>
           </div>
         </div>
       </section>
@@ -136,7 +136,7 @@ export default defineComponent({
           <SceneSurveillance class="h-20 lg:h-40" />
           <div class="flex flex-col gap-4">
             <h2 class="text-2xl lg:text-4xl">Private</h2>
-            <p class="lg:text-xl mt-2 max-w-[60ch]">In a world of surveillance, we choose to protect you with privacy-first analytics. No cookies. No data scraping. Just simple, anonymous metrics which are available for anyone to view on our <a class="underline" href="https://app.usefathom.com/share/npcchoaz/octo.app" target="_blank" rel="noopener noreferrer">public analytics dashboard</a>.</p>
+            <p class="lg:text-xl mt-2 max-w-[40ch]">In a world of surveillance, we choose to protect you with privacy-first analytics. No cookies. No data scraping. Just simple, anonymous metrics which are available for anyone to view on our <a class="underline" href="https://app.usefathom.com/share/npcchoaz/octo.app" target="_blank" rel="noopener noreferrer">public analytics dashboard</a>.</p>
           </div>
         </div>
       </section>

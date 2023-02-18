@@ -20,6 +20,10 @@ export const config = defineConfig({
     navigateFallbackDenylist: [
       // Ignore Cypress routes.
       new RegExp('^/__'),
+      // Keep this around for backward compatibility.
+      new RegExp('^/manifest\\.json$'),
+      // Keep this around for backward compatibility.
+      new RegExp('^/service-worker\\.js$'),
       new RegExp('cypress'),
     ],
     runtimeCaching: [

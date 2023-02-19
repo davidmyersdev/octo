@@ -176,14 +176,13 @@ export default defineComponent({
       )
     },
   },
-  beforeMount() {
+  mounted() {
     mermaid().then((plugins) => {
       this.lazyPlugins.push(...plugins)
     }).catch((error) => {
       console.log('[mermaid]', error)
     })
-  },
-  mounted() {
+
     // Exposed for Cypress
     window.inkMde = this.editor
 

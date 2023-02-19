@@ -1,4 +1,6 @@
 // https://github.com/mermaid-js/mermaid/blob/449dfe8b8ef41909eeef65f2adbd8a0411b36396/packages/mermaid/src/themes/theme-base.js
+import { HighlightStyle, syntaxHighlighting } from '@codemirror/language'
+import { mindmapTags } from 'codemirror-lang-mermaid'
 import { adjust, contrast, darken, invert, lighten } from 'khroma'
 import { toEl } from '#root/src/utils/dom'
 
@@ -279,4 +281,17 @@ export const themeVariables = {
   ...makeScale(9, colors.tenth.background),
   ...makeScale(10, colors.eleventh.background),
   ...makeScale(11, colors.twelfth.background),
+}
+
+export const theme = () => {
+  return syntaxHighlighting(
+    HighlightStyle.define([
+      { tag: mindmapTags.diagramName, color: colors.primary.background },
+      { tag: mindmapTags.lineText1, color: colors.primary.background },
+      { tag: mindmapTags.lineText2, color: colors.secondary.background },
+      { tag: mindmapTags.lineText3, color: colors.tertiary.background },
+      { tag: mindmapTags.lineText4, color: colors.fourth.background },
+      { tag: mindmapTags.lineText5, color: colors.fifth.background },
+    ])
+  )
 }

@@ -53,10 +53,7 @@
 <script>
 import Doc from '#root/components/Doc.vue'
 import Tag from '#root/components/Tag.vue'
-
-import {
-  MERGE_DOCUMENTS,
-} from '/src/store/actions.js'
+import { MERGE_DOCUMENTS } from '#root/src/store/actions'
 
 const REGEX_QUERY = /^\/(?<regex>.+)\/(?<flags>[a-z]*)$/s
 

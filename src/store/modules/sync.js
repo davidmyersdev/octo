@@ -1,11 +1,7 @@
 import { unwrap } from '#root/src/common/vue'
 import { addDoc, fetchDocs, updateDoc } from '#root/src/firebase/firestore'
 import { pack, unpack } from '#root/src/models/doc'
-
-import {
-  MERGE_DOCUMENT,
-  SYNC,
-} from '/src/store/actions'
+import { MERGE_DOCUMENT, SYNC } from '#root/src/store/actions'
 
 // local actions
 const PULL_DOCUMENT = 'PULL_DOCUMENT'

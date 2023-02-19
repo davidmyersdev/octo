@@ -25,6 +25,10 @@ class Doc {
     this.ownerId = attributes.ownerId || null
     this.syncedAt = attributes.syncedAt || null
     this.public = attributes.public || false
+
+    // version params
+    this.originalId = attributes.originalId || null
+    this.parentId = attributes.parentId || null
   }
 
   discard() {
@@ -100,11 +104,17 @@ export const pack = async (doc, { preferEncryption = null, publicKey = null }) =
 
 export const unpack = async (packed, { privateKey }) => {
   try {
-    if (privateKey && packed.encrypted) {
-      const text = await decrypt({ cipher: packed.text, cipherKey: packed.textKey, iv: packed.iv, privateKey })
+    const prepared = {
+      ...packed,
+      id: packed.id || packed.clientId,
+      textKey: packed.textKey || packed.dataKey,
+    }
+
+    if (privateKey && prepared.encrypted) {
+      const text = await decrypt({ cipher: prepared.text, cipherKey: prepared.textKey, iv: prepared.iv, privateKey })
 
       return new Doc(
-        Object.assign({}, packed, {
+        Object.assign({}, prepared, {
           encrypted: false,
           text: text,
         })

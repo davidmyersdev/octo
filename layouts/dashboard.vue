@@ -45,16 +45,21 @@ export default defineComponent({
     const store = useStore()
     const router = useRouter()
     const { doc } = useDocs()
+    const { docVersion } = useDocVersions()
     const { showMenu, showMeta, toggleMenu, toggleMeta } = useLayout()
     const { pinnedDocs, unpinDoc } = usePinnedDocs()
     const { public: { discordInviteLink } } = useConfig()
     const modKey = computed(() => store.state.modKey)
     const mobile = computed(() => ['xs', 'sm'].includes(mq.current))
-    const isDoc = computed(() => router.currentRoute.value.name === 'docs-docId')
     const isNew = computed(() => router.currentRoute.value.path === '/docs/new')
+    const isMeta = computed(() => router.currentRoute.value.path.endsWith('/meta'))
 
     const handleQuickActionClose = () => {
       if (doc.value) {
+        if (docVersion.value) {
+          return router.push({ path: `/docs/${doc.value.id}/versions/${docVersion.value.id}` })
+        }
+
         return router.push({ path: `/docs/${doc.value.id}` })
       }
 
@@ -99,10 +104,11 @@ export default defineComponent({
     return {
       discordInviteLink,
       doc,
+      docVersion,
       handleLayoutChange,
       handleQuickActionClose,
       handleTabClose,
-      isDoc,
+      isMeta,
       isNew,
       isNuxt,
       mobile,
@@ -170,7 +176,17 @@ export default defineComponent({
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </CoreLink>
-          <CoreLink v-else-if="isDoc" :to="{ path: `/docs/${doc?.id}/meta` }" class="button-flat button-size-medium">
+          <button v-else-if="isMeta" @click="handleQuickActionClose" class="button-flat button-size-medium">
+            <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          <CoreLink v-else-if="docVersion" :to="{ path: `/docs/${doc?.id}/versions/${docVersion.id}/meta` }" class="button-flat button-size-medium">
+            <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </CoreLink>
+          <CoreLink v-else-if="doc" :to="{ path: `/docs/${doc?.id}/meta` }" class="button-flat button-size-medium">
             <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
@@ -198,7 +214,7 @@ export default defineComponent({
         </section>
         <CoreDivider v-if="!mobile" :vertical="true" />
         <section v-if="!mobile" class="flex flex-grow flex-shrink gap-2 bg-gray-100 dark:bg-darkest px-2 min-w-0">
-          <CoreLink v-for="pinnedDoc in pinnedDocs" :key="pinnedDoc.id" :to="{ path: `/docs/${pinnedDoc.id}` }" class="core-button core-button-layer-1 flex flex-shrink justify-between min-w-[4rem] max-w-[20rem]" :class="{ 'bg-layer-2': isDoc && pinnedDoc.id === doc?.id }">
+          <CoreLink v-for="pinnedDoc in pinnedDocs" :key="pinnedDoc.id" :to="{ path: `/docs/${pinnedDoc.id}` }" class="core-button core-button-layer-1 flex flex-shrink justify-between min-w-[4rem] max-w-[20rem]" :class="{ 'bg-layer-2': pinnedDoc.id === doc?.id }">
             <span class="text-ellipsis overflow-hidden">{{ pinnedDoc.headers[0] || pinnedDoc.text.substring(0, 25) }}</span>
             <XMarkIcon @click.prevent.stop="() => handleTabClose(pinnedDoc.id)" class="w-4 transition hover:scale-125" />
           </CoreLink>
@@ -223,7 +239,7 @@ export default defineComponent({
         <CoreDivider v-if="(!mobile && showMenu)" :vertical="true" />
         <slot />
         <CoreDivider v-if="(!mobile && showMeta && doc)" :vertical="true" />
-        <TheRightSidebar v-if="(!mobile && showMeta && doc && isDoc)" class="hidden w-64 bg-gray-100 dark:bg-darkest md:flex flex-shrink-0" />
+        <TheRightSidebar v-if="(!mobile && showMeta && doc)" class="hidden w-64 bg-gray-100 dark:bg-darkest md:flex flex-shrink-0" />
       </section>
     </section>
   </div>

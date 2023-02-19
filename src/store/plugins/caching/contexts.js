@@ -7,7 +7,7 @@ import {
   ADD_CONTEXT,
   LOAD_CONTEXTS,
   REMOVE_CONTEXT,
-} from '/src/store/modules/contexts'
+} from '#root/src/store/modules/contexts'
 
 import { SETTINGS_LOADED } from '#root/src/store/modules/settings'
 

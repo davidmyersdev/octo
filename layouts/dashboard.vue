@@ -7,6 +7,7 @@ import { useMq } from 'vue3-mq'
 import DiscordIcon from '#root/assets/discord.svg?component'
 import GraphIcon from '#root/assets/graph.svg?component'
 import LogoIcon from '#root/assets/logo-icon.svg?component'
+import LogoIconZen from '#root/assets/logo-icon-zen.svg?component'
 import CoreButton from '#root/components/CoreButton.vue'
 import CoreDivider from '#root/components/CoreDivider.vue'
 import CoreLink from '#root/components/CoreLink.vue'
@@ -32,6 +33,7 @@ export default defineComponent({
     Key,
     LayoutNavbar,
     LogoIcon,
+    LogoIconZen,
     TheLeftSidebar,
     TheRightSidebar,
     UserCircleIcon,
@@ -121,7 +123,8 @@ export default defineComponent({
       <div class="flex flex-col">
         <div class="flex flex-col flex-shrink-0 items-center justify-center w-14">
           <button @click="handleLayoutChange" class="flex items-center justify-center p-2 h-14">
-            <LogoIcon class="h-8 text-theme" />
+            <LogoIcon v-if="showMenu" class="h-8 text-theme" />
+            <LogoIconZen v-else class="h-8 text-theme" />
           </button>
         </div>
         <CoreDivider class="mx-2" />

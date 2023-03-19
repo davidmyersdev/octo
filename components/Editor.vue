@@ -99,6 +99,7 @@ export default defineComponent({
           spellcheck: this.settings.spellcheck,
           toolbar: this.settings.toolbar && !this.ro,
         },
+        placeholder: 'Start writing...',
         // Todo: Make these configurable.
         plugins: [
           ...this.plugins,

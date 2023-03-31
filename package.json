@@ -17,7 +17,7 @@
     "file-saver": "^2.0.5",
     "firebase": "^9.17.1",
     "force-graph": "^1.43.0",
-    "ink-mde": "^0.24.0",
+    "ink-mde": "^0.25.0",
     "jszip": "^3.10.1",
     "khroma": "^2.0.0",
     "localforage": "^1.10.0",

@@ -3,6 +3,7 @@ import { RangeSet, StateField } from '@codemirror/state'
 import { Decoration, DecorationSet, EditorView } from '@codemirror/view'
 import type { EditorState, Extension, Range } from '@codemirror/state'
 import type { WidgetType } from '@codemirror/view'
+import { useDebounceFn } from '@vueuse/core'
 import { customAlphabet } from 'nanoid'
 import type { Config } from '../index'
 import { buildSvg, themeCss as themeCSS, themeVariables } from './theme'
@@ -15,12 +16,38 @@ interface PreviewWidget extends WidgetType {
 const alpha = customAlphabet('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
 const state = { isMermaidLoaded: false }
 
-const preview = (text: string): PreviewWidget => {
+const updateChart = async (element: Element, text: string) => {
+  try {
+    const { default: mermaid } = await import('mermaid')
+
+    mermaid.renderAsync(alpha(), text, (svgCode, bindFunctions) => {
+      const svg = buildSvg(svgCode)
+
+      svg.setAttribute('height', '100%')
+      svg.setAttribute('width', '100%')
+
+      element.replaceChildren(svg)
+
+      if (bindFunctions) {
+        bindFunctions(svg)
+      }
+    })
+  } catch(error) {
+    console.log('[mermaid]', error)
+  }
+}
+
+const preview = (text: string, debouncers: Record<string, (element: Element, text: string) => void>): PreviewWidget => {
+
   return {
     compare: (other: PreviewWidget) => {
       return other.text === text
     },
-    destroy: () => {},
+    destroy: (dom) => {
+      const { id } = dom
+
+      delete debouncers[id]
+    },
     eq: (other: PreviewWidget) => {
       return other.text === text
     },
@@ -30,8 +57,11 @@ const preview = (text: string): PreviewWidget => {
     toDOM: () => {
       const container = document.createElement('div')
       const content = document.createElement('div')
-      const targetId = alpha()
+      const id = alpha()
 
+      debouncers[id] = useDebounceFn(updateChart, 200, { maxWait: 500 })
+
+      container.id = id
       container.className = 'ink-mde-widget'
       container.style.paddingBottom = '0.5rem'
       container.style.paddingTop = '0.5rem'
@@ -40,33 +70,35 @@ const preview = (text: string): PreviewWidget => {
       content.style.borderRadius = '0.25rem'
       content.style.minHeight = '0'
       content.style.width = '100%'
+      // content.id = targetId
+      content.className = 'ink-mde-mermaid-content'
 
       container.appendChild(content)
 
-      import('mermaid').then(({ default: mermaid }) => {
-        mermaid.renderAsync(targetId, text, (svgCode, bindFunctions) => {
-          const svg = buildSvg(svgCode)
-
-          svg.setAttribute('height', '100%')
-          svg.setAttribute('width', '100%')
-
-          content.replaceChildren(svg)
-
-          if (bindFunctions) {
-            bindFunctions(svg)
-          }
-        })
-      }).catch((error) => {
-        console.log('[mermaid]', error)
-      })
+      updateChart(content, text)
 
       return container
     },
-    updateDOM: () => false,
+    updateDOM: (dom) => {
+      const { id } = dom
+      const content = dom.querySelector('.ink-mde-mermaid-content')!
+
+      if (content) {
+        const debounceUpdateChart = debouncers[id]
+
+        debounceUpdateChart(content, text)
+
+        return true
+      }
+
+      return false
+    },
   }
 }
 
 export const widget = async (_config: Config): Promise<Extension> => {
+  const debouncers = {}
+
   if (!state.isMermaidLoaded) {
     try {
       const { default: mermaid } = await import('mermaid')
@@ -94,7 +126,7 @@ export const widget = async (_config: Config): Promise<Extension> => {
   const previewDecoration = (text: string) => Decoration.widget({
     block: true,
     side: -1,
-    widget: preview(text),
+    widget: preview(text, debouncers),
   })
 
   const decorate = (state: EditorState) => {

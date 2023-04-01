@@ -188,7 +188,7 @@ export default {
       return this.$store.state.settings.experimental
     },
     mediumPlus() {
-      return ['md', 'lg', 'xl'].includes(this.mq.current)
+      return ['md', 'lg', 'xl', 'xxl'].includes(this.mq.current)
     },
     modKey() {
       return this.$store.state.modKey

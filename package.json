@@ -1,7 +1,7 @@
 {
   "name": "octo",
-  "author": "David R. Myers <david@voracious.dev>",
-  "funding": "https://github.com/sponsors/voracious",
+  "author": "David R. Myers <hello@davidmyers.dev>",
+  "funding": "https://github.com/sponsors/davidmyersdev",
   "private": true,
   "type": "module",
   "scripts": {

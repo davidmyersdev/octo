@@ -157,8 +157,8 @@ export default defineComponent({
             <CoreLink :to="{ path: '/privacy-policy' }">Privacy Policy</CoreLink>
             <CoreLink :to="{ path: '/terms-and-conditions' }">Terms &amp; Conditions</CoreLink>
             <div class="flex items-center gap-2 mt-1 lg:mt-0">
-              <a href="https://twitter.com/voraciousdev" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><IconTwitter class="h-6 lg:h-4" /></a>
-              <a href="https://github.com/voracious" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><IconGitHub class="h-6 lg:h-4" /></a>
+              <a href="https://twitter.com/octowiki" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><IconTwitter class="h-6 lg:h-4" /></a>
+              <a href="https://github.com/davidmyersdev/octo" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><IconGitHub class="h-6 lg:h-4" /></a>
             </div>
           </div>
           <p class="mt-4">&copy; 2023 <CoreLink to="https://voraciouslabs.com">Voracious Labs</CoreLink></p>

@@ -9,6 +9,7 @@
 <script>
 import Ink from 'ink-mde/vue'
 import { OverlayScrollbars } from 'overlayscrollbars'
+import { toRaw } from 'vue'
 import { addFile } from '#root/src/firebase/storage'
 import { mermaid, plugins } from '#root/src/vendor/plugins'
 
@@ -102,8 +103,8 @@ export default defineComponent({
         placeholder: 'Start writing...',
         // Todo: Make these configurable.
         plugins: [
-          ...this.plugins,
-          ...(isExperimentalEnabled && hasLazyPlugins ? this.lazyPlugins : []),
+          ...toRaw(this.plugins),
+          ...toRaw(isExperimentalEnabled && hasLazyPlugins ? this.lazyPlugins : []),
         ],
         readability: this.settings.readability.enabled,
         selections: this.initialSelections || [],

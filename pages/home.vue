@@ -1,6 +1,7 @@
 <script lang="ts">
 import { useStore } from 'vuex'
 import IconGitHub from '#root/assets/github.svg?component'
+import LogoIcon from '#root/assets/logo-icon.svg?component'
 import IconTwitter from '#root/assets/twitter.svg?component'
 import SceneCommunity from '#root/assets/scene-community.svg?component'
 import SceneOSS from '#root/assets/scene-oss.svg?component'
@@ -18,6 +19,7 @@ export default defineComponent({
   components: {
     IconGitHub,
     IconTwitter,
+    LogoIcon,
     SceneCommunity,
     SceneOSS,
     ScenePortable,
@@ -58,13 +60,15 @@ export default defineComponent({
   <div class="home text-lg flex flex-col gap-12">
     <section class="p-4 lg:p-8 container mx-auto">
       <div class="max-w-[100ch] mx-auto">
-        <div class="flex items-center lg:items-stretch text-center gap-8 lg:gap-16 py-8 lg:py-16">
-          <div class="w-full flex flex-col lg:flex-row-reverse justify-between gap-12">
-            <TheLogo class="h-24 lg:h-48 text-brand" />
-            <div class="flex flex-col items-center lg:items-start gap-8 lg:text-left w-full">
-              <h1 class="text-4xl lg:text-5xl font-semibold">{{ appTitle }}</h1>
-              <p v-html="appSubtitle" class="text-2xl lg:text-2xl"></p>
-              <CoreLink :to="ctaRoute" @click="ctaHandler" class="button-base bg-brand transition shadow whitespace-nowrap justify-center gap-3 mt-1 text-layer-0 text-xl py-2 px-8 lg:origin-left hover:scale-110 focus:scale-110">
+        <div class="flex items-center text-center gap-8 lg:gap-16 py-8 lg:py-16">
+          <div class="w-full flex flex-col justify-between gap-12">
+            <LogoIcon class="h-24 text-brand" />
+            <div class="flex flex-col items-center gap-8 w-full">
+              <div class="flex flex-col gap-4">
+                <h1 class="text-4xl lg:text-5xl font-semibold">{{ appTitle }}</h1>
+                <p v-html="appSubtitle" class="text-2xl lg:text-2xl"></p>
+              </div>
+              <CoreLink :to="ctaRoute" @click="ctaHandler" class="button-base bg-brand transition shadow whitespace-nowrap justify-center gap-3 mt-1 text-layer-0 text-xl py-2 px-8 hover:scale-110 focus:scale-110">
                 <span class="flex items-center gap-3 align-center">
                   <span>{{ ctaLabel }}</span>
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

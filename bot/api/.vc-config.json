@@ -1,0 +1,4 @@
+{
+  "entrypoint": "bot.ts",
+  "runtime": "edge"
+}

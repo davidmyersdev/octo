@@ -5,6 +5,8 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "bot:dev": "vercel dev -d --cwd ./bot",
+    "bot:deploy": "vercel deploy --cwd ./bot",
     "build": "nuxt prepare && nuxt typecheck && tsx manifest.ts && nuxt generate",
     "clean": "rimraf .output dev-dist dist",
     "dev": "nuxt dev --port 8888",

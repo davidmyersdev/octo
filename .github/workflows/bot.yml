@@ -1,0 +1,13 @@
+on:
+  repository_dispatch:
+    types:
+      - command
+  workflow_dispatch:
+jobs:
+  run_if_failure:
+    if: ${{ !github.event.client_payload.passed }}
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          MESSAGE: ${{ github.event.client_payload.message }}
+        run: echo $MESSAGE

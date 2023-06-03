@@ -222,8 +222,9 @@ export default defineComponent({
         <TheLeftSidebar v-if="(!mobile && showMenu)" class="hidden w-64 bg-gray-100 dark:bg-darkest md:flex flex-shrink-0" />
         <CoreDivider v-if="(!mobile && showMenu)" :vertical="true" />
         <slot />
-        <CoreDivider v-if="(!mobile && showMeta && doc)" :vertical="true" />
+        <CoreDivider v-if="!mobile" :vertical="true" />
         <TheRightSidebar v-if="(!mobile && showMeta && doc && isDoc)" class="hidden w-64 bg-gray-100 dark:bg-darkest md:flex flex-shrink-0" />
+        <div v-else class="hidden w-2 bg-layer-1 md:flex flex-shrink-0"></div>
       </section>
     </section>
   </div>

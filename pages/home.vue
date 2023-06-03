@@ -27,6 +27,8 @@ export default defineComponent({
     SceneSurveillance,
   },
   setup() {
+    const { isDark, isLight } = useBaseAppearance()
+
     const store = useStore()
     const user = useUser()
     const { public: { appSubtitle, appTitle, discordInviteLink, fathomEventCtaSignUpNow, firebaseDisabled } } = useConfig()
@@ -50,6 +52,8 @@ export default defineComponent({
       ctaRoute,
       discordInviteLink,
       firebaseDisabled,
+      isDark,
+      isLight,
       user,
     }
   },
@@ -83,7 +87,13 @@ export default defineComponent({
     </section>
     <section class="p-4 lg:p-8">
       <div class="container mx-auto max-w-[100ch]">
-        <img src="~/assets/screenshot.png" alt="The Octo editor with an in-progress Markdown document in focus." width="1600" height="900" class="w-full" />
+        <img v-if="isDark" src="~/assets/screenshot-dark.png" alt="The Octo editor with an in-progress Markdown document in focus." width="1600" height="900" class="w-full" />
+        <img v-else-if="isLight" src="~/assets/screenshot-light.png" alt="The Octo editor with an in-progress Markdown document in focus." width="1600" height="900" class="w-full" />
+        <picture v-else>
+          <source media="(prefers-color-scheme: dark)" srcset="~/assets/screenshot-dark.png">
+          <source media="(prefers-color-scheme: light)" srcset="~/assets/screenshot-light.png">
+          <img alt="Shows the Octo app with an open tab containing a markdown document." src="~/assets/screenshot-dark.png">
+        </picture>
       </div>
     </section>
     <section class="p-4 lg:p-8">

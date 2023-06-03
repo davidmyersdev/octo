@@ -5,7 +5,13 @@
 
 Take control of your knowledge work. Sign up at [octo.app](https://octo.app).
 
-[![screenshot](assets/screenshot.png)](https://octo.app)
+<a href="https://octo.app">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/screenshot-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="assets/screenshot-light.png">
+    <img alt="Shows the Octo app with an open tab containing a markdown document." src="assets/screenshot-dark.png">
+  </picture>
+</a>
 
 ## Features
 

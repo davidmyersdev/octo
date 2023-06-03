@@ -3,7 +3,7 @@
 
 # Octo
 
-The ultimate open source tool for personal knowledge management. Sign up at [octo.app](https://octo.app).
+Take control of your knowledge work. Sign up at [octo.app](https://octo.app).
 
 [![screenshot](assets/screenshot.png)](https://octo.app)
 

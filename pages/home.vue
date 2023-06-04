@@ -11,7 +11,7 @@ import SceneSurveillance from '#root/assets/scene-surveillance.svg?component'
 
 if (globalThis.isNuxt) {
   definePageMeta({
-    layout: 'bare',
+    layout: 'minimal',
   })
 }
 

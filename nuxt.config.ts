@@ -35,14 +35,14 @@ export default defineNuxtConfig({
         { content: '#121212', name: 'theme-color' },
         { property: 'og:url', content: 'https://octo.app' },
         { property: 'og:type', content: 'website' },
-        { property: 'og:title', content: 'Octo | Write. Refine. Discover.' },
-        { property: 'og:description', content: 'Take control of your knowledge work.' },
+        { property: 'og:title', content: 'Octo | Write meaningful notes' },
+        { property: 'og:description', content: 'Take control of your knowledge work.'},
         { property: 'og:image', content: 'https://octo.app/img/og.png' },
         { name: 'twitter:card', content: 'summary_large_image' },
         { property: 'twitter:domain', content: 'octo.app' },
         { property: 'twitter:url', content: 'https://octo.app' },
-        { name: 'twitter:title', content: 'Octo | Write. Refine. Discover.' },
-        { name: 'twitter:description', content: 'Take control of your knowledge work.' },
+        { name: 'twitter:title', content: 'Octo | Write meaningful notes' },
+        { name: 'twitter:description', content: 'Take control of your knowledge work.'},
         { name: 'twitter:image', content: 'https://octo.app/img/og.png' },
       ],
       script: [
@@ -82,7 +82,7 @@ export default defineNuxtConfig({
       registerPlugin: true,
     },
     devOptions: {
-      enabled: true,
+      enabled: false,
       type: 'module',
     },
     includeManifestIcons: true,
@@ -98,8 +98,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       appName: 'Octo',
-      appTitle: 'Write. Refine. Discover.',
-      appSubtitle: 'Take control of your knowledge work.',
+      appTitle: 'Write meaningful notes',
+      appSubtitle: 'Take control of your knowledge work',
       cdnUrl: '',
       discordInviteLink: '',
       fathomEventAccountRegistration: '',

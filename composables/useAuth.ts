@@ -33,6 +33,147 @@ export const providers: Record<AuthProviderType, () => AuthProvider> = {
   twitter: () => new TwitterAuthProvider(),
 }
 
+export const useAuth = () => {
+  const isMagicLinkModalClosed = ref(false)
+  const isStripeModalClosed = ref(false)
+  const isRedirectingToStripe = ref(false)
+  const stripeError = ref('')
+  const router = useRouter()
+  const { isMagicLinkFlow, isSocialFlow } = useAuthFlow()
+  const modalForm = useAuthForm()
+  const { emailAddress, isMagicLink, isOriginalClient, sendMagicLinkEmail, signInWithMagicLink } = useMagicLink()
+  const { active: activeTier, basic: basicTier, personal: personalTier, pro: proTier } = useTiers()
+  const { redirectToSocial, signInWithSocial } = useSocial()
+  const { redirectToStripe } = useStripe()
+
+  if (isSocialFlow.value) {
+    const flowSocialForm = computed({
+      get: () => {
+        return activeTier.value.forms.social
+      },
+      set: (value) => {
+        activeTier.value.forms.social = value
+      },
+    })
+
+    signInWithSocial(flowSocialForm).then((result) => {
+      if (!result) {
+        if (!flowSocialForm.value.error) {
+          flowSocialForm.value.error = 'You were not signed in. Please try again.'
+        }
+
+        return false
+      }
+
+      flowSocialForm.value.confirmed = true
+
+      if (activeTier.value.isPaying) {
+        isRedirectingToStripe.value = true
+
+        redirectToStripe().then((isValid) => {
+          if (!isValid) {
+            stripeError.value = 'An unexpected error occurred while communicating with Stripe.'
+          }
+        })
+      } else {
+        router.push({ path: '/docs/new' })
+      }
+    }).catch((error) => {
+      console.warn({ error })
+    })
+  }
+
+  if (isMagicLinkFlow.value) {
+    if (isOriginalClient.value && emailAddress.value) {
+      modalForm.email = emailAddress.value
+
+      signInWithMagicLink(modalForm).then((isSignedIn) => {
+        if (isSignedIn) {
+          isMagicLinkModalClosed.value = true
+
+          if (activeTier?.value.isPaying) {
+            isRedirectingToStripe.value = true
+
+            redirectToStripe().then((isValid) => {
+              if (!isValid) {
+                stripeError.value = 'An unexpected error occurred while communicating with Stripe.'
+              }
+            })
+          } else {
+            router.push({ path: '/docs/new' })
+          }
+        }
+      })
+    }
+  }
+
+  const onMagicLinkModalClose = () => {
+    isMagicLinkModalClosed.value = true
+  }
+
+  const onStripeModalClose = () => {
+    isStripeModalClosed.value = true
+  }
+
+  const onMagicLink = ({ form, tier  }: { form: AuthMagicLinkForm, tier: Tier }) => {
+    sendMagicLinkEmail({ form, tier })
+  }
+
+  const onMagicLinkConfirm = async (form: AuthMagicLinkForm) => {
+    const isSignedIn = await signInWithMagicLink(form)
+
+    if (isSignedIn) {
+      isMagicLinkModalClosed.value = true
+
+      if (activeTier?.value.isPaying) {
+        isRedirectingToStripe.value = true
+
+        redirectToStripe().then((isValid) => {
+          if (!isValid) {
+            stripeError.value = 'An unexpected error occurred while communicating with Stripe.'
+          }
+        })
+      } else {
+        router.push({ path: '/docs/new' })
+      }
+    }
+  }
+
+  const onSocialLink = ({ provider, tier }: { provider: AuthProviderType, tier: Tier }) => {
+    redirectToSocial({ provider, tier })
+  }
+
+  const onUpgrade = () => {
+    isRedirectingToStripe.value = true
+
+    redirectToStripe().then((isValid) => {
+      if (!isValid) {
+        stripeError.value = 'An unexpected error occurred while communicating with Stripe.'
+      }
+    })
+  }
+
+  return {
+    basicTier,
+    isMagicLink,
+    isMagicLinkFlow,
+    isMagicLinkModalClosed,
+    isOriginalClient,
+    isRedirectingToStripe,
+    isStripeModalClosed,
+    modalForm,
+    onMagicLink,
+    onMagicLinkConfirm,
+    onMagicLinkModalClose,
+    onSocialLink,
+    onStripeModalClose,
+    onUpgrade,
+    personalTier,
+    proTier,
+    stripeError,
+  }
+}
+
 export const useAuthFlow = () => {
   const route = useRoute()
   const isMagicLinkFlow = computed(() => route.query.flow === 'magic-link')
@@ -180,7 +321,7 @@ export const useSocial = () => {
     redirectToSocial: async ({ provider: type, tier }: { provider: AuthProviderType, tier: Tier }) => {
       const provider = providers[type]
 
-      router.push({
+      await router.push({
         ...route,
         query: {
           ...route.query,

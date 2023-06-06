@@ -4,7 +4,6 @@ import AuthStripeModal from '#root/components/AuthStripeModal.vue'
 import AuthTier from '#root/components/AuthTier.vue'
 import CheckList from '#root/components/CheckList.vue'
 import CheckListItem from '#root/components/CheckListItem.vue'
-import { type AuthMagicLinkForm, type AuthProviderType, type Tier, useAuthFlow, useAuthForm, useMagicLink, useSocial, useStripe, useTiers } from '#root/composables'
 
 export default defineComponent({
   components: {
@@ -15,131 +14,27 @@ export default defineComponent({
     CheckListItem,
   },
   setup() {
-    const isMagicLinkModalClosed = ref(false)
-    const isStripeModalClosed = ref(false)
-    const isRedirecting = ref(false)
-    const stripeError = ref('')
-    const router = useRouter()
-    const { isMagicLinkFlow, isSocialFlow } = useAuthFlow()
-    const modalForm = useAuthForm()
-    const { emailAddress, isMagicLink, isOriginalClient, sendMagicLinkEmail, signInWithMagicLink } = useMagicLink()
-    const { active: activeTier, personal: personalTier, pro: proTier } = useTiers()
-    const { redirectToSocial, signInWithSocial } = useSocial()
-    const { redirectToStripe } = useStripe()
-
-    if (activeTier) {
-      if (isSocialFlow.value) {
-        const flowSocialForm = computed({
-          get: () => {
-            return activeTier.value.forms.social
-          },
-          set: (value) => {
-            activeTier.value.forms.social = value
-          },
-        })
-
-        signInWithSocial(flowSocialForm).then((result) => {
-          if (!result) {
-            if (!flowSocialForm.value.error) {
-              flowSocialForm.value.error = 'You were not signed in. Please try again.'
-            }
-
-            return false
-          }
-
-          flowSocialForm.value.confirmed = true
-
-          if (activeTier.value.isPaying) {
-            isRedirecting.value = true
-
-            redirectToStripe().then((isValid) => {
-              if (!isValid) {
-                stripeError.value = 'An unexpected error occurred while communicating with Stripe.'
-              }
-            })
-          }
-        }).catch((error) => {
-          console.warn({ error })
-        })
-      }
-    }
-
-    if (isMagicLinkFlow.value) {
-      if (isOriginalClient.value && emailAddress.value) {
-        modalForm.email = emailAddress.value
-
-        signInWithMagicLink(modalForm).then((isSignedIn) => {
-          if (isSignedIn) {
-            isMagicLinkModalClosed.value = true
-
-            if (activeTier?.value.isPaying) {
-              isRedirecting.value = true
-
-              redirectToStripe().then((isValid) => {
-                if (!isValid) {
-                  stripeError.value = 'An unexpected error occurred while communicating with Stripe.'
-                }
-              })
-            } else {
-              router.push({ path: '/docs/new' })
-            }
-          }
-        })
-      }
-    }
-
-    const onMagicLinkModalClose = () => {
-      isMagicLinkModalClosed.value = true
-    }
-
-    const onStripeModalClose = () => {
-      isStripeModalClosed.value = true
-    }
-
-    const onMagicLink = ({ form, tier  }: { form: AuthMagicLinkForm, tier: Tier }) => {
-      sendMagicLinkEmail({ form, tier })
-    }
-
-    const onMagicLinkConfirm = async (form: AuthMagicLinkForm) => {
-      const isSignedIn = await signInWithMagicLink(form)
-
-      if (isSignedIn) {
-        isMagicLinkModalClosed.value = true
-
-        if (activeTier?.value.isPaying) {
-          isRedirecting.value = true
-
-          redirectToStripe().then((isValid) => {
-            if (!isValid) {
-              stripeError.value = 'An unexpected error occurred while communicating with Stripe.'
-            }
-          })
-        } else {
-          router.push({ path: '/docs/new' })
-        }
-      }
-    }
-
-    const onSocialLink = ({ provider, tier }: { provider: AuthProviderType, tier: Tier }) => {
-      redirectToSocial({ provider, tier })
-    }
-
-    const onUpgrade = () => {
-      isRedirecting.value = true
-
-      redirectToStripe().then((isValid) => {
-        if (!isValid) {
-          stripeError.value = 'An unexpected error occurred while communicating with Stripe.'
-        }
-      })
-    }
-
-    return {
-      isMagicLink,
+    const {
       isMagicLinkFlow,
       isMagicLinkModalClosed,
-      isOriginalClient,
-      isRedirecting,
+      isRedirectingToStripe,
+      isStripeModalClosed,
+      modalForm,
+      onMagicLink,
+      onMagicLinkConfirm,
+      onMagicLinkModalClose,
+      onSocialLink,
+      onStripeModalClose,
+      onUpgrade,
+      personalTier,
+      proTier,
+      stripeError,
+    } = useAuth()
+
+    return {
+      isMagicLinkFlow,
+      isMagicLinkModalClosed,
+      isRedirectingToStripe,
       isStripeModalClosed,
       modalForm,
       onMagicLink,
@@ -195,6 +90,6 @@ export default defineComponent({
       </template>
     </AuthTier>
     <AuthMagicLinkModal v-if="isMagicLinkFlow && !isMagicLinkModalClosed" :form="modalForm" @close="onMagicLinkModalClose" @confirm="onMagicLinkConfirm" />
-    <AuthStripeModal v-else-if="isRedirecting && !isStripeModalClosed" :error="stripeError" @close="onStripeModalClose" />
+    <AuthStripeModal v-else-if="isRedirectingToStripe && !isStripeModalClosed" :error="stripeError" @close="onStripeModalClose" />
   </section>
 </template>

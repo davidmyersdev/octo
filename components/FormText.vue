@@ -4,6 +4,10 @@ import { computed, defineComponent } from 'vue'
 export default defineComponent({
   emits: ['update:modelValue'],
   props: {
+    label: {
+      default: '',
+      type: String,
+    },
     modelValue: {
       default: '',
       type: String,
@@ -34,8 +38,11 @@ export default defineComponent({
 </script>
 
 <template>
-  <label class="border border-current cursor-pointer flex gap-3 items-center px-3 py-2 rounded shadow focus-within:outline-none focus-within:ring">
-    <slot name="icon" />
-    <input v-model="text" class="bg-transparent flex-grow outline-none text-current" :placeholder="placeholder" :type="type">
+  <label class="cursor-pointer flex flex-col gap-1 text-left">
+    <span v-if="label"><small>{{ label }}</small></span>
+    <span class="border border-current flex gap-3 items-center px-3 py-2 rounded shadow focus-within:outline-none focus-within:ring">
+      <slot name="icon" />
+      <input v-model="text" class="bg-transparent flex-grow outline-none text-current" :placeholder="placeholder" :type="type">
+    </span>
   </label>
 </template>

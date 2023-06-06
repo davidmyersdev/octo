@@ -1,6 +1,5 @@
 <script lang="ts">
 import { type PropType, computed, defineComponent } from 'vue'
-import Button from './CoreButton.vue'
 import LocalGitHubIcon from '#root/assets/github.svg?component'
 import LocalGoogleIcon from '#root/assets/google.svg?component'
 import LocalTwitterIcon from '#root/assets/twitter.svg?component'
@@ -16,7 +15,6 @@ import { type AuthSocialForm } from '#root/composables'
  */
 export default defineComponent({
   components: {
-    Button,
     LocalGitHubIcon,
     LocalGoogleIcon,
     LocalTwitterIcon,
@@ -59,19 +57,19 @@ export default defineComponent({
 </script>
 
 <template>
-  <section class="flex flex-col gap-2">
-    <Button v-if="allowGitHub" @click="clickProvider('github')" data-test-auth-social-github>
+  <section class="flex flex-col gap-4">
+    <CoreButton v-if="allowGitHub" @click="clickProvider('github')" :layer="3" data-test-auth-social-github>
       <LocalGitHubIcon class="h-5 w-5" />
       <span>Continue with GitHub</span>
-    </Button>
-    <Button @click="clickProvider('google')" data-test-auth-social-google>
+    </CoreButton>
+    <CoreButton @click="clickProvider('google')" :layer="3" data-test-auth-social-google>
       <LocalGoogleIcon class="h-5 w-5" />
       <span>Continue with Google</span>
-    </Button>
-    <Button @click="clickProvider('twitter')" data-test-auth-social-twitter>
+    </CoreButton>
+    <CoreButton @click="clickProvider('twitter')" :layer="3" data-test-auth-social-twitter>
       <LocalTwitterIcon class="h-5 w-5" />
       <span>Continue with Twitter</span>
-    </Button>
+    </CoreButton>
     <p v-if="form.error" class="text-red-500">{{ form.error }}</p>
     <p v-else-if="form.confirming">
       <span>Redirecting to your provider...</span>

@@ -9,11 +9,7 @@ import ScenePortable from '#root/assets/scene-portable.svg?component'
 import SceneSecure from '#root/assets/scene-secure.svg?component'
 import SceneSurveillance from '#root/assets/scene-surveillance.svg?component'
 
-if (globalThis.isNuxt) {
-  definePageMeta({
-    layout: 'minimal',
-  })
-}
+definePageMeta({ layout: 'minimal' })
 
 export default defineComponent({
   components: {
@@ -27,20 +23,25 @@ export default defineComponent({
     SceneSurveillance,
   },
   setup() {
-    const { isDark, isLight } = useBaseAppearance()
+    const { isAuto, isDark, isLight } = useBaseAppearance()
 
     const store = useStore()
     const user = useUser()
-    const { public: { appSubtitle, appTitle, discordInviteLink, fathomEventCtaSignUpNow, firebaseDisabled } } = useConfig()
+    const { public: { appSubtitle, appTitle, appName, discordInviteLink, fathomEventCtaSignUpNow, firebaseDisabled } } = useConfig()
     const isCtaRelevant = computed(() => !(user.value.id || firebaseDisabled))
 
     const ctaLabel = computed(() => isCtaRelevant.value ? 'Get started for free' : 'Open the app')
-    const ctaRoute = computed(() => isCtaRelevant.value ? { hash: '#pricing' } : { path: '/docs/new' })
+    const ctaRoute = computed(() => isCtaRelevant.value ? { path: '/authenticate' } : { path: '/docs/new' })
+
     const ctaHandler = () => () => {
       if (isCtaRelevant.value) {
         window.fathom?.trackGoal(fathomEventCtaSignUpNow, 0)
       }
     }
+
+    useHead({
+      titleTemplate: (title) => `${appName} - ${title}`,
+    })
 
     store.commit('SET_SHOW_WELCOME', false)
 
@@ -52,6 +53,7 @@ export default defineComponent({
       ctaRoute,
       discordInviteLink,
       firebaseDisabled,
+      isAuto,
       isDark,
       isLight,
       user,
@@ -63,10 +65,9 @@ export default defineComponent({
 <template>
   <div class="home text-lg flex flex-col gap-12">
     <section class="p-4 lg:p-8 container mx-auto">
-      <div class="max-w-[100ch] mx-auto">
+      <div class="max-w-4xl mx-auto">
         <div class="flex items-center text-center gap-8 lg:gap-16 py-8 lg:py-16">
           <div class="w-full flex flex-col justify-between gap-12">
-            <LogoIcon class="h-24 text-brand" />
             <div class="flex flex-col items-center gap-8 w-full">
               <div class="flex flex-col gap-4">
                 <h1 class="text-4xl lg:text-5xl font-semibold">{{ appTitle }}</h1>
@@ -86,96 +87,87 @@ export default defineComponent({
       </div>
     </section>
     <section class="p-4 lg:p-8">
-      <div class="container mx-auto max-w-[100ch]">
-        <img v-if="isDark" src="~/assets/screenshot-dark.png" alt="The Octo editor with an in-progress Markdown document in focus." width="1600" height="900" class="w-full" />
-        <img v-else-if="isLight" src="~/assets/screenshot-light.png" alt="The Octo editor with an in-progress Markdown document in focus." width="1600" height="900" class="w-full" />
-        <picture v-else>
-          <source media="(prefers-color-scheme: dark)" srcset="~/assets/screenshot-dark.png">
-          <source media="(prefers-color-scheme: light)" srcset="~/assets/screenshot-light.png">
-          <img alt="Shows the Octo app with an open tab containing a markdown document." src="~/assets/screenshot-dark.png">
+      <div class="container mx-auto max-w-6xl">
+        <picture v-if="isDark">
+          <source alt="Shows the Octo app with an open tab containing a markdown document." media="(orientation: portrait)" srcset="~/assets/screenshot-mobile-dark.png" width="1080" height="2400" class="bg-black border-8 border-black overflow-hidden rounded-2xl w-full">
+          <img alt="Shows the Octo app with an open tab containing a markdown document." src="~/assets/screenshot-dark.png" width="1600" height="900" class="w-full">
         </picture>
-      </div>
-    </section>
-    <section class="p-4 lg:p-8">
-      <div class="container mx-auto max-w-[100ch] grid grid-flow-row lg:grid-cols-2 gap-8">
-        <blockquote class="bg-layer-1 border-l-8 border-layer-3 rounded p-4 flex flex-col gap-2 justify-between">
-          <p>So I've just come across Octo (having seen them in conversation with Fathom Analytics) and it's exactly the notes app I've been looking for!</p>
-          <p>- Ed</p>
-        </blockquote>
-        <blockquote class="bg-layer-1 border-l-8 border-layer-3 rounded p-4 flex flex-col gap-2 justify-between">
-          <p>[An app] you might be interested in is Octo. It's a bit more security focused and does client-side encryption, but because of that, you can sync your docs without worrying about them being "out there".</p>
-          <p>- Peter</p>
-        </blockquote>
+        <picture v-else-if="isLight">
+          <source alt="Shows the Octo app with an open tab containing a markdown document." media="(orientation: portrait)" srcset="~/assets/screenshot-mobile-light.png" width="1080" height="2400" class="bg-black border-8 border-black overflow-hidden rounded-2xl w-full">
+          <img alt="Shows the Octo app with an open tab containing a markdown document." src="~/assets/screenshot-light.png" width="1600" height="900" class="w-full">
+        </picture>
+        <picture v-else>
+          <!-- mobile -->
+          <source alt="Shows the Octo app with an open tab containing a markdown document." media="(orientation: portrait) and (prefers-color-scheme: dark)" srcset="~/assets/screenshot-mobile-dark.png" width="1080" height="2400">
+          <source alt="Shows the Octo app with an open tab containing a markdown document." media="(orientation: portrait) and (prefers-color-scheme: light)" srcset="~/assets/screenshot-mobile-light.png" width="1080" height="2400">
+          <!-- desktop -->
+          <source alt="Shows the Octo app with an open tab containing a markdown document." media="(prefers-color-scheme: dark)" srcset="~/assets/screenshot-dark.png" width="1600" height="900" class="w-full">
+          <source alt="Shows the Octo app with an open tab containing a markdown document." media="(prefers-color-scheme: light)" srcset="~/assets/screenshot-light.png" width="1600" height="900" class="w-full">
+          <!-- fallback -->
+          <img alt="Shows the Octo app with an open tab containing a markdown document." src="~/assets/screenshot-dark.png" width="1600" height="900" class="max-lg:bg-black max-lg:border-8 max-lg:border-black max-lg:overflow-hidden max-lg:rounded-2xl w-full">
+        </picture>
       </div>
     </section>
     <section>
       <section class="p-4 lg:p-8 container mx-auto">
-        <div class="max-w-[100ch] mx-auto flex flex-col items-stretch lg:flex-row-reverse lg:items-center justify-between gap-12 mb-4">
-          <ScenePortable class="h-20 lg:h-40" />
+        <div class="max-w-4xl mx-auto">
           <div class="flex flex-col gap-4">
             <h2 class="text-2xl lg:text-4xl">Portable</h2>
-            <p class="lg:text-xl mt-2 max-w-[40ch]">Nobody wants to be locked into a single tool. Import or export your entire knowledge base as plain-text Markdown files, and take your work with you wherever you choose to go.</p>
+            <p class="lg:text-xl">Import or export your entire knowledge base as plain-text Markdown files, and take your work with you wherever you choose to go.</p>
           </div>
         </div>
       </section>
       <section class="p-4 lg:p-8 container mx-auto">
-        <div class="max-w-[100ch] mx-auto flex flex-col items-stretch lg:flex-row lg:text-right lg:items-center justify-between gap-12 mb-4">
-          <SceneOSS class="h-20 lg:h-40" />
+        <div class="max-w-4xl mx-auto">
           <div class="flex flex-col gap-4">
-            <h2 class="text-2xl lg:text-4xl">Open Source</h2>
-            <p class="lg:text-xl mt-2 max-w-[40ch]">It's hard to know what closed source software is doing with your data. We are committed to a level of transparency that only open source software can provide.</p>
+            <h2 class="text-2xl lg:text-4xl">Transparent</h2>
+            <p class="lg:text-xl">It's hard to know what closed source software is doing with your data. We are committed to a level of transparency that only open source software can provide.</p>
           </div>
         </div>
       </section>
       <section class="p-4 lg:p-8 container mx-auto">
-        <div class="max-w-[100ch] mx-auto flex flex-col items-stretch lg:flex-row-reverse lg:items-center justify-between gap-12 mb-4">
-          <SceneCommunity class="h-20 lg:h-40" />
-          <div class="flex flex-col gap-4">
-            <h2 class="text-2xl lg:text-4xl">Community-driven</h2>
-            <p class="lg:text-xl mt-2 max-w-[40ch]">We are knowledge workers just like you. Join the <a class="underline" :href="discordInviteLink" target="_blank" rel="noopener noreferrer">Voracious Community</a> on Discord to help shape Octo into a tool we all love.</p>
-          </div>
-        </div>
-      </section>
-      <section class="p-4 lg:p-8 container mx-auto">
-        <div class="max-w-[100ch] mx-auto flex flex-col items-stretch lg:flex-row lg:text-right lg:items-center justify-between gap-12 mb-4">
-          <SceneSecure class="h-20 lg:h-40" />
-          <div class="flex flex-col gap-4">
-            <h2 class="text-2xl lg:text-4xl">Secure</h2>
-            <p class="lg:text-xl mt-2 max-w-[40ch]"><strong class="font-semibold">Trust is earned</strong>, yet many organizations expect you to give it away freely. With client-side (end-to-end) encryption, <strong class="font-semibold">you decide</strong> whether you trust us with your information.</p>
-          </div>
-        </div>
-      </section>
-      <section class="p-4 lg:p-8 container mx-auto">
-        <div class="max-w-[100ch] mx-auto flex flex-col items-stretch lg:flex-row-reverse lg:items-center justify-between gap-12 mb-4">
-          <SceneSurveillance class="h-20 lg:h-40" />
+        <div class="max-w-4xl mx-auto">
           <div class="flex flex-col gap-4">
             <h2 class="text-2xl lg:text-4xl">Private</h2>
-            <p class="lg:text-xl mt-2 max-w-[40ch]">In a world of surveillance, we choose to protect you with privacy-first analytics. No cookies. No data scraping. Just simple, anonymous metrics which are available for anyone to view on our <a class="underline" href="https://app.usefathom.com/share/npcchoaz/octo.app" target="_blank" rel="noopener noreferrer">public analytics dashboard</a>.</p>
+            <p class="lg:text-xl">In a world of surveillance, we choose to protect you with privacy-first tools. From offline-first data storage to end-to-end encryption (e2ee), you can rest assured that your data remains private.</p>
           </div>
         </div>
       </section>
     </section>
-    <section v-if="!firebaseDisabled" class="p-4 lg:p-8">
-      <div class="container mx-auto">
-        <div class="max-w-[100ch] mx-auto mb-8">
-          <h2 id="pricing" class="text-2xl lg:text-4xl font-bold">Pricing</h2>
-          <p class="my-4">Accounts are recommended, but they are not required. Feel free to just <CoreLink :to="{ path: '/docs/new' }" class="underline">open the app</CoreLink> instead.</p>
-          <AuthTiers />
+    <section class="p-4 lg:p-8 container mx-auto">
+      <div class="max-w-4xl mx-auto">
+        <div class="flex items-center text-center gap-8 lg:gap-16 py-8 lg:py-16">
+          <div class="w-full flex flex-col justify-between gap-12">
+            <div class="flex flex-col items-center gap-8 w-full">
+              <CoreLink :to="ctaRoute" @click="ctaHandler" class="button-base bg-brand transition shadow whitespace-nowrap justify-center gap-3 mt-1 text-layer-0 text-xl py-2 px-8 hover:scale-110 focus:scale-110">
+                <span class="flex items-center gap-3 align-center">
+                  <span>Try Octo for free</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </span>
+              </CoreLink>
+            </div>
+          </div>
         </div>
       </div>
     </section>
-    <footer class="text-gray-500 p-4 lg:p-8 container mx-auto">
-      <div class="max-w-[100ch] mx-auto mb-8">
-        <div class="flex flex-col items-center lg:items-start gap-2">
-          <div class="flex flex-col items-center lg:flex-row gap-2 lg:gap-4">
-            <CoreLink :to="{ path: '/privacy-policy' }">Privacy Policy</CoreLink>
-            <CoreLink :to="{ path: '/terms-and-conditions' }">Terms &amp; Conditions</CoreLink>
-            <div class="flex items-center gap-2 mt-1 lg:mt-0">
-              <a href="https://twitter.com/octowiki" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><IconTwitter class="h-6 lg:h-4" /></a>
-              <a href="https://github.com/davidmyersdev/octo" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><IconGitHub class="h-6 lg:h-4" /></a>
+    <footer class="bg-layer-1 p-4 lg:p-8 w-full">
+      <div class="max-w-4xl mx-auto">
+        <div class="flex items-start justify-between gap-4">
+          <div class="flex flex-col gap-4">
+            <div class="flex flex-col">
+              <small class="hidden lg:block text-gray-500">Policies</small>
+              <CoreLink :to="{ path: '/privacy-policy' }" class="underline">Privacy Policy</CoreLink>
+              <CoreLink :to="{ path: '/terms-and-conditions' }" class="underline">Terms &amp; Conditions</CoreLink>
+            </div>
+            <div class="flex items-center gap-2">
+              <CoreLink to="https://twitter.com/octowiki" aria-label="Twitter"><IconTwitter class="h-4" /></CoreLink>
+              <span>&nbsp;</span>
+              <CoreLink to="https://github.com/davidmyersdev/octo" aria-label="GitHub"><IconGitHub class="h-4" /></CoreLink>
             </div>
           </div>
-          <p class="mt-4">&copy; 2023 <CoreLink to="https://voraciouslabs.com">Voracious Labs</CoreLink></p>
+          <p>&copy; 2023 Octo</p>
         </div>
       </div>
     </footer>

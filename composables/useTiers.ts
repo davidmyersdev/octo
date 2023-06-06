@@ -17,17 +17,43 @@ export interface Tier {
 
 export const useTiers = () => {
   const route = useRoute()
+  const basic = useBasicTier()
   const personal = usePersonalTier()
   const pro = useProTier()
-  const active = personal.value.active || route.query.tier === 'personal' ? personal
-    : pro.value.active || route.query.tier === 'pro' ? pro
-    : undefined
+  const active = (personal.value.active || route.query.tier === 'personal') ? personal
+    : (pro.value.active || route.query.tier === 'pro') ? pro
+    : basic
 
   return {
     active,
+    basic,
     personal,
     pro,
   }
+}
+
+export const useBasicTier = () => {
+  const route = useRoute()
+  const { isSubscribed, user } = useSubscription()
+
+  return computed<Tier>(() => {
+    return {
+      active: !!user.value.id && !isSubscribed.value,
+      allowSignUp: !user.value.id,
+      allowUpgrade: false,
+      description: '',
+      displayName: '',
+      forms: {
+        magicLink: useAuthForm(),
+        social: useAuthForm(),
+      },
+      isPaying: false,
+      isTier: route.query.tier === 'basic',
+      name: 'basic',
+      price: '',
+      priceFrequency: '',
+    }
+  })
 }
 
 export const usePersonalTier = () => {

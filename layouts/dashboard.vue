@@ -117,7 +117,7 @@ export default defineComponent({
 
 <template>
   <div class="dashboard flex h-screen w-screen min-h-0 min-w-0 overflow-hidden border-t-2 border-white dark:border-gray-900">
-    <section v-if="!mobile" class="flex flex-col items-center justify-between gap-4 h-full w-14 bg-gray-100 dark:bg-darkest md:flex">
+    <section v-if="!mobile" class="flex flex-col items-center justify-between gap-4 h-full w-14 bg-layer-1 md:flex">
       <div class="flex flex-col">
         <div class="flex flex-col flex-shrink-0 items-center justify-center w-14">
           <button @click="handleLayoutChange" class="flex items-center justify-center p-2 h-14">
@@ -154,7 +154,7 @@ export default defineComponent({
     </section>
     <CoreDivider v-if="!mobile" :vertical="true" />
     <section class="flex flex-col flex-grow flex-shrink min-h-0 min-w-0">
-      <nav class="flex items-center justify-between py-2 bg-gray-100 dark:bg-darkest h-14">
+      <nav class="flex items-center justify-between py-2 bg-layer-1 h-14">
         <CoreLink v-if="mobile" :to="{ path: '/docs/new' }" class="flex items-center justify-center p-2 h-14">
           <LogoIcon class="h-8 text-theme" />
         </CoreLink>
@@ -197,7 +197,7 @@ export default defineComponent({
           </CoreLink>
         </section>
         <CoreDivider v-if="!mobile" :vertical="true" />
-        <section v-if="!mobile" class="flex flex-grow flex-shrink gap-2 bg-gray-100 dark:bg-darkest px-2 min-w-0">
+        <section v-if="!mobile" class="flex flex-grow flex-shrink gap-2 bg-layer-1 px-2 min-w-0">
           <CoreLink v-for="pinnedDoc in pinnedDocs" :key="pinnedDoc.id" :to="{ path: `/docs/${pinnedDoc.id}` }" class="core-button core-button-layer-1 flex flex-shrink justify-between min-w-[4rem] max-w-[20rem]" :class="{ 'bg-layer-2': isDoc && pinnedDoc.id === doc?.id }">
             <span class="text-ellipsis overflow-hidden">{{ pinnedDoc.headers[0] || pinnedDoc.text.substring(0, 25) }}</span>
             <XMarkIcon @click.prevent.stop="() => handleTabClose(pinnedDoc.id)" class="w-4 transition hover:scale-125" />
@@ -219,11 +219,11 @@ export default defineComponent({
       </nav>
       <CoreDivider />
       <section class="flex flex-grow flex-shrink overflow-hidden min-w-0">
-        <TheLeftSidebar v-if="(!mobile && showMenu)" class="hidden w-64 bg-gray-100 dark:bg-darkest md:flex flex-shrink-0" />
+        <TheLeftSidebar v-if="(!mobile && showMenu)" class="hidden w-64 bg-layer-1 md:flex flex-shrink-0" />
         <CoreDivider v-if="(!mobile && showMenu)" :vertical="true" />
         <slot />
         <CoreDivider v-if="!mobile" :vertical="true" />
-        <TheRightSidebar v-if="(!mobile && showMeta && doc && isDoc)" class="hidden w-64 bg-gray-100 dark:bg-darkest md:flex flex-shrink-0" />
+        <TheRightSidebar v-if="(!mobile && showMeta && doc && isDoc)" class="hidden w-64 bg-layer-1 md:flex flex-shrink-0" />
         <div v-else class="hidden w-2 bg-layer-1 md:flex flex-shrink-0"></div>
       </section>
     </section>

@@ -17,7 +17,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       bodyAttrs: {
-        class: 'text-gray-900 dark:text-gray-300 bg-white dark:bg-gray-900',
+        class: 'text-gray-900 dark:text-gray-300 bg-layer-0',
       },
       htmlAttrs: {
         class: 'scroll-smooth scroll-pt-4',

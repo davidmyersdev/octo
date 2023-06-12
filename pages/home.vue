@@ -23,7 +23,7 @@ export default defineComponent({
     SceneSurveillance,
   },
   setup() {
-    const { isAuto, isDark, isLight } = useBaseAppearance()
+    const { isAuto, isDark, isLight } = useAppearance()
 
     const store = useStore()
     const user = useUser()

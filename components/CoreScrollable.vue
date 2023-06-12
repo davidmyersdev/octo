@@ -4,26 +4,30 @@ import { defineComponent, onMounted, ref } from 'vue'
 
 export default defineComponent({
   setup() {
-    const scrollable = ref<HTMLElement>()
+    const scrollable = ref<OverlayScrollbars>()
+    const scrollableElement = ref<HTMLElement>()
 
     onMounted(() => {
-      OverlayScrollbars(scrollable.value!, {
-        scrollbars: {
-          autoHide: 'leave',
-          autoHideDelay: 200,
-        },
-      })
+      if (scrollableElement.value) {
+        scrollable.value = OverlayScrollbars(scrollableElement.value, {
+          scrollbars: {
+            autoHide: 'leave',
+            autoHideDelay: 200,
+          },
+        })
+      }
     })
 
     return {
       scrollable,
+      scrollableElement,
     }
   },
 })
 </script>
 
 <template>
-  <div ref="scrollable" class="overflow-auto">
+  <div ref="scrollableElement" class="overflow-auto">
     <slot />
   </div>
 </template>

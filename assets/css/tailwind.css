@@ -77,6 +77,10 @@
     @apply invisible absolute z-50 ml-2 w-48 text-xs;
   }
 
+  .unset-all {
+    all: unset;
+  }
+
   /* vue router */
   .sidebar-link.router-link-exact-active, .sidebar-button.router-link-exact-active {
     @apply md:bg-gray-200 md:dark:bg-gray-900 md:bg-opacity-50 md:dark:bg-opacity-50;

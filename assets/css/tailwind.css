@@ -36,27 +36,6 @@
     @apply cursor-pointer outline-none focus:ring focus-within:ring px-3 py-2 rounded whitespace-nowrap flex gap-3 items-center justify-center;
   }
 
-  .core-button-layer-0 {
-    @apply bg-layer-0 hover:bg-layer-1;
-  }
-
-  .core-button-layer-1 {
-    @apply bg-layer-1 hover:bg-layer-2;
-  }
-
-  .core-button-layer-2 {
-    @apply bg-layer-2 hover:bg-layer-3;
-  }
-
-  .core-button-layer-3 {
-    @apply bg-layer-3 hover:bg-layer-4;
-  }
-
-  .core-button-layer-4 {
-    @apply bg-layer-4 hover:bg-layer-5;
-  }
-
-
   .text-theme {
     @apply text-brand;
   }

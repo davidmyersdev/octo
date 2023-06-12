@@ -2,11 +2,11 @@
 import { type PropType, computed, defineComponent } from 'vue'
 
 const layers = {
-  0: 'core-button-layer-0',
-  1: 'core-button-layer-1',
-  2: 'core-button-layer-2',
-  3: 'core-button-layer-3',
-  4: 'core-button-layer-4',
+  0: 'bg-layer-0 hover:bg-layer-1',
+  1: 'bg-layer-1 hover:bg-layer-2',
+  2: 'bg-layer-2 hover:bg-layer-3',
+  3: 'bg-layer-3 hover:bg-layer-4',
+  4: 'bg-layer-4 hover:bg-layer-5',
 }
 
 export default defineComponent({

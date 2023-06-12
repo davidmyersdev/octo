@@ -27,7 +27,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <nav class="flex items-center max-w-[100vw] py-2 bg-gray-100 dark:bg-darkest border-b border-white dark:border-gray-900">
+  <nav class="flex items-center max-w-[100vw] py-2 bg-layer-1 border-b border-white dark:border-gray-900">
     <section class="flex flex-shrink-0 items-center justify-center w-14">
       <CoreLink class="flex p-2" :to="{ path: '/docs/new' }">
         <TheLogo class="h-8 text-theme" />
@@ -54,7 +54,7 @@ export default defineComponent({
       </div>
     </section>
     <CoreDivider :vertical="true" />
-    <section class="flex flex-grow flex-shrink gap-2 bg-gray-100 dark:bg-darkest px-2 min-w-0 overflow-hidden">
+    <section class="flex flex-grow flex-shrink gap-2 bg-layer-1 px-2 min-w-0 overflow-hidden">
       <CoreButton class="bg-transparent dark:bg-transparent flex-shrink overflow-hidden"><span class="text-ellipsis overflow-hidden">Mermaid example diagrams</span><XMarkIcon class="w-4" /></CoreButton>
       <CoreButton class="flex-shrink overflow-hidden"><span class="text-ellipsis overflow-hidden">Wednesday, November 16th, 2022</span><XMarkIcon class="w-4" /></CoreButton>
       <CoreButton class="bg-transparent dark:bg-transparent flex-shrink overflow-hidden"><span class="text-ellipsis overflow-hidden">Mermaid example diagrams</span><XMarkIcon class="w-4" /></CoreButton>

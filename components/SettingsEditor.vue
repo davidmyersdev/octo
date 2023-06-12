@@ -71,7 +71,7 @@
       </div>
       <div class="mb-4">
         <h4 class="text-2xl mb-2">Images</h4>
-        <p class="mb-2">This setting determines whether or not image tags (e.g. <code class="bg-gray-100 dark:bg-darkest p-0.5 rounded">![alt text](/path/to/image)</code>) will render images in your docs.</p>
+        <p class="mb-2">This setting determines whether or not image tags (e.g. <code class="bg-layer-1 p-0.5 rounded">![alt text](/path/to/image)</code>) will render images in your docs.</p>
         <div class="mb-4">
           <div>
             <label class="button button-size-medium button-color-gray items-center">
@@ -83,7 +83,7 @@
       </div>
       <div class="mb-4">
         <h4 class="text-2xl mb-2">List Overlays</h4>
-        <p class="mb-2">This setting enables overlays for bullet and task lists. Task lists will render an interactive checkbox in place of <code class="bg-gray-100 dark:bg-darkest p-0.5 rounded">- [ ]</code> or <code class="bg-gray-100 dark:bg-darkest p-0.5 rounded">- [x]</code>.</p>
+        <p class="mb-2">This setting enables overlays for bullet and task lists. Task lists will render an interactive checkbox in place of <code class="bg-layer-1 p-0.5 rounded">- [ ]</code> or <code class="bg-layer-1 p-0.5 rounded">- [x]</code>.</p>
         <div class="mb-4">
           <div>
             <label class="button button-size-medium button-color-gray items-center">

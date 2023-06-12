@@ -49,6 +49,13 @@
             <span>Save Docs</span>
           </span>
         </CoreLink>
+        <CoreLink v-if="experimentalFeaturesEnabled" :to="{ path: '/assistant' }" class="sidebar-link">
+          <AssetLogo class="w-5" />
+          <span class="action flex flex-grow items-center justify-between ml-3">
+            <span>Assistant</span>
+            <BeakerIcon class="text-gray-300 dark:text-gray-700 w-5" />
+          </span>
+        </CoreLink>
         <CoreDivider />
         <h6 class="px-1 pt-2 sidebar-label cursor-pointer">
           <span class="flex items-center gap-2"><ChevronUpDownIcon class="h-4" /> Filters</span>

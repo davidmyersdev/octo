@@ -15,6 +15,7 @@
     "@mermaid-js/mermaid-mindmap": "^9.2.2",
     "codemirror-lang-mermaid": "^0.2.1",
     "deepmerge": "^4.2.2",
+    "ellma": "^0.1.2",
     "file-saver": "^2.0.5",
     "firebase": "^9.17.1",
     "force-graph": "^1.43.0",

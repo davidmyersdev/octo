@@ -18,7 +18,7 @@ export default defineComponent({
   components: {
     Ink,
   },
-  inject: ['mq', 'user'],
+  inject: ['user'],
   props: {
     appearance: {
       type: String,

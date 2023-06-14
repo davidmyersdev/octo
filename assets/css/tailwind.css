@@ -127,6 +127,26 @@
   .layer-0 {
     @apply bg-layer-0-bg text-layer-0-text;
   }
+
+  .layer-1 {
+    @apply bg-layer-1-bg text-layer-1-text;
+  }
+
+  .layer-2 {
+    @apply bg-layer-2-bg text-layer-2-text;
+  }
+
+  .layer-3 {
+    @apply bg-layer-3-bg text-layer-3-text;
+  }
+
+  .layer-4 {
+    @apply bg-layer-4-bg text-layer-4-text;
+  }
+
+  .layer-5 {
+    @apply bg-layer-5-bg text-layer-5-text;
+  }
 }
 
 @layer components {

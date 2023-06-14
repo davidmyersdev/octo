@@ -5,6 +5,54 @@
 :root {
   --colors-brand: 255 102 102;
   --colors-primary: 59 130 246;
+
+  /* dark:layer-0 */
+  --dark-layer-0-bg: 24 24 27;
+  --dark-layer-0-text: 212 212 216;
+
+  /* dark:layer-1 */
+  --dark-layer-1-bg: 18 18 18;
+  --dark-layer-1-text: 212 212 216;
+
+  /* dark:layer-2 */
+  --dark-layer-2-bg: 24 24 27;
+  --dark-layer-2-text: 212 212 216;
+
+  /* dark:layer-3 */
+  --dark-layer-3-bg: 39 39 42;
+  --dark-layer-3-text: 212 212 216;
+
+  /* dark:layer-4 */
+  --dark-layer-4-bg: 63 63 70;
+  --dark-layer-4-text: 212 212 216;
+
+  /* dark:layer-5 */
+  --dark-layer-5-bg: 82 82 91;
+  --dark-layer-5-text: 212 212 216;
+
+  /* light:layer-0 */
+  --light-layer-0-bg: 255 255 255;
+  --light-layer-0-text: 24 24 27;
+
+  /* light:layer-1 */
+  --light-layer-1-bg: 244 244 245;
+  --light-layer-1-text: 24 24 27;
+
+  /* light:layer-2 */
+  --light-layer-2-bg: 228 228 231;
+  --light-layer-2-text: 24 24 27;
+
+  /* light:layer-3 */
+  --light-layer-3-bg: 212 212 216;
+  --light-layer-3-text: 24 24 27;
+
+  /* light:layer-4 */
+  --light-layer-4-bg: 161 161 170;
+  --light-layer-4-text: 24 24 27;
+
+  /* light:layer-5 */
+  --light-layer-5-bg: 113 113 122;
+  --light-layer-5-text: 24 24 27;
 }
 
 .dark {
@@ -15,6 +63,30 @@
   --colors-layer-4: 63 63 70;
   --colors-layer-5: 82 82 91;
   --colors-text: 212 212 216;
+
+  /* layer-0 */
+  --layer-0-bg: var(--dark-layer-0-bg);
+  --layer-0-text: var(--dark-layer-0-text);
+
+  /* layer-1 */
+  --layer-1-bg: var(--dark-layer-1-bg);
+  --layer-1-text: var(--dark-layer-1-text);
+
+  /* layer-2 */
+  --layer-2-bg: var(--dark-layer-2-bg);
+  --layer-2-text: var(--dark-layer-2-text);
+
+  /* layer-3 */
+  --layer-3-bg: var(--dark-layer-3-bg);
+  --layer-3-text: var(--dark-layer-3-text);
+
+  /* layer-4 */
+  --layer-4-bg: var(--dark-layer-4-bg);
+  --layer-4-text: var(--dark-layer-4-text);
+
+  /* layer-5 */
+  --layer-5-bg: var(--dark-layer-5-bg);
+  --layer-5-text: var(--dark-layer-5-text);
 }
 
 .light {
@@ -25,6 +97,36 @@
   --colors-layer-4: 161 161 170;
   --colors-layer-5: 113 113 122;
   --colors-text: 24 24 27;
+
+  /* layer-0 */
+  --layer-0-bg: var(--light-layer-0-bg);
+  --layer-0-text: var(--light-layer-0-text);
+
+  /* layer-1 */
+  --layer-1-bg: var(--light-layer-1-bg);
+  --layer-1-text: var(--light-layer-1-text);
+
+  /* layer-2 */
+  --layer-2-bg: var(--light-layer-2-bg);
+  --layer-2-text: var(--light-layer-2-text);
+
+  /* layer-3 */
+  --layer-3-bg: var(--light-layer-3-bg);
+  --layer-3-text: var(--light-layer-3-text);
+
+  /* layer-4 */
+  --layer-4-bg: var(--light-layer-4-bg);
+  --layer-4-text: var(--light-layer-4-text);
+
+  /* layer-5 */
+  --layer-5-bg: var(--light-layer-5-bg);
+  --layer-5-text: var(--light-layer-5-text);
+}
+
+@layer base {
+  .layer-0 {
+    @apply bg-layer-0-bg text-layer-0-text;
+  }
 }
 
 @layer components {

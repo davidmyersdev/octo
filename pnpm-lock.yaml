@@ -14,8 +14,8 @@ dependencies:
     specifier: ^4.2.2
     version: 4.2.2
   ellma:
-    specifier: ^0.1.2
-    version: 0.1.2
+    specifier: ^0.1.4
+    version: 0.1.4
   file-saver:
     specifier: ^2.0.5
     version: 2.0.5
@@ -6344,8 +6344,8 @@ packages:
     resolution: {integrity: sha512-gM7TdwuG3amns/1rlgxMbeeyNoBFPa+4Uu0c7FeROWh4qWmvSOnvcslKmWy51ggLKZ2n/F/4i2HJ+PVNxH9uCQ==}
     dev: true
 
-  /ellma@0.1.2:
-    resolution: {integrity: sha512-f2qVb8bWsPCjsnPycIrxhfv2R+UYd+BoHW0YwODoUm2WsWGmCtRFenBP7FglLGbOSx/nOO5K3NNT8DVxNFTd8w==}
+  /ellma@0.1.4:
+    resolution: {integrity: sha512-wbyYHoSuhJ8dn+GQRKTXgnFyNUe5hGVBQ8DDLGKsBaz2qJJlVna+akd3i5jsgRi52wHVV5moo2iVENpU+nwLaA==}
     dependencies:
       chalk: 5.2.0
       cross-fetch: 3.1.6

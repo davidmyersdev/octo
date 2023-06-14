@@ -248,13 +248,13 @@ export default defineComponent({
   @media (min-width: 768px) {
     :deep(.ink-mde .ink-mde-toolbar) {
       background-color: transparent;
-      background: repeating-linear-gradient(135deg, transparent, transparent 10px, var(--colors-layer-1) 10px, var(--colors-layer-1) 11px);
-      border-bottom: 2px solid var(--colors-layer-1);
+      background: repeating-linear-gradient(135deg, transparent, transparent 10px, rgb(var(--colors-layer-1)) 10px, rgb(var(--colors-layer-1)) 11px);
+      border-bottom: 2px solid rgb(var(--colors-layer-1));
       padding-bottom: calc(0.25rem + 2px);
     }
 
     :deep(.ink-mde .ink-mde-toolbar .ink-mde-container) {
-      background-color: var(--colors-layer-1);
+      background-color: rgb(var(--colors-layer-1));
       border-radius: 0.25rem;
       padding: 0.25rem;
     }

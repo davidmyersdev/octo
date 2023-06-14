@@ -1,27 +1,56 @@
-<script lang="ts" setup>
+<script lang="ts">
 import { type Options } from 'ink-mde'
 import Ink from 'ink-mde/vue'
 import { type BaseAppearance } from '#root/composables/useAppearance'
 
-defineEmits(['update:modelValue'])
-const props = defineProps<{ modelValue: string, appearance?: BaseAppearance, options?: Options }>()
+type LayerIndex = 0 | 1 | 2 | 3 | 4
 
-const { baseAppearance } = useAppearance()
-const editorElement = ref()
-const editorAppearance = computed(() => (props.appearance ?? props.options?.interface?.appearance ?? baseAppearance.value))
-const editorOptions = computed(() => {
-  return {
-    ...props.options,
-    interface: {
-      ...props.options?.interface,
-      appearance: editorAppearance.value,
+export default defineComponent({
+  components: {
+    Ink,
+  },
+  props: {
+    appearance: {
+      type: String as PropType<BaseAppearance>,
     },
-  }
-})
+    layer: {
+      default: 1,
+      type: Number as PropType<LayerIndex>,
+    },
+    modelValue: {
+      default: '',
+      type: String,
+    },
+    options: {
+      type: Object as PropType<Options>,
+    },
+  },
+  emits: ['update:modelValue'],
+  setup(props) {
+    const { baseAppearance } = useAppearance()
+    const layerBg = computed(() => `rgb(var(--layer-${props.layer}-bg))`)
+    const editorElement = ref()
+    const editorAppearance = computed(() => (props.appearance ?? props.options?.interface?.appearance ?? baseAppearance.value))
+    const editorOptions = computed(() => {
+      return {
+        ...props.options,
+        interface: {
+          ...props.options?.interface,
+          appearance: editorAppearance.value,
+        },
+      }
+    })
 
-defineExpose({
-  focus: () => {
-    editorElement.value?.instance?.focus()
+    const focus = () => {
+      editorElement.value?.instance?.focus()
+    }
+
+    return {
+      editorElement,
+      editorOptions,
+      focus,
+      layerBg,
+    }
   },
 })
 </script>
@@ -40,6 +69,7 @@ defineExpose({
 .core-editor {
   --ink-font-family: 'Inter', helvetica, sans-serif;
   --ink-code-font-family: 'Fira Code', monospace;
+  --ink-block-background-color: v-bind('layerBg');
 }
 
 :deep(.ink-mde) {

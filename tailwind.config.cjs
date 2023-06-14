@@ -10,19 +10,19 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        brand: 'var(--colors-brand)',
+        brand: 'rgb(var(--colors-brand) / <alpha-value>)',
         darkest: '#121212',
         gray: colors.zinc,
         layer: {
-          0: 'var(--colors-layer-0)',
-          1: 'var(--colors-layer-1)',
-          2: 'var(--colors-layer-2)',
-          3: 'var(--colors-layer-3)',
-          4: 'var(--colors-layer-4)',
-          5: 'var(--colors-layer-5)',
+          0: 'rgb(var(--colors-layer-0) / <alpha-value>)',
+          1: 'rgb(var(--colors-layer-1) / <alpha-value>)',
+          2: 'rgb(var(--colors-layer-2) / <alpha-value>)',
+          3: 'rgb(var(--colors-layer-3) / <alpha-value>)',
+          4: 'rgb(var(--colors-layer-4) / <alpha-value>)',
+          5: 'rgb(var(--colors-layer-5) / <alpha-value>)',
         },
-        primary: 'var(--colors-primary)',
-        text: 'var(--colors-text)',
+        primary: 'rgb(var(--colors-primary) / <alpha-value>)',
+        text: 'rgb(var(--colors-text) / <alpha-value>)',
       },
     },
   },

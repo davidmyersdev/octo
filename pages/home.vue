@@ -176,7 +176,7 @@ export default defineComponent({
 
 <style scoped>
 .home {
-  background: radial-gradient(var(--colors-layer-1), 10%, transparent 10%) max(1vw, 1vh) max(1vw, 1vh);
+  background: radial-gradient(rgb(var(--colors-layer-1)), 10%, transparent 10%) max(1vw, 1vh) max(1vw, 1vh);
   background-size: max(1vw, 1vh) max(1vw, 1vh);
 }
 </style>

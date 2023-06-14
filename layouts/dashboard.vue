@@ -205,7 +205,7 @@ export default defineComponent({
         </section>
         <CoreDivider v-if="!mobile" :vertical="true" />
         <section v-if="!mobile" class="flex-shrink-0 px-2 w-64">
-          <CoreButton :layer="1" @click="handleLayoutChange" class="border border-white dark:border-gray-900 justify-between w-full">
+          <CoreButton :flat="true" :layer="1" @click="handleLayoutChange" class="border border-white dark:border-gray-900 justify-between w-full">
             <div class="flex gap-3 items-center">
               <ViewColumnsIcon class="w-5" />
               <span>Toggle Sidebars</span>

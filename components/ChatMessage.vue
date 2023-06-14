@@ -20,6 +20,6 @@ const options = {
 <template>
   <section class="flex flex-col relative">
     <label class="bg-layer-0 bg-opacity-50 block m-1 p-1 rounded sticky top-1 z-10" :class="{ 'self-end': isAssistant, 'self-start': isHuman }"><small>{{ name }}</small></label>
-    <CoreEditor :modelValue="text" :options="options" class="bg-layer-1 rounded" />
+    <CoreEditor :layer="2" :modelValue="text" :options="options" class="bg-layer-1 rounded" />
   </section>
 </template>

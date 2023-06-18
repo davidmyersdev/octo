@@ -155,7 +155,7 @@
   }
 
   .core-button {
-    @apply cursor-pointer outline-none focus:ring focus-within:ring px-3 py-2 rounded whitespace-nowrap flex gap-3 items-center justify-center;
+    @apply text-text cursor-pointer outline-none focus:ring focus-within:ring p-2 rounded whitespace-nowrap flex gap-3 items-center justify-center disabled:text-opacity-50;
   }
 
   .text-theme {
@@ -204,7 +204,9 @@
   }
 
   /* vue router */
-  .sidebar-link.router-link-exact-active, .sidebar-button.router-link-exact-active {
+  .allow-link-active.router-link-active,
+  .sidebar-link.router-link-exact-active,
+  .sidebar-button.router-link-exact-active {
     @apply md:bg-gray-200 md:dark:bg-gray-900 md:bg-opacity-50 md:dark:bg-opacity-50;
   }
 
@@ -267,7 +269,7 @@
   }
 
   .sidebar-link {
-    @apply flex items-center justify-between rounded mb-2 md:mb-1 px-3 py-2 bg-layer-1 hover:bg-layer-2 focus:outline-none focus:ring;
+    @apply flex items-center justify-between rounded mb-2 md:mb-1 p-2 bg-layer-1 hover:bg-layer-2 focus:outline-none focus:ring;
   }
 
   .context-label {

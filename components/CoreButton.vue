@@ -21,6 +21,10 @@ export default defineComponent({
       default: false,
       type: Boolean,
     },
+    is: {
+      default: 'button',
+      type: [String, Object] as PropType<string | object>,
+    },
     layer: {
       default: 2,
       type: Number as PropType<LayerIndex>,
@@ -40,7 +44,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <button class="core-button" :class="classes">
+  <component :is="is" :class="classes" class="core-button">
     <slot />
-  </button>
+  </component>
 </template>

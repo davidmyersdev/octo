@@ -49,7 +49,7 @@
             <span>Save Docs</span>
           </span>
         </CoreLink>
-        <CoreLink v-if="experimentalFeaturesEnabled" :to="{ path: '/assistant' }" class="sidebar-link">
+        <CoreLink v-if="experimentalFeaturesEnabled" :to="{ path: '/assistant' }" class="sidebar-link allow-link-active">
           <AssetLogo class="w-5" />
           <span class="action flex flex-grow items-center justify-between ml-3">
             <span>Assistant</span>

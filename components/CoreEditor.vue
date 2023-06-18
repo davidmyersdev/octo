@@ -28,7 +28,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup(props) {
     const { baseAppearance } = useAppearance()
-    const layerBg = computed(() => `rgb(var(--layer-${props.layer}-bg))`)
+    const blockBg = computed(() => `rgb(var(--layer-${props.layer + 1}-bg))`)
     const editorElement = ref()
     const editorAppearance = computed(() => (props.appearance ?? props.options?.interface?.appearance ?? baseAppearance.value))
     const editorOptions = computed(() => {
@@ -46,10 +46,10 @@ export default defineComponent({
     }
 
     return {
+      blockBg,
       editorElement,
       editorOptions,
       focus,
-      layerBg,
     }
   },
 })
@@ -69,7 +69,7 @@ export default defineComponent({
 .core-editor {
   --ink-font-family: 'Inter', helvetica, sans-serif;
   --ink-code-font-family: 'Fira Code', monospace;
-  --ink-block-background-color: v-bind('layerBg');
+  --ink-block-background-color: v-bind('blockBg');
 }
 
 :deep(.ink-mde) {

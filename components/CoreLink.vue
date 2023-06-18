@@ -4,6 +4,10 @@ import { type RouterLinkProps } from 'vue-router'
 
 export default defineComponent({
   props: {
+    counter: {
+      default: false,
+      type: Boolean,
+    },
     to: {
       required: true,
       type: [String, Object] as PropType<string | RouterLinkProps['to']>
@@ -13,7 +17,9 @@ export default defineComponent({
     const { isNuxt } = useIsNuxt()
     const isExternal = computed(() => typeof props.to === 'string')
     const toExternal = computed(() => props.to as string)
-    const toInternal = computed(() => props.to as RouterLinkProps)
+    const { to } = toRefs(props)
+    const { toWithCounter } = useQueryCounter(to)
+    const toInternal = computed(() => (props.counter ? toWithCounter : props.to) as RouterLinkProps)
 
     return {
       isExternal,

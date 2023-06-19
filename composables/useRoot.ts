@@ -5,7 +5,7 @@ import { type User } from '#root/composables'
 import { init } from '#root/src/firebase'
 
 const updateAppHeight = () => {
-  document.documentElement.style.setProperty('--app-height', `calc(${window.visualViewport.height}px - 1px)`)
+  document.documentElement.style.setProperty('--app-height', `calc(${window.visualViewport?.height}px - 1px)`)
 }
 
 export const useRoot = () => {
@@ -49,7 +49,8 @@ export const useRoot = () => {
 
   // Ensure the app height is always correct.
   updateAppHeight()
-  window.visualViewport.addEventListener('resize', updateAppHeight)
+  window.visualViewport?.addEventListener('resize', updateAppHeight)
+  window.addEventListener('resize', updateAppHeight)
 
   if (firebaseDisabled) { return }
 

@@ -50,10 +50,10 @@ jobs:
       - run: docker-compose up -d
       - uses: cypress-io/github-action@v4.2.2
         with:
-          config: baseUrl=http://localhost:3000
+          config: baseUrl=http://localhost:8889
           build: pnpm build
           start: pnpm preview
-          wait-on: 'http://localhost:3000,http://localhost:32777'
+          wait-on: 'http://localhost:8889,http://localhost:32777'
       - uses: actions/upload-artifact@v3
         if: failure()
         with:

@@ -1,4 +1,6 @@
 <script lang="ts">
+import { type ChatMessage } from '#root/helpers/database'
+
 export default defineComponent({
   setup() {
     const { id } = useId()
@@ -10,7 +12,7 @@ export default defineComponent({
     const { addChatMessage, chatMessages } = useChatMessages({ chatId })
     const { pushRoute } = useSoftNavigation()
 
-    const onMessage = async (message: object) => {
+    const onMessage = async (message: ChatMessage) => {
       const timestamp = now()
 
       if (!chat.value) {

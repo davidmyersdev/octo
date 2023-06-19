@@ -1,5 +1,7 @@
 <script lang="ts" setup>
-const props = defineProps<{ role: string, text: string }>()
+import { readonly } from '#root/src/vendor/plugins/readonly'
+
+const props = defineProps<{ createdAt: Date, role: string, text: string }>()
 const isHuman = computed(() => props.role === 'human')
 const isAssistant = computed(() => props.role === 'assistant')
 const name = computed(() => isHuman.value ? 'You' : 'Assistant')
@@ -13,13 +15,21 @@ const options = {
     spellcheck: false,
     toolbar: false,
   },
+  plugins: [
+    ...readonly(),
+  ],
   readability: false,
 }
+const { humanTime } = useTime()
+const createdAt = computed(() => humanTime(props.createdAt))
 </script>
 
 <template>
-  <section class="flex flex-col relative">
-    <label class="bg-layer-0 bg-opacity-50 block m-1 p-1 rounded sticky top-1 z-10" :class="{ 'self-end': isAssistant, 'self-start': isHuman }"><small>{{ name }}</small></label>
-    <CoreEditor :layer="2" :modelValue="text" :options="options" class="bg-layer-1 rounded" />
+  <section class="flex flex-col">
+    <div class="flex flex-col relative">
+      <label class="bg-layer-0 bg-opacity-75 block m-1 px-1 rounded sticky top-1 z-10" :class="{ 'self-end': isAssistant, 'self-start': isHuman }"><small>{{ name }}</small></label>
+      <CoreEditor :layer="1" :modelValue="text" :options="options" class="bg-layer-1 rounded" />
+    </div>
+    <p class="flex px-2 mt-1" :class="{ 'self-end': isAssistant, 'self-start': isHuman }"><small>{{ createdAt }}</small></p>
   </section>
 </template>

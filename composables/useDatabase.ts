@@ -4,6 +4,8 @@ import { type Subscription } from 'rxjs'
 import { type Ref, ref } from 'vue'
 import { db } from '#root/helpers/database'
 
+export type QueryReturnType<T, I = undefined> = { result: Ref<T | I> }
+
 export const useDatabase = () => {
   const observe = <T>(callback: () => T) => {
     return useObservable<T>(liveQuery<T>(callback) as any)
@@ -14,8 +16,6 @@ export const useDatabase = () => {
     observe,
   }
 }
-
-type QueryReturnType<T, I = undefined> = { result: Ref<T | I> }
 
 export function useQuery<T>(callback: () => Promise<T>): QueryReturnType<T>
 export function useQuery<T>(callback: () => Promise<T>, initialValue: T): QueryReturnType<T, T>

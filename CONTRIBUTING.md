@@ -80,6 +80,6 @@ The build output will be available in the `.output` directory.
 ### Run the `production` preview
 
 ```bash
-# binds to localhost:3000
+# binds to localhost:8889
 pnpm preview
 ```

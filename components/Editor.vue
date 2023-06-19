@@ -121,7 +121,7 @@ export default defineComponent({
       return plugins(this)
     },
     pro() {
-      return this.user.value.roles.includes('ambassador') || this.user.value.roles.includes('subscriber')
+      return this.user.roles.includes('ambassador') || this.user.roles.includes('subscriber')
     },
     spellcheck() {
       return this.settings.spellcheck

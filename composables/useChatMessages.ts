@@ -1,4 +1,4 @@
-import { type ChatMessage } from '#root/helpers/database'
+import { type ChatMessage } from '#helpers/database'
 
 export const useChatMessage = (id?: Ref<string>) => {
   const { db } = useDatabase()

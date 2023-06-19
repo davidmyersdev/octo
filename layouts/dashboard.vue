@@ -12,7 +12,6 @@ import CoreDivider from '#root/components/CoreDivider.vue'
 import CoreLink from '#root/components/CoreLink.vue'
 import Key from '#root/components/Key.vue'
 import LayoutNavbar from '#root/components/LayoutNavbar.vue'
-import { useLayout, usePinnedDocs } from '#root/composables'
 import TheLeftSidebar from '#root/pages/menu.vue'
 import TheRightSidebar from '#root/pages/docs/[docId]/meta.vue'
 import { bindGlobal } from '#root/src/common/keybindings'
@@ -66,10 +65,12 @@ export default defineComponent({
       toggleMeta()
     }
 
-    // Todo: Migrate keybindings to composables.
-    bindGlobal('mod+\\', () => {
-      toggleMenu()
-      toggleMeta()
+    onMounted(() => {
+      // Todo: Migrate keybindings to composables.
+      bindGlobal('mod+\\', () => {
+        toggleMenu()
+        toggleMeta()
+      })
     })
 
     const handleTabClose = async (id: string) => {
@@ -116,7 +117,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="dashboard flex h-screen w-screen min-h-0 min-w-0 overflow-hidden border-t-2 border-white dark:border-gray-900">
+  <div class="dashboard flex h-screen w-screen min-h-0 min-w-0 overflow-hidden border-t-2 border-layer-0">
     <section v-if="!mobile" class="flex flex-col items-center justify-between gap-4 h-full w-14 bg-layer-1 md:flex">
       <div class="flex flex-col">
         <div class="flex flex-col flex-shrink-0 items-center justify-center w-14">
@@ -182,7 +183,7 @@ export default defineComponent({
           </button>
         </div>
         <section v-if="!mobile" class="flex-shrink-0 px-2 w-64">
-          <CoreLink :to="{ path: '/docs' }" class="core-button core-button-layer-1 border border-white dark:border-gray-900 justify-between w-full">
+          <CoreLink :to="{ path: '/docs' }" class="core-button core-button-layer-1 border border-layer-0 justify-between w-full">
             <div class="flex gap-3 items-center">
               <svg class="w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -205,7 +206,7 @@ export default defineComponent({
         </section>
         <CoreDivider v-if="!mobile" :vertical="true" />
         <section v-if="!mobile" class="flex-shrink-0 px-2 w-64">
-          <CoreButton :flat="true" :layer="1" @click="handleLayoutChange" class="border border-white dark:border-gray-900 justify-between w-full">
+          <CoreButton :flat="true" :layer="1" @click="handleLayoutChange" class="border border-layer-0 justify-between w-full">
             <div class="flex gap-3 items-center">
               <ViewColumnsIcon class="w-5" />
               <span>Toggle Sidebars</span>

@@ -34,7 +34,6 @@ import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import AuthTiers from '#root/components/AuthTiers.vue'
 import Providers from '#root/components/Providers.vue'
-import { useUser } from '#root/composables'
 
 export default defineComponent({
   components: {

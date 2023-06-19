@@ -1,4 +1,5 @@
 import deepmerge from 'deepmerge'
+import { appEventTypes, logEvent } from '#helpers/app'
 
 export const LOAD_SETTINGS = 'LOAD_SETTINGS'
 export const SET_CRYPTO_ENABLED = 'SET_CRYPTO_ENABLED'
@@ -108,6 +109,8 @@ export default {
     },
     [SETTINGS_LOADED] (state) {
       state.loaded = true
+
+      logEvent(appEventTypes.appSettingsLoaded)
     },
   },
   actions: {

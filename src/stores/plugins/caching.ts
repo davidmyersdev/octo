@@ -1,5 +1,5 @@
 import { deepmerge } from 'deepmerge-ts'
-import localforage from 'localforage'
+import { storage } from '#helpers/storage'
 import { unwrap } from '#root/src/common/vue'
 
 import type { PiniaPlugin } from 'pinia'
@@ -35,7 +35,7 @@ export const caching: PiniaPlugin = async ({ options: { caching: options }, stor
       await cache.setItem(namespace, unwrap(store.$state))
     }
   } = options
-  const cache = localforage.createInstance({ name: namespace })
+  const cache = storage().instance({ name: namespace })
 
   await hydrate(cache)
 

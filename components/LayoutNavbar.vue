@@ -27,7 +27,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <nav class="flex items-center max-w-[100vw] py-2 bg-layer-1 border-b border-white dark:border-gray-900">
+  <nav class="flex items-center max-w-[100vw] py-2 bg-layer-1 border-b border-layer-0">
     <section class="flex flex-shrink-0 items-center justify-center w-14">
       <CoreLink class="flex p-2" :to="{ path: '/docs/new' }">
         <TheLogo class="h-8 text-theme" />

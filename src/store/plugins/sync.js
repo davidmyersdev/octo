@@ -1,4 +1,4 @@
-import Debouncer from '#root/src/common/debouncer'
+import { debouncer } from '#root/src/common/debouncer'
 
 import {
   ADD_DOCUMENT,
@@ -15,7 +15,7 @@ import {
 
 import { SET_USER } from '#root/src/store/modules/auth'
 
-const debouncer = new Debouncer(1500)
+const { debounce } = debouncer(1500)
 
 export default (store) => {
   store.subscribe(async ({ type, payload }, state) => {
@@ -32,7 +32,7 @@ export default (store) => {
       case TOUCH_DOCUMENT:
         // sync documents if online
         if (store.state.online && store.state.auth.user) {
-          debouncer.debounce('sync', () => {
+          debounce('sync', () => {
             store.dispatch(SYNC)
           })
         }

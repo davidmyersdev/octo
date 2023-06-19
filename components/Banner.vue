@@ -16,10 +16,9 @@
 </template>
 
 <script lang="ts" setup>
+import { track } from '#helpers/analytics'
 import { subscription } from '#root/src/common/account'
 const { public: { fathomEventCtaSettingsUpgrade } } = useConfig()
 
-const trackCta = () => {
-  window.fathom?.trackGoal(fathomEventCtaSettingsUpgrade, 0)
-}
+const trackCta = () => { track(fathomEventCtaSettingsUpgrade) }
 </script>

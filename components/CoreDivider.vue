@@ -9,7 +9,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const classes = `flex border-0 border-white dark:border-gray-900 ${props.vertical ? 'border-l-2 h-full' : 'border-t-2'}`
+    const classes = `flex border-0 border-layer-0 ${props.vertical ? 'border-l-2 h-full' : 'border-t-2'}`
 
     return {
       classes,

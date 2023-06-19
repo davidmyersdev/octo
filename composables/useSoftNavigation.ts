@@ -1,26 +1,6 @@
 import { type RouterLinkProps } from 'vue-router'
-
-export const queryCounterKey = Symbol('queryCounter') as InjectionKey<Ref<number>>
-
-export const useQueryCounter = (to: Ref<RouterLinkProps['to']>) => {
-  const router = useRouter()
-  const counter = inject(queryCounterKey)
-  const toWithCounter = computed(() => {
-    const resolved = router.resolve(to.value)
-
-    return {
-      ...resolved,
-      query: {
-        ...resolved.query,
-        l: counter?.value,
-      },
-    }
-  })
-
-  return {
-    toWithCounter,
-  }
-}
+import { isClient } from '#helpers/environment'
+import { queryCounterKey } from './useQueryCounter'
 
 export const useSoftNavigation = () => {
   const router = useRouter()
@@ -33,14 +13,18 @@ export const useSoftNavigation = () => {
     pushRoute: (to: RouterLinkProps['to']) => {
       const resolved = router.resolve(to)
 
-      // This will prevent components from reloading (the behavior of router.push).
-      window.history.pushState(window.history.state, '', resolved.fullPath)
+      if (isClient) {
+        // This will prevent components from reloading (the behavior of router.push).
+        window.history.pushState(window.history.state, '', resolved.fullPath)
+      }
     },
     replaceRoute: (to: RouterLinkProps['to']) => {
       const resolved = router.resolve(to)
 
-      // This will prevent components from reloading (the behavior of router.push).
-      window.history.replaceState(window.history.state, '', resolved.fullPath)
+      if (isClient) {
+        // This will prevent components from reloading (the behavior of router.push).
+        window.history.replaceState(window.history.state, '', resolved.fullPath)
+      }
     },
   }
 }

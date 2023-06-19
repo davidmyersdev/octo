@@ -8,13 +8,14 @@
   />
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, inject } from 'vue'
 import { useStore } from 'vuex'
+import { appEventTypes, logEvent } from '#helpers/app'
 import { fetchSharedDoc } from '#root/src/firebase/firestore'
 import Doc, { unpack } from '#root/src/models/doc'
 
-const formatTags = (tags, delimiter = ', ') => {
+const formatTags = (tags: string[], delimiter = ', ') => {
   return tags.map((tag) => `#${tag}`).join(delimiter)
 }
 
@@ -23,27 +24,25 @@ export default defineComponent({
     docId: String,
   },
   setup() {
-    const appearance = inject('appearance')
+    const { system: appearance } = useAppearance()
     const { public: { appTitle } } = useConfig()
     const doc = ref(new Doc())
-    const header = computed(() => doc.headers[0])
+    const header = computed(() => doc.value.headers[0])
     const router = useRouter()
     const store = useStore()
     const settings = computed(() => store.state.settings.editor)
 
     const findSharedDocument = async () => {
       // Todo: Provide info to the user about what is happening here. Redirect on error.
-      const packed = await fetchSharedDoc({ docId: router.currentRoute.value.params.docId })
+      const packed = await fetchSharedDoc({ docId: router.currentRoute.value.params.docId as string })
 
       return unpack(packed, { privateKey: store.state.settings.crypto.privateKey })
     }
 
     onMounted(async () => {
-      const { emit } = useHooks()
-
       doc.value = await findSharedDocument()
 
-      emit('public_doc_found')
+      logEvent(appEventTypes.networkDocLoaded)
 
       useHead({
         title: header.value || formatTags(doc.value.tags) || appTitle,
@@ -51,7 +50,7 @@ export default defineComponent({
     })
 
     return {
-      appearance: appearance.value === 'october' ? 'dark' : appearance.value,
+      appearance,
       doc,
       settings,
     }

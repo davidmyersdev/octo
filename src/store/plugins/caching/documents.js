@@ -1,7 +1,5 @@
-import localforage from 'localforage'
-
-import Debouncer from '#root/src/common/debouncer'
-
+import { debouncer } from '#root/src/common/debouncer'
+import { storage } from '#helpers/storage'
 import { pack, unpack } from '#root/src/models/doc'
 
 import {
@@ -19,11 +17,9 @@ import {
 
 import { SETTINGS_LOADED } from '#root/src/store/modules/settings'
 
-const cache = localforage.createInstance({
-  name: 'firebase/documents',
-})
+const cache = storage().instance({ name: 'firebase/documents' })
 
-const debouncer = new Debouncer(800)
+const { debounce } = debouncer(800)
 
 const find = (state, id) => {
   return state.documents.all.find(doc => doc.id === id)
@@ -43,7 +39,7 @@ export default (store) => {
         const found = find(state, payload.id)
 
         if (found) {
-          debouncer.debounce(found.id, async () => {
+          debounce(found.id, async () => {
             const doc = await pack(found, {
               preferEncryption: state.settings.crypto.enabled,
               publicKey: state.settings.crypto.publicKey,

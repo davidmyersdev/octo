@@ -1,5 +1,4 @@
 import localforage from 'localforage'
-import { useHooks } from '#root/composables/useHooks'
 
 import 'cypress-network-idle'
 
@@ -31,14 +30,26 @@ Cypress.Commands.add('clearIDB', () => {
   })
 })
 
-Cypress.Commands.add('waitForHook', (targetHook: string) => {
+Cypress.Commands.add('waitForAppReady', () => {
   cy.window().then({ timeout: 60000 }, (window) => {
-    return new Cypress.Promise((resolve, reject) => {
-      const { subscribe } = useHooks(window)
+    return new Cypress.Promise((resolve) => {
+      if (window.appEvents.isLogged(window.appEvents.appEventTypes.appReady)) {
+        return resolve()
+      }
 
-      const unsubscribe = subscribe((hook) => {
-        if (hook === targetHook) {
-          unsubscribe()
+      window.appEvents.onAppReady(() => {
+        resolve()
+      })
+    })
+  })
+})
+
+Cypress.Commands.add('waitForHook', (type) => {
+  cy.window().then({ timeout: 60000 }, (window) => {
+    return new Cypress.Promise((resolve) => {
+      const stopWatching = window.appEvents.watchEvents(() => {
+        if (window.appEvents.isLogged(type)) {
+          stopWatching()
           resolve()
         }
       })

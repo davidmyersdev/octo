@@ -1,7 +1,7 @@
 <template>
-  <div @click="focusEditor" class="flex flex-col flex-grow relative">
+  <div @click="focus" class="flex flex-col flex-grow relative">
     <div class="editor flex flex-col flex-grow flex-shrink min-h-0 min-w-0 w-full">
-      <Ink ref="editable" class="ink-editor flex flex-col flex-grow flex-shrink min-h-0" :options="options" v-model="text" />
+      <Ink v-if="isMounted" ref="ink" v-model="text" :options="options" class="ink-editor flex flex-col flex-grow flex-shrink min-h-0" />
     </div>
   </div>
 </template>
@@ -30,25 +30,34 @@ export default defineComponent({
     doc: {
       type: Object,
     },
-    initialFocus: {
-      type: String,
-      default: () => ('any'),
-      validator: (position) => (
-        ['any', 'start', 'end'].includes(position)
-      ),
-    },
-    initialSelections: {
-      type: Array,
-    },
-    initialVimMode: {
-      type: String
-    },
     ro: {
       type: Boolean,
     },
     settings: {
       type: Object,
     },
+  },
+  setup() {
+    const ink = ref()
+    const { isMounted } = useHooks()
+
+    const focus = () => {
+      // Focus the editor.
+      ink.value?.instance?.focus()
+    }
+
+    watch(ink, () => {
+      focus()
+
+      // Expose the Ink instance for Cypress.
+      window.inkMde = ink.value?.instance
+    })
+
+    return {
+      focus,
+      ink,
+      isMounted,
+    }
   },
   data() {
     return {
@@ -70,9 +79,6 @@ export default defineComponent({
 
         return docs
       }, [])
-    },
-    editor() {
-      return this.$refs.editable?.instance
     },
     maxWidthInChars() {
       return this.settings.readability.maxWidthInChars
@@ -107,7 +113,6 @@ export default defineComponent({
           ...toRaw(isExperimentalEnabled && hasLazyPlugins ? this.lazyPlugins : []),
         ],
         readability: this.settings.readability.enabled,
-        selections: this.initialSelections || [],
         toolbar: {
           upload: this.pro,
         },
@@ -141,26 +146,6 @@ export default defineComponent({
     },
   },
   methods: {
-    focusEditor() {
-      this.editor.focus()
-    },
-    focusInitial() {
-      this.focusEditor()
-
-      if (this.initialFocus === 'start') {
-        this.focusEditorStart()
-      } else if (this.initialFocus === 'end') {
-        this.focusEditorEnd()
-      }
-    },
-    focusEditorEnd() {
-      this.focusEditor()
-      this.editor.select({ at: 'end' })
-    },
-    focusEditorStart() {
-      this.focusEditor()
-      this.editor.select({ at: 'start' })
-    },
     async input(text) {
       this.$emit('input', text)
     },
@@ -170,7 +155,7 @@ export default defineComponent({
           return addFile(file).then((uploadedFile) => {
             // Todo: Handle non-image files
             if (/^image\/.*/.test(uploadedFile.mimeType)) {
-              this.editor.insert(`![](${uploadedFile.url})`)
+              this.$refs.editable?.instance.insert(`![](${uploadedFile.url})`)
             }
           })
         })
@@ -183,9 +168,6 @@ export default defineComponent({
     }).catch((error) => {
       console.log('[mermaid]', error)
     })
-
-    // Exposed for Cypress
-    window.inkMde = this.editor
 
     const editorContent = document.querySelector('.ink-mde-editor')
     const editorToolbar = document.querySelector('.ink-mde-toolbar')
@@ -207,8 +189,6 @@ export default defineComponent({
         },
       })
     }
-
-    this.focusInitial()
   }
 })
 </script>

@@ -1,3 +1,4 @@
+import { appEventTypes, logEvent } from '#helpers/app'
 import { unwrap } from '#root/src/common/vue'
 import { addDoc, fetchDocs, updateDoc } from '#root/src/firebase/firestore'
 import { pack, unpack } from '#root/src/models/doc'
@@ -103,8 +104,6 @@ export default {
       )
     },
     async [SYNC] (context) {
-      const { emit } = useHooks()
-
       // pull from firebase
       await context.dispatch(PULL_DOCUMENTS)
 
@@ -114,7 +113,7 @@ export default {
       // pull from firebase again (for syncedAt)
       await context.dispatch(PULL_DOCUMENTS)
 
-      emit('docs_synced')
+      logEvent(appEventTypes.networkDocsSynced)
     },
   },
 }

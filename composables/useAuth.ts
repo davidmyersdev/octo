@@ -2,7 +2,8 @@ import { useOnline } from '@vueuse/core'
 import { type AuthProvider, type UserInfo as ProviderInfo, getAuth, getRedirectResult, GithubAuthProvider, GoogleAuthProvider, isSignInWithEmailLink, sendSignInLinkToEmail, signInWithEmailLink, signInWithRedirect, TwitterAuthProvider } from 'firebase/auth'
 import { type Ref } from 'vue'
 import { useStore } from 'vuex'
-import { type Tier } from '#root/composables/useTiers'
+import { type Tier } from '#composables/useTiers'
+import { track } from '#helpers/analytics'
 
 export interface AuthMagicLinkForm {
   confirmed: boolean,
@@ -280,7 +281,7 @@ export const useMagicLink = () => {
       return signInWithEmailLink(getAuth(), form.email, location.href).then((result) => {
         // @ts-ignore
         if (result.additionalUserInfo && result.additionalUserInfo.isNewUser) {
-          window.fathom?.trackGoal(fathomEventAccountRegistration, 0)
+          track(fathomEventAccountRegistration)
         }
 
         form.confirming = false

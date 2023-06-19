@@ -5,7 +5,8 @@ import AuthMagicLink from '#root/components/AuthMagicLink.vue'
 import AuthSocialLinks from '#root/components/AuthSocialLinks.vue'
 import CoreButton from '#root/components/CoreButton.vue'
 import CorePanel from '#root/components/CorePanel.vue'
-import { type AuthMagicLinkForm, type Tier } from '#root/composables'
+import { type AuthMagicLinkForm } from '#composables/useAuth'
+import { type Tier } from '#composables/useTiers'
 
 export default defineComponent({
   components: {

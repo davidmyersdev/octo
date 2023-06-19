@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type ChatMessage } from '#root/helpers/database'
+import { type ChatMessage } from '#helpers/database'
 
 export default defineComponent({
   setup() {

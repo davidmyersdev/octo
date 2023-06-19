@@ -1,5 +1,6 @@
 import { bind, bindGlobal, unbind } from '#root/src/common/keybindings'
 import { useRouter } from '#imports'
+import { isClient } from '#helpers/environment'
 
 export const DISABLE_LISTENER = 'DISABLE_LISTENER'
 export const DISABLE_LISTENERS = 'DISABLE_LISTENERS'
@@ -70,19 +71,21 @@ export default {
   },
   actions: {
     async [LOAD_KEYBINDINGS] (context) {
-      bindGlobal('esc', () => context.dispatch(DISABLE_LISTENERS))
-      bindGlobal('mod+k', () => context.dispatch(TOGGLE_LISTENERS))
-      bindGlobal('mod+s', () => context.dispatch(DISABLE_LISTENERS))
-      bindGlobal('mod+shift+f', () => {
-        context.dispatch(DISABLE_LISTENERS)
+      if (isClient) {
+        bindGlobal('esc', () => context.dispatch(DISABLE_LISTENERS))
+        bindGlobal('mod+k', () => context.dispatch(TOGGLE_LISTENERS))
+        bindGlobal('mod+s', () => context.dispatch(DISABLE_LISTENERS))
+        bindGlobal('mod+shift+f', () => {
+          context.dispatch(DISABLE_LISTENERS)
 
-        goTo('/docs')
-      })
+          goTo('/docs')
+        })
 
-      // disable listeners on any click
-      window.addEventListener('click', () => context.dispatch(DISABLE_LISTENERS))
+        // disable listeners on any click
+        window.addEventListener('click', () => context.dispatch(DISABLE_LISTENERS))
 
-      context.commit(KEYBINDINGS_LOADED)
+        context.commit(KEYBINDINGS_LOADED)
+      }
     },
     async [DISABLE_LISTENER] (context, listener) {
       unbind(listener)

@@ -1,6 +1,5 @@
-import localforage from 'localforage'
-
-import Debouncer from '#root/src/common/debouncer'
+import { storage } from '#helpers/storage'
+import { debouncer } from '#root/src/common/debouncer'
 import { unwrap } from '#root/src/common/vue'
 
 import {
@@ -11,11 +10,9 @@ import {
 
 import { SETTINGS_LOADED } from '#root/src/store/modules/settings'
 
-const cache = localforage.createInstance({
-  name: 'contexts',
-})
+const cache = storage().instance({ name: 'contexts' })
 
-const debouncer = new Debouncer(800)
+const { debounce } = debouncer(800)
 
 const find = (state, id) => {
   return state.contexts.all.find(context => context.id === id)
@@ -28,7 +25,7 @@ export default (store) => {
         const found = find(state, payload.id)
 
         if (found) {
-          debouncer.debounce(found.id, async () => {
+          debounce(found.id, async () => {
             cache.setItem(found.id, unwrap(found))
           })
         }

@@ -27,12 +27,10 @@
   </section>
 </template>
 
-<script>
-import { defineComponent, inject } from 'vue'
-
+<script lang="ts">
 export default defineComponent({
   setup() {
-    const appearance = inject('appearance')
+    const { store: appearance } = useAppearance()
 
     return {
       appearance,

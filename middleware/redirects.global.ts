@@ -1,4 +1,5 @@
 import { type RouteLocation } from 'vue-router'
+import { isClient } from '#helpers/environment'
 
 const legacyRoutes = [
   { path: /^\/context$/, redirect: (route: RouteLocation) => ({ path: '/workspaces' }) },
@@ -21,25 +22,31 @@ const legacyRoutes = [
 ]
 
 export default defineNuxtRouteMiddleware((to, from) => {
-  const isNewVisitor = !window?.localStorage.getItem('octo/welcome/v1')
+  const isNewVisitor = isClient ? !window?.localStorage.getItem('octo/welcome/v1') : false
 
   // Track the pageview if applicable.
   if (to.meta.track) {
-    window?.fathom?.trackPageview()
+    if (isClient) {
+      window?.fathom?.trackPageview()
+    }
   }
 
   // Handle first-time visitor redirects.
   if (isNewVisitor) {
     if (to.path === '/' || to.path === '/docs/new') {
-      window?.localStorage.setItem('octo/welcome/v1', 'done')
+      if (isClient) {
+        window?.localStorage.setItem('octo/welcome/v1', 'done')
 
-      return navigateTo({ path: '/home' })
+        return navigateTo({ path: '/home' })
+      }
     }
   }
 
   // Handle the root redirect.
   if (to.path === '/') {
-    return navigateTo({ path: '/docs/new' })
+    if (isClient) {
+      return navigateTo({ path: '/docs/new' })
+    }
   }
 
   // Handle legacy redirects.

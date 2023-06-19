@@ -1,3 +1,5 @@
+import { isClient } from '#helpers/environment'
+
 const staticPaths = [
   '/',
   '/account',
@@ -20,6 +22,8 @@ const staticPaths = [
 export default defineNuxtRouteMiddleware((to, _from) => {
   // Handle all static paths.
   if (staticPaths.includes(to.path)) {
-    window?.fathom?.trackPageview()
+    if (isClient) {
+      window?.fathom?.trackPageview()
+    }
   }
 })

@@ -3,8 +3,31 @@ import { nanoid } from 'nanoid'
 import { decrypt, encrypt } from '#root/src/common/crypto/crypto'
 import { parseTags, parseTasks, parseHeaders } from '#root/src/common/parsers'
 
-class Doc {
-  constructor(attributes = {}) {
+export type PackedDoc = Awaited<ReturnType<typeof pack>>
+
+export class Doc {
+  id: string
+  text: string
+  daily: boolean
+  encrypted: boolean
+  createdAt: Date
+  updatedAt: Date
+  touchedAt: Date
+
+  discardedAt: Date | null
+  iv: string | null
+  textKey: string | null
+
+  headers: string[]
+  tags: string[]
+  tasks: string[]
+
+  firebaseId: string | null
+  ownerId: string | null
+  syncedAt: Date | null
+  public: boolean
+
+  constructor(attributes: Partial<Doc> = {}) {
     this.id = attributes.id || nanoid()
     this.text = attributes.text || ''
     this.textKey = attributes.textKey || null
@@ -37,7 +60,7 @@ class Doc {
     return new Doc({ text: this.text })
   }
 
-  merge(attributes) {
+  merge(attributes: Partial<Doc> = {}) {
     // id is not writable
     Object.assign(this, attributes, { id: this.id })
   }
@@ -64,7 +87,7 @@ class Doc {
     this.touchedAt = new Date()
   }
 
-  update({ text }) {
+  update({ text = '' }: Partial<Doc>) {
     this.text = text
     this.headers.splice(0, this.headers.length, ...parseHeaders(text))
     this.tags.splice(0, this.tags.length, ...parseTags(text))
@@ -74,7 +97,7 @@ class Doc {
   }
 }
 
-export const pack = async (doc, { preferEncryption = null, publicKey = null }) => {
+export const pack = async (doc: Doc, { preferEncryption = null, publicKey = null }) => {
   const packed = Object.assign({}, {
     ...doc,
     // These values are derived from the text, so we don't need to store them.
@@ -98,7 +121,7 @@ export const pack = async (doc, { preferEncryption = null, publicKey = null }) =
   return Object.assign({}, packed)
 }
 
-export const unpack = async (packed, { privateKey }) => {
+export const unpack = async (packed: PackedDoc, { privateKey }: { privateKey?: string }) => {
   try {
     if (privateKey && packed.encrypted) {
       const text = await decrypt({ cipher: packed.text, cipherKey: packed.textKey, iv: packed.iv, privateKey })

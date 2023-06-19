@@ -71,6 +71,7 @@ import { subscription, user } from '#root/src/common/account'
 import ChangeLogEntry from '#root/components/ChangeLogEntry.vue'
 import Code from '#root/components/Code.vue'
 import Modal from '#root/components/Modal.vue'
+import { track } from '#helpers/analytics'
 
 const { public: { fathomEventCtaModalUpgrade } } = useConfig()
 
@@ -78,8 +79,7 @@ const showChangeLog = ref(false)
 const closeChangeLog = () => { showChangeLog.value = false }
 const trackCta = () => {
   closeChangeLog()
-
-  window.fathom?.trackGoal(fathomEventCtaModalUpgrade, 0)
+  track(fathomEventCtaModalUpgrade)
 }
 
 onMounted(async () => {

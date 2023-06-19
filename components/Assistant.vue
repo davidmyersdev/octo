@@ -2,7 +2,7 @@
 // @ts-expect-error No types yet.
 import { messageFactory, useChat, useGlobals as withGlobals } from 'ellma'
 import { CoreEditor, CoreScrollable } from '#components'
-import { type ChatMessage } from '#root/helpers/database'
+import { type ChatMessage } from '#helpers/database'
 
 export default defineComponent({
   emits: ['message'],

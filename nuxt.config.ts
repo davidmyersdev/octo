@@ -1,6 +1,9 @@
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { defineNuxtConfig } from 'nuxt/config'
-import { resolve } from 'path'
 import { config as pwaConfig } from './pwa.config'
+
+const root = dirname(fileURLToPath(import.meta.url))
 
 const fathomScript = process.env.NUXT_PUBLIC_FATHOM_SITE_URL ? {
   'data-auto': false,
@@ -12,15 +15,17 @@ const fathomScript = process.env.NUXT_PUBLIC_FATHOM_SITE_URL ? {
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   alias: {
-    '#root': resolve('.'),
+    '#composables': join(root, './composables'),
+    '#helpers': join(root, './helpers'),
+    '#root': join(root, '.'),
   },
   app: {
     head: {
       bodyAttrs: {
-        class: 'text-gray-900 dark:text-gray-300 bg-layer-0',
+        class: 'text-layer-0-text bg-layer-0',
       },
       htmlAttrs: {
-        class: 'scroll-smooth scroll-pt-4',
+        class: 'auto scroll-smooth scroll-pt-4',
         lang: 'en',
       },
       link: [
@@ -50,9 +55,20 @@ export default defineNuxtConfig({
       ],
     },
   },
+  build: {
+    transpile: [
+      'rxjs',
+    ],
+  },
   experimental: {
     // Todo: Does not respect port provided with `nuxi dev --port`
     // viteNode: true,
+  },
+  imports: {
+    dirs: [
+      './helpers'
+    ],
+    mergeExisting: true,
   },
   modules: [
     '@nuxtjs/tailwindcss',
@@ -135,7 +151,7 @@ export default defineNuxtConfig({
     },
   },
   sourcemap: true,
-  ssr: false,
+  ssr: true,
   tailwindcss: {
     configPath: '~/tailwind.config.cjs',
   },

@@ -2,7 +2,7 @@
 import { EnvelopeIcon } from '@heroicons/vue/24/solid'
 import { type PropType, defineComponent } from 'vue'
 import FormText from '#root/components/FormText.vue'
-import { type AuthMagicLinkForm } from '#root/composables'
+import { type AuthMagicLinkForm } from '#composables/useAuth'
 
 export default defineComponent({
   components: {

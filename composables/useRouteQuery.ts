@@ -1,3 +1,5 @@
+import { isClient } from '#helpers/environment'
+
 export const useRouteQuery = () => {
   const route = useRoute()
   const router = useRouter()
@@ -12,9 +14,11 @@ export const useRouteQuery = () => {
       },
     })
 
-    // This will replace the browser history's current state with the new query.
-    // This is necessary to prevent the entire component from reloading (the behavior of router.replace).
-    window.history.replaceState(window.history.state, '', resolved.fullPath)
+    if (isClient) {
+      // This will replace the browser history's current state with the new query.
+      // This is necessary to prevent the entire component from reloading (the behavior of router.replace).
+      window.history.replaceState(window.history.state, '', resolved.fullPath)
+    }
   })
 
   onBeforeUnmount(() => {

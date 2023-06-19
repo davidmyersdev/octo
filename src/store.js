@@ -1,4 +1,5 @@
 import { createStore } from 'vuex'
+import { isClient } from '#helpers/environment'
 
 // modules
 import authModule from '#root/src/store/modules/auth'
@@ -106,7 +107,9 @@ export const store = createStore({
     },
     [SET_SHOW_WELCOME] (state, shouldShowWelcome) {
       if (!shouldShowWelcome) {
-        window.localStorage.setItem('octo/welcome/v1', 'done')
+        if (isClient) {
+          window.localStorage.setItem('octo/welcome/v1', 'done')
+        }
       }
 
       state.showWelcome = shouldShowWelcome

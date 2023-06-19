@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="h-full" :class="sizes.concat([!ligatures && 'ligatures-none'])">
+  <div id="app" class="h-full" :class="sizes.concat([!ligatures ? 'ligatures-none' : ''])">
     <VitePwaManifest />
     <AsyncChangeLog v-if="showChangeLog && !flow" />
     <AppLayout>
@@ -8,15 +8,32 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { nanoid } from 'nanoid'
+import { loadSettings } from '#root/src/store/plugins/caching/settings'
 
 import 'overlayscrollbars/overlayscrollbars.css'
 
 export default defineComponent({
-  inject: ['mq'],
   setup() {
     const { public: { appName, appTitle } } = useConfig()
+    const { runOnHydrated } = useHooks()
+    const mq = useMq()
+    const { store } = useVuex()
+
+    runOnHydrated(() => {
+      loadSettings(store)
+    })
+
+    const sizes = computed(() => {
+      if (mq.current === 'xs') return ['xs xs-plus']
+      if (mq.current === 'sm') return ['sm xs-plus sm-plus']
+      if (mq.current === 'md') return ['md xs-plus sm-plus md-plus']
+      if (mq.current === 'lg') return ['lg xs-plus sm-plus md-plus lg-plus']
+      if (mq.current === 'xl') return ['xl xs-plus sm-plus md-plus lg-plus xl-plus']
+
+      return []
+    })
 
     useRoot()
     useHead({
@@ -35,6 +52,7 @@ export default defineComponent({
 
     return {
       pageKey,
+      sizes,
     }
   },
   computed: {
@@ -47,15 +65,6 @@ export default defineComponent({
     },
     ligatures() {
       return this.$store.state.settings.editor.ligatures
-    },
-    sizes() {
-      if (this.mq.current === 'xs') return ['xs xs-plus']
-      if (this.mq.current === 'sm') return ['sm xs-plus sm-plus']
-      if (this.mq.current === 'md') return ['md xs-plus sm-plus md-plus']
-      if (this.mq.current === 'lg') return ['lg xs-plus sm-plus md-plus lg-plus']
-      if (this.mq.current === 'xl') return ['xl xs-plus sm-plus md-plus lg-plus xl-plus']
-
-      return []
     },
   },
 })

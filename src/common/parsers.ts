@@ -78,7 +78,7 @@ export const parseReferences = (text: string) => {
 
 export const parseTags = (text: string) => {
   const matches = parse(tagsRegex, text)
-  const tags = new Set()
+  const tags = new Set<string>()
 
   matches.forEach((match) => {
     if (match && match[1]) {

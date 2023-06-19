@@ -63,7 +63,7 @@ export default {
   },
   computed: {
     allowCrypto() {
-      return this.privateKey && this.publicKey;
+      return !!(this.privateKey && this.publicKey);
     },
     privateKey: {
       get() {

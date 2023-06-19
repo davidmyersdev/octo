@@ -3,6 +3,8 @@
 
 import { type Instance } from 'ink-mde'
 import { type DefineComponent } from 'vue'
+import { type AppEventType } from '#helpers/app'
+import * as appEvents from '#helpers/app'
 
 declare global {
   var isNuxt: boolean
@@ -10,11 +12,13 @@ declare global {
   namespace Cypress {
     interface Chainable {
       clearIDB: () => Cypress.Promise,
-      waitForHook: (name: string) => Cypress.Promise,
+      waitForAppReady: () => Cypress.Promise,
+      waitForHook: (name: AppEventType) => Cypress.Promise,
     }
   }
 
   interface Window {
+    appEvents: typeof appEvents,
     fathom?: {
       trackGoal: (id: string, value: number) => void,
       trackPageview: (options?: { url: string }) => void,

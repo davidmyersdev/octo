@@ -1,94 +1,97 @@
 <template>
   <div class="flex flex-col gap-4">
     <div class="flex flex-col items-start gap-4">
-      <input ref="uploads" @change="updateFiles" type="file" id="markdown-file-uploader" multiple accept=".md,.markdown,text/markdown" class="hidden" />
-      <button class="button button-size-medium button-color-gray gap-3" @click="selectFiles">
+      <CoreButton :is="'label'" class="button button-size-medium button-color-gray gap-3">
+        <input @change="onFiles" type="file" class="hidden" accept=".md,.markdown,text/markdown" multiple />
         <svg class="w-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-miterlimit="5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M10 13V4M10 4L13 7M10 4L7 7"/>
           <path d="M2 13V15C2 15.5523 2.44772 16 3 16H17C17.5523 16 18 15.5523 18 15V13"/>
         </svg>
         <span>Choose Markdown files to import</span>
-      </button>
-      <ul v-if="fileNames.length">
+      </CoreButton>
+      <ul v-if="fileNames.length" class="list-disc pl-4">
         <li v-for="fileName in fileNames">{{ fileName }}</li>
       </ul>
-      <button class="button button-size-medium button-color-gray" @click="importFiles">Import</button>
+      <button class="button button-size-medium button-color-gray" @click="handleImport">Import</button>
     </div>
   </div>
 </template>
 
-<script>
-import Doc from '#root/src/models/doc.js'
-import { Remarkable } from 'remarkable';
-import frontMatterPlugin from 'remarkable-front-matter';
-var md = new Remarkable();
-md.use(frontMatterPlugin);
+<script lang="ts">
+import Doc from '#root/src/models/doc'
 
-export default {
-  data() {
-    return {
-      files: [],
-      text: '',
-    }
-  },
-  computed: {
-    fileNames() {
-      return this.files.map(file => file.name)
-    },
-  },
-  methods: {
-    importFiles() {
-      this.files.forEach((file) => {
+export default defineComponent({
+  setup() {
+    const { store } = useVuex()
+    const files = ref<Blob[]>([])
+    const fileNames = computed(() => files.value.map(f => f.name))
+    const text = ref('')
+
+    const handleImport = async () => {
+      const { Remarkable } = await import('remarkable')
+      const { default: frontmatter } = await import('remarkable-front-matter')
+      const remarkable = new Remarkable()
+
+      remarkable.use(frontmatter)
+
+      files.value.forEach((file) => {
         const reader = new FileReader()
 
-        reader.onerror = error => reject(error)
-        reader.onload = event => {
-          const fileText = event.target.result
-          const env = { frontMatter: {} }
+        reader.onload = (event) => {
+          const fileText = event.target?.result
 
-          // Populate env.frontMatter
-          md.render(fileText, env)
+          // Todo: Maybe handle ArrayBuffer.
+          if (typeof fileText !== 'string') { return }
 
-          const { id } = env.frontMatter;
+          // This object is populated by the `.render` call below.
+          const env = { frontMatter: { id: undefined } }
+
+          remarkable.render(fileText, env)
+
+          // Todo: Handle other frontmatter delimeters.
           const text = fileText.replace(/^---.*?---/s, '').trim()
+          const { id } = env.frontMatter
 
           try {
-            this.importDoc({ id, text })
+            importDoc({ id, text })
           } catch (error) {
             console.warn({ error })
           }
 
           // Remove the file from the list.
-          this.files.splice(this.files.indexOf(file), 1)
+          files.value.splice(files.value.indexOf(file), 1)
         }
 
         reader.readAsText(file)
       })
+    }
 
-    },
-    importDoc({ id, text }) {
+    const importDoc = ({ id, text }: Partial<Doc>) => {
       if (id) {
-        const existingDoc = this.$store.getters.decrypted.find(doc => doc.id === id)
+        const existingDoc = store.getters.decrypted.find((doc: Doc) => doc.id === id)
 
         if (existingDoc) {
-          return this.$store.commit('EDIT_DOCUMENT', {
+          store.commit('EDIT_DOCUMENT', {
             id: existingDoc.id,
             text,
           })
         }
       }
 
-      return this.$store.commit('EDIT_DOCUMENT', new Doc({ text }))
-    },
-    selectFiles() {
-      this.$refs.uploads.click()
-    },
-    updateFiles() {
-      this.files = [...(this.$refs.uploads.files ? this.$refs.uploads.files : [])]
-    },
-    updateText(event) {
-      this.text = event.target.innerText
-    },
+      store.commit('EDIT_DOCUMENT', new Doc({ text }))
+    }
+
+    const onFiles = inputHandler((event) => {
+      files.value = Array.from(event.target?.files || []) as Blob[]
+    })
+
+    return {
+      fileNames,
+      files,
+      handleImport,
+      onFiles,
+      text,
+    }
   },
-}
+})
 </script>

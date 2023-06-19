@@ -1,9 +1,5 @@
 <script lang="ts" setup>
-if (globalThis.isNuxt) {
-  definePageMeta({
-    layout: 'minimal',
-  })
-}
+definePageMeta({ layout: 'minimal' })
 
 const {
   basicTier,

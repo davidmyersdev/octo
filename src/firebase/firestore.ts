@@ -1,4 +1,5 @@
 import * as db from 'firebase/firestore'
+import { type PackedDoc } from '#root/src/models/doc'
 
 import type { AddCheckoutParams, AddDocParams, FetchDocParams, FetchDocsParams, UpdateDocParams } from '#root/types/types'
 
@@ -102,11 +103,11 @@ export const updateDoc = async ({ doc, docId }: UpdateDocParams) => {
   )
 }
 
-export const unwrapDoc = async (doc: db.DocumentSnapshot<db.DocumentData>) => {
+export const unwrapDoc = async (doc: db.DocumentSnapshot<db.DocumentData>): Promise<PackedDoc> => {
   const data = doc.data()
 
   if (!data) {
-    return {}
+    return {} as PackedDoc
   }
 
   return {
@@ -119,5 +120,5 @@ export const unwrapDoc = async (doc: db.DocumentSnapshot<db.DocumentData>) => {
     updatedAt: (data.updatedAt ? data.updatedAt.toDate() : null),
     touchedAt: (data.touchedAt ? data.touchedAt.toDate() : null),
     syncedAt: data.syncedAt.toDate(),
-  }
+  } as PackedDoc
 }

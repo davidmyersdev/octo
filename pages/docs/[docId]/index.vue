@@ -16,18 +16,6 @@ export default defineComponent({
   },
   props: {
     docId: String,
-    initialFocus: {
-      type: String,
-      default: () => 'any',
-      validator: (position: string) => ['any', 'start', 'end'].includes(position),
-    },
-    initialSelections: {
-      type: Array,
-    },
-    ro: {
-      default: false,
-      type: Boolean,
-    },
   },
   setup(props) {
     const appearance = inject<Ref<string>>('appearance', ref('auto'))
@@ -44,19 +32,17 @@ export default defineComponent({
     const { public: { appTitle } } = useConfig()
 
     const onInput = async (text: string) => {
-      if (!props.ro) {
-        store.commit(EDIT_DOCUMENT, new Doc({ ...doc.value, text }))
+      store.commit(EDIT_DOCUMENT, new Doc({ ...doc.value, text }))
 
-        if (!docId.value || docId.value === 'new') {
-          await router.replace({
-            path: `/docs/${doc.value.id}`,
-            query: {
-              p: '1',
-            },
-          })
+      if (!docId.value || docId.value === 'new') {
+        await router.replace({
+          path: `/docs/${doc.value.id}`,
+          query: {
+            p: '1',
+          },
+        })
 
-          recentDocs.add(docId.value)
-        }
+        recentDocs.add(docId.value)
       }
     }
 
@@ -93,9 +79,6 @@ export default defineComponent({
     :appearance="appearance"
     :doc="doc"
     :key="doc.id"
-    :initialFocus="initialFocus"
-    :initialSelections="initialSelections"
-    :ro="ro"
     :settings="settings"
     @input="onInput"
   />

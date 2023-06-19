@@ -1,5 +1,6 @@
-import localforage from 'localforage'
-import Debouncer from '#root/src/common/debouncer'
+import { type Plugin, type Store } from 'vuex'
+import { storage } from '#helpers/storage'
+import { debouncer } from '#root/src/common/debouncer'
 import { unwrap } from '#root/src/common/vue'
 
 import {
@@ -21,25 +22,23 @@ import {
   SETTINGS_LOADED,
 } from '#root/src/store/modules/settings'
 
-const CACHE_KEY = 'main'
-const cache = localforage.createInstance({
-  name: 'settings',
-})
+export const settingsCache = storage().instance({ name: 'settings' })
+export const settingsCacheKey = 'main'
 
-const debouncer = new Debouncer(20)
+export const loadSettings = async (store: Store<any>) => {
+  const settings = await settingsCache.getItem(settingsCacheKey)
 
-export default (store) => {
-  cache.getItem(CACHE_KEY).then((settings) => {
-    if (settings) {
-      store.dispatch(LOAD_SETTINGS, settings).then(() => {
-        store.dispatch(SETTINGS_LOADED)
-      })
-    } else {
-      store.dispatch(SETTINGS_LOADED)
-    }
-  })
+  if (settings) {
+    await store.dispatch(LOAD_SETTINGS, settings)
+  }
 
-  store.subscribe(({ type, _payload }, state) => {
+  await store.dispatch(SETTINGS_LOADED)
+}
+
+const { debounce } = debouncer(20)
+
+const settingsPlugin: Plugin<any> = (store) => {
+  store.subscribe(({ type }, state) => {
     switch (type) {
       case SET_CRYPTO_ENABLED:
       case SET_CRYPTO_KEYS:
@@ -55,9 +54,12 @@ export default (store) => {
       case SET_EDITOR_TOOLBAR:
       case SET_EXPERIMENTAL:
       case SET_THEME:
-        debouncer.debounce(CACHE_KEY, () => {
-          cache.setItem(CACHE_KEY, unwrap(state.settings))
-        })
+        // Prevent any writes until settings have been loaded.
+        if (state.settings.loaded) {
+          debounce(settingsCacheKey, () => {
+            settingsCache.setItem(settingsCacheKey, unwrap(state.settings))
+          })
+        }
 
         break
       default:
@@ -65,3 +67,5 @@ export default (store) => {
     }
   })
 }
+
+export default settingsPlugin

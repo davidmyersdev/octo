@@ -1,7 +1,7 @@
 <script lang="ts">
 import { type Options } from 'ink-mde'
 import Ink from 'ink-mde/vue'
-import { type BaseAppearance } from '#root/composables/useAppearance'
+import { type SystemAppearance } from '#composables/useAppearance'
 
 type LayerIndex = 0 | 1 | 2 | 3 | 4
 
@@ -11,7 +11,7 @@ export default defineComponent({
   },
   props: {
     appearance: {
-      type: String as PropType<BaseAppearance>,
+      type: String as PropType<SystemAppearance>,
     },
     layer: {
       default: 1,
@@ -27,10 +27,10 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup(props) {
-    const { baseAppearance } = useAppearance()
+    const { system } = useAppearance()
     const blockBg = computed(() => `rgb(var(--layer-${props.layer + 1}-bg))`)
     const editorElement = ref()
-    const editorAppearance = computed(() => (props.appearance ?? props.options?.interface?.appearance ?? baseAppearance.value))
+    const editorAppearance = computed(() => (props.appearance ?? props.options?.interface?.appearance ?? system.value))
     const editorOptions = computed(() => {
       return {
         ...props.options,

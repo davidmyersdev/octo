@@ -60,7 +60,7 @@ pnpm dev
 
 ### Launch the Firebase Emulator
 
-The emulator is not necessary for most changes. For more information about retrieving a Firebase access token, see the [docker-firebase-cli](https://github.com/davidmyersdev/docker-firebase-cli) project.
+The emulator is not necessary for most changes. For more information about retrieving a Firebase access token, see the [docker-firebase-tools](https://github.com/davidmyersdev/docker-firebase-tools) project.
 
 ```bash
 docker-compose up -d

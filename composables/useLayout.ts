@@ -8,8 +8,8 @@ export const useLayout = () => {
   const showMenu = lazyComputed(() => showMenuCache.value)
   const showMeta = lazyComputed(() => showMetaCache.value)
 
-  const toggleMenu = () => showMenu.value = !showMenu.value
-  const toggleMeta = () => showMeta.value = !showMeta.value
+  const toggleMenu = () => showMenuCache.value = !showMenu.value
+  const toggleMeta = () => showMetaCache.value = !showMeta.value
 
   return {
     showMenu,

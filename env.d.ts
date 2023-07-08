@@ -17,6 +17,12 @@ declare global {
     }
   }
 
+  interface Navigator {
+    userAgentData?: {
+      platform: string,
+    },
+  }
+
   interface Window {
     appEvents: typeof appEvents,
     fathom?: {

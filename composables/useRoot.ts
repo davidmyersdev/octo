@@ -47,12 +47,6 @@ export const useRoot = () => {
       store.dispatch('SET_OFFLINE')
     }
 
-    // TODO: Determine whether we need both of these.
-    // @ts-ignore
-    if (/Mac|iPod|iPhone|iPad/.test(navigator.platform || navigator.userAgentData.platform)) {
-      store.dispatch('SET_MOD_KEY', '⌘')
-    }
-
     // Ensure the app height is always correct.
     updateAppHeight()
     window.visualViewport?.addEventListener('resize', updateAppHeight)

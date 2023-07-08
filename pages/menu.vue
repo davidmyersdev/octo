@@ -193,9 +193,6 @@ export default {
     mediumPlus() {
       return ['md', 'lg', 'xl', 'xxl'].includes(this.mq.current)
     },
-    modKey() {
-      return this.$store.state.modKey
-    },
     tags() {
       return this.$store.getters.tags
     },

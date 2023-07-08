@@ -25,7 +25,6 @@ import {
   FOCUS_EDITOR,
   SET_CONTEXT_TAGS,
   SET_EDITOR,
-  SET_MOD_KEY,
   SET_OFFLINE,
   SET_ONLINE,
   SET_RIGHT_SIDEBAR_VISIBILITY,
@@ -41,7 +40,6 @@ export const store = createStore({
         tags: [],
       },
       editor: null,
-      modKey: '⌃',
       online: true,
       showLeftSidebar: true,
       showRightSidebar: true,
@@ -89,9 +87,6 @@ export const store = createStore({
     },
     [SET_EDITOR] (state, payload) {
       state.editor = payload.editor
-    },
-    [SET_MOD_KEY] (state, payload) {
-      state.modKey = payload
     },
     [SET_OFFLINE] (state) {
       state.online = false
@@ -148,9 +143,6 @@ export const store = createStore({
     },
     async [SET_EDITOR] (context, payload) {
       context.commit(SET_EDITOR, payload)
-    },
-    async [SET_MOD_KEY] (context, payload) {
-      context.commit(SET_MOD_KEY, payload)
     },
     async [SET_OFFLINE] (context) {
       context.commit(SET_OFFLINE)

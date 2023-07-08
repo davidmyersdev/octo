@@ -2,8 +2,6 @@
 import { ViewColumnsIcon } from '@heroicons/vue/24/outline'
 import { CalendarIcon, Cog8ToothIcon, DocumentPlusIcon, HeartIcon, InboxIcon, UserCircleIcon, XMarkIcon } from '@heroicons/vue/24/solid'
 import { computed, defineComponent, onBeforeUnmount, onMounted } from 'vue'
-import { useStore } from 'vuex'
-import { useMq } from 'vue3-mq'
 import DiscordIcon from '#root/assets/discord.svg?component'
 import GraphIcon from '#root/assets/graph.svg?component'
 import LogoIcon from '#root/assets/logo-icon.svg?component'
@@ -11,7 +9,6 @@ import CoreButton from '#root/components/CoreButton.vue'
 import CoreDivider from '#root/components/CoreDivider.vue'
 import CoreLink from '#root/components/CoreLink.vue'
 import Key from '#root/components/Key.vue'
-import LayoutNavbar from '#root/components/LayoutNavbar.vue'
 import TheLeftSidebar from '#root/pages/menu.vue'
 import TheRightSidebar from '#root/pages/docs/[docId]/meta.vue'
 import { bindGlobal } from '#root/src/common/keybindings'
@@ -29,7 +26,6 @@ export default defineComponent({
     HeartIcon,
     InboxIcon,
     Key,
-    LayoutNavbar,
     LogoIcon,
     TheLeftSidebar,
     TheRightSidebar,
@@ -40,15 +36,12 @@ export default defineComponent({
   inject: ['mq'],
   setup() {
     const { isNuxt } = useIsNuxt()
-    const mq = useMq()
-    const store = useStore()
     const router = useRouter()
     const { doc } = useDocs()
     const { showMenu, showMeta, toggleMenu, toggleMeta } = useLayout()
     const { pinnedDocs, unpinDoc } = usePinnedDocs()
     const { public: { discordInviteLink } } = useConfig()
-    const modKey = computed(() => store.state.modKey)
-    const mobile = computed(() => ['xs', 'sm'].includes(mq.current))
+    const { isDesktop, isMobile, modKey } = useDevice()
     const isDoc = computed(() => router.currentRoute.value.name === 'docs-docId')
     const isNew = computed(() => router.currentRoute.value.path === '/docs/new')
 
@@ -103,10 +96,11 @@ export default defineComponent({
       handleLayoutChange,
       handleQuickActionClose,
       handleTabClose,
+      isDesktop,
       isDoc,
+      isMobile,
       isNew,
       isNuxt,
-      mobile,
       modKey,
       pinnedDocs,
       showMenu,
@@ -118,7 +112,7 @@ export default defineComponent({
 
 <template>
   <div class="dashboard flex h-screen w-screen min-h-0 min-w-0 overflow-hidden border-t-2 border-layer-0">
-    <section v-if="!mobile" class="flex flex-col items-center justify-between gap-4 h-full w-14 bg-layer-1 md:flex">
+    <section v-if="isDesktop" class="flex flex-col items-center justify-between gap-4 h-full w-14 bg-layer-1 md:flex">
       <div class="flex flex-col">
         <div class="flex flex-col flex-shrink-0 items-center justify-center w-14">
           <button @click="handleLayoutChange" class="flex items-center justify-center p-2 h-14">
@@ -153,13 +147,13 @@ export default defineComponent({
         </CoreLink>
       </div>
     </section>
-    <CoreDivider v-if="!mobile" :vertical="true" />
+    <CoreDivider v-if="isDesktop" :vertical="true" />
     <section class="flex flex-col flex-grow flex-shrink min-h-0 min-w-0">
       <nav class="flex items-center justify-between py-2 bg-layer-1 h-14">
-        <CoreLink v-if="mobile" :to="{ path: '/docs/new' }" class="flex items-center justify-center p-2 h-14">
+        <CoreLink v-if="isMobile" :to="{ path: '/docs/new' }" class="flex items-center justify-center p-2 h-14">
           <LogoIcon class="h-8 text-theme" />
         </CoreLink>
-        <div v-if="mobile" class="flex items-center">
+        <div v-if="isMobile" class="flex items-center">
           <CoreLink class="button-flat button-size-medium" :to="{ path: '/menu' }" role="button" aria-haspopup="true" aria-expanded="false">
             <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -182,7 +176,7 @@ export default defineComponent({
             </svg>
           </button>
         </div>
-        <section v-if="!mobile" class="flex-shrink-0 px-2 w-64">
+        <section v-if="isDesktop" class="flex-shrink-0 px-2 w-64">
           <CoreLink :to="{ path: '/docs' }" class="core-button core-button-layer-1 border border-layer-0 justify-between w-full">
             <div class="flex gap-3 items-center">
               <svg class="w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -197,15 +191,15 @@ export default defineComponent({
             </span>
           </CoreLink>
         </section>
-        <CoreDivider v-if="!mobile" :vertical="true" />
-        <section v-if="!mobile" class="flex flex-grow flex-shrink gap-2 bg-layer-1 px-2 min-w-0">
+        <CoreDivider v-if="isDesktop" :vertical="true" />
+        <section v-if="isDesktop" class="flex flex-grow flex-shrink gap-2 bg-layer-1 px-2 min-w-0">
           <CoreLink v-for="pinnedDoc in pinnedDocs" :key="pinnedDoc.id" :to="{ path: `/docs/${pinnedDoc.id}` }" class="core-button core-button-layer-1 flex flex-shrink justify-between min-w-[4rem] max-w-[20rem]" :class="{ 'bg-layer-2': isDoc && pinnedDoc.id === doc?.id }">
             <span class="text-ellipsis overflow-hidden">{{ pinnedDoc.headers[0] || pinnedDoc.text.substring(0, 25) }}</span>
             <XMarkIcon @click.prevent.stop="() => handleTabClose(pinnedDoc.id)" class="w-4 transition hover:scale-125" />
           </CoreLink>
         </section>
-        <CoreDivider v-if="!mobile" :vertical="true" />
-        <section v-if="!mobile" class="flex-shrink-0 px-2 w-64">
+        <CoreDivider v-if="isDesktop" :vertical="true" />
+        <section v-if="isDesktop" class="flex-shrink-0 px-2 w-64">
           <CoreButton :flat="true" :layer="1" @click="handleLayoutChange" class="border border-layer-0 justify-between w-full">
             <div class="flex gap-3 items-center">
               <ViewColumnsIcon class="w-5" />
@@ -220,11 +214,11 @@ export default defineComponent({
       </nav>
       <CoreDivider />
       <section class="flex flex-grow flex-shrink overflow-hidden min-w-0">
-        <TheLeftSidebar v-if="(!mobile && showMenu)" class="hidden w-64 bg-layer-1 md:flex flex-shrink-0" />
-        <CoreDivider v-if="(!mobile && showMenu)" :vertical="true" />
+        <TheLeftSidebar v-if="(isDesktop && showMenu)" class="hidden w-64 bg-layer-1 md:flex flex-shrink-0" />
+        <CoreDivider v-if="(isDesktop && showMenu)" :vertical="true" />
         <slot />
-        <CoreDivider v-if="!mobile" :vertical="true" />
-        <TheRightSidebar v-if="(!mobile && showMeta && doc && isDoc)" class="hidden w-64 bg-layer-1 md:flex flex-shrink-0" />
+        <CoreDivider v-if="isDesktop" :vertical="true" />
+        <TheRightSidebar v-if="(isDesktop && showMeta && doc && isDoc)" class="hidden w-64 bg-layer-1 md:flex flex-shrink-0" />
         <div v-else class="hidden w-2 bg-layer-1 md:flex flex-shrink-0"></div>
       </section>
     </section>

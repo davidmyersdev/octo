@@ -9,6 +9,25 @@ export const useHooks = () => {
   const onHydratedCallbacks = ref<Array<() => void>>([])
   const onMountedCallbacks = ref<Array<() => void>>([])
 
+  const lazyRef = <T = unknown>(value: T, initialValue?: T) => {
+    const lazy = ref(initialValue) as Ref<T>
+
+    runOnHydrated(() => lazy.value = value)
+
+    return lazy
+  }
+
+  const lazyComputed = <T = unknown>(callback: () => T, initialValue?: T) => {
+    const actual = computed(callback)
+    const lazy = ref(initialValue) as Ref<T>
+
+    watch(actual, () => {
+      runOnHydrated(() => lazy.value = actual.value)
+    }, { immediate: true })
+
+    return lazy
+  }
+
   /**
    * Behaves like `onNuxtReady` except you can call it asynchronously. If `onNuxtReady` has already been triggered, the callback will run immediately.
    *
@@ -61,6 +80,8 @@ export const useHooks = () => {
     isMounted,
     isHydrated,
     isHydrating,
+    lazyComputed,
+    lazyRef,
     runOnHydrated,
     runOnMounted,
   }

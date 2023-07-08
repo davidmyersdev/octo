@@ -6,6 +6,7 @@ export default defineComponent({
     const { id } = useId()
     const { now } = useTime()
     const router = useRouter()
+    const { isHydrated, isMounted } = useHooks()
     const chatIdFromRoute = computed(() => router.currentRoute.value.params.id as string)
     const chatId = computed(() => chatIdFromRoute.value || id())
     const { addChat, chat } = useChat(chatId)
@@ -35,6 +36,8 @@ export default defineComponent({
       chatIdFromRoute,
       chat,
       chatMessages,
+      isHydrated,
+      isMounted,
       onMessage,
     }
   },
@@ -43,6 +46,6 @@ export default defineComponent({
 
 <template>
   <article class="flex flex-col flex-grow">
-    <Assistant :messages="chatMessages" @message="onMessage" />
+    <Assistant v-if="isMounted && isHydrated" :messages="chatMessages" @message="onMessage" />
   </article>
 </template>

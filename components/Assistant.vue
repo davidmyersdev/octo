@@ -1,6 +1,6 @@
 <script lang="ts">
-// @ts-expect-error No types yet.
-import { messageFactory, useChat, useGlobals as withGlobals } from 'ellma'
+import { openai } from 'ellma/integrations'
+import { useChat } from 'ellma/models'
 import { CoreEditor, CoreScrollable } from '#components'
 import { type ChatMessage } from '#helpers/database'
 
@@ -13,33 +13,27 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
+    const { lazyComputed } = useHooks()
     const historyElement = ref<InstanceType<typeof CoreScrollable>>()
     const inputElement = ref<InstanceType<typeof CoreEditor>>()
     const input = ref('')
-    const apiKey = useLocalStorage<string>('openAiApiKey', '')
+    const actualApiKey = useLocalStorage<string>('openAiApiKey', '')
+    const apiKey = lazyComputed(() => actualApiKey.value, '')
+    const integration = computed(() => openai({ apiKey: apiKey.value }))
+    const chatModel = computed(() => useChat({ integration: integration.value }))
+    const model = computed(() => chatModel.value.model)
+    const factory = computed(() => chatModel.value.factory)
+
     const isWaiting = ref(false)
     const showTryAgainMessage = ref(false)
-    const chatModel = computed(() => useChat(withGlobals({
-      integrations: {
-        openai: {
-          apiKey: apiKey.value,
-        },
-      },
-    })))
 
     // Todo: Add memory adapter for reactive vue state.
-    props.messages.forEach((message) => {
-      chatModel.value.add(message)
-    })
+    model.value.hydrate(props.messages)
 
     watch(() => props.messages, () => {
       showTryAgainMessage.value = false
 
-      chatModel.value.clear()
-
-      props.messages.forEach((message) => {
-        chatModel.value.add(message)
-      })
+      model.value.hydrate(props.messages)
 
       scrollToBottom()
     })
@@ -86,7 +80,7 @@ export default defineComponent({
       try {
         isWaiting.value = true
 
-        const assistantMessage = await chatModel.value.generate()
+        const assistantMessage = await model.value.generate()
 
         emit('message', assistantMessage)
       } catch (error) {
@@ -100,7 +94,7 @@ export default defineComponent({
     const onSend = async () => {
       inputElement.value?.focus()
 
-      const humanMessage = messageFactory.human({ text: input.value })
+      const humanMessage = factory.value.human({ text: input.value })
 
       emit('message', humanMessage)
       input.value = ''
@@ -108,7 +102,7 @@ export default defineComponent({
       try {
         isWaiting.value = true
 
-        const assistantMessage = await chatModel.value.generate(humanMessage)
+        const assistantMessage = await model.value.generate(humanMessage)
 
         emit('message', assistantMessage)
       } catch (error) {

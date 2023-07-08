@@ -19,7 +19,7 @@
     "codemirror-lang-mermaid": "^0.2.1",
     "deepmerge": "^4.2.2",
     "dexie": "^3.2.4",
-    "ellma": "^0.1.4",
+    "ellma": "^0.2.3",
     "file-saver": "^2.0.5",
     "firebase": "^9.17.1",
     "force-graph": "^1.43.0",
@@ -80,7 +80,7 @@
       "default": "./*"
     }
   },
-  "packageManager": "pnpm@7.27.0",
+  "packageManager": "pnpm@8.6.6",
   "resolutions": {
     "terser": "^5.14.2"
   }

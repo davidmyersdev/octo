@@ -200,7 +200,7 @@ export default defineComponent({
         </section>
         <CoreDivider v-if="isDesktop" :vertical="true" />
         <section v-if="isDesktop" class="flex-shrink-0 px-2 w-64">
-          <CoreButton :flat="true" :layer="1" @click="handleLayoutChange" class="border border-layer-0 justify-between w-full">
+          <CoreButton :flat="true" :layer="1" @click="handleLayoutChange" class="border border-layer-0 justify-between w-full" data-test-toggle-sidebars>
             <div class="flex gap-3 items-center">
               <ViewColumnsIcon class="w-5" />
               <span>Toggle Sidebars</span>

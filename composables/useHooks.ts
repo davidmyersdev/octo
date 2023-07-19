@@ -1,3 +1,4 @@
+import { type ComputedGetter, type ComputedSetter } from 'vue'
 import { isClient } from '#helpers/environment'
 
 export const useHooks = () => {
@@ -17,7 +18,7 @@ export const useHooks = () => {
     return lazy
   }
 
-  const lazyComputed = <T = unknown>(callback: () => T, initialValue?: T) => {
+  const lazyComputed = <T = unknown>(callback: ComputedGetter<T>, initialValue?: T) => {
     const actual = computed(callback)
     const lazy = ref(initialValue) as Ref<T>
 
@@ -26,6 +27,18 @@ export const useHooks = () => {
     }, { immediate: true })
 
     return lazy
+  }
+
+  const lazyWritableComputed = <T = unknown>(getter: ComputedGetter<T>, setter: ComputedSetter<T>, initialValue?: T) => {
+    const actual = computed(getter)
+    const lazy = ref(initialValue) as Ref<T>
+    const lazyWritable = computed({ get: () => lazy.value, set: setter })
+
+    watch(actual, () => {
+      runOnHydrated(() => lazy.value = actual.value)
+    }, { immediate: true })
+
+    return lazyWritable
   }
 
   /**
@@ -82,6 +95,7 @@ export const useHooks = () => {
     isHydrating,
     lazyComputed,
     lazyRef,
+    lazyWritableComputed,
     runOnHydrated,
     runOnMounted,
   }

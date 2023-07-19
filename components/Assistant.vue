@@ -1,6 +1,7 @@
 <script lang="ts">
-import { openai } from 'ellma/integrations'
-import { useChat } from 'ellma/models'
+import { openai } from 'vellma/integrations'
+import { useChat } from 'vellma/models'
+import { consoleLogger, useLogger } from 'vellma/peripherals'
 import { CoreEditor, CoreScrollable } from '#components'
 import { type ChatMessage } from '#helpers/database'
 
@@ -13,14 +14,16 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const { lazyComputed } = useHooks()
+    const { lazyWritableComputed } = useHooks()
+    const logger = useLogger(consoleLogger())
+    const peripherals = { logger }
     const historyElement = ref<InstanceType<typeof CoreScrollable>>()
     const inputElement = ref<InstanceType<typeof CoreEditor>>()
     const input = ref('')
     const actualApiKey = useLocalStorage<string>('openAiApiKey', '')
-    const apiKey = lazyComputed(() => actualApiKey.value, '')
-    const integration = computed(() => openai({ apiKey: apiKey.value }))
-    const chatModel = computed(() => useChat({ integration: integration.value }))
+    const apiKey = lazyWritableComputed(() => actualApiKey.value, (val) => actualApiKey.value = val, '')
+    const integration = computed(() => openai({ apiKey: apiKey.value, peripherals }))
+    const chatModel = computed(() => useChat({ integration: integration.value, peripherals }))
     const model = computed(() => chatModel.value.model)
     const factory = computed(() => chatModel.value.factory)
 

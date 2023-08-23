@@ -20,6 +20,7 @@ dev-dist
 dist
 node_modules
 public/manifest.webmanifest
+supabase
 test/cypress/downloads
 test/cypress/screenshots
 test/cypress/videos

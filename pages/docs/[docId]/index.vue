@@ -75,10 +75,9 @@ export default defineComponent({
 
 <template>
   <Editor
-    ref="editable"
+    :key="doc.id"
     :appearance="appearance"
     :doc="doc"
-    :key="doc.id"
     :settings="settings"
     @input="onInput"
   />

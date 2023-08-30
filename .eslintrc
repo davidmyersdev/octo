@@ -1,0 +1,6 @@
+{
+  "extends": [
+    ".eslintrc-rules.json",
+    ".eslintrc-todo.json"
+  ]
+}

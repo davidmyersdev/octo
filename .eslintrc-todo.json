@@ -1,0 +1,1375 @@
+{
+  "overrides": [
+    {
+      "files": [
+        ".github/workflows/ci.yml"
+      ],
+      "rules": {
+        "yml/no-empty-mapping-value": "warn"
+      }
+    },
+    {
+      "files": [
+        ".github/workflows/preview.yml"
+      ],
+      "rules": {
+        "yml/no-empty-mapping-value": "warn"
+      }
+    },
+    {
+      "files": [
+        "app.vue"
+      ],
+      "rules": {
+        "vue/attribute-hyphenation": "warn",
+        "vue/component-tags-order": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/AppLayout.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/AppPage.vue"
+      ],
+      "rules": {
+        "vue/attribute-hyphenation": "warn",
+        "vue/attributes-order": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/Assistant.vue"
+      ],
+      "rules": {
+        "@typescript-eslint/consistent-type-imports": "warn",
+        "vue/order-in-components": "warn",
+        "vue/no-setup-props-reactivity-loss": "warn",
+        "max-statements-per-line": "warn",
+        "vue/attributes-order": "warn",
+        "vue/singleline-html-element-content-newline": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/AssistantConversation.vue"
+      ],
+      "rules": {
+        "vue/attributes-order": "warn",
+        "vue/singleline-html-element-content-newline": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/AuthMagicLink.vue"
+      ],
+      "rules": {
+        "@typescript-eslint/comma-dangle": "warn",
+        "vue/no-mutating-props": "warn",
+        "vue/attributes-order": "warn",
+        "vue/singleline-html-element-content-newline": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/AuthMagicLinkModal.vue"
+      ],
+      "rules": {
+        "@typescript-eslint/comma-dangle": "warn",
+        "vue/no-mutating-props": "warn",
+        "vue/singleline-html-element-content-newline": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/AuthSocialLinks.vue"
+      ],
+      "rules": {
+        "vue/order-in-components": "warn",
+        "@typescript-eslint/comma-dangle": "warn",
+        "vue/no-mutating-props": "warn",
+        "vue/attributes-order": "warn",
+        "vue/singleline-html-element-content-newline": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/AuthStripeModal.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/AuthTier.vue"
+      ],
+      "rules": {
+        "vue/attributes-order": "warn",
+        "vue/singleline-html-element-content-newline": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/AuthTiers.vue"
+      ],
+      "rules": {
+        "vue/attributes-order": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/Banner.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn",
+        "vue/attributes-order": "warn",
+        "vue/component-tags-order": "warn",
+        "import/newline-after-import": "warn",
+        "max-statements-per-line": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/ChangeLog.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn",
+        "vue/attributes-order": "warn",
+        "vue/component-tags-order": "warn",
+        "max-statements-per-line": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/ChangeLogEntry.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/ChatMessage.vue"
+      ],
+      "rules": {
+        "vue/attribute-hyphenation": "warn",
+        "vue/singleline-html-element-content-newline": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/CheckList.vue"
+      ],
+      "rules": {
+        "vue/block-tag-newline": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/CoreAlert.vue"
+      ],
+      "rules": {
+        "vue/no-setup-props-reactivity-loss": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/CoreButton.vue"
+      ],
+      "rules": {
+        "no-useless-computed-key": "warn",
+        "no-mixed-operators": "warn",
+        "prefer-template": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/CoreEditor.vue"
+      ],
+      "rules": {
+        "vue/attributes-order": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/CoreInput.vue"
+      ],
+      "rules": {
+        "vue/html-self-closing": "warn",
+        "vue/attributes-order": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/CoreLink.vue"
+      ],
+      "rules": {
+        "@typescript-eslint/comma-dangle": "warn",
+        "vue/singleline-html-element-content-newline": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/CorePanel.vue"
+      ],
+      "rules": {
+        "vue/block-tag-newline": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/DevRoute.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn",
+        "vue/valid-v-for": "warn",
+        "vue/no-use-v-if-with-v-for": "warn",
+        "vue/attributes-order": "warn",
+        "vue/component-tags-order": "warn",
+        "vue/no-mutating-props": "warn",
+        "vue/no-side-effects-in-computed-properties": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/DevRoutes.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn",
+        "vue/valid-v-for": "warn",
+        "vue/component-tags-order": "warn",
+        "vue/no-mutating-props": "warn",
+        "vue/no-side-effects-in-computed-properties": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/DiscardableAction.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn",
+        "vue/component-tags-order": "warn",
+        "@typescript-eslint/semi": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/Doc.vue"
+      ],
+      "rules": {
+        "vue/html-self-closing": "warn",
+        "vue/attributes-order": "warn",
+        "vue/singleline-html-element-content-newline": "warn",
+        "vue/component-tags-order": "warn",
+        "@typescript-eslint/semi": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/DocLink.vue"
+      ],
+      "rules": {
+        "vue/component-tags-order": "warn",
+        "vue/no-setup-props-reactivity-loss": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/DocList.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn",
+        "vue/attributes-order": "warn",
+        "vue/attribute-hyphenation": "warn",
+        "vue/component-tags-order": "warn",
+        "vue/order-in-components": "warn",
+        "vue/no-unused-components": "warn",
+        "@typescript-eslint/comma-dangle": "warn",
+        "max-statements-per-line": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/Editor.vue"
+      ],
+      "rules": {
+        "vue/attributes-order": "warn",
+        "vue/component-tags-order": "warn",
+        "vue/order-in-components": "warn",
+        "no-mixed-operators": "warn",
+        "@typescript-eslint/semi": "warn",
+        "@typescript-eslint/comma-dangle": "warn",
+        "no-console": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/Extendable.vue"
+      ],
+      "rules": {
+        "vue/html-self-closing": "warn",
+        "vue/attributes-order": "warn",
+        "vue/component-tags-order": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/FormText.vue"
+      ],
+      "rules": {
+        "vue/order-in-components": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/Key.vue"
+      ],
+      "rules": {
+        "vue/html-self-closing": "warn",
+        "vue/component-tags-order": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/ModK.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/ModKKey.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn",
+        "vue/html-closing-bracket-spacing": "warn",
+        "vue/component-tags-order": "warn",
+        "@typescript-eslint/semi": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/Modal.vue"
+      ],
+      "rules": {
+        "vue/html-self-closing": "warn",
+        "vue/component-tags-order": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/Providers.vue"
+      ],
+      "rules": {
+        "vue/attributes-order": "warn",
+        "vue/component-tags-order": "warn",
+        "sort-imports": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/SettingsEditor.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn",
+        "vue/attributes-order": "warn",
+        "vue/component-tags-order": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/Tag.vue"
+      ],
+      "rules": {
+        "vue/html-self-closing": "warn",
+        "vue/component-tags-order": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/TagLink.vue"
+      ],
+      "rules": {
+        "vue/component-tags-order": "warn",
+        "vue/no-setup-props-reactivity-loss": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/settings/Appearance.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn",
+        "vue/html-self-closing": "warn",
+        "vue/component-tags-order": "warn",
+        "@typescript-eslint/comma-dangle": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/settings/Encryption.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn",
+        "vue/html-self-closing": "warn",
+        "vue/attributes-order": "warn",
+        "vue/component-tags-order": "warn",
+        "@typescript-eslint/semi": "warn",
+        "@typescript-eslint/comma-dangle": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/settings/Experimental.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn",
+        "vue/component-tags-order": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/settings/Export.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn"
+      }
+    },
+    {
+      "files": [
+        "components/settings/Import.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn"
+      }
+    },
+    {
+      "files": [
+        "composables/useAuth.ts"
+      ],
+      "rules": {
+        "sort-imports": "warn",
+        "no-multi-spaces": "warn",
+        "@typescript-eslint/ban-ts-comment": "warn",
+        "@typescript-eslint/prefer-ts-expect-error": "warn"
+      }
+    },
+    {
+      "files": [
+        "composables/useDevice.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/no-non-null-asserted-optional-chain": "warn"
+      }
+    },
+    {
+      "files": [
+        "composables/useIsNuxt.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/ban-ts-comment": "warn",
+        "@typescript-eslint/prefer-ts-expect-error": "warn"
+      }
+    },
+    {
+      "files": [
+        "composables/useRoot.ts"
+      ],
+      "rules": {
+        "max-statements-per-line": "warn"
+      }
+    },
+    {
+      "files": [
+        "composables/useSoftNavigation.ts"
+      ],
+      "rules": {
+        "import/order": "warn"
+      }
+    },
+    {
+      "files": [
+        "composables/useTiers.ts"
+      ],
+      "rules": {
+        "multiline-ternary": "warn",
+        "@typescript-eslint/indent": "warn"
+      }
+    },
+    {
+      "files": [
+        "dev-dist/sw.js"
+      ],
+      "rules": {
+        "prefer-const": "warn",
+        "@typescript-eslint/semi": "warn",
+        "prefer-template": "warn",
+        "@typescript-eslint/quotes": "warn",
+        "no-trailing-spaces": "warn",
+        "@typescript-eslint/indent": "warn",
+        "no-undef": "warn",
+        "@typescript-eslint/comma-dangle": "warn",
+        "@typescript-eslint/no-extra-parens": "warn",
+        "prefer-arrow-callback": "warn",
+        "@typescript-eslint/brace-style": "warn",
+        "max-statements-per-line": "warn",
+        "quote-props": "warn",
+        "padded-blocks": "warn",
+        "spaced-comment": "warn"
+      }
+    },
+    {
+      "files": [
+        "dev-dist/workbox-9aa54a0d.js"
+      ],
+      "rules": {
+        "no-undef": "warn",
+        "@typescript-eslint/no-extra-parens": "warn",
+        "prefer-arrow-callback": "warn",
+        "@typescript-eslint/brace-style": "warn",
+        "max-statements-per-line": "warn",
+        "@typescript-eslint/semi": "warn",
+        "@typescript-eslint/indent": "warn",
+        "@typescript-eslint/ban-ts-comment": "warn",
+        "@typescript-eslint/prefer-ts-expect-error": "warn",
+        "@typescript-eslint/comma-dangle": "warn",
+        "no-console": "warn",
+        "prefer-template": "warn",
+        "dot-notation": "warn",
+        "valid-typeof": "warn",
+        "eslint-comments/no-unlimited-disable": "warn",
+        "no-lone-blocks": "warn",
+        "@typescript-eslint/lines-between-class-members": "warn",
+        "no-void": "warn",
+        "operator-linebreak": "warn",
+        "no-useless-return": "warn",
+        "no-constant-condition": "warn",
+        "@typescript-eslint/quotes": "warn",
+        "object-shorthand": "warn",
+        "multiline-ternary": "warn",
+        "no-cond-assign": "warn",
+        "no-undef-init": "warn",
+        "no-new": "warn",
+        "no-unneeded-ternary": "warn",
+        "no-mixed-operators": "warn",
+        "padded-blocks": "warn",
+        "spaced-comment": "warn"
+      }
+    },
+    {
+      "files": [
+        "firebase/data/auth_export/accounts.json"
+      ],
+      "rules": {
+        "jsonc/object-curly-spacing": "warn",
+        "jsonc/key-spacing": "warn",
+        "@typescript-eslint/comma-spacing": "warn",
+        "eol-last": "warn"
+      }
+    },
+    {
+      "files": [
+        "firebase/data/auth_export/config.json"
+      ],
+      "rules": {
+        "jsonc/object-curly-spacing": "warn",
+        "jsonc/key-spacing": "warn",
+        "eol-last": "warn"
+      }
+    },
+    {
+      "files": [
+        "firebase/data/firebase-export-metadata.json"
+      ],
+      "rules": {
+        "eol-last": "warn"
+      }
+    },
+    {
+      "files": [
+        "firebase/data/storage_export/buckets.json"
+      ],
+      "rules": {
+        "eol-last": "warn"
+      }
+    },
+    {
+      "files": [
+        "helpers/app.ts"
+      ],
+      "rules": {
+        "no-console": "warn"
+      }
+    },
+    {
+      "files": [
+        "helpers/files.ts"
+      ],
+      "rules": {
+        "new-cap": "warn"
+      }
+    },
+    {
+      "files": [
+        "layouts/dashboard.vue"
+      ],
+      "rules": {
+        "vue/no-unused-components": "warn",
+        "vue/attributes-order": "warn",
+        "vue/no-constant-condition": "warn",
+        "vue/html-self-closing": "warn"
+      }
+    },
+    {
+      "files": [
+        "lib/hashtagged/parser.ts"
+      ],
+      "rules": {
+        "unicorn/escape-case": "warn",
+        "no-misleading-character-class": "warn",
+        "max-statements-per-line": "warn"
+      }
+    },
+    {
+      "files": [
+        "middleware/redirects.global.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "warn",
+        "unused-imports/no-unused-vars": "warn",
+        "array-callback-return": "warn"
+      }
+    },
+    {
+      "files": [
+        "nuxt.config.ts"
+      ],
+      "rules": {
+        "multiline-ternary": "warn",
+        "@typescript-eslint/object-curly-spacing": "warn",
+        "@typescript-eslint/comma-dangle": "warn"
+      }
+    },
+    {
+      "files": [
+        "package.json"
+      ],
+      "rules": {
+        "jsonc/sort-keys": "warn"
+      }
+    },
+    {
+      "files": [
+        "pages/_routes.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn",
+        "vue/component-tags-order": "warn"
+      }
+    },
+    {
+      "files": [
+        "pages/account.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn",
+        "vue/component-tags-order": "warn"
+      }
+    },
+    {
+      "files": [
+        "pages/authenticate.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn",
+        "vue/attributes-order": "warn"
+      }
+    },
+    {
+      "files": [
+        "pages/docs/[docId]/index.vue"
+      ],
+      "rules": {
+        "vue/no-unused-refs": "warn",
+        "vue/attributes-order": "warn"
+      }
+    },
+    {
+      "files": [
+        "pages/docs/[docId]/meta.vue"
+      ],
+      "rules": {
+        "vue/attributes-order": "warn",
+        "vue/html-self-closing": "warn",
+        "vue/attribute-hyphenation": "warn",
+        "vue/require-v-for-key": "warn",
+        "vue/singleline-html-element-content-newline": "warn",
+        "vue/component-tags-order": "warn",
+        "sort-imports": "warn",
+        "@typescript-eslint/brace-style": "warn",
+        "vue/order-in-components": "warn"
+      }
+    },
+    {
+      "files": [
+        "pages/docs/export.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn"
+      }
+    },
+    {
+      "files": [
+        "pages/docs/f/[filter].vue"
+      ],
+      "rules": {
+        "vue/component-tags-order": "warn"
+      }
+    },
+    {
+      "files": [
+        "pages/docs/import.vue"
+      ],
+      "rules": {
+        "vue/no-useless-v-bind": "warn",
+        "vue/html-self-closing": "warn",
+        "vue/attributes-order": "warn",
+        "vue/html-closing-bracket-spacing": "warn",
+        "vue/require-v-for-key": "warn",
+        "vue/singleline-html-element-content-newline": "warn",
+        "vue/component-tags-order": "warn",
+        "max-statements-per-line": "warn"
+      }
+    },
+    {
+      "files": [
+        "pages/docs/index.vue"
+      ],
+      "rules": {
+        "vue/component-tags-order": "warn"
+      }
+    },
+    {
+      "files": [
+        "pages/example.vue"
+      ],
+      "rules": {
+        "vue/component-tags-order": "warn",
+        "max-statements-per-line": "warn"
+      }
+    },
+    {
+      "files": [
+        "pages/file-editor/[file].vue"
+      ],
+      "rules": {
+        "vue/component-tags-order": "warn",
+        "vue/no-setup-props-reactivity-loss": "warn",
+        "max-statements-per-line": "warn",
+        "@typescript-eslint/ban-ts-comment": "warn",
+        "@typescript-eslint/prefer-ts-expect-error": "warn"
+      }
+    },
+    {
+      "files": [
+        "pages/force-graph.vue"
+      ],
+      "rules": {
+        "import/order": "warn",
+        "@typescript-eslint/indent": "warn",
+        "vue/component-tags-order": "warn",
+        "vue/html-self-closing": "warn",
+        "vue/singleline-html-element-content-newline": "warn"
+      }
+    },
+    {
+      "files": [
+        "pages/home.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn",
+        "vue/html-self-closing": "warn",
+        "vue/attributes-order": "warn"
+      }
+    },
+    {
+      "files": [
+        "pages/index.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn",
+        "vue/html-self-closing": "warn",
+        "vue/attributes-order": "warn"
+      }
+    },
+    {
+      "files": [
+        "pages/menu.vue"
+      ],
+      "rules": {
+        "vue/attributes-order": "warn",
+        "vue/html-self-closing": "warn",
+        "vue/singleline-html-element-content-newline": "warn",
+        "vue/no-template-shadow": "warn",
+        "vue/component-tags-order": "warn",
+        "sort-imports": "warn",
+        "vue/no-unused-components": "warn",
+        "vue/no-side-effects-in-computed-properties": "warn",
+        "vue/order-in-components": "warn"
+      }
+    },
+    {
+      "files": [
+        "pages/notepad.vue"
+      ],
+      "rules": {
+        "vue/attribute-hyphenation": "warn",
+        "vue/component-tags-order": "warn",
+        "vue/order-in-components": "warn"
+      }
+    },
+    {
+      "files": [
+        "pages/privacy-policy.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn"
+      }
+    },
+    {
+      "files": [
+        "pages/quick-action.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn"
+      }
+    },
+    {
+      "files": [
+        "pages/settings.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn",
+        "vue/component-tags-order": "warn"
+      }
+    },
+    {
+      "files": [
+        "pages/tags.vue"
+      ],
+      "rules": {
+        "vue/html-self-closing": "warn",
+        "vue/attributes-order": "warn",
+        "vue/component-tags-order": "warn",
+        "@typescript-eslint/semi": "warn",
+        "vue/order-in-components": "warn"
+      }
+    },
+    {
+      "files": [
+        "pages/terms-and-conditions.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn"
+      }
+    },
+    {
+      "files": [
+        "pages/workspaces.vue"
+      ],
+      "rules": {
+        "vue/singleline-html-element-content-newline": "warn",
+        "vue/attributes-order": "warn",
+        "vue/no-deprecated-v-on-number-modifiers": "warn",
+        "vue/component-tags-order": "warn",
+        "@typescript-eslint/semi": "warn",
+        "vue/no-side-effects-in-computed-properties": "warn",
+        "@typescript-eslint/comma-dangle": "warn",
+        "vue/order-in-components": "warn"
+      }
+    },
+    {
+      "files": [
+        "plugins/dev.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "warn",
+        "unused-imports/no-unused-vars": "warn",
+        "@typescript-eslint/ban-ts-comment": "warn",
+        "@typescript-eslint/prefer-ts-expect-error": "warn"
+      }
+    },
+    {
+      "files": [
+        "plugins/mq.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/ban-ts-comment": "warn",
+        "@typescript-eslint/prefer-ts-expect-error": "warn"
+      }
+    },
+    {
+      "files": [
+        "pwa.config.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/consistent-type-imports": "warn",
+        "prefer-regex-literals": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/common/code_sandbox.js"
+      ],
+      "rules": {
+        "@typescript-eslint/semi": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/common/crypto/asymmetric.js"
+      ],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "warn",
+        "unused-imports/no-unused-imports": "warn",
+        "@typescript-eslint/semi": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/common/crypto/crypto.js"
+      ],
+      "rules": {
+        "@typescript-eslint/semi": "warn",
+        "vars-on-top": "warn",
+        "no-var": "warn",
+        "block-scoped-var": "warn",
+        "@typescript-eslint/no-redeclare": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/common/crypto/symmetric.js"
+      ],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "warn",
+        "unused-imports/no-unused-imports": "warn",
+        "@typescript-eslint/semi": "warn",
+        "object-shorthand": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/common/crypto/utils.js"
+      ],
+      "rules": {
+        "@typescript-eslint/semi": "warn",
+        "@typescript-eslint/comma-dangle": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/common/keybindings.js"
+      ],
+      "rules": {
+        "@typescript-eslint/comma-spacing": "warn",
+        "no-mixed-operators": "warn",
+        "unicorn/no-instanceof-array": "warn",
+        "@typescript-eslint/space-infix-ops": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/common/parsers.ts"
+      ],
+      "rules": {
+        "no-cond-assign": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/common/vue.ts"
+      ],
+      "rules": {
+        "max-statements-per-line": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/firebase/firestore.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/comma-dangle": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/firebase.js"
+      ],
+      "rules": {
+        "@typescript-eslint/comma-dangle": "warn",
+        "no-undef": "warn",
+        "max-statements-per-line": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/models/doc.ts"
+      ],
+      "rules": {
+        "sort-imports": "warn",
+        "object-shorthand": "warn",
+        "@typescript-eslint/comma-dangle": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/packages/test/index.js"
+      ],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "warn",
+        "unused-imports/no-unused-vars": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/store/modules/auth.js"
+      ],
+      "rules": {
+        "@typescript-eslint/space-before-function-paren": "warn",
+        "@typescript-eslint/no-unused-vars": "warn",
+        "unused-imports/no-unused-vars": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/store/modules/contexts.js"
+      ],
+      "rules": {
+        "@typescript-eslint/space-before-function-paren": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/store/modules/documents.js"
+      ],
+      "rules": {
+        "sort-imports": "warn",
+        "eqeqeq": "warn",
+        "@typescript-eslint/space-before-function-paren": "warn",
+        "padded-blocks": "warn",
+        "@typescript-eslint/semi": "warn",
+        "@typescript-eslint/comma-dangle": "warn",
+        "@typescript-eslint/quotes": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/store/modules/keybindings.js"
+      ],
+      "rules": {
+        "@typescript-eslint/space-before-function-paren": "warn",
+        "array-callback-return": "warn",
+        "@typescript-eslint/comma-dangle": "warn",
+        "@typescript-eslint/no-unused-vars": "warn",
+        "unused-imports/no-unused-vars": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/store/modules/settings.js"
+      ],
+      "rules": {
+        "@typescript-eslint/space-before-function-paren": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/store/modules/sync.js"
+      ],
+      "rules": {
+        "@typescript-eslint/space-before-function-paren": "warn",
+        "@typescript-eslint/comma-dangle": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/store/plugins/caching/contexts.js"
+      ],
+      "rules": {
+        "no-case-declarations": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/store/plugins/caching/documents.js"
+      ],
+      "rules": {
+        "no-case-declarations": "warn",
+        "@typescript-eslint/comma-dangle": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/store/plugins/caching/settings.ts"
+      ],
+      "rules": {
+        "sort-imports": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/store/plugins/keybindings.js"
+      ],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "warn",
+        "unused-imports/no-unused-vars": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/store/plugins/packages.js"
+      ],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "warn",
+        "unused-imports/no-unused-imports": "warn",
+        "no-case-declarations": "warn",
+        "@typescript-eslint/semi": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/store/plugins/sync.js"
+      ],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "warn",
+        "unused-imports/no-unused-vars": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/store.js"
+      ],
+      "rules": {
+        "import/first": "warn",
+        "prefer-const": "warn",
+        "@typescript-eslint/comma-dangle": "warn",
+        "@typescript-eslint/space-before-function-paren": "warn",
+        "@typescript-eslint/no-unused-vars": "warn",
+        "unused-imports/no-unused-vars": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/stores/plugins/caching.ts"
+      ],
+      "rules": {
+        "import/order": "warn",
+        "@typescript-eslint/no-unused-vars": "warn",
+        "unused-imports/no-unused-vars": "warn",
+        "@typescript-eslint/member-delimiter-style": "warn",
+        "max-statements-per-line": "warn",
+        "@typescript-eslint/comma-dangle": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/stores/useFiles.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/member-delimiter-style": "warn",
+        "@typescript-eslint/no-unused-vars": "warn",
+        "unused-imports/no-unused-vars": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/utils/iterables.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/member-delimiter-style": "warn",
+        "unicorn/error-message": "warn",
+        "@typescript-eslint/comma-dangle": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/utils/objects.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/indent": "warn",
+        "@typescript-eslint/no-redeclare": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/vendor/plugins/hashtags/completions.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/consistent-type-imports": "warn",
+        "import/order": "warn",
+        "max-statements-per-line": "warn",
+        "@typescript-eslint/comma-dangle": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/vendor/plugins/hashtags/index.ts"
+      ],
+      "rules": {
+        "import/order": "warn",
+        "@typescript-eslint/comma-dangle": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/vendor/plugins/index.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/member-delimiter-style": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/vendor/plugins/mermaid/index.ts"
+      ],
+      "rules": {
+        "import/order": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/vendor/plugins/mermaid/theme.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/comma-dangle": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/vendor/plugins/mermaid/widget.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/consistent-type-imports": "warn",
+        "@typescript-eslint/member-delimiter-style": "warn",
+        "@typescript-eslint/keyword-spacing": "warn",
+        "no-console": "warn",
+        "padded-blocks": "warn",
+        "object-shorthand": "warn",
+        "max-statements-per-line": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/vendor/plugins/references/completions.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/consistent-type-imports": "warn",
+        "import/order": "warn",
+        "max-statements-per-line": "warn",
+        "@typescript-eslint/comma-dangle": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/vendor/plugins/references/index.ts"
+      ],
+      "rules": {
+        "import/order": "warn",
+        "@typescript-eslint/member-delimiter-style": "warn",
+        "no-mixed-operators": "warn",
+        "max-statements-per-line": "warn",
+        "@typescript-eslint/ban-ts-comment": "warn",
+        "@typescript-eslint/prefer-ts-expect-error": "warn",
+        "prefer-const": "warn",
+        "@typescript-eslint/comma-dangle": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/vendor/plugins/references/replacements.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/consistent-type-imports": "warn",
+        "@typescript-eslint/member-delimiter-style": "warn",
+        "object-shorthand": "warn",
+        "max-statements-per-line": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/vendor/plugins/urls/clickable.ts"
+      ],
+      "rules": {
+        "import/order": "warn",
+        "array-callback-return": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/vendor/plugins/urls/grammar.ts"
+      ],
+      "rules": {
+        "import/order": "warn",
+        "@typescript-eslint/comma-dangle": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/vendor/plugins/urls/index.ts"
+      ],
+      "rules": {
+        "import/order": "warn"
+      }
+    },
+    {
+      "files": [
+        "src/vendor/plugins/urls/theme.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/comma-dangle": "warn"
+      }
+    },
+    {
+      "files": [
+        "test/cypress/support/commands.ts"
+      ],
+      "rules": {
+        "array-callback-return": "warn",
+        "@typescript-eslint/comma-dangle": "warn"
+      }
+    },
+    {
+      "files": [
+        "test/cypress/support/e2e.ts"
+      ],
+      "rules": {
+        "no-proto": "warn"
+      }
+    },
+    {
+      "files": [
+        "types/types.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/member-delimiter-style": "warn"
+      }
+    },
+    {
+      "files": [
+        "vite.config.ts"
+      ],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "warn",
+        "unused-imports/no-unused-imports": "warn"
+      }
+    }
+  ]
+}

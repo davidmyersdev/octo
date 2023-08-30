@@ -1,7 +1,3 @@
-<template>
-  <Editor :appearance="appearance" :settings="settings" :doc="doc" @input="input" />
-</template>
-
 <script lang="ts" setup>
 import { computed, ref, watchEffect } from 'vue'
 import { useStore } from 'vuex'
@@ -11,12 +7,12 @@ import { debouncer } from '#root/src/common/debouncer'
 import Editor from '#root/components/Editor.vue'
 import { useFiles } from '#root/src/stores/useFiles'
 
-const { id } = defineProps({ id: String })
+const props = defineProps({ id: String })
 const fileStore = useFiles()
 const store = useStore()
 const { debounce } = debouncer(800)
 const appearance = computed(() => {
-  if (store.state.settings.theme === 'october') { return 'dark' }
+  if (store.state.settings.theme === 'october') return 'dark'
 
   return store.state.settings.theme as string
 })
@@ -25,11 +21,10 @@ const settings = computed(() => {
 })
 
 const doc = ref(new Doc())
-const file = computed(() => (fileStore.files.find(file => file.id === id)))
+const file = computed(() => (fileStore.files.find(file => file.id === props.id)))
 
 watchEffect(async () => {
   if (file?.value) {
-    // @ts-ignore
     await file.value.handle.createWritable()
     const fileHandle = await file.value.handle.getFile()
 
@@ -48,3 +43,7 @@ const input = async (text: string) => {
   })
 }
 </script>
+
+<template>
+  <Editor :appearance="appearance" :settings="settings" :doc="doc" @input="input" />
+</template>

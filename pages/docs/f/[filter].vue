@@ -1,9 +1,3 @@
-<template>
-  <CorePage>
-    <DocList v-model:query="query" :filter="filter" />
-  </CorePage>
-</template>
-
 <script lang="ts" setup>
 const props = defineProps<{ filter: string }>()
 const router = useRouter()
@@ -15,3 +9,9 @@ useHead({
   title: 'Docs',
 })
 </script>
+
+<template>
+  <CorePage>
+    <DocList v-model:query="query" :filter="filter" />
+  </CorePage>
+</template>

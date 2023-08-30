@@ -110,9 +110,13 @@ export const widget = async (_config: Config): Promise<Extension> => {
         themeVariables,
       })
 
-      const { default: mindmap } = await import('@mermaid-js/mermaid-mindmap')
+      try {
+        const { default: mindmap } = await import('@mermaid-js/mermaid-mindmap')
 
-      await mermaid.registerExternalDiagrams([mindmap], { lazyLoad: true })
+        await mermaid.registerExternalDiagrams([mindmap], { lazyLoad: true })
+      } catch (error) {
+        console.error(error)
+      }
 
       // This will prevent mermaid from being loaded multiple times in a single session.
       state.isMermaidLoaded = true

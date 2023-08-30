@@ -38,6 +38,16 @@ env:
   NUXT_PUBLIC_FIREBASE_STORAGE_BUCKET: fake
   NUXT_PUBLIC_STRIPE_MONTHLY_PRICE:
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - uses: pnpm/action-setup@v2
+      - run: pnpm install --shamefully-hoist
+      - run: pnpm lint
   test-cypress:
     runs-on: ubuntu-latest
     steps:

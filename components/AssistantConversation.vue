@@ -34,7 +34,7 @@ export default defineComponent({
 <template>
   <section class="flex flex-col gap-1">
     <CoreLink :to="{ path: `/assistant/conversations/${chat.id}` }" class="bg-layer-1 flex flex-col gap-2 p-2 relative rounded">
-      <CoreButton @click.prevent.stop="discard" :layer="1" class="absolute top-2 right-2">
+      <CoreButton :layer="1" class="absolute top-2 right-2" @click.prevent.stop="discard">
         <AssetTrash class="h-5 w-5 text-red-500" />
       </CoreButton>
       <span class="flex flex-col self-start">
@@ -46,6 +46,8 @@ export default defineComponent({
         <span>{{ assistantMessage?.text }}</span>
       </span>
     </CoreLink>
-    <p class="flex justify-end px-2"><small>{{ createdAt }}</small></p>
+    <p class="flex justify-end px-2">
+      <small>{{ createdAt }}</small>
+    </p>
   </section>
 </template>

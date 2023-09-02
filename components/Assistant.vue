@@ -1,49 +1,72 @@
 <script lang="ts">
 import { openai } from 'vellma/integrations'
 import { useChat } from 'vellma/models'
-import { consoleLogger, useLogger } from 'vellma/peripherals'
-import { CoreEditor, CoreScrollable } from '#components'
-import { type ChatMessage } from '#helpers/database'
+import { consoleLogger, useLogger, useStorage } from 'vellma/peripherals'
+import { type CoreEditor, type CoreScrollable } from '#components'
 
 export default defineComponent({
-  emits: ['message'],
   props: {
-    messages: {
-      type: Array as PropType<ChatMessage[]>,
-      default: () => ([]),
+    chatId: {
+      type: String,
     },
   },
-  setup(props, { emit }) {
+  setup(props) {
+    const { id } = useId()
     const { lazyWritableComputed } = useHooks()
+    const chatId = computed(() => props.chatId || id())
+    const { chatMessages } = useChatMessages({ chatId })
     const logger = useLogger(consoleLogger())
-    const peripherals = { logger }
+    const { storageAdapter } = useAssistant()
+    const storage = useStorage(storageAdapter)
+    const peripherals = { logger, storage }
     const historyElement = ref<InstanceType<typeof CoreScrollable>>()
     const inputElement = ref<InstanceType<typeof CoreEditor>>()
     const input = ref('')
     const actualApiKey = useLocalStorage<string>('openAiApiKey', '')
     const apiKey = lazyWritableComputed(() => actualApiKey.value, (val) => actualApiKey.value = val, '')
     const integration = computed(() => openai({ apiKey: apiKey.value, peripherals }))
-    const chatModel = computed(() => useChat({ integration: integration.value, peripherals }))
+    const chatModel = computed(() => useChat({ chatId: chatId.value, integration: integration.value, peripherals }))
     const model = computed(() => chatModel.value.model)
     const factory = computed(() => chatModel.value.factory)
 
     const isWaiting = ref(false)
+    const isUserScrolling = ref(false)
     const showTryAgainMessage = ref(false)
+    const lastKnownScrollTop = ref(0)
 
-    // Todo: Add memory adapter for reactive vue state.
-    model.value.hydrate(props.messages)
-
-    watch(() => props.messages, () => {
+    watch(chatMessages, () => {
       showTryAgainMessage.value = false
 
-      model.value.hydrate(props.messages)
+      if (!isUserScrolling.value) {
+        scrollToBottom()
+      }
+    })
 
-      scrollToBottom()
+    watch(historyElement, () => {
+      if (historyElement.value?.scrollable) {
+        const { viewport } = historyElement.value.scrollable.elements()
+
+        historyElement.value.scrollable.on('scroll', () => {
+          const { offsetHeight, scrollHeight, scrollTop } = viewport
+          const maxScrollTop = scrollHeight - offsetHeight
+
+          if (scrollTop < lastKnownScrollTop.value) {
+            isUserScrolling.value = true
+          }
+
+          // Allow a small margin of error.
+          if (scrollTop >= (maxScrollTop - 5)) {
+            isUserScrolling.value = false
+          }
+
+          lastKnownScrollTop.value = scrollTop
+        })
+      }
     })
 
     onMounted(() => {
       setTimeout(() => {
-        if (props.messages.at(-1)?.role === 'human') {
+        if (chatMessages.value.at(-1)?.role === 'human') {
           showTryAgainMessage.value = true
         }
       }, 1000)
@@ -78,14 +101,14 @@ export default defineComponent({
       showTryAgainMessage.value = false
 
       // Do not try again if the last message was from the assistant.
-      if (props.messages.at(-1)?.role === 'assistant') { return }
+      if (chatMessages.value.at(-1)?.role === 'assistant') return
 
       try {
         isWaiting.value = true
 
-        const assistantMessage = await model.value.generate()
-
-        emit('message', assistantMessage)
+        for await (const _value of model.value.generate()) {
+          // no-op
+        }
       } catch (error) {
         console.error(error)
         showTryAgainMessage.value = true
@@ -96,18 +119,18 @@ export default defineComponent({
 
     const onSend = async () => {
       inputElement.value?.focus()
+      isUserScrolling.value = false
 
       const humanMessage = factory.value.human({ text: input.value })
 
-      emit('message', humanMessage)
       input.value = ''
 
       try {
         isWaiting.value = true
 
-        const assistantMessage = await model.value.generate(humanMessage)
-
-        emit('message', assistantMessage)
+        for await (const _value of model.value.generate(humanMessage)) {
+          // no-op
+        }
       } catch (error) {
         console.error(error)
         showTryAgainMessage.value = true
@@ -118,6 +141,7 @@ export default defineComponent({
 
     return {
       apiKey,
+      chatMessages,
       historyElement,
       input,
       inputElement,
@@ -150,7 +174,7 @@ export default defineComponent({
             </svg>
           </CoreButtonLink>
         </div>
-        <ChatMessage v-for="message in messages" :key="message.id" :created-at="message.createdAt" :role="message.role" :text="message.text" />
+        <ChatMessage v-for="message in chatMessages" :key="message.id" :created-at="message.createdAt" :role="message.role" :text="message.text" />
       </div>
     </CoreScrollable>
     <section class="bg-layer-1">
@@ -161,10 +185,14 @@ export default defineComponent({
         </p>
         <CoreScrollable class="bg-layer-0 rounded max-h-[10rem]">
           <div class="flex gap-2">
-            <CoreEditor :layer="0" ref="inputElement" v-model="input" :options="inputOptions" />
+            <CoreEditor ref="inputElement" v-model="input" :layer="0" :options="inputOptions" />
             <div v-if="apiKey">
-              <CoreButton v-if="showTryAgainMessage" :layer="1" @click="tryAgain" class="m-1 self-start sticky top-1">Try again</CoreButton>
-              <CoreButton v-else @click="onSend" :disabled="isWaiting" :layer="1" class="m-1 self-start sticky top-1">{{ isWaiting ? 'Waiting for a reply...' : 'Send' }}</CoreButton>
+              <CoreButton v-if="showTryAgainMessage" :layer="1" class="m-1 self-start sticky top-1" @click="tryAgain">
+                Try again
+              </CoreButton>
+              <CoreButton v-else :disabled="isWaiting" :layer="1" class="m-1 self-start sticky top-1" @click="onSend">
+                {{ isWaiting ? 'Waiting for a reply...' : 'Send' }}
+              </CoreButton>
             </div>
           </div>
         </CoreScrollable>

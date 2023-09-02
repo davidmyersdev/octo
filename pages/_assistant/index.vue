@@ -1,44 +1,26 @@
 <script lang="ts">
-import { type ChatMessage } from '#helpers/database'
-
 export default defineComponent({
   setup() {
     const { id } = useId()
-    const { now } = useTime()
     const router = useRouter()
     const { isHydrated, isMounted } = useHooks()
     const chatIdFromRoute = computed(() => router.currentRoute.value.params.id as string)
     const chatId = computed(() => chatIdFromRoute.value || id())
-    const { addChat, chat } = useChat(chatId)
-    const { addChatMessage, chatMessages } = useChatMessages({ chatId })
+    const { chat } = useChat(chatId)
     const { pushRoute } = useSoftNavigation()
 
-    const onMessage = async (message: ChatMessage) => {
-      const timestamp = now()
-
-      if (!chat.value) {
-        await addChat({ id: chatId.value, createdAt: timestamp })
-      }
-
-      await addChatMessage({ ...message, chatId: chatId.value, createdAt: timestamp })
-
-      if (!chatIdFromRoute.value) {
+    watch(chat, () => {
+      if (chat.value && !chatIdFromRoute.value) {
         pushRoute({
           path: `/assistant/conversations/${chatId.value}`,
         })
       }
-    }
-
-    // Todo: Merge Assistant.vue into this one.
+    })
 
     return {
       chatId,
-      chatIdFromRoute,
-      chat,
-      chatMessages,
       isHydrated,
       isMounted,
-      onMessage,
     }
   },
 })
@@ -46,6 +28,6 @@ export default defineComponent({
 
 <template>
   <article class="flex flex-col flex-grow">
-    <Assistant v-if="isMounted && isHydrated" :messages="chatMessages" @message="onMessage" />
+    <Assistant v-if="isMounted && isHydrated" :chat-id="chatId" />
   </article>
 </template>

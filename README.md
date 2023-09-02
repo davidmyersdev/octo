@@ -1,6 +1,7 @@
 [![License](https://img.shields.io/github/license/davidmyersdev/octo?color=blue&style=for-the-badge)](https://github.com/davidmyersdev/octo/blob/main/LICENSE)
 [![Chat on Discord](https://img.shields.io/discord/776165182560403547?color=blue&style=for-the-badge)](https://voracious.link/chat)
-
+[![Sponsor me](https://img.shields.io/badge/sponsor-DB61A2?style=for-the-badge&logo=GitHub-Sponsors&logoColor=white)](https://voracious.link/sponsor)
+[![Donate](https://img.shields.io/badge/donate-FF5F5F?style=for-the-badge&logo=ko-fi&logoColor=white)](https://voracious.link/donate)
 # Octo
 
 Take control of your knowledge work. Sign up at [octo.app](https://octo.app).

@@ -1,4 +1,4 @@
-import { VitePWAOptions } from 'vite-plugin-pwa'
+import type { VitePWAOptions } from 'vite-plugin-pwa'
 
 const defineConfig = (config: Partial<VitePWAOptions>): Partial<VitePWAOptions> => {
   return config
@@ -19,23 +19,23 @@ export const config = defineConfig({
     navigateFallback: '/',
     navigateFallbackDenylist: [
       // Ignore Cypress routes.
-      new RegExp('^/__'),
+      /^\/__/,
       // Keep this around for backward compatibility.
-      new RegExp('^/manifest\\.json$'),
+      /^\/manifest\.json$/,
       // Keep this around for backward compatibility.
-      new RegExp('^/service-worker\\.js$'),
-      new RegExp('cypress'),
+      /^\/service-worker\.js$/,
+      /cypress/,
     ],
     runtimeCaching: [
       {
-        urlPattern: new RegExp('^https\:\/\/cdnjs\.cloudflare\.com\/.*'),
+        urlPattern: /^https:\/\/cdnjs.cloudflare.com\/.*/,
         handler: 'StaleWhileRevalidate',
         options: {
           cacheName: 'cloudflare-cache',
         },
       },
       {
-        urlPattern: new RegExp('^https\:\/\/fonts\.gstatic\.com\/s\/.*'),
+        urlPattern: /^https:\/\/fonts.gstatic.com\/s\/.*/,
         handler: 'StaleWhileRevalidate',
         options: {
           cacheName: 'font-cache',
@@ -46,6 +46,7 @@ export const config = defineConfig({
   },
   manifest: {
     background_color: '#171717',
+    display: 'standalone',
     theme_color: '#121212',
     name: process.env.NUXT_PUBLIC_APP_NAME || 'Octo',
     scope: '/',

@@ -141,7 +141,7 @@ export default defineNuxtConfig({
       firebaseEmulatorFunctionsPort: '',
       firebaseEmulatorStorageHost: '',
       firebaseEmulatorStoragePort: '',
-      firebaseDisabled: '',
+      firebaseDisabled: 'true',
       firebaseLogLevel: '',
       firebaseMessagingSenderId: '',
       firebaseProjectId: '',

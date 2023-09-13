@@ -2,6 +2,7 @@
   "extends": ["artisan"],
   "rules": {
     "vue/no-ref-object-destructure": ["error"],
-    "vue/no-setup-props-reactivity-loss": ["error"]
+    "vue/no-setup-props-reactivity-loss": ["error"],
+    "yml/no-empty-mapping-value": ["off"]
   }
 }

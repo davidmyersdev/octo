@@ -28,9 +28,11 @@ const createdAt = computed(() => humanTime(props.createdAt))
 <template>
   <section class="flex flex-col">
     <div class="flex flex-col relative">
-      <label class="bg-layer-0 bg-opacity-75 block m-1 px-1 rounded sticky top-1 z-10" :class="{ 'self-end': isAssistant, 'self-start': isHuman }"><small>{{ name }}</small></label>
-      <CoreEditor v-if="isMounted" :layer="1" :modelValue="text" :options="options" class="bg-layer-1 rounded" />
+      <label class="bg-layer-0 bg-opacity-75 block m-1 px-1 rounded sticky top-1 z-10" :class="{ 'self-end': isHuman, 'self-start': isAssistant }"><small>{{ name }}</small></label>
+      <CoreEditor v-if="isMounted" :layer="1" :model-value="text" :options="options" class="bg-layer-1 rounded" />
     </div>
-    <p class="flex px-2 mt-1" :class="{ 'self-end': isAssistant, 'self-start': isHuman }"><small>{{ createdAt }}</small></p>
+    <p class="flex px-2 mt-1" :class="{ 'self-end': isHuman, 'self-start': isAssistant }">
+      <small>{{ createdAt }}</small>
+    </p>
   </section>
 </template>

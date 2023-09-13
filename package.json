@@ -7,14 +7,17 @@
   "scripts": {
     "build": "nuxt prepare && nuxt typecheck && tsx manifest.ts && nuxt generate",
     "clean": "rimraf .output dev-dist dist",
-    "cypress": "cypress run",
-    "cypress:dev": "cypress open",
     "dev": "nuxt dev --port 8888",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "lint:todo": "eslint-generate-todo --format json .",
     "preview": "serve -p 8889 -s ./.output/public",
-    "test": "run-s cypress",
+    "test": "run-s test:cypress",
+    "test:cypress": "cypress run",
+    "test:cypress:minimal": "cypress run --env skipTags='api'",
+    "test:cypress:snapshots": "cypress run --env tags='image-snapshot'",
+    "test:cypress:snapshots:update": "cypress run --env tags='image-snapshot',updateSnapshots='true'",
+    "test:cypress:open": "cypress open --env skipTags='image-snapshot'",
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {
@@ -50,6 +53,7 @@
     "@heroicons/vue": "^2.0.12",
     "@nuxtjs/tailwindcss": "^6.7.2",
     "@pinia/nuxt": "^0.4.11",
+    "@simonsmith/cypress-image-snapshot": "^8.1.1",
     "@tailwindcss/typography": "^0.5.9",
     "@types/file-saver": "^2.0.5",
     "@types/mime-types": "^2.1.1",
@@ -61,7 +65,7 @@
     "@vueuse/nuxt": "^9.13.0",
     "@vueuse/rxjs": "^10.2.0",
     "autoprefixer": "^10.4.13",
-    "cypress": "^12.0.2",
+    "cypress": "^13.1.0",
     "cypress-network-idle": "^1.11.2",
     "deepmerge-ts": "^4.2.1",
     "eslint": "^8.48.0",
@@ -70,6 +74,7 @@
     "micromark": "^3.1.0",
     "npm-run-all": "^4.1.5",
     "nuxt": "^3.5.3",
+    "playwright-webkit": "^1.37.1",
     "postcss": "^8.4.21",
     "remarkable-front-matter": "1.0.1-beta.1",
     "rimraf": "^4.1.2",
@@ -88,6 +93,9 @@
   "imports": {
     "#root/*": {
       "default": "./*"
+    },
+    "#test/*": {
+      "default": "./test/*"
     }
   },
   "packageManager": "pnpm@8.6.6",

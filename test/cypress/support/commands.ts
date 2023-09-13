@@ -1,6 +1,11 @@
+import { addMatchImageSnapshotCommand } from '@simonsmith/cypress-image-snapshot/command'
 import localforage from 'localforage'
 
+// Load commands from cypress-network-idle
 import 'cypress-network-idle'
+
+// Load commands from cypress-image-snapshot
+addMatchImageSnapshotCommand()
 
 const signOut = async () => {
   const firebaseDb = localforage.createInstance({
@@ -11,9 +16,9 @@ const signOut = async () => {
   const keys = await firebaseDb.keys()
 
   return Promise.all(
-    keys.map((key) => {
+    keys.map((key) => (
       firebaseDb.removeItem(key)
-    })
+    )),
   )
 }
 

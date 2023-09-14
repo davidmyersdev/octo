@@ -227,7 +227,11 @@
   }
 
   .core-button {
-    @apply text-text cursor-pointer outline-none focus:ring focus-within:ring p-2 rounded whitespace-nowrap flex gap-3 items-center justify-center disabled:text-opacity-50;
+    @apply core-button-shape cursor-pointer outline-none focus:ring focus-within:ring disabled:text-opacity-50 whitespace-nowrap;
+  }
+
+  .core-button-shape {
+    @apply text-text p-2 rounded flex gap-3 items-center justify-center;
   }
 
   .text-theme {

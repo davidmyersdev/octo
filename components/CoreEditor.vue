@@ -29,7 +29,7 @@ export default defineComponent({
   setup(props) {
     const { system } = useAppearance()
     const blockBg = computed(() => `rgb(var(--layer-${props.layer + 1}-bg))`)
-    const editorElement = ref()
+    const editorElement = ref<InstanceType<typeof Ink>>()
     const editorAppearance = computed(() => (props.appearance ?? props.options?.interface?.appearance ?? system.value))
     const editorOptions = computed(() => {
       return {
@@ -41,8 +41,9 @@ export default defineComponent({
       }
     })
 
-    const focus = () => {
+    const focus = ({ at }: { at?: 'start' | 'end' } = {}) => {
       editorElement.value?.instance?.focus()
+      editorElement.value?.instance?.select({ at })
     }
 
     return {
@@ -60,8 +61,8 @@ export default defineComponent({
     ref="editorElement"
     :model-value="modelValue"
     :options="editorOptions"
-    @update:model-value="$emit('update:modelValue', $event)"
     class="core-editor flex flex-col flex-grow flex-shrink"
+    @update:model-value="$emit('update:modelValue', $event)"
   />
 </template>
 

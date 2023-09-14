@@ -125,10 +125,10 @@ export default defineComponent({
             :rows="lines"
             :spellcheck="false"
             :style="{ height }"
-            @keypress.enter="handleEnter"
             class="unset-all cursor-text block min-h-0 overflow-hidden resize-none"
             :class="{ 'whitespace-nowrap': !multiline }"
-          ></textarea>
+            @keypress.enter="handleEnter"
+          />
         </div>
       </div>
     </label>

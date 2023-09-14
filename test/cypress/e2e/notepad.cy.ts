@@ -3,8 +3,8 @@ import moment from 'moment'
 describe('notepad', () => {
   beforeEach(() => {
     cy.clearIDB()
-    cy.visit('/')
     cy.visit('/notepad')
+    cy.waitForAppReady()
   })
 
   it('is focused', () => {

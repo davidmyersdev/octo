@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type Ref, defineComponent, inject } from 'vue'
+import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import Editor from '#root/components/Editor.vue'
 import Doc from '#root/src/models/doc'
@@ -18,7 +18,7 @@ export default defineComponent({
     docId: String,
   },
   setup(props) {
-    const appearance = inject<Ref<string>>('appearance', ref('auto'))
+    const { system: appearance } = useAppearance()
     const editor = ref()
     const router = useRouter()
     const store = useStore()
@@ -60,7 +60,7 @@ export default defineComponent({
     })
 
     return {
-      appearance: appearance.value === 'october' ? 'dark' : appearance.value,
+      appearance,
       doc,
       editor,
       header,

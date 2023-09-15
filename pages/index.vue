@@ -120,8 +120,8 @@ onMounted(() => {
     <section class="p-4 lg:p-8 container mx-auto">
       <div class="max-w-4xl mx-auto">
         <div class="flex flex-col gap-4">
-          <p class="lg:text-xl">
-            Sign up today and discover how our app can transform your productivity. Remember, your privacy is our priority, and your satisfaction is our goal.
+          <p class="lg:text-xl text-center">
+            Sign up today and discover how our app can transform your productivity.
           </p>
         </div>
         <div class="flex items-center text-center gap-8 lg:gap-16 py-8 lg:py-16">

@@ -18,7 +18,7 @@ const buildAppearance = () => {
     },
   })
 
-  const system = computed(() => store.value === 'auto' ? store.value : resolved.value)
+  const system = computed(() => store.value === 'october' ? 'dark' : store.value)
   const isAuto = computed(() => system.value === 'auto')
   const isDark = computed(() => system.value === 'dark')
   const isLight = computed(() => system.value === 'light')

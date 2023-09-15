@@ -1,12 +1,5 @@
-<template>
-  <div @click="focus" class="flex flex-col flex-grow relative">
-    <div class="editor flex flex-col flex-grow flex-shrink min-h-0 min-w-0 w-full">
-      <Ink v-if="isMounted" ref="ink" v-model="text" :options="options" class="ink-editor flex flex-col flex-grow flex-shrink min-h-0" />
-    </div>
-  </div>
-</template>
-
-<script>
+<script lang="ts">
+import { type Options } from 'ink-mde'
 import Ink from 'ink-mde/vue'
 import { OverlayScrollbars } from 'overlayscrollbars'
 import { toRaw } from 'vue'
@@ -14,16 +7,22 @@ import { addFile } from '#root/src/firebase/storage'
 import { mermaid, plugins } from '#root/src/vendor/plugins'
 
 export default defineComponent({
-  emits: ['input'],
   components: {
     Ink,
   },
-  inject: ['user'],
+  inject: {
+    user: {
+      type: Object,
+      default: () => ({
+        roles: [],
+      }),
+    },
+  },
   props: {
     appearance: {
-      type: String,
+      type: String as PropType<'auto' | 'dark' | 'light'>,
       default: () => ('auto'),
-      validator: (value) => (
+      validator: (value: string) => (
         ['auto', 'dark', 'light'].includes(value)
       ),
     },
@@ -37,6 +36,7 @@ export default defineComponent({
       type: Object,
     },
   },
+  emits: ['input'],
   setup() {
     const ink = ref()
     const { isMounted } = useHooks()
@@ -44,6 +44,19 @@ export default defineComponent({
     const focus = () => {
       // Focus the editor.
       ink.value?.instance?.focus()
+    }
+
+    const uploadFiles = (files: FileList) => {
+      return Promise.all(
+        Array.from(files).map(async (file) => {
+          return addFile(file).then((uploadedFile) => {
+            // Todo: Handle non-image files
+            if (/^image\/.*/.test(uploadedFile?.mimeType || '')) {
+              ink.value.instance.insert(`![](${uploadedFile?.url})`)
+            }
+          })
+        }),
+      )
     }
 
     watch(ink, () => {
@@ -57,11 +70,12 @@ export default defineComponent({
       focus,
       ink,
       isMounted,
+      uploadFiles,
     }
   },
   data() {
     return {
-      lazyPlugins: [],
+      lazyPlugins: [] as any[],
     }
   },
   computed: {
@@ -69,8 +83,8 @@ export default defineComponent({
       return `${this.maxWidthInChars}ch`
     },
     docs() {
-      return this.$store.getters.kept.reduce((docs, doc) => {
-        if (doc.id && doc.id !== this.doc.id && doc.headers.length > 0) {
+      return this.$store.getters.kept.reduce((docs: any[], doc: any) => {
+        if (doc.id && doc.id !== this.doc?.id && doc.headers.length > 0) {
           docs.push({
             id: doc.id,
             title: doc.headers[0],
@@ -81,9 +95,9 @@ export default defineComponent({
       }, [])
     },
     maxWidthInChars() {
-      return this.settings.readability.maxWidthInChars
+      return this.settings?.readability.maxWidthInChars
     },
-    options() {
+    options(): Options {
       const isExperimentalEnabled = this.$store.state.settings.experimental
       const hasLazyPlugins = this.lazyPlugins.length > 0
 
@@ -91,7 +105,7 @@ export default defineComponent({
         files: {
           clipboard: this.pro,
           dragAndDrop: this.pro,
-          handler: (files) => {
+          handler: (files: FileList) => {
             return this.uploadFiles(files)
           },
           injectMarkup: false,
@@ -100,23 +114,24 @@ export default defineComponent({
           appearance: this.appearance,
           attribution: false,
           autocomplete: true,
-          images: this.settings.images.enabled,
-          lists: this.settings.lists.enabled,
+          images: this.settings?.images.enabled,
+          lists: this.settings?.lists.enabled,
           readonly: this.ro,
-          spellcheck: this.settings.spellcheck,
-          toolbar: this.settings.toolbar && !this.ro,
+          spellcheck: this.settings?.spellcheck,
+          toolbar: this.settings?.toolbar && !this.ro,
         },
         placeholder: 'Start writing...',
         // Todo: Make these configurable.
         plugins: [
           ...toRaw(this.plugins),
-          ...toRaw(isExperimentalEnabled && hasLazyPlugins ? this.lazyPlugins : []),
+          ...toRaw((isExperimentalEnabled && hasLazyPlugins) ? this.lazyPlugins : []),
         ],
-        readability: this.settings.readability.enabled,
+        // @ts-expect-error todo
+        readability: this.settings?.readability.enabled,
         toolbar: {
           upload: this.pro,
         },
-        vim: this.settings.keyMap === 'vim',
+        vim: this.settings?.keyMap === 'vim',
       }
     },
     plugins() {
@@ -126,40 +141,24 @@ export default defineComponent({
       return plugins(this)
     },
     pro() {
+      // @ts-expect-error todo
       return this.user.roles.includes('ambassador') || this.user.roles.includes('subscriber')
     },
     spellcheck() {
-      return this.settings.spellcheck
+      return this.settings?.spellcheck
     },
     tags() {
-      return this.$store.getters.allTags.filter((tag) => {
-        return !this.doc.tags.includes(tag)
-      });
+      return this.$store.getters.allTags.filter((tag: string) => {
+        return !this.doc?.tags.includes(tag)
+      })
     },
     text: {
       get() {
-        return this.doc.text
+        return this.doc?.text
       },
-      set(value) {
+      set(value: string) {
         this.input(value)
       },
-    },
-  },
-  methods: {
-    async input(text) {
-      this.$emit('input', text)
-    },
-    uploadFiles(files) {
-      return Promise.all(
-        Array.from(files).map(async (file) => {
-          return addFile(file).then((uploadedFile) => {
-            // Todo: Handle non-image files
-            if (/^image\/.*/.test(uploadedFile.mimeType)) {
-              this.$refs.editable?.instance.insert(`![](${uploadedFile.url})`)
-            }
-          })
-        })
-      )
     },
   },
   mounted() {
@@ -169,8 +168,8 @@ export default defineComponent({
       console.log('[mermaid]', error)
     })
 
-    const editorContent = document.querySelector('.ink-mde-editor')
-    const editorToolbar = document.querySelector('.ink-mde-toolbar')
+    const editorContent = document.querySelector<HTMLElement>('.ink-mde-editor')
+    const editorToolbar = document.querySelector<HTMLElement>('.ink-mde-toolbar')
 
     if (editorContent) {
       OverlayScrollbars(editorContent, {
@@ -189,9 +188,22 @@ export default defineComponent({
         },
       })
     }
-  }
+  },
+  methods: {
+    async input(text: string) {
+      this.$emit('input', text)
+    },
+  },
 })
 </script>
+
+<template>
+  <div class="flex flex-col flex-grow relative" @click="focus">
+    <div class="editor flex flex-col flex-grow flex-shrink min-h-0 min-w-0 w-full">
+      <Ink v-if="isMounted" ref="ink" v-model="text" :options="options" class="ink-editor flex flex-col flex-grow flex-shrink min-h-0" />
+    </div>
+  </div>
+</template>
 
 <style scoped>
   .md-plus .editable {

@@ -1,16 +1,15 @@
 import { syntaxTree } from '@codemirror/language'
 import { RangeSet, StateField } from '@codemirror/state'
-import { Decoration, DecorationSet, EditorView } from '@codemirror/view'
+import { Decoration, EditorView } from '@codemirror/view'
 import type { EditorState, Extension, Range } from '@codemirror/state'
-import type { WidgetType } from '@codemirror/view'
+import type { DecorationSet, WidgetType } from '@codemirror/view'
 import { useDebounceFn } from '@vueuse/core'
 import { customAlphabet } from 'nanoid'
-import type { Config } from '../index'
 import { buildSvg, themeCss as themeCSS, themeVariables } from './theme'
 
 interface PreviewWidget extends WidgetType {
-  compare: (widget: PreviewWidget) => boolean
-  text: string
+  compare: (widget: PreviewWidget) => boolean,
+  text: string,
 }
 
 const alpha = customAlphabet('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
@@ -32,13 +31,12 @@ const updateChart = async (element: Element, text: string) => {
         bindFunctions(svg)
       }
     })
-  } catch(error) {
+  } catch (error) {
     console.log('[mermaid]', error)
   }
 }
 
 const preview = (text: string, debouncers: Record<string, (element: Element, text: string) => void>): PreviewWidget => {
-
   return {
     compare: (other: PreviewWidget) => {
       return other.text === text
@@ -53,7 +51,7 @@ const preview = (text: string, debouncers: Record<string, (element: Element, tex
     },
     estimatedHeight: -1,
     ignoreEvent: () => true,
-    text: text,
+    text,
     toDOM: () => {
       const container = document.createElement('div')
       const content = document.createElement('div')
@@ -96,7 +94,7 @@ const preview = (text: string, debouncers: Record<string, (element: Element, tex
   }
 }
 
-export const widget = async (_config: Config): Promise<Extension> => {
+export const widget = async (): Promise<Extension> => {
   const debouncers = {}
 
   if (!state.isMermaidLoaded) {

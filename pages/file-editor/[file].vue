@@ -10,12 +10,8 @@ import { useFiles } from '#root/src/stores/useFiles'
 const props = defineProps({ id: String })
 const fileStore = useFiles()
 const store = useStore()
+const { system: appearance } = useAppearance()
 const { debounce } = debouncer(800)
-const appearance = computed(() => {
-  if (store.state.settings.theme === 'october') return 'dark'
-
-  return store.state.settings.theme as string
-})
 const settings = computed(() => {
   return store.state.settings.editor
 })

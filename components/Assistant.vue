@@ -247,6 +247,7 @@ export default defineComponent({
             <CoreButton
               v-for="examplePrompt in examplePrompts"
               :key="examplePrompt"
+              :layer="0"
               class="border border-layer-3 text-left md:text-center whitespace-normal"
               @click="choosePrompt(examplePrompt)"
             >

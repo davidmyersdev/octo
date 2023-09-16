@@ -1,12 +1,22 @@
 <script lang="ts">
 export default defineComponent({
   setup() {
-    const { chats } = useChats()
+    const { chats: allChats } = useChats()
     const apiKey = useLocalStorage<string>('openAiApiKey', '')
+    const { db } = useDatabase()
+    const { result: chatMessages } = useQuery(() => db.chatMessages.toArray(), [])
+    const { searchQuery, searchResults } = useSearch(chatMessages, { keys: ['text'] })
+    const chatIdResults = computed(() => searchResults.value.map((result) => result.item.chatId))
+    const chatIds = computed(() => Array.from(new Set(chatIdResults.value)))
+    const filteredChats = computed(() => chatIds.value.map(chatId => allChats.value.find(chat => chat.id === chatId)!))
+    const chats = computed(() => searchQuery.value ? filteredChats.value : allChats.value)
 
     return {
       apiKey,
+      chatIds,
       chats,
+      searchQuery,
+      searchResults,
     }
   },
 })
@@ -15,7 +25,13 @@ export default defineComponent({
 <template>
   <article class="flex flex-col flex-grow">
     <div class="flex flex-col flex-grow gap-8 m-auto max-w-prose p-2 w-full">
-      <CoreInput v-model="apiKey" :layer="1" :private="true" description="To use this feature, you need an OpenAI API key. Your API key will be stored locally on your device." label="API Key" />
+      <CoreInput
+        v-model="searchQuery"
+        :layer="1"
+        description="All searches use client-side fuzzy matching."
+        label="Search"
+        placeholder="Search your chat history on this device..."
+      />
       <div class="flex gap-2 items-center justify-end">
         <CoreButtonLink :counter="true" :layer="1" :to="{ path: '/assistant' }" class="flex gap-2 items-center">
           <span>New</span>

@@ -41,9 +41,7 @@ export default defineComponent({
         <div class="flex items-center text-gray-500">
           <small>{{ chatMessages.length }} messages</small>
         </div>
-        <CoreButton :layer="1" @click.prevent.stop="discard">
-          <AssetTrash class="w-5 h-5 text-red-500" />
-        </CoreButton>
+        <CoreActionMenu @discard="discard" />
       </div>
     </CoreLink>
     <p class="flex justify-end px-2">

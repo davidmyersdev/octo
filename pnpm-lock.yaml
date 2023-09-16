@@ -8,6 +8,9 @@ overrides:
   terser: ^5.14.2
 
 dependencies:
+  '@headlessui/vue':
+    specifier: ^1.7.16
+    version: 1.7.16(vue@3.3.4)
   '@mermaid-js/mermaid-mindmap':
     specifier: ^9.2.2
     version: 9.2.2
@@ -29,6 +32,9 @@ dependencies:
   force-graph:
     specifier: ^1.43.0
     version: 1.43.0
+  fuse.js:
+    specifier: ^6.6.2
+    version: 6.6.2
   ink-mde:
     specifier: ^0.25.1
     version: 0.25.1(vue@3.3.4)
@@ -3413,6 +3419,15 @@ packages:
       long: 4.0.0
       protobufjs: 7.2.2
       yargs: 16.2.0
+    dev: false
+
+  /@headlessui/vue@1.7.16(vue@3.3.4):
+    resolution: {integrity: sha512-nKT+nf/q6x198SsyK54mSszaQl/z+QxtASmgMEJtpxSX2Q0OPJX0upS/9daDyiECpeAsvjkoOrm2O/6PyBQ+Qg==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      vue: 3.3.4
     dev: false
 
   /@heroicons/vue@2.0.12(vue@3.3.4):
@@ -9515,6 +9530,11 @@ packages:
     resolution: {integrity: sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==}
     dev: true
 
+  /fuse.js@6.6.2:
+    resolution: {integrity: sha512-cJaJkxCCxC8qIIcPBF9yGxY0W/tVZS3uEISDxhYIdtk8OL93pe+6Zj7LjCqVV4dzbqcriOZ+kQ/NE4RXZHsIGA==}
+    engines: {node: '>=10'}
+    dev: false
+
   /gauge@1.2.7:
     resolution: {integrity: sha512-fVbU2wRE91yDvKUnrIaQlHKAWKY5e08PmztCrwuH5YVQ+Z/p3d0ny2T48o6uvAAXHIUnfaQdHkmxYbQft1eHVA==}
     dependencies:
@@ -10761,7 +10781,7 @@ packages:
     dependencies:
       universalify: 2.0.0
     optionalDependencies:
-      graceful-fs: 4.2.10
+      graceful-fs: 4.2.11
     dev: true
 
   /jsonpointer@5.0.0:

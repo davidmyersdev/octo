@@ -11,8 +11,6 @@ export default defineComponent({
   setup(props) {
     const chatId = computed(() => props.chat.id)
     const { chatMessages } = useChatMessages({ chatId })
-    const humanMessage = computed(() => chatMessages.value.find(message => message.role === 'human'))
-    const assistantMessage = computed(() => chatMessages.value.find(message => message.role === 'assistant'))
     const { humanTime } = useTime()
     const createdAt = computed(() => humanTime(props.chat.createdAt))
     const { removeChat } = useChatTools()
@@ -22,10 +20,9 @@ export default defineComponent({
     }
 
     return {
-      assistantMessage,
+      chatMessages,
       createdAt,
       discard,
-      humanMessage,
     }
   },
 })
@@ -34,17 +31,20 @@ export default defineComponent({
 <template>
   <section class="flex flex-col gap-1">
     <CoreLink :to="{ path: `/assistant/conversations/${chat.id}` }" class="bg-layer-1 flex flex-col gap-2 p-2 relative rounded">
-      <CoreButton :layer="1" class="absolute top-2 right-2" @click.prevent.stop="discard">
-        <AssetTrash class="h-5 w-5 text-red-500" />
-      </CoreButton>
-      <span class="flex flex-col self-start">
-        <small class="self-start text-gray-500">You</small>
-        <span>{{ humanMessage?.text }}</span>
-      </span>
-      <span class="flex flex-col self-end">
-        <small class="self-end text-gray-500">Assistant</small>
-        <span>{{ assistantMessage?.text }}</span>
-      </span>
+      <AssistantHistoryChatMessage
+        v-for="chatMessage in chatMessages.slice(0, 2)"
+        :key="chatMessage.id"
+        :chat-message="chatMessage"
+      />
+      <CoreDivider :layer="1" />
+      <div class="flex items-center justify-between">
+        <div class="flex items-center text-gray-500">
+          <small>{{ chatMessages.length }} messages</small>
+        </div>
+        <CoreButton :layer="1" @click.prevent.stop="discard">
+          <AssetTrash class="w-5 h-5 text-red-500" />
+        </CoreButton>
+      </div>
     </CoreLink>
     <p class="flex justify-end px-2">
       <small>{{ createdAt }}</small>

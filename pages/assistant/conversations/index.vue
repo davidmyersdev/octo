@@ -14,7 +14,7 @@ export default defineComponent({
 
 <template>
   <article class="flex flex-col flex-grow">
-    <div class="flex flex-col flex-grow gap-4 m-auto max-w-prose p-2 w-full">
+    <div class="flex flex-col flex-grow gap-8 m-auto max-w-prose p-2 w-full">
       <CoreInput v-model="apiKey" :layer="1" :private="true" description="To use this feature, you need an OpenAI API key. Your API key will be stored locally on your device." label="API Key" />
       <div class="flex gap-2 items-center justify-end">
         <CoreButtonLink :counter="true" :layer="1" :to="{ path: '/assistant' }" class="flex gap-2 items-center">
@@ -24,7 +24,9 @@ export default defineComponent({
           </svg>
         </CoreButtonLink>
       </div>
-      <AssistantConversation v-for="chat in chats" :key="chat.id" :chat="chat" />
+      <div class="flex flex-col flex-grow gap-8">
+        <AssistantHistoryChat v-for="chat in chats" :key="chat.id" :chat="chat" />
+      </div>
     </div>
   </article>
 </template>

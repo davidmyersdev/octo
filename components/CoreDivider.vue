@@ -19,5 +19,5 @@ export default defineComponent({
 </script>
 
 <template>
-  <hr :class="classes">
+  <div :class="classes" />
 </template>

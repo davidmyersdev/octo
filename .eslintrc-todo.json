@@ -57,15 +57,6 @@
     },
     {
       "files": [
-        "components/AssistantConversation.vue"
-      ],
-      "rules": {
-        "vue/attributes-order": "warn",
-        "vue/singleline-html-element-content-newline": "warn"
-      }
-    },
-    {
-      "files": [
         "components/AuthMagicLink.vue"
       ],
       "rules": {

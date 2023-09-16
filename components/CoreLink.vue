@@ -10,7 +10,7 @@ export default defineComponent({
     },
     to: {
       required: true,
-      type: [String, Object] as PropType<string | RouterLinkProps['to']>
+      type: [String, Object] as PropType<string | RouterLinkProps['to']>,
     },
   },
   setup(props) {
@@ -30,6 +30,10 @@ export default defineComponent({
 </script>
 
 <template>
-  <a v-if="isExternal" :href="toExternal" rel="noopener noreferrer" target="_blank"><slot /></a>
-  <NuxtLink v-else :to="toInternal"><slot /></NuxtLink>
+  <a v-if="isExternal" :href="toExternal" rel="noopener noreferrer" target="_blank" class="cursor-pointer outline-none focus:ring">
+    <slot />
+  </a>
+  <NuxtLink v-else :to="toInternal" class="cursor-pointer outline-none focus:ring">
+    <slot />
+  </NuxtLink>
 </template>

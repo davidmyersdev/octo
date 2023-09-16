@@ -1,6 +1,6 @@
 <script lang="ts">
 import { ViewColumnsIcon } from '@heroicons/vue/24/outline'
-import { CalendarIcon, Cog8ToothIcon, DocumentPlusIcon, HeartIcon, InboxIcon, UserCircleIcon, XMarkIcon } from '@heroicons/vue/24/solid'
+import { CalendarIcon, Cog8ToothIcon, DocumentPlusIcon, HeartIcon, UserCircleIcon, XMarkIcon } from '@heroicons/vue/24/solid'
 import { computed, defineComponent, onBeforeUnmount, onMounted } from 'vue'
 import DiscordIcon from '#root/assets/discord.svg?component'
 import GraphIcon from '#root/assets/graph.svg?component'
@@ -24,7 +24,6 @@ export default defineComponent({
     DocumentPlusIcon,
     GraphIcon,
     HeartIcon,
-    InboxIcon,
     Key,
     LogoIcon,
     TheLeftSidebar,
@@ -114,37 +113,37 @@ export default defineComponent({
   <div class="dashboard flex h-screen w-screen min-h-0 min-w-0 overflow-hidden border-t-2 border-layer-0">
     <section v-if="isDesktop" class="flex flex-col items-center justify-between gap-4 h-full w-14 bg-layer-1 md:flex">
       <div class="flex flex-col">
-        <div class="flex flex-col flex-shrink-0 items-center justify-center w-14">
-          <button @click="handleLayoutChange" class="flex items-center justify-center p-2 h-14">
+        <div class="flex flex-col flex-shrink-0 items-center justify-center w-14 h-14">
+          <button class="core-button flex items-center justify-center p-1" @click="handleLayoutChange">
             <LogoIcon class="h-8 text-theme" />
           </button>
         </div>
         <CoreDivider class="mx-2" />
-        <div class="flex flex-col gap-4 pt-4 items-center">
-          <CoreLink :to="{ path: '/docs/new' }">
+        <div class="flex flex-col gap-1 pt-2 items-center">
+          <CoreButtonLink :to="{ path: '/docs/new' }" :layer="1" :flat="true">
             <DocumentPlusIcon class="w-6" />
-          </CoreLink>
-          <CoreLink :to="{ path: '/notepad' }">
+          </CoreButtonLink>
+          <CoreButtonLink :to="{ path: '/notepad' }" :layer="1" :flat="true">
             <CalendarIcon class="w-6" />
-          </CoreLink>
-          <CoreLink :to="{ path: '/force-graph' }">
+          </CoreButtonLink>
+          <CoreButtonLink :to="{ path: '/force-graph' }" :layer="1" :flat="true">
             <GraphIcon class="w-6" />
-          </CoreLink>
+          </CoreButtonLink>
         </div>
       </div>
-      <div class="flex flex-col gap-4 pb-4 items-center">
-        <div class="flex flex-col gap-4 pb-4 items-center opacity-25">
-          <CoreLink v-if="discordInviteLink" :to="discordInviteLink">
-            <DiscordIcon class="w-6 px-px" />
-          </CoreLink>
-          <HeartIcon v-if="false" class="w-6" />
+      <div class="flex flex-col gap-1 pb-2 items-center">
+        <div class="flex flex-col gap-1 pb-2 items-center">
+          <CoreButtonLink v-if="discordInviteLink" :to="discordInviteLink" :layer="1" :flat="true">
+            <DiscordIcon class="w-6 h-6 opacity-25" />
+          </CoreButtonLink>
+          <!-- <HeartIcon class="w-6" /> -->
         </div>
-        <CoreLink :to="{ path: '/settings' }">
+        <CoreButtonLink :to="{ path: '/settings' }" :layer="1" :flat="true">
           <Cog8ToothIcon class="w-6" />
-        </CoreLink>
-        <CoreLink :to="{ path: '/account' }">
+        </CoreButtonLink>
+        <CoreButtonLink :to="{ path: '/account' }" :layer="1" :flat="true">
           <UserCircleIcon class="w-6" />
-        </CoreLink>
+        </CoreButtonLink>
       </div>
     </section>
     <CoreDivider v-if="isDesktop" :vertical="true" />
@@ -170,7 +169,7 @@ export default defineComponent({
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
           </CoreLink>
-          <button v-else @click="handleQuickActionClose" class="button-flat button-size-medium">
+          <button v-else class="button-flat button-size-medium" @click="handleQuickActionClose">
             <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -195,12 +194,12 @@ export default defineComponent({
         <section v-if="isDesktop" class="flex flex-grow flex-shrink gap-2 bg-layer-1 px-2 min-w-0">
           <CoreLink v-for="pinnedDoc in pinnedDocs" :key="pinnedDoc.id" :to="{ path: `/docs/${pinnedDoc.id}` }" class="core-button core-button-layer-1 flex flex-shrink justify-between min-w-[4rem] max-w-[20rem]" :class="{ 'bg-layer-2': isDoc && pinnedDoc.id === doc?.id }">
             <span class="text-ellipsis overflow-hidden">{{ pinnedDoc.headers[0] || pinnedDoc.text.substring(0, 25) }}</span>
-            <XMarkIcon @click.prevent.stop="() => handleTabClose(pinnedDoc.id)" class="w-4 transition hover:scale-125" />
+            <XMarkIcon class="w-4 transition hover:scale-125" @click.prevent.stop="() => handleTabClose(pinnedDoc.id)" />
           </CoreLink>
         </section>
         <CoreDivider v-if="isDesktop" :vertical="true" />
         <section v-if="isDesktop" class="flex-shrink-0 px-2 w-64">
-          <CoreButton :flat="true" :layer="1" @click="handleLayoutChange" class="border border-layer-0 justify-between w-full" data-test-toggle-sidebars>
+          <CoreButton :flat="true" :layer="1" class="border border-layer-0 justify-between w-full" data-test-toggle-sidebars @click="handleLayoutChange">
             <div class="flex gap-3 items-center">
               <ViewColumnsIcon class="w-5" />
               <span>Toggle Sidebars</span>
@@ -219,7 +218,7 @@ export default defineComponent({
         <slot />
         <CoreDivider v-if="isDesktop" :vertical="true" />
         <TheRightSidebar v-if="(isDesktop && showMeta && doc && isDoc)" class="hidden w-64 bg-layer-1 md:flex flex-shrink-0" />
-        <div v-else class="hidden w-2 bg-layer-1 md:flex flex-shrink-0"></div>
+        <div v-else class="hidden w-2 bg-layer-1 md:flex flex-shrink-0" />
       </section>
     </section>
   </div>

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import CoreLink from '#root/components/CoreLink.vue'
+import CoreLink from './CoreLink.vue'
 </script>
 
 <template>

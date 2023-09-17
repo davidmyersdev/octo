@@ -18,6 +18,7 @@
     "typecheck": "nuxt typecheck"
   },
   "dependencies": {
+    "@headlessui/tailwindcss": "^0.2.0",
     "@headlessui/vue": "^1.7.16",
     "@mermaid-js/mermaid-mindmap": "^9.2.2",
     "codemirror-lang-mermaid": "^0.2.1",

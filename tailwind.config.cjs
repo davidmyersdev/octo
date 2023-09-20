@@ -1,4 +1,5 @@
 const colors = require('tailwindcss/colors')
+const plugin = require('tailwindcss/plugin')
 
 module.exports = {
   content: [
@@ -41,5 +42,13 @@ module.exports = {
   plugins: [
     require('@headlessui/tailwindcss'),
     require('@tailwindcss/typography'),
+    plugin(({ matchUtilities, theme }) => {
+      matchUtilities({
+        sq: (value) => ({
+          height: value,
+          width: value,
+        }),
+      }, { values: theme('spacing') })
+    }),
   ],
 }

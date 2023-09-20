@@ -3,11 +3,11 @@ import { MenuItem } from '@headlessui/vue'
 import CoreButton from './CoreButton.vue'
 import type { LayerIndex } from '#root/composables/useLayers'
 
-defineProps<{ layer: LayerIndex }>()
+defineProps<{ layer: LayerIndex, disabled?: boolean }>()
 </script>
 
 <template>
-  <MenuItem :as="CoreButton" :layer="layer">
+  <MenuItem :as="CoreButton" :layer="layer" v-bind="$attrs">
     <slot />
   </MenuItem>
 </template>

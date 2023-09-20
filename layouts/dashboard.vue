@@ -221,5 +221,6 @@ export default defineComponent({
         <div v-else class="hidden w-2 bg-layer-1 md:flex flex-shrink-0" />
       </section>
     </section>
+    <ToastList class="fixed bottom-8 right-8 m-auto" />
   </div>
 </template>

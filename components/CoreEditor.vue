@@ -27,10 +27,11 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup(props) {
+    const { layer: layerIndex } = toRefs(props)
     const { system } = useAppearance()
-    const blockBg = computed(() => `rgb(var(--layer-${props.layer + 1}-bg))`)
     const editorElement = ref<InstanceType<typeof Ink>>()
     const editorAppearance = computed(() => (props.appearance ?? props.options?.interface?.appearance ?? system.value))
+    const { layer: currentLayer, nextLayer } = useLayers(layerIndex)
     const editorOptions = computed(() => {
       return {
         ...props.options,
@@ -47,10 +48,11 @@ export default defineComponent({
     }
 
     return {
-      blockBg,
+      currentLayer,
       editorElement,
       editorOptions,
       focus,
+      nextLayer,
     }
   },
 })
@@ -61,7 +63,8 @@ export default defineComponent({
     ref="editorElement"
     :model-value="modelValue"
     :options="editorOptions"
-    class="core-editor flex flex-col flex-grow flex-shrink"
+    :class="currentLayer.bg"
+    class="core-editor flex flex-col flex-grow flex-shrink rounded"
     @update:model-value="$emit('update:modelValue', $event)"
   />
 </template>
@@ -70,7 +73,7 @@ export default defineComponent({
 .core-editor {
   --ink-font-family: 'Inter', helvetica, sans-serif;
   --ink-code-font-family: 'Fira Code', monospace;
-  --ink-block-background-color: v-bind('blockBg');
+  --ink-block-background-color: v-bind('nextLayer.bg');
 }
 
 :deep(.ink-mde) {

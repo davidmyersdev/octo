@@ -24,6 +24,7 @@ export const useRoot = () => {
   const { public: { firebaseDisabled } } = useRuntimeConfig()
 
   useAppearance()
+  useToasts()
 
   provide('email', email)
   provide('user', user)

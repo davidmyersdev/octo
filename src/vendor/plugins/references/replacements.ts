@@ -1,13 +1,13 @@
 import { syntaxTree } from '@codemirror/language'
 import { RangeSet, StateField } from '@codemirror/state'
-import { Decoration, DecorationSet, EditorView } from '@codemirror/view'
+import { Decoration, EditorView } from '@codemirror/view'
 import type { EditorState, Extension, Range } from '@codemirror/state'
-import type { WidgetType } from '@codemirror/view'
+import type { DecorationSet, WidgetType } from '@codemirror/view'
 import type { Config } from './index'
 
 interface ReferenceWidget extends WidgetType {
-  compare: (widget: ReferenceWidget) => boolean
-  text: string
+  compare: (widget: ReferenceWidget) => boolean,
+  text: string,
 }
 
 const referenceWidget = (text: string): ReferenceWidget => {
@@ -15,13 +15,15 @@ const referenceWidget = (text: string): ReferenceWidget => {
     compare: (other: ReferenceWidget) => {
       return other.text === text
     },
+    coordsAt: () => null,
     destroy: () => {},
     eq: (other: ReferenceWidget) => {
       return other.text === text
     },
     estimatedHeight: -1,
     ignoreEvent: () => true,
-    text: text,
+    lineBreaks: 0,
+    text,
     toDOM: () => {
       const span = document.createElement('span')
 
@@ -57,7 +59,7 @@ export const replacements = (config: Config): Extension => {
       enter: ({ type, from, to }) => {
         if (type.name === 'Reference') {
           // Do not run on empty references
-          if (from + 2 === to - 2) { return }
+          if (from + 2 === to - 2) return
 
           const id = state.sliceDoc(from + 2, to - 2)
           const doc = config.docs.find(doc => doc.id === id)

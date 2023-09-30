@@ -32,7 +32,7 @@ const updateChart = async (element: Element, text: string) => {
       }
     })
   } catch (error) {
-    console.log('[mermaid]', error)
+    console.error('[mermaid]', error)
   }
 }
 
@@ -41,6 +41,7 @@ const preview = (text: string, debouncers: Record<string, (element: Element, tex
     compare: (other: PreviewWidget) => {
       return other.text === text
     },
+    coordsAt: () => null,
     destroy: (dom) => {
       const { id } = dom
 
@@ -51,6 +52,7 @@ const preview = (text: string, debouncers: Record<string, (element: Element, tex
     },
     estimatedHeight: -1,
     ignoreEvent: () => true,
+    lineBreaks: 0,
     text,
     toDOM: () => {
       const container = document.createElement('div')
@@ -119,7 +121,7 @@ export const widget = async (): Promise<Extension> => {
       // This will prevent mermaid from being loaded multiple times in a single session.
       state.isMermaidLoaded = true
     } catch (error) {
-      console.log('[mermaid]', error)
+      console.error('[mermaid]', error)
 
       return []
     }
@@ -138,7 +140,7 @@ export const widget = async (): Promise<Extension> => {
       enter: ({ type, from, to }) => {
         if (type.name === 'FencedCode') {
           // Do not run on empty references
-          if (from + 2 === to - 2) { return }
+          if (from + 2 === to - 2) return
 
           const block = state.sliceDoc(from, to)
           const isMermaid = /^`+mermaid(?:\s|$)/.test(block)

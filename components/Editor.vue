@@ -46,8 +46,8 @@ export default defineComponent({
       ink.value?.instance?.focus()
     }
 
-    const uploadFiles = (files: FileList) => {
-      return Promise.all(
+    const uploadFiles = async (files: FileList) => {
+      await Promise.all(
         Array.from(files).map(async (file) => {
           return addFile(file).then((uploadedFile) => {
             // Todo: Handle non-image files
@@ -126,7 +126,6 @@ export default defineComponent({
           ...toRaw(this.plugins),
           ...toRaw((isExperimentalEnabled && hasLazyPlugins) ? this.lazyPlugins : []),
         ],
-        // @ts-expect-error todo
         readability: this.settings?.readability.enabled,
         toolbar: {
           upload: this.pro,

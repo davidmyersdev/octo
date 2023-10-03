@@ -1,6 +1,22 @@
 import localforage from 'localforage'
+import type * as appEvents from '#helpers/app'
 
 import 'cypress-network-idle'
+
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace Cypress {
+    interface Chainable {
+      clearIDB: () => typeof Cypress.Promise,
+      waitForAppReady: () => typeof Cypress.Promise,
+      waitForHook: (name: appEvents.AppEventType) => typeof Cypress.Promise,
+    }
+  }
+
+  interface Window {
+    appEvents: typeof appEvents,
+  }
+}
 
 const signOut = async () => {
   const firebaseDb = localforage.createInstance({
@@ -11,9 +27,9 @@ const signOut = async () => {
   const keys = await firebaseDb.keys()
 
   return Promise.all(
-    keys.map((key) => {
+    keys.map((key) => (
       firebaseDb.removeItem(key)
-    })
+    )),
   )
 }
 
@@ -21,12 +37,20 @@ const signOut = async () => {
 Cypress.Commands.add('clearIDB', () => {
   const names = ['contexts', 'firebase/documents', 'settings']
 
-  return new Cypress.Promise((resolve, reject) => {
-    signOut().then(() => {
-      return Promise.all(names.map(name => localforage.createInstance({ name }).clear())).then(things => {
-        resolve(things)
-      })
-    }).catch(reject)
+  cy.wrap(null).then(() => {
+    return new Cypress.Promise(async (resolve, reject) => {
+      try {
+        await signOut()
+
+        for (const name of names) {
+          await localforage.createInstance({ name }).clear()
+        }
+
+        resolve()
+      } catch (error) {
+        reject(error)
+      }
+    })
   })
 })
 

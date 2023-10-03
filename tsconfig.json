@@ -1,4 +1,5 @@
 {
+  "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
     "allowJs": true,
     "esModuleInterop": true,
@@ -11,8 +12,14 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "esnext",
-    "types": ["vite/client"],
     "useDefineForClassFields": true
   },
-  "extends": "./.nuxt/tsconfig.json"
+  "exclude": [
+    "./.output",
+    "./cypress.config.ts",
+    "./dev-dist",
+    "./dist",
+    "./node_modules/cypress/**/*",
+    "./test/cypress/**/*"
+  ]
 }

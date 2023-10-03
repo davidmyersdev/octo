@@ -15,4 +15,7 @@ export default defineConfig({
     }),
     svgPlugin(),
   ],
+  test: {
+    environment: 'happy-dom',
+  },
 })

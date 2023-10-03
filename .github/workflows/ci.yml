@@ -60,8 +60,10 @@ jobs:
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}-v2
+          path: |
+            ${{ env.STORE_PATH }}
+            ~/.cache/Cypress
           restore-keys: ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install --shamefully-hoist
@@ -88,8 +90,10 @@ jobs:
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}-v2
+          path: |
+            ${{ env.STORE_PATH }}
+            ~/.cache/Cypress
           restore-keys: ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install --shamefully-hoist
@@ -118,16 +122,19 @@ jobs:
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}-v2
+          path: |
+            ${{ env.STORE_PATH }}
+            ~/.cache/Cypress
           restore-keys: ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install --shamefully-hoist
       - run: docker-compose up -d
-      - uses: cypress-io/github-action@v4.2.2
+      - uses: cypress-io/github-action@v6.5.0
         with:
-          config: baseUrl=http://localhost:8889
           build: pnpm build
+          config: baseUrl=http://localhost:8889
+          install: false
           start: pnpm preview
           wait-on: 'http://localhost:8889,http://localhost:32777'
       - uses: actions/upload-artifact@v3
@@ -163,8 +170,10 @@ jobs:
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}-v2
+          path: |
+            ${{ env.STORE_PATH }}
+            ~/.cache/Cypress
           restore-keys: ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install --shamefully-hoist
@@ -193,8 +202,10 @@ jobs:
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}-v2
+          path: |
+            ${{ env.STORE_PATH }}
+            ~/.cache/Cypress
           restore-keys: ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install --shamefully-hoist

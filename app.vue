@@ -220,7 +220,7 @@ hr {
   overflow: hidden !important;
 }
 
-[data-overlayscrollbars=host] .os-viewport {
+[data-overlayscrollbars=host] [data-overlayscrollbars-viewport] {
   display: flex;
   flex-direction: column;
   flex-grow: 1;

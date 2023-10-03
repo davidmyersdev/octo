@@ -2,6 +2,8 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { defineNuxtConfig } from 'nuxt/config'
 import { config as pwaConfig } from './pwa.config'
+import { config as viteConfig } from './vite.config'
+import postCssConfig from './postcss.config.cjs'
 
 const root = dirname(fileURLToPath(import.meta.url))
 
@@ -98,12 +100,7 @@ export default defineNuxtConfig({
       ],
     },
   },
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
-    },
-  },
+  postcss: postCssConfig,
   pwa: {
     ...pwaConfig,
     base: '/',
@@ -168,4 +165,5 @@ export default defineNuxtConfig({
   tailwindcss: {
     configPath: '~/tailwind.config.cjs',
   },
+  vite: viteConfig,
 })

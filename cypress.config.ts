@@ -10,10 +10,13 @@ export default defineConfig({
     viewportHeight: 1080,
     viewportWidth: 1920,
   },
+  experimentalModifyObstructiveThirdPartyCode: false,
   fixturesFolder: 'test/fixtures',
+  modifyObstructiveCode: false,
   retries: {
     runMode: 1,
   },
   screenshotsFolder: 'test/cypress/screenshots',
+  video: true,
   videosFolder: 'test/cypress/videos',
 })

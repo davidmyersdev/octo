@@ -3,10 +3,19 @@ import docs from '#root/test/fixtures/encryption/docs.json'
 
 describe('encryption', () => {
   beforeEach(() => {
-    cy.clearIDB().then(() => {
-      const cache = localforage.createInstance({ name: 'firebase/documents' })
+    cy.clearIDB()
+    cy.wrap(null).then(() => {
+      return new Cypress.Promise(async (resolve, reject) => {
+        try {
+          const cache = localforage.createInstance({ name: 'firebase/documents' })
 
-      return Promise.all(docs.map(doc => cache.setItem(doc.id, doc)))
+          await Promise.all(docs.map(doc => cache.setItem(doc.id, doc)))
+
+          resolve()
+        } catch (error) {
+          reject(error)
+        }
+      })
     })
     cy.visit('/')
     cy.waitForAppReady()

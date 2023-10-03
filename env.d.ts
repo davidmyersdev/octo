@@ -1,4 +1,3 @@
-/// <reference types="cypress" />
 /// <reference types="vite/client" />
 
 import { type Instance } from 'ink-mde'
@@ -8,14 +7,6 @@ import * as appEvents from '#helpers/app'
 
 declare global {
   var isNuxt: boolean
-
-  namespace Cypress {
-    interface Chainable {
-      clearIDB: () => Cypress.Promise,
-      waitForAppReady: () => Cypress.Promise,
-      waitForHook: (name: AppEventType) => Cypress.Promise,
-    }
-  }
 
   interface Navigator {
     userAgentData?: {

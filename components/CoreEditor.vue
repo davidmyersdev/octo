@@ -73,7 +73,7 @@ export default defineComponent({
 .core-editor {
   --ink-font-family: 'Inter', helvetica, sans-serif;
   --ink-code-font-family: 'Fira Code', monospace;
-  --ink-block-background-color: v-bind('nextLayer.bg');
+  --ink-block-background-color: rgb(v-bind('nextLayer.bgCssVar'));
 }
 
 :deep(.ink-mde) {

@@ -3,6 +3,7 @@ export type LayerIndex = 0 | 1 | 2 | 3 | 4
 export const layerMap = {
   0: {
     bg: 'bg-layer-0',
+    bgCssVar: 'var(--layer-0-bg)',
     bgDisabled: 'disabled:bg-layer-0',
     bgHover: 'hover:bg-layer-0',
     bgUiActive: 'ui-active:bg-layer-0',
@@ -13,6 +14,7 @@ export const layerMap = {
   },
   1: {
     bg: 'bg-layer-1',
+    bgCssVar: 'var(--layer-1-bg)',
     bgDisabled: 'disabled:bg-layer-1',
     bgHover: 'hover:bg-layer-1',
     bgUiActive: 'ui-active:bg-layer-1',
@@ -23,6 +25,7 @@ export const layerMap = {
   },
   2: {
     bg: 'bg-layer-2',
+    bgCssVar: 'var(--layer-2-bg)',
     bgDisabled: 'disabled:bg-layer-2',
     bgHover: 'hover:bg-layer-2',
     bgUiActive: 'ui-active:bg-layer-2',
@@ -33,6 +36,7 @@ export const layerMap = {
   },
   3: {
     bg: 'bg-layer-3',
+    bgCssVar: 'var(--layer-3-bg)',
     bgDisabled: 'disabled:bg-layer-3',
     bgHover: 'hover:bg-layer-3',
     bgUiActive: 'ui-active:bg-layer-3',
@@ -43,6 +47,7 @@ export const layerMap = {
   },
   4: {
     bg: 'bg-layer-4',
+    bgCssVar: 'var(--layer-4-bg)',
     bgDisabled: 'disable:bg-layer-4',
     bgHover: 'hover:bg-layer-4',
     bgUiActive: 'ui-active:bg-layer-4',

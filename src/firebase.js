@@ -8,7 +8,7 @@ const verifyConfig = (config) => {
 
   if (missingKeys.length > 0) {
     console.warn(
-      `Skipping Firebase initialization. Missing keys: [${missingKeys.join(', ')}]`
+      `Skipping Firebase initialization. Missing keys: [${missingKeys.join(', ')}]`,
     )
 
     return false

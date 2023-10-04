@@ -18,6 +18,7 @@
 .vscode
 dev-dist
 dist
+firebase/data
 node_modules
 public/manifest.webmanifest
 supabase

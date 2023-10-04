@@ -33,7 +33,7 @@ env:
   NUXT_PUBLIC_FIREBASE_EMULATOR_FUNCTIONS_PORT: 32779
   NUXT_PUBLIC_FIREBASE_EMULATOR_STORAGE_HOST: localhost
   NUXT_PUBLIC_FIREBASE_EMULATOR_STORAGE_PORT: 32778
-  NUXT_PUBLIC_FIREBASE_LOG_LEVEL:
+  NUXT_PUBLIC_FIREBASE_LOG_LEVEL: debug
   NUXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: fake
   NUXT_PUBLIC_FIREBASE_PROJECT_ID: demo-octo
   NUXT_PUBLIC_FIREBASE_STORAGE_BUCKET: fake
@@ -129,13 +129,14 @@ jobs:
           restore-keys: ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install --shamefully-hoist
-      - run: docker-compose up -d
       - uses: cypress-io/github-action@v6.5.0
         with:
           build: pnpm build
           config: baseUrl=http://localhost:8889
           install: false
-          start: pnpm preview
+          start: |
+            pnpm firebase:start
+            pnpm preview
           wait-on: 'http://localhost:8889,http://localhost:32777'
       - uses: actions/upload-artifact@v3
         if: failure()

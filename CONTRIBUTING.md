@@ -54,7 +54,7 @@ cp .env.example .env
 Run the app in `development` mode.
 
 ```bash
-# binds to localhost:8888
+# binds to 127.0.0.1:8888
 pnpm dev
 ```
 
@@ -80,6 +80,6 @@ The build output will be available in the `.output` directory.
 ### Run the `production` preview
 
 ```bash
-# binds to localhost:8889
+# binds to 127.0.0.1:8889
 pnpm preview
 ```

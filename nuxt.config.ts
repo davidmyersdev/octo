@@ -66,6 +66,9 @@ export default defineNuxtConfig({
       'rxjs',
     ],
   },
+  devServer: {
+    host: '127.0.0.1',
+  },
   experimental: {
     // Todo: Does not respect port provided with `nuxi dev --port`
     // viteNode: true,

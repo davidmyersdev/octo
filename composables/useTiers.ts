@@ -16,13 +16,16 @@ export interface Tier {
 }
 
 export const useTiers = () => {
-  const route = useRoute()
+  const router = useRouter()
+  const route = computed(() => router.currentRoute.value)
   const basic = useBasicTier()
   const personal = usePersonalTier()
   const pro = useProTier()
-  const active = (personal.value.active || route.query.tier === 'personal') ? personal
-    : (pro.value.active || route.query.tier === 'pro') ? pro
-    : basic
+  const active = (personal.value.active || route.value.query.tier === 'personal')
+    ? personal
+    : (pro.value.active || route.value.query.tier === 'pro')
+        ? pro
+        : basic
 
   return {
     active,
@@ -33,7 +36,8 @@ export const useTiers = () => {
 }
 
 export const useBasicTier = () => {
-  const route = useRoute()
+  const router = useRouter()
+  const route = computed(() => router.currentRoute.value)
   const { isSubscribed, user } = useSubscription()
 
   return computed<Tier>(() => {
@@ -48,7 +52,7 @@ export const useBasicTier = () => {
         social: useAuthForm(),
       },
       isPaying: false,
-      isTier: route.query.tier === 'basic',
+      isTier: route.value.query.tier === 'basic',
       name: 'basic',
       price: '',
       priceFrequency: '',
@@ -57,7 +61,8 @@ export const useBasicTier = () => {
 }
 
 export const usePersonalTier = () => {
-  const route = useRoute()
+  const router = useRouter()
+  const route = computed(() => router.currentRoute.value)
   const { isSubscribed, user } = useSubscription()
 
   return computed<Tier>(() => {
@@ -72,7 +77,7 @@ export const usePersonalTier = () => {
         social: useAuthForm(),
       },
       isPaying: false,
-      isTier: route.query.tier === 'personal',
+      isTier: route.value.query.tier === 'personal',
       name: 'personal',
       price: 'Free',
       priceFrequency: 'forever',
@@ -81,7 +86,8 @@ export const usePersonalTier = () => {
 }
 
 export const useProTier = () => {
-  const route = useRoute()
+  const router = useRouter()
+  const route = computed(() => router.currentRoute.value)
   const { isSubscribed, user } = useSubscription()
 
   return computed<Tier>(() => {
@@ -95,8 +101,8 @@ export const useProTier = () => {
         magicLink: useAuthForm(),
         social: useAuthForm(),
       },
-      isPaying: route.query.tier === 'pro',
-      isTier: route.query.tier === 'pro',
+      isPaying: route.value.query.tier === 'pro',
+      isTier: route.value.query.tier === 'pro',
       name: 'pro',
       price: '4',
       priceFrequency: 'monthly',

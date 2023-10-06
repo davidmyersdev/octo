@@ -8,7 +8,7 @@ const verifyConfig = (config) => {
 
   if (missingKeys.length > 0) {
     console.warn(
-      `Skipping Firebase initialization. Missing keys: [${missingKeys.join(', ')}]`
+      `Skipping Firebase initialization. Missing keys: [${missingKeys.join(', ')}]`,
     )
 
     return false
@@ -31,25 +31,25 @@ export const init = () => {
     storageBucket: publicConfig.firebaseStorageBucket,
   }
 
-  if (!verifyConfig(config)) { return }
+  if (!verifyConfig(config)) return
 
   // init firebase
   const app = initializeApp(config)
 
   initializeFirestore(app, {
-    experimentalAutoDetectLongPolling: true
+    experimentalAutoDetectLongPolling: true,
   })
 
   setLogLevel(publicConfig.firebaseLogLevel || 'error')
 
   // use emulators in development
-  if (location.hostname === 'localhost' && !publicConfig.firebaseEmulatorBypass) {
+  if (['localhost', '127.0.0.1'].includes(location.hostname) && !publicConfig.firebaseEmulatorBypass) {
     connectAuthEmulator(
       getAuth(),
       publicConfig.firebaseEmulatorAuth,
       {
         disableWarnings: true,
-      }
+      },
     )
 
     connectFirestoreEmulator(

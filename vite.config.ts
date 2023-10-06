@@ -1,9 +1,8 @@
-import { defineConfig } from 'vite'
+import { type UserConfig, defineConfig } from 'vite'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import svgPlugin from 'vite-svg-loader'
 
-// https://vitejs.dev/config/
-export default defineConfig({
+export const config = {
   plugins: [
     nodePolyfills({
       globals: {
@@ -18,4 +17,7 @@ export default defineConfig({
   test: {
     environment: 'happy-dom',
   },
-})
+} satisfies UserConfig
+
+// https://vitejs.dev/config/
+export default defineConfig(config)

@@ -25,15 +25,15 @@ env:
   NUXT_PUBLIC_FIREBASE_AUTH_DOMAIN: fake
   NUXT_PUBLIC_FIREBASE_DATABASE_URL: fake
   NUXT_PUBLIC_FIREBASE_DISABLED:
-  NUXT_PUBLIC_FIREBASE_EMULATOR_AUTH: http://localhost:32775
+  NUXT_PUBLIC_FIREBASE_EMULATOR_AUTH: http://127.0.0.1:32775
   NUXT_PUBLIC_FIREBASE_EMULATOR_BYPASS:
-  NUXT_PUBLIC_FIREBASE_EMULATOR_FIRESTORE_HOST: localhost
+  NUXT_PUBLIC_FIREBASE_EMULATOR_FIRESTORE_HOST: 127.0.0.1
   NUXT_PUBLIC_FIREBASE_EMULATOR_FIRESTORE_PORT: 32776
-  NUXT_PUBLIC_FIREBASE_EMULATOR_FUNCTIONS_HOST: localhost
+  NUXT_PUBLIC_FIREBASE_EMULATOR_FUNCTIONS_HOST: 127.0.0.1
   NUXT_PUBLIC_FIREBASE_EMULATOR_FUNCTIONS_PORT: 32779
-  NUXT_PUBLIC_FIREBASE_EMULATOR_STORAGE_HOST: localhost
+  NUXT_PUBLIC_FIREBASE_EMULATOR_STORAGE_HOST: 127.0.0.1
   NUXT_PUBLIC_FIREBASE_EMULATOR_STORAGE_PORT: 32778
-  NUXT_PUBLIC_FIREBASE_LOG_LEVEL:
+  NUXT_PUBLIC_FIREBASE_LOG_LEVEL: debug
   NUXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: fake
   NUXT_PUBLIC_FIREBASE_PROJECT_ID: demo-octo
   NUXT_PUBLIC_FIREBASE_STORAGE_BUCKET: fake
@@ -60,8 +60,10 @@ jobs:
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}-v2
+          path: |
+            ${{ env.STORE_PATH }}
+            ~/.cache/Cypress
           restore-keys: ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install --shamefully-hoist
@@ -88,8 +90,10 @@ jobs:
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}-v2
+          path: |
+            ${{ env.STORE_PATH }}
+            ~/.cache/Cypress
           restore-keys: ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install --shamefully-hoist
@@ -118,18 +122,22 @@ jobs:
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}-v2
+          path: |
+            ${{ env.STORE_PATH }}
+            ~/.cache/Cypress
           restore-keys: ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install --shamefully-hoist
-      - run: docker-compose up -d
-      - uses: cypress-io/github-action@v4.2.2
+      - uses: cypress-io/github-action@v6.5.0
         with:
-          config: baseUrl=http://localhost:8889
           build: pnpm build
-          start: pnpm preview
-          wait-on: 'http://localhost:8889,http://localhost:32777'
+          config: baseUrl=http://127.0.0.1:8889
+          install: false
+          start: |
+            pnpm firebase:start
+            pnpm preview
+          wait-on: 'http://127.0.0.1:8889,http://127.0.0.1:32777'
       - uses: actions/upload-artifact@v3
         if: failure()
         with:
@@ -163,8 +171,10 @@ jobs:
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}-v2
+          path: |
+            ${{ env.STORE_PATH }}
+            ~/.cache/Cypress
           restore-keys: ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install --shamefully-hoist
@@ -193,8 +203,10 @@ jobs:
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}-v2
+          path: |
+            ${{ env.STORE_PATH }}
+            ~/.cache/Cypress
           restore-keys: ${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install --shamefully-hoist

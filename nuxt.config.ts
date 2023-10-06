@@ -2,6 +2,8 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { defineNuxtConfig } from 'nuxt/config'
 import { config as pwaConfig } from './pwa.config'
+import { config as viteConfig } from './vite.config'
+import postCssConfig from './postcss.config.cjs'
 
 const root = dirname(fileURLToPath(import.meta.url))
 
@@ -64,6 +66,9 @@ export default defineNuxtConfig({
       'rxjs',
     ],
   },
+  devServer: {
+    host: '127.0.0.1',
+  },
   experimental: {
     // Todo: Does not respect port provided with `nuxi dev --port`
     // viteNode: true,
@@ -98,12 +103,7 @@ export default defineNuxtConfig({
       ],
     },
   },
-  postcss: {
-    plugins: {
-      tailwindcss: {},
-      autoprefixer: {},
-    },
-  },
+  postcss: postCssConfig,
   pwa: {
     ...pwaConfig,
     base: '/',
@@ -154,7 +154,7 @@ export default defineNuxtConfig({
       firebaseEmulatorFunctionsPort: '',
       firebaseEmulatorStorageHost: '',
       firebaseEmulatorStoragePort: '',
-      firebaseDisabled: '1',
+      firebaseDisabled: '',
       firebaseLogLevel: '',
       firebaseMessagingSenderId: '',
       firebaseProjectId: '',
@@ -168,4 +168,5 @@ export default defineNuxtConfig({
   tailwindcss: {
     configPath: '~/tailwind.config.cjs',
   },
+  vite: viteConfig,
 })

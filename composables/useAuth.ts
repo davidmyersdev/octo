@@ -176,9 +176,10 @@ export const useAuth = () => {
 }
 
 export const useAuthFlow = () => {
-  const route = useRoute()
-  const isMagicLinkFlow = computed(() => route.query.flow === 'magic-link')
-  const isSocialFlow = computed(() => route.query.flow === 'social')
+  const router = useRouter()
+  const route = computed(() => router.currentRoute.value)
+  const isMagicLinkFlow = computed(() => route.value.query.flow === 'magic-link')
+  const isSocialFlow = computed(() => route.value.query.flow === 'social')
 
   return {
     isMagicLinkFlow,
@@ -315,21 +316,25 @@ export const useMagicLink = () => {
 }
 
 export const useSocial = () => {
-  const route = useRoute()
   const router = useRouter()
+  const route = computed(() => router.currentRoute.value)
 
   return {
     redirectToSocial: async ({ provider: type, tier }: { provider: AuthProviderType, tier: Tier }) => {
       const provider = providers[type]
 
-      await router.push({
-        ...route,
-        query: {
-          ...route.query,
-          flow: 'social',
-          tier: tier.name,
-        },
-      })
+      try {
+        await router.push({
+          ...route,
+          query: {
+            ...route.value.query,
+            flow: 'social',
+            tier: tier.name,
+          },
+        })
+      } catch (error) {
+        console.error(error)
+      }
 
       return signInWithRedirect(getAuth(), provider())
     },

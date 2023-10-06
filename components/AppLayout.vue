@@ -1,4 +1,5 @@
 <script lang="ts">
+import { type LayoutKey } from '#build/types/layouts'
 import Dashboard from '#root/layouts/dashboard.vue'
 
 export default defineComponent({
@@ -7,7 +8,7 @@ export default defineComponent({
   },
   props: {
     name: {
-      type: String,
+      type: String as PropType<LayoutKey>,
     },
   },
   setup() {
@@ -24,7 +25,11 @@ export default defineComponent({
 </script>
 
 <template>
-  <NuxtLayout v-if="isNuxt" :name="name"><slot /></NuxtLayout>
-  <Dashboard v-else-if="isDashboard"><slot /></Dashboard>
+  <NuxtLayout v-if="isNuxt" :name="name">
+    <slot />
+  </NuxtLayout>
+  <Dashboard v-else-if="isDashboard">
+    <slot />
+  </Dashboard>
   <slot v-else />
 </template>

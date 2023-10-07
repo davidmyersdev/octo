@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid'
 
 import { decrypt, encrypt } from '#root/src/common/crypto/crypto'
-import { parseTags, parseTasks, parseHeaders } from '#root/src/common/parsers'
+import { parseHeaders, parseTags, parseTasks } from '#root/src/common/parsers'
 
 export type PackedDoc = Awaited<ReturnType<typeof pack>>
 
@@ -51,9 +51,11 @@ export class Doc {
   }
 
   discard() {
-    this.updatedAt = new Date()
-    this.touchedAt = new Date()
-    this.discardedAt = new Date()
+    const now = new Date()
+
+    this.updatedAt = now
+    this.touchedAt = now
+    this.discardedAt = now
   }
 
   duplicate() {
@@ -97,7 +99,7 @@ export class Doc {
   }
 }
 
-export const pack = async (doc: Doc, { preferEncryption = null, publicKey = null }) => {
+export const pack = async (doc: Doc, { preferEncryption = false, publicKey }: { preferEncryption?: boolean, publicKey?: string } = {}) => {
   const packed = Object.assign({}, {
     ...doc,
     // These values are derived from the text, so we don't need to store them.
@@ -112,7 +114,7 @@ export const pack = async (doc: Doc, { preferEncryption = null, publicKey = null
 
     return Object.assign({}, packed, {
       encrypted: true,
-      iv: iv,
+      iv,
       text: cipher,
       textKey: cipherKey,
     })
@@ -121,7 +123,7 @@ export const pack = async (doc: Doc, { preferEncryption = null, publicKey = null
   return Object.assign({}, packed)
 }
 
-export const unpack = async (packed: PackedDoc, { privateKey }: { privateKey?: string }) => {
+export const unpack = async (packed: PackedDoc, { privateKey }: { privateKey?: string } = {}) => {
   try {
     if (privateKey && packed.encrypted) {
       const text = await decrypt({ cipher: packed.text, cipherKey: packed.textKey, iv: packed.iv, privateKey })
@@ -129,8 +131,8 @@ export const unpack = async (packed: PackedDoc, { privateKey }: { privateKey?: s
       return new Doc(
         Object.assign({}, packed, {
           encrypted: false,
-          text: text,
-        })
+          text,
+        }),
       )
     }
   } catch (error) {

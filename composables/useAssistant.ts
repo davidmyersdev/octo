@@ -1,4 +1,12 @@
-import { type StorageAdapter, type StorageBucketSchema } from 'vellma/peripherals'
+import { openai } from 'vellma/integrations'
+import { useChat } from 'vellma/models'
+import {
+  type StorageAdapter,
+  type StorageBucketSchema,
+  consoleLogger,
+  useLogger,
+  useStorage,
+} from 'vellma/peripherals'
 
 export const dexieStorage = (): StorageAdapter => {
   const { db } = useDatabase()
@@ -42,10 +50,22 @@ export const dexieStorage = (): StorageAdapter => {
   }
 }
 
-export const useAssistant = () => {
+export const useAssistant = ({ chatId }: { chatId: Ref<string> }) => {
+  const { lazyWritableComputed } = useHooks()
   const storageAdapter = dexieStorage()
+  const actualApiKey = useLocalStorage<string>('openAiApiKey', '')
+  const apiKey = lazyWritableComputed(() => actualApiKey.value, (val) => actualApiKey.value = val, '')
+  const logger = useLogger(consoleLogger())
+  const storage = useStorage(storageAdapter)
+  const peripherals = { logger, storage }
+  const integration = computed(() => openai({ apiKey: apiKey.value, peripherals }))
+  const chatInterface = computed(() => useChat({ chatId: chatId.value, integration: integration.value, peripherals }))
+  const chatModel = computed(() => chatInterface.value.model)
+  const chatFactory = computed(() => chatInterface.value.factory)
 
   return {
-    storageAdapter,
+    apiKey,
+    chatFactory,
+    chatModel,
   }
 }

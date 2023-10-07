@@ -2,9 +2,6 @@
 import { Prec } from '@codemirror/state'
 import { keymap } from '@codemirror/view'
 import { type Options } from 'ink-mde'
-import { openai } from 'vellma/integrations'
-import { useChat } from 'vellma/models'
-import { consoleLogger, useLogger, useStorage } from 'vellma/peripherals'
 import { type CoreEditor, type CoreScrollable } from '#components'
 
 export default defineComponent({
@@ -16,25 +13,15 @@ export default defineComponent({
   setup(props) {
     const { id } = useId()
     const { isDesktop, modKey } = useDevice()
-    const { lazyWritableComputed } = useHooks()
     const chatId = computed(() => props.chatId || id())
     const { chatMessages } = useChatMessages({ chatId })
     const systemMessage = computed(() => chatMessages.value.filter((message) => message.role === 'system').at(0))
     const nonSystemMessages = computed(() => chatMessages.value.filter((message) => message.role !== 'system'))
-    const logger = useLogger(consoleLogger())
-    const { storageAdapter } = useAssistant()
-    const storage = useStorage(storageAdapter)
-    const peripherals = { logger, storage }
+    const { apiKey, chatFactory, chatModel } = useAssistant({ chatId })
     const historyElement = ref<InstanceType<typeof CoreScrollable>>()
     const inputElement = ref<InstanceType<typeof CoreEditor>>()
     const input = ref('')
     const behavior = ref('')
-    const actualApiKey = useLocalStorage<string>('openAiApiKey', '')
-    const apiKey = lazyWritableComputed(() => actualApiKey.value, (val) => actualApiKey.value = val, '')
-    const integration = computed(() => openai({ apiKey: apiKey.value, peripherals }))
-    const chatModel = computed(() => useChat({ chatId: chatId.value, integration: integration.value, peripherals }))
-    const model = computed(() => chatModel.value.model)
-    const factory = computed(() => chatModel.value.factory)
 
     const isWaiting = ref(false)
     const isUserScrolling = ref(false)
@@ -144,7 +131,7 @@ export default defineComponent({
       try {
         isWaiting.value = true
 
-        for await (const _value of model.value.generate()) {
+        for await (const _value of chatModel.value.generate()) {
           // no-op
         }
       } catch (error) {
@@ -162,11 +149,11 @@ export default defineComponent({
       const messages = []
 
       if (behavior.value && chatMessages.value.length === 0) {
-        messages.push(factory.value.system({ text: behavior.value }))
+        messages.push(chatFactory.value.system({ text: behavior.value }))
       }
 
       if (input.value) {
-        messages.push(factory.value.human({ text: input.value }))
+        messages.push(chatFactory.value.human({ text: input.value }))
       }
 
       input.value = ''
@@ -176,7 +163,7 @@ export default defineComponent({
       try {
         isWaiting.value = true
 
-        for await (const _value of model.value.generate(...messages)) {
+        for await (const _value of chatModel.value.generate(...messages)) {
           // no-op
         }
       } catch (error) {

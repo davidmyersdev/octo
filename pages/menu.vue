@@ -1,15 +1,11 @@
 <script>
-import { UserCircleIcon as AccountIcon, BeakerIcon, CheckIcon, ChevronUpDownIcon, DocumentIcon, DocumentTextIcon, InboxIcon, CloudArrowUpIcon as SaveIcon, MagnifyingGlassIcon as SearchIcon, Cog8ToothIcon as SettingsIcon, HashtagIcon as TagIcon, TrashIcon, UserCircleIcon, Square2StackIcon as WorkspaceIcon, Squares2X2Icon as WorkspacesIcon } from '@heroicons/vue/24/outline'
+import { UserCircleIcon as AccountIcon, BeakerIcon, CheckIcon, ChevronUpDownIcon, DocumentIcon, DocumentTextIcon, InboxIcon, CloudArrowUpIcon as SaveIcon, MagnifyingGlassIcon as SearchIcon, Cog8ToothIcon as SettingsIcon, HashtagIcon as TagIcon, TrashIcon, Square2StackIcon as WorkspaceIcon, Squares2X2Icon as WorkspacesIcon } from '@heroicons/vue/24/outline'
 import { nanoid } from 'nanoid'
 import { inject } from 'vue'
-import CoreButton from '#root/components/CoreButton.vue'
 import CoreDivider from '#root/components/CoreDivider.vue'
 import CoreLink from '#root/components/CoreLink.vue'
-import Key from '#root/components/Key.vue'
-import ModK from '#root/components/ModK.vue'
 import ModKKey from '#root/components/ModKKey.vue'
 import TagLink from '#root/components/TagLink.vue'
-import TheLogo from '#root/components/TheLogo.vue'
 import { DEACTIVATE_CONTEXT, SET_CONTEXT_TAGS } from '#root/src/store/actions'
 import { useFiles } from '#root/src/stores/useFiles'
 import { AsyncIterable } from '#root/src/utils/iterables'
@@ -20,23 +16,18 @@ export default {
     BeakerIcon,
     CheckIcon,
     ChevronUpDownIcon,
-    CoreButton,
     CoreDivider,
     CoreLink,
     DocumentIcon,
     DocumentTextIcon,
     TagIcon,
     InboxIcon,
-    Key,
-    ModK,
     ModKKey,
     SaveIcon,
     SearchIcon,
     SettingsIcon,
     TagLink,
-    TheLogo,
     TrashIcon,
-    UserCircleIcon,
     WorkspaceIcon,
     WorkspacesIcon,
   },
@@ -161,7 +152,7 @@ export default {
           </button>
         </div>
         <CoreLink v-if="experimentalFeaturesEnabled" :to="{ path: '/assistant' }" class="sidebar-link allow-link-active">
-          <AssetLogo class="w-5" />
+          <CoreAssetLogo class="w-5" />
           <span class="action flex flex-grow items-center justify-between ml-3">
             <span>Assistant</span>
             <BeakerIcon class="text-gray-300 dark:text-gray-700 w-5" />

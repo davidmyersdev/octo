@@ -159,6 +159,7 @@ export default defineNuxtConfig({
       firebaseMessagingSenderId: '',
       firebaseProjectId: '',
       firebaseStorageBucket: '',
+      linkFeedback: '',
       openaiApiKey: '',
       stripeMonthlyPrice: '',
     },

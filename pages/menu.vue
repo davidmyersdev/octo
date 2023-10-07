@@ -43,7 +43,7 @@ export default {
   inject: ['mq'],
   setup() {
     const user = inject('user')
-    const { public: { fathomEventCtaSaveDocs, firebaseDisabled } } = useConfig()
+    const { public: { fathomEventCtaSaveDocs, firebaseDisabled, linkFeedback } } = useConfig()
 
     const trackCta = () => {
       window.fathom.trackGoal(fathomEventCtaSaveDocs, 0)
@@ -51,6 +51,7 @@ export default {
 
     return {
       firebaseDisabled,
+      linkFeedback,
       trackCta,
       user,
     }
@@ -144,6 +145,12 @@ export default {
             <span>Settings</span>
           </div>
         </CoreLink>
+        <CoreLink :to="linkFeedback" class="sidebar-link">
+          <div class="flex gap-3 items-center">
+            <CoreAssetFeedback class="sq-5" />
+            <span>Feedback</span>
+          </div>
+        </CoreLink>
         <div v-if="experimentalFeaturesEnabled">
           <button class="sidebar-link w-full" title="Experimental" @click="openFile">
             <DocumentIcon class="w-5" />
@@ -153,17 +160,17 @@ export default {
             </span>
           </button>
         </div>
-        <CoreLink v-if="!firebaseDisabled && !user.id" :to="{ path: '/account' }" class="sidebar-link text-theme" @click="trackCta">
-          <SaveIcon class="w-5" />
-          <span class="action flex flex-grow items-stretch justify-between ml-3">
-            <span>Save Docs</span>
-          </span>
-        </CoreLink>
         <CoreLink v-if="experimentalFeaturesEnabled" :to="{ path: '/assistant' }" class="sidebar-link allow-link-active">
           <AssetLogo class="w-5" />
           <span class="action flex flex-grow items-center justify-between ml-3">
             <span>Assistant</span>
             <BeakerIcon class="text-gray-300 dark:text-gray-700 w-5" />
+          </span>
+        </CoreLink>
+        <CoreLink v-if="!firebaseDisabled && !user.id" :to="{ path: '/account' }" class="sidebar-link text-theme" @click="trackCta">
+          <SaveIcon class="w-5" />
+          <span class="action flex flex-grow items-stretch justify-between ml-3">
+            <span>Save Docs</span>
           </span>
         </CoreLink>
         <CoreDivider />

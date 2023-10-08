@@ -255,7 +255,7 @@ export default defineComponent({
             </div>
           </div>
           <template v-if="chatMessages.length">
-            <ChatMessage v-for="message in nonSystemMessages" :key="message.id" :created-at="message.createdAt" :role="message.role" :text="message.text" />
+            <AssistantChatMessage v-for="message in nonSystemMessages" :key="message.id" :created-at="message.createdAt" :role="message.role" :text="message.text" />
             <div class="h-4" />
           </template>
           <div v-else class="flex flex-col flex-grow gap-4 justify-end">

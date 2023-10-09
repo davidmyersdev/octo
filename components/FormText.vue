@@ -2,7 +2,6 @@
 import { computed, defineComponent } from 'vue'
 
 export default defineComponent({
-  emits: ['update:modelValue'],
   props: {
     label: {
       default: '',
@@ -20,6 +19,7 @@ export default defineComponent({
       type: String,
     },
   },
+  emits: ['update:modelValue'],
   setup(props, { emit }) {
     const text = computed({
       get() {

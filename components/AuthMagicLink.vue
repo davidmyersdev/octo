@@ -17,7 +17,7 @@ export default defineComponent({
         email: '',
         error: '',
       }),
-      type: Object as PropType<AuthMagicLinkForm>
+      type: Object as PropType<AuthMagicLinkForm>,
     },
   },
   emits: ['send'],

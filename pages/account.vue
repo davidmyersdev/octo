@@ -1,3 +1,31 @@
+<script lang="ts">
+import { computed, defineComponent } from 'vue'
+import { useStore } from 'vuex'
+import AuthTiers from '#root/components/AuthTiers.vue'
+import Providers from '#root/components/Providers.vue'
+
+export default defineComponent({
+  components: {
+    AuthTiers,
+    Providers,
+  },
+  setup() {
+    const store = useStore()
+    const online = computed(() => store.state.online)
+    const user = useUser()
+
+    useHead({
+      title: 'Account',
+    })
+
+    return {
+      online,
+      user,
+    }
+  },
+})
+</script>
+
 <template>
   <CorePage>
     <h2 class="text-4xl mb-1">My Account</h2>
@@ -28,31 +56,3 @@
     </section>
   </CorePage>
 </template>
-
-<script lang="ts">
-import { computed, defineComponent } from 'vue'
-import { useStore } from 'vuex'
-import AuthTiers from '#root/components/AuthTiers.vue'
-import Providers from '#root/components/Providers.vue'
-
-export default defineComponent({
-  components: {
-    AuthTiers,
-    Providers,
-  },
-  setup() {
-    const store = useStore()
-    const online = computed(() => store.state.online)
-    const user = useUser()
-
-    useHead({
-      title: 'Account',
-    })
-
-    return {
-      online,
-      user,
-    }
-  },
-})
-</script>

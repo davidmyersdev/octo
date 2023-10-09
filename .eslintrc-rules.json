@@ -3,6 +3,7 @@
   "rules": {
     "vue/no-ref-object-destructure": ["error"],
     "vue/no-setup-props-reactivity-loss": ["error"],
+    "vue/singleline-html-element-content-newline": ["off", {}],
     "yml/no-empty-mapping-value": ["off"]
   }
 }

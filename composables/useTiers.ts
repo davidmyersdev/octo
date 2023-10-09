@@ -71,7 +71,7 @@ export const usePersonalTier = () => {
       allowSignUp: !user.value.id,
       allowUpgrade: false,
       description: 'For individuals who want to maintain a personal knowledge base',
-      displayName: 'Personal',
+      displayName: 'Free',
       forms: {
         magicLink: useAuthForm(),
         social: useAuthForm(),
@@ -79,7 +79,7 @@ export const usePersonalTier = () => {
       isPaying: false,
       isTier: route.value.query.tier === 'personal',
       name: 'personal',
-      price: 'Free',
+      price: '',
       priceFrequency: 'forever',
     }
   })
@@ -105,7 +105,7 @@ export const useProTier = () => {
       isTier: route.value.query.tier === 'pro',
       name: 'pro',
       price: '4',
-      priceFrequency: 'monthly',
+      priceFrequency: '/month',
     }
   })
 }

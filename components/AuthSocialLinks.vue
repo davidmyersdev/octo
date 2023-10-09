@@ -57,16 +57,16 @@ export default defineComponent({
 </script>
 
 <template>
-  <section class="flex flex-col gap-4">
-    <CoreButton v-if="allowGitHub" :layer="3" data-test-auth-social-github @click="clickProvider('github')">
+  <section class="flex flex-col gap-3">
+    <CoreButton v-if="allowGitHub" :layer="1" data-test-auth-social-github @click="clickProvider('github')">
       <LocalGitHubIcon class="h-5 w-5" />
       <span>Continue with GitHub</span>
     </CoreButton>
-    <CoreButton :layer="3" data-test-auth-social-google @click="clickProvider('google')">
+    <CoreButton :layer="1" data-test-auth-social-google @click="clickProvider('google')">
       <LocalGoogleIcon class="h-5 w-5" />
       <span>Continue with Google</span>
     </CoreButton>
-    <CoreButton :layer="3" data-test-auth-social-twitter @click="clickProvider('twitter')">
+    <CoreButton :layer="1" data-test-auth-social-twitter @click="clickProvider('twitter')">
       <LocalTwitterIcon class="h-5 w-5" />
       <span>Continue with Twitter</span>
     </CoreButton>

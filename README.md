@@ -4,7 +4,7 @@
 [![Donate](https://img.shields.io/badge/donate-FF5F5F?style=for-the-badge&logo=ko-fi&logoColor=white)](https://voracious.link/donate)
 # Octo
 
-Reclaim control of your knowledge work. Sign up at [octo.app](https://octo.app).
+Unlock the full potential of your accumulated knowledge. Sign up at [octo.app](https://octo.app).
 
 <a href="https://octo.app">
   <picture>

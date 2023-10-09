@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import IconGitHub from '#root/assets/github.svg?component'
-import IconTwitter from '#root/assets/twitter.svg?component'
 import { isClient } from '#helpers/environment'
 
 definePageMeta({ layout: 'minimal' })
@@ -60,68 +58,57 @@ onMounted(() => {
     <section class="p-4 lg:p-8">
       <div class="container mx-auto max-w-6xl">
         <picture v-if="isDark">
-          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait)" srcset="~/assets/screenshot-mobile-dark.png" width="1080" height="2400" class="bg-black border-8 border-black overflow-hidden rounded-2xl w-full">
-          <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-dark.png" width="1600" height="900" class="w-full">
+          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait)" srcset="~/assets/screenshot-mobile-dark.png" width="1080" height="2400">
+          <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-dark.png" width="1600" height="900" class="max-lg:bg-black max-lg:border-8 max-lg:border-black max-lg:overflow-hidden max-lg:rounded-2xl w-full">
         </picture>
         <picture v-else-if="isLight">
-          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait)" srcset="~/assets/screenshot-mobile-light.png" width="1080" height="2400" class="bg-black border-8 border-black overflow-hidden rounded-2xl w-full">
-          <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-light.png" width="1600" height="900" class="w-full">
+          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait)" srcset="~/assets/screenshot-mobile-light.png" width="1080" height="2400">
+          <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-light.png" width="1600" height="900" class="max-lg:bg-black max-lg:border-8 max-lg:border-black max-lg:overflow-hidden max-lg:rounded-2xl w-full">
         </picture>
         <picture v-else>
           <!-- mobile -->
           <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait) and (prefers-color-scheme: dark)" srcset="~/assets/screenshot-mobile-dark.png" width="1080" height="2400">
           <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait) and (prefers-color-scheme: light)" srcset="~/assets/screenshot-mobile-light.png" width="1080" height="2400">
           <!-- desktop -->
-          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(prefers-color-scheme: dark)" srcset="~/assets/screenshot-dark.png" width="1600" height="900" class="w-full">
-          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(prefers-color-scheme: light)" srcset="~/assets/screenshot-light.png" width="1600" height="900" class="w-full">
+          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(prefers-color-scheme: dark)" srcset="~/assets/screenshot-dark.png" width="1600" height="900">
+          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(prefers-color-scheme: light)" srcset="~/assets/screenshot-light.png" width="1600" height="900">
           <!-- fallback -->
           <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-dark.png" width="1600" height="900" class="max-lg:bg-black max-lg:border-8 max-lg:border-black max-lg:overflow-hidden max-lg:rounded-2xl w-full">
         </picture>
       </div>
     </section>
     <section>
-      <section class="p-4 lg:p-8 container mx-auto">
-        <div class="max-w-4xl mx-auto">
-          <div class="flex flex-col gap-4">
-            <h2 class="text-2xl lg:text-4xl">
-              Seamless Portability
-            </h2>
-            <p class="lg:text-xl">
-              Our platform goes where you go. Import or export your entire knowledge reservoir as plain-text Markdown files, ensuring your intellectual assets are never more than a click away.
-            </p>
-          </div>
+      <CoreContainer class="p-4 lg:p-8">
+        <div class="border border-layer-2 rounded p-4">
+          <CoreProse class="max-w-none">
+            <h2>We care about privacy</h2>
+            <p>In today's hyper-connected world, your privacy matters more than ever. Octo has been built from the ground up with privacy as a core tenet. We use the Web Crypto API to support client-side (end-to-end) encryption so that your data can be securely and privately synced across all of your devices. That means that no one, not even people on our team, can access your data.</p>
+          </CoreProse>
         </div>
-      </section>
-      <section class="p-4 lg:p-8 container mx-auto">
-        <div class="max-w-4xl mx-auto">
-          <div class="flex flex-col gap-4">
-            <h2 class="text-2xl lg:text-4xl">
-              Trustworthy Transparency
-            </h2>
-            <p class="lg:text-xl">
-              Confidence comes with clarity. As proponents of open-source software, we foster a transparency level that makes your data's usage clear. You can feel secure knowing exactly what we're doing with your stored information.
-            </p>
-          </div>
+      </CoreContainer>
+      <CoreContainer class="p-4 lg:p-8">
+        <div class="border border-layer-2 rounded p-4">
+          <CoreProse class="max-w-none">
+            <h2>Your second brain is always accessible</h2>
+            <p>Thanks to modern browser APIs, such as Service Workers and IndexedDB, web apps can be made to function entirely offline just as native apps can. Octo takes advantage of these APIs to make sure you always have access to your second brain. All you need is a device with a web browser.</p>
+            <p>We understand the pain of vendor lock-in, so we maintain import and export tools to help you move your data into or out of Octo.</p>
+          </CoreProse>
         </div>
-      </section>
-      <section class="p-4 lg:p-8 container mx-auto">
-        <div class="max-w-4xl mx-auto">
-          <div class="flex flex-col gap-4">
-            <h2 class="text-2xl lg:text-4xl">
-              Unrivaled Privacy
-            </h2>
-            <p class="lg:text-xl">
-              In today's hyper-connected world, your privacy matters more than ever. Our policy is privacy-first, from our offline-first data storage to supporting end-to-end encryption (E2EE), we're committed to ensuring your data remains exclusively yours.
-            </p>
-          </div>
+      </CoreContainer>
+      <CoreContainer class="p-4 lg:p-8">
+        <div class="border border-layer-2 rounded p-4">
+          <CoreProse class="max-w-none">
+            <h2>Transparency is better than trust</h2>
+            <p>Building sustainable open-source software is a difficult problem to solve, but we believe in fostering a level of transparency that is only possible when the source code is freely available. Verify our claims and feel confident that your knowledge management tool will not suddenly disappear.</p>
+          </CoreProse>
         </div>
-      </section>
+      </CoreContainer>
     </section>
     <section class="p-4 lg:p-8 container mx-auto">
       <div class="max-w-4xl mx-auto">
         <div class="flex flex-col gap-4">
           <p class="lg:text-xl text-center">
-            Sign up today and discover how our app can transform your productivity.
+            Sign up today and discover how Octo can transform your productivity.
           </p>
         </div>
         <div class="flex items-center text-center gap-8 lg:gap-16 py-8 lg:py-16">
@@ -140,33 +127,6 @@ onMounted(() => {
         </div>
       </div>
     </section>
-    <footer class="bg-layer-1 p-4 lg:p-8 w-full">
-      <div class="max-w-4xl mx-auto">
-        <div class="flex items-start justify-between gap-4">
-          <div class="flex flex-col gap-4">
-            <div class="flex flex-col">
-              <small class="hidden lg:block text-gray-500">Policies</small>
-              <CoreLink :to="{ path: '/privacy-policy' }" class="underline">
-                Privacy Policy
-              </CoreLink>
-              <CoreLink :to="{ path: '/terms-and-conditions' }" class="underline">
-                Terms &amp; Conditions
-              </CoreLink>
-            </div>
-            <div class="flex items-center gap-2">
-              <CoreLink to="https://twitter.com/octowiki" aria-label="Twitter">
-                <IconTwitter class="h-4" />
-              </CoreLink>
-              <span>&nbsp;</span>
-              <CoreLink to="https://github.com/davidmyersdev/octo" aria-label="GitHub">
-                <IconGitHub class="h-4" />
-              </CoreLink>
-            </div>
-          </div>
-          <p>&copy; 2023 Octo</p>
-        </div>
-      </div>
-    </footer>
   </div>
 </template>
 

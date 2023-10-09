@@ -42,18 +42,18 @@ export default defineNuxtConfig({
         { href: '/img/icons/icon-maskable-192x192.png', rel: 'apple-touch-icon' },
       ],
       meta: [
-        { content: 'Reclaim control of your knowledge work.', name: 'description' },
+        { content: 'Unlock the full potential of your accumulated knowledge.', name: 'description' },
         { content: '#121212', name: 'theme-color' },
         { property: 'og:url', content: 'https://octo.app' },
         { property: 'og:type', content: 'website' },
         { property: 'og:title', content: 'Octo | Write meaningful notes' },
-        { property: 'og:description', content: 'Reclaim control of your knowledge work.' },
+        { property: 'og:description', content: 'Unlock the full potential of your accumulated knowledge.' },
         { property: 'og:image', content: 'https://octo.app/img/og.png' },
         { name: 'twitter:card', content: 'summary_large_image' },
         { property: 'twitter:domain', content: 'octo.app' },
         { property: 'twitter:url', content: 'https://octo.app' },
         { name: 'twitter:title', content: 'Octo | Write meaningful notes' },
-        { name: 'twitter:description', content: 'Reclaim control of your knowledge work.' },
+        { name: 'twitter:description', content: 'Unlock the full potential of your accumulated knowledge.' },
         { name: 'twitter:image', content: 'https://octo.app/img/og.png' },
       ],
       script: [
@@ -98,7 +98,9 @@ export default defineNuxtConfig({
     prerender: {
       routes: [
         '/',
+        '/authenticate',
         '/home',
+        '/product/pricing',
         '/settings',
       ],
     },
@@ -128,7 +130,7 @@ export default defineNuxtConfig({
     public: {
       appName: 'Octo',
       appTitle: 'Write meaningful notes',
-      appSubtitle: 'Reclaim control of your knowledge work',
+      appSubtitle: 'Unlock the full potential of your accumulated knowledge',
       cdnUrl: '',
       discordInviteLink: '',
       fathomEventAccountRegistration: '',

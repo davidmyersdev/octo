@@ -28,7 +28,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       bodyAttrs: {
-        class: 'text-layer-0-text bg-layer-0',
+        class: 'layer-0',
       },
       htmlAttrs: {
         class: 'auto scroll-smooth scroll-pt-4',

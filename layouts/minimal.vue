@@ -4,8 +4,8 @@
       <nav>
         <CoreContainer>
           <div class="flex items-center justify-between">
-            <CoreLink :to="{ path: '/' }" class="flex gap-4 items-center p-2 -ml-2 rounded">
-              <CoreAssetLogo class="h-8" />
+            <CoreLink :to="{ path: '/' }" class="flex gap-2 items-center p-2 -ml-2 rounded">
+              <CoreAssetLogo class="sq-8" />
               <span class="font-bold text-lg text-black dark:text-white">Octo</span>
             </CoreLink>
             <div class="flex items-center gap-2 -mr-2">
@@ -33,6 +33,9 @@
             <div class="flex flex-col gap-8">
               <div class="flex flex-col items-start gap-2">
                 <small class="text-gray-500">Resources</small>
+                <CoreLink to="https://octo.canny.io/" class="hover:underline">
+                  Feedback
+                </CoreLink>
                 <CoreLink :to="{ path: '/product/pricing' }" class="hover:underline">
                   Pricing
                 </CoreLink>

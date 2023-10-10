@@ -108,7 +108,7 @@ onMounted(() => {
       <div class="max-w-4xl mx-auto">
         <div class="flex flex-col gap-4">
           <p class="lg:text-xl text-center">
-            Sign up today and discover how Octo can transform your productivity.
+            Sign up today to discover how Octo can transform your productivity.
           </p>
         </div>
         <div class="flex items-center text-center gap-8 lg:gap-16 py-8 lg:py-16">

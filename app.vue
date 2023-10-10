@@ -1,13 +1,3 @@
-<template>
-  <div id="app" class="h-full" :class="sizes.concat([!ligatures ? 'ligatures-none' : ''])">
-    <VitePwaManifest />
-    <AsyncChangeLog v-if="showChangeLog && !flow" />
-    <AppLayout>
-      <AppPage :pageKey="pageKey" class="bg-opacity-25 flex-grow flex-shrink h-full overflow-x-hidden relative" />
-    </AppLayout>
-  </div>
-</template>
-
 <script lang="ts">
 import { nanoid } from 'nanoid'
 import { loadSettings } from '#root/src/store/plugins/caching/settings'
@@ -69,6 +59,16 @@ export default defineComponent({
   },
 })
 </script>
+
+<template>
+  <div id="app" class="h-full" :class="sizes.concat([!ligatures ? 'ligatures-none' : ''])">
+    <VitePwaManifest />
+    <AsyncChangeLog v-if="showChangeLog && !flow" />
+    <AppLayout>
+      <AppPage :page-key="pageKey" class="bg-opacity-25 flex-grow flex-shrink h-full overflow-x-hidden relative" />
+    </AppLayout>
+  </div>
+</template>
 
 <style>
 :root {

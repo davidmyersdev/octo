@@ -106,6 +106,9 @@ devDependencies:
   '@tailwindcss/typography':
     specifier: ^0.5.10
     version: 0.5.10(tailwindcss@3.3.3)
+  '@tauri-apps/cli':
+    specifier: 2.0.0-alpha.15
+    version: 2.0.0-alpha.15
   '@types/file-saver':
     specifier: ^2.0.5
     version: 2.0.5
@@ -4656,6 +4659,113 @@ packages:
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
       tailwindcss: 3.3.3
+    dev: true
+
+  /@tauri-apps/cli-darwin-arm64@2.0.0-alpha.15:
+    resolution: {integrity: sha512-PxmXanPZtSLtDJyEoj538//cauKoyc/sExAO0fTwJ+o8y2NZB/qQfpbdMIloQQnusRwh+6RjOr0Zs5Y6nBhO5Q==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@tauri-apps/cli-darwin-x64@2.0.0-alpha.15:
+    resolution: {integrity: sha512-IcJGd6mIwQQ9xQhmkNHWjERJoGYpZEknhWeU8a2MnuosX8c9O/zmKWey4ol2KPrumMdmbh8QZzPyh9986GmnUA==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@tauri-apps/cli-linux-arm-gnueabihf@2.0.0-alpha.15:
+    resolution: {integrity: sha512-zD88WJaEZ49BzgmIgj0RVFF/zKrB+NYHEDwmvt60eehQCPfnMuE5/asj0Gp4YJRZ07jZzDfzMCdTGbwWsLnZEA==}
+    engines: {node: '>= 10'}
+    cpu: [arm]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@tauri-apps/cli-linux-arm64-gnu@2.0.0-alpha.15:
+    resolution: {integrity: sha512-rmHIZsEb1RT5Ny4hjeK7LC3MRqWLZBfiKC29DX5UzhJySb9g0UeR2esx1PMX6kuU8DOC0RBr8xpEmoTNMtFJ3Q==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@tauri-apps/cli-linux-arm64-musl@2.0.0-alpha.15:
+    resolution: {integrity: sha512-l3oix62YRE/vjpdxWq38NwZ61yg1vCcGAdfHaSt+Um/ojZHudekchQx56sEh7IMxsHxEtipxZdNEb1WsyAa5JA==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@tauri-apps/cli-linux-x64-gnu@2.0.0-alpha.15:
+    resolution: {integrity: sha512-m7jWcyA4URtfvM4ySN1G3mO6gQP0qULawP9henks/bcrx2DU5xFP7WFxUxQhlWEtjwtJOI/NscQfzUEE6igs+Q==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@tauri-apps/cli-linux-x64-musl@2.0.0-alpha.15:
+    resolution: {integrity: sha512-Xa4JTnYbebnLAMY7JdNuUDgnv/wWA4a8fbg1288kckq3aRXb+ETTV3Tlr/rnsx1s3TpECmSkXjTIvNecvsqjTA==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [linux]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@tauri-apps/cli-win32-arm64-msvc@2.0.0-alpha.15:
+    resolution: {integrity: sha512-YOKmqenjwQkwBesJ3rYWnJ2renRhPAWIdIoTRhMnDacRk28mMWizsGWLT7ZDbYi7AHMR6jMk0eYgAKKd+uBjFg==}
+    engines: {node: '>= 10'}
+    cpu: [arm64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@tauri-apps/cli-win32-ia32-msvc@2.0.0-alpha.15:
+    resolution: {integrity: sha512-Z8yMn6jKSCN8atdWwIzHNoqd+kS684RpgFoZhftcxtqYDXfSgU63KLasKu2Wu12a/7TmXqHGHlEBst9nD2VSLw==}
+    engines: {node: '>= 10'}
+    cpu: [ia32]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@tauri-apps/cli-win32-x64-msvc@2.0.0-alpha.15:
+    resolution: {integrity: sha512-fcIXUgI1PKeAj2cp7vvXDssWcXxhauCyvtJPmaCVl5pk+5aJlOSx5TPjv0BRyaIO8l4IPW1IakvTRcDvEAQHRw==}
+    engines: {node: '>= 10'}
+    cpu: [x64]
+    os: [win32]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@tauri-apps/cli@2.0.0-alpha.15:
+    resolution: {integrity: sha512-eMMD5MXJDt/j37IGBP501Ov3lux+mrA1WT4EjTk+Oaw4t8fb8ncb7yvbVZ6qyzVo7WHplIGKRzyV0CyZXZropQ==}
+    engines: {node: '>= 10'}
+    hasBin: true
+    optionalDependencies:
+      '@tauri-apps/cli-darwin-arm64': 2.0.0-alpha.15
+      '@tauri-apps/cli-darwin-x64': 2.0.0-alpha.15
+      '@tauri-apps/cli-linux-arm-gnueabihf': 2.0.0-alpha.15
+      '@tauri-apps/cli-linux-arm64-gnu': 2.0.0-alpha.15
+      '@tauri-apps/cli-linux-arm64-musl': 2.0.0-alpha.15
+      '@tauri-apps/cli-linux-x64-gnu': 2.0.0-alpha.15
+      '@tauri-apps/cli-linux-x64-musl': 2.0.0-alpha.15
+      '@tauri-apps/cli-win32-arm64-msvc': 2.0.0-alpha.15
+      '@tauri-apps/cli-win32-ia32-msvc': 2.0.0-alpha.15
+      '@tauri-apps/cli-win32-x64-msvc': 2.0.0-alpha.15
     dev: true
 
   /@tootallnate/once@1.1.2:
@@ -19451,7 +19561,7 @@ packages:
       sass: '*'
       stylus: '*'
       sugarss: '*'
-      terser: ^5.4.0
+      terser: ^5.14.2
     peerDependenciesMeta:
       '@types/node':
         optional: true

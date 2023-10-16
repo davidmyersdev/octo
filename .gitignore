@@ -35,3 +35,8 @@ test/cypress/videos
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Ignore code signing certificates
+*.cer
+*.certSigningRequest
+*.p12

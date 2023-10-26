@@ -1,29 +1,10 @@
-<template>
-  <div class="flex flex-col gap-4">
-    <div class="flex flex-col items-start gap-4">
-      <CoreButton :is="'label'" class="button button-size-medium button-color-gray gap-3">
-        <input @change="onFiles" type="file" class="hidden" accept=".md,.markdown,text/markdown" multiple />
-        <svg class="w-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-miterlimit="5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M10 13V4M10 4L13 7M10 4L7 7"/>
-          <path d="M2 13V15C2 15.5523 2.44772 16 3 16H17C17.5523 16 18 15.5523 18 15V13"/>
-        </svg>
-        <span>Choose Markdown files to import</span>
-      </CoreButton>
-      <ul v-if="fileNames.length" class="list-disc pl-4">
-        <li v-for="fileName in fileNames">{{ fileName }}</li>
-      </ul>
-      <button class="button button-size-medium button-color-gray" @click="handleImport">Import</button>
-    </div>
-  </div>
-</template>
-
 <script lang="ts">
 import Doc from '#root/src/models/doc'
 
 export default defineComponent({
   setup() {
     const { store } = useVuex()
-    const files = ref<Blob[]>([])
+    const files = ref<File[]>([])
     const fileNames = computed(() => files.value.map(f => f.name))
     const text = ref('')
 
@@ -82,7 +63,7 @@ export default defineComponent({
     }
 
     const onFiles = inputHandler((event) => {
-      files.value = Array.from(event.target?.files || []) as Blob[]
+      files.value = Array.from(event.target?.files || [])
     })
 
     return {
@@ -95,3 +76,22 @@ export default defineComponent({
   },
 })
 </script>
+
+<template>
+  <div class="flex flex-col gap-4">
+    <div class="flex flex-col items-start gap-4">
+      <CoreButton is="label" class="button button-size-medium button-color-gray gap-3">
+        <input type="file" class="hidden" accept=".md,.markdown,text/markdown" multiple @change="onFiles">
+        <svg class="w-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-miterlimit="5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10 13V4M10 4L13 7M10 4L7 7" />
+          <path d="M2 13V15C2 15.5523 2.44772 16 3 16H17C17.5523 16 18 15.5523 18 15V13" />
+        </svg>
+        <span>Choose Markdown files to import</span>
+      </CoreButton>
+      <ul v-if="fileNames.length" class="list-disc pl-4">
+        <li v-for="fileName in fileNames">{{ fileName }}</li>
+      </ul>
+      <button class="button button-size-medium button-color-gray" @click="handleImport">Import</button>
+    </div>
+  </div>
+</template>

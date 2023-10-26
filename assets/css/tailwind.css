@@ -56,17 +56,29 @@
 }
 
 .dark {
-  --colors-layer-0: var(--dark-layer-0-bg);
+  /* --colors-layer-0: var(--dark-layer-0-bg);
   --colors-layer-1: var(--dark-layer-1-bg);
   --colors-layer-2: var(--dark-layer-2-bg);
   --colors-layer-3: var(--dark-layer-3-bg);
   --colors-layer-4: var(--dark-layer-4-bg);
-  --colors-layer-5: var(--dark-layer-5-bg);
-  --colors-text: 212 212 216;
+  --colors-layer-5: var(--dark-layer-5-bg); */
+  --colors-layer-0: 29 21 124;
+  --colors-layer-1: 80 29 166;
+  --colors-layer-2: 110 36 179;
+  --colors-layer-3: 133 48 197;
+  --colors-layer-4: 154 64 218;
+  --colors-layer-5: 189 69 255;
+  --dark-layer-0-bg: 29 21 124;
+  --dark-layer-1-bg: 80 29 166;
+  --dark-layer-2-bg: 110 36 179;
+  --dark-layer-3-bg: 133 48 197;
+  --dark-layer-4-bg: 154 64 218;
+  --dark-layer-5-bg: 189 69 255;
+  --colors-text: 255 173 255;
 
   /* layer-0 */
-  --layer-0-bg: var(--dark-layer-0-bg);
-  --layer-0-text: var(--dark-layer-0-text);
+  --layer-0-bg: 29 21 124;
+  --layer-0-text: 255 173 255;
 
   /* layer-1 */
   --layer-1-bg: var(--dark-layer-1-bg);

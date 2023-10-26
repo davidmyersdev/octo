@@ -212,6 +212,7 @@ export default defineComponent({
   .editor {
     --ink-font-family: 'Inter', helvetica, sans-serif;
     --ink-code-font-family: 'Fira Code', monospace;
+    --ink-block-background-color: rgb(var(--colors-layer-1));
   }
 
   @media (max-width: 767px) {

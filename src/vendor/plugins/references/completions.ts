@@ -1,5 +1,5 @@
-import { Config } from './index'
 import type { CompletionContext, CompletionResult } from '@codemirror/autocomplete'
+import type { Config } from './index'
 
 export const completions = (config: Config) => {
   return (context: CompletionContext): CompletionResult | null => {
@@ -15,7 +15,7 @@ export const completions = (config: Config) => {
           label: doc.title || doc.id,
           type: 'text',
         }
-      })
+      }),
     }
   }
 }

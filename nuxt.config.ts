@@ -113,7 +113,7 @@ export default defineNuxtConfig({
       registerPlugin: true,
     },
     devOptions: {
-      enabled: false,
+      enabled: true,
       type: 'module',
     },
     includeManifestIcons: true,

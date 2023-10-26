@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type LayoutKey } from '#build/types/layouts'
+import type { LayoutKey } from '#build/types/layouts'
 import Dashboard from '#root/layouts/dashboard.vue'
 
 export default defineComponent({

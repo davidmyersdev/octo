@@ -2,6 +2,7 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/__/auth/:match(.*)", "destination": "https://api.octo.app/__/auth/:match*" },
+    { "source": "/__/firebase/:match(.*)", "destination": "https://api.octo.app/__/firebase/:match*" },
     { "source": "/(.*)", "destination": "/" }
   ],
   "trailingSlash": false

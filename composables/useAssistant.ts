@@ -59,7 +59,7 @@ export const useAssistant = ({ chatId }: { chatId: Ref<string> }) => {
   const storage = useStorage(storageAdapter)
   const peripherals = { logger, storage }
   const integration = computed(() => openai({ apiKey: apiKey.value, peripherals }))
-  const chatInterface = computed(() => useChat({ chatId: chatId.value, integration: integration.value, peripherals }))
+  const chatInterface = computed(() => useChat({ chatId: chatId.value, integration: integration.value, model: 'gpt-4-1106-preview', peripherals }))
   const chatModel = computed(() => chatInterface.value.model)
   const chatFactory = computed(() => chatInterface.value.factory)
 

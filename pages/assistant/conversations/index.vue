@@ -1,4 +1,6 @@
 <script lang="ts">
+import { isNotNullish } from '#root/src/utils/objects'
+
 export default defineComponent({
   setup() {
     const { chats: allChats } = useChats()
@@ -8,7 +10,12 @@ export default defineComponent({
     const { searchQuery, searchResults } = useSearch(chatMessages, { keys: ['text'] })
     const chatIdResults = computed(() => searchResults.value.map((result) => result.item.chatId))
     const chatIds = computed(() => Array.from(new Set(chatIdResults.value)))
-    const filteredChats = computed(() => chatIds.value.map(chatId => allChats.value.find(chat => chat.id === chatId)!))
+    const filteredChats = computed(() => {
+      // Todo: There are sometimes undefined values. This might be due to leftover messages that point to deleted chats.
+      return chatIds.value
+        .map(chatId => allChats.value.find(chat => chat.id === chatId))
+        .filter(isNotNullish)
+    })
     const chats = computed(() => searchQuery.value ? filteredChats.value : allChats.value)
 
     return {

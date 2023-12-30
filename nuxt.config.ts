@@ -70,8 +70,8 @@ export default defineNuxtConfig({
     host: '127.0.0.1',
   },
   experimental: {
-    // Todo: Does not respect port provided with `nuxi dev --port`
-    // viteNode: true,
+    appManifest: true,
+    payloadExtraction: true,
   },
   hooks: {
     'pages:extend': (pages) => {

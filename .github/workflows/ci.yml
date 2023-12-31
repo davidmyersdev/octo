@@ -48,7 +48,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -61,11 +61,11 @@ jobs:
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}-v2
+          key: v1-${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           path: |
             ${{ env.STORE_PATH }}
             ~/.cache/Cypress
-          restore-keys: ${{ runner.os }}-pnpm-store-
+          restore-keys: v1-${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install --shamefully-hoist
   lint:
@@ -78,7 +78,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -91,11 +91,11 @@ jobs:
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}-v2
+          key: v1-${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           path: |
             ${{ env.STORE_PATH }}
             ~/.cache/Cypress
-          restore-keys: ${{ runner.os }}-pnpm-store-
+          restore-keys: v1-${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install --shamefully-hoist
       - name: Run linter
@@ -110,7 +110,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -123,11 +123,11 @@ jobs:
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}-v2
+          key: v1-${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           path: |
             ${{ env.STORE_PATH }}
             ~/.cache/Cypress
-          restore-keys: ${{ runner.os }}-pnpm-store-
+          restore-keys: v1-${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install --shamefully-hoist
       - uses: cypress-io/github-action@v6.5.0
@@ -159,7 +159,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -172,11 +172,11 @@ jobs:
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}-v2
+          key: v1-${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           path: |
             ${{ env.STORE_PATH }}
             ~/.cache/Cypress
-          restore-keys: ${{ runner.os }}-pnpm-store-
+          restore-keys: v1-${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install --shamefully-hoist
       - run: pnpm nuxi prepare
@@ -191,7 +191,7 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -204,11 +204,11 @@ jobs:
       - name: Setup pnpm cache
         uses: actions/cache@v3
         with:
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}-v2
+          key: v1-${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           path: |
             ${{ env.STORE_PATH }}
             ~/.cache/Cypress
-          restore-keys: ${{ runner.os }}-pnpm-store-
+          restore-keys: v1-${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install --shamefully-hoist
       - run: pnpm nuxi prepare

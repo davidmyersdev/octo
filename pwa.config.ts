@@ -1,6 +1,6 @@
-import type { VitePWAOptions } from 'vite-plugin-pwa'
+import type { PwaModuleOptions } from '@vite-pwa/nuxt'
 
-const defineConfig = (config: Partial<VitePWAOptions>): Partial<VitePWAOptions> => {
+const defineConfig = (config: Partial<PwaModuleOptions>): Partial<PwaModuleOptions> => {
   return config
 }
 

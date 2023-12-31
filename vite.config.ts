@@ -1,4 +1,4 @@
-import { type UserConfig, defineConfig } from 'vite'
+import { type UserConfig, defineConfig } from 'vitest/config'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import svgPlugin from 'vite-svg-loader'
 

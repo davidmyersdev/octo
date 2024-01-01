@@ -14,12 +14,12 @@ const updateAppHeight = () => {
 
 export const useRoot = () => {
   // https://github.com/vueuse/vueuse/issues/1595
-  const email = useStorage<string>('email', '')
+  const email = useStorage<string>('email', '', undefined, { initOnMounted: true })
   const user = useStorage<User>('user', {
     id: undefined,
     providers: [],
     roles: [],
-  }, undefined, { mergeDefaults: true })
+  }, undefined, { initOnMounted: true, mergeDefaults: true })
   const store = useStore()
   const { public: { firebaseDisabled } } = useRuntimeConfig()
 

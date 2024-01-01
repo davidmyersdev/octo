@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+const user = useUser()
+</script>
+
 <template>
   <article>
     <header class="px-4 py-2 mb-8 border-b border-layer-2">
@@ -15,7 +19,10 @@
               <div class="w-px bg-layer-2">
                 &nbsp;
               </div>
-              <CoreButtonLink :layer="0" :to="{ path: '/authenticate' }">
+              <CoreButtonLink v-if="user.id" :layer="0" :to="{ path: '/docs/new' }">
+                App
+              </CoreButtonLink>
+              <CoreButtonLink v-else :layer="0" :to="{ path: '/authenticate' }">
                 Sign In
               </CoreButtonLink>
             </div>

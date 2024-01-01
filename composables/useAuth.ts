@@ -1,5 +1,5 @@
 import { useOnline } from '@vueuse/core'
-import { type AuthProvider, type UserInfo as ProviderInfo, getAuth, getRedirectResult, GithubAuthProvider, GoogleAuthProvider, isSignInWithEmailLink, sendSignInLinkToEmail, signInWithEmailLink, signInWithRedirect, TwitterAuthProvider } from 'firebase/auth'
+import { type AuthProvider, GithubAuthProvider, GoogleAuthProvider, type UserInfo as ProviderInfo, TwitterAuthProvider, getAuth, getRedirectResult, isSignInWithEmailLink, sendSignInLinkToEmail, signInWithEmailLink, signInWithRedirect } from 'firebase/auth'
 import { type Ref } from 'vue'
 import { useStore } from 'vuex'
 import { type Tier } from '#composables/useTiers'
@@ -46,67 +46,68 @@ export const useAuth = () => {
   const { active: activeTier, basic: basicTier, personal: personalTier, pro: proTier } = useTiers()
   const { redirectToSocial, signInWithSocial } = useSocial()
   const { redirectToStripe } = useStripe()
+  const flowSocialForm = computed({
+    get: () => {
+      return activeTier.value.forms.social
+    },
+    set: (value) => {
+      activeTier.value.forms.social = value
+    },
+  })
 
-  if (isSocialFlow.value) {
-    const flowSocialForm = computed({
-      get: () => {
-        return activeTier.value.forms.social
-      },
-      set: (value) => {
-        activeTier.value.forms.social = value
-      },
-    })
+  onMounted(() => {
+    if (isSocialFlow.value) {
+      signInWithSocial(flowSocialForm).then((result) => {
+        if (!result) {
+          if (!flowSocialForm.value.error) {
+            flowSocialForm.value.error = 'You were not signed in. Please try again.'
+          }
 
-    signInWithSocial(flowSocialForm).then((result) => {
-      if (!result) {
-        if (!flowSocialForm.value.error) {
-          flowSocialForm.value.error = 'You were not signed in. Please try again.'
+          return false
         }
 
-        return false
-      }
+        flowSocialForm.value.confirmed = true
 
-      flowSocialForm.value.confirmed = true
+        if (activeTier.value.isPaying) {
+          isRedirectingToStripe.value = true
 
-      if (activeTier.value.isPaying) {
-        isRedirectingToStripe.value = true
-
-        redirectToStripe().then((isValid) => {
-          if (!isValid) {
-            stripeError.value = 'An unexpected error occurred while communicating with Stripe.'
-          }
-        })
-      } else {
-        router.push({ path: '/docs/new' })
-      }
-    }).catch((error) => {
-      console.warn({ error })
-    })
-  }
-
-  if (isMagicLinkFlow.value) {
-    if (isOriginalClient.value && emailAddress.value) {
-      modalForm.email = emailAddress.value
-
-      signInWithMagicLink(modalForm).then((isSignedIn) => {
-        if (isSignedIn) {
-          isMagicLinkModalClosed.value = true
-
-          if (activeTier?.value.isPaying) {
-            isRedirectingToStripe.value = true
-
-            redirectToStripe().then((isValid) => {
-              if (!isValid) {
-                stripeError.value = 'An unexpected error occurred while communicating with Stripe.'
-              }
-            })
-          } else {
-            router.push({ path: '/docs/new' })
-          }
+          redirectToStripe().then((isValid) => {
+            if (!isValid) {
+              stripeError.value = 'An unexpected error occurred while communicating with Stripe.'
+            }
+          })
+        } else {
+          router.push({ path: '/docs/new' })
         }
+      }).catch((error) => {
+        console.warn({ error })
       })
     }
-  }
+
+    if (isMagicLinkFlow.value) {
+      if (isOriginalClient.value && emailAddress.value) {
+        modalForm.email = emailAddress.value
+
+        signInWithMagicLink(modalForm).then((isSignedIn) => {
+          if (isSignedIn) {
+            isMagicLinkModalClosed.value = true
+
+            if (activeTier?.value.isPaying) {
+              isRedirectingToStripe.value = true
+
+              redirectToStripe().then((isValid) => {
+                if (!isValid) {
+                  stripeError.value = 'An unexpected error occurred while communicating with Stripe.'
+                }
+              })
+            } else {
+              router.push({ path: '/docs/new' })
+            }
+          }
+        })
+      }
+    }
+  })
 
   const onMagicLinkModalClose = () => {
     isMagicLinkModalClosed.value = true
@@ -116,7 +117,7 @@ export const useAuth = () => {
     isStripeModalClosed.value = true
   }
 
-  const onMagicLink = ({ form, tier  }: { form: AuthMagicLinkForm, tier: Tier }) => {
+  const onMagicLink = ({ form, tier }: { form: AuthMagicLinkForm, tier: Tier }) => {
     sendMagicLinkEmail({ form, tier })
   }
 
@@ -280,7 +281,7 @@ export const useMagicLink = () => {
       }
 
       return signInWithEmailLink(getAuth(), form.email, location.href).then((result) => {
-        // @ts-ignore
+        // @ts-expect-error
         if (result.additionalUserInfo && result.additionalUserInfo.isNewUser) {
           track(fathomEventAccountRegistration)
         }

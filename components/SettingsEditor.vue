@@ -1,103 +1,4 @@
-<template>
-  <section>
-    <h3 class="text-3xl">Editor</h3>
-    <hr class="mt-2 mb-4">
-    <p class="mb-6">Configure settings for Ink - the Markdown editor that powers Octo.</p>
-    <Extendable scope="app.settings.editor">
-      <div class="mb-4">
-        <div>
-          <label class="button button-size-medium button-color-gray items-center">
-            <input v-model="spellcheck" type="checkbox" class="checkbox">
-            <span class="ml-3">Spellcheck</span>
-          </label>
-        </div>
-        <small class="text-gray-700">Note: This will not disable Grammarly if you have the extension enabled.</small>
-      </div>
-      <div class="mb-4">
-        <div>
-          <label class="button button-size-medium button-color-gray items-center">
-            <input v-model="vim" type="checkbox" class="checkbox">
-            <span class="ml-3">Vim Mode</span>
-          </label>
-        </div>
-        <small class="text-gray-700">Use Vim keybindings to edit your docs.</small>
-      </div>
-      <div class="mb-4">
-        <label for="config-tab-size">Tab length</label>
-        <input v-model="tabSize" type="number" min="2" id="config-tab-size" class="form-text w-full">
-        <small class="text-gray-700">Set the number of spaces to use for each tab (minimum: 2).</small>
-      </div>
-      <div class="mb-4">
-        <h4 class="text-2xl mb-2">Readability Information</h4>
-        <p class="mb-2">The Readability Bar shows useful information such as word count and read time at the bottom of the editor.</p>
-        <div class="mb-4">
-          <div>
-            <label class="button button-size-medium button-color-gray items-center">
-              <input v-model="readabilityEnabled" type="checkbox" class="checkbox">
-              <span class="ml-3 ">Toggle Readability Bar</span>
-            </label>
-          </div>
-        </div>
-        <div class="mb-4">
-          <label for="config-tab-size">Reading Speed (words per minute)</label>
-          <input v-model="readabilityWordsPerMinute" type="number" min="2" id="config-tab-size" class="form-text w-full">
-          <small class="text-gray-700">Reading speed is used to estimate document read time.</small>
-        </div>
-        <div class="mb-4">
-          <label for="config-max-width">Max Width of Editor (in number of characters)</label>
-          <input v-model="readabilityMaxWidth" type="number" min="40" id="config-max-width" class="form-text w-full">
-          <small class="text-gray-700">Values between 60 and 100 are common.</small>
-        </div>
-      </div>
-      <div class="mb-4">
-        <h4 class="text-2xl mb-2">Formatting Toolbar</h4>
-        <p class="mb-2">Display the formatting toolbar in the editor.</p>
-        <div class="mb-4">
-          <label class="button button-size-medium button-color-gray items-center">
-            <input v-model="toolbar" type="checkbox" class="checkbox">
-            <span class="ml-3 ">Enable Toolbar</span>
-          </label>
-        </div>
-      </div>
-      <div class="mb-4">
-        <h4 class="text-2xl mb-2">Font Ligatures</h4>
-        <p class="mb-2">Render <a href="https://github.com/tonsky/FiraCode#whats-in-the-box" target="_blank" rel="noopener noreferrer">font ligatures</a> (e.g. <code class="monospace ligatures-normal">=></code>).</p>
-        <div class="mb-4">
-          <label class="button button-size-medium button-color-gray items-center">
-            <input v-model="ligatures" type="checkbox" class="checkbox">
-            <span class="ml-3 ">Enable Ligatures</span>
-          </label>
-        </div>
-      </div>
-      <div class="mb-4">
-        <h4 class="text-2xl mb-2">Images</h4>
-        <p class="mb-2">This setting determines whether or not image tags (e.g. <code class="bg-layer-1 p-0.5 rounded">![alt text](/path/to/image)</code>) will render images in your docs.</p>
-        <div class="mb-4">
-          <div>
-            <label class="button button-size-medium button-color-gray items-center">
-              <input v-model="imagesEnabled" type="checkbox" class="checkbox">
-              <span class="ml-3 ">Enable Images</span>
-            </label>
-          </div>
-        </div>
-      </div>
-      <div class="mb-4">
-        <h4 class="text-2xl mb-2">List Overlays</h4>
-        <p class="mb-2">This setting enables overlays for bullet and task lists. Task lists will render an interactive checkbox in place of <code class="bg-layer-1 p-0.5 rounded">- [ ]</code> or <code class="bg-layer-1 p-0.5 rounded">- [x]</code>.</p>
-        <div class="mb-4">
-          <div>
-            <label class="button button-size-medium button-color-gray items-center">
-              <input v-model="listsEnabled" type="checkbox" class="checkbox">
-              <span class="ml-3 ">Enable List Overlays</span>
-            </label>
-          </div>
-        </div>
-      </div>
-    </Extendable>
-  </section>
-</template>
-
-<script>
+<script lang="ts">
 import {
   SET_EDITOR_IMAGES_ENABLED,
   SET_EDITOR_IMAGES_SHOW_CAPTIONS,
@@ -112,13 +13,13 @@ import {
   SET_EDITOR_TOOLBAR,
 } from '#root/src/store/modules/settings'
 
-export default {
+export default defineComponent({
   computed: {
     imagesEnabled: {
       get() {
         return this.$store.state.settings.editor.images.enabled
       },
-      set(value) {
+      set(value: any) {
         this.$store.dispatch(SET_EDITOR_IMAGES_ENABLED, value)
       },
     },
@@ -126,7 +27,7 @@ export default {
       get() {
         return this.$store.state.settings.editor.ligatures
       },
-      set(value) {
+      set(value: any) {
         this.$store.commit(SET_EDITOR_LIGATURES, value)
       },
     },
@@ -134,7 +35,7 @@ export default {
       get() {
         return this.$store.state.settings.editor.lists.enabled
       },
-      set(value) {
+      set(value: any) {
         this.$store.commit(SET_EDITOR_LISTS_ENABLED, value)
       },
     },
@@ -142,7 +43,7 @@ export default {
       get() {
         return this.$store.state.settings.editor.readability.enabled
       },
-      set(value) {
+      set(value: any) {
         this.$store.commit(SET_EDITOR_READABILITY_ENABLED, value)
       },
     },
@@ -150,7 +51,7 @@ export default {
       get() {
         return this.$store.state.settings.editor.readability.maxWidthInChars
       },
-      set(value) {
+      set(value: any) {
         this.$store.commit(SET_EDITOR_READABILITY_MAX_WIDTH, value)
       },
     },
@@ -158,7 +59,7 @@ export default {
       get() {
         return this.$store.state.settings.editor.readability.wordsPerMinute
       },
-      set(value) {
+      set(value: any) {
         this.$store.commit(SET_EDITOR_READABILITY_WORDS_PER_MINUTE, value)
       },
     },
@@ -166,7 +67,7 @@ export default {
       get() {
         return this.$store.state.settings.editor.images.showCaptions
       },
-      set(value) {
+      set(value: any) {
         this.$store.dispatch(SET_EDITOR_IMAGES_SHOW_CAPTIONS, value)
       },
     },
@@ -174,23 +75,23 @@ export default {
       get() {
         return this.$store.state.settings.editor.spellcheck
       },
-      set(value) {
+      set(value: any) {
         this.$store.commit(SET_EDITOR_SPELLCHECK, value)
       },
     },
     tabSize: {
-      get() {
+      get(): number {
         return this.$store.state.settings.editor.tabSize
       },
-      set(value) {
-        this.$store.dispatch(SET_EDITOR_TAB_SIZE, parseInt(value) || 2)
+      set(value: number) {
+        this.$store.dispatch(SET_EDITOR_TAB_SIZE, value || 2)
       },
     },
     toolbar: {
       get() {
         return this.$store.state.settings.editor.toolbar
       },
-      set(value) {
+      set(value: any) {
         this.$store.commit(SET_EDITOR_TOOLBAR, value)
       },
     },
@@ -199,10 +100,122 @@ export default {
       get() {
         return this.$store.state.settings.editor.keyMap === 'vim'
       },
-      set(value) {
+      set(value: any) {
         this.$store.dispatch(SET_EDITOR_KEY_MAP, value ? 'vim' : 'default')
       },
     },
   },
-}
+})
 </script>
+
+<template>
+  <CorePageSection title="Editor">
+    <Extendable scope="app.settings.editor" class="flex flex-col gap-4">
+      <div>
+        <CoreLayer>
+          <CoreButton as="label">
+            <input v-model="spellcheck" type="checkbox" class="checkbox">
+            <span>Spellcheck</span>
+          </CoreButton>
+        </CoreLayer>
+        <small class="text-layer-muted">Note: This will not disable Grammarly if you have the extension enabled.</small>
+      </div>
+      <div>
+        <CoreLayer>
+          <CoreButton as="label">
+            <input v-model="vim" type="checkbox" class="checkbox">
+            <span>Vim Mode</span>
+          </CoreButton>
+        </CoreLayer>
+        <small class="text-layer-muted">Use Vim keybindings to edit your docs.</small>
+      </div>
+      <div>
+        <CoreInput
+          v-model="tabSize"
+          label="Tab length"
+          description="Set the number of spaces to use for each tab (minimum: 2)."
+          :min="2"
+          type="number"
+        />
+      </div>
+      <div class="pt-4 pb-2">
+        <h4 class="text-xl">Readability Information</h4>
+        <p class="mt-1 text-layer-muted">The Readability Bar shows useful information such as word count and read time at the bottom of the editor.</p>
+      </div>
+      <div>
+        <CoreLayer>
+          <CoreButton as="label">
+            <input v-model="readabilityEnabled" type="checkbox" class="checkbox">
+            <span>Toggle Readability Bar</span>
+          </CoreButton>
+        </CoreLayer>
+      </div>
+      <div>
+        <CoreInput
+          v-model="readabilityWordsPerMinute"
+          label="Reading Speed (words per minute)"
+          description="Reading speed is used to estimate document read time."
+          :min="2"
+          type="number"
+        />
+      </div>
+      <div>
+        <CoreInput
+          v-model="readabilityMaxWidth"
+          label="Max Width of Editor (in number of characters)"
+          description="Values between 60 and 100 are common."
+          :min="40"
+          type="number"
+        />
+      </div>
+      <div class="pt-4 pb-2">
+        <h4 class="text-xl">Formatting Toolbar</h4>
+        <p class="mt-1 text-layer-muted">Display the formatting toolbar in the editor.</p>
+      </div>
+      <div>
+        <CoreLayer>
+          <CoreButton as="label">
+            <input v-model="toolbar" type="checkbox" class="checkbox">
+            <span>Enable Toolbar</span>
+          </CoreButton>
+        </CoreLayer>
+      </div>
+      <div class="pt-4 pb-2">
+        <h4 class="text-xl">Font Ligatures</h4>
+        <p class="mt-1 text-layer-muted">Render <a href="https://github.com/tonsky/FiraCode#whats-in-the-box" target="_blank" rel="noopener noreferrer">font ligatures</a> (e.g. <CoreCode class="monospace ligatures-normal">=></CoreCode>).</p>
+      </div>
+      <div>
+        <CoreLayer>
+          <CoreButton as="label">
+            <input v-model="ligatures" type="checkbox" class="checkbox">
+            <span>Enable Ligatures</span>
+          </CoreButton>
+        </CoreLayer>
+      </div>
+      <div class="pt-4 pb-2">
+        <h4 class="text-xl">Images</h4>
+        <p class="mt-1 text-layer-muted">This setting determines whether or not image tags (e.g. <CoreCode>![alt text](/path/to/image)</CoreCode>) will render images in your docs.</p>
+      </div>
+      <div>
+        <CoreLayer>
+          <CoreButton as="label">
+            <input v-model="imagesEnabled" type="checkbox" class="checkbox">
+            <span>Enable Images</span>
+          </CoreButton>
+        </CoreLayer>
+      </div>
+      <div class="pt-4 pb-2">
+        <h4 class="text-xl">List Overlays</h4>
+        <p class="mt-1 text-layer-muted">This setting enables overlays for bullet and task lists. Task lists will render an interactive checkbox in place of <CoreCode>- [ ]</CoreCode> or <CoreCode>- [x]</CoreCode>.</p>
+      </div>
+      <div>
+        <CoreLayer>
+          <CoreButton as="label">
+            <input v-model="listsEnabled" type="checkbox" class="checkbox">
+            <span>Enable List Overlays</span>
+          </CoreButton>
+        </CoreLayer>
+      </div>
+    </Extendable>
+  </CorePageSection>
+</template>

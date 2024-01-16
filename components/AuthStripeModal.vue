@@ -31,7 +31,7 @@ export default defineComponent({
     </template>
     <div>
       <p v-if="error" class="mt-1 text-red-500">{{ error }}</p>
-      <div v-else class="flex flex-col gap-4">
+      <div v-else>
         <p>You will be redirected to Stripe in just a moment...</p>
       </div>
     </div>

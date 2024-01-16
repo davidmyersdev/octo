@@ -33,14 +33,16 @@ export default defineComponent({
 
 <template>
   <div class="flex flex-col gap-4">
-    <div>
-      <label class="button button-size-medium button-color-gray items-center">
+    <CoreLayer>
+      <CoreButton as="label">
         <input v-model="includeFrontmatter" type="checkbox" class="checkbox">
-        <span class="ml-3">Include metadata as Front Matter</span>
-      </label>
-    </div>
-    <div>
-      <button class="button button-size-medium button-color-gray" @click="handleExport">Export</button>
-    </div>
+        <span>Include metadata as Front Matter</span>
+      </CoreButton>
+    </CoreLayer>
+    <CoreLayer>
+      <CoreButton @click="handleExport">
+        <span>Export</span>
+      </CoreButton>
+    </CoreLayer>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const props = defineProps<{ tag: string }>()
+const props = defineProps<{ tag?: string }>()
 const router = useRouter()
 const { query } = useRouteQuery()
 const tagParam = computed(() => Array.isArray(router.currentRoute.value.params.tag) ? router.currentRoute.value.params.tag.join('/') : undefined)

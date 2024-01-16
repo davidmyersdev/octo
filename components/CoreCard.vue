@@ -1,20 +1,20 @@
 <script lang="ts" setup>
-import { type Component, computed } from 'vue'
+import { computed } from 'vue'
 
 const props = defineProps<{
   as?: string | Component,
   outline?: boolean,
 }>()
 
-const component = computed(() => props.as || 'button')
-const classes = computed(() => props.outline ? 'border border-layer bg-transparent' : '')
+const component = computed(() => props.as || 'div')
+const classes = computed(() => props.outline ? 'border border-layer' : 'bg-layer')
 </script>
 
 <template>
   <component
     :is="component"
-    class="core-button"
     :class="classes"
+    class="p-4 rounded"
   >
     <slot />
   </component>

@@ -25,9 +25,11 @@
   },
   "dependencies": {
     "@headlessui/tailwindcss": "^0.2.0",
-    "@headlessui/vue": "^1.7.16",
+    "@headlessui/vue": "^1.7.17",
     "@mermaid-js/mermaid-mindmap": "^9.3.0",
+    "@types/culori": "^2.0.4",
     "codemirror-lang-mermaid": "^0.2.2",
+    "culori": "^3.3.0",
     "deepmerge": "^4.3.1",
     "dexie": "^3.2.4",
     "file-saver": "^2.0.5",
@@ -53,6 +55,7 @@
     "vuex": "^4.1.0"
   },
   "devDependencies": {
+    "@csstools/postcss-oklab-function": "^3.0.9",
     "@heroicons/vue": "^2.1.1",
     "@nuxtjs/tailwindcss": "^6.10.3",
     "@pinia/nuxt": "^0.4.11",

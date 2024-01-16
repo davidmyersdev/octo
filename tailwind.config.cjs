@@ -1,6 +1,7 @@
 const colors = require('tailwindcss/colors')
 const plugin = require('tailwindcss/plugin')
 
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     './assets/css/tailwind.css',
@@ -15,34 +16,71 @@ module.exports = {
         darkest: '#121212',
         gray: colors.zinc,
         layer: {
-          '0': 'rgb(var(--colors-layer-0) / <alpha-value>)',
-          '0-bg': 'rgb(var(--layer-0-bg) / <alpha-value>)',
-          '0-text': 'rgb(var(--layer-0-text) / <alpha-value>)',
-          '1': 'rgb(var(--colors-layer-1) / <alpha-value>)',
-          '1-bg': 'rgb(var(--layer-1-bg) / <alpha-value>)',
-          '1-text': 'rgb(var(--layer-1-text) / <alpha-value>)',
-          '2': 'rgb(var(--colors-layer-2) / <alpha-value>)',
-          '2-bg': 'rgb(var(--layer-2-bg) / <alpha-value>)',
-          '2-text': 'rgb(var(--layer-2-text) / <alpha-value>)',
-          '3': 'rgb(var(--colors-layer-3) / <alpha-value>)',
-          '3-bg': 'rgb(var(--layer-3-bg) / <alpha-value>)',
-          '3-text': 'rgb(var(--layer-3-text) / <alpha-value>)',
-          '4': 'rgb(var(--colors-layer-4) / <alpha-value>)',
-          '4-bg': 'rgb(var(--layer-4-bg) / <alpha-value>)',
-          '4-text': 'rgb(var(--layer-4-text) / <alpha-value>)',
-          '5': 'rgb(var(--colors-layer-5) / <alpha-value>)',
-          '5-bg': 'rgb(var(--layer-5-bg) / <alpha-value>)',
-          '5-text': 'rgb(var(--layer-5-text) / <alpha-value>)',
+          'bg': 'rgb(var(--layer-bg) / <alpha-value>)',
+          'bg-hover': 'rgb(var(--layer-bg-hover) / <alpha-value>)',
+          'bg-active': 'rgb(var(--layer-bg-active) / <alpha-value>)',
+          'bg-disabled': 'rgb(var(--layer-bg-disabled) / <alpha-value>)',
+          'text': 'rgb(var(--layer-text) / <alpha-value>)',
+          'text-hover': 'rgb(var(--layer-text-hover) / <alpha-value>)',
+          'text-active': 'rgb(var(--layer-text-active) / <alpha-value>)',
+          'text-disabled': 'rgb(var(--layer-text-disabled) / <alpha-value>)',
+          'text-muted': 'rgb(var(--layer-text-muted) / <alpha-value>)',
         },
         primary: 'rgb(var(--colors-primary) / <alpha-value>)',
-        text: 'rgb(var(--colors-text) / <alpha-value>)',
+      },
+      backgroundColor: {
+        'layer': 'rgb(var(--layer-bg) / <alpha-value>)',
+        'layer-hover': 'rgb(var(--layer-bg-hover) / <alpha-value>)',
+        'layer-active': 'rgb(var(--layer-bg-active) / <alpha-value>)',
+        'layer-disabled': 'rgb(var(--layer-bg-disabled) / <alpha-value>)',
+        'layer-text': 'rgb(var(--layer-text) / <alpha-value>)',
+        'layer-text-muted': 'rgb(var(--layer-text-muted) / <alpha-value>)',
+      },
+      borderColor: {
+        'layer': 'rgb(var(--layer-border) / <alpha-value>)',
+        'layer-text': 'rgb(var(--layer-text) / <alpha-value>)',
+        'layer-text-muted': 'rgb(var(--layer-text-muted) / <alpha-value>)',
+      },
+      placeholderColor: {
+        muted: 'rgb(var(--layer-text-muted) / <alpha-value>)',
+      },
+      textColor: {
+        'layer': 'rgb(var(--layer-text) / <alpha-value>)',
+        'layer-hover': 'rgb(var(--layer-text-hover) / <alpha-value>)',
+        'layer-active': 'rgb(var(--layer-text-active) / <alpha-value>)',
+        'layer-disabled': 'rgb(var(--layer-text-disabled) / <alpha-value>)',
+        'layer-muted': 'rgb(var(--layer-text-muted) / <alpha-value>)',
+      },
+      typography: {
+        inherit: {
+          css: {
+            '--tw-prose-body': 'rgb(var(--layer-text) / <alpha-value>)',
+            '--tw-prose-headings': 'rgb(var(--layer-text) / <alpha-value>)',
+            '--tw-prose-lead': 'rgb(var(--layer-text) / <alpha-value>)',
+            '--tw-prose-links': 'rgb(var(--layer-text) / <alpha-value>)',
+            '--tw-prose-bold': 'rgb(var(--layer-text) / <alpha-value>)',
+            '--tw-prose-counters': 'rgb(var(--layer-text) / <alpha-value>)',
+            '--tw-prose-bullets': 'rgb(var(--layer-text) / <alpha-value>)',
+            '--tw-prose-hr': 'rgb(var(--layer-text) / <alpha-value>)',
+            '--tw-prose-quotes': 'rgb(var(--layer-text) / <alpha-value>)',
+            '--tw-prose-quote-borders': 'rgb(var(--layer-text) / <alpha-value>)',
+            '--tw-prose-captions': 'rgb(var(--layer-text) / <alpha-value>)',
+            '--tw-prose-code': 'rgb(var(--layer-text) / <alpha-value>)',
+            '--tw-prose-pre-code': 'rgb(var(--layer-text) / <alpha-value>)',
+            '--tw-prose-pre-bg': 'rgb(var(--layer-text) / <alpha-value>)',
+            '--tw-prose-th-borders': 'rgb(var(--layer-text) / <alpha-value>)',
+            '--tw-prose-td-borders': 'rgb(var(--layer-text) / <alpha-value>)',
+          },
+        },
       },
     },
   },
   plugins: [
     require('@headlessui/tailwindcss'),
     require('@tailwindcss/typography'),
-    plugin(({ matchUtilities, theme }) => {
+    plugin(({ addVariant, matchUtilities, theme }) => {
+      addVariant('disabled-within', '&:has(*:disabled)')
+
       matchUtilities({
         sq: (value) => ({
           height: value,

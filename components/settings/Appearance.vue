@@ -11,32 +11,30 @@ export default defineComponent({
 </script>
 
 <template>
-  <section>
-    <h3 class="text-3xl">
-      Appearance
-    </h3>
-    <hr class="mt-2 mb-4">
+  <CorePageSection title="Appearance">
     <Extendable scope="app.settings.appearance">
-      <div class="mb-4">
-        <div>
-          <label class="button button-size-medium button-color-gray">
-            <input v-model="appearance" type="radio" value="auto" class="radio">
-            <span class="ml-3">Auto</span>
-          </label>
-          <label class="button button-size-medium button-color-gray ml-2">
-            <input v-model="appearance" type="radio" value="dark" class="radio">
-            <span class="ml-3">Dark</span>
-          </label>
-          <label class="button button-size-medium button-color-gray ml-2">
-            <input v-model="appearance" type="radio" value="light" class="radio">
-            <span class="ml-3">Light</span>
-          </label>
-          <label class="button button-size-medium button-color-gray ml-2">
-            <input v-model="appearance" type="radio" value="october" class="radio">
-            <span class="ml-3">Spooky</span>
-          </label>
-        </div>
-      </div>
+      <CoreLayer class="flex flex-wrap gap-2">
+        <CoreButton as="label">
+          <input v-model="appearance" type="radio" value="auto" class="radio">
+          <span>Auto</span>
+        </CoreButton>
+        <CoreButton as="label">
+          <input v-model="appearance" type="radio" value="dark" class="radio">
+          <span>Dark</span>
+        </CoreButton>
+        <CoreButton as="label">
+          <input v-model="appearance" type="radio" value="light" class="radio">
+          <span>Light</span>
+        </CoreButton>
+        <CoreButton as="label">
+          <input v-model="appearance" type="radio" value="october" class="radio">
+          <span>Spooky</span>
+        </CoreButton>
+        <CoreButton as="label">
+          <input v-model="appearance" type="radio" value="custom" class="radio">
+          <span>Custom</span>
+        </CoreButton>
+      </CoreLayer>
     </Extendable>
-  </section>
+  </CorePageSection>
 </template>

@@ -18,7 +18,7 @@ useHead({ title: 'Pricing' })
     <section class="p-4 lg:p-8 container mx-auto">
       <div class="max-w-4xl mx-auto">
         <AuthTiers />
-        <p class="text-gray-500 mt-2"><small>By signing in, you acknowledge that you have read and agree to Octo's <CoreLink :to="{ path: '/privacy-policy' }" class="underline">Privacy Policy</CoreLink> and <CoreLink :to="{ path: '/terms-and-conditions' }" class="underline">Terms &amp; Conditions</CoreLink>.</small></p>
+        <p class="text-layer-muted mt-2"><small>By signing in, you acknowledge that you have read and agree to Octo's <CoreLink :to="{ path: '/privacy-policy' }" class="underline">Privacy Policy</CoreLink> and <CoreLink :to="{ path: '/terms-and-conditions' }" class="underline">Terms &amp; Conditions</CoreLink>.</small></p>
       </div>
     </section>
   </div>

@@ -80,18 +80,24 @@ export default defineComponent({
 <template>
   <div class="flex flex-col gap-4">
     <div class="flex flex-col items-start gap-4">
-      <CoreButton is="label" class="button button-size-medium button-color-gray gap-3">
-        <input type="file" class="hidden" accept=".md,.markdown,text/markdown" multiple @change="onFiles">
-        <svg class="w-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-miterlimit="5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M10 13V4M10 4L13 7M10 4L7 7" />
-          <path d="M2 13V15C2 15.5523 2.44772 16 3 16H17C17.5523 16 18 15.5523 18 15V13" />
-        </svg>
-        <span>Choose Markdown files to import</span>
-      </CoreButton>
+      <CoreLayer>
+        <CoreButton as="label">
+          <input type="file" class="hidden" accept=".md,.markdown,text/markdown" multiple @change="onFiles">
+          <svg class="w-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-miterlimit="5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 13V4M10 4L13 7M10 4L7 7" />
+            <path d="M2 13V15C2 15.5523 2.44772 16 3 16H17C17.5523 16 18 15.5523 18 15V13" />
+          </svg>
+          <span>Choose Markdown files to import</span>
+        </CoreButton>
+      </CoreLayer>
       <ul v-if="fileNames.length" class="list-disc pl-4">
-        <li v-for="fileName in fileNames">{{ fileName }}</li>
+        <li v-for="fileName in fileNames" :key="fileName">{{ fileName }}</li>
       </ul>
-      <button class="button button-size-medium button-color-gray" @click="handleImport">Import</button>
+      <CoreLayer>
+        <CoreButton @click="handleImport">
+          <span>Import</span>
+        </CoreButton>
+      </CoreLayer>
     </div>
   </div>
 </template>

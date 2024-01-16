@@ -1,11 +1,3 @@
-<template>
-  <div>
-    <component v-for="component in prependable" :key="component.name" :is="component.name"></component>
-    <slot></slot>
-    <component v-for="component in appendable" :key="component.name" :is="component.name"></component>
-  </div>
-</template>
-
 <script>
 export default {
   props: {
@@ -29,3 +21,11 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div>
+    <component :is="component.name" v-for="component in prependable" :key="component.name" />
+    <slot />
+    <component :is="component.name" v-for="component in appendable" :key="component.name" />
+  </div>
+</template>

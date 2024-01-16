@@ -55,6 +55,7 @@ export default defineComponent({
   <section class="flex flex-col justify-center lg:flex-row gap-4">
     <AuthTier
       :tier="personalTier"
+      class="flex-shrink basis-1/2"
       data-test-auth-tier-personal
       @magic-link="onMagicLink"
       @social-link="onSocialLink"
@@ -74,6 +75,7 @@ export default defineComponent({
     </AuthTier>
     <AuthTier
       :tier="proTier"
+      class="flex-shrink basis-1/2"
       data-test-auth-tier-pro
       @magic-link="onMagicLink"
       @social-link="onSocialLink"
@@ -95,7 +97,12 @@ export default defineComponent({
         </CheckList>
       </template>
     </AuthTier>
-    <AuthMagicLinkModal v-if="isMagicLinkFlow && !isMagicLinkModalClosed" :form="modalForm" @close="onMagicLinkModalClose" @confirm="onMagicLinkConfirm" />
+    <AuthMagicLinkModal
+      v-if="isMagicLinkFlow && !isMagicLinkModalClosed"
+      :form="modalForm"
+      @close="onMagicLinkModalClose"
+      @confirm="onMagicLinkConfirm"
+    />
     <AuthStripeModal v-else-if="isRedirectingToStripe && !isStripeModalClosed" :error="stripeError" @close="onStripeModalClose" />
   </section>
 </template>

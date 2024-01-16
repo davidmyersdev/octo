@@ -1,62 +1,5 @@
-<template>
-  <section class="flex flex-col gap-4">
-    <div>
-      <div v-if="github" class="mb-4">
-        <div class="flex items-center">
-          <IconGitHub class="h-5 w-5" />
-          <span class="font-bold text-lg ml-3">GitHub</span>
-          <span class="bg-gray-100 dark:bg-gray-800 text-base font-normal px-1 rounded ml-2">Linked</span>
-        </div>
-        <p>{{ github.email }}</p>
-      </div>
-
-      <div v-if="google" class="mb-4">
-        <div class="flex items-center">
-          <IconGoogle class="h-5 w-5" />
-          <span class="font-bold text-lg ml-3">Google</span>
-          <span class="bg-gray-100 dark:bg-gray-800 text-base font-normal px-1 rounded ml-2">Linked</span>
-        </div>
-        <p>{{ google.email }}</p>
-      </div>
-
-      <div v-if="twitter" class="mb-4">
-        <div class="flex items-center">
-          <IconTwitter class="h-5 w-5" />
-          <span class="font-bold text-lg ml-3">Twitter</span>
-          <span class="bg-gray-100 dark:bg-gray-800 text-base font-normal px-1 rounded ml-2">Linked</span>
-        </div>
-        <p>{{ twitter.email }}</p>
-      </div>
-    </div>
-
-    <div class="flex flex-col gap-2 lg:max-w-xs">
-      <button v-if="!github" @click="linkGitHub" class="button-base button-size-medium button-color-gray shadow w-full lg:w-auto whitespace-nowrap justify-start">
-        <IconGitHub class="h-5 w-5" />
-        <span class="ml-3">Link GitHub</span>
-      </button>
-
-      <button v-if="!google" @click="linkGoogle" class="button-base button-size-medium button-color-gray shadow w-full lg:w-auto whitespace-nowrap justify-start">
-        <IconGoogle class="h-5 w-5" />
-        <span class="ml-3">Link Google</span>
-      </button>
-
-      <button v-if="!twitter" @click="linkTwitter" class="button-base button-size-medium button-color-gray shadow w-full lg:w-auto whitespace-nowrap justify-start">
-        <IconTwitter class="h-5 w-5" />
-        <span class="ml-3">Link Twitter</span>
-      </button>
-
-      <button @click="signOut" class="button-base button-size-medium button-color-gray shadow w-full lg:w-auto whitespace-nowrap justify-start text-red-400">
-        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-        </svg>
-        <span class="action ml-3">Sign Out</span>
-      </button>
-    </div>
-  </section>
-</template>
-
 <script lang="ts">
-import { getAuth, getRedirectResult, linkWithRedirect, GithubAuthProvider, GoogleAuthProvider, TwitterAuthProvider } from 'firebase/auth'
+import { GithubAuthProvider, GoogleAuthProvider, TwitterAuthProvider, getAuth, getRedirectResult, linkWithRedirect } from 'firebase/auth'
 import { computed, defineComponent } from 'vue'
 import IconGitHub from '#root/assets/github.svg?component'
 import IconGoogle from '#root/assets/google.svg?component'
@@ -119,3 +62,60 @@ export default defineComponent({
   },
 })
 </script>
+
+<template>
+  <section class="flex flex-col gap-4">
+    <div>
+      <div v-if="github" class="mb-4">
+        <div class="flex items-center">
+          <IconGitHub class="h-5 w-5" />
+          <span class="font-bold text-lg ml-3">GitHub</span>
+          <span class="border border-layer text-base font-normal px-1 rounded ml-2">Linked</span>
+        </div>
+        <p>{{ github.email }}</p>
+      </div>
+
+      <div v-if="google" class="mb-4">
+        <div class="flex items-center">
+          <IconGoogle class="h-5 w-5" />
+          <span class="font-bold text-lg ml-3">Google</span>
+          <span class="border border-layer text-base font-normal px-1 rounded ml-2">Linked</span>
+        </div>
+        <p>{{ google.email }}</p>
+      </div>
+
+      <div v-if="twitter" class="mb-4">
+        <div class="flex items-center">
+          <IconTwitter class="h-5 w-5" />
+          <span class="font-bold text-lg ml-3">Twitter</span>
+          <span class="border border-layer text-base font-normal px-1 rounded ml-2">Linked</span>
+        </div>
+        <p>{{ twitter.email }}</p>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-2 lg:max-w-xs">
+      <CoreButton v-if="!github" class="w-full lg:w-auto whitespace-nowrap justify-start" @click="linkGitHub">
+        <IconGitHub class="h-5 w-5" />
+        <span>Link GitHub</span>
+      </CoreButton>
+
+      <CoreButton v-if="!google" class="w-full lg:w-auto whitespace-nowrap justify-start" @click="linkGoogle">
+        <IconGoogle class="h-5 w-5" />
+        <span>Link Google</span>
+      </CoreButton>
+
+      <CoreButton v-if="!twitter" class="w-full lg:w-auto whitespace-nowrap justify-start" @click="linkTwitter">
+        <IconTwitter class="h-5 w-5" />
+        <span>Link Twitter</span>
+      </CoreButton>
+
+      <CoreButton class="w-full lg:w-auto whitespace-nowrap justify-start text-red-400" @click="signOut">
+        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+        </svg>
+        <span class="action">Sign Out</span>
+      </CoreButton>
+    </div>
+  </section>
+</template>

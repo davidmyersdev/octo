@@ -17,7 +17,7 @@ export default defineComponent({
         confirmed: false,
         confirming: false,
       }),
-      type: Object as PropType<AuthMagicLinkForm>
+      type: Object as PropType<AuthMagicLinkForm>,
     },
   },
   emits: ['close', 'confirm'],
@@ -47,7 +47,7 @@ export default defineComponent({
     </template>
     <div>
       <p>For your security, please confirm your email address.</p>
-      <label class="flex items-center gap-3 cursor-text rounded px-3 py-2 shadow outline-none mt-4 border">
+      <label class="flex items-center gap-3 cursor-text rounded px-3 py-2 outline-none mt-4 border border-layer">
         <EnvelopeIcon class="h-5 w-5" />
         <input v-model="form.email" class="bg-transparent flex-grow outline-none" placeholder="Email address" type="email">
       </label>
@@ -58,7 +58,7 @@ export default defineComponent({
     </div>
     <template #footer>
       <div class="flex items-center justify-end gap-2">
-        <button type="submit" class="button-flat button-size-medium" @click="confirm">Confirm</button>
+        <CoreButton type="submit" @click="confirm">Confirm</CoreButton>
       </div>
     </template>
   </Modal>

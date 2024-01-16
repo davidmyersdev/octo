@@ -3,15 +3,10 @@ import { Prec } from '@codemirror/state'
 import { keymap } from '@codemirror/view'
 import { type Options } from 'ink-mde'
 import { type CoreEditor } from '#components'
-import { type LayerIndex } from '#composables/useLayers'
 import { readonly } from '#root/src/vendor/plugins/readonly'
 
 export default defineComponent({
   props: {
-    layer: {
-      required: true,
-      type: Number as PropType<LayerIndex>,
-    },
     modelValue: {
       default: '',
       type: String,

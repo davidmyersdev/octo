@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { isClient } from '#helpers/environment'
+import CoreLink from '~/components/CoreLink.vue'
 
 definePageMeta({ layout: 'minimal' })
 
@@ -30,7 +31,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="home text-lg flex flex-col gap-12">
+  <div class="text-lg flex flex-col gap-12">
     <section class="p-4 lg:p-8 container mx-auto">
       <div class="max-w-4xl mx-auto">
         <div class="flex items-center text-center gap-8 lg:gap-16 py-8 lg:py-16">
@@ -42,14 +43,14 @@ onMounted(() => {
                 </h1>
                 <p class="text-2xl lg:text-2xl" v-html="appSubtitle" />
               </div>
-              <CoreLink :to="ctaRoute" class="button-base bg-brand transition shadow whitespace-nowrap justify-center gap-3 mt-1 text-layer-0 text-xl py-2 px-8 hover:scale-110 focus:scale-110" @click="ctaHandler">
+              <CoreButton :as="CoreLink" :to="ctaRoute" class="bg-brand hover:bg-brand transition whitespace-nowrap justify-center gap-3 mt-1 text-black text-xl py-2 px-8 hover:scale-110 focus:scale-110" @click="ctaHandler">
                 <span class="flex items-center gap-3 align-center">
                   <span>{{ ctaLabel }}</span>
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                 </span>
-              </CoreLink>
+              </CoreButton>
             </div>
           </div>
         </div>
@@ -79,29 +80,29 @@ onMounted(() => {
     </section>
     <section>
       <CoreContainer class="p-4 lg:p-8">
-        <div class="border border-layer-2 rounded p-4">
+        <CoreCard outline>
           <CoreProse class="max-w-none">
             <h2>We care about privacy</h2>
             <p>In today's hyper-connected world, your privacy matters more than ever. Octo has been built from the ground up with privacy as a core tenet. We use the Web Crypto API to support client-side (end-to-end) encryption so that your data can be securely and privately synced across all of your devices. That means that no one, not even people on our team, can access your data.</p>
           </CoreProse>
-        </div>
+        </CoreCard>
       </CoreContainer>
       <CoreContainer class="p-4 lg:p-8">
-        <div class="border border-layer-2 rounded p-4">
+        <CoreCard outline>
           <CoreProse class="max-w-none">
             <h2>Your second brain is always accessible</h2>
             <p>Thanks to modern browser APIs, such as Service Workers and IndexedDB, web apps can be made to function entirely offline just as native apps can. Octo takes advantage of these APIs to make sure you always have access to your second brain. All you need is a device with a web browser.</p>
             <p>We understand the pain of vendor lock-in, so we maintain import and export tools to help you move your data into or out of Octo.</p>
           </CoreProse>
-        </div>
+        </CoreCard>
       </CoreContainer>
       <CoreContainer class="p-4 lg:p-8">
-        <div class="border border-layer-2 rounded p-4">
+        <CoreCard outline>
           <CoreProse class="max-w-none">
-            <h2>Transparency is better than trust</h2>
+            <h2>Transparency over trust</h2>
             <p>Building sustainable open-source software is a difficult problem to solve, but we believe in fostering a level of transparency that is only possible when the source code is freely available. Verify our claims and feel confident that your knowledge management tool will not suddenly disappear.</p>
           </CoreProse>
-        </div>
+        </CoreCard>
       </CoreContainer>
     </section>
     <section class="p-4 lg:p-8 container mx-auto">
@@ -114,14 +115,14 @@ onMounted(() => {
         <div class="flex items-center text-center gap-8 lg:gap-16 py-8 lg:py-16">
           <div class="w-full flex flex-col justify-between gap-12">
             <div class="flex flex-col items-center gap-8 w-full">
-              <CoreLink :to="ctaRoute" class="button-base bg-brand transition shadow whitespace-nowrap justify-center gap-3 mt-1 text-layer-0 text-xl py-2 px-8 hover:scale-110 focus:scale-110" @click="ctaHandler">
+              <CoreButton :as="CoreLink" :to="ctaRoute" class="bg-brand hover:bg-brand transition whitespace-nowrap justify-center gap-3 mt-1 text-black text-xl py-2 px-8 hover:scale-110 focus:scale-110" @click="ctaHandler">
                 <span class="flex items-center gap-3 align-center">
                   <span>{{ ctaLabel }}</span>
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                 </span>
-              </CoreLink>
+              </CoreButton>
             </div>
           </div>
         </div>
@@ -129,10 +130,3 @@ onMounted(() => {
     </section>
   </div>
 </template>
-
-<style scoped>
-.home {
-  background: radial-gradient(rgb(var(--colors-layer-1)), 10%, transparent 10%) max(1vw, 1vh) max(1vw, 1vh);
-  background-size: max(1vw, 1vh) max(1vw, 1vh);
-}
-</style>

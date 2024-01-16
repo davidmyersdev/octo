@@ -3,14 +3,10 @@ import Exporter from '#root/pages/docs/export.vue'
 </script>
 
 <template>
-  <section>
-    <h3 class="text-3xl">Export Docs</h3>
-    <hr class="mt-2 mb-4">
-    <div class="mb-4">
-      <label>This tool lets you export your knowledge base as a zipped folder of plain-text Markdown files.</label>
-    </div>
-    <div class="mb-4">
+  <CorePageSection title="Export Docs">
+    <div class="flex flex-col gap-4">
+      <p class="mb-4">This tool lets you export your knowledge base as a zipped folder of plain-text Markdown files.</p>
       <Exporter />
     </div>
-  </section>
+  </CorePageSection>
 </template>

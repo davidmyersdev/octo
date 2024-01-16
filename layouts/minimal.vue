@@ -4,21 +4,19 @@ const user = useUser()
 
 <template>
   <article>
-    <header class="px-4 py-2 mb-8 border-b border-layer-2">
+    <header class="px-4 py-2 mb-8 border-b border-layer">
       <nav>
         <CoreContainer>
           <div class="flex items-center justify-between">
             <CoreLink :to="{ path: '/' }" class="flex gap-2 items-center p-2 -ml-2 rounded">
               <CoreAssetLogo class="sq-8" />
-              <span class="font-bold text-lg text-black dark:text-white">Octo</span>
+              <span class="font-bold text-lg">Octo</span>
             </CoreLink>
             <div class="flex items-center gap-2 -mr-2">
               <CoreButtonLink :layer="0" :to="{ path: '/product/pricing' }">
                 Pricing
               </CoreButtonLink>
-              <div class="w-px bg-layer-2">
-                &nbsp;
-              </div>
+              <CoreDivider vertical />
               <CoreButtonLink v-if="user.id" :layer="0" :to="{ path: '/docs/new' }">
                 App
               </CoreButtonLink>
@@ -31,7 +29,7 @@ const user = useUser()
       </nav>
     </header>
     <slot />
-    <footer class="border-t border-layer-2 p-4 lg:p-8 w-full mt-8">
+    <footer class="border-t border-layer p-4 lg:p-8 w-full mt-8">
       <div class="max-w-4xl mx-auto">
         <div class="flex flex-col lg:flex-row lg:justify-between gap-8">
           <!-- Links -->
@@ -39,7 +37,7 @@ const user = useUser()
             <!-- Column 1 -->
             <div class="flex flex-col gap-8">
               <div class="flex flex-col items-start gap-2">
-                <small class="text-gray-500">Resources</small>
+                <small class="text-layer-muted">Resources</small>
                 <CoreLink to="https://octo.canny.io/" class="hover:underline">
                   Feedback
                 </CoreLink>
@@ -48,7 +46,7 @@ const user = useUser()
                 </CoreLink>
               </div>
               <div class="flex flex-col items-start gap-2">
-                <small class="text-gray-500">Policies</small>
+                <small class="text-layer-muted">Policies</small>
                 <CoreLink :to="{ path: '/privacy-policy' }" class="hover:underline">
                   Privacy Policy
                 </CoreLink>
@@ -60,7 +58,7 @@ const user = useUser()
             <!-- Column 2 -->
             <div class="flex flex-col gap-4">
               <div class="flex flex-col items-start gap-2">
-                <small class="text-gray-500">Community</small>
+                <small class="text-layer-muted">Community</small>
                 <CoreLink to="https://github.com/davidmyersdev/octo" class="hover:underline">
                   GitHub
                 </CoreLink>

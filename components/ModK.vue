@@ -15,7 +15,7 @@ export default defineComponent({
 
 <template>
   <div class="hidden md:flex items-center">
-    <Key :class="{ 'text-gray-400 dark:text-gray-800': isActive }">{{ modKey }}</Key>
-    <Key :class="{ 'text-gray-400 dark:text-gray-800': isActive }" class="ml-1">K</Key>
+    <Key :class="{ 'text-layer-muted': isActive }">{{ modKey }}</Key>
+    <Key :class="{ 'text-layer-muted': isActive }" class="ml-1">K</Key>
   </div>
 </template>

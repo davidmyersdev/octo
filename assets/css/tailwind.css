@@ -2,222 +2,240 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --colors-brand: 255 102 102;
-  --colors-primary: 59 130 246;
-
-  /* dark:layer-0 */
-  --dark-layer-0-bg: 24 24 27;
-  --dark-layer-0-text: 212 212 216;
-
-  /* dark:layer-1 */
-  --dark-layer-1-bg: 18 18 18;
-  --dark-layer-1-text: 212 212 216;
-
-  /* dark:layer-2 */
-  --dark-layer-2-bg: 39 39 42;
-  --dark-layer-2-text: 212 212 216;
-
-  /* dark:layer-3 */
-  --dark-layer-3-bg: 63 63 70;
-  --dark-layer-3-text: 212 212 216;
-
-  /* dark:layer-4 */
-  --dark-layer-4-bg: 82 82 91;
-  --dark-layer-4-text: 212 212 216;
-
-  /* dark:layer-5 */
-  --dark-layer-5-bg: 113 113 122;
-  --dark-layer-5-text: 212 212 216;
-
-  /* light:layer-0 */
-  --light-layer-0-bg: 255 255 255;
-  --light-layer-0-text: 24 24 27;
-
-  /* light:layer-1 */
-  --light-layer-1-bg: 244 244 245;
-  --light-layer-1-text: 24 24 27;
-
-  /* light:layer-2 */
-  --light-layer-2-bg: 228 228 231;
-  --light-layer-2-text: 24 24 27;
-
-  /* light:layer-3 */
-  --light-layer-3-bg: 212 212 216;
-  --light-layer-3-text: 24 24 27;
-
-  /* light:layer-4 */
-  --light-layer-4-bg: 161 161 170;
-  --light-layer-4-text: 24 24 27;
-
-  /* light:layer-5 */
-  --light-layer-5-bg: 113 113 122;
-  --light-layer-5-text: 24 24 27;
-}
-
-.dark {
-  --colors-layer-0: var(--dark-layer-0-bg);
-  --colors-layer-1: var(--dark-layer-1-bg);
-  --colors-layer-2: var(--dark-layer-2-bg);
-  --colors-layer-3: var(--dark-layer-3-bg);
-  --colors-layer-4: var(--dark-layer-4-bg);
-  --colors-layer-5: var(--dark-layer-5-bg);
-  --colors-text: 212 212 216;
-
-  /* layer-0 */
-  --layer-0-bg: var(--dark-layer-0-bg);
-  --layer-0-text: var(--dark-layer-0-text);
-
-  /* layer-1 */
-  --layer-1-bg: var(--dark-layer-1-bg);
-  --layer-1-text: var(--dark-layer-1-text);
-
-  /* layer-2 */
-  --layer-2-bg: var(--dark-layer-2-bg);
-  --layer-2-text: var(--dark-layer-2-text);
-
-  /* layer-3 */
-  --layer-3-bg: var(--dark-layer-3-bg);
-  --layer-3-text: var(--dark-layer-3-text);
-
-  /* layer-4 */
-  --layer-4-bg: var(--dark-layer-4-bg);
-  --layer-4-text: var(--dark-layer-4-text);
-
-  /* layer-5 */
-  --layer-5-bg: var(--dark-layer-5-bg);
-  --layer-5-text: var(--dark-layer-5-text);
-}
-
-@media (prefers-color-scheme: dark) {
-  .auto {
-    --colors-layer-0: var(--dark-layer-0-bg);
-    --colors-layer-1: var(--dark-layer-1-bg);
-    --colors-layer-2: var(--dark-layer-2-bg);
-    --colors-layer-3: var(--dark-layer-3-bg);
-    --colors-layer-4: var(--dark-layer-4-bg);
-    --colors-layer-5: var(--dark-layer-5-bg);
-    --colors-text: 212 212 216;
-
-    /* layer-0 */
-    --layer-0-bg: var(--dark-layer-0-bg);
-    --layer-0-text: var(--dark-layer-0-text);
-
-    /* layer-1 */
-    --layer-1-bg: var(--dark-layer-1-bg);
-    --layer-1-text: var(--dark-layer-1-text);
-
-    /* layer-2 */
-    --layer-2-bg: var(--dark-layer-2-bg);
-    --layer-2-text: var(--dark-layer-2-text);
-
-    /* layer-3 */
-    --layer-3-bg: var(--dark-layer-3-bg);
-    --layer-3-text: var(--dark-layer-3-text);
-
-    /* layer-4 */
-    --layer-4-bg: var(--dark-layer-4-bg);
-    --layer-4-text: var(--dark-layer-4-text);
-
-    /* layer-5 */
-    --layer-5-bg: var(--dark-layer-5-bg);
-    --layer-5-text: var(--dark-layer-5-text);
-  }
-}
-
-.light {
-  --colors-layer-0: var(--light-layer-0-bg);
-  --colors-layer-1: var(--light-layer-1-bg);
-  --colors-layer-2: var(--light-layer-2-bg);
-  --colors-layer-3: var(--light-layer-3-bg);
-  --colors-layer-4: var(--light-layer-4-bg);
-  --colors-layer-5: var(--light-layer-5-bg);
-  --colors-text: 24 24 27;
-
-  /* layer-0 */
-  --layer-0-bg: var(--light-layer-0-bg);
-  --layer-0-text: var(--light-layer-0-text);
-
-  /* layer-1 */
-  --layer-1-bg: var(--light-layer-1-bg);
-  --layer-1-text: var(--light-layer-1-text);
-
-  /* layer-2 */
-  --layer-2-bg: var(--light-layer-2-bg);
-  --layer-2-text: var(--light-layer-2-text);
-
-  /* layer-3 */
-  --layer-3-bg: var(--light-layer-3-bg);
-  --layer-3-text: var(--light-layer-3-text);
-
-  /* layer-4 */
-  --layer-4-bg: var(--light-layer-4-bg);
-  --layer-4-text: var(--light-layer-4-text);
-
-  /* layer-5 */
-  --layer-5-bg: var(--light-layer-5-bg);
-  --layer-5-text: var(--light-layer-5-text);
-}
-
-@media (prefers-color-scheme: light) {
-  .auto {
-    --colors-layer-0: var(--light-layer-0-bg);
-    --colors-layer-1: var(--light-layer-1-bg);
-    --colors-layer-2: var(--light-layer-2-bg);
-    --colors-layer-3: var(--light-layer-3-bg);
-    --colors-layer-4: var(--light-layer-4-bg);
-    --colors-layer-5: var(--light-layer-5-bg);
-    --colors-text: 24 24 27;
-
-    /* layer-0 */
-    --layer-0-bg: var(--light-layer-0-bg);
-    --layer-0-text: var(--light-layer-0-text);
-
-    /* layer-1 */
-    --layer-1-bg: var(--light-layer-1-bg);
-    --layer-1-text: var(--light-layer-1-text);
-
-    /* layer-2 */
-    --layer-2-bg: var(--light-layer-2-bg);
-    --layer-2-text: var(--light-layer-2-text);
-
-    /* layer-3 */
-    --layer-3-bg: var(--light-layer-3-bg);
-    --layer-3-text: var(--light-layer-3-text);
-
-    /* layer-4 */
-    --layer-4-bg: var(--light-layer-4-bg);
-    --layer-4-text: var(--light-layer-4-text);
-
-    /* layer-5 */
-    --layer-5-bg: var(--light-layer-5-bg);
-    --layer-5-text: var(--light-layer-5-text);
-  }
-}
-
 @layer base {
+  :root {
+    @apply bg-layer;
+    @apply text-layer;
+
+    --colors-brand: 255 102 102;
+    --colors-primary: 59 130 246;
+  }
+
+  .dark {
+    --layer-0-bg: 24 24 27;
+    --layer-0-bg-hover: 39 39 42;
+    --layer-0-bg-active: 39 39 42;
+    --layer-0-bg-disabled: 26 26 29;
+    --layer-0-border: var(--layer-0-bg-hover);
+    --layer-0-text: 212 212 216;
+    --layer-0-text-hover: 212 212 216;
+    --layer-0-text-active: 212 212 216;
+    --layer-0-text-disabled: 113 113 122;
+    --layer-0-text-muted: 113 113 122;
+
+    --layer-1-bg: 18 18 18;
+    --layer-1-bg-hover: 39 39 42;
+    --layer-1-bg-active: 39 39 42;
+    --layer-1-bg-disabled: 20 20 20;
+    --layer-1-border: var(--layer-1-bg-hover);
+    --layer-1-text: 212 212 216;
+    --layer-1-text-hover: 212 212 216;
+    --layer-1-text-active: 212 212 216;
+    --layer-1-text-disabled: 113 113 122;
+    --layer-1-text-muted: 113 113 122;
+
+    --layer-2-bg: 39 39 42;
+    --layer-2-bg-hover: 63 63 70;
+    --layer-2-bg-active: 63 63 70;
+    --layer-2-bg-disabled: 41 41 44;
+    --layer-2-border: var(--layer-2-bg-hover);
+    --layer-2-text: 212 212 216;
+    --layer-2-text-hover: 212 212 216;
+    --layer-2-text-active: 212 212 216;
+    --layer-2-text-disabled: 113 113 122;
+    --layer-2-text-muted: 113 113 122;
+
+    --layer-3-bg: 63 63 70;
+    --layer-3-bg-hover: 82 82 91;
+    --layer-3-bg-active: 82 82 91;
+    --layer-3-bg-disabled: 65 65 72;
+    --layer-3-border: var(--layer-3-bg-hover);
+    --layer-3-text: 212 212 216;
+    --layer-3-text-hover: 212 212 216;
+    --layer-3-text-active: 212 212 216;
+    --layer-3-text-disabled: 113 113 122;
+    --layer-3-text-muted: 113 113 122;
+
+    --layer-4-bg: 82 82 91;
+    --layer-4-bg-hover: 113 113 122;
+    --layer-4-bg-active: 113 113 122;
+    --layer-4-bg-disabled: 84 84 93;
+    --layer-4-border: var(--layer-4-bg-hover);
+    --layer-4-text: 212 212 216;
+    --layer-4-text-hover: 212 212 216;
+    --layer-4-text-active: 212 212 216;
+    --layer-4-text-disabled: 113 113 122;
+    --layer-4-text-muted: 113 113 122;
+
+    --layer-5-bg: 113 113 122;
+    --layer-5-bg-hover: 161 161 170;
+    --layer-5-bg-active: 161 161 170;
+    --layer-5-bg-disabled: 115 115 124;
+    --layer-5-border: var(--layer-5-bg-hover);
+    --layer-5-text: 212 212 216;
+    --layer-5-text-hover: 212 212 216;
+    --layer-5-text-active: 212 212 216;
+    --layer-5-text-disabled: 113 113 122;
+    --layer-5-text-muted: 113 113 122;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .auto {
+      @apply dark;
+    }
+  }
+
+  .light {
+    --layer-0-bg: 255 255 255;
+    --layer-0-bg-hover: 244 244 245;
+    --layer-0-bg-active: 255 255 255;
+    --layer-0-bg-disabled: 253 253 253;
+    --layer-0-border: var(--layer-0-bg-hover);
+    --layer-0-text: 24 24 27;
+    --layer-0-text-hover: 24 24 27;
+    --layer-0-text-active: 24 24 27;
+    --layer-0-text-disabled: 113 113 122;
+    --layer-0-text-muted: 113 113 122;
+
+    --layer-1-bg: 244 244 245;
+    --layer-1-bg-hover: 228 228 231;
+    --layer-1-bg-active: 228 228 231;
+    --layer-1-bg-disabled: 242 242 243;
+    --layer-1-border: var(--layer-1-bg-hover);
+    --layer-1-text: 24 24 27;
+    --layer-1-text-hover: 24 24 27;
+    --layer-1-text-active: 24 24 27;
+    --layer-1-text-disabled: 113 113 122;
+    --layer-1-text-muted: 113 113 122;
+
+    --layer-2-bg: 228 228 231;
+    --layer-2-bg-hover: 212 212 216;
+    --layer-2-bg-active: 228 228 231;
+    --layer-2-bg-disabled: 226 226 229;
+    --layer-2-border: var(--layer-2-bg-hover);
+    --layer-2-text: 24 24 27;
+    --layer-2-text-hover: 24 24 27;
+    --layer-2-text-active: 24 24 27;
+    --layer-2-text-disabled: 113 113 122;
+    --layer-2-text-muted: 113 113 122;
+
+    --layer-3-bg: 212 212 216;
+    --layer-3-bg-hover: 161 161 170;
+    --layer-3-bg-active: 212 212 216;
+    --layer-3-bg-disabled: 210 210 214;
+    --layer-3-border: var(--layer-3-bg-hover);
+    --layer-3-text: 24 24 27;
+    --layer-3-text-hover: 24 24 27;
+    --layer-3-text-active: 24 24 27;
+    --layer-3-text-disabled: 113 113 122;
+    --layer-3-text-muted: 113 113 122;
+
+    --layer-4-bg: 161 161 170;
+    --layer-4-bg-hover: 113 113 122;
+    --layer-4-bg-active: 161 161 170;
+    --layer-4-bg-disabled: 159 159 168;
+    --layer-4-border: var(--layer-4-bg-hover);
+    --layer-4-text: 24 24 27;
+    --layer-4-text-hover: 24 24 27;
+    --layer-4-text-active: 24 24 27;
+    --layer-4-text-disabled: 113 113 122;
+    --layer-4-text-muted: 113 113 122;
+
+    --layer-5-bg: 113 113 122;
+    --layer-5-bg-hover: 82 82 91;
+    --layer-5-bg-active: 113 113 122;
+    --layer-5-bg-disabled: 111 111 120;
+    --layer-5-border: var(--layer-5-bg-hover);
+    --layer-5-text: 24 24 27;
+    --layer-5-text-hover: 24 24 27;
+    --layer-5-text-active: 24 24 27;
+    --layer-5-text-disabled: 113 113 122;
+    --layer-5-text-muted: 113 113 122;
+  }
+
+  @media (prefers-color-scheme: light) {
+    .auto {
+      @apply light;
+    }
+  }
+
+  /* Todo: Make a variable specifically for dividers */
   .layer-0 {
-    @apply bg-layer-0-bg text-layer-0-text;
+    --layer-bg: var(--layer-0-bg);
+    --layer-bg-hover: var(--layer-0-bg-hover);
+    --layer-bg-active: var(--layer-0-bg-active);
+    --layer-bg-disabled: var(--layer-0-bg-disabled);
+    --layer-border: var(--layer-0-border);
+    --layer-text: var(--layer-0-text);
+    --layer-text-hover: var(--layer-0-text-hover);
+    --layer-text-active: var(--layer-0-text-active);
+    --layer-text-disabled: var(--layer-0-text-disabled);
+    --layer-text-muted: var(--layer-0-text-muted);
   }
 
   .layer-1 {
-    @apply bg-layer-1-bg text-layer-1-text;
+    --layer-bg: var(--layer-1-bg);
+    --layer-bg-hover: var(--layer-1-bg-hover);
+    --layer-bg-active: var(--layer-1-bg-active);
+    --layer-bg-disabled: var(--layer-1-bg-disabled);
+    --layer-border: var(--layer-1-border);
+    --layer-text: var(--layer-1-text);
+    --layer-text-hover: var(--layer-1-text-hover);
+    --layer-text-active: var(--layer-1-text-active);
+    --layer-text-disabled: var(--layer-1-text-disabled);
+    --layer-text-muted: var(--layer-1-text-muted);
   }
 
   .layer-2 {
-    @apply bg-layer-2-bg text-layer-2-text;
+    --layer-bg: var(--layer-2-bg);
+    --layer-bg-hover: var(--layer-2-bg-hover);
+    --layer-bg-active: var(--layer-2-bg-active);
+    --layer-bg-disabled: var(--layer-2-bg-disabled);
+    --layer-border: var(--layer-2-border);
+    --layer-text: var(--layer-2-text);
+    --layer-text-hover: var(--layer-2-text-hover);
+    --layer-text-active: var(--layer-2-text-active);
+    --layer-text-disabled: var(--layer-2-text-disabled);
+    --layer-text-muted: var(--layer-2-text-muted);
   }
 
   .layer-3 {
-    @apply bg-layer-3-bg text-layer-3-text;
+    --layer-bg: var(--layer-3-bg);
+    --layer-bg-hover: var(--layer-3-bg-hover);
+    --layer-bg-active: var(--layer-3-bg-active);
+    --layer-bg-disabled: var(--layer-3-bg-disabled);
+    --layer-border: var(--layer-3-border);
+    --layer-text: var(--layer-3-text);
+    --layer-text-hover: var(--layer-3-text-hover);
+    --layer-text-active: var(--layer-3-text-active);
+    --layer-text-disabled: var(--layer-3-text-disabled);
+    --layer-text-muted: var(--layer-3-text-muted);
   }
 
   .layer-4 {
-    @apply bg-layer-4-bg text-layer-4-text;
+    --layer-bg: var(--layer-4-bg);
+    --layer-bg-hover: var(--layer-4-bg-hover);
+    --layer-bg-active: var(--layer-4-bg-active);
+    --layer-bg-disabled: var(--layer-4-bg-disabled);
+    --layer-border: var(--layer-4-border);
+    --layer-text: var(--layer-4-text);
+    --layer-text-hover: var(--layer-4-text-hover);
+    --layer-text-active: var(--layer-4-text-active);
+    --layer-text-disabled: var(--layer-4-text-disabled);
+    --layer-text-muted: var(--layer-4-text-muted);
   }
 
   .layer-5 {
-    @apply bg-layer-5-bg text-layer-5-text;
+    --layer-bg: var(--layer-5-bg);
+    --layer-bg-hover: var(--layer-5-bg-hover);
+    --layer-bg-active: var(--layer-5-bg-active);
+    --layer-bg-disabled: var(--layer-5-bg-disabled);
+    --layer-border: var(--layer-5-border);
+    --layer-text: var(--layer-5-text);
+    --layer-text-hover: var(--layer-5-text-hover);
+    --layer-text-active: var(--layer-5-text-active);
+    --layer-text-disabled: var(--layer-5-text-disabled);
+    --layer-text-muted: var(--layer-5-text-muted);
   }
 }
 
@@ -227,19 +245,22 @@
   }
 
   .core-button {
-    @apply core-button-shape cursor-pointer outline-none focus:ring focus-within:ring disabled:text-opacity-50 whitespace-nowrap;
+    @apply core-button-shape;
+    @apply cursor-pointer;
+    @apply outline-none;
+    @apply focus:ring focus-within:ring;
+    @apply bg-layer;
+    @apply disabled:bg-layer-disabled ui-disabled:bg-layer-disabled;
+    @apply disabled:text-layer-disabled ui-disabled:text-layer-disabled;
+    @apply disabled:cursor-default ui-disabled:cursor-default;
+    @apply disabled-within:bg-layer-disabled disabled-within:text-layer-disabled;
+    @apply disabled-within:hover:bg-layer-disabled disabled-within:hover:text-layer-disabled;
+    @apply hover:bg-layer-hover ui-active:bg-layer-hover;
+    @apply whitespace-nowrap;
   }
 
   .core-button-shape {
-    @apply text-text p-2 rounded flex gap-3 items-center justify-center;
-  }
-
-  .text-theme {
-    @apply text-brand;
-  }
-
-  .october .text-theme {
-    color: #eb6123;
+    @apply p-2 rounded inline-flex gap-3 items-center justify-center;
   }
 
   /* utils */
@@ -249,18 +270,6 @@
 
   .ligatures-normal {
     font-variant-ligatures: normal;
-  }
-
-  .flex-basis-1\/2 {
-    flex-basis: 50%;
-  }
-
-  .flex-basis-1\/3 {
-    flex-basis: 33%;
-  }
-
-  .flex-basis-2\/3 {
-    flex-basis: 66%;
   }
 
   .has-tooltip {
@@ -281,78 +290,27 @@
 
   /* vue router */
   .allow-link-active.router-link-active,
-  .sidebar-link.router-link-exact-active,
-  .sidebar-button.router-link-exact-active {
-    @apply md:bg-gray-200 md:dark:bg-gray-900 md:bg-opacity-50 md:dark:bg-opacity-50;
+  .sidebar-link.router-link-exact-active {
+    @apply bg-layer-active hover:bg-layer-active;
   }
 
   /* form */
-  .button {
-    @apply button-flat shadow;
-  }
-
-  .button-flat {
-    @apply button-base justify-center lg:justify-between;
-  }
-
-  .button-base {
-    @apply inline-flex items-center rounded cursor-pointer focus:outline-none focus:ring focus-within:ring;
-  }
-
-  .button-size-small {
-    @apply px-2 py-1;
-  }
-
-  .button-size-medium {
-    @apply px-3 py-2;
-  }
-
-  .button-color-gray {
-    @apply bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700;
-  }
-
-  .button-color-surface {
-    @apply bg-gray-200 dark:bg-gray-900 hover:bg-gray-300 dark:hover:bg-gray-800;
-  }
-
-  .button-color-blue {
-    @apply bg-blue-300 hover:bg-blue-400 dark:bg-blue-500 dark:hover:bg-blue-600;
-  }
-
-  .form-button {
-    @apply button button-size-medium button-color-gray;
-  }
-
-  .form-text {
-    @apply block rounded px-3 py-2 shadow bg-gray-100 dark:bg-gray-800 focus:outline-none focus:ring;
-  }
 
   .radio {
-    @apply appearance-none outline-none rounded-full border-4 cursor-pointer border-gray-300 dark:border-white bg-gray-300 dark:bg-white checked:bg-blue-500 dark:checked:bg-blue-500 disabled:bg-gray-500 dark:disabled:bg-gray-500 w-4 h-4;
+    @apply appearance-none outline-none rounded-full cursor-pointer outline-2 outline-layer-text-muted checked:bg-primary checked:disabled:bg-layer-text-muted sq-2 m-1;
   }
 
   .checkbox {
-    @apply appearance-none outline-none rounded-sm border-4 cursor-pointer border-gray-300 dark:border-white bg-gray-300 dark:bg-white checked:bg-blue-500 dark:checked:bg-blue-500 disabled:bg-gray-500 dark:disabled:bg-gray-500 w-4 h-4;
+    @apply appearance-none outline-none rounded-sm cursor-pointer outline-2 outline-layer-text-muted checked:bg-primary checked:disabled:bg-layer-text-muted sq-2 m-1;
   }
 
   /* sidebar */
-  .sidebar-button {
-    @apply flex items-center justify-between rounded mb-2 p-6 md:p-2 bg-gray-200 dark:bg-gray-800 md:dark:bg-gray-900 hover:bg-gray-300 dark:hover:bg-gray-700 md:dark:hover:bg-gray-800 focus:outline-none focus:ring;
-  }
 
   .sidebar-label {
-    @apply flex items-center justify-between text-sm p-6 md:px-2 text-gray-500;
+    @apply flex items-center justify-between text-sm p-6 md:px-2 text-layer-muted;
   }
 
   .sidebar-link {
-    @apply flex items-center justify-between rounded mb-2 md:mb-1 p-2 bg-layer-1 hover:bg-layer-2 focus:outline-none focus:ring;
-  }
-
-  .context-label {
-    @apply flex items-center justify-between text-sm p-6 md:py-2 md:px-1.5 md:mb-2 text-gray-500;
-  }
-
-  .context-tag {
-    @apply flex items-center justify-between rounded p-6 md:p-2 bg-gray-100 dark:bg-gray-800 md:bg-transparent md:dark:bg-transparent hover:bg-gray-200 dark:hover:bg-gray-700 md:dark:hover:bg-gray-900 focus:outline-none focus:ring;
+    @apply flex items-center justify-between rounded p-2 hover:bg-layer-hover focus:outline-none focus:ring;
   }
 }

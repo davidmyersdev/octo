@@ -28,11 +28,8 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      bodyAttrs: {
-        class: 'layer-0',
-      },
       htmlAttrs: {
-        class: 'auto scroll-smooth scroll-pt-4',
+        class: 'auto scroll-smooth scroll-pt-4 layer-0',
         lang: 'en',
       },
       link: [

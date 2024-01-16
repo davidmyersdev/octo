@@ -40,7 +40,7 @@ export default defineComponent({
 <template>
   <label class="cursor-pointer flex flex-col gap-1 text-left">
     <span v-if="label"><small>{{ label }}</small></span>
-    <span class="border border-layer-2 flex gap-3 items-center px-3 py-2 rounded focus-within:outline-none focus-within:ring">
+    <span class="border border-layer flex gap-3 items-center px-3 py-2 rounded focus-within:outline-none focus-within:ring">
       <slot name="icon" />
       <input v-model="text" class="bg-transparent flex-grow outline-none text-current" :placeholder="placeholder" :type="type">
     </span>

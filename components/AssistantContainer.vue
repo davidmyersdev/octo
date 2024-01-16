@@ -1,9 +1,11 @@
 <script lang="ts">
+import { useVue } from '#shared/composables'
+
 export default defineComponent({
   setup() {
     const { id } = useId()
     const router = useRouter()
-    const { isHydrated, isMounted } = useHooks()
+    const { isMounted } = useVue()
     const chatIdFromRoute = computed(() => router.currentRoute.value.params.id as string)
     const chatId = computed(() => chatIdFromRoute.value || id())
     const { chat } = useChat(chatId)
@@ -19,7 +21,6 @@ export default defineComponent({
 
     return {
       chatId,
-      isHydrated,
       isMounted,
     }
   },
@@ -28,6 +29,6 @@ export default defineComponent({
 
 <template>
   <article class="flex flex-col flex-grow">
-    <Assistant v-if="isMounted && isHydrated" :chat-id="chatId" />
+    <Assistant v-if="isMounted" :chat-id="chatId" />
   </article>
 </template>

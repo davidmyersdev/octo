@@ -22,6 +22,7 @@ export default defineNuxtConfig({
     '#composables': join(root, './composables'),
     '#helpers': join(root, './helpers'),
     '#root': join(root, '.'),
+    '#shared': join(root, './lib/shared'),
     '#test': join(root, './test'),
     '#test-utils': join(root, './test/utils'),
   },

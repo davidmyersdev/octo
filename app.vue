@@ -7,20 +7,26 @@ import 'overlayscrollbars/overlayscrollbars.css'
 export default defineComponent({
   setup() {
     const { public: { appName, appTitle } } = useConfig()
-    const { runOnHydrated } = useHooks()
     const mq = useMq()
     const { store } = useVuex()
 
-    runOnHydrated(() => {
+    const isMounted = ref(false)
+
+    onMounted(() => {
+      isMounted.value = true
+
       loadSettings(store)
     })
 
     const sizes = computed(() => {
-      if (mq.current === 'xs') return ['xs xs-plus']
-      if (mq.current === 'sm') return ['sm xs-plus sm-plus']
-      if (mq.current === 'md') return ['md xs-plus sm-plus md-plus']
-      if (mq.current === 'lg') return ['lg xs-plus sm-plus md-plus lg-plus']
-      if (mq.current === 'xl') return ['xl xs-plus sm-plus md-plus lg-plus xl-plus']
+      if (!isMounted.value) return []
+
+      if (mq.value.current === 'xs') return ['xs xs-plus']
+      if (mq.value.current === 'sm') return ['sm xs-plus sm-plus']
+      if (mq.value.current === 'md') return ['md xs-plus sm-plus md-plus']
+      if (mq.value.current === 'lg') return ['lg xs-plus sm-plus md-plus lg-plus']
+      if (mq.value.current === 'xl') return ['xl xs-plus sm-plus md-plus lg-plus xl-plus']
+      if (mq.value.current === 'xxl') return ['xxl xs-plus sm-plus md-plus lg-plus xl-plus xxl-plus']
 
       return []
     })

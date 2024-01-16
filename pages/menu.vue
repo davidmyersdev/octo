@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import { UserCircleIcon as AccountIcon, BeakerIcon, CheckIcon, ChevronUpDownIcon, DocumentIcon, DocumentTextIcon, InboxIcon, CloudArrowUpIcon as SaveIcon, MagnifyingGlassIcon as SearchIcon, Cog8ToothIcon as SettingsIcon, HashtagIcon as TagIcon, TrashIcon, Square2StackIcon as WorkspaceIcon, Squares2X2Icon as WorkspacesIcon } from '@heroicons/vue/24/outline'
 import { nanoid } from 'nanoid'
 import { inject } from 'vue'
@@ -31,18 +31,20 @@ export default {
     WorkspaceIcon,
     WorkspacesIcon,
   },
-  inject: ['mq'],
   setup() {
     const user = inject('user')
     const { public: { fathomEventCtaSaveDocs, firebaseDisabled, linkFeedback } } = useConfig()
+    const mq = useMq()
+    const mediumPlus = computed(() => mq.value.mdPlus)
 
     const trackCta = () => {
-      window.fathom.trackGoal(fathomEventCtaSaveDocs, 0)
+      window.fathom?.trackGoal(fathomEventCtaSaveDocs, 0)
     }
 
     return {
       firebaseDisabled,
       linkFeedback,
+      mediumPlus,
       trackCta,
       user,
     }
@@ -63,9 +65,6 @@ export default {
     experimentalFeaturesEnabled() {
       return this.$store.state.settings.experimental
     },
-    mediumPlus() {
-      return ['md', 'lg', 'xl', 'xxl'].includes(this.mq.current)
-    },
     tags() {
       return this.$store.getters.tags
     },
@@ -76,7 +75,17 @@ export default {
     },
     async openFile() {
       const id = nanoid()
-      const [handle] = await window.showOpenFilePicker({ types: [{ description: 'Markdown Files', accept: { 'text/markdown': ['.markdown', '.md'] } }] })
+      // @ts-expect-error This API is valid but is not recognized by TypeScript.
+      const [handle] = await window.showOpenFilePicker({
+        types: [
+          {
+            description: 'Markdown Files',
+            accept: {
+              'text/markdown': ['.markdown', '.md'],
+            },
+          },
+        ],
+      })
 
       try {
         const { id } = await AsyncIterable(useFiles().files).any((file) => {
@@ -93,7 +102,7 @@ export default {
       useFiles().add({ id, handle })
       return this.$router.push({ path: `/file-editor/${id}` })
     },
-    setContext(context) {
+    setContext(context: unknown) {
       this.$store.dispatch(SET_CONTEXT_TAGS, { context })
     },
   },

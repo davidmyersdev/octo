@@ -2,7 +2,6 @@
 import { type ForceGraphInstance } from 'force-graph'
 import type Doc from '#root/src/models/doc'
 import DocList from '#root/components/DocList.vue'
-import { useMq } from 'vue3-mq'
 
 type GraphConnection = {
   id: string,
@@ -27,7 +26,6 @@ export default {
   components: {
     DocList,
   },
-  inject: ['mq'],
   setup() {
     const { store } = useVuex()
     const instance = ref<ForceGraphInstance>()
@@ -55,7 +53,7 @@ export default {
     })
     const mq = useMq()
     const isMobile = computed(() => {
-      return ['xs', 'sm'].includes(mq.current)
+      return ['xs', 'sm'].includes(mq.value.current)
     })
     const connections = computed<GraphConnection[]>(() => {
       return docs.value.flatMap((doc) => {

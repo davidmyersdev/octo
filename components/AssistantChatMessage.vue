@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { ClipboardIcon } from '@heroicons/vue/24/outline'
 import { readonly } from '#root/src/vendor/plugins/readonly'
+import { useVue } from '#shared/composables'
 
 const props = defineProps<{ createdAt: Date, role: string, text: string }>()
 const { copy } = useClipboard()
@@ -8,7 +9,7 @@ const { addToast } = useToasts()
 const isHuman = computed(() => props.role === 'human')
 const isAssistant = computed(() => props.role === 'assistant')
 const name = computed(() => isHuman.value ? 'You' : 'Assistant')
-const { isMounted } = useHooks()
+const { isMounted } = useVue()
 const options = {
   interface: {
     attribution: false,

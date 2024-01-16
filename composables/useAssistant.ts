@@ -51,10 +51,10 @@ export const dexieStorage = (): StorageAdapter => {
 }
 
 export const useAssistant = ({ chatId }: { chatId: Ref<string> }) => {
-  const { lazyWritableComputed } = useHooks()
   const storageAdapter = dexieStorage()
-  const actualApiKey = useLocalStorage<string>('openAiApiKey', '')
-  const apiKey = lazyWritableComputed(() => actualApiKey.value, (val) => actualApiKey.value = val, '')
+  const apiKey = useLocalStorage<string>('openAiApiKey', '', {
+    initOnMounted: true,
+  })
   const logger = useLogger(consoleLogger())
   const storage = useStorage(storageAdapter)
   const peripherals = { logger, storage }

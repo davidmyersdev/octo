@@ -5,6 +5,7 @@ import { OverlayScrollbars } from 'overlayscrollbars'
 import { toRaw } from 'vue'
 import { addFile } from '#root/src/firebase/storage'
 import { mermaid, plugins } from '#root/src/vendor/plugins'
+import { useVue } from '#shared/composables'
 
 export default defineComponent({
   components: {
@@ -39,7 +40,7 @@ export default defineComponent({
   emits: ['input'],
   setup() {
     const ink = ref()
-    const { isMounted } = useHooks()
+    const { isMounted } = useVue()
 
     const focus = () => {
       // Focus the editor.

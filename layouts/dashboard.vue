@@ -32,7 +32,6 @@ export default defineComponent({
     ViewColumnsIcon,
     XMarkIcon,
   },
-  inject: ['mq'],
   setup() {
     const { isNuxt } = useIsNuxt()
     const router = useRouter()

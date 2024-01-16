@@ -14,7 +14,7 @@ onMounted(() => {
         <CoreContainer>
           <div class="flex items-center justify-between">
             <CoreLink :to="{ path: '/' }" class="flex gap-2 items-center p-2 -ml-2 rounded">
-              <CoreAssetLogo class="sq-8" />
+              <CoreAsset type="Logo" class="sq-8" />
               <span class="font-bold text-lg">Octo</span>
             </CoreLink>
             <div class="flex items-center gap-2 -mr-2">

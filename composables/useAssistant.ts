@@ -50,7 +50,7 @@ export const dexieStorage = (): StorageAdapter => {
   }
 }
 
-export const useAssistant = ({ chatId }: { chatId: Ref<string> }) => {
+export const useAssistant = ({ chatId, languageModel = ref({ id: 'gpt-4-1106-preview', label: 'GPT-4 Turbo' }) }: { chatId: Ref<string>, languageModel?: Ref<{ id: string, label: string }> }) => {
   const storageAdapter = dexieStorage()
   const apiKey = useLocalStorage<string>('openAiApiKey', '', {
     initOnMounted: true,
@@ -59,13 +59,45 @@ export const useAssistant = ({ chatId }: { chatId: Ref<string> }) => {
   const storage = useStorage(storageAdapter)
   const peripherals = { logger, storage }
   const integration = computed(() => openai({ apiKey: apiKey.value, peripherals }))
-  const chatInterface = computed(() => useChat({ chatId: chatId.value, integration: integration.value, model: 'gpt-4-1106-preview', peripherals }))
+  const chatInterface = computed(() => useChat({ chatId: chatId.value, integration: integration.value, model: languageModel.value.id, peripherals }))
   const chatModel = computed(() => chatInterface.value.model)
   const chatFactory = computed(() => chatInterface.value.factory)
+
+  const languageModels = ref([
+    {
+      id: 'gpt-4-turbo-preview',
+      label: 'GPT-4 Turbo',
+      contextWindow: '128k',
+    },
+    {
+      id: 'gpt-4-vision-preview',
+      label: 'GPT-4 Turbo Vision',
+      contextWindow: '128k',
+      comingSoon: true,
+      disabled: true,
+    },
+    {
+      id: 'gpt-4',
+      label: 'GPT-4',
+      contextWindow: '8k',
+    },
+    {
+      id: 'gpt-4-32k',
+      label: 'GPT-4 (32k)',
+      contextWindow: '32k',
+    },
+    {
+      id: 'gpt-3.5-turbo-0125',
+      label: 'GPT-3.5 Turbo',
+      contextWindow: '16k',
+    },
+  ])
 
   return {
     apiKey,
     chatFactory,
     chatModel,
+    languageModel,
+    languageModels,
   }
 }

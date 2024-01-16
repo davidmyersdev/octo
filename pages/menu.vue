@@ -145,7 +145,7 @@ export default {
       </CoreLink>
       <CoreLink :to="linkFeedback" class="sidebar-link">
         <div class="flex gap-3 items-center">
-          <CoreAssetFeedback class="sq-5" />
+          <CoreAsset type="Feedback" class="sq-5" />
           <span>Feedback</span>
         </div>
       </CoreLink>
@@ -159,7 +159,7 @@ export default {
         </button>
       </div>
       <CoreLink v-if="experimentalFeaturesEnabled" :to="{ path: '/assistant' }" class="sidebar-link allow-link-active">
-        <CoreAssetLogo class="w-5" />
+        <CoreAsset type="Logo" class="w-5" />
         <span class="action flex flex-grow items-center justify-between ml-3">
           <span>Assistant</span>
           <BeakerIcon class="text-layer-muted w-5" />

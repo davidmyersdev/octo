@@ -1,5 +1,10 @@
 <script lang="ts" setup>
 const { user } = useUser()
+const year = ref('2024')
+
+onMounted(() => {
+  year.value = new Date().getFullYear().toString()
+})
 </script>
 
 <template>
@@ -71,7 +76,7 @@ const { user } = useUser()
           <!-- Copyright -->
           <div class="lg:text-right">
             <p><small>We do not sell or share your data</small></p>
-            <p><small>&copy; 2023 Octo</small></p>
+            <p><small>&copy; {{ year }} Octo</small></p>
           </div>
         </div>
       </div>

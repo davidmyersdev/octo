@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject } from 'vue'
+import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import { appEventTypes, logEvent } from '#helpers/app'
 import { fetchSharedDoc } from '#root/src/firebase/firestore'

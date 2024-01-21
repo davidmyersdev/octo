@@ -11,14 +11,6 @@ export default defineComponent({
   components: {
     Ink,
   },
-  inject: {
-    user: {
-      type: Object,
-      default: () => ({
-        roles: [],
-      }),
-    },
-  },
   props: {
     appearance: {
       type: String as PropType<'auto' | 'dark' | 'light'>,
@@ -39,6 +31,7 @@ export default defineComponent({
   },
   emits: ['input'],
   setup() {
+    const { user } = useUser()
     const ink = ref()
     const { isMounted } = useVue()
     const { nextLayer } = useLayers()
@@ -78,6 +71,7 @@ export default defineComponent({
       isMounted,
       nextLayer,
       uploadFiles,
+      user,
     }
   },
   data() {
@@ -147,7 +141,6 @@ export default defineComponent({
       return plugins(this)
     },
     pro() {
-      // @ts-expect-error todo
       return this.user.roles.includes('ambassador') || this.user.roles.includes('subscriber')
     },
     spellcheck() {

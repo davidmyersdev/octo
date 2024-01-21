@@ -12,7 +12,7 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const online = computed(() => store.state.online)
-    const user = useUser()
+    const { user } = useUser()
 
     useHead({
       title: 'Account',

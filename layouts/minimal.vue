@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-const user = useUser()
+const { user } = useUser()
 </script>
 
 <template>

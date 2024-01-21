@@ -4,7 +4,6 @@ import { computed, defineComponent } from 'vue'
 import IconGitHub from '#root/assets/github.svg?component'
 import IconGoogle from '#root/assets/google.svg?component'
 import IconTwitter from '#root/assets/twitter.svg?component'
-import { useUser } from '#composables/useAuth'
 
 export default defineComponent({
   components: {
@@ -13,7 +12,7 @@ export default defineComponent({
     IconTwitter,
   },
   setup() {
-    const user = useUser()
+    const { user } = useUser()
     const github = computed(() => user.value.providers.find(({ providerId: id }) => id === 'github.com'))
     const google = computed(() => user.value.providers.find(({ providerId: id }) => id === 'google.com'))
     const twitter = computed(() => user.value.providers.find(({ providerId: id }) => id === 'twitter.com'))

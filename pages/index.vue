@@ -6,7 +6,7 @@ definePageMeta({ layout: 'minimal' })
 
 const { isDark, isLight } = useAppearance()
 
-const user = useUser()
+const { user } = useUser()
 const { public: { appSubtitle, appTitle, appName, fathomEventCtaSignUpNow, firebaseDisabled } } = useConfig()
 const isCtaRelevant = computed(() => !(user.value.id || firebaseDisabled))
 

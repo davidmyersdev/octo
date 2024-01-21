@@ -1,7 +1,6 @@
 <script lang="ts">
 import { UserCircleIcon as AccountIcon, BeakerIcon, CheckIcon, ChevronUpDownIcon, DocumentIcon, DocumentTextIcon, InboxIcon, CloudArrowUpIcon as SaveIcon, MagnifyingGlassIcon as SearchIcon, Cog8ToothIcon as SettingsIcon, HashtagIcon as TagIcon, TrashIcon, Square2StackIcon as WorkspaceIcon, Squares2X2Icon as WorkspacesIcon } from '@heroicons/vue/24/outline'
 import { nanoid } from 'nanoid'
-import { inject } from 'vue'
 import CoreDivider from '#root/components/CoreDivider.vue'
 import CoreLink from '#root/components/CoreLink.vue'
 import ModKKey from '#root/components/ModKKey.vue'
@@ -32,7 +31,7 @@ export default {
     WorkspacesIcon,
   },
   setup() {
-    const user = inject('user')
+    const { user } = useUser()
     const { public: { fathomEventCtaSaveDocs, firebaseDisabled, linkFeedback } } = useConfig()
     const mq = useMq()
     const mediumPlus = computed(() => mq.value.mdPlus)

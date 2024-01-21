@@ -159,6 +159,63 @@
     }
   }
 
+  .custom {
+    --layer-0-bg: 10 0 31;
+    --layer-0-bg-hover: 21 0 44;
+    --layer-0-bg-active: 32 2 58;
+    --layer-0-bg-disabled: 15 0 38;
+    --layer-0-border: 21 0 44;
+    --layer-0-text: 140 113 178;
+    --layer-0-text-hover: 140 113 178;
+    --layer-0-text-disabled: 76 50 108;
+    --layer-0-text-muted: 69 43 101;
+    --layer-1-bg: 32 2 58;
+    --layer-1-bg-hover: 44 15 72;
+    --layer-1-bg-active: 56 29 86;
+    --layer-1-bg-disabled: 38 8 65;
+    --layer-1-border: 44 15 72;
+    --layer-1-text: 170 143 210;
+    --layer-1-text-hover: 170 143 210;
+    --layer-1-text-disabled: 103 77 139;
+    --layer-1-text-muted: 96 70 131;
+    --layer-2-bg: 56 29 86;
+    --layer-2-bg-hover: 69 43 101;
+    --layer-2-bg-active: 82 56 116;
+    --layer-2-bg-disabled: 62 36 94;
+    --layer-2-border: 69 43 101;
+    --layer-2-text: 202 175 244;
+    --layer-2-text-hover: 202 175 244;
+    --layer-2-text-disabled: 132 106 170;
+    --layer-2-text-muted: 125 99 162;
+    --layer-3-bg: 82 56 116;
+    --layer-3-bg-hover: 96 70 131;
+    --layer-3-bg-active: 110 84 146;
+    --layer-3-bg-disabled: 89 63 123;
+    --layer-3-border: 96 70 131;
+    --layer-3-text: 234 207 255;
+    --layer-3-text-hover: 234 207 255;
+    --layer-3-text-disabled: 162 136 202;
+    --layer-3-text-muted: 155 128 194;
+    --layer-4-bg: 110 84 146;
+    --layer-4-bg-hover: 125 99 162;
+    --layer-4-bg-active: 140 113 178;
+    --layer-4-bg-disabled: 117 91 154;
+    --layer-4-border: 125 99 162;
+    --layer-4-text: 255 240 255;
+    --layer-4-text-hover: 255 240 255;
+    --layer-4-text-disabled: 194 167 235;
+    --layer-4-text-muted: 186 159 227;
+    --layer-5-bg: 140 113 178;
+    --layer-5-bg-hover: 155 128 194;
+    --layer-5-bg-active: 170 143 210;
+    --layer-5-bg-disabled: 147 121 186;
+    --layer-5-border: 155 128 194;
+    --layer-5-text: 10 0 31;
+    --layer-5-text-hover: 10 0 31;
+    --layer-5-text-disabled: 76 50 108;
+    --layer-5-text-muted: 69 43 101;
+  }
+
   /* Todo: Make a variable specifically for dividers */
   .layer-0 {
     --layer-bg: var(--layer-0-bg);

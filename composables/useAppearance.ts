@@ -4,10 +4,22 @@ const buildAppearance = () => {
     modes: {
       auto: 'auto',
       october: 'dark october',
+      custom: 'custom',
     },
   })
 
-  const system = computed(() => store.value === 'october' ? 'dark' : store.value)
+  const system = computed(() => {
+    if (store.value === 'custom') {
+      // Todo: Remove this extra step by making the editor use CSS variables all the time.
+      return 'dark'
+    }
+
+    if (store.value === 'october') {
+      return 'dark'
+    }
+
+    return store.value
+  })
   const isAuto = computed(() => system.value === 'auto')
   const isDark = computed(() => system.value === 'dark')
   const isLight = computed(() => system.value === 'light')

@@ -1,6 +1,7 @@
 {
   "extends": ["artisan"],
   "rules": {
+    "unicorn/prefer-string-starts-ends-with": ["off", {}],
     "vue/no-ref-object-destructure": ["error"],
     "vue/no-setup-props-reactivity-loss": ["error"],
     "vue/singleline-html-element-content-newline": ["off", {}],

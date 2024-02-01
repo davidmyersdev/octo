@@ -42,8 +42,15 @@ export const init = () => {
 
   setLogLevel(publicConfig.firebaseLogLevel || 'error')
 
+  if (publicConfig.firebaseEmulatorBypass) return
+
+  if (location.hostname === 'localhost') {
+    // https://github.com/firebase/firebase-js-sdk/issues/6958
+    console.warn('Firebase auth does not work on localhost. Use 127.0.0.1 instead.')
+  }
+
   // use emulators in development
-  if (['localhost', '127.0.0.1'].includes(location.hostname) && !publicConfig.firebaseEmulatorBypass) {
+  if (location.hostname === '127.0.0.1') {
     connectAuthEmulator(
       getAuth(),
       publicConfig.firebaseEmulatorAuth,

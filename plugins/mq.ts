@@ -1,7 +1,5 @@
-// @ts-ignore
 import { Vue3Mq } from 'vue3-mq'
 
-// @ts-ignore
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.use(Vue3Mq, {
     breakpoints: {

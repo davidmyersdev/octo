@@ -1,4 +1,4 @@
-import { type AuthMagicLinkForm, type AuthSocialForm, useAuthForm, useSubscription, useUser } from '#composables/useAuth'
+import { type AuthMagicLinkForm, type AuthSocialForm, useAuthForm, useSubscription } from '#composables/useAuth'
 import { addCheckout } from '#root/src/firebase/firestore'
 
 export interface Tier {
@@ -111,7 +111,7 @@ export const useProTier = () => {
 }
 
 export const useStripe = () => {
-  const user = useUser()
+  const { user } = useUser()
 
   return {
     redirectToStripe: async () => {

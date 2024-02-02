@@ -22,16 +22,14 @@ export default defineNuxtConfig({
     '#composables': join(root, './composables'),
     '#helpers': join(root, './helpers'),
     '#root': join(root, '.'),
+    '#shared': join(root, './lib/shared'),
     '#test': join(root, './test'),
     '#test-utils': join(root, './test/utils'),
   },
   app: {
     head: {
-      bodyAttrs: {
-        class: 'layer-0',
-      },
       htmlAttrs: {
-        class: 'auto scroll-smooth scroll-pt-4',
+        class: 'auto scroll-smooth scroll-pt-4 layer-0',
         lang: 'en',
       },
       link: [

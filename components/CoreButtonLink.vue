@@ -3,7 +3,7 @@ import CoreLink from './CoreLink.vue'
 </script>
 
 <template>
-  <CoreButton :is="CoreLink">
+  <CoreButton :as="CoreLink">
     <slot />
   </CoreButton>
 </template>

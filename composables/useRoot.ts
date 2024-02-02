@@ -1,9 +1,7 @@
-import { useStorage } from '@vueuse/core'
 import { getAuth } from 'firebase/auth'
 import { useStore } from 'vuex'
 import { appEventTypes, logEvent } from '#helpers/app'
 import { isClient } from '#helpers/environment'
-import { type User } from '#composables/useAuth'
 import { init } from '#root/src/firebase'
 
 const updateAppHeight = () => {
@@ -13,21 +11,12 @@ const updateAppHeight = () => {
 }
 
 export const useRoot = () => {
-  // https://github.com/vueuse/vueuse/issues/1595
-  const email = useStorage<string>('email', '', undefined, { initOnMounted: true })
-  const user = useStorage<User>('user', {
-    id: undefined,
-    providers: [],
-    roles: [],
-  }, undefined, { initOnMounted: true, mergeDefaults: true })
+  const { user } = useUser()
   const store = useStore()
   const { public: { firebaseDisabled } } = useRuntimeConfig()
 
   useAppearance()
   useToasts()
-
-  provide('email', email)
-  provide('user', user)
 
   onMounted(() => {
     logEvent(appEventTypes.appMounted)

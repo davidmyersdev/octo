@@ -4,7 +4,7 @@ import { type PropType, defineComponent } from 'vue'
 import AuthMagicLink from '#root/components/AuthMagicLink.vue'
 import AuthSocialLinks from '#root/components/AuthSocialLinks.vue'
 import CoreButton from '#root/components/CoreButton.vue'
-import CorePanel from '#root/components/CorePanel.vue'
+import CoreCard from '#root/components/CoreCard.vue'
 import { type AuthMagicLinkForm } from '#composables/useAuth'
 import { type Tier } from '#composables/useTiers'
 
@@ -14,7 +14,6 @@ export default defineComponent({
     AuthMagicLink,
     AuthSocialLinks,
     CoreButton,
-    CorePanel,
   },
   props: {
     tier: {
@@ -48,6 +47,7 @@ export default defineComponent({
     }
 
     return {
+      CoreCard,
       onMagicLink,
       onSocialLink,
       onUpgrade,
@@ -57,12 +57,12 @@ export default defineComponent({
 </script>
 
 <template>
-  <CorePanel class="flex-shrink flex-basis-1/2">
+  <CoreLayer :as="CoreCard" class="flex flex-col gap-4" outline>
     <slot v-if="$slots.alert" name="alert" />
     <h3 v-if="tier.displayName || tier.price" class="text-3xl flex gap-2 justify-between">
       <span v-if="tier.displayName" class="font-bold flex items-center">
         <span><slot name="displayName">{{ tier.displayName }}</slot></span>
-        <span v-if="tier.active" class="bg-gray-200 dark:bg-gray-900 text-base font-normal py-0.5 px-2 rounded ml-2">Active</span>
+        <span v-if="tier.active" class="border border-layer text-base font-normal py-0.5 px-2 rounded ml-2">Active</span>
       </span>
       <span class="font-semibold"><span><slot name="price">{{ tier.price }}</slot></span> <span class="text-base font-normal"><slot name="priceFrequency">{{ tier.priceFrequency }}</slot></span></span>
     </h3>
@@ -82,5 +82,5 @@ export default defineComponent({
       <slot name="perks-description">This is what you get</slot>
     </p>
     <slot name="perks" />
-  </CorePanel>
+  </CoreLayer>
 </template>

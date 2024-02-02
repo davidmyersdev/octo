@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue'
-
-import { subscription, user } from '#root/src/common/account'
 import ChangeLogEntry from '#root/components/ChangeLogEntry.vue'
+import CoreLink from '~/components/CoreLink.vue'
 
 // import Code from '#root/components/Code.vue'
 import Modal from '#root/components/Modal.vue'
 import { track } from '#helpers/analytics'
 
 const { public: { fathomEventCtaModalUpgrade, linkFeedback } } = useConfig()
+const { isSubscribed, user } = useSubscription()
 
 const showChangeLog = ref(false)
 const closeChangeLog = () => {
@@ -75,7 +75,7 @@ onMounted(async () => {
         <ChangeLogEntry header="Thursday, July 21st, 2022">
           <template #items>
             <li>Tags are now properly highlighted and support a wide array of unicode letters and marks. Additionally, when typing a new tag, suggestions will appear based on your existing tags. Press enter to use the active tag suggestion.</li>
-            <li>Direct doc references are finally here! Start typing the top-level title of another doc with the <Code>[[my other doc]]</Code> syntax for suggestions to appear.</li>
+            <li>Direct doc references are finally here! Start typing the top-level title of another doc with the <CoreCode>[[my other doc]]</CoreCode> syntax for suggestions to appear.</li>
           </template>
         </ChangeLogEntry>
         <ChangeLogEntry header="Monday, May 23rd, 2022">
@@ -83,7 +83,7 @@ onMounted(async () => {
             <li>The Formatting Toolbar is here! You can toggle it per-device in App Settings.</li>
             <li>You can now improve the readability of active docs by customizing the max-width to better fit your needs (defaults to 100 characters).</li>
             <li>There is a new 'Auto' appearance option that will match your system theme. It is the default for new users, and you can update it for yourself in App Settings.</li>
-            <li>Formatting tokens (<Code>#</Code>, <Code>*</Code>, etc) now have better contrast with the surrounding text.</li>
+            <li>Formatting tokens (<CoreCode>#</CoreCode>, <CoreCode>*</CoreCode>, etc) now have better contrast with the surrounding text.</li>
             <li>Additionally, this release includes dependency updates, performance improvements, and small bugfixes.</li>
           </template>
         </ChangeLogEntry>
@@ -96,7 +96,7 @@ onMounted(async () => {
           <template #items>
             <li>Changelog notifications are displayed when Octo updates.</li>
             <li>Improvements have been made to IME language support.</li>
-            <li>Regular expressions are automatically recognized by the <Code>/.*/i</Code> syntax in searches.</li>
+            <li>Regular expressions are automatically recognized by the <CoreCode>/.*/i</CoreCode> syntax in searches.</li>
             <li>The Active Context bar has been merged into the navigation menu.</li>
             <li>The legacy Markdown editor has been removed in favor of Ink.</li>
             <li>The Daily Notepad page now works offline.</li>
@@ -107,15 +107,15 @@ onMounted(async () => {
     </div>
     <template #footer>
       <div class="flex items-center justify-end gap-2">
-        <button class="button-flat button-size-medium" @click="closeChangeLog">
+        <CoreButton @click="closeChangeLog">
           Dismiss
-        </button>
-        <CoreLink v-if="!subscription.pro" :to="{ path: '/account' }" class="text-blue-400 button-flat button-color-surface button-size-medium" @click="trackCta">
-          <span>Upgrade</span>
-        </CoreLink>
-        <CoreLink v-else-if="!user" :to="{ path: '/account' }" class="text-blue-400 button-flat button-color-surface button-size-medium" @click="trackCta">
+        </CoreButton>
+        <CoreButton v-if="!isSubscribed" :as="CoreLink" :to="{ path: '/account' }" class="text-primary" @click="trackCta">
+          <span>Upgrade to Pro</span>
+        </CoreButton>
+        <CoreButton v-else-if="!user" :as="CoreLink" :to="{ path: '/account' }" class="text-primary" @click="trackCta">
           <span>Sign Up</span>
-        </CoreLink>
+        </CoreButton>
       </div>
     </template>
   </Modal>

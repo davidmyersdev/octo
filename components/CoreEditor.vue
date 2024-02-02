@@ -32,6 +32,8 @@ export default defineComponent({
     const editorElement = ref<InstanceType<typeof Ink>>()
     const editorAppearance = computed(() => (props.appearance ?? props.options?.interface?.appearance ?? system.value))
     const { layer: currentLayer, nextLayer } = useLayers(layerIndex)
+    const bgCssVar = computed(() => `--layer-${nextLayer.value}-bg`)
+    const bgHoverCssVar = computed(() => `--layer-${nextLayer.value}-bg-hover`)
     const editorOptions = computed(() => {
       return {
         ...props.options,
@@ -48,11 +50,12 @@ export default defineComponent({
     }
 
     return {
+      bgCssVar,
+      bgHoverCssVar,
       currentLayer,
       editorElement,
       editorOptions,
       focus,
-      nextLayer,
     }
   },
 })
@@ -73,7 +76,9 @@ export default defineComponent({
 .core-editor {
   --ink-font-family: 'Inter', helvetica, sans-serif;
   --ink-code-font-family: 'Fira Code', monospace;
-  --ink-block-background-color: rgb(v-bind('nextLayer.bgCssVar'));
+  --ink-block-background-color: rgb(v-bind('bgCssVar'));
+  --ink-block-background-color-on-hover: rgb(v-bind('bgHoverCssVar'));
+  --ink-syntax-hashtag-background-color: rgb(v-bind('bgHoverCssVar'));
 }
 
 :deep(.ink-mde) {

@@ -210,7 +210,7 @@ export const useAuthForm = ({ clearOnChange = true }: { clearOnChange?: boolean 
 export const useMagicLink = () => {
   const isMagicLink = computed(() => isSignInWithEmailLink(getAuth(), location.href))
   const isOnline = useOnline()
-  const emailAddress = inject<Ref<string>>('email')!
+  const { email: emailAddress } = useUser()
   const isOriginalClient = computed(() => !!emailAddress)
   const router = useRouter()
   const store = useStore()
@@ -363,7 +363,7 @@ export const useSocial = () => {
 }
 
 export const useSubscription = () => {
-  const user = useUser()
+  const { user } = useUser()
   const isSubscribed = computed(() => {
     return user.value.roles.includes('ambassador') || user.value.roles.includes('subscriber')
   })
@@ -372,8 +372,4 @@ export const useSubscription = () => {
     isSubscribed,
     user,
   }
-}
-
-export const useUser = () => {
-  return inject<Ref<User>>('user')!
 }

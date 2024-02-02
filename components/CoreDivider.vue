@@ -9,7 +9,9 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const classes = `flex border-0 border-layer-0 ${props.vertical ? 'border-l-2 h-full' : 'border-t-2'}`
+    const classes = computed(() => {
+      return `block border-layer overflow-hidden ${props.vertical ? 'border-l-2 h-full w-0' : 'border-t-2 h-0'}`
+    })
 
     return {
       classes,
@@ -19,5 +21,5 @@ export default defineComponent({
 </script>
 
 <template>
-  <div :class="classes" />
+  <div :class="classes">&nbsp;</div>
 </template>

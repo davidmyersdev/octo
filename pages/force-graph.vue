@@ -1,8 +1,7 @@
 <script lang="ts">
-import { type ForceGraphInstance } from 'force-graph'
+import type { ForceGraphInstance } from 'force-graph'
 import type Doc from '#root/src/models/doc'
 import DocList from '#root/components/DocList.vue'
-import { useMq } from 'vue3-mq'
 
 type GraphConnection = {
   id: string,
@@ -27,7 +26,6 @@ export default {
   components: {
     DocList,
   },
-  inject: ['mq'],
   setup() {
     const { store } = useVuex()
     const instance = ref<ForceGraphInstance>()
@@ -42,8 +40,8 @@ export default {
     })
     const docs = computed<Doc[]>(() => store.getters.kept)
     const colors = computed(() => {
-      const textValue = rootStyles.value?.getPropertyValue('--colors-text') || '212 212 216'
-      const lineValue = rootStyles.value?.getPropertyValue('--colors-layer-3') || '39 39 42'
+      const textValue = rootStyles.value?.getPropertyValue('--layer-3-text') || '212 212 216'
+      const lineValue = rootStyles.value?.getPropertyValue('--layer-3-bg') || '39 39 42'
       const text = `rgb(${textValue})`
       const line = `rgb(${lineValue})`
 
@@ -55,7 +53,7 @@ export default {
     })
     const mq = useMq()
     const isMobile = computed(() => {
-      return ['xs', 'sm'].includes(mq.current)
+      return ['xs', 'sm'].includes(mq.value.current)
     })
     const connections = computed<GraphConnection[]>(() => {
       return docs.value.flatMap((doc) => {
@@ -149,48 +147,48 @@ export default {
       if (graphElement.value) {
         instance.value = (
           ForceGraph()(graphElement.value)
-          .graphData(graph.value)
-          .height(graphElement.value.clientHeight)
-          .width(graphElement.value.clientWidth)
-          .linkWidth((link) => {
-            return ((link as GraphEdge).size / maxEdgeSize.value) * 5
-          })
-          .nodeCanvasObject((fgNode, context, scale) => {
-            const node = fgNode as GraphNode
-            const fontSize = 16 / scale
-            const label = node.id || ''
-            const radius = ((node.size / maxNodeSize.value) * 15) / scale
+            .graphData(graph.value)
+            .height(graphElement.value.clientHeight)
+            .width(graphElement.value.clientWidth)
+            .linkWidth((link) => {
+              return ((link as GraphEdge).size / maxEdgeSize.value) * 5
+            })
+            .nodeCanvasObject((fgNode, context, scale) => {
+              const node = fgNode as GraphNode
+              const fontSize = 16 / scale
+              const label = node.id || ''
+              const radius = ((node.size / maxNodeSize.value) * 15) / scale
 
-            // draw the node
-            context.beginPath()
-            context.fillStyle = colors.value.node
-            context.arc(node.x, node.y, radius, 0, 2 * Math.PI, false)
-            context.fill()
-            context.closePath()
+              // draw the node
+              context.beginPath()
+              context.fillStyle = colors.value.node
+              context.arc(node.x, node.y, radius, 0, 2 * Math.PI, false)
+              context.fill()
+              context.closePath()
 
-            // draw the label
-            context.fillStyle = colors.value.label
-            context.font = `${fontSize}px Inter`
-            context.textAlign = 'center'
-            context.textBaseline = 'top'
-            context.fillText(label, node.x, node.y + radius + 1)
-          })
-          .onNodeHover((node) => {
-            if (graphElement.value) {
-              graphElement.value.style.cursor = node ? 'pointer' : 'inherit'
-            }
-          })
-          .onNodeClick((fgNode) => {
-            const node = fgNode as GraphNode
-            const offset = isMobile.value ? 40 : 0
+              // draw the label
+              context.fillStyle = colors.value.label
+              context.font = `${fontSize}px Inter`
+              context.textAlign = 'center'
+              context.textBaseline = 'top'
+              context.fillText(label, node.x, node.y + radius + 1)
+            })
+            .onNodeHover((node) => {
+              if (graphElement.value) {
+                graphElement.value.style.cursor = node ? 'pointer' : 'inherit'
+              }
+            })
+            .onNodeClick((fgNode) => {
+              const node = fgNode as GraphNode
+              const offset = isMobile.value ? 40 : 0
 
-            tag.value = node.id
+              tag.value = node.id
 
-            if (instance.value) {
-              instance.value.centerAt(node.x, node.y + offset, 1000)
-              instance.value.zoom(6, 2000)
-            }
-          })
+              if (instance.value) {
+                instance.value.centerAt(node.x, node.y + offset, 1000)
+                instance.value.zoom(6, 2000)
+              }
+            })
         )
       }
 
@@ -219,6 +217,18 @@ export default {
 }
 </script>
 
+<template>
+  <div class="flex h-full relative">
+    <div v-if="edges.length || nodes.length" class="flex flex-row flex-grow h-full">
+      <div ref="graphElement" class="flex-grow" />
+      <CoreScrollable v-if="tag" class="flex-shrink md:max-w-md w-full p-4">
+        <DocList :tag="tag" :cols="1" />
+      </CoreScrollable>
+    </div>
+    <div v-else class="flex flex-col flex-grow items-center justify-center p-4 text-center text-layer-muted text-xl">Create relationships between your docs to use this feature.</div>
+  </div>
+</template>
+
 <style>
 /*
 This fix can be removed if the following PR is accepted.
@@ -229,15 +239,3 @@ https://github.com/vasturiano/force-graph/pull/258
   top: 0;
 }
 </style>
-
-<template>
-  <div class="flex h-full relative">
-    <div v-if="edges.length || nodes.length" class="flex flex-row flex-grow h-full">
-      <div ref="graphElement" class="flex-grow"></div>
-      <CoreScrollable v-if="tag" class="flex-shrink md:max-w-md w-full p-4">
-        <DocList :tag="tag" :cols="1" />
-      </CoreScrollable>
-    </div>
-    <div v-else class="flex flex-col flex-grow items-center justify-center p-4 text-center text-gray-500 text-xl">Create relationships between your docs to use this feature.</div>
-  </div>
-</template>

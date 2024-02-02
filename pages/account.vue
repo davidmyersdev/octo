@@ -12,7 +12,7 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const online = computed(() => store.state.online)
-    const user = useUser()
+    const { user } = useUser()
 
     useHead({
       title: 'Account',
@@ -29,7 +29,7 @@ export default defineComponent({
 <template>
   <CorePage>
     <h2 class="text-4xl mb-1">My Account</h2>
-    <p class="text-gray-500 mb-8">Manage account settings and subscriptions</p>
+    <p class="text-layer-muted mb-8">Manage account settings and subscriptions</p>
     <p v-if="!user.id" class="mb-4">By default, docs are only stored in your browser. This means some actions, such as clearing your history, could <strong>erase everything</strong>. To protect your data, you should sign up for an account.</p>
     <section v-if="user.id" class="mb-8">
       <h3 class="text-3xl mb-4">Status</h3>

@@ -5,18 +5,11 @@ import { OverlayScrollbars } from 'overlayscrollbars'
 import { toRaw } from 'vue'
 import { addFile } from '#root/src/firebase/storage'
 import { mermaid, plugins } from '#root/src/vendor/plugins'
+import { useVue } from '#shared/composables'
 
 export default defineComponent({
   components: {
     Ink,
-  },
-  inject: {
-    user: {
-      type: Object,
-      default: () => ({
-        roles: [],
-      }),
-    },
   },
   props: {
     appearance: {
@@ -38,8 +31,12 @@ export default defineComponent({
   },
   emits: ['input'],
   setup() {
+    const { user } = useUser()
     const ink = ref()
-    const { isMounted } = useHooks()
+    const { isMounted } = useVue()
+    const { nextLayer } = useLayers()
+    const bgCssVar = computed(() => `var(--layer-${nextLayer.value.index}-bg)`)
+    const bgHoverCssVar = computed(() => `var(--layer-${nextLayer.value.index}-bg-hover)`)
 
     const focus = () => {
       // Focus the editor.
@@ -67,10 +64,14 @@ export default defineComponent({
     })
 
     return {
+      bgCssVar,
+      bgHoverCssVar,
       focus,
       ink,
       isMounted,
+      nextLayer,
       uploadFiles,
+      user,
     }
   },
   data() {
@@ -140,7 +141,6 @@ export default defineComponent({
       return plugins(this)
     },
     pro() {
-      // @ts-expect-error todo
       return this.user.roles.includes('ambassador') || this.user.roles.includes('subscriber')
     },
     spellcheck() {
@@ -209,9 +209,13 @@ export default defineComponent({
     font-size: 1.1em;
   }
 
-  .editor {
+  :deep(.editor) {
     --ink-font-family: 'Inter', helvetica, sans-serif;
     --ink-code-font-family: 'Fira Code', monospace;
+    --ink-block-background-color: rgb(v-bind('bgCssVar'));
+    --ink-block-background-color-on-hover: rgb(v-bind('bgHoverCssVar'));
+    --ink-syntax-hashtag-background-color: rgb(v-bind('bgCssVar'));
+    --ink-syntax-processing-instruction-color: rgb(v-bind('nextLayer.textCssVar') / 0.1);
   }
 
   @media (max-width: 767px) {
@@ -239,13 +243,18 @@ export default defineComponent({
   @media (min-width: 768px) {
     :deep(.ink-mde .ink-mde-toolbar) {
       background-color: transparent;
-      background: repeating-linear-gradient(135deg, transparent, transparent 10px, rgb(var(--colors-layer-1)) 10px, rgb(var(--colors-layer-1)) 11px);
-      border-bottom: 2px solid rgb(var(--colors-layer-1));
-      padding-bottom: calc(0.25rem + 2px);
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 10px,
+        rgb(v-bind('bgCssVar')) 10px,
+        rgb(v-bind('bgCssVar')) 12px
+      );
+      border-bottom: 2px solid rgb(v-bind('bgCssVar'));
     }
 
     :deep(.ink-mde .ink-mde-toolbar .ink-mde-container) {
-      background-color: rgb(var(--colors-layer-1));
+      background-color: rgb(v-bind('bgCssVar'));
       border-radius: 0.25rem;
       padding: 0.25rem;
     }

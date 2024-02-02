@@ -30,18 +30,18 @@ export default defineComponent({
 
 <template>
   <section class="flex flex-col gap-1">
-    <CoreLink :to="{ path: `/assistant/conversations/${chat.id}` }" class="bg-layer-1 flex flex-col gap-2 p-2 relative rounded">
+    <CoreLink :to="{ path: `/assistant/conversations/${chat.id}` }" class="bg-layer flex flex-col gap-2 p-2 relative rounded">
       <AssistantHistoryChatMessage
         v-for="chatMessage in chatMessages.slice(0, 2)"
         :key="chatMessage.id"
         :chat-message="chatMessage"
       />
-      <CoreDivider :layer="1" />
+      <CoreDivider />
       <div class="flex items-center justify-between">
-        <div class="flex items-center text-gray-500">
+        <div class="flex items-center text-layer-muted">
           <small>{{ chatMessages.length }} messages</small>
         </div>
-        <CoreMenu :layer="1">
+        <CoreMenu>
           <CoreMenuItem :layer="2" @click="discard">
             <AssetTrash class="h-5 w-5" />
             <span>Discard</span>

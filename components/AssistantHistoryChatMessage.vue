@@ -40,11 +40,11 @@ export default defineComponent({
 
 <template>
   <div class="flex flex-col gap-1">
-    <small class="text-gray-500 px-2" :class="{ 'self-end': isHuman, 'self-start': !isHuman }">{{ label }}</small>
-    <div class="flex flex-col bg-layer-2 bg-opacity-50 p-2 rounded" :class="{ 'self-end': isHuman, 'self-start': !isHuman }">
+    <small class="text-layer-muted px-2" :class="{ 'self-end': isHuman, 'self-start': !isHuman }">{{ label }}</small>
+    <CoreLayer class="flex flex-col bg-layer p-2 rounded" :class="{ 'self-end': isHuman, 'self-start': !isHuman }">
       <div class="whitespace-pre-line">
         {{ message }}
       </div>
-    </div>
+    </CoreLayer>
   </div>
 </template>

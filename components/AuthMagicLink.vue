@@ -43,7 +43,7 @@ export default defineComponent({
       </template>
     </FormText>
     <div class="flex flex-col gap-1">
-      <CoreButton :layer="1" type="submit">
+      <CoreButton type="submit">
         <span>Send me a <strong>magic link</strong></span>
       </CoreButton>
       <p v-if="form.error" class="text-red-500">{{ form.error }}</p>

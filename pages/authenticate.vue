@@ -32,7 +32,7 @@ watch(basicTier, async () => {
         @social-link="onSocialLink"
       />
     </div>
-    <p class="text-gray-500"><small>By signing in, you acknowledge that you have read and agree to Octo's <CoreLink :to="{ path: '/privacy-policy' }" class="underline">Privacy Policy</CoreLink> and <CoreLink :to="{ path: '/terms-and-conditions' }" class="underline">Terms &amp; Conditions</CoreLink>.</small></p>
+    <p class="text-layer-muted"><small>By signing in, you acknowledge that you have read and agree to Octo's <CoreLink :to="{ path: '/privacy-policy' }" class="underline">Privacy Policy</CoreLink> and <CoreLink :to="{ path: '/terms-and-conditions' }" class="underline">Terms &amp; Conditions</CoreLink>.</small></p>
     <AuthMagicLinkModal v-if="isMagicLinkFlow && !isMagicLinkModalClosed" :form="modalForm" @close="onMagicLinkModalClose" @confirm="onMagicLinkConfirm" />
   </div>
 </template>

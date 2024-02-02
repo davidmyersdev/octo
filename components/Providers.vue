@@ -93,7 +93,7 @@ export default defineComponent({
       </div>
     </div>
 
-    <div class="flex flex-col gap-2 lg:max-w-xs">
+    <CoreLayer class="flex flex-col gap-2 lg:max-w-xs">
       <CoreButton v-if="!github" class="w-full lg:w-auto whitespace-nowrap justify-start" @click="linkGitHub">
         <IconGitHub class="h-5 w-5" />
         <span>Link GitHub</span>
@@ -115,6 +115,6 @@ export default defineComponent({
         </svg>
         <span class="action">Sign Out</span>
       </CoreButton>
-    </div>
+    </CoreLayer>
   </section>
 </template>

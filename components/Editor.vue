@@ -34,7 +34,7 @@ export default defineComponent({
     const { user } = useUser()
     const ink = ref()
     const { isMounted } = useVue()
-    const { nextLayer } = useLayers()
+    const { layer, nextLayer } = useLayers()
     const bgCssVar = computed(() => `var(--layer-${nextLayer.value.index}-bg)`)
     const bgHoverCssVar = computed(() => `var(--layer-${nextLayer.value.index}-bg-hover)`)
 
@@ -69,6 +69,7 @@ export default defineComponent({
       focus,
       ink,
       isMounted,
+      layer,
       nextLayer,
       uploadFiles,
       user,
@@ -263,6 +264,10 @@ export default defineComponent({
       background-color: rgb(v-bind('bgCssVar'));
       border-radius: 0.25rem;
       padding: 0.25rem;
+    }
+
+    :deep(.ink-mde .ink-mde-details) {
+      border-top: 2px solid rgb(v-bind('layer.bgHoverCssVar'));
     }
   }
 

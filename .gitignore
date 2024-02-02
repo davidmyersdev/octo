@@ -15,7 +15,6 @@
 .nuxt
 .output
 .vercel
-.vscode
 dev-dist
 dist
 firebase/data

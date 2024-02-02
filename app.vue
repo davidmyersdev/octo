@@ -85,12 +85,6 @@ export default defineComponent({
   height: var(--app-height, 100vh);
 }
 
-.october {
-  --ink-syntax-name-color: #eb6123;
-  --ink-syntax-name-label-color: #abb2bf;
-  --ink-syntax-name-variable-color: #ebda23;
-}
-
 * {
   box-sizing: border-box;
 }
@@ -101,7 +95,6 @@ export default defineComponent({
 
 body {
   font-family: "Inter", helvetica, sans-serif !important;
-  margin: 0;
 }
 
 body,
@@ -112,7 +105,6 @@ pre {
 
 pre {
   font-family: "Fira Code", monospace !important;
-  margin: 0;
 }
 
 .CodeMirror .cm-m-markdown:not(.cm-comment) {
@@ -127,96 +119,8 @@ pre {
   font-family: "Inter", helvetica, sans-serif !important;
 }
 
-.notification {
-  width: 20rem;
-  z-index: 90;
-}
-
-.notification .notification-body {
-  padding: 1rem;
-}
-
 svg {
   flex-shrink: 0;
-}
-
-.border-transparent {
-  border-color: transparent !important;
-}
-
-.cursor-pointer {
-  cursor: pointer;
-}
-
-.relative-fixed {
-  /* this is a hack to position fixed elements relative to this container instead of the viewport */
-  transform: translateZ(0);
-}
-
-.bottom-0 {
-  bottom: 0 !important;
-}
-
-.bottom-3 {
-  bottom: 1rem !important;
-}
-
-.left-0 {
-  left: 0 !important;
-}
-
-.right-0 {
-  right: 0 !important;
-}
-
-.right-2 {
-  right: 0.5rem !important;
-}
-
-.right-3 {
-  right: 1rem !important;
-}
-
-.top-0 {
-  top: 0 !important;
-}
-
-.top-2 {
-  top: 0.5rem !important;
-}
-
-.top-3 {
-  top: 1rem !important;
-}
-
-.z-index-10 {
-  z-index: 10;
-}
-
-.z-index-1 {
-  z-index: 1;
-}
-
-.min-h-0 {
-  min-height: 0 !important;
-}
-
-.min-w-0 {
-  min-width: 0 !important;
-}
-
-/* theming */
-
-.dark .notification {
-  box-shadow: 0 0 0 0.125rem #111 !important;
-}
-
-.light .notification {
-  box-shadow: 0 0 0 0.125rem #eee !important;
-}
-
-hr {
-  background-color: #aaa;
 }
 
 /* lib */

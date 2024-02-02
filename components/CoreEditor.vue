@@ -86,6 +86,12 @@ export default defineComponent({
   border-radius: 0;
 }
 
+:deep(.ink-mde .ink-mde-task-toggle) {
+  @apply checkbox;
+
+  top: -2px;
+}
+
 :deep(.ink-mde .cm-editor),
 :deep(.ink-mde .cm-scroller) {
   flex-grow: 1;

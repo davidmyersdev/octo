@@ -218,6 +218,12 @@ export default defineComponent({
     --ink-syntax-processing-instruction-color: rgb(v-bind('nextLayer.textCssVar') / 0.1);
   }
 
+  :deep(.ink-mde .ink-mde-task-toggle) {
+    @apply checkbox;
+
+    top: -2px;
+  }
+
   @media (max-width: 767px) {
     :deep(.ink-mde-toolbar) {
       order: 1;

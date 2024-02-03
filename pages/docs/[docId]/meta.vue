@@ -196,7 +196,7 @@ export default {
       </div>
     </CoreNavPanel>
     <CoreDivider />
-    <CoreNavPanel class="flex flex-col gap-1">
+    <CoreNavPanel class="flex flex-col flex-grow justify-end gap-1">
       <div v-if="doc.updatedAt">
         <small class="text-layer-muted">Last Saved</small>
         <div class="capitalize pt-2 md:pt-1">

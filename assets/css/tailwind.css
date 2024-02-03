@@ -12,22 +12,22 @@
   }
 
   .dark {
-    --layer-0-bg: 24 24 27;
+    --layer-0-bg: 18 18 18;
     --layer-0-bg-hover: 39 39 42;
     --layer-0-bg-active: 39 39 42;
-    --layer-0-bg-disabled: 26 26 29;
-    --layer-0-border: var(--layer-0-bg-hover);
+    --layer-0-bg-disabled: 20 20 20;
+    --layer-0-border: var(--layer-1-bg-hover);
     --layer-0-text: 212 212 216;
     --layer-0-text-hover: 212 212 216;
     --layer-0-text-active: 212 212 216;
     --layer-0-text-disabled: 113 113 122;
     --layer-0-text-muted: 113 113 122;
 
-    --layer-1-bg: 18 18 18;
+    --layer-1-bg: 24 24 27;
     --layer-1-bg-hover: 39 39 42;
     --layer-1-bg-active: 39 39 42;
-    --layer-1-bg-disabled: 20 20 20;
-    --layer-1-border: var(--layer-1-bg-hover);
+    --layer-1-bg-disabled: 26 26 29;
+    --layer-1-border: var(--layer-0-bg-hover);
     --layer-1-text: 212 212 216;
     --layer-1-text-hover: 212 212 216;
     --layer-1-text-active: 212 212 216;

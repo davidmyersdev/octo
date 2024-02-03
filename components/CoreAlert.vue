@@ -1,37 +1,20 @@
-<script lang="ts">
+<script lang="ts" setup>
 import { ExclamationCircleIcon, InformationCircleIcon, XCircleIcon } from '@heroicons/vue/24/outline'
-import { type PropType, defineComponent, ref } from 'vue'
+import { computed } from 'vue'
 
-export default defineComponent({
-  components: {
-    ExclamationCircleIcon,
-    InformationCircleIcon,
-    XCircleIcon,
-  },
-  props: {
-    type: {
-      default: 'notice',
-      type: String as PropType<'danger' | 'notice' | 'warning'>,
-    },
-  },
-  setup(props) {
-    const isDanger = ref(props.type === 'danger')
-    const isNotice = ref(props.type === 'notice')
-    const isWarning = ref(props.type === 'warning')
+const props = defineProps<{
+  type: 'danger' | 'notice' | 'warning',
+}>()
 
-    return {
-      isDanger,
-      isNotice,
-      isWarning,
-    }
-  },
-})
+const isDanger = computed(() => props.type === 'danger')
+const isNotice = computed(() => props.type === 'notice')
+const isWarning = computed(() => props.type === 'warning')
 </script>
 
 <template>
   <section
     :class="{ 'text-red-200': isDanger, 'text-blue-200': isNotice, 'text-yellow-200': isWarning }"
-    class="flex gap-3 rounded p-2 border border-current shadow"
+    class="flex gap-3 rounded p-2 border border-layer"
     role="alert"
   >
     <span class="flex items-start">

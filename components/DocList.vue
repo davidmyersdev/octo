@@ -2,8 +2,6 @@
 import { MERGE_DOCUMENTS } from '#root/src/store/actions'
 import { type Doc } from '~/src/models/doc'
 
-const REGEX_QUERY = /^\/(?<regex>.+)\/(?<flags>[a-z]*)$/s
-
 export default defineComponent({
   props: {
     cols: {
@@ -15,23 +13,44 @@ export default defineComponent({
     tag: String,
   },
   emits: ['update:query'],
-  setup() {
+  setup(props) {
+    const { query } = toRefs(props)
+
+    const isEditing = ref(false)
+    const searchQuery = ref(query.value || '')
     const searchElement = ref<HTMLElement>()
+    const selectedDocs = ref<Doc[]>([])
+    const visibleCount = ref(25)
+    const filter = computed(() => props.tag ? `#${props.tag}` : props.filter)
+
+    const { docs } = useDocs({ filter })
+    const { searchResults } = useSearch(docs, { keys: ['text'], searchQuery })
+
+    const finalDocs = computed(() => {
+      return searchResults.value.map((doc: Doc) => ({
+        ...doc,
+        selected: selectedDocs.value.includes(doc),
+      }))
+    })
+
+    const visibleDocs = computed(() => {
+      return finalDocs.value.slice(0, visibleCount.value)
+    })
 
     onMounted(() => {
       searchElement.value?.focus()
     })
 
     return {
+      docs,
+      searchResults,
+      finalDocs,
+      isEditing,
+      searchQuery,
       searchElement,
-    }
-  },
-  data() {
-    return {
-      isEditing: false,
-      q: this.query ?? '',
-      selectedDocs: [] as Doc[],
-      visibleCount: 25,
+      selectedDocs,
+      visibleCount,
+      visibleDocs,
     }
   },
   computed: {
@@ -41,56 +60,12 @@ export default defineComponent({
     canMerge() {
       return this.selectedDocs.length > 1
     },
-    docs(): Doc[] {
-      if (this.tag) {
-        return this.$store.getters.withTag(this.tag)
-      }
-
-      if (this.filter === 'tasks') {
-        return this.$store.getters.tasks
-      }
-
-      if (this.filter === 'discarded') {
-        return this.$store.getters.discarded
-      }
-
-      if (this.filter === 'untagged') {
-        return this.$store.getters.untagged
-      }
-
-      return this.$store.getters.kept
-    },
-    filteredDocs() {
-      return this.docs.filter((doc: Doc) => {
-        if (!this.q) {
-          return true
-        }
-
-        try {
-          // @ts-expect-error Todo: Refactor this.
-          const { groups: { flags, regex } } = REGEX_QUERY.exec(this.q)
-
-          return (new RegExp(regex, flags)).test(doc.text)
-        } catch (_error) {
-          return doc.text.toLowerCase().includes(this.q.toLowerCase())
-        }
-      })
-    },
-    finalDocs() {
-      return this.filteredDocs.map((doc: Doc) => ({
-        ...doc,
-        selected: this.selectedDocs.includes(doc),
-      }))
-    },
     showLoadMore() {
       return this.visibleCount <= this.finalDocs.length
     },
-    visibleDocs() {
-      return this.finalDocs.slice(0, this.visibleCount)
-    },
   },
   watch: {
-    q(value) {
+    searchQuery(value) {
       this.$emit('update:query', value)
     },
   },
@@ -115,7 +90,7 @@ export default defineComponent({
         if (this.selectedDocs.find(doc => doc.id === id)) {
           this.selectedDocs = this.selectedDocs.filter(doc => doc.id !== id)
         } else {
-          const foundDoc = this.filteredDocs.find(doc => doc.id === id)
+          const foundDoc = this.searchResults.find(doc => doc.id === id)
 
           if (foundDoc) {
             this.selectedDocs.push(foundDoc)
@@ -150,17 +125,24 @@ export default defineComponent({
     </div>
     <div class="mb-4">
       <CoreInput
-        v-model="q"
+        v-model="searchQuery"
         autocomplete="off"
         autofocus
         label="Search"
-        description="Search with /regex/i or plain text..."
-        placeholder="Search with /regex/i or plain text..."
+        description="Supports /regex/i and fuzzy-matching."
+        placeholder="Start typing to filter results..."
       />
     </div>
     <div class="grid gap-4 grid-cols-1" :class="cols === 2 && 'lg:grid-cols-2'">
-      <div v-for="doc in visibleDocs" :key="doc.id" tabindex="0" class="rounded relative cursor-pointer outline-none focus:ring" @keypress.enter.prevent="selectDoc(doc.id)" @click="selectDoc(doc.id)">
-        <Doc v-bind="doc" :allow-discard="isEditing" class="h-96" />
+      <div
+        v-for="doc in visibleDocs"
+        :key="doc.id"
+        tabindex="0"
+        class="rounded relative cursor-pointer outline-none focus:ring"
+        @keypress.enter.prevent="selectDoc(doc.id)"
+        @click="selectDoc(doc.id)"
+      >
+        <LazyDoc v-bind="doc" :allow-discard="isEditing" class="h-96" />
         <div v-if="doc.selected" class="flex items-center justify-center rounded absolute inset-0 bg-layer bg-opacity-50">
           <svg height="3em" width="3em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />

@@ -1,6 +1,5 @@
 <script lang="ts">
 import type { ForceGraphInstance } from 'force-graph'
-import type Doc from '#root/src/models/doc'
 import DocList from '#root/components/DocList.vue'
 
 type GraphConnection = {
@@ -27,7 +26,6 @@ export default {
     DocList,
   },
   setup() {
-    const { store } = useVuex()
     const instance = ref<ForceGraphInstance>()
     const tag = ref()
     const graphElement = ref<HTMLElement>()
@@ -38,7 +36,7 @@ export default {
     const maxNodeSize = computed(() => {
       return Math.max(...nodes.value.map(node => node.size))
     })
-    const docs = computed<Doc[]>(() => store.getters.kept)
+    const { keptDocs: docs } = useDocs()
     const colors = computed(() => {
       const textValue = rootStyles.value?.getPropertyValue('--layer-3-text') || '212 212 216'
       const lineValue = rootStyles.value?.getPropertyValue('--layer-3-bg') || '39 39 42'
@@ -137,10 +135,6 @@ export default {
       }
     }
 
-    onBeforeUnmount(() => {
-      window.removeEventListener('resize', resize)
-    })
-
     onMounted(async () => {
       const { default: ForceGraph } = await import('force-graph')
 
@@ -195,6 +189,10 @@ export default {
       window.addEventListener('resize', resize)
 
       rootStyles.value = window.getComputedStyle(document.documentElement)
+    })
+
+    onUnmounted(() => {
+      window.removeEventListener('resize', resize)
     })
 
     useHead({

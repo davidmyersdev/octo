@@ -16,8 +16,6 @@ import keybindingsPlugin from '#root/src/store/plugins/keybindings'
 import settingsCachingPlugin from '#root/src/store/plugins/caching/settings'
 import syncPlugin from '#root/src/store/plugins/sync'
 
-export const SET_STRIPE_MODAL_VISIBILITY = 'SET_STRIPE_MODAL_VISIBILITY'
-
 import {
   ACTIVATE_CONTEXT,
   BLUR_EDITOR,
@@ -30,6 +28,8 @@ import {
   SET_RIGHT_SIDEBAR_VISIBILITY,
   SET_SHOW_WELCOME,
 } from '#root/src/store/actions'
+
+export const SET_STRIPE_MODAL_VISIBILITY = 'SET_STRIPE_MODAL_VISIBILITY'
 
 export const store = createStore({
   state() {
@@ -51,12 +51,12 @@ export const store = createStore({
     allTags(state, getters) {
       return Array.from(
         getters.allKept.reduce((set, doc) => {
-          for (let tag of doc.tags) {
+          for (const tag of doc.tags) {
             set.add(tag)
           }
 
           return set
-        }, new Set())
+        }, new Set()),
       ).sort()
     },
     contextTags(state) {
@@ -65,42 +65,42 @@ export const store = createStore({
     tags(state, getters) {
       return Array.from(
         getters.kept.reduce((set, doc) => {
-          for (let tag of doc.tags) {
+          for (const tag of doc.tags) {
             set.add(tag)
           }
 
           return set
-        }, new Set())
+        }, new Set()),
       ).sort()
     },
   },
   mutations: {
-    [ACTIVATE_CONTEXT] (state, payload) {
+    [ACTIVATE_CONTEXT](state, _payload) {
       state.context.active = true
     },
-    [DEACTIVATE_CONTEXT] (state, payload) {
+    [DEACTIVATE_CONTEXT](state, _payload) {
       state.context.active = false
       state.context.tags = []
     },
-    [SET_CONTEXT_TAGS] (state, payload) {
+    [SET_CONTEXT_TAGS](state, payload) {
       state.context.tags = payload.context.tags
     },
-    [SET_EDITOR] (state, payload) {
+    [SET_EDITOR](state, payload) {
       state.editor = payload.editor
     },
-    [SET_OFFLINE] (state) {
+    [SET_OFFLINE](state) {
       state.online = false
     },
-    [SET_ONLINE] (state) {
+    [SET_ONLINE](state) {
       state.online = true
     },
-    [SET_RIGHT_SIDEBAR_VISIBILITY] (state, isVisible) {
+    [SET_RIGHT_SIDEBAR_VISIBILITY](state, isVisible) {
       state.showRightSidebar = isVisible
     },
-    [SET_STRIPE_MODAL_VISIBILITY] (state, isVisible) {
+    [SET_STRIPE_MODAL_VISIBILITY](state, isVisible) {
       state.showStripeModal = isVisible
     },
-    [SET_SHOW_WELCOME] (state, shouldShowWelcome) {
+    [SET_SHOW_WELCOME](state, shouldShowWelcome) {
       if (!shouldShowWelcome) {
         if (isClient) {
           window.localStorage.setItem('octo/welcome/v1', 'done')
@@ -111,23 +111,23 @@ export const store = createStore({
     },
   },
   actions: {
-    async [ACTIVATE_CONTEXT] (context) {
+    async [ACTIVATE_CONTEXT](context) {
       context.commit(ACTIVATE_CONTEXT)
     },
-    async [BLUR_EDITOR] (context) {
+    async [BLUR_EDITOR](context) {
       if (context.state.editor) {
         context.state.editor.getInputField().blur()
       }
     },
-    async [DEACTIVATE_CONTEXT] (context) {
+    async [DEACTIVATE_CONTEXT](context) {
       context.commit(DEACTIVATE_CONTEXT)
     },
-    async [FOCUS_EDITOR] (context) {
+    async [FOCUS_EDITOR](context) {
       if (context.state.editor) {
         context.state.editor.focus()
       }
     },
-    async [SET_CONTEXT_TAGS] (context, payload) {
+    async [SET_CONTEXT_TAGS](context, payload) {
       context.commit(SET_CONTEXT_TAGS, payload)
 
       // automatically activate and deactivate context when modifying context tags
@@ -141,22 +141,22 @@ export const store = createStore({
         }
       }
     },
-    async [SET_EDITOR] (context, payload) {
+    async [SET_EDITOR](context, payload) {
       context.commit(SET_EDITOR, payload)
     },
-    async [SET_OFFLINE] (context) {
+    async [SET_OFFLINE](context) {
       context.commit(SET_OFFLINE)
     },
-    async [SET_ONLINE] (context) {
+    async [SET_ONLINE](context) {
       context.commit(SET_ONLINE)
     },
-    async [SET_RIGHT_SIDEBAR_VISIBILITY] (context, isVisible) {
+    async [SET_RIGHT_SIDEBAR_VISIBILITY](context, isVisible) {
       context.commit(SET_RIGHT_SIDEBAR_VISIBILITY, isVisible)
     },
-    async [SET_SHOW_WELCOME] (context, shouldShowWelcome) {
+    async [SET_SHOW_WELCOME](context, shouldShowWelcome) {
       context.commit(SET_SHOW_WELCOME, shouldShowWelcome)
     },
-    async [SET_STRIPE_MODAL_VISIBILITY] (context, isVisible) {
+    async [SET_STRIPE_MODAL_VISIBILITY](context, isVisible) {
       context.commit(SET_STRIPE_MODAL_VISIBILITY, isVisible)
 
       if (isVisible) {

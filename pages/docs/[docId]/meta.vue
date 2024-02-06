@@ -80,15 +80,15 @@ export default {
       return 'Not yet updated'
     },
   },
-  async beforeUnmount() {
-    clearInterval(this.ticker)
-  },
-  async mounted() {
+  mounted() {
     this.mounted = true
 
     this.ticker = setInterval(() => {
       this.now = moment()
     }, 5000)
+  },
+  unmounted() {
+    clearInterval(this.ticker)
   },
   methods: {
     async copyPublicUrl() {

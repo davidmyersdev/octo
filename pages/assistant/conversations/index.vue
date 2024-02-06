@@ -8,7 +8,7 @@ export default defineComponent({
     const { db } = useDatabase()
     const { result: chatMessages } = useQuery(() => db.chatMessages.toArray(), [])
     const { searchQuery, searchResults } = useSearch(chatMessages, { keys: ['text'] })
-    const chatIdResults = computed(() => searchResults.value.map((result) => result.item.chatId))
+    const chatIdResults = computed(() => searchResults.value.map((result) => result.chatId))
     const chatIds = computed(() => Array.from(new Set(chatIdResults.value)))
     const filteredChats = computed(() => {
       // Todo: There are sometimes undefined values. This might be due to leftover messages that point to deleted chats.
@@ -34,9 +34,9 @@ export default defineComponent({
     <div class="flex flex-col flex-grow gap-8 m-auto max-w-prose p-2 w-full">
       <CoreInput
         v-model="searchQuery"
-        description="All searches use client-side fuzzy matching."
+        description="Supports /regex/i and fuzzy-matching."
         label="Search"
-        placeholder="Search your chat history on this device..."
+        placeholder="Start typing to filter results..."
       />
       <CoreLayer class="flex gap-2 items-center justify-end">
         <CoreButtonLink :counter="true" :to="{ path: '/assistant' }" class="flex gap-2 items-center">

@@ -1,7 +1,7 @@
 <script lang="ts">
 import { ViewColumnsIcon } from '@heroicons/vue/24/outline'
 import { CalendarIcon, Cog8ToothIcon, DocumentPlusIcon, HeartIcon, UserCircleIcon, XMarkIcon } from '@heroicons/vue/24/solid'
-import { computed, defineComponent, onBeforeUnmount, onMounted } from 'vue'
+import { computed, defineComponent, onMounted, onUnmounted } from 'vue'
 import DiscordIcon from '#root/assets/discord.svg?component'
 import GraphIcon from '#root/assets/graph.svg?component'
 import LogoIcon from '#root/assets/logo-icon.svg?component'
@@ -84,7 +84,7 @@ export default defineComponent({
       window.addEventListener('scroll', scrollListener)
     })
 
-    onBeforeUnmount(() => {
+    onUnmounted(() => {
       window.removeEventListener('scroll', scrollListener)
     })
 

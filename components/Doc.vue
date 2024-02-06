@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 import moment from 'moment'
 import CoreDivider from '#root/components/CoreDivider.vue'
 import { DISCARD_DOCUMENT, RESTORE_DOCUMENT } from '#root/src/store/actions'
@@ -8,10 +8,16 @@ export default {
     CoreDivider,
   },
   props: {
+    text: {
+      required: true,
+      type: String,
+    },
     id: String,
-    text: String,
     updatedAt: Date,
-    discardedAt: Date,
+    discardedAt: {
+      required: false,
+      type: Date as PropType<Date | null>,
+    },
     allowDiscard: Boolean,
   },
   setup(props) {

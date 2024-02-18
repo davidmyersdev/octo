@@ -6,7 +6,13 @@ module.exports = {
   content: [
     './assets/css/tailwind.css',
     './index.html',
+    './**/*.ts',
     './**/*.vue',
+    '!./.nuxt/**/*',
+    '!./.output/**/*',
+    '!./dev-dist/**/*',
+    '!./dist/**/*',
+    '!./node_modules/**/*',
   ],
   darkMode: 'class', // the default is 'media'
   theme: {

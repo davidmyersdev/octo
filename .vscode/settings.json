@@ -2,5 +2,11 @@
   "css.customData": [
     "./.vscode/tailwind.json"
   ],
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": false,
+  "editor.formatOnType": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
   "typescript.tsdk": "./node_modules/typescript/lib"
 }

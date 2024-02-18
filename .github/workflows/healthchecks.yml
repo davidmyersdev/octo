@@ -1,0 +1,32 @@
+name: Production Healthchecks
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_run:
+    workflows: [deploy]
+    types:
+      - completed
+env:
+  BASE_URL: https://octo.app
+jobs:
+  healthchecks:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+      - run: pnpm install --shamefully-hoist
+      - run: pnpm playwright install --with-deps
+      - run: pnpm playwright test ./test/e2e/healthchecks
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30

@@ -40,7 +40,7 @@ export default defineComponent({
     const pageKey = ref('')
     const router = useRouter()
 
-    router.beforeEach((to) => {
+    router.afterEach((to) => {
       if (!to.query.p) {
         pageKey.value = nanoid()
       }

@@ -9,6 +9,8 @@ on:
       - completed
 env:
   BASE_URL: https://octo.app
+  GOOGLE_TEST_USER_EMAIL: ${{ secrets.GOOGLE_TEST_USER_EMAIL }}
+  GOOGLE_TEST_USER_PASSWORD: ${{ secrets.GOOGLE_TEST_USER_PASSWORD }}
 jobs:
   healthchecks:
     timeout-minutes: 60

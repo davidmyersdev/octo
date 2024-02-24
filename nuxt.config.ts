@@ -66,6 +66,12 @@ export default defineNuxtConfig({
   devServer: {
     host: '127.0.0.1',
   },
+  devtools: {
+    enabled: true,
+    timeline: {
+      enabled: true,
+    },
+  },
   experimental: {
     appManifest: true,
     payloadExtraction: true,

@@ -14,6 +14,9 @@ export default defineComponent({
     onMounted(() => {
       isMounted.value = true
 
+      // This is used by tests to determine when the app is ready.
+      document.body.dataset.isMounted = 'true'
+
       loadSettings(store)
     })
 

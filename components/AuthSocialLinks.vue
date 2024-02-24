@@ -58,15 +58,30 @@ export default defineComponent({
 
 <template>
   <section class="flex flex-col gap-3">
-    <CoreButton v-if="allowGitHub" :layer="1" data-test-auth-social-github @click="clickProvider('github')">
+    <CoreButton
+      v-if="allowGitHub"
+      :layer="1"
+      data-test-auth-social-github
+      data-test-id="sign-in-with-github"
+      @click="clickProvider('github')"
+    >
       <LocalGitHubIcon class="h-5 w-5" />
       <span>Continue with GitHub</span>
     </CoreButton>
-    <CoreButton :layer="1" data-test-auth-social-google @click="clickProvider('google')">
+    <CoreButton
+      :layer="1"
+      data-test-auth-social-google
+      data-test-id="sign-in-with-google"
+      @click="clickProvider('google')"
+    >
       <LocalGoogleIcon class="h-5 w-5" />
       <span>Continue with Google</span>
     </CoreButton>
-    <CoreButton :layer="1" data-test-auth-social-twitter @click="clickProvider('twitter')">
+    <CoreButton
+      :layer="1"
+      data-test-auth-social-twitter
+      @click="clickProvider('twitter')"
+    >
       <LocalTwitterIcon class="h-5 w-5" />
       <span>Continue with Twitter</span>
     </CoreButton>

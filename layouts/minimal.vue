@@ -25,7 +25,7 @@ onMounted(() => {
               <CoreButtonLink v-if="user.id" :layer="0" :to="{ path: '/docs/new' }">
                 App
               </CoreButtonLink>
-              <CoreButtonLink v-else :layer="0" :to="{ path: '/authenticate' }">
+              <CoreButtonLink v-else data-test-id="sign-in" :layer="0" :to="{ path: '/authenticate' }">
                 Sign In
               </CoreButtonLink>
             </div>

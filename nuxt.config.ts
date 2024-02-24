@@ -66,6 +66,12 @@ export default defineNuxtConfig({
   devServer: {
     host: '127.0.0.1',
   },
+  devtools: {
+    enabled: true,
+    timeline: {
+      enabled: true,
+    },
+  },
   experimental: {
     appManifest: true,
     payloadExtraction: true,
@@ -100,6 +106,17 @@ export default defineNuxtConfig({
         '/product/pricing',
         '/settings',
       ],
+    },
+    routeRules: {
+      '/emulator/auth/**': {
+        proxy: 'http://127.0.0.1:32775/emulator/auth/**',
+      },
+      '/identitytoolkit.googleapis.com/**': {
+        proxy: 'http://127.0.0.1:32775/identitytoolkit.googleapis.com/**',
+      },
+      '/securetoken.googleapis.com/**': {
+        proxy: 'http://127.0.0.1:32775/securetoken.googleapis.com/**',
+      },
     },
   },
   postcss: {

@@ -5,6 +5,7 @@ on:
     branches:
       - main
 env:
+  BASE_URL: http://127.0.0.1:8888
   FIREBASE_PROJECT_ID: demo-octo
   NODE_OPTIONS: --max-old-space-size=4096
   NUXT_PUBLIC_CDN_URL:
@@ -25,7 +26,7 @@ env:
   NUXT_PUBLIC_FIREBASE_AUTH_DOMAIN: fake
   NUXT_PUBLIC_FIREBASE_DATABASE_URL: fake
   NUXT_PUBLIC_FIREBASE_DISABLED:
-  NUXT_PUBLIC_FIREBASE_EMULATOR_AUTH: http://127.0.0.1:32775
+  NUXT_PUBLIC_FIREBASE_EMULATOR_AUTH: http://127.0.0.1:8888
   NUXT_PUBLIC_FIREBASE_EMULATOR_BYPASS:
   NUXT_PUBLIC_FIREBASE_EMULATOR_FIRESTORE_HOST: 127.0.0.1
   NUXT_PUBLIC_FIREBASE_EMULATOR_FIRESTORE_PORT: 32776
@@ -100,7 +101,9 @@ jobs:
         run: pnpm install --shamefully-hoist
       - name: Run linter
         run: pnpm lint
-  test-e2e:
+  test-e2e-cypress:
+    env:
+      NUXT_PUBLIC_FIREBASE_EMULATOR_AUTH: http://127.0.0.1:32775
     needs:
       - install-dependencies
     runs-on: ubuntu-latest
@@ -149,6 +152,44 @@ jobs:
         with:
           name: cypress-videos
           path: test/cypress/videos
+  test-e2e-playwright:
+    needs:
+      - install-dependencies
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v3
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+          run_install: false
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
+        with:
+          key: v1-${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: |
+            ${{ env.STORE_PATH }}
+            ~/.cache/Cypress
+          restore-keys: v1-${{ runner.os }}-pnpm-store-
+      - name: Install dependencies
+        run: pnpm install --shamefully-hoist
+      - run: pnpm playwright install --with-deps
+      - run: pnpm playwright test ./test/e2e
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
   test-unit:
     needs:
       - install-dependencies

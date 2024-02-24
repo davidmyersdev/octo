@@ -1,5 +1,4 @@
 <script lang="ts">
-import { nanoid } from 'nanoid'
 import { loadSettings } from '#root/src/store/plugins/caching/settings'
 
 import 'overlayscrollbars/overlayscrollbars.css'
@@ -14,6 +13,9 @@ export default defineComponent({
 
     onMounted(() => {
       isMounted.value = true
+
+      // This is used by tests to determine when the app is ready.
+      document.body.dataset.isMounted = 'true'
 
       loadSettings(store)
     })
@@ -37,17 +39,7 @@ export default defineComponent({
       titleTemplate: (title) => `${title} | ${appName}`,
     })
 
-    const pageKey = ref('')
-    const router = useRouter()
-
-    router.afterEach((to) => {
-      if (!to.query.p) {
-        pageKey.value = nanoid()
-      }
-    })
-
     return {
-      pageKey,
       sizes,
     }
   },
@@ -71,7 +63,7 @@ export default defineComponent({
     <VitePwaManifest />
     <AsyncChangeLog v-if="showChangeLog && !flow" />
     <AppLayout>
-      <AppPage :page-key="pageKey" class="bg-opacity-25 flex-grow flex-shrink h-full overflow-x-hidden relative" />
+      <AppPage class="bg-opacity-25 flex-grow flex-shrink h-full overflow-x-hidden relative" />
     </AppLayout>
   </div>
 </template>

@@ -19,6 +19,6 @@ describe('editor', () => {
   it('redirects to /docs/:docId after typing anything', () => {
     cy.get('.ink-mde-editor-content').type('a')
     cy.url().should('not.match', /\/docs\/new$/)
-    cy.url().should('match', /\/docs\/.{4,}\?p=1$/)
+    cy.url().should('match', /\/docs\/[\w-]+$/)
   })
 })

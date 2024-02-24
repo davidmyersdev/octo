@@ -107,6 +107,17 @@ export default defineNuxtConfig({
         '/settings',
       ],
     },
+    routeRules: {
+      '/emulator/auth/**': {
+        proxy: 'http://127.0.0.1:32775/emulator/auth/**',
+      },
+      '/identitytoolkit.googleapis.com/**': {
+        proxy: 'http://127.0.0.1:32775/identitytoolkit.googleapis.com/**',
+      },
+      '/securetoken.googleapis.com/**': {
+        proxy: 'http://127.0.0.1:32775/securetoken.googleapis.com/**',
+      },
+    },
   },
   postcss: {
     plugins: {

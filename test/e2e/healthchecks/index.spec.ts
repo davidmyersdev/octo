@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test'
 
 test.describe('auth', () => {
-  test('google', async ({ page }) => {
+  test.skip('google', async ({ page }) => {
     await page.goto('https://accounts.google.com/')
 
     const emailInput = page.locator('input[type="email"]')

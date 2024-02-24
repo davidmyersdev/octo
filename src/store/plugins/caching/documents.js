@@ -19,7 +19,7 @@ import { SETTINGS_LOADED } from '#root/src/store/modules/settings'
 
 const cache = storage().instance({ name: 'firebase/documents' })
 
-const { debounce } = debouncer(800)
+const { debounce } = debouncer(100)
 
 const find = (state, id) => {
   return state.documents.all.find(doc => doc.id === id)
@@ -61,7 +61,7 @@ export default (store) => {
                 const packed = Object.assign({}, doc, { id: (doc.id || doc.clientId), textKey: (doc.textKey || doc.dataKey) })
 
                 return unpack(packed, { privateKey: state.settings.crypto.privateKey })
-              })
+              }),
             )
           })
           .then(docs => store.dispatch(LOAD_DOCUMENTS, docs))

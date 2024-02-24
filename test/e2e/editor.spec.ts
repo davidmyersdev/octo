@@ -25,4 +25,31 @@ test.describe('editor', () => {
     expect(page.url()).not.toMatch(/\/docs\/new$/)
     expect(page.url()).toMatch(/\/docs\/[\w-]+$/)
   })
+
+  test('preserves input when the URL changes', async ({ page }) => {
+    await page.goto('/docs/new')
+    await page.waitForSelector('[data-is-mounted="true"]')
+
+    await page.keyboard.type('hello')
+
+    expect(page.url()).not.toMatch(/\/docs\/new$/)
+    expect(page.url()).toMatch(/\/docs\/[\w-]+$/)
+
+    await expect(page.locator('.ink-mde-editor-content')).toHaveText('hello')
+  })
+
+  test('preserves input when the page refreshes', async ({ page }) => {
+    await page.goto('/docs/new')
+    await page.waitForSelector('[data-is-mounted="true"]')
+
+    await page.keyboard.type('hello')
+
+    // Wait for the data to be persisted.
+    await page.waitForTimeout(200)
+
+    await page.reload()
+    await page.waitForSelector('[data-is-mounted="true"]')
+
+    await expect(page.locator('.ink-mde-editor-content')).toHaveText('hello')
+  })
 })

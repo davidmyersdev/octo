@@ -52,4 +52,73 @@ test.describe('editor', () => {
 
     await expect(page.locator('.ink-mde-editor-content')).toHaveText('hello')
   })
+
+  test('shows direct link suggestions', async ({ page }) => {
+    await page.goto('/docs/new')
+    await page.waitForSelector('[data-is-mounted="true"]')
+
+    await page.keyboard.type('# My Test Doc')
+
+    // Wait for the data to be persisted.
+    await page.waitForTimeout(200)
+
+    await page.goto('/docs/new')
+    await page.waitForSelector('[data-is-mounted="true"]')
+
+    await page.keyboard.type('Check out [[My ')
+
+    await expect(page.locator('.cm-tooltip-autocomplete')).toBeVisible()
+    await expect(page.locator('.cm-tooltip-autocomplete')).toContainText(/My Test Doc/)
+    await expect(page.locator('.ink-mde-editor-content')).toHaveText('Check out [[My ]]')
+  })
+
+  test('shows direct link suggestions after an existing direct link', async ({ page }) => {
+    await page.goto('/docs/new')
+    await page.waitForSelector('[data-is-mounted="true"]')
+
+    await page.keyboard.type('# My Test Doc')
+
+    // Wait for the data to be persisted.
+    await page.waitForTimeout(200)
+
+    await page.goto('/docs/new')
+    await page.waitForSelector('[data-is-mounted="true"]')
+
+    await page.keyboard.type('Check out [[link]] and [[My ')
+
+    await expect(page.locator('.cm-tooltip-autocomplete')).toBeVisible()
+    await expect(page.locator('.cm-tooltip-autocomplete')).toContainText(/My Test Doc/)
+    await expect(page.locator('.ink-mde-editor-content')).toHaveText('Check out [[link]] and [[My ]]')
+  })
+
+  test('shows direct link suggestions before an existing direct link', async ({ page }) => {
+    await page.goto('/docs/new')
+    await page.waitForSelector('[data-is-mounted="true"]')
+
+    await page.keyboard.type('# My Test Doc')
+
+    // Wait for the data to be persisted.
+    await page.waitForTimeout(200)
+
+    await page.goto('/docs/new')
+    await page.waitForSelector('[data-is-mounted="true"]')
+
+    await page.keyboard.type('Check out [[link]]')
+
+    await page.keyboard.press('ArrowLeft')
+    await page.keyboard.press('ArrowLeft')
+    await page.keyboard.press('ArrowLeft')
+    await page.keyboard.press('ArrowLeft')
+    await page.keyboard.press('ArrowLeft')
+    await page.keyboard.press('ArrowLeft')
+    await page.keyboard.press('ArrowLeft')
+    await page.keyboard.press('ArrowLeft')
+    await page.keyboard.press('ArrowLeft')
+
+    await page.keyboard.type('[[My ')
+
+    await expect(page.locator('.cm-tooltip-autocomplete')).toBeVisible()
+    await expect(page.locator('.cm-tooltip-autocomplete')).toContainText(/My Test Doc/)
+    await expect(page.locator('.ink-mde-editor-content')).toHaveText('Check out[[My ]] [[link]]')
+  })
 })

@@ -1,19 +1,19 @@
 import { HighlightStyle, syntaxHighlighting } from '@codemirror/language'
 import { Tag, tags as highlightTags } from '@lezer/highlight'
+import type { MarkdownConfig } from '@lezer/markdown'
 import { completions } from './completions'
 import { replacements } from './replacements'
-import type { MarkdownConfig } from '@lezer/markdown'
 
 const LEFT_BRACKET_CODE = 91
 const RIGHT_BRACKET_CODE = 93
 
 export interface Config {
-  docs: Doc[]
+  docs: Doc[],
 }
 
 export interface Doc {
-  id: string
-  title: string
+  id: string,
+  title: string,
 }
 
 const tags = {
@@ -38,7 +38,7 @@ const grammar: MarkdownConfig = {
     {
       name: 'ReferenceStart',
       parse(cx, next, pos) {
-        return next === LEFT_BRACKET_CODE && cx.char(pos + 1) === LEFT_BRACKET_CODE
+        return (next === LEFT_BRACKET_CODE && cx.char(pos + 1) === LEFT_BRACKET_CODE)
           ? cx.addDelimiter(ReferenceStartDelimiter, pos, pos + 2, true, false)
           : -1
       },
@@ -47,9 +47,11 @@ const grammar: MarkdownConfig = {
     {
       name: 'Reference',
       parse(cx, next, pos) {
-        if (!(next === RIGHT_BRACKET_CODE && cx.char(pos + 1) === RIGHT_BRACKET_CODE)) { return -1 }
+        if (!(next === RIGHT_BRACKET_CODE && cx.char(pos + 1) === RIGHT_BRACKET_CODE)) {
+          return -1
+        }
 
-        // @ts-ignore
+        // @ts-expect-error private api
         const parts = cx.parts
         const openIndex = cx.findOpeningDelimiter(ReferenceStartDelimiter)
 
@@ -61,7 +63,7 @@ const grammar: MarkdownConfig = {
           content.unshift(cx.elt('ReferenceMark', start, start + 2))
           content.push(cx.elt('ReferenceMark', end - 2, end))
 
-          let ref = parts[openIndex] = cx.elt('Reference', start, end, content)
+          const ref = parts[openIndex] = cx.elt('Reference', start, end, content)
 
           return ref.to
         }
@@ -81,7 +83,7 @@ const theme = syntaxHighlighting(
     {
       tag: tags.referenceMark,
     },
-  ])
+  ]),
 )
 
 export const references = (config: Config) => {

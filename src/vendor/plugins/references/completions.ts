@@ -3,9 +3,11 @@ import type { Config } from './index'
 
 export const completions = (config: Config) => {
   return (context: CompletionContext): CompletionResult | null => {
-    const match = context.matchBefore(/\[\[.*?/)
+    const match = context.matchBefore(/\[\[(?:.(?!\[\[))*?/)
 
-    if (!match) { return null }
+    if (!match) {
+      return null
+    }
 
     return {
       from: match.from + 2,

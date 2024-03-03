@@ -190,11 +190,11 @@ export default {
       <DocLink v-for="reference in backlinks" :key="reference.id" :doc="reference" class="sidebar-link" />
     </CoreNavPanel>
     <CoreDivider v-if="doc.tags.length" />
-    <CoreNavPanel v-if="doc.tags.length" class="flex flex-col gap-1">
+    <CoreNavPanel v-if="doc.tags.length" class="flex flex-col gap-1" label="Tags">
       <TagLink v-for="tag in doc.tags" :key="tag" :tag="tag" class="sidebar-link" />
     </CoreNavPanel>
     <CoreDivider v-if="doc.tasks.length" />
-    <CoreNavPanel v-if="doc.tasks.length" class="flex flex-col gap-1">
+    <CoreNavPanel v-if="doc.tasks.length" class="flex flex-col gap-1" label="Tasks">
       <div v-for="task in doc.tasks" :key="task" class="flex items-center px-3 py-2 my-1 md:px-2 md:py-1">
         <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />

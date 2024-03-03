@@ -10,6 +10,7 @@ export class Doc {
   text: string
   daily: boolean
   encrypted: boolean
+  label: string
   createdAt: Date
   updatedAt: Date
   touchedAt: Date
@@ -44,6 +45,8 @@ export class Doc {
     this.references = this.encrypted ? [] : parseReferences(this.text)
     this.tags = this.encrypted ? [] : parseTags(this.text)
     this.tasks = this.encrypted ? [] : parseTasks(this.text)
+
+    this.label = this.headers[0] || this.text.substring(0, 25)
 
     // api params
     this.firebaseId = attributes.firebaseId || null
@@ -97,6 +100,7 @@ export class Doc {
     this.references.splice(0, this.references.length, ...parseReferences(text))
     this.tags.splice(0, this.tags.length, ...parseTags(text))
     this.tasks.splice(0, this.tasks.length, ...parseTasks(text))
+    this.label = this.label = this.headers[0] || this.text.substring(0, 30)
     this.updatedAt = new Date()
     this.touchedAt = new Date()
   }

@@ -64,6 +64,13 @@ export default defineComponent({
       }
     })
 
+    onUpdated(() => {
+      // Todo: Keep a centralized list of docId exclusions.
+      if (docId.value && docId.value !== 'new') {
+        recentDocs.add(docId.value)
+      }
+    })
+
     watchEffect(() => {
       useHead({
         title: header.value || formatTags(tags.value) || appTitle,

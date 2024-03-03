@@ -194,7 +194,7 @@ export default defineComponent({
         <CoreDivider v-if="isDesktop" vertical />
         <CoreNavPanel v-if="isDesktop" class="flex flex-grow flex-shrink gap-2 min-w-0">
           <CoreButton v-for="pinnedDoc in pinnedDocs" :key="pinnedDoc.id" :as="CoreLink" :to="{ path: `/docs/${pinnedDoc.id}` }" class="allow-link-active flex flex-shrink justify-between min-w-[4rem] max-w-[20rem]">
-            <span class="text-ellipsis overflow-hidden">{{ pinnedDoc.headers[0] || pinnedDoc.text.substring(0, 25) }}</span>
+            <span class="text-ellipsis overflow-hidden">{{ pinnedDoc.label }}</span>
             <XMarkIcon class="w-4 transition hover:scale-125" @click.prevent.stop="() => handleTabClose(pinnedDoc.id)" />
           </CoreButton>
         </CoreNavPanel>

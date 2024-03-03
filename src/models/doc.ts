@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid'
 
 import { decrypt, encrypt } from '#root/src/common/crypto/crypto'
-import { parseHeaders, parseTags, parseTasks } from '#root/src/common/parsers'
+import { parseHeaders, parseReferences, parseTags, parseTasks } from '#root/src/common/parsers'
 
 export type PackedDoc = Awaited<ReturnType<typeof pack>>
 
@@ -19,6 +19,7 @@ export class Doc {
   textKey: string | null
 
   headers: string[]
+  references: string[]
   tags: string[]
   tasks: string[]
 
@@ -40,6 +41,7 @@ export class Doc {
     this.discardedAt = attributes.discardedAt || null
 
     this.headers = this.encrypted ? [] : parseHeaders(this.text)
+    this.references = this.encrypted ? [] : parseReferences(this.text)
     this.tags = this.encrypted ? [] : parseTags(this.text)
     this.tasks = this.encrypted ? [] : parseTasks(this.text)
 
@@ -92,6 +94,7 @@ export class Doc {
   update({ text = '' }: Partial<Doc>) {
     this.text = text
     this.headers.splice(0, this.headers.length, ...parseHeaders(text))
+    this.references.splice(0, this.references.length, ...parseReferences(text))
     this.tags.splice(0, this.tags.length, ...parseTags(text))
     this.tasks.splice(0, this.tasks.length, ...parseTasks(text))
     this.updatedAt = new Date()
@@ -104,6 +107,7 @@ export const pack = async (doc: Doc, { preferEncryption = false, publicKey }: { 
     ...doc,
     // These values are derived from the text, so we don't need to store them.
     headers: [],
+    references: [],
     tags: [],
     tasks: [],
   })

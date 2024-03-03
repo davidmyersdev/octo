@@ -65,7 +65,7 @@ export const parseImages = (text: string) => {
 
 export const parseReferences = (text: string) => {
   const matches = parse(referencesRegex, text)
-  const references = new Set()
+  const references = new Set<string>()
 
   matches.forEach((match) => {
     if (match && match[1]) {

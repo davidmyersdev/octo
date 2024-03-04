@@ -1,12 +1,7 @@
 import { computed } from 'vue'
 import { useStore } from 'vuex'
+import type { Doc } from '#root/src/models/doc'
 import { useRecentDocs } from '#root/src/stores/useRecentDocs'
-
-interface Doc {
-  id: string,
-  headers: string[],
-  text: string,
-}
 
 export const usePinnedDocs = () => {
   const store = useStore()

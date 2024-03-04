@@ -6,7 +6,7 @@ import DocLink from '#root/components/DocLink.vue'
 import TagLink from '#root/components/TagLink.vue'
 
 import CodeSandbox from '#root/src/common/code_sandbox.js'
-import { parseCodeblocks, parseReferences } from '#root/src/common/parsers'
+import { parseCodeblocks } from '#root/src/common/parsers'
 
 import {
   DISCARD_DOCUMENT,
@@ -30,6 +30,11 @@ export default {
     }
   },
   computed: {
+    backlinks() {
+      return this.$store.getters.sorted.filter((doc) => {
+        return doc.references.includes(this.doc.id)
+      })
+    },
     codeblocks() {
       return parseCodeblocks(this.doc.text)
     },
@@ -55,10 +60,8 @@ export default {
       return `${location.protocol}//${location.host}${path}`
     },
     references() {
-      const references = parseReferences(this.doc.text)
-
-      return this.$store.getters.kept.filter((doc) => {
-        return references.includes(doc.id)
+      return this.$store.getters.sorted.filter((doc) => {
+        return this.doc.references.includes(doc.id)
       })
     },
     savedAt() {
@@ -178,16 +181,30 @@ export default {
         </button>
       </template>
     </CoreNavPanel>
-    <CoreDivider v-if="doc.tags.length" />
-    <CoreNavPanel v-if="doc.tags.length" class="flex flex-col gap-1">
-      <TagLink v-for="tag in doc.tags" :key="tag" :tag="tag" class="sidebar-link" />
-    </CoreNavPanel>
     <CoreDivider v-if="references.length" />
-    <CoreNavPanel v-if="references.length" class="flex flex-col gap-1">
+    <CoreNavPanel
+      v-if="references.length"
+      class="flex flex-col gap-1"
+      data-test-id="doc-references"
+      label="References"
+    >
       <DocLink v-for="reference in references" :key="reference.id" :doc="reference" class="sidebar-link" />
     </CoreNavPanel>
+    <CoreDivider v-if="backlinks.length" />
+    <CoreNavPanel
+      v-if="backlinks.length"
+      class="flex flex-col gap-1"
+      data-test-id="doc-backlinks"
+      label="Backlinks"
+    >
+      <DocLink v-for="reference in backlinks" :key="reference.id" :doc="reference" class="sidebar-link" />
+    </CoreNavPanel>
+    <CoreDivider v-if="doc.tags.length" />
+    <CoreNavPanel v-if="doc.tags.length" class="flex flex-col gap-1" label="Tags">
+      <TagLink v-for="tag in doc.tags" :key="tag" :tag="tag" class="sidebar-link" />
+    </CoreNavPanel>
     <CoreDivider v-if="doc.tasks.length" />
-    <CoreNavPanel v-if="doc.tasks.length" class="flex flex-col gap-1">
+    <CoreNavPanel v-if="doc.tasks.length" class="flex flex-col gap-1" label="Tasks">
       <div v-for="task in doc.tasks" :key="task" class="flex items-center px-3 py-2 my-1 md:px-2 md:py-1">
         <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />

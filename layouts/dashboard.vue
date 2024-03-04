@@ -200,7 +200,12 @@ export default defineComponent({
         </CoreNavPanel>
         <CoreDivider v-if="isDesktop" :vertical="true" />
         <CoreNavPanel v-if="isDesktop" class="flex-shrink-0 w-64">
-          <CoreButton class="justify-between w-full" data-test-toggle-sidebars @click="handleLayoutChange">
+          <CoreButton
+            class="justify-between w-full"
+            data-test-id="toggle-sidebars"
+            data-test-toggle-sidebars
+            @click="handleLayoutChange"
+          >
             <div class="flex gap-3 items-center">
               <ViewColumnsIcon class="w-5" />
               <span>Toggle Sidebars</span>

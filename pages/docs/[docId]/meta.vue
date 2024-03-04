@@ -182,11 +182,21 @@ export default {
       </template>
     </CoreNavPanel>
     <CoreDivider v-if="references.length" />
-    <CoreNavPanel v-if="references.length" class="flex flex-col gap-1" label="References">
+    <CoreNavPanel
+      v-if="references.length"
+      class="flex flex-col gap-1"
+      data-test-id="doc-references"
+      label="References"
+    >
       <DocLink v-for="reference in references" :key="reference.id" :doc="reference" class="sidebar-link" />
     </CoreNavPanel>
     <CoreDivider v-if="backlinks.length" />
-    <CoreNavPanel v-if="backlinks.length" class="flex flex-col gap-1" label="Backlinks">
+    <CoreNavPanel
+      v-if="backlinks.length"
+      class="flex flex-col gap-1"
+      data-test-id="doc-backlinks"
+      label="Backlinks"
+    >
       <DocLink v-for="reference in backlinks" :key="reference.id" :doc="reference" class="sidebar-link" />
     </CoreNavPanel>
     <CoreDivider v-if="doc.tags.length" />

@@ -1,5 +1,19 @@
 <script lang="ts">
-import { UserCircleIcon as AccountIcon, BeakerIcon, CheckIcon, ChevronUpDownIcon, DocumentIcon, DocumentTextIcon, InboxIcon, CloudArrowUpIcon as SaveIcon, MagnifyingGlassIcon as SearchIcon, Cog8ToothIcon as SettingsIcon, HashtagIcon as TagIcon, TrashIcon, Square2StackIcon as WorkspaceIcon, Squares2X2Icon as WorkspacesIcon } from '@heroicons/vue/24/outline'
+import {
+  UserCircleIcon as AccountIcon,
+  BeakerIcon,
+  CheckIcon,
+  DocumentIcon,
+  DocumentTextIcon,
+  InboxIcon,
+  CloudArrowUpIcon as SaveIcon,
+  MagnifyingGlassIcon as SearchIcon,
+  Cog8ToothIcon as SettingsIcon,
+  HashtagIcon as TagIcon,
+  TrashIcon,
+  Square2StackIcon as WorkspaceIcon,
+  Squares2X2Icon as WorkspacesIcon,
+} from '@heroicons/vue/24/outline'
 import { nanoid } from 'nanoid'
 import CoreDivider from '#root/components/CoreDivider.vue'
 import CoreLink from '#root/components/CoreLink.vue'
@@ -14,7 +28,6 @@ export default {
     AccountIcon,
     BeakerIcon,
     CheckIcon,
-    ChevronUpDownIcon,
     CoreDivider,
     CoreLink,
     DocumentIcon,
@@ -173,10 +186,7 @@ export default {
       </CoreLink>
     </CoreNavPanel>
     <CoreDivider />
-    <CoreNavPanel class="flex flex-col gap-1">
-      <h6 class="px-1 pt-2 sidebar-label cursor-pointer">
-        <span class="flex items-center gap-2"><ChevronUpDownIcon class="h-4" /> Filters</span>
-      </h6>
+    <CoreNavPanel class="flex flex-col gap-1" label="Filters">
       <CoreLink :to="{ path: '/docs/f/tasks' }" class="sidebar-link">
         <CheckIcon class="w-5" />
         <span class="action flex flex-grow items-stretch justify-between ml-3">
@@ -192,40 +202,30 @@ export default {
         </span>
       </CoreLink>
     </CoreNavPanel>
-    <CoreDivider v-if="context.active || context.editing" />
-    <CoreNavPanel v-if="context.active || context.editing">
-      <h6 class="px-1 pt-2 sidebar-label cursor-pointer">
-        <span class="flex items-center gap-2"><ChevronUpDownIcon class="h-4" />Workspace</span>
-        <CoreButton class="p-0" @click="clearContext">
-          <svg class="sq-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <CoreDivider v-if="context.active || contextTags.length" />
+    <CoreNavPanel v-if="context.active || contextTags.length" label="Workspace">
+      <template #label-alt-action>
+        <CoreButton class="p-0.5" @click.stop="clearContext">
+          <svg class="sq-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </CoreButton>
-      </h6>
-      <div v-if="contextTags.length" class="flex flex-col gap-2 md:gap-1">
+      </template>
+      <div class="flex flex-col gap-2 md:gap-1">
         <TagLink v-for="tag in contextTags" :key="tag" :tag="tag" class="sidebar-link" />
-      </div>
-      <div v-else class="p-6 md:p-2">
-        No Tags Selected
       </div>
     </CoreNavPanel>
     <CoreDivider v-if="contexts.length" />
-    <CoreNavPanel class="flex flex-col gap-1">
-      <h6 v-if="contexts.length" class="px-1 pt-2 sidebar-label cursor-pointer">
-        <span class="flex items-center gap-2"><ChevronUpDownIcon class="h-4" />Workspaces</span>
-      </h6>
-      <button v-for="context in contexts" :key="context.id" class="sidebar-link w-full" @click="setContext(context)">
+    <CoreNavPanel v-if="contexts.length" class="flex flex-col gap-1" label="Workspaces">
+      <button v-for="workspace in contexts" :key="workspace.id" class="sidebar-link w-full" @click="setContext(workspace)">
         <WorkspaceIcon class="w-5" />
         <span class="action flex flex-grow items-stretch justify-between ml-3">
-          <span>{{ context.name }}</span>
+          <span>{{ workspace.name }}</span>
         </span>
       </button>
     </CoreNavPanel>
-    <CoreDivider />
-    <CoreNavPanel class="flex flex-col gap-1 flex-grow">
-      <h6 class="px-1 pt-2 sidebar-label cursor-pointer">
-        <span class="flex items-center gap-2"><ChevronUpDownIcon class="h-4" />Tags</span>
-      </h6>
+    <CoreDivider v-if="tags.length" />
+    <CoreNavPanel v-if="tags.length" class="flex flex-col gap-1" label="Tags">
       <CoreLink class="sidebar-link md:hidden" :to="{ path: '/tags' }">
         <TagIcon class="w-5" />
         <span class="ml-3 flex-grow">Tags</span>
@@ -235,10 +235,7 @@ export default {
       </div>
     </CoreNavPanel>
     <CoreDivider />
-    <CoreNavPanel class="flex flex-col gap-1">
-      <h6 class="px-1 pt-2 sidebar-label cursor-pointer">
-        <span class="flex items-center gap-2"><ChevronUpDownIcon class="h-4" /> Policies</span>
-      </h6>
+    <CoreNavPanel class="flex flex-col gap-1" label="Policies">
       <CoreLink :to="{ path: '/privacy-policy' }" class="sidebar-link">
         <DocumentTextIcon class="w-5" />
         <span class="action flex flex-grow items-stretch justify-between ml-3">

@@ -46,12 +46,6 @@ export default defineNuxtConfig({
         { property: 'og:title', content: 'Octo | Write meaningful notes' },
         { property: 'og:description', content: 'Unlock the full potential of your accumulated knowledge.' },
         { property: 'og:image', content: 'https://octo.app/img/og.png' },
-        { name: 'twitter:card', content: 'summary_large_image' },
-        { property: 'twitter:domain', content: 'octo.app' },
-        { property: 'twitter:url', content: 'https://octo.app' },
-        { name: 'twitter:title', content: 'Octo | Write meaningful notes' },
-        { name: 'twitter:description', content: 'Unlock the full potential of your accumulated knowledge.' },
-        { name: 'twitter:image', content: 'https://octo.app/img/og.png' },
       ],
       script: [
         fathomScript,

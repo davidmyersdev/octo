@@ -1,5 +1,5 @@
 import { useOnline } from '@vueuse/core'
-import { type AuthProvider, GithubAuthProvider, GoogleAuthProvider, type UserInfo as ProviderInfo, TwitterAuthProvider, getAuth, getRedirectResult, isSignInWithEmailLink, sendSignInLinkToEmail, signInWithEmailLink, signInWithRedirect } from 'firebase/auth'
+import { type AuthProvider, GithubAuthProvider, GoogleAuthProvider, type UserInfo as ProviderInfo, getAuth, getRedirectResult, isSignInWithEmailLink, sendSignInLinkToEmail, signInWithEmailLink, signInWithRedirect } from 'firebase/auth'
 import { type Ref } from 'vue'
 import { useStore } from 'vuex'
 import { type Tier } from '#composables/useTiers'
@@ -18,7 +18,7 @@ export interface AuthSocialForm {
   error: string,
 }
 
-export type AuthProviderType = 'github' | 'google' | 'twitter'
+export type AuthProviderType = 'github' | 'google'
 
 export interface User {
   id?: string,
@@ -31,7 +31,6 @@ export type UserRole = 'ambassador' | 'user' | 'subscriber'
 export const providers: Record<AuthProviderType, () => AuthProvider> = {
   github: () => new GithubAuthProvider(),
   google: () => new GoogleAuthProvider(),
-  twitter: () => new TwitterAuthProvider(),
 }
 
 export const useAuth = () => {

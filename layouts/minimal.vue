@@ -67,9 +67,6 @@ onMounted(() => {
                 <CoreLink to="https://github.com/davidmyersdev/octo" class="hover:underline">
                   GitHub
                 </CoreLink>
-                <CoreLink to="https://twitter.com/octowiki" class="hover:underline">
-                  Twitter
-                </CoreLink>
               </div>
             </div>
           </div>

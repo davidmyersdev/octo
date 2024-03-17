@@ -19,7 +19,6 @@ import {
 } from '@heroicons/vue/24/outline'
 import Logo from '#root/assets/logo-icon.svg?component'
 import GitHub from '#root/assets/github.svg?component'
-import Twitter from '#root/assets/twitter.svg?component'
 
 defineProps<{
   type: keyof typeof assets,
@@ -42,7 +41,6 @@ const assets = {
   Settings,
   Tag,
   Trash,
-  Twitter,
   Workspace,
   Workspaces,
 }

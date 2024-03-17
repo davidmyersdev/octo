@@ -1,7 +1,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
-import Editor from '#root/components/Editor.vue'
+import DocEditor from '#root/components/DocEditor.vue'
 import Doc from '#root/src/models/doc'
 import { EDIT_DOCUMENT } from '#root/src/store/actions'
 import { useRecentDocs } from '#root/src/stores/useRecentDocs'
@@ -12,7 +12,7 @@ const formatTags = (tags: string[], delimiter = ', ') => {
 
 export default defineComponent({
   components: {
-    Editor,
+    DocEditor,
   },
   props: {
     docId: String,
@@ -91,7 +91,7 @@ export default defineComponent({
 </script>
 
 <template>
-  <Editor
+  <DocEditor
     :appearance="appearance"
     :doc="doc"
     :settings="settings"

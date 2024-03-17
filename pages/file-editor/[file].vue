@@ -4,7 +4,7 @@ import { useStore } from 'vuex'
 
 import Doc from '#root/src/models/doc'
 import { debouncer } from '#root/src/common/debouncer'
-import Editor from '#root/components/Editor.vue'
+import DocEditor from '#root/components/DocEditor.vue'
 import { useFiles } from '#root/src/stores/useFiles'
 
 const props = defineProps({ id: String })
@@ -41,5 +41,10 @@ const input = async (text: string) => {
 </script>
 
 <template>
-  <Editor :appearance="appearance" :settings="settings" :doc="doc" @input="input" />
+  <DocEditor
+    :appearance="appearance"
+    :doc="doc"
+    :settings="settings"
+    @input="input"
+  />
 </template>

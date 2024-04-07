@@ -1,21 +1,18 @@
 <script lang="ts">
-import { GithubAuthProvider, GoogleAuthProvider, TwitterAuthProvider, getAuth, getRedirectResult, linkWithRedirect } from 'firebase/auth'
+import { GithubAuthProvider, GoogleAuthProvider, getAuth, getRedirectResult, linkWithRedirect } from 'firebase/auth'
 import { computed, defineComponent } from 'vue'
 import IconGitHub from '#root/assets/github.svg?component'
 import IconGoogle from '#root/assets/google.svg?component'
-import IconTwitter from '#root/assets/twitter.svg?component'
 
 export default defineComponent({
   components: {
     IconGitHub,
     IconGoogle,
-    IconTwitter,
   },
   setup() {
     const { user } = useUser()
     const github = computed(() => user.value.providers.find(({ providerId: id }) => id === 'github.com'))
     const google = computed(() => user.value.providers.find(({ providerId: id }) => id === 'google.com'))
-    const twitter = computed(() => user.value.providers.find(({ providerId: id }) => id === 'twitter.com'))
 
     getRedirectResult(getAuth()).catch((error) => {
       console.warn({ error })
@@ -37,14 +34,6 @@ export default defineComponent({
       }
     }
 
-    const linkTwitter = () => {
-      const authUser = getAuth().currentUser
-
-      if (authUser) {
-        linkWithRedirect(authUser, new TwitterAuthProvider())
-      }
-    }
-
     const signOut = () => {
       getAuth().signOut()
     }
@@ -54,9 +43,7 @@ export default defineComponent({
       google,
       linkGitHub,
       linkGoogle,
-      linkTwitter,
       signOut,
-      twitter,
     }
   },
 })
@@ -82,15 +69,6 @@ export default defineComponent({
         </div>
         <p>{{ google.email }}</p>
       </div>
-
-      <div v-if="twitter" class="mb-4">
-        <div class="flex items-center">
-          <IconTwitter class="h-5 w-5" />
-          <span class="font-bold text-lg ml-3">Twitter</span>
-          <span class="border border-layer text-base font-normal px-1 rounded ml-2">Linked</span>
-        </div>
-        <p>{{ twitter.email }}</p>
-      </div>
     </div>
 
     <CoreLayer class="flex flex-col gap-2 lg:max-w-xs">
@@ -102,11 +80,6 @@ export default defineComponent({
       <CoreButton v-if="!google" class="w-full lg:w-auto whitespace-nowrap justify-start" @click="linkGoogle">
         <IconGoogle class="h-5 w-5" />
         <span>Link Google</span>
-      </CoreButton>
-
-      <CoreButton v-if="!twitter" class="w-full lg:w-auto whitespace-nowrap justify-start" @click="linkTwitter">
-        <IconTwitter class="h-5 w-5" />
-        <span>Link Twitter</span>
       </CoreButton>
 
       <CoreButton class="w-full lg:w-auto whitespace-nowrap justify-start text-red-400" @click="signOut">

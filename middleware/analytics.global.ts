@@ -6,7 +6,6 @@ const staticPaths = [
   '/docs',
   '/docs/export',
   '/docs/import',
-  '/example',
   '/force-graph',
   '/home',
   '/menu',

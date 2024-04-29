@@ -2,6 +2,7 @@
 import {
   UserCircleIcon as Account,
   CheckIcon as CheckMark,
+  CalendarIcon as Daily,
   XMarkIcon as Dismiss,
   DocumentIcon as Document,
   DocumentTextIcon as DocumentWithText,
@@ -27,6 +28,7 @@ defineProps<{
 const assets = {
   Account,
   CheckMark,
+  Daily,
   Dismiss,
   Document,
   DocumentWithText,

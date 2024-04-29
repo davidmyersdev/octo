@@ -124,6 +124,12 @@ export default {
 <template>
   <CoreScrollable>
     <CoreNavPanel class="flex flex-col gap-1">
+      <CoreLink v-if="!mediumPlus" :to="{ path: '/docs/new' }" class="sidebar-link">
+        <div class="flex gap-3 items-center">
+          <CoreAsset type="DocumentPlus" class="w-5" />
+          <span>New Doc</span>
+        </div>
+      </CoreLink>
       <CoreLink v-if="!mediumPlus" :to="{ path: '/docs' }" class="sidebar-link">
         <div class="flex gap-3 items-center">
           <SearchIcon class="w-5" />

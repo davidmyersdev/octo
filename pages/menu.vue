@@ -143,6 +143,12 @@ export default {
           <ModKKey class="text-layer-muted">U</ModKKey>
         </span>
       </CoreLink>
+      <CoreLink v-if="!mediumPlus" :to="{ path: '/notepad' }" class="sidebar-link">
+        <div class="flex gap-3 items-center">
+          <CoreAsset type="Daily" class="w-5" />
+          <span>Daily Notepad</span>
+        </div>
+      </CoreLink>
       <CoreLink :to="{ path: '/workspaces' }" class="sidebar-link">
         <WorkspacesIcon class="w-5" />
         <span class="action flex flex-grow items-stretch justify-between ml-3">

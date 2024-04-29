@@ -18,7 +18,6 @@ export default defineComponent({
 
     const isEditing = ref(false)
     const searchQuery = ref(query.value || '')
-    const searchElement = ref<HTMLElement>()
     const selectedDocs = ref<Doc[]>([])
     const visibleCount = ref(25)
     const filter = computed(() => props.tag ? `#${props.tag}` : props.filter)
@@ -37,17 +36,12 @@ export default defineComponent({
       return finalDocs.value.slice(0, visibleCount.value)
     })
 
-    onMounted(() => {
-      searchElement.value?.focus()
-    })
-
     return {
       docs,
       searchResults,
       finalDocs,
       isEditing,
       searchQuery,
-      searchElement,
       selectedDocs,
       visibleCount,
       visibleDocs,

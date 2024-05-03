@@ -73,10 +73,6 @@ export default defineComponent({
   --app-height: 100vh;
 }
 
-.dashboard {
-  height: var(--app-height, 100vh);
-}
-
 * {
   box-sizing: border-box;
 }

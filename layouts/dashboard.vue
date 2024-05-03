@@ -234,3 +234,9 @@ export default defineComponent({
     <ToastList class="fixed bottom-8 right-8 m-auto" />
   </div>
 </template>
+
+<style scoped>
+.dashboard {
+  height: var(--app-height, 100vh);
+}
+</style>

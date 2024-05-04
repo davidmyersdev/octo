@@ -106,8 +106,8 @@ onMounted(() => {
   <div class="flex flex-col gap-1">
     <label class="cursor-pointer flex flex-col gap-1 group focus-within:cursor-text">
       <small v-if="label">{{ label }}</small>
-      <div class="flex -m-1 p-1 rounded group-focus-within:ring">
-        <CoreLayer class="flex flex-col flex-grow overflow-hidden p-2 relative rounded bg-layer">
+      <div class="flex -m-0.5 p-0.5 rounded group-focus-within:ring-2 ring-opacity-25">
+        <div class="flex flex-col flex-grow overflow-hidden p-2 relative rounded border border-layer">
           <span v-if="private" class="absolute flex inset-0 items-center justify-center z-10 group-focus-within:opacity-0 group-focus-within:-z-10 bg-layer">
             <span class="flex gap-2 items-center">
               <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -130,12 +130,12 @@ onMounted(() => {
             :style="{ height }"
             type="text"
             :value="modelProxy"
-            class="unset-all cursor-text block min-h-0 overflow-hidden resize-none placeholder-current"
+            class="unset-all cursor-text block min-h-0 overflow-hidden resize-none placeholder-text-muted"
             :class="{ 'whitespace-nowrap': !multiline }"
             @input="modelProxy = $event.target.value"
             @keypress.enter="handleEnter"
           />
-        </CoreLayer>
+        </div>
       </div>
     </label>
     <small v-if="description" class="text-layer-muted">{{ description }}</small>

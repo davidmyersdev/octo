@@ -95,16 +95,19 @@ export default defineComponent({
     :model-value="modelValue"
     :options="editorOptions"
     class="core-editor flex flex-col flex-grow flex-shrink rounded"
+    :class="nextLayer.class"
     @update:model-value="$emit('update:modelValue', $event)"
   />
 </template>
 
 <style scoped>
 .core-editor {
-  --core-editor-max-width-in-chars: v-bind('cssMaxWidth');
+  --core-editor-divider: rgb(var(--layer-border));
   --core-editor-layer-0-bg: rgb(v-bind('nextLayer.bgCssVar'));
   --core-editor-layer-1-bg: rgb(v-bind('nextLayer.bgCssVar'));
   --core-editor-layer-2-bg: rgb(v-bind('twoLayersAbove.bgCssVar'));
+  --core-editor-max-width-in-chars: v-bind('cssMaxWidth');
+  --core-editor-text-muted: rgb(var(--layer-text-muted));
   --ink-font-family: 'Inter', helvetica, sans-serif;
   --ink-code-font-family: 'Fira Code', monospace;
   --ink-block-background-color: rgb(v-bind('nextLayer.bgCssVar'));
@@ -116,6 +119,20 @@ export default defineComponent({
     border: none;
     border-radius: 0;
 
+    .cm-placeholder {
+      color: var(--core-editor-text-muted);
+    }
+
+    .cm-scroller {
+      overflow: visible;
+    }
+
+    .ink-mde-details {
+      background-color: transparent;
+      border-top: 1px solid var(--core-editor-layer-2-bg);
+      padding: 0.25rem;
+    }
+
     @media (max-width: 767px) {
       .ink-mde-toolbar {
         order: 1;
@@ -125,16 +142,8 @@ export default defineComponent({
         }
       }
 
-      .ink-mde-editor {
-        padding-top: 2rem;
-      }
-
       .ink-mde-details {
         background-color: transparent;
-        position: absolute;
-        top: 0;
-        right: 0;
-        z-index: -1;
       }
     }
 
@@ -145,20 +154,17 @@ export default defineComponent({
           -45deg,
           transparent,
           transparent 10px,
-          var(--core-editor-layer-1-bg) 10px,
-          var(--core-editor-layer-1-bg) 12px
+          var(--core-editor-divider) 10px,
+          var(--core-editor-divider) 11px
         );
-        border-bottom: 2px solid var(--core-editor-layer-1-bg);
+        border-bottom: 1px solid var(--core-editor-divider);
 
         .ink-mde-container {
           background-color: var(--core-editor-layer-1-bg);
+          border: 1px solid var(--core-editor-divider);
           border-radius: 0.25rem;
           padding: 0.25rem;
         }
-      }
-
-      .ink-mde-details {
-        border-top: 2px solid var(--core-editor-layer-2-bg);
       }
     }
 

@@ -176,3 +176,11 @@ export default defineComponent({
     </div>
   </div>
 </template>
+
+<style scoped>
+:deep(.editor) {
+  .ink-mde-editor {
+    padding: 1.5rem;
+  }
+}
+</style>

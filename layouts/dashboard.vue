@@ -111,16 +111,16 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="dashboard flex h-screen w-screen min-h-0 min-w-0 overflow-hidden border-t-2 border-layer">
-    <CoreLayer v-if="isDesktop" as="section" class="flex flex-col items-center justify-between gap-4 h-full w-14 bg-layer md:flex">
+  <div class="dashboard flex h-screen w-screen min-h-0 min-w-0 overflow-hidden">
+    <CoreLayer v-if="isDesktop" as="section" class="flex flex-col items-center justify-between gap-4 h-full bg-layer md:flex">
       <div class="flex flex-col">
-        <div class="flex flex-col flex-shrink-0 items-center justify-center w-14 h-14">
+        <div class="flex flex-col flex-shrink-0 items-center justify-center p-1">
           <CoreButton class="flex items-center justify-center p-1" @click="handleLayoutChange">
             <LogoIcon class="h-8 text-brand" />
           </CoreButton>
         </div>
         <CoreDivider />
-        <div class="flex flex-col gap-1 pt-2 items-center">
+        <div class="flex flex-col gap-1 p-1 items-center">
           <CoreButtonLink :to="{ path: '/docs/new' }" :layer="1" :flat="true">
             <DocumentPlusIcon class="w-6" />
           </CoreButtonLink>
@@ -132,7 +132,7 @@ export default defineComponent({
           </CoreButtonLink>
         </div>
       </div>
-      <div class="flex flex-col gap-1 pb-2 items-center">
+      <div class="flex flex-col gap-1 p-1 items-center">
         <div class="flex flex-col gap-1 pb-2 items-center">
           <CoreButtonLink v-if="discordInviteLink" :to="discordInviteLink" :layer="1" :flat="true">
             <DiscordIcon class="w-6 h-6 opacity-25" />
@@ -149,32 +149,34 @@ export default defineComponent({
     </CoreLayer>
     <CoreLayer v-if="isDesktop" :as="CoreDivider" :vertical="true" />
     <section class="flex flex-col flex-grow flex-shrink min-h-0 min-w-0">
-      <CoreLayer as="nav" class="flex items-center justify-between bg-layer h-14">
-        <CoreLink v-if="isMobile" :to="{ path: '/docs/new' }" class="flex items-center justify-center p-2 h-14">
-          <LogoIcon class="h-8 text-brand" />
-        </CoreLink>
-        <div v-if="isMobile" class="flex items-center">
-          <CoreButton :as="CoreLink" :to="{ path: '/menu' }" role="button" aria-haspopup="true" aria-expanded="false">
-            <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-            <span class="ml-2">Menu</span>
-          </CoreButton>
-          <CoreButton v-if="isNew" :as="CoreLink" :to="{ path: '/quick-action' }">
-            <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </CoreButton>
-          <CoreButton v-else-if="isDoc" :as="CoreLink" :to="{ path: `/docs/${doc?.id}/meta` }">
-            <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </CoreButton>
-          <CoreButton v-else @click="handleQuickActionClose">
-            <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </CoreButton>
+      <CoreLayer as="nav" class="flex items-center justify-between bg-layer">
+        <div v-if="isMobile" class="flex items-center justify-between flex-grow p-1">
+          <CoreLink :to="{ path: '/docs/new' }" class="flex items-center justify-center p-1">
+            <LogoIcon class="h-8 text-brand" />
+          </CoreLink>
+          <div class="flex items-center gap-1">
+            <CoreButton :as="CoreLink" :to="{ path: '/menu' }" role="button" aria-haspopup="true" aria-expanded="false">
+              <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              <span class="ml-2">Menu</span>
+            </CoreButton>
+            <CoreButton v-if="isNew" :as="CoreLink" :to="{ path: '/quick-action' }">
+              <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </CoreButton>
+            <CoreButton v-else-if="isDoc" :as="CoreLink" :to="{ path: `/docs/${doc?.id}/meta` }">
+              <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </CoreButton>
+            <CoreButton v-else @click="handleQuickActionClose">
+              <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </CoreButton>
+          </div>
         </div>
         <CoreNavPanel v-if="isDesktop" class="flex-shrink-0 w-64">
           <CoreLink :to="{ path: '/docs' }" class="sidebar-link justify-between w-full">
@@ -226,7 +228,7 @@ export default defineComponent({
         <slot />
         <CoreLayer v-if="isDesktop" :as="CoreDivider" :vertical="true" />
         <CoreLayer v-if="(isDesktop && showMeta && doc && isDoc)" v-slot="{ layer }" template>
-          <TheRightSidebar v-if="(isDesktop && showMeta && doc && isDoc)" class="hidden w-64 bg-layer md:flex flex-shrink-0" :class="layer.class" />
+          <TheRightSidebar class="hidden w-64 bg-layer md:flex flex-shrink-0" :class="layer.class" />
         </CoreLayer>
         <CoreLayer v-else class="hidden w-2 bg-layer lg:flex flex-shrink-0" />
       </section>

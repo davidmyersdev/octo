@@ -1,5 +1,4 @@
 <script lang="ts">
-import { ViewColumnsIcon } from '@heroicons/vue/24/outline'
 import { CalendarIcon, Cog8ToothIcon, DocumentPlusIcon, MoonIcon, SunIcon, UserCircleIcon, XMarkIcon } from '@heroicons/vue/24/solid'
 import { computed, defineComponent, onMounted, onUnmounted } from 'vue'
 import GraphIcon from '#root/assets/graph.svg?component'
@@ -28,7 +27,6 @@ export default defineComponent({
     TheLeftSidebar,
     TheRightSidebar,
     UserCircleIcon,
-    ViewColumnsIcon,
     XMarkIcon,
   },
   setup() {
@@ -122,7 +120,12 @@ export default defineComponent({
     <CoreLayer v-if="isDesktop" as="section" class="flex flex-col items-center justify-between gap-4 h-full bg-layer md:flex">
       <div class="flex flex-col">
         <div class="flex flex-col flex-shrink-0 items-center justify-center p-1">
-          <CoreButton class="flex items-center justify-center p-1" @click="handleLayoutChange">
+          <CoreButton
+            class="flex items-center justify-center p-1"
+            data-test-id="toggle-sidebars"
+            data-test-toggle-sidebars
+            @click="handleLayoutChange"
+          >
             <LogoIcon class="h-8 text-brand" />
           </CoreButton>
         </div>
@@ -209,24 +212,6 @@ export default defineComponent({
           <CoreButton v-for="pinnedDoc in pinnedDocs" :key="pinnedDoc.id" :as="CoreLink" :to="{ path: `/docs/${pinnedDoc.id}` }" class="allow-link-active flex flex-shrink justify-between min-w-[4rem] max-w-[20rem]">
             <span class="text-ellipsis overflow-hidden">{{ pinnedDoc.label }}</span>
             <XMarkIcon class="w-4 transition hover:scale-125" @click.prevent.stop="() => handleTabClose(pinnedDoc.id)" />
-          </CoreButton>
-        </CoreNavPanel>
-        <CoreDivider v-if="isDesktop" :vertical="true" />
-        <CoreNavPanel v-if="isDesktop" class="flex-shrink-0 w-64">
-          <CoreButton
-            class="justify-between w-full"
-            data-test-id="toggle-sidebars"
-            data-test-toggle-sidebars
-            @click="handleLayoutChange"
-          >
-            <div class="flex gap-3 items-center">
-              <ViewColumnsIcon class="w-5" />
-              <span>Toggle Sidebars</span>
-            </div>
-            <span class="hidden md:flex text-layer-muted">
-              <Key>{{ modKey }}</Key>
-              <Key>\</Key>
-            </span>
           </CoreButton>
         </CoreNavPanel>
       </CoreLayer>

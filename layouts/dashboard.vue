@@ -222,11 +222,10 @@ export default defineComponent({
         </CoreLayer>
         <CoreLayer v-if="(isDesktop && showMenu)" :as="CoreDivider" :vertical="true" />
         <slot />
-        <CoreLayer v-if="isDesktop" :as="CoreDivider" :vertical="true" />
         <CoreLayer v-if="(isDesktop && showMeta && doc && isDoc)" v-slot="{ layer }" template>
+          <CoreDivider vertical />
           <TheRightSidebar class="hidden w-64 bg-layer md:flex flex-shrink-0" :class="layer.class" />
         </CoreLayer>
-        <CoreLayer v-else class="hidden w-2 bg-layer lg:flex flex-shrink-0" />
       </section>
     </section>
     <ToastList class="fixed bottom-8 right-8 m-auto" />

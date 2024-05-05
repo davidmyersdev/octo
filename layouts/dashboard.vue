@@ -1,8 +1,6 @@
 <script lang="ts">
-import { ViewColumnsIcon } from '@heroicons/vue/24/outline'
-import { CalendarIcon, Cog8ToothIcon, DocumentPlusIcon, HeartIcon, UserCircleIcon, XMarkIcon } from '@heroicons/vue/24/solid'
+import { CalendarIcon, Cog8ToothIcon, DocumentPlusIcon, MoonIcon, SunIcon, UserCircleIcon, XMarkIcon } from '@heroicons/vue/24/solid'
 import { computed, defineComponent, onMounted, onUnmounted } from 'vue'
-import DiscordIcon from '#root/assets/discord.svg?component'
 import GraphIcon from '#root/assets/graph.svg?component'
 import LogoIcon from '#root/assets/logo-icon.svg?component'
 import CoreButton from '#root/components/CoreButton.vue'
@@ -20,16 +18,15 @@ export default defineComponent({
     CoreButton,
     CoreDivider,
     CoreLink,
-    DiscordIcon,
     DocumentPlusIcon,
     GraphIcon,
-    HeartIcon,
     Key,
     LogoIcon,
+    MoonIcon,
+    SunIcon,
     TheLeftSidebar,
     TheRightSidebar,
     UserCircleIcon,
-    ViewColumnsIcon,
     XMarkIcon,
   },
   setup() {
@@ -38,10 +35,10 @@ export default defineComponent({
     const { doc } = useDocs()
     const { showMenu, showMeta, toggleMenu, toggleMeta } = useLayout()
     const { pinnedDocs, unpinDoc } = usePinnedDocs()
-    const { public: { discordInviteLink } } = useConfig()
     const { isDesktop, isMobile, modKey } = useDevice()
     const isDoc = computed(() => router.currentRoute.value.name === 'docs-docId')
     const isNew = computed(() => router.currentRoute.value.path === '/docs/new')
+    const { store: appearance, isAuto, isDark, isLight } = useAppearance()
 
     const handleQuickActionClose = () => {
       if (doc.value) {
@@ -80,6 +77,10 @@ export default defineComponent({
       window.scrollTo(0, 0)
     }
 
+    const toggleAppearance = () => {
+      appearance.value = isAuto.value ? 'dark' : isDark.value ? 'light' : 'auto'
+    }
+
     onMounted(() => {
       window.addEventListener('scroll', scrollListener)
     })
@@ -91,13 +92,16 @@ export default defineComponent({
     return {
       CoreDivider,
       CoreLink,
-      discordInviteLink,
+      appearance,
       doc,
       handleLayoutChange,
       handleQuickActionClose,
       handleTabClose,
+      isAuto,
+      isDark,
       isDesktop,
       isDoc,
+      isLight,
       isMobile,
       isNew,
       isNuxt,
@@ -105,6 +109,7 @@ export default defineComponent({
       pinnedDocs,
       showMenu,
       showMeta,
+      toggleAppearance,
     }
   },
 })
@@ -115,7 +120,12 @@ export default defineComponent({
     <CoreLayer v-if="isDesktop" as="section" class="flex flex-col items-center justify-between gap-4 h-full bg-layer md:flex">
       <div class="flex flex-col">
         <div class="flex flex-col flex-shrink-0 items-center justify-center p-1">
-          <CoreButton class="flex items-center justify-center p-1" @click="handleLayoutChange">
+          <CoreButton
+            class="flex items-center justify-center p-1"
+            data-test-id="toggle-sidebars"
+            data-test-toggle-sidebars
+            @click="handleLayoutChange"
+          >
             <LogoIcon class="h-8 text-brand" />
           </CoreButton>
         </div>
@@ -133,11 +143,15 @@ export default defineComponent({
         </div>
       </div>
       <div class="flex flex-col gap-1 p-1 items-center">
-        <div class="flex flex-col gap-1 pb-2 items-center">
-          <CoreButtonLink v-if="discordInviteLink" :to="discordInviteLink" :layer="1" :flat="true">
-            <DiscordIcon class="w-6 h-6 opacity-25" />
-          </CoreButtonLink>
-          <!-- <HeartIcon class="w-6" /> -->
+        <div class="flex flex-col gap-1 pb-2 items-center text-layer-muted">
+          <CoreButton @click="toggleAppearance">
+            <MoonIcon v-if="isDark" class="w-6" />
+            <SunIcon v-else-if="isLight" class="w-6" />
+            <div v-else class="relative sq-6">
+              <SunIcon class="w-4 absolute top-0 right-0" />
+              <MoonIcon class="w-4 absolute bottom-0 left-0" />
+            </div>
+          </CoreButton>
         </div>
         <CoreButtonLink :to="{ path: '/settings' }" :layer="1" :flat="true">
           <Cog8ToothIcon class="w-6" />
@@ -200,24 +214,6 @@ export default defineComponent({
             <XMarkIcon class="w-4 transition hover:scale-125" @click.prevent.stop="() => handleTabClose(pinnedDoc.id)" />
           </CoreButton>
         </CoreNavPanel>
-        <CoreDivider v-if="isDesktop" :vertical="true" />
-        <CoreNavPanel v-if="isDesktop" class="flex-shrink-0 w-64">
-          <CoreButton
-            class="justify-between w-full"
-            data-test-id="toggle-sidebars"
-            data-test-toggle-sidebars
-            @click="handleLayoutChange"
-          >
-            <div class="flex gap-3 items-center">
-              <ViewColumnsIcon class="w-5" />
-              <span>Toggle Sidebars</span>
-            </div>
-            <span class="hidden md:flex text-layer-muted">
-              <Key>{{ modKey }}</Key>
-              <Key>\</Key>
-            </span>
-          </CoreButton>
-        </CoreNavPanel>
       </CoreLayer>
       <CoreLayer :as="CoreDivider" />
       <section class="flex flex-grow flex-shrink overflow-hidden min-w-0">
@@ -226,11 +222,10 @@ export default defineComponent({
         </CoreLayer>
         <CoreLayer v-if="(isDesktop && showMenu)" :as="CoreDivider" :vertical="true" />
         <slot />
-        <CoreLayer v-if="isDesktop" :as="CoreDivider" :vertical="true" />
         <CoreLayer v-if="(isDesktop && showMeta && doc && isDoc)" v-slot="{ layer }" template>
+          <CoreDivider vertical />
           <TheRightSidebar class="hidden w-64 bg-layer md:flex flex-shrink-0" :class="layer.class" />
         </CoreLayer>
-        <CoreLayer v-else class="hidden w-2 bg-layer lg:flex flex-shrink-0" />
       </section>
     </section>
     <ToastList class="fixed bottom-8 right-8 m-auto" />

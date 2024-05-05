@@ -5,6 +5,7 @@ const props = defineProps<{
   type?: T,
   autofocus?: boolean,
   description?: string,
+  disabled?: boolean,
   label?: string,
   lines?: number,
   min?: number,
@@ -123,6 +124,7 @@ onMounted(() => {
             v-model="modelProxy"
             aria-autocomplete="none"
             autocomplete="off"
+            :disabled="disabled"
             name="text"
             :placeholder="placeholder"
             :rows="lines"
@@ -130,7 +132,7 @@ onMounted(() => {
             :style="{ height }"
             type="text"
             :value="modelProxy"
-            class="unset-all cursor-text block min-h-0 overflow-hidden resize-none placeholder-text-muted"
+            class="unset-all cursor-text block min-h-0 overflow-hidden resize-none placeholder-muted"
             :class="{ 'whitespace-nowrap': !multiline }"
             @input="modelProxy = $event.target.value"
             @keypress.enter="handleEnter"

@@ -95,7 +95,7 @@ export default defineComponent({
     :model-value="modelValue"
     :options="editorOptions"
     class="core-editor flex flex-col flex-grow flex-shrink rounded"
-    :class="nextLayer.class"
+    :class="currentLayer.class"
     @update:model-value="$emit('update:modelValue', $event)"
   />
 </template>
@@ -103,7 +103,7 @@ export default defineComponent({
 <style scoped>
 .core-editor {
   --core-editor-divider: rgb(var(--layer-border));
-  --core-editor-layer-0-bg: rgb(v-bind('nextLayer.bgCssVar'));
+  --core-editor-layer-0-bg: rgb(var(--layer-bg));
   --core-editor-layer-1-bg: rgb(v-bind('nextLayer.bgCssVar'));
   --core-editor-layer-2-bg: rgb(v-bind('twoLayersAbove.bgCssVar'));
   --core-editor-max-width-in-chars: v-bind('cssMaxWidth');

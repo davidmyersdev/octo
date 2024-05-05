@@ -5,6 +5,7 @@ const props = defineProps<{
   type?: T,
   autofocus?: boolean,
   description?: string,
+  disabled?: boolean,
   label?: string,
   lines?: number,
   min?: number,
@@ -123,6 +124,7 @@ onMounted(() => {
             v-model="modelProxy"
             aria-autocomplete="none"
             autocomplete="off"
+            :disabled="disabled"
             name="text"
             :placeholder="placeholder"
             :rows="lines"

@@ -7,7 +7,7 @@ import { CoreButton } from '#components'
 <template>
   <ListboxButton
     :as="CoreButton"
-    class="flex justify-between"
+    class="flex justify-between ui-open:bg-layer-hover"
   >
     <slot />
     <span

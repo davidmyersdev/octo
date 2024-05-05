@@ -4,6 +4,13 @@ import { type ChatData, type ChatMessageData, type EmbeddingData } from 'vellma/
 export type Chat = ChatData
 export type ChatMessage = ChatMessageData
 export type Embedding = EmbeddingData
+export type SystemInstruction = {
+  id: string,
+  description: string,
+  text: string,
+  createdAt: Date,
+  updatedAt: Date,
+}
 
 export const dbName = 'octo'
 
@@ -11,12 +18,13 @@ export class OctoDatabase extends Dexie {
   chats!: Table<Chat>
   chatMessages!: Table<ChatMessage>
   embeddings!: Table<Embedding>
+  systemInstructions!: Table<SystemInstruction>
 
   constructor() {
     super(dbName)
 
     // Keys specified in each store are indexed. Other keys are still allowed.
-    this.version(2).stores({
+    this.version(3).stores({
       chats: [
         '++id', // primary key
         'createdAt',
@@ -33,6 +41,13 @@ export class OctoDatabase extends Dexie {
       embeddings: [
         '++id', // primary key
         'hash',
+        'createdAt',
+        'updatedAt',
+      ].join(','),
+      systemInstructions: [
+        '++id', // primary key
+        'description',
+        'text',
         'createdAt',
         'updatedAt',
       ].join(','),

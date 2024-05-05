@@ -130,7 +130,7 @@ onMounted(() => {
             :style="{ height }"
             type="text"
             :value="modelProxy"
-            class="unset-all cursor-text block min-h-0 overflow-hidden resize-none placeholder-text-muted"
+            class="unset-all cursor-text block min-h-0 overflow-hidden resize-none placeholder-muted"
             :class="{ 'whitespace-nowrap': !multiline }"
             @input="modelProxy = $event.target.value"
             @keypress.enter="handleEnter"

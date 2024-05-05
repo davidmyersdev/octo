@@ -1,8 +1,7 @@
 <script lang="ts">
 import { ViewColumnsIcon } from '@heroicons/vue/24/outline'
-import { CalendarIcon, Cog8ToothIcon, DocumentPlusIcon, HeartIcon, UserCircleIcon, XMarkIcon } from '@heroicons/vue/24/solid'
+import { CalendarIcon, Cog8ToothIcon, DocumentPlusIcon, MoonIcon, SunIcon, UserCircleIcon, XMarkIcon } from '@heroicons/vue/24/solid'
 import { computed, defineComponent, onMounted, onUnmounted } from 'vue'
-import DiscordIcon from '#root/assets/discord.svg?component'
 import GraphIcon from '#root/assets/graph.svg?component'
 import LogoIcon from '#root/assets/logo-icon.svg?component'
 import CoreButton from '#root/components/CoreButton.vue'
@@ -20,12 +19,12 @@ export default defineComponent({
     CoreButton,
     CoreDivider,
     CoreLink,
-    DiscordIcon,
     DocumentPlusIcon,
     GraphIcon,
-    HeartIcon,
     Key,
     LogoIcon,
+    MoonIcon,
+    SunIcon,
     TheLeftSidebar,
     TheRightSidebar,
     UserCircleIcon,
@@ -38,10 +37,10 @@ export default defineComponent({
     const { doc } = useDocs()
     const { showMenu, showMeta, toggleMenu, toggleMeta } = useLayout()
     const { pinnedDocs, unpinDoc } = usePinnedDocs()
-    const { public: { discordInviteLink } } = useConfig()
     const { isDesktop, isMobile, modKey } = useDevice()
     const isDoc = computed(() => router.currentRoute.value.name === 'docs-docId')
     const isNew = computed(() => router.currentRoute.value.path === '/docs/new')
+    const { store: appearance, isAuto, isDark, isLight } = useAppearance()
 
     const handleQuickActionClose = () => {
       if (doc.value) {
@@ -80,6 +79,10 @@ export default defineComponent({
       window.scrollTo(0, 0)
     }
 
+    const toggleAppearance = () => {
+      appearance.value = isAuto.value ? 'dark' : isDark.value ? 'light' : 'auto'
+    }
+
     onMounted(() => {
       window.addEventListener('scroll', scrollListener)
     })
@@ -91,13 +94,16 @@ export default defineComponent({
     return {
       CoreDivider,
       CoreLink,
-      discordInviteLink,
+      appearance,
       doc,
       handleLayoutChange,
       handleQuickActionClose,
       handleTabClose,
+      isAuto,
+      isDark,
       isDesktop,
       isDoc,
+      isLight,
       isMobile,
       isNew,
       isNuxt,
@@ -105,6 +111,7 @@ export default defineComponent({
       pinnedDocs,
       showMenu,
       showMeta,
+      toggleAppearance,
     }
   },
 })
@@ -133,11 +140,15 @@ export default defineComponent({
         </div>
       </div>
       <div class="flex flex-col gap-1 p-1 items-center">
-        <div class="flex flex-col gap-1 pb-2 items-center">
-          <CoreButtonLink v-if="discordInviteLink" :to="discordInviteLink" :layer="1" :flat="true">
-            <DiscordIcon class="w-6 h-6 opacity-25" />
-          </CoreButtonLink>
-          <!-- <HeartIcon class="w-6" /> -->
+        <div class="flex flex-col gap-1 pb-2 items-center text-layer-muted">
+          <CoreButton @click="toggleAppearance">
+            <MoonIcon v-if="isDark" class="w-6" />
+            <SunIcon v-else-if="isLight" class="w-6" />
+            <div v-else class="relative sq-6">
+              <SunIcon class="w-4 absolute top-0 right-0" />
+              <MoonIcon class="w-4 absolute bottom-0 left-0" />
+            </div>
+          </CoreButton>
         </div>
         <CoreButtonLink :to="{ path: '/settings' }" :layer="1" :flat="true">
           <Cog8ToothIcon class="w-6" />

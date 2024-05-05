@@ -124,6 +124,12 @@ export default {
 <template>
   <CoreScrollable>
     <CoreNavPanel class="flex flex-col gap-1">
+      <CoreLink v-if="!mediumPlus" :to="{ path: '/docs/new' }" class="sidebar-link">
+        <div class="flex gap-3 items-center">
+          <CoreAsset type="DocumentPlus" class="w-5" />
+          <span>New Doc</span>
+        </div>
+      </CoreLink>
       <CoreLink v-if="!mediumPlus" :to="{ path: '/docs' }" class="sidebar-link">
         <div class="flex gap-3 items-center">
           <SearchIcon class="w-5" />
@@ -136,6 +142,12 @@ export default {
           <span>Inbox</span>
           <ModKKey class="text-layer-muted">U</ModKKey>
         </span>
+      </CoreLink>
+      <CoreLink v-if="!mediumPlus" :to="{ path: '/notepad' }" class="sidebar-link">
+        <div class="flex gap-3 items-center">
+          <CoreAsset type="Daily" class="w-5" />
+          <span>Daily Notepad</span>
+        </div>
       </CoreLink>
       <CoreLink :to="{ path: '/workspaces' }" class="sidebar-link">
         <WorkspacesIcon class="w-5" />

@@ -5,8 +5,10 @@ import { isClient } from '#helpers/environment'
 import { init } from '#root/src/firebase'
 
 const updateAppHeight = () => {
-  if (isClient) {
-    document.documentElement.style.setProperty('--app-height', `calc(${window.visualViewport?.height}px - 1px)`)
+  if (isClient && window.visualViewport) {
+    const actualHeight = window.visualViewport.scale * window.visualViewport.height
+
+    document.documentElement.style.setProperty('--app-height', `calc(${actualHeight}px - 1px)`)
   }
 }
 

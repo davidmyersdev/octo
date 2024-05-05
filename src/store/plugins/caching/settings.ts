@@ -5,6 +5,7 @@ import { unwrap } from '#root/src/common/vue'
 
 import {
   LOAD_SETTINGS,
+  SETTINGS_LOADED,
   SET_CRYPTO_ENABLED,
   SET_CRYPTO_KEYS,
   SET_EDITOR_IMAGES_ENABLED,
@@ -13,13 +14,13 @@ import {
   SET_EDITOR_LIGATURES,
   SET_EDITOR_LISTS_ENABLED,
   SET_EDITOR_READABILITY_ENABLED,
+  SET_EDITOR_READABILITY_MAX_WIDTH,
   SET_EDITOR_READABILITY_WORDS_PER_MINUTE,
   SET_EDITOR_SPELLCHECK,
   SET_EDITOR_TAB_SIZE,
   SET_EDITOR_TOOLBAR,
   SET_EXPERIMENTAL,
   SET_THEME,
-  SETTINGS_LOADED,
 } from '#root/src/store/modules/settings'
 
 export const settingsCache = storage().instance({ name: 'settings' })
@@ -48,6 +49,7 @@ const settingsPlugin: Plugin<any> = (store) => {
       case SET_EDITOR_LIGATURES:
       case SET_EDITOR_LISTS_ENABLED:
       case SET_EDITOR_READABILITY_ENABLED:
+      case SET_EDITOR_READABILITY_MAX_WIDTH:
       case SET_EDITOR_READABILITY_WORDS_PER_MINUTE:
       case SET_EDITOR_SPELLCHECK:
       case SET_EDITOR_TAB_SIZE:

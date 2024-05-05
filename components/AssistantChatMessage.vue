@@ -4,16 +4,20 @@ import { readonly } from '#root/src/vendor/plugins/readonly'
 import { useVue } from '#shared/composables'
 
 const props = defineProps<{ createdAt: Date, role: string, text: string }>()
+
 const { copy } = useClipboard()
 const { addToast } = useToasts()
 const isHuman = computed(() => props.role === 'human')
 const isAssistant = computed(() => props.role === 'assistant')
 const name = computed(() => isHuman.value ? 'You' : 'Assistant')
 const { isMounted } = useVue()
+
+const isEditable = typeof window !== 'undefined' && window?.navigator.userAgent.match(/firefox/i)
+
 const options = {
   interface: {
     attribution: false,
-    autocomplete: true,
+    autocomplete: false,
     images: false,
     lists: false,
     readonly: true,
@@ -21,7 +25,7 @@ const options = {
     toolbar: false,
   },
   plugins: [
-    ...readonly(),
+    ...(isEditable ? [] : readonly()),
   ],
   readability: false,
 }

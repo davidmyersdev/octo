@@ -19,7 +19,7 @@ const toggleContent = () => {
 <template>
   <component
     :is="component"
-    class="flex flex-col gap-2 p-2"
+    class="flex flex-col gap-2 p-1"
   >
     <slot name="label">
       <h6 v-if="label" class="flex items-center justify-between text-sm text-layer-muted cursor-pointer" @click="toggleContent">

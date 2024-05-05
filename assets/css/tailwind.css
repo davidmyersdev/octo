@@ -297,6 +297,10 @@
 }
 
 @layer components {
+  *, *::before, *::after {
+    --tw-ring-color: rgb(59 130 246 / var(--tw-ring-opacity, 0.5))
+  }
+
   .button {
     @apply inline-flex items-center rounded cursor-pointer focus:outline-none focus:ring focus-within:ring;
   }

@@ -2,8 +2,10 @@
 import {
   UserCircleIcon as Account,
   CheckIcon as CheckMark,
+  CalendarIcon as Daily,
   XMarkIcon as Dismiss,
   DocumentIcon as Document,
+  DocumentPlusIcon as DocumentPlus,
   DocumentTextIcon as DocumentWithText,
   BeakerIcon as Experimental,
   ChatBubbleLeftRightIcon as Feedback,
@@ -27,8 +29,10 @@ defineProps<{
 const assets = {
   Account,
   CheckMark,
+  Daily,
   Dismiss,
   Document,
+  DocumentPlus,
   DocumentWithText,
   Experimental,
   Feedback,

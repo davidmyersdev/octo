@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import Appearance from '#root/components/settings/Appearance.vue'
 import Banner from '#root/components/Banner.vue'
-import Editor from '#root/components/SettingsEditor.vue'
+import EditorSettings from '#root/components/SettingsEditor.vue'
 import Encryption from '#root/components/settings/Encryption.vue'
 import Experimental from '#root/components/settings/Experimental.vue'
 import Export from '#root/components/settings/Export.vue'
@@ -24,7 +24,7 @@ useHead({
       </CoreLayer>
       <Extendable scope="app.settings" class="flex flex-col gap-16">
         <Appearance />
-        <Editor />
+        <EditorSettings />
         <Encryption />
         <Import />
         <Export />

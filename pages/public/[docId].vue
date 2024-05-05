@@ -1,13 +1,3 @@
-<template>
-  <Editor
-    :appearance="appearance"
-    :doc="doc"
-    :key="doc.id"
-    :ro="true"
-    :settings="settings"
-  />
-</template>
-
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
@@ -57,3 +47,13 @@ export default defineComponent({
   },
 })
 </script>
+
+<template>
+  <DocEditor
+    :appearance="appearance"
+    :doc="doc"
+    :key="doc.id"
+    :ro="true"
+    :settings="settings"
+  />
+</template>

@@ -10,7 +10,7 @@ export default defineComponent({
   },
   setup(props) {
     const classes = computed(() => {
-      return `block border-layer overflow-hidden ${props.vertical ? 'border-l-2 h-full w-0' : 'border-t-2 h-0'}`
+      return `block border-layer overflow-hidden ${props.vertical ? 'border-l h-full w-0' : 'border-t h-0'}`
     })
 
     return {

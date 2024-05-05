@@ -376,15 +376,6 @@
     },
     {
       "files": [
-        "pages/example.vue"
-      ],
-      "rules": {
-        "vue/component-tags-order": "warn",
-        "max-statements-per-line": "warn"
-      }
-    },
-    {
-      "files": [
         "pages/force-graph.vue"
       ],
       "rules": {

@@ -65,8 +65,13 @@ export const useAssistant = ({ chatId, languageModel = ref({ id: 'gpt-4-1106-pre
 
   const languageModels = ref([
     {
-      id: 'gpt-4-turbo-preview',
+      id: 'gpt-4-turbo',
       label: 'GPT-4 Turbo',
+      contextWindow: '128k',
+    },
+    {
+      id: 'gpt-4-turbo-preview',
+      label: 'GPT-4 Turbo (Preview)',
       contextWindow: '128k',
     },
     {

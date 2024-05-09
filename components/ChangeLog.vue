@@ -27,7 +27,7 @@ onMounted(async () => {
     const lastClientTimestamp = localStorage.getItem('changelog:v1')
 
     if (!lastClientTimestamp || new Date(lastEntryTimestamp) > new Date(lastClientTimestamp)) {
-      showChangeLog.value = true
+      // showChangeLog.value = true
 
       localStorage.setItem('changelog:v1', lastEntryTimestamp)
     }

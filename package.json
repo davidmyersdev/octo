@@ -2,7 +2,7 @@
   "name": "octo",
   "type": "module",
   "private": true,
-  "packageManager": "pnpm@8.6.6",
+  "packageManager": "pnpm@9.1.0+sha256.22e36fba7f4880ecf749a5ca128b8435da085ecd49575e7fb9e64d6bf4fad394",
   "author": "David R. Myers <hello@davidmyers.dev>",
   "funding": "https://github.com/sponsors/davidmyersdev",
   "scripts": {
@@ -37,7 +37,7 @@
     "firebase": "^10.8.0",
     "force-graph": "^1.43.4",
     "fuse.js": "^6.6.2",
-    "ink-mde": "^0.32.0",
+    "ink-mde": "^0.33.0",
     "jszip": "^3.10.1",
     "khroma": "^2.1.0",
     "localforage": "^1.10.0",

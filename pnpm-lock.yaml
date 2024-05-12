@@ -170,8 +170,8 @@ importers:
         specifier: ^0.2.0
         version: 0.2.0(eslint@8.56.0)
       firebase-tools:
-        specifier: ^13.3.1
-        version: 13.3.1(encoding@0.1.13)
+        specifier: ^13.6.0
+        version: 13.6.0(encoding@0.1.13)
       happy-dom:
         specifier: ^12.10.3
         version: 12.10.3
@@ -4234,6 +4234,9 @@ packages:
     resolution: {integrity: sha512-WaEtAOpRA1MQ0eohqZjpGD8zdI0Ovsm8mmFhaDN8dvDZzyoUMcYDnf5Y6iu7HTXxf8JDS23qWa4a+hKCDyOPzw==}
     engines: {node: '>=6'}
 
+  deep-equal-in-any-order@2.0.6:
+    resolution: {integrity: sha512-RfnWHQzph10YrUjvWwhd15Dne8ciSJcZ3U6OD7owPwiVwsdE5IFSoZGg8rlwJD11ES+9H5y8j3fCofviRHOqLQ==}
+
   deep-equal@1.0.1:
     resolution: {integrity: sha512-bHtC0iYvWhyaTzvV3CZgPeZQqCOBGyGsVV7v4eevpdkLHfiSrXUdBG+qAuSz4RI70sszvjQ1QSZ98An1yNwpSw==}
 
@@ -5162,8 +5165,8 @@ packages:
     resolution: {integrity: sha512-78/PXT1wlLLDgTzDs7sjq9hzz0vXD+zn+7wypEe4fXQxCmdmqfGsEPQxmiCSQI3ajFV91bVSsvNtrJRiW6nGng==}
     engines: {node: '>=10'}
 
-  firebase-tools@13.3.1:
-    resolution: {integrity: sha512-+yvUK+tcyZhNVqYe7z8U70Jf3l9mGUwcThVVIJCe/dQIjdAv8ZDcibGbhPxTp4Jpw7PyAPRQCo3RgUFnC0RrpA==}
+  firebase-tools@13.6.0:
+    resolution: {integrity: sha512-BXXkFkw8FupINBJHd+aPFRKpvIf8R5P1GyOnWjwsk06kgXXdfFuuYctxkL8e82N4sUomdNP5Q/ru/u2esnoSQA==}
     engines: {node: '>=18.0.0 || >=20.0.0'}
     hasBin: true
 
@@ -6656,6 +6659,9 @@ packages:
 
   lodash.isstring@4.0.1:
     resolution: {integrity: sha512-0wJxfxH1wgO3GrbuP+dTTk7op+6L41QCXbGINEmD+ny/G/eCqGzxyCsh7159S+mgDDcoarnBw6PC1PS5+wUGgw==}
+
+  lodash.mapvalues@4.6.0:
+    resolution: {integrity: sha512-JPFqXFeZQ7BfS00H58kClY7SPVeHertPE0lNuCyZ26/XlN8TvakYD7b9bGyNmXbT/D3BbtPAAmq90gPWqLkxlQ==}
 
   lodash.memoize@4.1.2:
     resolution: {integrity: sha512-t7j+NzmgnQzTAYXcsHYLgimltOV1MXHtlOWf6GjL9Kj8GK5FInw5JotxvbOs+IvV1/Dzo04/fCGfLVs7aXb4Ag==}
@@ -8754,6 +8760,9 @@ packages:
 
   solid-js@1.8.17:
     resolution: {integrity: sha512-E0FkUgv9sG/gEBWkHr/2XkBluHb1fkrHywUgA6o6XolPDCJ4g1HaLmQufcBBhiF36ee40q+HpG/vCZu7fLpI3Q==}
+
+  sort-any@2.0.0:
+    resolution: {integrity: sha512-T9JoiDewQEmWcnmPn/s9h/PH9t3d/LSWi0RgVmXSuDYeZXTZOZ1/wrK2PHaptuR1VXe3clLLt0pD6sgVOwjNEA==}
 
   sort-object-keys@1.1.3:
     resolution: {integrity: sha512-855pvK+VkU7PaKYPc+Jjnmt4EzejQHyhhF33q31qG8x7maDzkeFhAAThdCYay11CISO+qAMwjOBP+fPZe0IPyg==}
@@ -15271,6 +15280,11 @@ snapshots:
     dependencies:
       type-detect: 4.0.8
 
+  deep-equal-in-any-order@2.0.6:
+    dependencies:
+      lodash.mapvalues: 4.6.0
+      sort-any: 2.0.0
+
   deep-equal@1.0.1: {}
 
   deep-extend@0.6.0: {}
@@ -16418,7 +16432,7 @@ snapshots:
       locate-path: 6.0.0
       path-exists: 4.0.0
 
-  firebase-tools@13.3.1(encoding@0.1.13):
+  firebase-tools@13.6.0(encoding@0.1.13):
     dependencies:
       '@google-cloud/pubsub': 3.7.5(encoding@0.1.13)
       abort-controller: 3.0.0
@@ -16436,6 +16450,7 @@ snapshots:
       cross-env: 5.2.1
       cross-spawn: 7.0.3
       csv-parse: 5.5.3
+      deep-equal-in-any-order: 2.0.6
       exegesis: 4.1.1
       exegesis-express: 4.0.0
       express: 4.19.2
@@ -18078,6 +18093,8 @@ snapshots:
   lodash.isplainobject@4.0.6: {}
 
   lodash.isstring@4.0.1: {}
+
+  lodash.mapvalues@4.6.0: {}
 
   lodash.memoize@4.1.2: {}
 
@@ -20788,6 +20805,10 @@ snapshots:
       csstype: 3.1.3
       seroval: 1.0.5
       seroval-plugins: 1.0.5(seroval@1.0.5)
+
+  sort-any@2.0.0:
+    dependencies:
+      lodash: 4.17.21
 
   sort-object-keys@1.1.3: {}
 

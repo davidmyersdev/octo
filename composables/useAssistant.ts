@@ -8,6 +8,54 @@ import {
   useStorage,
 } from 'vellma/peripherals'
 
+type ModelOption = {
+  id: string,
+  label: string,
+  contextWindow: string,
+  comingSoon?: boolean,
+  disabled?: boolean,
+}
+
+const defaultLanguageModels: ModelOption[] = [
+  {
+    id: 'gpt-4o',
+    label: 'GPT-4o',
+    contextWindow: '128k',
+  },
+  {
+    id: 'gpt-4-turbo',
+    label: 'GPT-4 Turbo',
+    contextWindow: '128k',
+  },
+  {
+    id: 'gpt-4-turbo-preview',
+    label: 'GPT-4 Turbo (Preview)',
+    contextWindow: '128k',
+  },
+  {
+    id: 'gpt-4-vision-preview',
+    label: 'GPT-4 Turbo Vision',
+    contextWindow: '128k',
+    comingSoon: true,
+    disabled: true,
+  },
+  {
+    id: 'gpt-4',
+    label: 'GPT-4',
+    contextWindow: '8k',
+  },
+  {
+    id: 'gpt-4-32k',
+    label: 'GPT-4 (32k)',
+    contextWindow: '32k',
+  },
+  {
+    id: 'gpt-3.5-turbo-0125',
+    label: 'GPT-3.5 Turbo',
+    contextWindow: '16k',
+  },
+]
+
 export const dexieStorage = (): StorageAdapter => {
   const { db } = useDatabase()
 
@@ -50,7 +98,7 @@ export const dexieStorage = (): StorageAdapter => {
   }
 }
 
-export const useAssistant = ({ chatId, languageModel = ref({ id: 'gpt-4-1106-preview', label: 'GPT-4 Turbo' }) }: { chatId: Ref<string>, languageModel?: Ref<{ id: string, label: string }> }) => {
+export const useAssistant = ({ chatId, languageModel = ref(defaultLanguageModels[0]) }: { chatId: Ref<string>, languageModel?: Ref<ModelOption> }) => {
   const storageAdapter = dexieStorage()
   const apiKey = useLocalStorage<string>('openAiApiKey', '', {
     initOnMounted: true,
@@ -63,40 +111,7 @@ export const useAssistant = ({ chatId, languageModel = ref({ id: 'gpt-4-1106-pre
   const chatModel = computed(() => chatInterface.value.model)
   const chatFactory = computed(() => chatInterface.value.factory)
 
-  const languageModels = ref([
-    {
-      id: 'gpt-4-turbo',
-      label: 'GPT-4 Turbo',
-      contextWindow: '128k',
-    },
-    {
-      id: 'gpt-4-turbo-preview',
-      label: 'GPT-4 Turbo (Preview)',
-      contextWindow: '128k',
-    },
-    {
-      id: 'gpt-4-vision-preview',
-      label: 'GPT-4 Turbo Vision',
-      contextWindow: '128k',
-      comingSoon: true,
-      disabled: true,
-    },
-    {
-      id: 'gpt-4',
-      label: 'GPT-4',
-      contextWindow: '8k',
-    },
-    {
-      id: 'gpt-4-32k',
-      label: 'GPT-4 (32k)',
-      contextWindow: '32k',
-    },
-    {
-      id: 'gpt-3.5-turbo-0125',
-      label: 'GPT-3.5 Turbo',
-      contextWindow: '16k',
-    },
-  ])
+  const languageModels = ref(defaultLanguageModels)
 
   return {
     apiKey,

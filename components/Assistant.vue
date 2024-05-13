@@ -410,9 +410,11 @@ export default defineComponent({
           </div>
         </div>
       </CoreScrollable>
-      <CoreButton v-if="showBackToTop" :layer="1" class="absolute p-2 right-4 bottom-4" @click="scrollToTop">
-        <AssetArrowUp class="w-4" />
-      </CoreButton>
+      <CoreLayer class="absolute right-4 bottom-4">
+        <CoreButton v-if="showBackToTop" class="p-2 bg-layer" @click="scrollToTop">
+          <AssetArrowUp class="w-4" />
+        </CoreButton>
+      </CoreLayer>
     </div>
     <CoreLayer as="section" class="bg-layer">
       <CoreDivider />

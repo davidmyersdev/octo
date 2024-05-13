@@ -47,7 +47,7 @@ const copyMessage = async () => {
       <label class="bg-layer bg-opacity-75 block m-1 px-1 rounded sticky top-1 z-10" :class="{ 'self-end': isHuman, 'self-start': isAssistant }">
         <small>{{ name }}</small>
       </label>
-      <div class="flex items-start">
+      <div class="flex items-start" :class="{ 'justify-end': isHuman, 'justify-start': isAssistant }">
         <CoreLayer>
           <CoreEditor v-if="isMounted" :model-value="text" :options="options" class="bg-layer" />
         </CoreLayer>

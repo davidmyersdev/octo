@@ -88,8 +88,8 @@ importers:
         specifier: ^2.0.1
         version: 2.0.1
       vellma:
-        specifier: ^0.7.0
-        version: 0.7.0(axios@1.6.8)(encoding@0.1.13)(eslint@8.56.0)(google-auth-library@8.9.0(encoding@0.1.13))(ignore@5.3.1)(playwright@1.44.0)
+        specifier: ^0.8.1
+        version: 0.8.1(axios@1.6.8)(encoding@0.1.13)(eslint@8.56.0)(google-auth-library@9.10.0(encoding@0.1.13))(ignore@5.3.1)(playwright@1.44.0)
       vue3-mq:
         specifier: ^3.1.3
         version: 3.1.3(vue@3.4.21(typescript@5.3.3))
@@ -1523,6 +1523,10 @@ packages:
     resolution: {integrity: sha512-+KpH+QxZU7O4675t3mnkQKcZZg56u+K/Ct2K+N2AZYNVK8kyeo/bI18tI8aPm3tvNNRyTWfj6s5tnGNlcbQRsA==}
     engines: {node: '>=14'}
 
+  '@fastify/busboy@2.1.1':
+    resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
+    engines: {node: '>=14'}
+
   '@firebase/analytics-compat@0.2.7':
     resolution: {integrity: sha512-17VCly4P0VFBDqaaal7m1nhyYQwsygtaTpSsnc51sFPRrr9XIYtnD8ficon9fneEGEoJQ2g7OtASvhwX9EbK8g==}
     peerDependencies:
@@ -2463,9 +2467,6 @@ packages:
   '@types/duplexify@3.6.4':
     resolution: {integrity: sha512-2eahVPsd+dy3CL6FugAzJcxoraWhUghZGEQJns1kTKfCXWKJ5iG/VkaB05wRVrDKHfOFKqb0X0kXh91eE99RZg==}
 
-  '@types/eslint@8.56.0':
-    resolution: {integrity: sha512-FlsN0p4FhuYRjIxpbdXovvHQhtlG05O1GG/RNWvdAxTboR438IOTwmrY/vLA+Xfgg06BTkP045M3vpFwTMv1dg==}
-
   '@types/estree-jsx@0.0.1':
     resolution: {integrity: sha512-gcLAYiMfQklDCPjQegGn0TBAn9it05ISEsEhlKQUddIk7o2XDokOcTN7HBO8tznM0D9dGezvHEfRZBfZf6me0A==}
 
@@ -2580,8 +2581,8 @@ packages:
   '@types/unist@2.0.10':
     resolution: {integrity: sha512-IfYcSBWE3hLpBg8+X2SEa8LVkJdJEkT2Ese2aaLs3ptGdVtABxndrMaxuFlQ1qdFf9Q5rDvDpxI3WwgvKFAsQA==}
 
-  '@types/uuid@9.0.7':
-    resolution: {integrity: sha512-WUtIVRUZ9i5dYXefDEAI7sh9/O7jGvHg7Df/5O/gtH3Yabe5odI3UWopVR1qbPXQtvOxWu3mM4XxlYeZtMWF4g==}
+  '@types/uuid@9.0.8':
+    resolution: {integrity: sha512-jg+97EGIcY9AGHJJRaaPVgetKDsrTgbRjQ5Msgjh/DQKEFl0DtyRr/VCOyD1T2R1MNeWPK/u7JoGhlDZnKBAfA==}
 
   '@types/web-bluetooth@0.0.16':
     resolution: {integrity: sha512-oh8q2Zc32S6gd/j50GowEjKLoOVOwHP/bWVjKJInBwQqdOYMdPrf1oVlelTlyfFK3CKxL1uahMDAr+vy8T7yMQ==}
@@ -3288,6 +3289,10 @@ packages:
 
   binary-extensions@2.2.0:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
+    engines: {node: '>=8'}
+
+  binary-extensions@2.3.0:
+    resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
     engines: {node: '>=8'}
 
   binary-search@1.3.6:
@@ -5311,6 +5316,10 @@ packages:
     resolution: {integrity: sha512-95hVgBRgEIRQQQHIbnxBXeHbW4TqFk4ZDJW7wmVtvYar72FdhRIo1UGOLS2eRAKCPEdPBWu+M7+A33D9CdX9rA==}
     engines: {node: '>=12'}
 
+  gaxios@6.6.0:
+    resolution: {integrity: sha512-bpOZVQV5gthH/jVCSuYuokRo2bTKOcuBiVWpjmTn6C5Agl5zclGfTljuGsQZxwwDBkli+YhZhP4TdlqTnhOezQ==}
+    engines: {node: '>=14'}
+
   gcp-metadata@4.3.1:
     resolution: {integrity: sha512-x850LS5N7V1F3UcV7PoupzGsyD6iVwTVvsh3tbXfkctZnBnjW5yu5z1/3k3SehF7TyoTIe78rJs02GMMy+LF+A==}
     engines: {node: '>=10'}
@@ -5318,6 +5327,10 @@ packages:
   gcp-metadata@5.3.0:
     resolution: {integrity: sha512-FNTkdNEnBdlqF2oatizolQqNANMrcqJt6AAYt99B3y1aLLC8Hc5IOBb+ZnnzllodEEf6xMBp6wRcBbc16fa65w==}
     engines: {node: '>=12'}
+
+  gcp-metadata@6.1.0:
+    resolution: {integrity: sha512-Jh/AIwwgaxan+7ZUUmRLCjtchyDiqh4KjBJ5tW3plBZb5iL/BPcso8A5DlzeD9qlw0duCamnNdpFjxwaT0KyKg==}
+    engines: {node: '>=14'}
 
   generic-names@4.0.0:
     resolution: {integrity: sha512-ySFolZQfw9FoDb3ed9d80Cm9f0+r7qj+HJkWjeD9RBfpxEVTlVhol+gvaQB/78WbwYfbnNh8nWHHBSlg072y6A==}
@@ -5467,6 +5480,10 @@ packages:
     resolution: {integrity: sha512-f7aQCJODJFmYWN6PeNKzgvy9LI2tYmXnzpNDHEjG5sDNPgGb2FXQyTBnXeSH+PAtpKESFD+LmHw3Ox3mN7e1Fg==}
     engines: {node: '>=12'}
 
+  google-auth-library@9.10.0:
+    resolution: {integrity: sha512-ol+oSa5NbcGdDqA+gZ3G3mev59OHBZksBTxY/tYwjtcp1H/scAFwJfSQU9/1RALoyZ7FslNbke8j4i3ipwlyuQ==}
+    engines: {node: '>=14'}
+
   google-gax@3.6.1:
     resolution: {integrity: sha512-g/lcUjGcB6DSw2HxgEmCDOrI/CByOwqRvsuUvNalHUK2iPPPlmAIpbMbl62u0YufGMr8zgE3JL7th6dCb1Ry+w==}
     engines: {node: '>=12'}
@@ -5505,6 +5522,10 @@ packages:
   gtoken@6.1.2:
     resolution: {integrity: sha512-4ccGpzz7YAr7lxrT2neugmXQ3hP9ho2gcaityLVkiUecAiwiy60Ii8gRbZeOsXV19fYaRjgBSshs8kXw+NKCPQ==}
     engines: {node: '>=12.0.0'}
+
+  gtoken@7.1.0:
+    resolution: {integrity: sha512-pCcEwRi+TKpMlxAQObHDQ56KawURgyAf6jtIY046fJ5tIv3zDe/LEIubckAO8fj6JnAxLdmWkUfNyulQ2iKdEw==}
+    engines: {node: '>=14.0.0'}
 
   gunzip-maybe@1.4.2:
     resolution: {integrity: sha512-4haO1M4mLO91PW57BMsDFf75UmwoRX0GkdD+Faw+Lr+r/OZrOCS0pIBwOL1xCKQqnQzbNFGgK2V2CpBUPeFNTw==}
@@ -6147,8 +6168,8 @@ packages:
     engines: {node: '>=14'}
     hasBin: true
 
-  js-tiktoken@1.0.8:
-    resolution: {integrity: sha512-r7XK3E9/I+SOrbAGqb39pyO/rHAS1diAOSRAvaaLfHgXjkUSK9AiSd+r84Vn2f/GvXJYRAxKj8NHrUvqlaH5qg==}
+  js-tiktoken@1.0.12:
+    resolution: {integrity: sha512-L7wURW1fH9Qaext0VzaUDpFGVQgjkdE3Dgsy9/+yXyGEpBKnylTd0mU0bfbNkKDlXRb6TEsZkwuflu1B8uQbJQ==}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -7736,6 +7757,9 @@ packages:
 
   picocolors@1.0.0:
     resolution: {integrity: sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==}
+
+  picocolors@1.0.1:
+    resolution: {integrity: sha512-anP1Z8qwhkbmu7MFP5iTt+wQKXgwzf7zTyGlcdzabySa9vd0Xt392U0rVmz9poOaBj0uHJKyyo9/upk0HrEQew==}
 
   picomatch@2.3.1:
     resolution: {integrity: sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==}
@@ -9370,6 +9394,10 @@ packages:
     resolution: {integrity: sha512-wh1pHJHnUeQV5Xa8/kyQhO7WFa8M34l026L5P/+2TYiakvGy5Rdc8jWZVyG7ieht/0WgJLEd3kcU5gKx+6GC8w==}
     engines: {node: '>=14.0'}
 
+  undici@5.28.4:
+    resolution: {integrity: sha512-72RFADWFqKmUb2hmmvNODKL3p9hcB6Gt2DOQMis1SEBaV6a4MH8soBvzg+95CYhCKPFedut2JY9bMfrDl9D23g==}
+    engines: {node: '>=14.0'}
+
   unenv@1.8.0:
     resolution: {integrity: sha512-uIGbdCWZfhRRmyKj1UioCepQ0jpq638j/Cf0xFTn4zD1nGJ2lSdzYHLzfdXN791oo/0juUiSWW1fBklXMTsuqg==}
 
@@ -9609,8 +9637,8 @@ packages:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
 
-  vellma@0.7.0:
-    resolution: {integrity: sha512-aJ/JSlC0v7WYVM1N0jnonzWCu+ceNSRt6z6Pcf3lt6deETHYXlqXj+gbQ3J61nviIgzzCkNortjkD2mYuJkqoA==}
+  vellma@0.8.1:
+    resolution: {integrity: sha512-SxmuxQajyCkqTGgHkKU1DxProO8tGBbfFPaSWr1ogjbF8ImQk00ZUDYYsf8bmFCj7DVJwx56vd+EJfR7j+fqNQ==}
     peerDependencies:
       eslint: ^8.0.0
       isolated-vm: ^4.0.0
@@ -10107,6 +10135,11 @@ packages:
     resolution: {integrity: sha512-8aAvwVUSHpfEqTQ4w/KMlf3HcRdt50E5ODIQJBw1fQ5RL34xabzxtUlzTXVqc4rkZsPbvrXKWnABCD7kWSmocA==}
     engines: {node: '>= 14'}
 
+  yaml@2.4.2:
+    resolution: {integrity: sha512-B3VqDZ+JAg1nZpaEmWtTXUlBneoGx6CPM9b0TENK6aoSu5t73dItudwdgmi6tHlIZZId4dZ9skcAQ2UbcyAeVA==}
+    engines: {node: '>= 14'}
+    hasBin: true
+
   yargs-parser@21.1.1:
     resolution: {integrity: sha512-tVpsJW7DdjecAiFpbIB1e3qxIQsE6NoPc5/eTdrbbIC4h0LVsWhnoa3g+m2HclBIujHzsxZ4VJVA+GUuc2/LBw==}
     engines: {node: '>=12'}
@@ -10145,13 +10178,13 @@ packages:
     resolution: {integrity: sha512-UfZ0oa0C8LI58wJ+moL46BDIMgCQbnsb+2PoiJYtonhBsMh2bq1eRBVkvjfVsqbEHd9/EgKPUuL9saSSsec8OA==}
     engines: {node: '>= 12.0.0'}
 
-  zod-to-json-schema@3.22.3:
-    resolution: {integrity: sha512-9isG8SqRe07p+Aio2ruBZmLm2Q6Sq4EqmXOiNpDxp+7f0LV6Q/LX65fs5Nn+FV/CzfF3NLBoksXbS2jNYIfpKw==}
+  zod-to-json-schema@3.23.0:
+    resolution: {integrity: sha512-az0uJ243PxsRIa2x1WmNE/pnuA05gUq/JB8Lwe1EDCCL/Fz9MgjYQ0fPlyc2Tcv6aF2ZA7WM5TWaRZVEFaAIag==}
     peerDependencies:
-      zod: ^3.22.4
+      zod: ^3.23.3
 
-  zod@3.22.4:
-    resolution: {integrity: sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==}
+  zod@3.23.8:
+    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
@@ -11622,6 +11655,8 @@ snapshots:
 
   '@fastify/busboy@2.1.0': {}
 
+  '@fastify/busboy@2.1.1': {}
+
   '@firebase/analytics-compat@0.2.7(@firebase/app-compat@0.2.27)(@firebase/app@0.9.27)':
     dependencies:
       '@firebase/analytics': 0.10.1(@firebase/app@0.9.27)
@@ -12225,7 +12260,7 @@ snapshots:
   '@npmcli/fs@1.1.1':
     dependencies:
       '@gar/promisify': 1.1.3
-      semver: 7.6.0
+      semver: 7.3.8
 
   '@npmcli/fs@3.1.0':
     dependencies:
@@ -12939,11 +12974,6 @@ snapshots:
     dependencies:
       '@types/node': 18.19.4
 
-  '@types/eslint@8.56.0':
-    dependencies:
-      '@types/estree': 1.0.5
-      '@types/json-schema': 7.0.15
-
   '@types/estree-jsx@0.0.1':
     dependencies:
       '@types/estree': 1.0.5
@@ -13053,7 +13083,7 @@ snapshots:
 
   '@types/unist@2.0.10': {}
 
-  '@types/uuid@9.0.7': {}
+  '@types/uuid@9.0.8': {}
 
   '@types/web-bluetooth@0.0.16': {}
 
@@ -13195,7 +13225,7 @@ snapshots:
       deepmerge: 4.3.1
       media-query-parser: 2.0.2
       modern-ahocorasick: 1.0.1
-      picocolors: 1.0.0
+      picocolors: 1.0.1
     transitivePeerDependencies:
       - babel-plugin-macros
 
@@ -13400,7 +13430,7 @@ snapshots:
       recast: 0.21.5
       remark-frontmatter: 4.0.1
       remark-mdx-frontmatter: 1.1.1
-      semver: 7.6.0
+      semver: 7.3.8
       sort-package-json: 1.57.0
       tar-fs: 2.1.1
       tsconfig-paths: 4.2.0
@@ -14143,6 +14173,8 @@ snapshots:
   bignumber.js@9.1.2: {}
 
   binary-extensions@2.2.0: {}
+
+  binary-extensions@2.3.0: {}
 
   binary-search@1.3.6: {}
 
@@ -16690,6 +16722,18 @@ snapshots:
       - encoding
       - supports-color
 
+  gaxios@6.6.0(encoding@0.1.13):
+    dependencies:
+      extend: 3.0.2
+      https-proxy-agent: 7.0.4
+      is-stream: 2.0.1
+      node-fetch: 2.7.0(encoding@0.1.13)
+      uuid: 9.0.1
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    optional: true
+
   gcp-metadata@4.3.1(encoding@0.1.13):
     dependencies:
       gaxios: 4.3.3(encoding@0.1.13)
@@ -16705,6 +16749,15 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
+
+  gcp-metadata@6.1.0(encoding@0.1.13):
+    dependencies:
+      gaxios: 6.6.0(encoding@0.1.13)
+      json-bigint: 1.0.0
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    optional: true
 
   generic-names@4.0.0:
     dependencies:
@@ -16868,7 +16921,7 @@ snapshots:
       '@types/glob': 7.2.0
       array-union: 2.1.0
       dir-glob: 3.0.1
-      fast-glob: 3.3.2
+      fast-glob: 3.2.11
       glob: 7.2.3
       ignore: 5.3.1
       merge2: 1.4.1
@@ -16921,6 +16974,19 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
+
+  google-auth-library@9.10.0(encoding@0.1.13):
+    dependencies:
+      base64-js: 1.5.1
+      ecdsa-sig-formatter: 1.0.11
+      gaxios: 6.6.0(encoding@0.1.13)
+      gcp-metadata: 6.1.0(encoding@0.1.13)
+      gtoken: 7.1.0(encoding@0.1.13)
+      jws: 4.0.0
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    optional: true
 
   google-gax@3.6.1(encoding@0.1.13):
     dependencies:
@@ -16992,6 +17058,15 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
+
+  gtoken@7.1.0(encoding@0.1.13):
+    dependencies:
+      gaxios: 6.6.0(encoding@0.1.13)
+      jws: 4.0.0
+    transitivePeerDependencies:
+      - encoding
+      - supports-color
+    optional: true
 
   gunzip-maybe@1.4.2:
     dependencies:
@@ -17647,7 +17722,7 @@ snapshots:
       glob: 10.3.10
       nopt: 7.2.0
 
-  js-tiktoken@1.0.8:
+  js-tiktoken@1.0.12:
     dependencies:
       base64-js: 1.5.1
 
@@ -17887,16 +17962,16 @@ snapshots:
 
   kuler@2.0.0: {}
 
-  langchain@0.0.102(axios@1.6.8)(encoding@0.1.13)(google-auth-library@8.9.0(encoding@0.1.13))(ignore@5.3.1)(playwright@1.44.0):
+  langchain@0.0.102(axios@1.6.8)(encoding@0.1.13)(google-auth-library@9.10.0(encoding@0.1.13))(ignore@5.3.1)(playwright@1.44.0):
     dependencies:
       '@anthropic-ai/sdk': 0.4.4(encoding@0.1.13)
       ansi-styles: 5.2.0
-      binary-extensions: 2.2.0
+      binary-extensions: 2.3.0
       camelcase: 6.3.0
       decamelize: 1.2.0
       expr-eval: 2.0.2
       flat: 5.0.2
-      js-tiktoken: 1.0.8
+      js-tiktoken: 1.0.12
       js-yaml: 4.1.0
       jsonpointer: 5.0.1
       langchainplus-sdk: 0.0.15
@@ -17907,12 +17982,12 @@ snapshots:
       p-queue: 6.6.2
       p-retry: 4.6.2
       uuid: 9.0.1
-      yaml: 2.3.4
-      zod: 3.22.4
-      zod-to-json-schema: 3.22.3(zod@3.22.4)
+      yaml: 2.4.2
+      zod: 3.23.8
+      zod-to-json-schema: 3.23.0(zod@3.23.8)
     optionalDependencies:
       axios: 1.6.8
-      google-auth-library: 8.9.0(encoding@0.1.13)
+      google-auth-library: 9.10.0(encoding@0.1.13)
       ignore: 5.3.1
       playwright: 1.44.0
     transitivePeerDependencies:
@@ -17921,7 +17996,7 @@ snapshots:
 
   langchainplus-sdk@0.0.15:
     dependencies:
-      '@types/uuid': 9.0.7
+      '@types/uuid': 9.0.8
       commander: 10.0.1
       p-queue: 6.6.2
       p-retry: 4.6.2
@@ -19649,6 +19724,8 @@ snapshots:
       is-reference: 3.0.2
 
   picocolors@1.0.0: {}
+
+  picocolors@1.0.1: {}
 
   picomatch@2.3.1: {}
 
@@ -21499,6 +21576,10 @@ snapshots:
     dependencies:
       '@fastify/busboy': 2.1.0
 
+  undici@5.28.4:
+    dependencies:
+      '@fastify/busboy': 2.1.1
+
   unenv@1.8.0:
     dependencies:
       consola: 3.2.3
@@ -21806,17 +21887,16 @@ snapshots:
 
   vary@1.1.2: {}
 
-  vellma@0.7.0(axios@1.6.8)(encoding@0.1.13)(eslint@8.56.0)(google-auth-library@8.9.0(encoding@0.1.13))(ignore@5.3.1)(playwright@1.44.0):
+  vellma@0.8.1(axios@1.6.8)(encoding@0.1.13)(eslint@8.56.0)(google-auth-library@9.10.0(encoding@0.1.13))(ignore@5.3.1)(playwright@1.44.0):
     dependencies:
-      '@types/eslint': 8.56.0
       chalk: 5.3.0
       events: 3.3.0
-      langchain: 0.0.102(axios@1.6.8)(encoding@0.1.13)(google-auth-library@8.9.0(encoding@0.1.13))(ignore@5.3.1)(playwright@1.44.0)
+      langchain: 0.0.102(axios@1.6.8)(encoding@0.1.13)(google-auth-library@9.10.0(encoding@0.1.13))(ignore@5.3.1)(playwright@1.44.0)
       ml-distance: 4.0.1
       nanoid: 4.0.2
       openai: 3.3.0
-      undici: 5.28.2
-      zod: 3.22.4
+      undici: 5.28.4
+      zod: 3.23.8
     optionalDependencies:
       eslint: 8.56.0
     transitivePeerDependencies:
@@ -22507,6 +22587,8 @@ snapshots:
 
   yaml@2.3.4: {}
 
+  yaml@2.4.2: {}
+
   yargs-parser@21.1.1: {}
 
   yargs@17.7.2:
@@ -22546,10 +22628,10 @@ snapshots:
       compress-commons: 5.0.1
       readable-stream: 3.6.2
 
-  zod-to-json-schema@3.22.3(zod@3.22.4):
+  zod-to-json-schema@3.23.0(zod@3.23.8):
     dependencies:
-      zod: 3.22.4
+      zod: 3.23.8
 
-  zod@3.22.4: {}
+  zod@3.23.8: {}
 
   zwitch@2.0.4: {}

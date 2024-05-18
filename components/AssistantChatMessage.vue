@@ -3,7 +3,7 @@ import { ClipboardIcon } from '@heroicons/vue/24/outline'
 import { readonly } from '#root/src/vendor/plugins/readonly'
 import { useVue } from '#shared/composables'
 
-const props = defineProps<{ createdAt: Date, role: string, text: string }>()
+const props = defineProps<{ createdAt: Date, role: string, text: string, attachments?: { url: string }[] }>()
 
 const { copy } = useClipboard()
 const { addToast } = useToasts()
@@ -48,8 +48,11 @@ const copyMessage = async () => {
         <small>{{ name }}</small>
       </label>
       <div class="flex items-start" :class="{ 'justify-end': isHuman, 'justify-start': isAssistant }">
-        <CoreLayer>
-          <CoreEditor v-if="isMounted" :model-value="text" :options="options" class="bg-layer" />
+        <CoreLayer class="bg-layer rounded">
+          <CoreEditor v-if="isMounted && text" :model-value="text" :options="options" />
+          <div v-if="attachments?.length" class="flex p-2" :class="{ 'justify-end': isHuman, 'justify-start': isAssistant }">
+            <img v-for="attachment in attachments" :key="attachment.url" class="max-h-24 rounded" :src="attachment.url">
+          </div>
         </CoreLayer>
       </div>
     </div>

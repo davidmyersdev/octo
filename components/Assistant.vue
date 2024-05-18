@@ -1,6 +1,7 @@
 <script lang="ts">
 import { Prec } from '@codemirror/state'
 import { keymap } from '@codemirror/view'
+import { PhotoIcon as AddImagesIcon } from '@heroicons/vue/24/outline'
 import { StopIcon as TokenIcon } from '@heroicons/vue/24/solid'
 import { type Options } from 'ink-mde'
 import { nanoid } from 'nanoid'
@@ -11,6 +12,7 @@ import { type SystemInstruction, useSystemInstructions } from '#root/composables
 
 export default defineComponent({
   components: {
+    AddImagesIcon,
     TokenIcon,
   },
   props: {
@@ -22,6 +24,7 @@ export default defineComponent({
     const { id } = useId()
     const { isDesktop, modKey } = useDevice()
     const chatId = computed(() => props.chatId || id())
+    // Todo: Update types for `ChatMessage` in vellma...
     const { chatMessages } = useChatMessages({ chatId })
     const { addSystemInstruction, systemInstructions } = useSystemInstructions()
     const systemInstruction = ref<SystemInstruction>({
@@ -194,11 +197,17 @@ export default defineComponent({
         messages.push(chatFactory.value.system({ text: systemInstruction.value.text }))
       }
 
-      if (input.value) {
-        messages.push(chatFactory.value.human({ text: input.value }))
+      if (input.value || files.value.length > 0) {
+        const attachments = files.value.map((file) => ({ type: 'image', url: file.dataUrl }))
+
+        messages.push(chatFactory.value.human({
+          attachments,
+          text: input.value,
+        }))
       }
 
       input.value = ''
+      files.value = []
 
       if (!messages.length) return
 
@@ -229,18 +238,57 @@ export default defineComponent({
       })
     }
 
+    const files = ref<{ name: string, blob: File, dataUrl: string }[]>([])
+
+    const addFiles = async (event: Event) => {
+      if (event.target && 'files' in event.target && event.target.files) {
+        files.value = []
+
+        for (const blob of Array.from(event.target.files as FileList)) {
+          files.value.push({
+            blob,
+            dataUrl: await toDataUrl(blob),
+            name: blob.name,
+          })
+        }
+      }
+    }
+
+    const isAllowedToSend = computed(() => !!input.value || !!files.value.length || !!systemInstruction.value.text)
+
+    const toFileUrl = (file: File) => {
+      return URL.createObjectURL(file)
+    }
+
+    const toDataUrl = async (file: File) => {
+      const fileReader = new FileReader()
+
+      return new Promise<string>((resolve, reject) => {
+        fileReader.onload = () => {
+          resolve(fileReader.result as string)
+        }
+
+        fileReader.onerror = reject
+
+        fileReader.readAsDataURL(file)
+      })
+    }
+
     return {
       CoreDivider,
       CoreLink,
+      addFiles,
       apiKey,
       chatMessages,
       choosePrompt,
       clearSystemInstruction,
       examplePrompts,
+      files,
       historyElement,
       input,
       inputElement,
       inputOptions,
+      isAllowedToSend,
       isDesktop,
       isToBeSaved,
       isWaiting,
@@ -255,6 +303,7 @@ export default defineComponent({
       systemInstruction,
       systemInstructions,
       systemMessage,
+      toFileUrl,
       tryAgain,
     }
   },
@@ -387,7 +436,14 @@ export default defineComponent({
             </div>
           </div>
           <template v-if="chatMessages.length">
-            <AssistantChatMessage v-for="message in nonSystemMessages" :key="message.id" :created-at="message.createdAt" :role="message.role" :text="message.text" />
+            <AssistantChatMessage
+              v-for="message in nonSystemMessages"
+              :key="message.id"
+              :created-at="message.createdAt"
+              :role="message.role"
+              :text="message.text"
+              :attachments="message.attachments"
+            />
             <div class="h-4" />
           </template>
           <div v-else class="flex flex-col flex-grow gap-4 justify-end">
@@ -429,23 +485,34 @@ export default defineComponent({
           <CoreScrollable class="bg-layer rounded max-h-[40vh]">
             <div class="flex gap-2">
               <CoreEditor ref="inputElement" v-model="input" :layer="0" :options="inputOptions" />
-              <CoreLayer v-if="apiKey">
-                <CoreButton v-if="showTryAgainMessage" class="m-1 self-start sticky top-1" @click="tryAgain">
+              <CoreLayer v-if="apiKey" class="m-1 self-start sticky top-1">
+                <CoreButton v-if="showTryAgainMessage" @click="tryAgain">
                   Try again
                 </CoreButton>
-                <CoreButton v-else :disabled="isWaiting || (!input && !systemInstruction.text)" class="m-1 self-start sticky top-1" @click="onSend">
-                  <span v-if="isWaiting">
-                    Waiting for a reply...
-                  </span>
-                  <span v-else class="flex items-center gap-2">
-                    <span>Send</span>
-                    <span v-if="isDesktop" class="hidden md:flex text-layer-muted text-opacity-[inherit]">
-                      <Key>{{ modKey }}</Key>
-                      <Key>⏎</Key>
+                <div v-else class="flex gap-1">
+                  <CoreButton :disabled="isWaiting || !isAllowedToSend" @click="onSend">
+                    <span v-if="isWaiting">
+                      Waiting for a reply...
                     </span>
-                  </span>
-                </CoreButton>
+                    <span v-else class="flex items-center gap-2">
+                      <span>Send</span>
+                      <span v-if="isDesktop" class="hidden md:flex text-layer-muted text-opacity-[inherit]">
+                        <Key>{{ modKey }}</Key>
+                        <Key>⏎</Key>
+                      </span>
+                    </span>
+                  </CoreButton>
+                  <CoreButton as="label" title="Attach images">
+                    <AddImagesIcon class="sq-5" />
+                    <input class="hidden" type="file" accept="image/*" multiple @change="addFiles">
+                  </CoreButton>
+                </div>
               </CoreLayer>
+            </div>
+            <div v-if="files.length" class="flex flex-wrap gap-1 p-1">
+              <div v-for="file in files" :key="file.name" class="relative border border-layer flex items-center justify-center sq-12 rounded overflow-hidden">
+                <img class="h-min w-min object-cover" :src="file.dataUrl" :alt="file.name" :title="file.name">
+              </div>
             </div>
           </CoreScrollable>
         </CoreLayer>

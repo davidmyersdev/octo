@@ -358,10 +358,13 @@ export default defineComponent({
           </CoreLayer>
           <div v-if="!chatMessages.length || systemMessage?.text" class="flex flex-col gap-2">
             <div class="flex flex-col gap-2">
-              <label v-if="!systemInstruction.id && !chatMessages.length" class="flex items-center cursor-pointer gap-2">
-                <input v-model="isToBeSaved" type="checkbox" class="checkbox">
-                <span>Save Instructions</span>
-              </label>
+              <div>
+                <CoreSwitch
+                  v-if="!systemInstruction.id && !chatMessages.length"
+                  v-model="isToBeSaved"
+                  label="Save Instructions"
+                />
+              </div>
               <CoreInput
                 v-if="isToBeSaved || systemInstruction.id"
                 v-model="systemInstruction.description"

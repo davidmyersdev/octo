@@ -1,9 +1,3 @@
-<template>
-  <small class="key hidden md:flex justify-center rounded-sm uppercase leading-none text-xs p-1">
-    <slot></slot>
-  </small>
-</template>
-
 <script>
 export default {
   props: {
@@ -15,3 +9,9 @@ export default {
   },
 }
 </script>
+
+<template>
+  <small class="key hidden md:flex justify-center rounded-sm uppercase leading-none text-xs p-0.5">
+    <slot />
+  </small>
+</template>

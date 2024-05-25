@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import LogoWithText from '~/assets/logo-with-text.svg?component'
+
 const { user } = useUser()
 const year = ref('2024')
 
@@ -14,8 +16,7 @@ onMounted(() => {
         <CoreContainer>
           <div class="flex items-center justify-between">
             <CoreLink :to="{ path: '/' }" class="flex gap-2 items-center p-2 -ml-2 rounded">
-              <CoreAsset type="Logo" class="sq-8" />
-              <span class="font-bold text-lg">Octo</span>
+              <LogoWithText class="h-8" />
             </CoreLink>
             <div class="flex items-center gap-2 -mr-2">
               <CoreButtonLink :layer="0" :to="{ path: '/product/pricing' }">

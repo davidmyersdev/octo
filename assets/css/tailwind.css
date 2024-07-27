@@ -86,10 +86,10 @@
   }
 
   .light {
-    --layer-0-bg: 255 255 255;
-    --layer-0-bg-hover: 244 244 245;
-    --layer-0-bg-active: 255 255 255;
-    --layer-0-bg-disabled: 253 253 253;
+    --layer-0-bg: 244 244 245;
+    --layer-0-bg-hover: 228 228 231;
+    --layer-0-bg-active: 228 228 231;
+    --layer-0-bg-disabled: 242 242 243;
     --layer-0-border: var(--layer-0-bg-hover);
     --layer-0-text: 24 24 27;
     --layer-0-text-hover: 24 24 27;
@@ -97,11 +97,11 @@
     --layer-0-text-disabled: 113 113 122;
     --layer-0-text-muted: 113 113 122;
 
-    --layer-1-bg: 244 244 245;
-    --layer-1-bg-hover: 228 228 231;
-    --layer-1-bg-active: 228 228 231;
-    --layer-1-bg-disabled: 242 242 243;
-    --layer-1-border: var(--layer-1-bg-hover);
+    --layer-1-bg: 255 255 255;
+    --layer-1-bg-hover: 244 244 245;
+    --layer-1-bg-active: 255 255 255;
+    --layer-1-bg-disabled: 253 253 253;
+    --layer-1-border: var(--layer-0-bg-hover);
     --layer-1-text: 24 24 27;
     --layer-1-text-hover: 24 24 27;
     --layer-1-text-active: 24 24 27;

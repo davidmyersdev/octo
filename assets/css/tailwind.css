@@ -314,7 +314,7 @@
     @apply disabled:bg-layer-disabled ui-disabled:bg-layer-disabled;
     @apply disabled:text-layer-disabled ui-disabled:text-layer-disabled;
     @apply disabled:hover:bg-layer-disabled;
-    @apply disabled:cursor-not-allowed ui-disabled:cursor-not-allowed disabled-within:cursor-not-allowed;
+    @apply disabled:cursor-default ui-disabled:cursor-default disabled-within:cursor-default;
     @apply disabled-within:bg-layer-disabled disabled-within:text-layer-disabled;
     @apply disabled-within:hover:bg-layer-disabled disabled-within:hover:text-layer-disabled;
     @apply hover:bg-layer-hover ui-active:bg-layer-hover;

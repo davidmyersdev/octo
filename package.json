@@ -10,6 +10,7 @@
     "clean": "rimraf .output dev-dist dist",
     "dev": "nuxt dev --port 8888",
     "dev:full": "run-p dev firebase:start",
+    "dev:minimal": "DISABLE_SSR=1 DISABLE_PWA=1 NUXT_PUBLIC_FIREBASE_DISABLED=1 run-s dev",
     "firebase:login": "firebase login",
     "firebase:start": "firebase -c ./firebase/firebase.json --project \"${FIREBASE_PROJECT_ID:-demo-octo}\" emulators:start --import ./firebase/data --export-on-exit ./firebase/data",
     "lint": "eslint .",

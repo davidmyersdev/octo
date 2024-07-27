@@ -30,6 +30,7 @@
     "@headlessui/tailwindcss": "^0.2.0",
     "@headlessui/vue": "^1.7.17",
     "@mermaid-js/mermaid-mindmap": "^9.3.0",
+    "@tabler/icons-vue": "^3.11.0",
     "codemirror-lang-mermaid": "^0.2.2",
     "culori": "^3.3.0",
     "deepmerge": "^4.3.1",

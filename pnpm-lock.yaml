@@ -21,6 +21,9 @@ importers:
       '@mermaid-js/mermaid-mindmap':
         specifier: ^9.3.0
         version: 9.3.0
+      '@tabler/icons-vue':
+        specifier: ^3.11.0
+        version: 3.11.0(vue@3.4.21(typescript@5.3.3))
       codemirror-lang-mermaid:
         specifier: ^0.2.2
         version: 0.2.2
@@ -2390,6 +2393,14 @@ packages:
   '@szmarczak/http-timer@4.0.6':
     resolution: {integrity: sha512-4BAffykYOgO+5nzBWYwE3W90sBgLJoUPRWWcL8wlyiM8IB8ipJz3UMJ9KXQd1RKQXpKp8Tutn80HZtWsu2u76w==}
     engines: {node: '>=10'}
+
+  '@tabler/icons-vue@3.11.0':
+    resolution: {integrity: sha512-YNtEZLEiwrmz91zEwysVoYOy78fAdRy8dcwdBMKYU4WrsSg38t7EMflygWRMmwjlS5KncARoEnNTmrmWoe4vhw==}
+    peerDependencies:
+      vue: '>=3.0.1'
+
+  '@tabler/icons@3.11.0':
+    resolution: {integrity: sha512-/vZinJNvCYhdAB+RUsyCpanSPuOEKHHIZi4Uu0Bw7ilewHnQhCWUPrT704uHCRli2ROl7spADPmWzAqOganA5A==}
 
   '@tailwindcss/typography@0.5.10':
     resolution: {integrity: sha512-Pe8BuPJQJd3FfRnm6H0ulKIGoMEQS+Vq01R6M5aCrFB/ccR/shT+0kXLjouGC1gFLm9hopTFN+DMP0pfwRWzPw==}
@@ -12880,6 +12891,13 @@ snapshots:
   '@szmarczak/http-timer@4.0.6':
     dependencies:
       defer-to-connect: 2.0.1
+
+  '@tabler/icons-vue@3.11.0(vue@3.4.21(typescript@5.3.3))':
+    dependencies:
+      '@tabler/icons': 3.11.0
+      vue: 3.4.21(typescript@5.3.3)
+
+  '@tabler/icons@3.11.0': {}
 
   '@tailwindcss/typography@0.5.10(tailwindcss@3.4.0(ts-node@10.9.2(@types/node@18.19.4)(typescript@5.3.3)))':
     dependencies:

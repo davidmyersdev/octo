@@ -322,7 +322,7 @@
   }
 
   .core-button-shape {
-    @apply p-2 rounded inline-flex gap-3 items-center justify-center;
+    @apply px-2 py-1 rounded inline-flex gap-2 items-center justify-center;
   }
 
   /* utils */
@@ -373,6 +373,6 @@
   }
 
   .sidebar-link {
-    @apply flex items-center justify-between rounded p-2 hover:bg-layer-hover focus:outline-none focus:ring;
+    @apply flex items-center justify-between rounded px-2 py-1 hover:bg-layer-hover focus:outline-none focus:ring;
   }
 }

@@ -63,6 +63,7 @@
     "@nuxtjs/tailwindcss": "^6.10.3",
     "@pinia/nuxt": "^0.4.11",
     "@playwright/test": "^1.41.2",
+    "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.10",
     "@types/culori": "^2.0.4",
     "@types/file-saver": "^2.0.7",

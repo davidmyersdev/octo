@@ -83,6 +83,7 @@ module.exports = {
   },
   plugins: [
     require('@headlessui/tailwindcss'),
+    require('@tailwindcss/container-queries'),
     require('@tailwindcss/typography'),
     plugin(({ addVariant, matchUtilities, theme }) => {
       addVariant('disabled-within', '&:has(*:disabled)')

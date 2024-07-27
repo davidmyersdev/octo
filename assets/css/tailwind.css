@@ -302,14 +302,14 @@
   }
 
   .button {
-    @apply inline-flex items-center rounded cursor-pointer focus:outline-none focus:ring focus-within:ring;
+    @apply inline-flex items-center rounded cursor-pointer focus-visible:outline-none focus-visible:ring has-[:focus-visible]:ring;
   }
 
   .core-button {
     @apply core-button-shape;
     @apply cursor-pointer;
     @apply outline-none;
-    @apply focus:ring focus-within:ring;
+    @apply focus-visible:ring has-[:focus-visible]:ring;
     @apply bg-layer;
     @apply disabled:bg-layer-disabled ui-disabled:bg-layer-disabled;
     @apply disabled:text-layer-disabled ui-disabled:text-layer-disabled;
@@ -373,6 +373,6 @@
   }
 
   .sidebar-link {
-    @apply flex items-center justify-between rounded px-2 py-1 hover:bg-layer-hover focus:outline-none focus:ring;
+    @apply flex items-center justify-between rounded px-2 py-1 hover:bg-layer-hover focus-visible:outline-none focus-visible:ring;
   }
 }

@@ -30,10 +30,10 @@ export default defineComponent({
 </script>
 
 <template>
-  <a v-if="isExternal" :href="toExternal" rel="noopener noreferrer" target="_blank" class="cursor-pointer outline-none focus:ring">
+  <a v-if="isExternal" :href="toExternal" rel="noopener noreferrer" target="_blank" class="cursor-pointer outline-none focus-visible:ring">
     <slot />
   </a>
-  <NuxtLink v-else :to="toInternal" class="cursor-pointer outline-none focus:ring">
+  <NuxtLink v-else :to="toInternal" class="cursor-pointer outline-none focus-visible:ring">
     <slot />
   </NuxtLink>
 </template>

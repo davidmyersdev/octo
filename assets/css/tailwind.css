@@ -376,3 +376,33 @@
     @apply flex items-center justify-between rounded px-2 py-1 hover:bg-layer-hover focus-visible:outline-none focus-visible:ring;
   }
 }
+
+@layer utilities {
+  .flex-direction-inherit {
+    flex-direction: inherit;
+  }
+
+  .flex-inherit {
+    align-items: inherit;
+    flex-direction: inherit;
+    flex-wrap: inherit;
+    gap: inherit;
+    justify-content: inherit;
+  }
+
+  .flex-wrap-inherit {
+    flex-wrap: inherit;
+  }
+
+  .gap-inherit {
+    gap: inherit;
+  }
+
+  .items-inherit {
+    align-items: inherit;
+  }
+
+  .justify-inherit {
+    justify-content: inherit;
+  }
+}

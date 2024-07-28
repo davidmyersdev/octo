@@ -38,7 +38,7 @@ test('sets the max-width of the editor to the readability max-width setting', as
 
   const inkContainers = await page.locator('.ink-mde-container').all()
 
-  expect(inkContainers).toHaveLength(3)
+  expect(inkContainers).toHaveLength(2)
 
   for (const inkContainer of inkContainers) {
     await expect(inkContainer).toHaveCSS('max-width', '1000px')

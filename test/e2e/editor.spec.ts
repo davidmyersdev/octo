@@ -136,7 +136,7 @@ test.describe('editor', () => {
 
     await page.keyboard.type('Check out [[link]] and [[My \n', { delay: 100 })
 
-    await page.getByTestId('toggle-sidebars').click()
+    await page.getByTestId('toggle-meta').nth(0).click()
 
     await expect(page.getByTestId('doc-references').getByRole('link')).toHaveText('My Test Doc')
   })
@@ -155,7 +155,7 @@ test.describe('editor', () => {
 
     await page.keyboard.type('# Test 2\n\nCheck out [[link]] and [[My \n', { delay: 100 })
 
-    await page.getByTestId('toggle-sidebars').click()
+    await page.getByTestId('toggle-meta').nth(0).click()
     await page.getByTestId('doc-references').getByRole('link').click()
 
     await expect(page.getByTestId('doc-backlinks').getByRole('link')).toHaveText('Test 2')

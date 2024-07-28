@@ -124,49 +124,31 @@ export default {
 <template>
   <CoreScrollable>
     <CoreNavPanel class="flex flex-col gap-1">
-      <CoreLink v-if="!mediumPlus" :to="{ path: '/docs/new' }" class="sidebar-link">
+      <CoreLink :to="{ path: '/docs' }" class="sidebar-link">
         <div class="flex gap-3 items-center">
-          <CoreAsset type="DocumentPlus" class="w-5" />
-          <span>New Doc</span>
-        </div>
-      </CoreLink>
-      <CoreLink v-if="!mediumPlus" :to="{ path: '/docs' }" class="sidebar-link">
-        <div class="flex gap-3 items-center">
-          <SearchIcon class="w-5" />
+          <SearchIcon class="sq-5" />
           <span>Search</span>
         </div>
       </CoreLink>
       <CoreLink :to="{ path: '/docs/f/untagged' }" class="sidebar-link">
-        <InboxIcon class="w-5" />
+        <InboxIcon class="sq-5" />
         <span class="action flex flex-grow items-stretch justify-between ml-3">
           <span>Inbox</span>
           <ModKKey class="text-layer-muted">U</ModKKey>
         </span>
       </CoreLink>
-      <CoreLink v-if="!mediumPlus" :to="{ path: '/notepad' }" class="sidebar-link">
+      <CoreLink :to="{ path: '/notepad' }" class="sidebar-link">
         <div class="flex gap-3 items-center">
-          <CoreAsset type="Daily" class="w-5" />
+          <CoreAsset type="Daily" class="sq-5" />
           <span>Daily Notepad</span>
         </div>
       </CoreLink>
       <CoreLink :to="{ path: '/workspaces' }" class="sidebar-link">
-        <WorkspacesIcon class="w-5" />
+        <WorkspacesIcon class="sq-5" />
         <span class="action flex flex-grow items-stretch justify-between ml-3">
           <span class="action">Workspaces</span>
           <ModKKey class="text-layer-muted">C</ModKKey>
         </span>
-      </CoreLink>
-      <CoreLink v-if="!mediumPlus" :to="{ path: '/account' }" class="sidebar-link">
-        <div class="flex gap-3 items-center">
-          <AccountIcon class="w-5" />
-          <span>Account</span>
-        </div>
-      </CoreLink>
-      <CoreLink v-if="!mediumPlus" :to="{ path: '/settings' }" class="sidebar-link">
-        <div class="flex gap-3 items-center">
-          <SettingsIcon class="w-5" />
-          <span>Settings</span>
-        </div>
       </CoreLink>
       <CoreLink :to="linkFeedback" class="sidebar-link">
         <div class="flex gap-3 items-center">
@@ -176,7 +158,7 @@ export default {
       </CoreLink>
       <div v-if="experimentalFeaturesEnabled">
         <button class="sidebar-link w-full" title="Experimental" @click="openFile">
-          <DocumentIcon class="w-5" />
+          <DocumentIcon class="sq-5" />
           <span class="action flex flex-grow items-center justify-between ml-3">
             <span>Open File</span>
             <BeakerIcon class="text-layer-muted w-5" />
@@ -184,30 +166,42 @@ export default {
         </button>
       </div>
       <CoreLink v-if="experimentalFeaturesEnabled" :to="{ path: '/assistant' }" class="sidebar-link allow-link-active">
-        <CoreAsset type="Logo" class="w-5" />
+        <CoreAsset type="Logo" class="sq-5" />
         <span class="action flex flex-grow items-center justify-between ml-3">
           <span>Assistant</span>
           <BeakerIcon class="text-layer-muted w-5" />
         </span>
       </CoreLink>
       <CoreLink v-if="!firebaseDisabled && !user.id" :to="{ path: '/account' }" class="sidebar-link text-brand" @click="trackCta">
-        <SaveIcon class="w-5" />
+        <SaveIcon class="sq-5" />
         <span class="action flex flex-grow items-stretch justify-between ml-3">
           <span>Save Docs</span>
         </span>
+      </CoreLink>
+      <CoreLink :to="{ path: '/settings' }" class="sidebar-link">
+        <div class="flex gap-3 items-center">
+          <SettingsIcon class="sq-5" />
+          <span>Settings</span>
+        </div>
+      </CoreLink>
+      <CoreLink :to="{ path: '/account' }" class="sidebar-link">
+        <div class="flex gap-3 items-center">
+          <AccountIcon class="sq-5" />
+          <span>Account</span>
+        </div>
       </CoreLink>
     </CoreNavPanel>
     <CoreDivider />
     <CoreNavPanel class="flex flex-col gap-1" label="Filters">
       <CoreLink :to="{ path: '/docs/f/tasks' }" class="sidebar-link">
-        <CheckIcon class="w-5" />
+        <CheckIcon class="sq-5" />
         <span class="action flex flex-grow items-stretch justify-between ml-3">
           <span>Tasks</span>
           <ModKKey class="text-layer-muted">T</ModKKey>
         </span>
       </CoreLink>
       <CoreLink :to="{ path: '/docs/f/discarded' }" class="sidebar-link">
-        <TrashIcon class="w-5" />
+        <TrashIcon class="sq-5" />
         <span class="action flex flex-grow items-stretch justify-between ml-3">
           <span>Discarded</span>
           <ModKKey class="text-layer-muted">D</ModKKey>
@@ -230,7 +224,7 @@ export default {
     <CoreDivider v-if="contexts.length" />
     <CoreNavPanel v-if="contexts.length" class="flex flex-col gap-1" label="Workspaces">
       <button v-for="workspace in contexts" :key="workspace.id" class="sidebar-link w-full" @click="setContext(workspace)">
-        <WorkspaceIcon class="w-5" />
+        <WorkspaceIcon class="sq-5" />
         <span class="action flex flex-grow items-stretch justify-between ml-3">
           <span>{{ workspace.name }}</span>
         </span>
@@ -239,7 +233,7 @@ export default {
     <CoreDivider v-if="tags.length" />
     <CoreNavPanel v-if="tags.length" class="flex flex-col gap-1" label="Tags">
       <CoreLink class="sidebar-link md:hidden" :to="{ path: '/tags' }">
-        <TagIcon class="w-5" />
+        <TagIcon class="sq-5" />
         <span class="ml-3 flex-grow">Tags</span>
       </CoreLink>
       <div v-if="mediumPlus" class="flex flex-col gap-1">
@@ -249,13 +243,13 @@ export default {
     <CoreDivider />
     <CoreNavPanel class="flex flex-col gap-1" label="Policies">
       <CoreLink :to="{ path: '/privacy-policy' }" class="sidebar-link">
-        <DocumentTextIcon class="w-5" />
+        <DocumentTextIcon class="sq-5" />
         <span class="action flex flex-grow items-stretch justify-between ml-3">
           <span>Privacy Policy</span>
         </span>
       </CoreLink>
       <CoreLink :to="{ path: '/terms-and-conditions' }" class="sidebar-link">
-        <DocumentTextIcon class="w-5" />
+        <DocumentTextIcon class="sq-5" />
         <span class="action flex flex-grow items-stretch justify-between ml-3">
           <span>Terms &amp; Conditions</span>
         </span>

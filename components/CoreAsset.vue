@@ -19,6 +19,9 @@ import {
   Square2StackIcon as Workspace,
   Squares2X2Icon as Workspaces,
 } from '@heroicons/vue/24/outline'
+import {
+  Bars3Icon as Menu,
+} from '@heroicons/vue/24/solid'
 import Logo from '#root/assets/logo-icon.svg?component'
 import GitHub from '#root/assets/github.svg?component'
 
@@ -39,6 +42,7 @@ const assets = {
   GitHub,
   Inbox,
   Logo,
+  Menu,
   Save,
   Search,
   SectionToggle,

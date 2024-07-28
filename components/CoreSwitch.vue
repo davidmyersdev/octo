@@ -15,29 +15,35 @@ const modelValue = defineModel<boolean>()
       <Switch
         v-model="modelValue"
         :class="modelValue ? 'bg-primary' : 'bg-layer'"
-        class="inline-flex relative h-5 items-stretch justify-stretch shrink-0 grow-0 cursor-pointer rounded border border-layer transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2"
+        class="flex relative h-5 items-stretch justify-stretch shrink-0 grow-0 cursor-pointer rounded border border-layer transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2"
       >
         <span class="sr-only">Toggle</span>
-        <span aria-hidden="true" class="pointer-events-none inline-flex aspect-[2/1] overflow-hidden">
+        <span aria-hidden="true" class="pointer-events-none flex aspect-[2/1] p-[2px] overflow-hidden">
           <span
             class="
               relative
               font-bold text-[0.4rem] leading-none
-              inline-flex items-center gap-0
-              border-2 border-transparent
-              aspect-square w-1/2
-              transform-gpu transition duration-200 ease-in-out
+              flex
+              border-transparent
+              overflow-hidden
+              w-full
             "
-            :class="{
-              'translate-x-[100%]': modelValue,
-              'translate-x-0': !modelValue,
-            }"
           >
-            <span class="absolute block right-full mr-1">ON</span>
             <span
-              class="relative bg-current block rounded-sm h-full w-full"
-            />
-            <span class="absolute block left-full ml-1">OFF</span>
+              class="relative inline-flex items-center align-middle basis-1/2 flex-shrink-0 transition-all duration-200 ease-in-out"
+              :class="{
+                'ml-0': modelValue,
+                '-ml-[50%]': !modelValue,
+              }"
+            >
+              <span class="absolute pr-[2px] w-full text-center">ON</span>
+            </span>
+            <span class="relative inline-flex items-center align-middle basis-1/2 flex-shrink-0 bg-current rounded-sm h-full aspect-square">
+              &nbsp;
+            </span>
+            <span class="relative inline-flex items-center align-middle basis-1/2 flex-shrink-0">
+              <span class="absolute pl-[2px] w-full text-center">OFF</span>
+            </span>
           </span>
         </span>
       </Switch>

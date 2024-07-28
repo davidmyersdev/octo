@@ -314,7 +314,7 @@ export default defineComponent({
   <div class="flex flex-col flex-grow min-h-0">
     <div class="flex flex-col flex-grow flex-shrink min-h-0 relative">
       <CoreScrollable ref="historyElement" class="flex-grow flex-shrink min-h-0">
-        <div class="flex flex-col flex-grow gap-4 m-auto max-w-prose p-2 w-full">
+        <div class="flex flex-col flex-grow gap-4 m-auto max-w-prose p-1 w-full">
           <CoreInput v-model="apiKey" :layer="1" :private="true" description="To use this feature, you need an OpenAI API key. Your API key will be stored locally on your device." label="API Key" />
           <CoreLayer>
             <CoreFormControlLayout>
@@ -401,7 +401,7 @@ export default defineComponent({
                     </span>
                   </CoreListboxOption>
                 </template>
-                <div v-else class="p-2"><em class="whitespace-nowrap">No Saved System Instructions</em></div>
+                <div v-else class="p-1"><em class="whitespace-nowrap">No Saved System Instructions</em></div>
               </CoreListboxOptions>
             </CoreListbox>
           </CoreLayer>
@@ -475,14 +475,14 @@ export default defineComponent({
         </CoreButton>
       </CoreLayer>
     </div>
-    <CoreLayer as="section" class="bg-layer">
+    <section>
       <CoreDivider />
-      <div class="flex flex-col gap-1 m-auto max-w-prose p-2">
+      <div class="flex flex-col gap-1 m-auto max-w-prose p-1">
         <p v-if="showTryAgainMessage" class="text-red-500">
           <small class="inline-flex gap-1 items-center">An error occurred while communicating with the assistant during your previous request.</small>
         </p>
         <CoreLayer down>
-          <CoreScrollable class="bg-layer rounded max-h-[40vh]">
+          <CoreScrollable class="bg-layer border border-layer rounded max-h-[40vh]">
             <div class="flex gap-2">
               <CoreEditor ref="inputElement" v-model="input" :layer="0" :options="inputOptions" />
               <CoreLayer v-if="apiKey" class="m-1 self-start sticky top-1">
@@ -517,6 +517,6 @@ export default defineComponent({
           </CoreScrollable>
         </CoreLayer>
       </div>
-    </CoreLayer>
+    </section>
   </div>
 </template>

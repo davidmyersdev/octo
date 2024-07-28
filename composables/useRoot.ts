@@ -19,6 +19,7 @@ export const useRoot = () => {
 
   useAppearance()
   useToasts()
+  useTeleports()
 
   onMounted(() => {
     logEvent(appEventTypes.appMounted)

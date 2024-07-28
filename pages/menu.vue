@@ -14,8 +14,8 @@ import {
   Square2StackIcon as WorkspaceIcon,
   Squares2X2Icon as WorkspacesIcon,
 } from '@heroicons/vue/24/outline'
+import { IconTopologyRing2 } from '@tabler/icons-vue'
 import { nanoid } from 'nanoid'
-import CoreDivider from '#root/components/CoreDivider.vue'
 import CoreLink from '#root/components/CoreLink.vue'
 import ModKKey from '#root/components/ModKKey.vue'
 import TagLink from '#root/components/TagLink.vue'
@@ -28,11 +28,11 @@ export default {
     AccountIcon,
     BeakerIcon,
     CheckIcon,
-    CoreDivider,
     CoreLink,
     DocumentIcon,
     DocumentTextIcon,
     TagIcon,
+    IconTopologyRing2,
     InboxIcon,
     ModKKey,
     SaveIcon,
@@ -44,19 +44,33 @@ export default {
     WorkspacesIcon,
   },
   setup() {
+    const { doc } = useDocs()
+    const { pinnedDocs, unpinDoc } = usePinnedDocs()
+    const router = useRouter()
     const { user } = useUser()
     const { public: { fathomEventCtaSaveDocs, firebaseDisabled, linkFeedback } } = useConfig()
     const mq = useMq()
     const mediumPlus = computed(() => mq.value.mdPlus)
+
+    const handleTabClose = async (id: string) => {
+      if (doc.value?.id === id) {
+        await router.push({ path: '/docs/new' })
+      }
+
+      unpinDoc(id)
+    }
 
     const trackCta = () => {
       window.fathom?.trackGoal(fathomEventCtaSaveDocs, 0)
     }
 
     return {
+      CoreLink,
       firebaseDisabled,
+      handleTabClose,
       linkFeedback,
       mediumPlus,
+      pinnedDocs,
       trackCta,
       user,
     }

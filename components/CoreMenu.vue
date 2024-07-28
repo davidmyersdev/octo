@@ -13,12 +13,10 @@ import { Menu, MenuButton, MenuItems } from '@headlessui/vue'
         </CoreButton>
       </slot>
     </MenuButton>
-    <CoreLayer>
-      <MenuItems
-        class="absolute top-full right-0 mt-1 origin-top-right rounded focus:outline-none p-1 z-10 bg-layer"
-      >
-        <slot />
-      </MenuItems>
-    </CoreLayer>
+    <MenuItems
+      class="absolute top-full right-0 mt-0.5 origin-top-right rounded focus:outline-none p-1 z-10 bg-layer border border-layer"
+    >
+      <slot />
+    </MenuItems>
   </Menu>
 </template>

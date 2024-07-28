@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type Options } from 'ink-mde'
+import { type Instance, type Options } from 'ink-mde'
 import Ink from 'ink-mde/vue'
 import { OverlayScrollbars } from 'overlayscrollbars'
 import { type SystemAppearance } from '#composables/useAppearance'
@@ -37,12 +37,13 @@ export default defineComponent({
     const cssMaxWidth = computed(() => `${maxWidthInChars.value}ch`)
     const instance = computed(() => ink.value?.instance)
 
-    const editorOptions = computed(() => {
+    const editorOptions = computed<Options>(() => {
       return {
         ...props.options,
         interface: {
           ...props.options?.interface,
           appearance: editorAppearance.value,
+          toolbar: false,
         },
       }
     })
@@ -75,11 +76,35 @@ export default defineComponent({
       }
     })
 
+    const formatSelection = (type: Parameters<Instance['format']>[0]) => {
+      instance.value?.format(type, {})
+    }
+
+    const handleUpload = async (event: Event) => {
+      const target = event.target as HTMLInputElement
+
+      if (target?.files) {
+        try {
+          const url = await props.options?.files?.handler?.(target.files)
+
+          if (url) {
+            const markup = `![](${url})`
+
+            instance.value?.insert(markup)
+          }
+        } catch (error) {
+          console.error(error)
+        }
+      }
+    }
+
     return {
       cssMaxWidth,
       currentLayer,
       editorOptions,
       focus,
+      formatSelection,
+      handleUpload,
       ink,
       instance,
       nextLayer,
@@ -90,14 +115,36 @@ export default defineComponent({
 </script>
 
 <template>
-  <Ink
-    ref="ink"
-    :model-value="modelValue"
-    :options="editorOptions"
-    class="core-editor flex flex-col flex-grow flex-shrink rounded"
-    :class="currentLayer.class"
-    @update:model-value="$emit('update:modelValue', $event)"
-  />
+  <div class="core-editor flex flex-col-reverse lg:flex-col flex-grow flex-shrink min-h-0 rounded">
+    <template v-if="options?.interface?.toolbar">
+      <CoreScrollable class="core-editor-scrollable flex-shrink-0 w-full mx-auto">
+        <CoreEditorToolbar
+          class="core-editor-toolbar mx-auto px-1 overflow-hidden lg:px-0 py-1 flex-shrink-0 rounded min-w-full"
+          :upload="options?.toolbar?.upload"
+          @blockquote="formatSelection('quote')"
+          @bold="formatSelection('bold')"
+          @bullet-list="formatSelection('list')"
+          @code="formatSelection('code')"
+          @heading="formatSelection('heading')"
+          @image="formatSelection('image')"
+          @italic="formatSelection('italic')"
+          @link="formatSelection('link')"
+          @number-list="formatSelection('ordered_list')"
+          @task-list="formatSelection('task_list')"
+          @upload="handleUpload"
+        />
+      </CoreScrollable>
+      <CoreDivider />
+    </template>
+    <Ink
+      ref="ink"
+      :model-value="modelValue"
+      :options="editorOptions"
+      class="flex flex-col flex-grow flex-shrink min-h-0 rounded overflow-hidden"
+      :class="currentLayer.class"
+      @update:model-value="$emit('update:modelValue', $event)"
+    />
+  </div>
 </template>
 
 <style scoped>
@@ -115,9 +162,14 @@ export default defineComponent({
   --ink-syntax-hashtag-background-color: rgb(v-bind('nextLayer.bgCssVar'));
   --ink-syntax-processing-instruction-color: rgb(v-bind('nextLayer.textCssVar') / 0.1);
 
+  .core-editor-scrollable {
+    max-width: var(--core-editor-max-width-in-chars);
+  }
+
   :deep(.ink-mde) {
     border: none;
     border-radius: 0;
+    padding: 0;
 
     .cm-placeholder {
       color: var(--core-editor-text-muted);
@@ -129,7 +181,11 @@ export default defineComponent({
 
     .ink-mde-details {
       background-color: transparent;
-      border-top: 1px solid var(--core-editor-layer-2-bg);
+      border-top: 1px solid var(--core-editor-divider);
+      padding: 0.25rem;
+    }
+
+    .ink-mde-editor {
       padding: 0.25rem;
     }
 

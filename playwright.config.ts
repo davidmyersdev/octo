@@ -24,7 +24,7 @@ export default defineConfig({
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
-    baseURL: process.env.BASE_URL,
+    baseURL: process.env.BASE_URL || 'http://127.0.0.1:8888',
 
     testIdAttribute: 'data-test-id',
 
@@ -74,7 +74,7 @@ export default defineConfig({
   /* Run your local dev server before starting the tests */
   webServer: {
     command: 'pnpm dev:full',
-    url: 'http://127.0.0.1:8888',
+    url: process.env.BASE_URL || 'http://127.0.0.1:8888',
     reuseExistingServer: !process.env.CI,
   },
 })

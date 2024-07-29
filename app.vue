@@ -123,4 +123,11 @@ svg {
   flex-direction: column;
   flex-grow: 1;
 }
+
+.os-scrollbar {
+  /* https://kingsora.github.io/OverlayScrollbars/#:~:text=to%20read%20it.-,Styling,-OverlayScrollbars%20comes%20with */
+  --os-handle-bg: rgb(var(--layer-bg-hover));
+  --os-handle-bg-hover: rgb(var(--layer-bg-hover));
+  --os-handle-bg-active: rgb(var(--layer-bg-hover));
+}
 </style>

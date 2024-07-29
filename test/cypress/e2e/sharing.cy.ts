@@ -19,7 +19,7 @@ describe('sharing', () => {
     cy.waitForAppReady()
 
     cy.focused().type('hello')
-    cy.get('[data-test-toggle-sidebars]').click()
+    cy.get('[data-test-toggle-meta]:visible').click()
     cy.get('[data-test-share-doc]').click()
     cy.get('[data-test-public-url]').invoke('val').then((value) => {
       cy.waitForHook('network_docs_synced')

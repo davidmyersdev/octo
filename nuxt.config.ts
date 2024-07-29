@@ -252,7 +252,7 @@ export default defineNuxtConfig({
       registerPlugin: true,
     },
     devOptions: {
-      enabled: true,
+      enabled: !process.env.DISABLE_PWA,
       type: 'module',
     },
     includeManifestIcons: true,
@@ -306,7 +306,7 @@ export default defineNuxtConfig({
     },
   },
   sourcemap: true,
-  ssr: true,
+  ssr: !process.env.DISABLE_SSR,
   tailwindcss: {
     configPath: '~/tailwind.config.cjs',
   },

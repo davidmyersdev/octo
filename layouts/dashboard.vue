@@ -1,233 +1,125 @@
-<script lang="ts">
-import { CalendarIcon, Cog8ToothIcon, DocumentPlusIcon, MoonIcon, SunIcon, UserCircleIcon, XMarkIcon } from '@heroicons/vue/24/solid'
-import { computed, defineComponent, onMounted, onUnmounted } from 'vue'
-import GraphIcon from '#root/assets/graph.svg?component'
-import LogoIcon from '#root/assets/logo-icon.svg?component'
+<script lang="ts" setup>
+import { IconDotsVertical, IconMenu2, IconMoon, IconPencilPlus, IconSun, IconSunMoon } from '@tabler/icons-vue'
+import { computed, onMounted, onUnmounted } from 'vue'
 import CoreButton from '#root/components/CoreButton.vue'
 import CoreDivider from '#root/components/CoreDivider.vue'
 import CoreLink from '#root/components/CoreLink.vue'
-import Key from '#root/components/Key.vue'
 import TheLeftSidebar from '#root/pages/menu.vue'
 import TheRightSidebar from '#root/pages/docs/[docId]/meta.vue'
 import { bindGlobal } from '#root/src/common/keybindings'
 
-export default defineComponent({
-  components: {
-    CalendarIcon,
-    Cog8ToothIcon,
-    CoreButton,
-    CoreDivider,
-    CoreLink,
-    DocumentPlusIcon,
-    GraphIcon,
-    Key,
-    LogoIcon,
-    MoonIcon,
-    SunIcon,
-    TheLeftSidebar,
-    TheRightSidebar,
-    UserCircleIcon,
-    XMarkIcon,
-  },
-  setup() {
-    const { isNuxt } = useIsNuxt()
-    const router = useRouter()
-    const { doc } = useDocs()
-    const { showMenu, showMeta, toggleMenu, toggleMeta } = useLayout()
-    const { pinnedDocs, unpinDoc } = usePinnedDocs()
-    const { isDesktop, isMobile, modKey } = useDevice()
-    const isDoc = computed(() => router.currentRoute.value.name === 'docs-docId')
-    const isNew = computed(() => router.currentRoute.value.path === '/docs/new')
-    const { store: appearance, isAuto, isDark, isLight } = useAppearance()
+const { doc } = useDocs()
+const { isZen, toggleZen } = useZen()
+const { showMenu, showMeta, toggleMenu, toggleMeta } = useLayout()
+const { store: appearance, isAuto, isDark, isLight } = useAppearance()
+const isPrimaryGutterShowing = computed(() => !isZen.value && showMenu.value)
+const isSecondaryGutterShowing = computed(() => !isZen.value && showMeta.value && !!doc.value)
 
-    const handleQuickActionClose = () => {
-      if (doc.value) {
-        return router.push({ path: `/docs/${doc.value.id}` })
-      }
+const scrollListener = (event: Event) => {
+  event.preventDefault()
+  event.stopImmediatePropagation()
+  event.stopPropagation()
 
-      router.push({ path: '/docs/new' })
-    }
+  window.scrollTo(0, 0)
+}
 
-    const handleLayoutChange = () => {
-      toggleMenu()
-      toggleMeta()
-    }
+const toggleAppearance = () => {
+  appearance.value = isAuto.value ? 'dark' : isDark.value ? 'light' : 'auto'
+}
 
-    onMounted(() => {
-      // Todo: Migrate keybindings to composables.
-      bindGlobal('mod+\\', () => {
-        toggleMenu()
-        toggleMeta()
-      })
-    })
+onMounted(() => {
+  window.addEventListener('scroll', scrollListener)
 
-    const handleTabClose = async (id: string) => {
-      if (doc.value?.id === id) {
-        await router.push({ path: '/docs/new' })
-      }
+  // Todo: Migrate keybindings to composables.
+  bindGlobal('mod+\\', () => {
+    toggleZen()
+  })
 
-      unpinDoc(id)
-    }
+  // Todo: Migrate keybindings to composables.
+  bindGlobal('mod+shift+,', () => {
+    toggleMenu()
+  })
+})
 
-    const scrollListener = (event: Event) => {
-      event.preventDefault()
-      event.stopImmediatePropagation()
-      event.stopPropagation()
-
-      window.scrollTo(0, 0)
-    }
-
-    const toggleAppearance = () => {
-      appearance.value = isAuto.value ? 'dark' : isDark.value ? 'light' : 'auto'
-    }
-
-    onMounted(() => {
-      window.addEventListener('scroll', scrollListener)
-    })
-
-    onUnmounted(() => {
-      window.removeEventListener('scroll', scrollListener)
-    })
-
-    return {
-      CoreDivider,
-      CoreLink,
-      appearance,
-      doc,
-      handleLayoutChange,
-      handleQuickActionClose,
-      handleTabClose,
-      isAuto,
-      isDark,
-      isDesktop,
-      isDoc,
-      isLight,
-      isMobile,
-      isNew,
-      isNuxt,
-      modKey,
-      pinnedDocs,
-      showMenu,
-      showMeta,
-      toggleAppearance,
-    }
-  },
+onUnmounted(() => {
+  window.removeEventListener('scroll', scrollListener)
 })
 </script>
 
 <template>
-  <div class="dashboard flex h-screen w-screen min-h-0 min-w-0 overflow-hidden">
-    <CoreLayer v-if="isDesktop" as="section" class="flex flex-col items-center justify-between gap-4 h-full bg-layer md:flex">
-      <div class="flex flex-col">
-        <div class="flex flex-col flex-shrink-0 items-center justify-center p-1">
-          <CoreButton
-            class="flex items-center justify-center p-1"
-            data-test-id="toggle-sidebars"
-            data-test-toggle-sidebars
-            @click="handleLayoutChange"
-          >
-            <LogoIcon class="h-8 text-brand" />
+  <div class="dashboard flex flex-col lg:flex-row h-screen w-screen min-h-0 min-w-0 overflow-hidden">
+    <Gutter :show="isPrimaryGutterShowing" :size="256" class="hidden lg:flex">
+      <TheLeftSidebar class="flex flex-grow flex-shrink overflow-hidden w-full" />
+    </Gutter>
+    <FlexDivider class="hidden lg:block" />
+    <CoreLayer class="bg-layer basis-full flex flex-col flex-grow flex-shrink min-h-0">
+      <div class="flex p-1 items-center">
+        <div class="flex gap-1 flex-row-reverse lg:flex-row items-center basis-full justify-start">
+          <CoreButton class="hidden lg:flex" @click="toggleMenu">
+            <IconMenu2 :stroke-width="1.25" class="h-6" />
+            <span>Menu</span>
+          </CoreButton>
+          <CoreButton :as="CoreLink" :to="{ path: '/menu' }" class="lg:hidden">
+            <IconMenu2 :stroke-width="1.25" class="h-6" />
+            <span>Menu</span>
+          </CoreButton>
+          <CoreButton :as="CoreLink" :to="{ path: '/docs/new' }">
+            <IconPencilPlus :stroke-width="1.25" class="h-6" />
+            <span>New</span>
           </CoreButton>
         </div>
-        <CoreDivider />
-        <div class="flex flex-col gap-1 p-1 items-center">
-          <CoreButtonLink :to="{ path: '/docs/new' }" :layer="1" :flat="true">
-            <DocumentPlusIcon class="w-6" />
-          </CoreButtonLink>
-          <CoreButtonLink :to="{ path: '/notepad' }" :layer="1" :flat="true">
-            <CalendarIcon class="w-6" />
-          </CoreButtonLink>
-          <CoreButtonLink :to="{ path: '/force-graph' }" :layer="1" :flat="true">
-            <GraphIcon class="w-6" />
-          </CoreButtonLink>
+        <div class="flex -order-1 lg:order-none items-center justify-center">
+          <CoreLayer class="flex text-xl gap-4">
+            <svg class="sq-7 transition-colors duration-300 cursor-pointer" :class="isZen ? 'text-layer-bg' : 'text-brand'" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg" @click="toggleZen">
+              <path d="M125 250C194.036 250 250 194.036 250 125C250 55.9644 194.036 0 125 0C55.9644 0 0 55.9644 0 125C0 194.036 55.9644 250 125 250Z" fill="currentColor" />
+              <template v-if="isZen">
+                <path class="fill-layer-text-muted stroke-layer-text-muted" d="M212.962 153.171C212.962 153.171 192.949 159.5 179.472 159.5C165.995 159.5 145.981 153.171 145.981 153.171C145.981 153.171 164.921 167.5 179.472 167.5C194.022 167.5 212.962 153.171 212.962 153.171Z" stroke-width="2" stroke-linejoin="round" />
+                <path class="fill-layer-text-muted stroke-layer-text-muted" d="M37 153.171C37 153.171 57.0133 159.5 70.4906 159.5C83.9679 159.5 103.981 153.171 103.981 153.171C103.981 153.171 85.0412 167.5 70.4906 167.5C55.94 167.5 37 153.171 37 153.171Z" stroke-width="2" stroke-linejoin="round" />
+              </template>
+              <template v-else>
+                <mask id="mask0_508_218" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="145" y="117" width="68" height="85">
+                  <ellipse cx="179.378" cy="159.462" rx="33.4292" ry="42.3835" fill="#D9D9D9" />
+                </mask>
+                <g mask="url(#mask0_508_218)">
+                  <ellipse cx="179.378" cy="159.462" rx="33.4292" ry="42.3835" fill="white" />
+                  <ellipse cx="163.865" cy="162.805" rx="23.3666" ry="29.6255" fill="black" />
+                </g>
+                <mask id="mask1_508_218" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="37" y="117" width="68" height="85">
+                  <ellipse cx="70.7535" cy="159.462" rx="33.4292" ry="42.3836" fill="#D9D9D9" />
+                </mask>
+                <g mask="url(#mask1_508_218)">
+                  <ellipse cx="70.7535" cy="159.462" rx="33.4292" ry="42.3836" fill="white" />
+                  <ellipse cx="86.0505" cy="162.271" rx="23.3664" ry="29.6253" fill="black" />
+                </g>
+              </template>
+            </svg>
+          </CoreLayer>
+        </div>
+        <div class="flex items-center gap-1 lg:basis-full justify-end">
+          <CoreButton class="hidden lg:flex" @click="toggleAppearance">
+            <IconMoon v-if="isDark" :stroke-width="1.25" class="w-6" />
+            <IconSun v-else-if="isLight" :stroke-width="1.25" class="w-6" />
+            <IconSunMoon v-else :stroke-width="1.25" class="w-6" />
+          </CoreButton>
+          <CoreButton v-if="doc" class="hidden lg:flex" data-test-id="toggle-meta" data-test-toggle-meta @click="toggleMeta">
+            <IconDotsVertical :stroke-width="1.25" class="h-6" />
+          </CoreButton>
+          <CoreButton v-if="doc" :as="CoreLink" :to="{ path: `/docs/${doc.id}/meta` }" class="lg:hidden" data-test-id="toggle-meta" data-test-toggle-meta>
+            <IconDotsVertical :stroke-width="1.25" class="h-6" />
+          </CoreButton>
         </div>
       </div>
-      <div class="flex flex-col gap-1 p-1 items-center">
-        <div class="flex flex-col gap-1 pb-2 items-center text-layer-muted">
-          <CoreButton @click="toggleAppearance">
-            <MoonIcon v-if="isDark" class="w-6" />
-            <SunIcon v-else-if="isLight" class="w-6" />
-            <div v-else class="relative sq-6">
-              <SunIcon class="w-4 absolute top-0 right-0" />
-              <MoonIcon class="w-4 absolute bottom-0 left-0" />
-            </div>
-          </CoreButton>
-        </div>
-        <CoreButtonLink :to="{ path: '/settings' }" :layer="1" :flat="true">
-          <Cog8ToothIcon class="w-6" />
-        </CoreButtonLink>
-        <CoreButtonLink :to="{ path: '/account' }" :layer="1" :flat="true">
-          <UserCircleIcon class="w-6" />
-        </CoreButtonLink>
+      <CoreDivider />
+      <div class="flex flex-grow flex-shrink min-h-0 overflow-hidden min-w-0">
+        <section class="flex flex-grow flex-shrink min-h-0 overflow-hidden min-w-0">
+          <slot />
+        </section>
       </div>
     </CoreLayer>
-    <CoreLayer v-if="isDesktop" :as="CoreDivider" :vertical="true" />
-    <section class="flex flex-col flex-grow flex-shrink min-h-0 min-w-0">
-      <CoreLayer as="nav" class="flex items-center justify-between bg-layer">
-        <div v-if="isMobile" class="flex items-center justify-between flex-grow p-1">
-          <CoreLink :to="{ path: '/docs/new' }" class="flex items-center justify-center p-1">
-            <LogoIcon class="h-8 text-brand" />
-          </CoreLink>
-          <div class="flex items-center gap-1">
-            <CoreButton :as="CoreLink" :to="{ path: '/menu' }" role="button" aria-haspopup="true" aria-expanded="false">
-              <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-              <span class="ml-2">Menu</span>
-            </CoreButton>
-            <CoreButton v-if="isNew" :as="CoreLink" :to="{ path: '/quick-action' }">
-              <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </CoreButton>
-            <CoreButton v-else-if="isDoc" :as="CoreLink" :to="{ path: `/docs/${doc?.id}/meta` }">
-              <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </CoreButton>
-            <CoreButton v-else @click="handleQuickActionClose">
-              <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </CoreButton>
-          </div>
-        </div>
-        <CoreNavPanel v-if="isDesktop" class="flex-shrink-0 w-64">
-          <CoreLink :to="{ path: '/docs' }" class="sidebar-link justify-between w-full">
-            <div class="flex gap-3 items-center">
-              <svg class="w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-              <span>Search</span>
-            </div>
-            <span class="hidden md:flex text-layer-muted">
-              <Key>{{ modKey }}</Key>
-              <Key>⇧</Key>
-              <Key>f</Key>
-            </span>
-          </CoreLink>
-        </CoreNavPanel>
-        <CoreDivider v-if="isDesktop" vertical />
-        <CoreNavPanel v-if="isDesktop" class="flex flex-grow flex-shrink gap-2 min-w-0" horizontal>
-          <CoreButton v-for="pinnedDoc in pinnedDocs" :key="pinnedDoc.id" :as="CoreLink" :to="{ path: `/docs/${pinnedDoc.id}` }" class="allow-link-active flex flex-shrink justify-between min-w-[4rem] max-w-[20rem]">
-            <span class="text-ellipsis overflow-hidden">{{ pinnedDoc.label }}</span>
-            <XMarkIcon class="w-4 transition hover:scale-125" @click.prevent.stop="() => handleTabClose(pinnedDoc.id)" />
-          </CoreButton>
-        </CoreNavPanel>
-      </CoreLayer>
-      <CoreLayer :as="CoreDivider" />
-      <section class="flex flex-grow flex-shrink overflow-hidden min-w-0">
-        <CoreLayer v-if="(isDesktop && showMenu)" v-slot="{ layer }" template>
-          <TheLeftSidebar class="hidden w-64 md:flex flex-shrink-0 bg-layer" :class="layer.class" />
-        </CoreLayer>
-        <CoreLayer v-if="(isDesktop && showMenu)" :as="CoreDivider" :vertical="true" />
-        <slot />
-        <CoreLayer v-if="(isDesktop && showMeta && doc && isDoc)" v-slot="{ layer }" template>
-          <CoreDivider vertical />
-          <TheRightSidebar class="hidden w-64 bg-layer md:flex flex-shrink-0" :class="layer.class" />
-        </CoreLayer>
-      </section>
-    </section>
+    <FlexDivider class="hidden lg:block" />
+    <Gutter :show="isSecondaryGutterShowing" :size="256" class="hidden lg:flex">
+      <TheRightSidebar class="hidden lg:flex flex-grow flex-shrink-0 w-full" />
+    </Gutter>
     <ToastList class="fixed bottom-8 right-8 m-auto" />
   </div>
 </template>
@@ -235,5 +127,13 @@ export default defineComponent({
 <style scoped>
 .dashboard {
   height: var(--app-height, 100vh);
+}
+
+.gutter-right {
+  direction: rtl;
+}
+
+:deep(.gutter-right > *) {
+  direction: ltr;
 }
 </style>

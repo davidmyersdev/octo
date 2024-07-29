@@ -39,6 +39,7 @@ module.exports = {
         'layer-hover': 'rgb(var(--layer-bg-hover) / <alpha-value>)',
         'layer-active': 'rgb(var(--layer-bg-active) / <alpha-value>)',
         'layer-disabled': 'rgb(var(--layer-bg-disabled) / <alpha-value>)',
+        'layer-border': 'rgb(var(--layer-border) / <alpha-value>)',
         'layer-text': 'rgb(var(--layer-text) / <alpha-value>)',
         'layer-text-muted': 'rgb(var(--layer-text-muted) / <alpha-value>)',
       },
@@ -56,6 +57,7 @@ module.exports = {
         'layer-active': 'rgb(var(--layer-text-active) / <alpha-value>)',
         'layer-disabled': 'rgb(var(--layer-text-disabled) / <alpha-value>)',
         'layer-muted': 'rgb(var(--layer-text-muted) / <alpha-value>)',
+        'layer-bg': 'rgb(var(--layer-bg) / <alpha-value>)',
       },
       typography: {
         inherit: {
@@ -83,6 +85,7 @@ module.exports = {
   },
   plugins: [
     require('@headlessui/tailwindcss'),
+    require('@tailwindcss/container-queries'),
     require('@tailwindcss/typography'),
     plugin(({ addVariant, matchUtilities, theme }) => {
       addVariant('disabled-within', '&:has(*:disabled)')

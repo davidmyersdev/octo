@@ -86,10 +86,10 @@
   }
 
   .light {
-    --layer-0-bg: 255 255 255;
-    --layer-0-bg-hover: 244 244 245;
-    --layer-0-bg-active: 255 255 255;
-    --layer-0-bg-disabled: 253 253 253;
+    --layer-0-bg: 244 244 245;
+    --layer-0-bg-hover: 228 228 231;
+    --layer-0-bg-active: 228 228 231;
+    --layer-0-bg-disabled: 242 242 243;
     --layer-0-border: var(--layer-0-bg-hover);
     --layer-0-text: 24 24 27;
     --layer-0-text-hover: 24 24 27;
@@ -97,11 +97,11 @@
     --layer-0-text-disabled: 113 113 122;
     --layer-0-text-muted: 113 113 122;
 
-    --layer-1-bg: 244 244 245;
-    --layer-1-bg-hover: 228 228 231;
-    --layer-1-bg-active: 228 228 231;
-    --layer-1-bg-disabled: 242 242 243;
-    --layer-1-border: var(--layer-1-bg-hover);
+    --layer-1-bg: 255 255 255;
+    --layer-1-bg-hover: 244 244 245;
+    --layer-1-bg-active: 255 255 255;
+    --layer-1-bg-disabled: 253 253 253;
+    --layer-1-border: var(--layer-0-bg-hover);
     --layer-1-text: 24 24 27;
     --layer-1-text-hover: 24 24 27;
     --layer-1-text-active: 24 24 27;
@@ -302,19 +302,19 @@
   }
 
   .button {
-    @apply inline-flex items-center rounded cursor-pointer focus:outline-none focus:ring focus-within:ring;
+    @apply inline-flex items-center rounded cursor-pointer focus-visible:outline-none focus-visible:ring has-[:focus-visible]:ring;
   }
 
   .core-button {
     @apply core-button-shape;
     @apply cursor-pointer;
     @apply outline-none;
-    @apply focus:ring focus-within:ring;
+    @apply focus-visible:ring has-[:focus-visible]:ring;
     @apply bg-layer;
     @apply disabled:bg-layer-disabled ui-disabled:bg-layer-disabled;
     @apply disabled:text-layer-disabled ui-disabled:text-layer-disabled;
     @apply disabled:hover:bg-layer-disabled;
-    @apply disabled:cursor-not-allowed ui-disabled:cursor-not-allowed disabled-within:cursor-not-allowed;
+    @apply disabled:cursor-default ui-disabled:cursor-default disabled-within:cursor-default;
     @apply disabled-within:bg-layer-disabled disabled-within:text-layer-disabled;
     @apply disabled-within:hover:bg-layer-disabled disabled-within:hover:text-layer-disabled;
     @apply hover:bg-layer-hover ui-active:bg-layer-hover;
@@ -322,7 +322,7 @@
   }
 
   .core-button-shape {
-    @apply p-2 rounded inline-flex gap-3 items-center justify-center;
+    @apply px-2 py-1 rounded inline-flex gap-2 items-center justify-center;
   }
 
   /* utils */
@@ -373,6 +373,36 @@
   }
 
   .sidebar-link {
-    @apply flex items-center justify-between rounded p-2 hover:bg-layer-hover focus:outline-none focus:ring;
+    @apply flex items-center justify-between rounded px-2 py-1 hover:bg-layer-hover focus-visible:outline-none focus-visible:ring;
+  }
+}
+
+@layer utilities {
+  .flex-direction-inherit {
+    flex-direction: inherit;
+  }
+
+  .flex-inherit {
+    align-items: inherit;
+    flex-direction: inherit;
+    flex-wrap: inherit;
+    gap: inherit;
+    justify-content: inherit;
+  }
+
+  .flex-wrap-inherit {
+    flex-wrap: inherit;
+  }
+
+  .gap-inherit {
+    gap: inherit;
+  }
+
+  .items-inherit {
+    align-items: inherit;
+  }
+
+  .justify-inherit {
+    justify-content: inherit;
   }
 }

@@ -1,5 +1,4 @@
 <script lang="ts">
-import { ArrowUpCircleIcon } from '@heroicons/vue/24/outline'
 import { type PropType, defineComponent } from 'vue'
 import AuthMagicLink from '#root/components/AuthMagicLink.vue'
 import AuthSocialLinks from '#root/components/AuthSocialLinks.vue'
@@ -10,7 +9,6 @@ import { type Tier } from '#composables/useTiers'
 
 export default defineComponent({
   components: {
-    ArrowUpCircleIcon,
     AuthMagicLink,
     AuthSocialLinks,
     CoreButton,
@@ -69,7 +67,7 @@ export default defineComponent({
     <p v-if="$slots.description"><slot name="description">{{ tier.description }}</slot></p>
     <section v-if="tier.allowUpgrade" class="flex flex-col gap-2">
       <CoreButton class="text-primary" @click="onUpgrade">
-        <ArrowUpCircleIcon class="h-6" />
+        <Icon name="ArrowUpCircle" />
         <span>Upgrade Subscription</span>
       </CoreButton>
     </section>

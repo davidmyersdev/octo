@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { ChevronDownIcon, ChevronRightIcon } from '@heroicons/vue/24/outline'
 import { type Component, computed, ref } from 'vue'
 
 const props = defineProps<{
@@ -24,8 +23,7 @@ const toggleContent = () => {
     <slot name="label">
       <h6 v-if="label" class="flex items-center justify-between text-sm text-layer-muted cursor-pointer" @click="toggleContent">
         <span class="flex items-center flex-grow gap-1">
-          <ChevronDownIcon v-if="showContent" class="h-4" />
-          <ChevronRightIcon v-else class="h-4" />
+          <Icon name="Toggle" class="h-4" />
           <span class="inline-flex flex-grow justify-between items-center">
             <span>{{ label }}</span>
             <slot name="label-alt-action" />

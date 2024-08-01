@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { ClipboardIcon } from '@heroicons/vue/24/outline'
 import { readonly } from '#root/src/vendor/plugins/readonly'
 import { useVue } from '#shared/composables'
 
@@ -60,7 +59,7 @@ const copyMessage = async () => {
       <small>{{ createdAt }}</small>
       <CoreMenu>
         <CoreMenuItem :layer="1" @click="copyMessage">
-          <ClipboardIcon class="sq-5" />
+          <Icon name="Clipboard" />
           <span>Copy message</span>
         </CoreMenuItem>
       </CoreMenu>

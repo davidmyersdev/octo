@@ -1,7 +1,5 @@
 <script lang="ts">
 import { type PropType, computed, defineComponent } from 'vue'
-import LocalGitHubIcon from '#root/assets/github.svg?component'
-import LocalGoogleIcon from '#root/assets/google.svg?component'
 import { type AuthSocialForm } from '#composables/useAuth'
 
 /**
@@ -13,10 +11,6 @@ import { type AuthSocialForm } from '#composables/useAuth'
  * />
  */
 export default defineComponent({
-  components: {
-    LocalGitHubIcon,
-    LocalGoogleIcon,
-  },
   props: {
     form: {
       default: () => ({
@@ -61,7 +55,7 @@ export default defineComponent({
       data-test-id="sign-in-with-github"
       @click="clickProvider('github')"
     >
-      <LocalGitHubIcon class="h-5 w-5" />
+      <Icon name="BrandGitHub" />
       <span>Continue with GitHub</span>
     </CoreButton>
     <CoreButton
@@ -70,7 +64,7 @@ export default defineComponent({
       data-test-id="sign-in-with-google"
       @click="clickProvider('google')"
     >
-      <LocalGoogleIcon class="h-5 w-5" />
+      <Icon name="BrandGoogle" />
       <span>Continue with Google</span>
     </CoreButton>
     <p v-if="form.error" class="text-red-500">

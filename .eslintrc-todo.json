@@ -82,14 +82,6 @@
     },
     {
       "files": [
-        "components/CoreAlert.vue"
-      ],
-      "rules": {
-        "vue/no-setup-props-reactivity-loss": "warn"
-      }
-    },
-    {
-      "files": [
         "components/DiscardableAction.vue"
       ],
       "rules": {

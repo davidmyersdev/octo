@@ -1,23 +1,4 @@
 <script lang="ts" setup>
-import {
-  DocumentTextIcon,
-  CloudArrowUpIcon as SaveIcon,
-  HashtagIcon as TagIcon,
-  Square2StackIcon as WorkspaceIcon,
-} from '@heroicons/vue/24/outline'
-import {
-  IconCheck,
-  IconFile,
-  IconInbox,
-  IconLayoutGrid,
-  IconMessages,
-  IconNotebook,
-  IconSearch,
-  IconSettings,
-  IconTestPipe,
-  IconTrash,
-  IconUserCircle,
-} from '@tabler/icons-vue'
 import { nanoid } from 'nanoid'
 import CoreLink from '#root/components/CoreLink.vue'
 import ModKKey from '#root/components/ModKKey.vue'
@@ -99,7 +80,7 @@ const trackCta = () => {
       <div class="flex flex-col gap-1">
         <div class="flex flex-col gap-1">
           <CoreButton :as="CoreLink" :to="{ path: '/docs' }" class="sidebar-link">
-            <IconSearch :stroke-width="1.25" class="sq-5" />
+            <Icon name="Search" />
             <span class="grow">Search</span>
           </CoreButton>
         </div>
@@ -124,7 +105,7 @@ const trackCta = () => {
         <FlexDivider class="-mx-1" />
         <div class="flex flex-col gap-1">
           <CoreLink :to="{ path: '/docs/f/untagged' }" class="sidebar-link">
-            <IconInbox :stroke-width="1.25" class="sq-5" />
+            <Icon name="Inbox" />
             <span class="action flex flex-grow items-stretch justify-between ml-2">
               <span>Inbox</span>
               <ModKKey class="text-layer-muted">U</ModKKey>
@@ -132,12 +113,12 @@ const trackCta = () => {
           </CoreLink>
           <CoreLink :to="{ path: '/notepad' }" class="sidebar-link">
             <div class="flex gap-2 items-center">
-              <IconNotebook :stroke-width="1.25" class="sq-5" />
+              <Icon name="Daily" />
               <span>Daily Notepad</span>
             </div>
           </CoreLink>
           <CoreLink :to="{ path: '/workspaces' }" class="sidebar-link">
-            <IconLayoutGrid :stroke-width="1.25" class="sq-5" />
+            <Icon name="Workspaces" />
             <span class="action flex flex-grow items-stretch justify-between ml-2">
               <span class="action">Workspaces</span>
               <ModKKey class="text-layer-muted">C</ModKKey>
@@ -147,43 +128,43 @@ const trackCta = () => {
         <div v-if="experimentalFeaturesEnabled" class="flex flex-col gap-1">
           <FlexDivider class="-mx-1" />
           <button class="sidebar-link w-full" @click="openFile">
-            <IconFile :stroke-width="1.25" class="sq-5" />
+            <Icon name="OpenFile" />
             <span class="action flex flex-grow items-center justify-between ml-2">
               <span>Open File</span>
-              <IconTestPipe :stroke-width="1.25" class="text-layer-muted w-5" title="Experimental" />
+              <Icon name="Experimental" class="text-layer-muted" title="Experimental" />
             </span>
           </button>
           <CoreLink :to="{ path: '/assistant' }" class="sidebar-link allow-link-active">
-            <CoreAsset type="Logo" class="sq-5" />
+            <Icon name="Logo" />
             <span class="action flex flex-grow items-center justify-between ml-2">
               <span>Assistant</span>
-              <IconTestPipe :stroke-width="1.25" class="text-layer-muted w-5" title="Experimental" />
+              <Icon name="Experimental" class="text-layer-muted" title="Experimental" />
             </span>
           </CoreLink>
         </div>
         <FlexDivider class="-mx-1" />
         <div class="flex flex-col gap-1">
           <CoreLink :to="linkFeedback" class="sidebar-link">
-            <div class="flex gap-3 items-center">
-              <IconMessages :stroke-width="1.25" class="sq-5" />
+            <div class="flex gap-2 items-center">
+              <Icon name="Feedback" />
               <span>Feedback</span>
             </div>
           </CoreLink>
           <CoreLink v-if="!firebaseDisabled && !user.id" :to="{ path: '/account' }" class="sidebar-link text-brand" @click="trackCta">
-            <SaveIcon class="sq-5" />
+            <Icon name="Save" />
             <span class="action flex flex-grow items-stretch justify-between ml-2">
               <span>Save Docs</span>
             </span>
           </CoreLink>
           <CoreLink :to="{ path: '/settings' }" class="sidebar-link">
-            <div class="flex gap-3 items-center">
-              <IconSettings :stroke-width="1.25" class="sq-5" />
+            <div class="flex gap-2 items-center">
+              <Icon name="Settings" />
               <span>Settings</span>
             </div>
           </CoreLink>
           <CoreLink :to="{ path: '/account' }" class="sidebar-link">
-            <div class="flex gap-3 items-center">
-              <IconUserCircle :stroke-width="1.25" class="sq-5" />
+            <div class="flex gap-2 items-center">
+              <Icon name="Account" />
               <span>Account</span>
             </div>
           </CoreLink>
@@ -193,35 +174,28 @@ const trackCta = () => {
       <CoreLayer class="flex flex-col gap-1">
         <DashPanel class="flex flex-col bg-layer" collapsed label="Filters">
           <CoreLink :to="{ path: '/docs/f/tasks' }" class="sidebar-link">
-            <IconCheck :stroke-width="1.25" class="sq-5" />
+            <Icon name="Check" />
             <span class="action flex flex-grow items-stretch justify-between ml-2">
               <span>Tasks</span>
               <ModKKey class="text-layer-muted">T</ModKKey>
             </span>
           </CoreLink>
           <CoreLink :to="{ path: '/docs/f/discarded' }" class="sidebar-link">
-            <IconTrash :stroke-width="1.25" class="sq-5" />
+            <Icon name="Trash" />
             <span class="action flex flex-grow items-stretch justify-between ml-2">
               <span>Discarded</span>
               <ModKKey class="text-layer-muted">D</ModKKey>
             </span>
           </CoreLink>
         </DashPanel>
-        <DashPanel v-if="context.active || contextTags.length" class="bg-layer" label="Workspace">
-          <template #label-alt-action>
-            <CoreButton class="p-0.5" @click.stop="clearContext">
-              <svg class="sq-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </CoreButton>
-          </template>
+        <DashPanel v-if="context.active || contextTags.length" class="bg-layer" closeable label="Workspace" @close="clearContext">
           <div class="flex flex-col gap-2 md:gap-1">
             <TagLink v-for="tag in contextTags" :key="tag" :tag="tag" class="sidebar-link" />
           </div>
         </DashPanel>
         <DashPanel v-if="contexts.length" class="flex flex-col bg-layer" collapsed label="Workspaces">
           <button v-for="workspace in contexts" :key="workspace.id" class="sidebar-link w-full" @click="setContext(workspace)">
-            <WorkspaceIcon class="sq-5" />
+            <Icon name="Workspace" />
             <span class="action flex flex-grow items-stretch justify-between ml-2">
               <span>{{ workspace.name }}</span>
             </span>
@@ -229,7 +203,7 @@ const trackCta = () => {
         </DashPanel>
         <DashPanel v-if="tags.length" class="flex flex-col bg-layer" collapsed label="Tags">
           <CoreLink class="sidebar-link md:hidden" :to="{ path: '/tags' }">
-            <TagIcon class="sq-5" />
+            <Icon name="Tag" />
             <span class="ml-3 flex-grow">Tags</span>
           </CoreLink>
           <div v-if="mediumPlus" class="flex flex-col gap-1">
@@ -238,13 +212,13 @@ const trackCta = () => {
         </DashPanel>
         <DashPanel class="flex flex-col bg-layer" collapsed label="Policies">
           <CoreLink :to="{ path: '/privacy-policy' }" class="sidebar-link">
-            <DocumentTextIcon class="sq-5" />
+            <Icon name="DocWithText" />
             <span class="action flex flex-grow items-stretch justify-between ml-2">
               <span>Privacy Policy</span>
             </span>
           </CoreLink>
           <CoreLink :to="{ path: '/terms-and-conditions' }" class="sidebar-link">
-            <DocumentTextIcon class="sq-5" />
+            <Icon name="DocWithText" />
             <span class="action flex flex-grow items-stretch justify-between ml-2">
               <span>Terms &amp; Conditions</span>
             </span>

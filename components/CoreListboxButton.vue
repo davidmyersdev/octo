@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { ListboxButton } from '@headlessui/vue'
-import { ChevronUpDownIcon } from '@heroicons/vue/24/solid'
 import { CoreButton } from '#components'
 </script>
 
@@ -13,10 +12,7 @@ import { CoreButton } from '#components'
     <span
       class="pointer-events-none flex items-center"
     >
-      <ChevronUpDownIcon
-        class="h-5 w-5 text-layer-muted"
-        aria-hidden="true"
-      />
+      <Icon name="Toggle" class="text-layer-muted" aria-hidden="true" />
     </span>
   </ListboxButton>
 </template>

@@ -103,9 +103,6 @@ importers:
       '@csstools/postcss-oklab-function':
         specifier: ^3.0.9
         version: 3.0.9(postcss@8.4.38)
-      '@heroicons/vue':
-        specifier: ^2.1.1
-        version: 2.1.1(vue@3.4.21(typescript@5.3.3))
       '@nuxtjs/tailwindcss':
         specifier: ^6.10.3
         version: 6.10.3(rollup@2.79.1)(ts-node@10.9.2(@types/node@18.19.4)(typescript@5.3.3))
@@ -1762,11 +1759,6 @@ packages:
     engines: {node: '>=10'}
     peerDependencies:
       vue: ^3.2.0
-
-  '@heroicons/vue@2.1.1':
-    resolution: {integrity: sha512-Yi5nh/89L193ALgHyJUQUdNLsKXPrrE3yj5yiR8WAlo7nZyXGxGauQcEAmBsa2XJGMhBMuEdoOiuZ8wEwTBxVQ==}
-    peerDependencies:
-      vue: '>= 3'
 
   '@humanwhocodes/config-array@0.11.13':
     resolution: {integrity: sha512-JSBDMiDKSzQVngfRjOdFXgFfklaXI4K9nLF49Auh21lmBWRLIK3+xTErTWD4KU54pb6coM6ESE7Awz/FNU3zgQ==}
@@ -12021,10 +12013,6 @@ snapshots:
   '@headlessui/vue@1.7.17(vue@3.4.21(typescript@5.3.3))':
     dependencies:
       '@tanstack/vue-virtual': 3.0.2(vue@3.4.21(typescript@5.3.3))
-      vue: 3.4.21(typescript@5.3.3)
-
-  '@heroicons/vue@2.1.1(vue@3.4.21(typescript@5.3.3))':
-    dependencies:
       vue: 3.4.21(typescript@5.3.3)
 
   '@humanwhocodes/config-array@0.11.13':

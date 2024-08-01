@@ -46,9 +46,7 @@ onMounted(() => {
               <CoreButton :as="CoreLink" :to="ctaRoute" class="bg-brand hover:bg-brand transition whitespace-nowrap justify-center gap-3 mt-1 text-black text-xl py-2 px-8 hover:scale-110 focus:scale-110" @click="ctaHandler">
                 <span class="flex items-center gap-3 align-center">
                   <span>{{ ctaLabel }}</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
+                  <Icon name="ArrowRight" />
                 </span>
               </CoreButton>
             </div>
@@ -118,9 +116,7 @@ onMounted(() => {
               <CoreButton :as="CoreLink" :to="ctaRoute" class="bg-brand hover:bg-brand transition whitespace-nowrap justify-center gap-3 mt-1 text-black text-xl py-2 px-8 hover:scale-110 focus:scale-110" @click="ctaHandler">
                 <span class="flex items-center gap-3 align-center">
                   <span>{{ ctaLabel }}</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
+                  <Icon name="ArrowRight" />
                 </span>
               </CoreButton>
             </div>

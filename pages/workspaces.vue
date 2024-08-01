@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { TrashIcon } from '@heroicons/vue/24/outline'
 import { nanoid } from 'nanoid'
 import CoreButton from '#root/components/CoreButton.vue'
 import Tag from '#root/components/Tag.vue'
@@ -71,7 +70,7 @@ onUnmounted(() => {
               <Tag v-for="tag in workspace.tags" :key="tag" class="p-2 rounded border border-layer">{{ tag }}</Tag>
             </div>
             <CoreButton class="absolute top-4 right-4" @click="removeWorkspace(workspace)">
-              <TrashIcon class="w-5" />
+              <Icon name="Trash" />
             </CoreButton>
           </CoreCard>
         </CoreLayer>

@@ -59,7 +59,6 @@
   },
   "devDependencies": {
     "@csstools/postcss-oklab-function": "^3.0.9",
-    "@heroicons/vue": "^2.1.1",
     "@nuxtjs/tailwindcss": "^6.10.3",
     "@pinia/nuxt": "^0.4.11",
     "@playwright/test": "^1.41.2",

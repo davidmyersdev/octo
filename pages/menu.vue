@@ -127,6 +127,13 @@ const trackCta = () => {
         </div>
         <div v-if="experimentalFeaturesEnabled" class="flex flex-col gap-1">
           <FlexDivider class="-mx-1" />
+          <CoreLink :to="{ path: '/graph' }" class="sidebar-link">
+            <Icon name="Graph" />
+            <span class="action flex flex-grow items-center justify-between ml-2">
+              <span>Graph Explorer</span>
+              <Icon name="Experimental" class="text-layer-muted" title="Experimental" />
+            </span>
+          </CoreLink>
           <button class="sidebar-link w-full" @click="openFile">
             <Icon name="OpenFile" />
             <span class="action flex flex-grow items-center justify-between ml-2">

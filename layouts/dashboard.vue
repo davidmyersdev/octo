@@ -116,7 +116,7 @@ onUnmounted(() => {
       </div>
     </CoreLayer>
     <FlexDivider class="hidden lg:block" />
-    <Gutter :show="isSecondaryGutterShowing" :size="256" class="hidden lg:flex">
+    <Gutter :show="isSecondaryGutterShowing" :size="256" class="hidden lg:flex justify-end flex-nowrap">
       <TheRightSidebar class="hidden lg:flex flex-grow flex-shrink-0 w-full" />
     </Gutter>
     <ToastList class="fixed bottom-8 right-8 m-auto" />

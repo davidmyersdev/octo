@@ -141,91 +141,106 @@ export default {
 
 <template>
   <CoreScrollable v-if="doc">
-    <CoreNavPanel class="flex flex-col gap-1">
-      <button class="sidebar-link w-full" @click.stop="duplicateDocument">
-        <Icon name="DocDuplicate" />
-        <span class="ml-2 flex-grow text-left">Duplicate</span>
-      </button>
-      <DiscardableAction v-if="doc.id" :discarded-at="doc.discardedAt" :on-discard="discardDocument" :on-restore="restoreDocument" class="sidebar-link w-full" />
-      <button v-if="hasCodeblocks" class="sidebar-link w-full" @click="openSandbox">
-        <Icon name="BrandCodeSandbox" />
-        <span class="ml-2 flex-grow text-left">Create Sandbox</span>
-      </button>
-      <template v-if="doc.public">
-        <button class="sidebar-link w-full" @click="restrictDocument">
-          <Icon name="LockClosed" />
-          <span class="ml-2 flex-grow text-left">Make Private</span>
+    <div class="flex flex-col flex-grow">
+      <div class="flex flex-col gap-1 p-1">
+        <button class="sidebar-link w-full" @click.stop="duplicateDocument">
+          <Icon name="DocDuplicate" />
+          <span class="ml-2 flex-grow text-left">Duplicate</span>
         </button>
-        <button class="sidebar-link w-full" @click="copyPublicUrl">
-          <Icon name="Clipboard" />
-          <span class="ml-2 flex-grow text-left">Copy Link</span>
+        <DiscardableAction v-if="doc.id" :discarded-at="doc.discardedAt" :on-discard="discardDocument" :on-restore="restoreDocument" class="sidebar-link w-full" />
+        <button v-if="hasCodeblocks" class="sidebar-link w-full" @click="openSandbox">
+          <Icon name="BrandCodeSandbox" />
+          <span class="ml-2 flex-grow text-left">Create Sandbox</span>
         </button>
-        <CoreLayer>
-          <input ref="link" :value="publicUrl" type="text" class="bg-layer rounded p-2 w-full" readonly data-test-public-url>
+        <template v-if="doc.public">
+          <button class="sidebar-link w-full" @click="restrictDocument">
+            <Icon name="LockClosed" />
+            <span class="ml-2 flex-grow text-left">Make Private</span>
+          </button>
+          <button class="sidebar-link w-full" @click="copyPublicUrl">
+            <Icon name="Clipboard" />
+            <span class="ml-2 flex-grow text-left">Copy Link</span>
+          </button>
+          <CoreLayer>
+            <input ref="link" :value="publicUrl" type="text" class="bg-layer rounded p-2 w-full" readonly data-test-public-url>
+          </CoreLayer>
+        </template>
+        <template v-else>
+          <button class="sidebar-link w-full" data-test-share-doc @click="shareDocument">
+            <Icon name="LockOpen" />
+            <span class="ml-2 flex-grow text-left">Make Public</span>
+          </button>
+        </template>
+      </div>
+      <template v-if="references.length || backlinks.length || doc.tags.length || doc.tasks.length">
+        <FlexDivider />
+        <CoreLayer class="flex flex-col gap-1 p-1">
+          <DashPanel
+            v-if="references.length"
+            class="bg-layer"
+            data-test-id="doc-references"
+            label="References"
+          >
+            <DocLink v-for="reference in references" :key="reference.id" :doc="reference" class="sidebar-link" />
+          </DashPanel>
+          <DashPanel
+            v-if="backlinks.length"
+            class="bg-layer"
+            data-test-id="doc-backlinks"
+            label="Backlinks"
+          >
+            <DocLink v-for="reference in backlinks" :key="reference.id" :doc="reference" class="sidebar-link" />
+          </DashPanel>
+          <DashPanel
+            v-if="doc.tags.length"
+            class="bg-layer"
+            collapsed
+            label="Tags"
+          >
+            <TagLink v-for="tag in doc.tags" :key="tag" :tag="tag" class="sidebar-link" />
+          </DashPanel>
+          <DashPanel
+            v-if="doc.tasks.length"
+            class="bg-layer"
+            collapsed
+            label="Tasks"
+          >
+            <div v-for="task in doc.tasks" :key="task" class="flex items-center px-3 py-2 my-1 md:px-2 md:py-1">
+              <Icon name="Check" />
+              <span class="flex-grow overflow-hidden truncate ml-2">{{ task }}</span>
+            </div>
+          </DashPanel>
         </CoreLayer>
       </template>
-      <template v-else>
-        <button class="sidebar-link w-full" data-test-share-doc @click="shareDocument">
-          <Icon name="LockOpen" />
-          <span class="ml-2 flex-grow text-left">Make Public</span>
-        </button>
-      </template>
-    </CoreNavPanel>
-    <CoreDivider v-if="references.length" />
-    <CoreNavPanel
-      v-if="references.length"
-      class="flex flex-col gap-1"
-      data-test-id="doc-references"
-      label="References"
-    >
-      <DocLink v-for="reference in references" :key="reference.id" :doc="reference" class="sidebar-link" />
-    </CoreNavPanel>
-    <CoreDivider v-if="backlinks.length" />
-    <CoreNavPanel
-      v-if="backlinks.length"
-      class="flex flex-col gap-1"
-      data-test-id="doc-backlinks"
-      label="Backlinks"
-    >
-      <DocLink v-for="reference in backlinks" :key="reference.id" :doc="reference" class="sidebar-link" />
-    </CoreNavPanel>
-    <CoreDivider v-if="doc.tags.length" />
-    <CoreNavPanel v-if="doc.tags.length" class="flex flex-col gap-1" label="Tags">
-      <TagLink v-for="tag in doc.tags" :key="tag" :tag="tag" class="sidebar-link" />
-    </CoreNavPanel>
-    <CoreDivider v-if="doc.tasks.length" />
-    <CoreNavPanel v-if="doc.tasks.length" class="flex flex-col gap-1" label="Tasks">
-      <div v-for="task in doc.tasks" :key="task" class="flex items-center px-3 py-2 my-1 md:px-2 md:py-1">
-        <Icon name="Check" />
-        <span class="flex-grow overflow-hidden truncate ml-3">{{ task }}</span>
-      </div>
-    </CoreNavPanel>
-    <CoreDivider />
-    <CoreNavPanel class="flex flex-col flex-grow justify-end gap-1">
-      <div v-if="doc.updatedAt">
-        <small class="text-layer-muted">Last Saved</small>
-        <div class="capitalize pt-2 md:pt-1">
-          {{ savedAt }}
-        </div>
-      </div>
-      <div v-if="doc.createdAt" class="mt-3 md:mt-2">
-        <small class="text-layer-muted">Created</small>
-        <div class="pt-2 md:pt-1">
-          {{ createdAt }}
-        </div>
-      </div>
-      <div v-if="doc.updatedAt" class="mt-3 md:mt-2">
-        <small class="text-layer-muted">Updated</small>
-        <div class="pt-2 md:pt-1">
-          {{ updatedAt }}
-        </div>
-      </div>
-      <div v-if="doc.discardedAt" class="mt-3 md:mt-2">
-        <small class="text-layer-muted">Discarded</small>
-        <div class="pt-2 md:pt-1">
-          {{ discardedAt }}
-        </div>
-      </div>
-    </CoreNavPanel>
+      <FlexDivider />
+      <CoreLayer class="flex flex-col gap-1 p-1">
+        <DashPanel class="bg-layer" label="Timestamps">
+          <div v-if="doc.updatedAt">
+            <small class="text-layer-muted">Last Saved</small>
+            <div class="capitalize pt-2 md:pt-1">
+              {{ savedAt }}
+            </div>
+          </div>
+          <div v-if="doc.createdAt" class="mt-3 md:mt-2">
+            <small class="text-layer-muted">Created</small>
+            <div class="pt-2 md:pt-1">
+              {{ createdAt }}
+            </div>
+          </div>
+          <div v-if="doc.updatedAt" class="mt-3 md:mt-2">
+            <small class="text-layer-muted">Updated</small>
+            <div class="pt-2 md:pt-1">
+              {{ updatedAt }}
+            </div>
+          </div>
+          <div v-if="doc.discardedAt" class="mt-3 md:mt-2">
+            <small class="text-layer-muted">Discarded</small>
+            <div class="pt-2 md:pt-1">
+              {{ discardedAt }}
+            </div>
+          </div>
+        </DashPanel>
+      </CoreLayer>
+    </div>
   </CoreScrollable>
 </template>

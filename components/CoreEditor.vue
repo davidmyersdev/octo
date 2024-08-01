@@ -117,22 +117,24 @@ export default defineComponent({
 <template>
   <div class="core-editor flex flex-col-reverse lg:flex-col flex-grow flex-shrink min-h-0 rounded">
     <template v-if="options?.interface?.toolbar">
-      <CoreScrollable class="core-editor-scrollable flex-shrink-0 w-full mx-auto">
-        <CoreEditorToolbar
-          class="core-editor-toolbar mx-auto px-1 overflow-hidden lg:px-0 py-1 flex-shrink-0 rounded min-w-full"
-          :upload="options?.toolbar?.upload"
-          @blockquote="formatSelection('quote')"
-          @bold="formatSelection('bold')"
-          @bullet-list="formatSelection('list')"
-          @code="formatSelection('code')"
-          @heading="formatSelection('heading')"
-          @image="formatSelection('image')"
-          @italic="formatSelection('italic')"
-          @link="formatSelection('link')"
-          @number-list="formatSelection('ordered_list')"
-          @task-list="formatSelection('task_list')"
-          @upload="handleUpload"
-        />
+      <CoreScrollable class="core-editor-scrollable flex-shrink-0 w-full">
+        <div class="mx-auto p-1 min-w-full">
+          <CoreEditorToolbar
+            class="core-editor-toolbar flex-shrink-0 mx-auto"
+            :upload="options?.toolbar?.upload"
+            @blockquote="formatSelection('quote')"
+            @bold="formatSelection('bold')"
+            @bullet-list="formatSelection('list')"
+            @code="formatSelection('code')"
+            @heading="formatSelection('heading')"
+            @image="formatSelection('image')"
+            @italic="formatSelection('italic')"
+            @link="formatSelection('link')"
+            @number-list="formatSelection('ordered_list')"
+            @task-list="formatSelection('task_list')"
+            @upload="handleUpload"
+          />
+        </div>
       </CoreScrollable>
       <CoreDivider />
     </template>
@@ -162,7 +164,7 @@ export default defineComponent({
   --ink-syntax-hashtag-background-color: rgb(v-bind('nextLayer.bgCssVar'));
   --ink-syntax-processing-instruction-color: rgb(v-bind('nextLayer.textCssVar') / 0.1);
 
-  .core-editor-scrollable {
+  .core-editor-toolbar {
     max-width: var(--core-editor-max-width-in-chars);
   }
 

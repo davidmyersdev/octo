@@ -6,10 +6,12 @@ withDefaults(defineProps<{
   code?: boolean,
   heading?: boolean,
   image?: boolean,
+  indent?: boolean,
   italic?: boolean,
   link?: boolean,
   numberList?: boolean,
   taskList?: boolean,
+  unindent?: boolean,
   upload?: boolean,
 }>(), {
   blockquote: true,
@@ -18,10 +20,12 @@ withDefaults(defineProps<{
   code: true,
   heading: true,
   image: true,
+  indent: true,
   italic: true,
   link: true,
   numberList: true,
   taskList: true,
+  unindent: true,
   upload: false,
 })
 
@@ -32,10 +36,12 @@ defineEmits<{
   code: [],
   heading: [],
   image: [],
+  indent: [],
   italic: [],
   link: [],
   numberList: [],
   taskList: [],
+  unindent: [],
   upload: [event: Event],
 }>()
 
@@ -48,6 +54,14 @@ const triggerUpload = () => {
 
 <template>
   <div class="flex gap-1 lg:gap-4">
+    <div v-if="indent || unindent" class="flex gap-1">
+      <CoreButton v-if="indent" class="p-1 border border-layer" title="Indent" @click="$emit('indent')">
+        <Icon name="FormatIndent" size="1.5rem" />
+      </CoreButton>
+      <CoreButton v-if="unindent" class="p-1 border border-layer" title="Unindent" @click="$emit('unindent')">
+        <Icon name="FormatUnindent" size="1.5rem" />
+      </CoreButton>
+    </div>
     <div v-if="heading || bold || italic" class="flex gap-1">
       <CoreButton v-if="heading" class="p-1 border border-layer" title="Heading" @click="$emit('heading')">
         <Icon name="FormatHeading" size="1.5rem" />

@@ -50,43 +50,43 @@ const triggerUpload = () => {
   <div class="flex gap-1 lg:gap-4">
     <div v-if="heading || bold || italic" class="flex gap-1">
       <CoreButton v-if="heading" class="p-1 border border-layer" title="Heading" @click="$emit('heading')">
-        <Icon name="FormatHeading" />
+        <Icon name="FormatHeading" size="1.5rem" />
       </CoreButton>
       <CoreButton v-if="bold" class="p-1 border border-layer" title="Bold" @click="$emit('bold')">
-        <Icon name="FormatBold" />
+        <Icon name="FormatBold" size="1.5rem" />
       </CoreButton>
       <CoreButton v-if="italic" class="p-1 border border-layer" title="Italic" @click="$emit('italic')">
-        <Icon name="FormatItalic" />
+        <Icon name="FormatItalic" size="1.5rem" />
       </CoreButton>
     </div>
     <div v-if="blockquote || code" class="flex gap-1">
       <CoreButton v-if="blockquote" class="p-1 border border-layer" title="Blockquote" @click="$emit('blockquote')">
-        <Icon name="FormatBlockquote" />
+        <Icon name="FormatBlockquote" size="1.5rem" />
       </CoreButton>
       <CoreButton v-if="code" class="p-1 border border-layer" title="Code" @click="$emit('code')">
-        <Icon name="FormatCode" />
+        <Icon name="FormatCode" size="1.5rem" />
       </CoreButton>
     </div>
     <div v-if="bulletList || numberList || taskList" class="flex gap-1">
       <CoreButton v-if="bulletList" class="p-1 border border-layer" title="Bullet List" @click="$emit('bulletList')">
-        <Icon name="FormatListBulleted" />
+        <Icon name="FormatListBulleted" size="1.5rem" />
       </CoreButton>
       <CoreButton v-if="numberList" class="p-1 border border-layer" title="Number List" @click="$emit('numberList')">
-        <Icon name="FormatListNumbered" />
+        <Icon name="FormatListNumbered" size="1.5rem" />
       </CoreButton>
       <CoreButton v-if="taskList" class="p-1 border border-layer" title="Task List" @click="$emit('taskList')">
-        <Icon name="FormatListChecked" />
+        <Icon name="FormatListChecked" size="1.5rem" />
       </CoreButton>
     </div>
     <div v-if="link || image || upload" class="flex gap-1">
       <CoreButton v-if="link" class="p-1 border border-layer" title="Link" @click="$emit('link')">
-        <Icon name="FormatLink" />
+        <Icon name="FormatLink" size="1.5rem" />
       </CoreButton>
       <CoreButton v-if="image" class="p-1 border border-layer" title="Image" @click="$emit('image')">
-        <Icon name="FormatImage" />
+        <Icon name="FormatImage" size="1.5rem" />
       </CoreButton>
       <CoreButton v-if="upload" class="p-1 border border-layer" title="Upload" @click="triggerUpload">
-        <Icon name="FormatUpload" />
+        <Icon name="FormatUpload" size="1.5rem" />
         <input ref="fileInput" class="hidden" type="file" @change="$emit('upload', $event)">
       </CoreButton>
     </div>

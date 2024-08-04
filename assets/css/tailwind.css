@@ -99,7 +99,7 @@
 
     --layer-1-bg: 255 255 255;
     --layer-1-bg-hover: 244 244 245;
-    --layer-1-bg-active: 255 255 255;
+    --layer-1-bg-active: 244 244 245;
     --layer-1-bg-disabled: 253 253 253;
     --layer-1-border: var(--layer-0-bg-hover);
     --layer-1-text: 24 24 27;
@@ -108,10 +108,10 @@
     --layer-1-text-disabled: 113 113 122;
     --layer-1-text-muted: 113 113 122;
 
-    --layer-2-bg: 228 228 231;
-    --layer-2-bg-hover: 212 212 216;
+    --layer-2-bg: 244 244 245;
+    --layer-2-bg-hover: 228 228 231;
     --layer-2-bg-active: 228 228 231;
-    --layer-2-bg-disabled: 226 226 229;
+    --layer-2-bg-disabled: 242 242 243;
     --layer-2-border: var(--layer-2-bg-hover);
     --layer-2-text: 24 24 27;
     --layer-2-text-hover: 24 24 27;
@@ -119,10 +119,10 @@
     --layer-2-text-disabled: 113 113 122;
     --layer-2-text-muted: 113 113 122;
 
-    --layer-3-bg: 212 212 216;
-    --layer-3-bg-hover: 161 161 170;
+    --layer-3-bg: 228 228 231;
+    --layer-3-bg-hover: 212 212 216;
     --layer-3-bg-active: 212 212 216;
-    --layer-3-bg-disabled: 210 210 214;
+    --layer-3-bg-disabled: 226 226 229;
     --layer-3-border: var(--layer-3-bg-hover);
     --layer-3-text: 24 24 27;
     --layer-3-text-hover: 24 24 27;
@@ -130,10 +130,10 @@
     --layer-3-text-disabled: 113 113 122;
     --layer-3-text-muted: 113 113 122;
 
-    --layer-4-bg: 161 161 170;
-    --layer-4-bg-hover: 113 113 122;
+    --layer-4-bg: 212 212 216;
+    --layer-4-bg-hover: 161 161 170;
     --layer-4-bg-active: 161 161 170;
-    --layer-4-bg-disabled: 159 159 168;
+    --layer-4-bg-disabled: 210 210 214;
     --layer-4-border: var(--layer-4-bg-hover);
     --layer-4-text: 24 24 27;
     --layer-4-text-hover: 24 24 27;
@@ -141,10 +141,10 @@
     --layer-4-text-disabled: 113 113 122;
     --layer-4-text-muted: 113 113 122;
 
-    --layer-5-bg: 113 113 122;
-    --layer-5-bg-hover: 82 82 91;
-    --layer-5-bg-active: 113 113 122;
-    --layer-5-bg-disabled: 111 111 120;
+    --layer-5-bg: 161 161 170;
+    --layer-5-bg-hover: 113 113 122;
+    --layer-5-bg-active: 161 161 170;
+    --layer-5-bg-disabled: 159 159 168;
     --layer-5-border: var(--layer-5-bg-hover);
     --layer-5-text: 24 24 27;
     --layer-5-text-hover: 24 24 27;

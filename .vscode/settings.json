@@ -8,5 +8,17 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
+  "tailwindCSS.classAttributes": [
+    "class",
+    "class:list",
+    "className",
+    "enter",
+    "enter-from",
+    "enter-to",
+    "leave",
+    "leave-from",
+    "leave-to",
+    "ngClass"
+  ],
   "typescript.tsdk": "./node_modules/typescript/lib"
 }

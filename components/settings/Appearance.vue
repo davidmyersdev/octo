@@ -27,7 +27,7 @@ const experimental = computed(() => store.state.settings.experimental)
           <input v-model="appearance" type="radio" value="custom" class="radio">
           <span class="flex items-center justify-between gap-2">
             <span>Custom</span>
-            <CoreAsset type="Experimental" class="sq-5 text-layer-muted" />
+            <Icon name="Experimental" class="text-layer-muted" />
           </span>
         </CoreButton>
       </CoreLayer>

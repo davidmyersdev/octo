@@ -1,12 +1,10 @@
 <script lang="ts">
-import { EnvelopeIcon } from '@heroicons/vue/24/solid'
 import { type PropType, defineComponent } from 'vue'
 import FormText from '#root/components/FormText.vue'
 import { type AuthMagicLinkForm } from '#composables/useAuth'
 
 export default defineComponent({
   components: {
-    EnvelopeIcon,
     FormText,
   },
   props: {
@@ -39,7 +37,7 @@ export default defineComponent({
   <form class="flex flex-col gap-3" @submit.prevent="send">
     <FormText v-model="form.email" label="Email" placeholder="Enter your email address..." type="email">
       <template #icon>
-        <EnvelopeIcon class="h-5 w-5" />
+        <Icon name="Email" />
       </template>
     </FormText>
     <div class="flex flex-col gap-1">

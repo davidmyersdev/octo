@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { IconDotsVertical, IconMenu2, IconMoon, IconPencilPlus, IconSun, IconSunMoon } from '@tabler/icons-vue'
 import { computed, onMounted, onUnmounted } from 'vue'
 import CoreButton from '#root/components/CoreButton.vue'
 import CoreDivider from '#root/components/CoreDivider.vue'
@@ -56,15 +55,15 @@ onUnmounted(() => {
       <div class="flex p-1 items-center">
         <div class="flex gap-1 flex-row-reverse lg:flex-row items-center basis-full justify-start">
           <CoreButton class="hidden lg:flex" @click="toggleMenu">
-            <IconMenu2 :stroke-width="1.25" class="h-6" />
+            <Icon name="Menu" />
             <span>Menu</span>
           </CoreButton>
           <CoreButton :as="CoreLink" :to="{ path: '/menu' }" class="lg:hidden">
-            <IconMenu2 :stroke-width="1.25" class="h-6" />
+            <Icon name="Menu" />
             <span>Menu</span>
           </CoreButton>
           <CoreButton :as="CoreLink" :to="{ path: '/docs/new' }">
-            <IconPencilPlus :stroke-width="1.25" class="h-6" />
+            <Icon name="PencilPlus" />
             <span>New</span>
           </CoreButton>
         </div>
@@ -97,15 +96,15 @@ onUnmounted(() => {
         </div>
         <div class="flex items-center gap-1 lg:basis-full justify-end">
           <CoreButton class="hidden lg:flex" @click="toggleAppearance">
-            <IconMoon v-if="isDark" :stroke-width="1.25" class="w-6" />
-            <IconSun v-else-if="isLight" :stroke-width="1.25" class="w-6" />
-            <IconSunMoon v-else :stroke-width="1.25" class="w-6" />
+            <Icon v-if="isDark" name="Moon" />
+            <Icon v-else-if="isLight" name="Sun" />
+            <Icon v-else name="SunWithMoon" />
           </CoreButton>
           <CoreButton v-if="doc" class="hidden lg:flex" data-test-id="toggle-meta" data-test-toggle-meta @click="toggleMeta">
-            <IconDotsVertical :stroke-width="1.25" class="h-6" />
+            <Icon name="DotsVertical" />
           </CoreButton>
           <CoreButton v-if="doc" :as="CoreLink" :to="{ path: `/docs/${doc.id}/meta` }" class="lg:hidden" data-test-id="toggle-meta" data-test-toggle-meta>
-            <IconDotsVertical :stroke-width="1.25" class="h-6" />
+            <Icon name="DotsVertical" />
           </CoreButton>
         </div>
       </div>
@@ -117,7 +116,7 @@ onUnmounted(() => {
       </div>
     </CoreLayer>
     <FlexDivider class="hidden lg:block" />
-    <Gutter :show="isSecondaryGutterShowing" :size="256" class="hidden lg:flex">
+    <Gutter :show="isSecondaryGutterShowing" :size="256" class="hidden lg:flex justify-end flex-nowrap">
       <TheRightSidebar class="hidden lg:flex flex-grow flex-shrink-0 w-full" />
     </Gutter>
     <ToastList class="fixed bottom-8 right-8 m-auto" />

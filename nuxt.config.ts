@@ -18,6 +18,7 @@ const fathomScript = process.env.NUXT_PUBLIC_FATHOM_SITE_URL
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   alias: {
+    '#components': join(root, './components'),
     '#composables': join(root, './composables'),
     '#helpers': join(root, './helpers'),
     '#root': join(root, '.'),

@@ -1,14 +1,8 @@
 <script lang="ts">
 import { GithubAuthProvider, GoogleAuthProvider, getAuth, getRedirectResult, linkWithRedirect } from 'firebase/auth'
 import { computed, defineComponent } from 'vue'
-import IconGitHub from '#root/assets/github.svg?component'
-import IconGoogle from '#root/assets/google.svg?component'
 
 export default defineComponent({
-  components: {
-    IconGitHub,
-    IconGoogle,
-  },
   setup() {
     const { user } = useUser()
     const github = computed(() => user.value.providers.find(({ providerId: id }) => id === 'github.com'))
@@ -54,7 +48,7 @@ export default defineComponent({
     <div>
       <div v-if="github" class="mb-4">
         <div class="flex items-center">
-          <IconGitHub class="h-5 w-5" />
+          <Icon name="BrandGitHub" />
           <span class="font-bold text-lg ml-3">GitHub</span>
           <span class="border border-layer text-base font-normal px-1 rounded ml-2">Linked</span>
         </div>
@@ -63,7 +57,7 @@ export default defineComponent({
 
       <div v-if="google" class="mb-4">
         <div class="flex items-center">
-          <IconGoogle class="h-5 w-5" />
+          <Icon name="BrandGoogle" />
           <span class="font-bold text-lg ml-3">Google</span>
           <span class="border border-layer text-base font-normal px-1 rounded ml-2">Linked</span>
         </div>
@@ -73,19 +67,17 @@ export default defineComponent({
 
     <CoreLayer class="flex flex-col gap-2 lg:max-w-xs">
       <CoreButton v-if="!github" class="w-full lg:w-auto whitespace-nowrap justify-start" @click="linkGitHub">
-        <IconGitHub class="h-5 w-5" />
+        <Icon name="BrandGitHub" />
         <span>Link GitHub</span>
       </CoreButton>
 
       <CoreButton v-if="!google" class="w-full lg:w-auto whitespace-nowrap justify-start" @click="linkGoogle">
-        <IconGoogle class="h-5 w-5" />
+        <Icon name="BrandGoogle" />
         <span>Link Google</span>
       </CoreButton>
 
       <CoreButton class="w-full lg:w-auto whitespace-nowrap justify-start text-red-400" @click="signOut">
-        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-        </svg>
+        <Icon name="LogOut" />
         <span class="action">Sign Out</span>
       </CoreButton>
     </CoreLayer>

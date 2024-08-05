@@ -138,16 +138,12 @@ export default defineComponent({
       >
         <LazyDoc v-bind="doc" :allow-discard="isEditing" class="h-96" />
         <div v-if="doc.selected" class="flex items-center justify-center rounded absolute inset-0 bg-layer bg-opacity-50">
-          <svg height="3em" width="3em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
+          <Icon name="CheckCircle" size="3rem" />
         </div>
       </div>
       <div v-if="showLoadMore" class="flex items-center justify-center rounded cursor-pointer">
         <CoreButton class="text-lg px-8 py-6" @click="loadMore">
-          <svg height="1.25em" width="1.25em" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-          </svg>
+          <Icon name="DocLoad" size="1.5rem" />
           <span>Load More</span>
         </CoreButton>
       </div>

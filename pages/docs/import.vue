@@ -83,10 +83,7 @@ export default defineComponent({
       <CoreLayer>
         <CoreButton as="label">
           <input type="file" class="hidden" accept=".md,.markdown,text/markdown" multiple @change="onFiles">
-          <svg class="w-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75" stroke-miterlimit="5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M10 13V4M10 4L13 7M10 4L7 7" />
-            <path d="M2 13V15C2 15.5523 2.44772 16 3 16H17C17.5523 16 18 15.5523 18 15V13" />
-          </svg>
+          <Icon name="DocImport" />
           <span>Choose Markdown files to import</span>
         </CoreButton>
       </CoreLayer>

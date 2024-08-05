@@ -43,7 +43,7 @@ export default defineComponent({
         </div>
         <CoreMenu>
           <CoreMenuItem :layer="2" @click="discard">
-            <AssetTrash class="h-5 w-5" />
+            <Icon name="Trash" />
             <span>Discard</span>
           </CoreMenuItem>
         </CoreMenu>

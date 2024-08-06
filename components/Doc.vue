@@ -2,6 +2,7 @@
 import moment from 'moment'
 import CoreDivider from '#root/components/CoreDivider.vue'
 import { DISCARD_DOCUMENT, RESTORE_DOCUMENT } from '#root/src/store/actions'
+import { toHtml } from '#root/src/utils/markdown'
 
 export default {
   components: {
@@ -21,7 +22,6 @@ export default {
     allowDiscard: Boolean,
   },
   setup(props) {
-    const { toHtml } = useMarkdown()
     const html = computed(() => {
       const rawHtml = toHtml(props.text)
 

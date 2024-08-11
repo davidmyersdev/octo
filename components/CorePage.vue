@@ -5,8 +5,9 @@ defineProps<{
 </script>
 
 <template>
-  <CoreScrollable>
+  <CoreScrollable v-slot="{ element }">
     <article
+      :ref="element"
       class="container flex flex-col mx-auto p-4"
       :class="{ 'max-w-prose': widthProse, 'md:px-16 md:py-8': !widthProse }"
     >

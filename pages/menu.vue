@@ -75,8 +75,8 @@ const trackCta = () => {
 </script>
 
 <template>
-  <CoreScrollable class="p-1">
-    <div class="flex flex-col gap-1">
+  <CoreScrollable v-slot="{ element }" class="p-1">
+    <div :ref="element" class="flex flex-col gap-1">
       <div class="flex flex-col gap-1">
         <div class="flex flex-col gap-1">
           <CoreButton :as="CoreLink" :to="{ path: '/docs' }" class="sidebar-link">

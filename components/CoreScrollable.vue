@@ -1,33 +1,57 @@
-<script lang="ts">
+<script lang="ts" setup>
 import { OverlayScrollbars } from 'overlayscrollbars'
-import { defineComponent, onMounted, ref } from 'vue'
+import { type VNodeRef, onMounted, shallowRef } from 'vue'
+import { isHtmlElement } from '/src/utils/dom'
 
-export default defineComponent({
-  setup() {
-    const scrollable = ref<OverlayScrollbars>()
-    const scrollableElement = ref<HTMLElement>()
+const element = shallowRef<HTMLElement | null>()
+const scrollable = shallowRef<OverlayScrollbars>()
+const scrollableElement = shallowRef<HTMLElement>()
 
-    onMounted(() => {
-      if (scrollableElement.value) {
-        scrollable.value = OverlayScrollbars(scrollableElement.value, {
-          scrollbars: {
-            autoHide: 'leave',
-            autoHideDelay: 200,
-          },
-        })
-      }
+defineSlots<{
+  default(props: { element: VNodeRef }): any,
+}>()
+
+useResizeObserver(element, () => {
+  scrollable.value?.update()
+})
+
+onMounted(() => {
+  if (scrollableElement.value) {
+    scrollable.value = OverlayScrollbars(scrollableElement.value, {
+      update: {
+        debounce: 0,
+        ignoreMutation() {
+          return true
+        },
+      },
+      scrollbars: {
+        autoHide: 'leave',
+        autoHideDelay: 200,
+      },
     })
+  }
+})
 
-    return {
-      scrollable,
-      scrollableElement,
-    }
-  },
+onUnmounted(() => {
+  if (scrollable.value) {
+    scrollable.value.destroy()
+  }
+})
+
+const setElementRef: VNodeRef = (el) => {
+  if (isHtmlElement(el)) {
+    element.value = el
+  }
+}
+
+defineExpose({
+  scrollable,
+  scrollableElement,
 })
 </script>
 
 <template>
   <div ref="scrollableElement" class="overflow-auto">
-    <slot />
+    <slot :element="setElementRef" />
   </div>
 </template>

@@ -140,8 +140,8 @@ export default {
 </script>
 
 <template>
-  <CoreScrollable v-if="doc">
-    <div class="flex flex-col flex-grow">
+  <CoreScrollable v-if="doc" v-slot="{ element }">
+    <div :ref="element" class="flex flex-col flex-grow">
       <div class="flex flex-col gap-1 p-1">
         <button class="sidebar-link w-full" @click.stop="duplicateDocument">
           <Icon name="DocDuplicate" />

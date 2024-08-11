@@ -307,8 +307,8 @@ export default defineComponent({
 <template>
   <div class="flex flex-col flex-grow min-h-0">
     <div class="flex flex-col flex-grow flex-shrink min-h-0 relative">
-      <CoreScrollable ref="historyElement" class="flex-grow flex-shrink min-h-0">
-        <div class="flex flex-col flex-grow gap-4 m-auto max-w-prose p-2 w-full">
+      <CoreScrollable ref="historyElement" v-slot="{ element }" class="flex-grow flex-shrink min-h-0">
+        <div :ref="element" class="flex flex-col flex-grow gap-4 m-auto max-w-prose p-2 w-full">
           <CoreInput v-model="apiKey" :layer="1" :private="true" description="To use this feature, you need an OpenAI API key. Your API key will be stored locally on your device." label="API Key" />
           <CoreLayer>
             <CoreFormControlLayout>
@@ -470,36 +470,38 @@ export default defineComponent({
           <small class="inline-flex gap-1 items-center">An error occurred while communicating with the assistant during your previous request.</small>
         </p>
         <CoreLayer down>
-          <CoreScrollable class="bg-layer rounded max-h-[40vh]">
-            <div class="flex gap-2">
-              <CoreEditor ref="inputElement" v-model="input" :layer="0" :options="inputOptions" />
-              <CoreLayer v-if="apiKey" class="m-1 self-start sticky top-1">
-                <CoreButton v-if="showTryAgainMessage" @click="tryAgain">
-                  Try again
-                </CoreButton>
-                <div v-else class="flex gap-1">
-                  <CoreButton :disabled="isWaiting || !isAllowedToSend" @click="onSend">
-                    <span v-if="isWaiting">
-                      Waiting for a reply...
-                    </span>
-                    <span v-else class="flex items-center gap-2">
-                      <span>Send</span>
-                      <span v-if="isDesktop" class="hidden md:flex text-layer-muted text-opacity-[inherit]">
-                        <Key>{{ modKey }}</Key>
-                        <Key>⏎</Key>
+          <CoreScrollable v-slot="{ element }" class="bg-layer rounded max-h-[40vh]">
+            <div :ref="element">
+              <div class="flex gap-2">
+                <CoreEditor ref="inputElement" v-model="input" :layer="0" :options="inputOptions" />
+                <CoreLayer v-if="apiKey" class="m-1 self-start sticky top-1">
+                  <CoreButton v-if="showTryAgainMessage" @click="tryAgain">
+                    Try again
+                  </CoreButton>
+                  <div v-else class="flex gap-1">
+                    <CoreButton :disabled="isWaiting || !isAllowedToSend" @click="onSend">
+                      <span v-if="isWaiting">
+                        Waiting for a reply...
                       </span>
-                    </span>
-                  </CoreButton>
-                  <CoreButton as="label" title="Attach images">
-                    <Icon name="ImagePlus" />
-                    <input class="hidden" type="file" accept="image/*" multiple @change="addFiles">
-                  </CoreButton>
+                      <span v-else class="flex items-center gap-2">
+                        <span>Send</span>
+                        <span v-if="isDesktop" class="hidden md:flex text-layer-muted text-opacity-[inherit]">
+                          <Key>{{ modKey }}</Key>
+                          <Key>⏎</Key>
+                        </span>
+                      </span>
+                    </CoreButton>
+                    <CoreButton as="label" title="Attach images">
+                      <Icon name="ImagePlus" />
+                      <input class="hidden" type="file" accept="image/*" multiple @change="addFiles">
+                    </CoreButton>
+                  </div>
+                </CoreLayer>
+              </div>
+              <div v-if="files.length" class="flex flex-wrap gap-1 p-1">
+                <div v-for="file in files" :key="file.name" class="relative border border-layer flex items-center justify-center sq-12 rounded overflow-hidden">
+                  <img class="h-min w-min object-cover" :src="file.dataUrl" :alt="file.name" :title="file.name">
                 </div>
-              </CoreLayer>
-            </div>
-            <div v-if="files.length" class="flex flex-wrap gap-1 p-1">
-              <div v-for="file in files" :key="file.name" class="relative border border-layer flex items-center justify-center sq-12 rounded overflow-hidden">
-                <img class="h-min w-min object-cover" :src="file.dataUrl" :alt="file.name" :title="file.name">
               </div>
             </div>
           </CoreScrollable>

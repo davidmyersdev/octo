@@ -121,8 +121,8 @@ export default defineComponent({
 <template>
   <div class="core-editor flex flex-col-reverse lg:flex-col flex-grow flex-shrink min-h-0 rounded">
     <template v-if="options?.interface?.toolbar">
-      <CoreScrollable class="core-editor-scrollable flex-shrink-0 w-full">
-        <div class="mx-auto p-1 min-w-full">
+      <CoreScrollable v-slot="{ element }" class="core-editor-scrollable flex-shrink-0 w-full">
+        <div :ref="element" class="mx-auto p-1 min-w-full">
           <CoreEditorToolbar
             class="core-editor-toolbar flex-shrink-0 mx-auto"
             :upload="options?.toolbar?.upload"

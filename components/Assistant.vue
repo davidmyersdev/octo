@@ -4,8 +4,9 @@ import { keymap } from '@codemirror/view'
 import { type Options } from 'ink-mde'
 import { nanoid } from 'nanoid'
 import CoreLink from './CoreLink.vue'
-import { type CoreEditor, type CoreScrollable } from '#components'
 import CoreDivider from '#root/components/CoreDivider.vue'
+import type CoreEditor from '/components/CoreEditor.vue'
+import type CoreScrollable from '/components/CoreScrollable.vue'
 import { type SystemInstruction, useSystemInstructions } from '#root/composables/useSystemInstructions'
 
 export default defineComponent({

@@ -8,6 +8,104 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "noEmit": true,
+    "paths": {
+      "~": [
+        "./"
+      ],
+      "~/*": [
+        "./*"
+      ],
+      "@": [
+        "./"
+      ],
+      "@/*": [
+        "./*"
+      ],
+      "~~": [
+        "./"
+      ],
+      "~~/*": [
+        "./*"
+      ],
+      "@@": [
+        "./"
+      ],
+      "@@/*": [
+        "./*"
+      ],
+      "assets": [
+        "./assets"
+      ],
+      "assets/*": [
+        "./assets/*"
+      ],
+      "public": [
+        "./public"
+      ],
+      "public/*": [
+        "./public/*"
+      ],
+      "/": [
+        "./"
+      ],
+      "/*": [
+        "./*"
+      ],
+      "#components": [
+        "./components"
+      ],
+      "#components/*": [
+        "./components/*"
+      ],
+      "#composables": [
+        "./composables"
+      ],
+      "#composables/*": [
+        "./composables/*"
+      ],
+      "#helpers": [
+        "./helpers"
+      ],
+      "#helpers/*": [
+        "./helpers/*"
+      ],
+      "#root": [
+        "."
+      ],
+      "#root/*": [
+        "./*"
+      ],
+      "#shared": [
+        "./lib/shared"
+      ],
+      "#shared/*": [
+        "./lib/shared/*"
+      ],
+      "#test": [
+        "./test"
+      ],
+      "#test/*": [
+        "./test/*"
+      ],
+      "#test-utils": [
+        "./test/utils"
+      ],
+      "#test-utils/*": [
+        "./test/utils/*"
+      ],
+      "#vue-router": [
+        "./.nuxt/vue-router-stub"
+      ],
+      "#imports": [
+        "./.nuxt/imports"
+      ],
+      "#build": [
+        "./.nuxt"
+      ],
+      "#build/*": [
+        "./.nuxt/*"
+      ]
+    },
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
@@ -15,11 +113,11 @@
     "useDefineForClassFields": true
   },
   "exclude": [
+    "**/node_modules",
     "./.output",
     "./cypress.config.ts",
     "./dev-dist",
     "./dist",
-    "./node_modules/cypress/**/*",
     "./test/cypress/**/*"
   ]
 }

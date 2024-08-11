@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ListboxButton } from '@headlessui/vue'
-import { CoreButton } from '#components'
+import CoreButton from '/components/CoreButton.vue'
 </script>
 
 <template>

@@ -378,6 +378,14 @@
 }
 
 @layer utilities {
+  .contain-layout {
+    contain: layout;
+  }
+
+  .contain-strict {
+    contain: strict;
+  }
+
   .flex-direction-inherit {
     flex-direction: inherit;
   }

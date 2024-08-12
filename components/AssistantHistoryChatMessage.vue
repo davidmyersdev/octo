@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type ChatMessage } from '#helpers/database'
+import { type ChatMessage } from '/src/databases/assistant'
 
 const trimMessage = (message = '') => {
   return message.length > 200 ? `${message.slice(0, 200)}...` : message

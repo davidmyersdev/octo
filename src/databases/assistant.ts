@@ -12,16 +12,14 @@ export type SystemInstruction = {
   updatedAt: Date,
 }
 
-export const dbName = 'octo'
-
-export class OctoDatabase extends Dexie {
+class Assistant extends Dexie {
   chats!: Table<Chat>
   chatMessages!: Table<ChatMessage>
   embeddings!: Table<Embedding>
   systemInstructions!: Table<SystemInstruction>
 
   constructor() {
-    super(dbName)
+    super('octo')
 
     // Keys specified in each store are indexed. Other keys are still allowed.
     this.version(3).stores({
@@ -55,4 +53,4 @@ export class OctoDatabase extends Dexie {
   }
 }
 
-export const db = new OctoDatabase()
+export const assistant = new Assistant()

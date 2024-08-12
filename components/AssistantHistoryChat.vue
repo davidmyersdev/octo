@@ -1,5 +1,5 @@
 <script lang="ts">
-import { type Chat } from '#helpers/database'
+import { type Chat } from '/src/databases/assistant'
 
 export default defineComponent({
   props: {

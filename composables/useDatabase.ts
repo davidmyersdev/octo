@@ -2,7 +2,7 @@ import { tryOnScopeDispose } from '@vueuse/core'
 import { type Subscription } from 'rxjs'
 import { liveQuery } from 'dexie'
 import { type Ref, ref } from 'vue'
-import { db } from '#helpers/database'
+import { db } from '/src/db'
 import { isClient } from '#helpers/environment'
 
 export type QueryReturnType<T, I = undefined> = { result: Ref<T | I> }

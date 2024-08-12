@@ -1,4 +1,4 @@
-import { type SystemInstruction } from '#helpers/database'
+import { type SystemInstruction } from '/src/db'
 
 export type { SystemInstruction }
 

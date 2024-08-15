@@ -3,12 +3,6 @@ import Fuse from 'fuse.js'
 
 const regexSearchShape = /^\/(?<regex>.+)\/(?<flags>[a-z]*)$/s
 
-const sortByScore = <T extends { score?: number }>(list: T[]) => {
-  return list.sort((a, b) => {
-    return (a.score ?? 1) - (b.score ?? 1)
-  })
-}
-
 const fuzzy = <T>(list: Ref<T[]>, keys: string[]) => {
   return new Fuse(list.value, { includeScore: true, keys })
 }
@@ -42,9 +36,8 @@ export const useSearch = <T extends Record<string, any>>(list: Ref<T[]>, { keys,
     // 3. If the search query is not a regex, attempt to fuzzy-find entries in the list.
     try {
       const fuzzyResults = filterer.value.search(searchQueryDebounced.value)
-      const sortedFuzzyResults = sortByScore(fuzzyResults)
 
-      return sortedFuzzyResults.map((result) => result.item)
+      return fuzzyResults.map((result) => result.item)
     } catch (error) {
       console.error(error)
     }

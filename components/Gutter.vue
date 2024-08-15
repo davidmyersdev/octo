@@ -5,7 +5,7 @@ defineProps<{ show: boolean, size: number }>()
 <template>
   <Transition name="gutter">
     <div v-show="show" class="gutter flex flex-shrink-0 overflow-hidden">
-      <div class="gutter-content flex flex-grow flex-shrink flex-col w-full lg:w-auto">
+      <div class="gutter-content flex flex-grow flex-shrink flex-col w-full">
         <slot />
       </div>
     </div>

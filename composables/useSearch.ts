@@ -1,13 +1,23 @@
 import { debouncedRef } from '@vueuse/core'
 import Fuse from 'fuse.js'
 
-const regexSearchShape = /^\/(?<regex>.+)\/(?<flags>[a-z]*)$/s
+type Key<T extends string> = T | { name: T, weight: number }
 
-const fuzzy = <T>(list: Ref<T[]>, keys: string[]) => {
+const fuzzy = <T extends string, Item extends Record<T, unknown> = Record<T, unknown>>(list: Ref<Item[]>, keys: Key<T>[]): Fuse<Item> => {
   return new Fuse(list.value, { includeScore: true, keys })
 }
 
-export const useSearch = <T extends Record<string, any>>(list: Ref<T[]>, { keys, searchQuery = ref('') }: { keys: string[], searchQuery?: Ref<string> }) => {
+const regexSearchShape = /^\/(?<regex>.+)\/(?<flags>[a-z]*)$/s
+
+const toKeyName = <T extends string>(key: Key<T>): T => {
+  if (typeof key === 'object') {
+    return key.name
+  }
+
+  return key
+}
+
+export const useSearch = <T extends string, Item extends Record<T, unknown> = Record<T, unknown>>(list: Ref<Item[]>, { keys, searchQuery = ref('') }: { keys: Key<T>[], searchQuery?: Ref<string> }) => {
   const filterer = computed(() => fuzzy(list, keys))
   const searchQueryDebounced = debouncedRef(searchQuery, 50)
   const searchResults = computed(() => {
@@ -25,7 +35,14 @@ export const useSearch = <T extends Record<string, any>>(list: Ref<T[]>, { keys,
 
         return list.value.filter((item) => {
           return keys.some((key) => {
-            return searchRegex.test(item[key])
+            const k = toKeyName(key)
+            const v = item[k]
+
+            if (typeof v === 'string') {
+              return searchRegex.test(v)
+            }
+
+            return false
           })
         })
       } catch (error) {
@@ -45,7 +62,14 @@ export const useSearch = <T extends Record<string, any>>(list: Ref<T[]>, { keys,
     // 4. If all else fails, do a case-insensitive full-text match.
     return list.value.filter((item) => {
       return keys.some((key) => {
-        return item[key].toLowerCase().includes(searchQueryDebounced.value.toLowerCase())
+        const k = toKeyName(key)
+        const v = item[k]
+
+        if (typeof v === 'string') {
+          return v.toLowerCase().includes(searchQueryDebounced.value.toLowerCase())
+        }
+
+        return false
       })
     })
   })

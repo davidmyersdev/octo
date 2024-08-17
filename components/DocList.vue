@@ -23,7 +23,23 @@ export default defineComponent({
     const filter = computed(() => props.tag ? `#${props.tag}` : props.filter)
 
     const { docs } = useDocs({ filter })
-    const { searchResults } = useSearch(docs, { keys: ['text'], searchQuery })
+    const { searchResults } = useSearch(docs, {
+      keys: [
+        {
+          name: 'headers',
+          weight: 1,
+        },
+        {
+          name: 'tags',
+          weight: 0.6,
+        },
+        {
+          name: 'text',
+          weight: 0.4,
+        },
+      ],
+      searchQuery,
+    })
 
     const finalDocs = computed(() => {
       return searchResults.value.map((doc: Doc) => ({

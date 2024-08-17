@@ -20,5 +20,6 @@
     "leave-to",
     "ngClass"
   ],
+  "typescript.preferences.importModuleSpecifier": "non-relative",
   "typescript.tsdk": "./node_modules/typescript/lib"
 }

@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { nanoid } from 'nanoid'
-import CoreButton from '#root/components/CoreButton.vue'
-import Tag from '#root/components/Tag.vue'
-import { ADD_CONTEXT, REMOVE_CONTEXT } from '#root/src/store/modules/contexts'
+import CoreButton from '/components/CoreButton.vue'
+import Tag from '/components/Tag.vue'
+import { useWorkspaces } from '/composables/useWorkspaces'
 
 const query = ref('')
 const selectedTags = ref<string[]>([])
@@ -15,9 +15,7 @@ const filteredTags = computed(() => {
   })
 })
 
-const workspaces = computed(() => {
-  return store.getters.sortedContexts
-})
+const { createWorkspace, destroyWorkspace, workspaces } = useWorkspaces()
 
 useHead({ title: 'Workspaces' })
 
@@ -25,12 +23,8 @@ const isTagSelected = (tag: string) => {
   return selectedTags.value.includes(tag)
 }
 
-const removeWorkspace = (workspace: any) => {
-  store.commit(REMOVE_CONTEXT, workspace)
-}
-
-const saveWorkspace = () => {
-  store.commit(ADD_CONTEXT, {
+const saveWorkspace = async () => {
+  await createWorkspace({
     id: nanoid(),
     name: workspaceName.value,
     tags: selectedTags.value,
@@ -69,7 +63,7 @@ onUnmounted(() => {
             <div class="flex items-center flex-wrap gap-2">
               <Tag v-for="tag in workspace.tags" :key="tag" class="p-2 rounded border border-layer">{{ tag }}</Tag>
             </div>
-            <CoreButton class="absolute top-4 right-4" @click="removeWorkspace(workspace)">
+            <CoreButton class="absolute top-4 right-4" @click="destroyWorkspace(workspace.id)">
               <Icon name="Trash" />
             </CoreButton>
           </CoreCard>

@@ -31,7 +31,6 @@ const makeListener = (keybinding, callback, context) => {
 const makeListeners = (context) => {
   return [
     makeListener('a', () => goTo('/account'), context),
-    makeListener('c', () => goTo('/contexts'), context),
     makeListener('d', () => goTo('/docs/f/discarded'), context),
     makeListener('e', () => goTo('/force-graph'), context),
     makeListener('n', () => goTo('/docs/new'), context),

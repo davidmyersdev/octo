@@ -555,14 +555,6 @@
     },
     {
       "files": [
-        "src/store/modules/contexts.js"
-      ],
-      "rules": {
-        "@typescript-eslint/space-before-function-paren": "warn"
-      }
-    },
-    {
-      "files": [
         "src/store/modules/documents.js"
       ],
       "rules": {
@@ -602,14 +594,6 @@
       "rules": {
         "@typescript-eslint/space-before-function-paren": "warn",
         "@typescript-eslint/comma-dangle": "warn"
-      }
-    },
-    {
-      "files": [
-        "src/store/plugins/caching/contexts.js"
-      ],
-      "rules": {
-        "no-case-declarations": "warn"
       }
     },
     {

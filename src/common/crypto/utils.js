@@ -15,19 +15,25 @@ export const encode = (data) => {
 // https://developer.mozilla.org/en-US/docs/Web/API/Crypto/getRandomValues
 export const generateIv = () => {
   // https://developer.mozilla.org/en-US/docs/Web/API/AesGcmParams
-  return window.crypto.getRandomValues(new Uint8Array(12))
+  return globalThis.crypto.getRandomValues(new Uint8Array(12))
 }
 
 // https://developers.google.com/web/updates/2012/06/How-to-convert-ArrayBuffer-to-and-from-String
 export const pack = (buffer) => {
-  return window.btoa(
-    String.fromCharCode.apply(null, new Uint8Array(buffer)),
-  )
+  let binaryString = ''
+  const bytes = new Uint8Array(buffer)
+  const len = bytes.length
+
+  for (let i = 0; i < len; i++) {
+    binaryString += String.fromCharCode(bytes[i])
+  }
+
+  return globalThis.btoa(binaryString)
 }
 
 // https://developers.google.com/web/updates/2012/06/How-to-convert-ArrayBuffer-to-and-from-String
 export const unpack = (packed) => {
-  const string = window.atob(packed.trim())
+  const string = globalThis.atob(packed.trim())
   const buffer = new ArrayBuffer(string.length)
   const bufferView = new Uint8Array(buffer)
 

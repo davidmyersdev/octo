@@ -1,5 +1,7 @@
 import { useStore } from 'vuex'
-import { type Doc } from '#root/src/models/doc'
+import { getSettings } from '/src/databases/legacy'
+import { main } from '/src/databases/main'
+import { type Doc, unpack } from '/src/models/doc'
 
 const filterByDiscarded = (docs: MaybeRef<Doc[]>) => {
   return toValue(docs).filter((doc) => {
@@ -53,7 +55,22 @@ const sortByRecent = (docs: MaybeRef<Doc[]>) => {
 export const useDocs = ({ filter }: { filter?: MaybeRef<string | undefined> } = {}) => {
   const store = useStore()
   const router = useRouter()
-  const allDocs = computed<Doc[]>(() => store.state.documents.all)
+
+  const allDocs = ref<Doc[]>([])
+
+  onMounted(async () => {
+    const docs = await main.docs.orderBy('updatedAt').reverse().toArray()
+    const settings = await getSettings()
+    const { privateKey } = settings?.crypto ?? {}
+
+    for (const doc of docs) {
+      const unpacked = await unpack(doc, { privateKey })
+
+      allDocs.value.push(unpacked)
+    }
+  })
+
+  // const allDocs = computed<Doc[]>(() => store.state.documents.all)
   const decryptedDocs = computed(() => allDocs.value.filter(doc => !doc.encrypted))
   const sortedDocs = computed(() => sortByRecent(decryptedDocs))
   const workspaceDocs = computed(() => filterByWorkspace(sortedDocs, store.state.context))

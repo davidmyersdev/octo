@@ -11,7 +11,5 @@ useHead({
 </script>
 
 <template>
-  <CorePage>
-    <DocList v-model:query="query" :filter="filter" />
-  </CorePage>
+  <DocList v-model:query="query" :filter="filter" />
 </template>

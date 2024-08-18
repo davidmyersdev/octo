@@ -3,14 +3,14 @@ import { nanoid } from 'nanoid'
 import { decrypt, encrypt } from '#root/src/common/crypto/crypto'
 import { parseHeaders, parseReferences, parseTags, parseTasks } from '#root/src/common/parsers'
 
-export type PackedDoc = Awaited<ReturnType<typeof pack>>
+export type PackedDoc = Pick<Doc, { [Key in keyof Doc]: Doc[Key] extends Function ? never : Key }[keyof Doc]>
 
 export class Doc {
   id: string
   text: string
   daily: boolean
   encrypted: boolean
-  label: string
+  label: string | null
   createdAt: Date
   updatedAt: Date
   touchedAt: Date
@@ -23,6 +23,8 @@ export class Doc {
   references: string[]
   tags: string[]
   tasks: string[]
+
+  html: string | null
 
   firebaseId: string | null
   ownerId: string | null
@@ -45,6 +47,8 @@ export class Doc {
     this.references = this.encrypted ? [] : parseReferences(this.text)
     this.tags = this.encrypted ? [] : parseTags(this.text)
     this.tasks = this.encrypted ? [] : parseTasks(this.text)
+
+    this.html = attributes.html || null
 
     this.label = this.headers[0] || this.text.substring(0, 25)
 
@@ -100,20 +104,22 @@ export class Doc {
     this.references.splice(0, this.references.length, ...parseReferences(text))
     this.tags.splice(0, this.tags.length, ...parseTags(text))
     this.tasks.splice(0, this.tasks.length, ...parseTasks(text))
-    this.label = this.label = this.headers[0] || this.text.substring(0, 30)
+    this.label = this.headers[0] || this.text.substring(0, 30)
     this.updatedAt = new Date()
     this.touchedAt = new Date()
   }
 }
 
-export const pack = async (doc: Doc, { preferEncryption = false, publicKey }: { preferEncryption?: boolean, publicKey?: string } = {}) => {
+export const pack = async (doc: Doc, { preferEncryption = false, publicKey }: { preferEncryption?: boolean, publicKey?: string } = {}): Promise<PackedDoc> => {
   const packed = Object.assign({}, {
     ...doc,
     // These values are derived from the text, so we don't need to store them.
     headers: [],
+    label: null,
     references: [],
     tags: [],
     tasks: [],
+    // html: null,
   })
 
   // Guard against encryption edge cases.
@@ -131,7 +137,7 @@ export const pack = async (doc: Doc, { preferEncryption = false, publicKey }: { 
   return Object.assign({}, packed)
 }
 
-export const unpack = async (packed: PackedDoc, { privateKey }: { privateKey?: string } = {}) => {
+export const unpack = async (packed: PackedDoc, { privateKey }: { privateKey?: string } = {}): Promise<Doc> => {
   try {
     if (privateKey && packed.encrypted) {
       const text = await decrypt({ cipher: packed.text, cipherKey: packed.textKey, iv: packed.iv, privateKey })

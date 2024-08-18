@@ -1,14 +1,18 @@
 <script lang="ts">
 import moment from 'moment'
+import { toRefs } from 'vue'
 import CoreDivider from '#root/components/CoreDivider.vue'
 import { DISCARD_DOCUMENT, RESTORE_DOCUMENT } from '#root/src/store/actions'
-import { toHtml } from '#root/src/utils/markdown'
 
 export default {
   components: {
     CoreDivider,
   },
   props: {
+    html: {
+      required: false,
+      type: String,
+    },
     text: {
       required: true,
       type: String,
@@ -22,19 +26,36 @@ export default {
     allowDiscard: Boolean,
   },
   setup(props) {
-    const html = computed(() => {
-      const rawHtml = toHtml(props.text)
+    // const { text: markdown } = toRefs(props)
+    // const html = ref('')
+    // const { markdownToHtml } = useWorkers()
 
-      if (rawHtml.includes('href')) {
-        // Todo: Figure out how to intercept links in micromark.
-        return rawHtml.replace(/href=".*?"/g, '')
-      }
+    // watch(markdown, async () => {
+    //   html.value = await markdownToHtml(markdown.value)
+    // })
 
-      return rawHtml
-    })
+    // onMounted(async () => {
+    //   html.value = await markdownToHtml(markdown.value)
+    // })
+
+    // const html = computed(() => {
+    //   const rawHtml = toHtml(visibleText.value)
+
+    //   if (rawHtml.includes('href')) {
+    //     // Todo: Figure out how to intercept links in micromark.
+    //     return rawHtml.replace(/href=".*?"/g, '')
+    //   }
+
+    //   if (rawHtml.includes('href')) {
+    //     // Todo: Figure out how to intercept links in micromark.
+    //     return rawHtml.replace(/href=".*?"/g, '')
+    //   }
+
+    //   return rawHtml
+    // })
 
     return {
-      html,
+      // html,
     }
   },
   computed: {
@@ -55,11 +76,14 @@ export default {
 
 <template>
   <CoreLayer
-    class="relative flex flex-col min-w-0 rounded text-sm overflow-hidden cursor-pointer bg-layer"
+    class="relative flex flex-col min-h-0 min-w-0 rounded text-sm cursor-pointer bg-layer"
     data-test-doc
   >
-    <CoreLayer class="flex-grow flex-shrink overflow-hidden">
-      <CoreProse class="p-4 prose-sm" v-html="html" />
+    <CoreLayer class="flex flex-col flex-grow min-h-0 flex-shrink">
+      <CoreProse class="flex-grow flex-shrink min-h-0 p-4 prose-sm overflow-hidden contain-strict">
+        <div v-if="html" v-html="html" />
+        <pre v-else v-text="text" />
+      </CoreProse>
     </CoreLayer>
     <CoreDivider class="mx-2" />
     <div class="flex items-center justify-between p-4">

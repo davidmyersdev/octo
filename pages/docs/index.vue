@@ -7,7 +7,5 @@ useHead({
 </script>
 
 <template>
-  <CorePage>
-    <DocList v-model:query="query" />
-  </CorePage>
+  <DocList v-model:query="query" />
 </template>

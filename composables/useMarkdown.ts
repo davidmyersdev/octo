@@ -1,9 +1,18 @@
-import { type HtmlOptions, toHtml } from '#root/src/utils/markdown'
+// import { type MaybeRef, nextTick, onMounted, ref, toValue } from 'vue'
+// import { toHtml } from '/src/utils/markdown'
 
-export const useMarkdown = (options: HtmlOptions = {}) => {
-  return {
-    toHtml: (markdown: string, overrides: HtmlOptions = {}) => {
-      return toHtml(markdown, { ...options, ...overrides })
-    },
-  }
-}
+// export const useMarkdown = ({ markdown }: { markdown: MaybeRef<string> }) => {
+//   const html = ref('')
+
+//   onMounted(() => {
+//     toHtml(toValue(markdown)).then(value => html.value = value)
+
+//     // nextTick(() => {
+//     //   // html.value = value
+//     // })
+//   })
+
+//   return {
+//     html,
+//   }
+// }

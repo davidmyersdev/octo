@@ -19,6 +19,7 @@ export const useRoot = () => {
 
   useAppearance()
   useToasts()
+  useWorkers()
 
   onMounted(() => {
     logEvent(appEventTypes.appMounted)

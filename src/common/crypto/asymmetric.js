@@ -1,91 +1,91 @@
-import { decode, encode, pack, unpack } from '#root/src/common/crypto/utils';
+import { decode, pack, unpack } from '#root/src/common/crypto/utils'
 
 export const algorithm = {
   name: 'RSA-OAEP',
-};
+}
 
 // legacy support for unwrapping data key
 // https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto/decrypt
 export const decrypt = async (cipher, privateKey) => {
-  const decrypted = await window.crypto.subtle.decrypt(algorithm, privateKey, cipher);
+  const decrypted = await globalThis.crypto.subtle.decrypt(algorithm, privateKey, cipher)
 
-  return decode(decrypted);
-};
+  return decode(decrypted)
+}
 
 // export public/private keys to pem format
 export const exportKeys = async (keys) => {
-  const exported = {};
+  const exported = {}
 
   if (keys.privateKey) {
-    exported.privateKey = await exportPrivateKey(keys.privateKey);
+    exported.privateKey = await exportPrivateKey(keys.privateKey)
   }
 
   if (keys.publicKey) {
-    exported.publicKey = await exportPublicKey(keys.publicKey);
+    exported.publicKey = await exportPublicKey(keys.publicKey)
   }
 
-  return exported;
-};
+  return exported
+}
 
 export const exportPrivateKey = async (key) => {
-  const base64 = pack(await window.crypto.subtle.exportKey('pkcs8', key));
+  const base64 = pack(await globalThis.crypto.subtle.exportKey('pkcs8', key))
 
-  return `-----BEGIN PRIVATE KEY-----\n${base64}\n-----END PRIVATE KEY-----`;
-};
+  return `-----BEGIN PRIVATE KEY-----\n${base64}\n-----END PRIVATE KEY-----`
+}
 
 export const exportPublicKey = async (key) => {
-  const base64 = pack(await window.crypto.subtle.exportKey('spki', key));
+  const base64 = pack(await globalThis.crypto.subtle.exportKey('spki', key))
 
-  return `-----BEGIN PUBLIC KEY-----\n${base64}\n-----END PUBLIC KEY-----`;
-};
+  return `-----BEGIN PUBLIC KEY-----\n${base64}\n-----END PUBLIC KEY-----`
+}
 
 export const generateKeys = async () => {
-  return window.crypto.subtle.generateKey({
+  return globalThis.crypto.subtle.generateKey({
     hash: 'SHA-512',
     modulusLength: 4096,
     name: algorithm.name,
     publicExponent: new Uint8Array([1, 0, 1]),
-  }, true, ['encrypt', 'decrypt']);
-};
+  }, true, ['encrypt', 'decrypt'])
+}
 
 // import public/private pem keys
 export const importKeys = async (exported) => {
-  const keys = {};
+  const keys = {}
 
   if (exported.privateKey) {
-    keys.privateKey = await importPrivateKey(exported.privateKey);
+    keys.privateKey = await importPrivateKey(exported.privateKey)
   }
 
   if (exported.publicKey) {
-    keys.publicKey = await importPublicKey(exported.publicKey);
+    keys.publicKey = await importPublicKey(exported.publicKey)
   }
 
-  return keys;
-};
+  return keys
+}
 
 export const importPrivateKey = async (pemKey) => {
-  const header = '-----BEGIN PRIVATE KEY-----';
-  const footer = '-----END PRIVATE KEY-----';
-  const base64 = pemKey.substring(header.length, pemKey.length - footer.length);
-  const buffer = unpack(base64);
+  const header = '-----BEGIN PRIVATE KEY-----'
+  const footer = '-----END PRIVATE KEY-----'
+  const base64 = pemKey.substring(header.length, pemKey.length - footer.length)
+  const buffer = unpack(base64)
 
-  return window.crypto.subtle.importKey('pkcs8', buffer, {
+  return globalThis.crypto.subtle.importKey('pkcs8', buffer, {
     hash: 'SHA-512',
     name: algorithm.name,
-  }, true, ['decrypt', 'unwrapKey']);
-};
+  }, true, ['decrypt', 'unwrapKey'])
+}
 
 export const importPublicKey = async (pemKey) => {
-  const header = '-----BEGIN PUBLIC KEY-----';
-  const footer = '-----END PUBLIC KEY-----';
-  const base64 = pemKey.substring(header.length, pemKey.length - footer.length);
-  const buffer = unpack(base64);
+  const header = '-----BEGIN PUBLIC KEY-----'
+  const footer = '-----END PUBLIC KEY-----'
+  const base64 = pemKey.substring(header.length, pemKey.length - footer.length)
+  const buffer = unpack(base64)
 
-  return window.crypto.subtle.importKey('spki', buffer, {
+  return globalThis.crypto.subtle.importKey('spki', buffer, {
     hash: 'SHA-512',
     name: algorithm.name,
-  }, true, ['encrypt', 'wrapKey']);
-};
+  }, true, ['encrypt', 'wrapKey'])
+}
 
 export default {
   algorithm,
@@ -97,4 +97,4 @@ export default {
   importKeys,
   importPrivateKey,
   importPublicKey,
-};
+}

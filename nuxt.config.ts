@@ -323,5 +323,33 @@ export default defineNuxtConfig({
       }),
       svgPlugin(),
     ],
+    resolve: {
+      alias: [
+        {
+          find: 'decode-named-character-reference',
+          replacement: join(root, './node_modules/decode-named-character-reference/index.js'),
+        },
+      ],
+    },
+    worker: {
+      format: 'es',
+      plugins() {
+        return [
+          {
+            name: 'vite-plugin-worker',
+            config() {
+              return {
+                resolve: {
+                  conditions: ['worker'],
+                },
+              }
+            },
+            configResolved(config) {
+              console.log('configResolved', config.resolve.conditions)
+            },
+          },
+        ]
+      },
+    },
   },
 })

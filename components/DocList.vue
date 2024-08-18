@@ -1,6 +1,9 @@
 <script lang="ts">
+import { useVirtualizer } from '@tanstack/vue-virtual'
+import { type UnwrapRef } from 'vue'
 import { MERGE_DOCUMENTS } from '#root/src/store/actions'
 import { type Doc } from '~/src/models/doc'
+import type CoreScrollable from '/components/CoreScrollable.vue'
 
 export default defineComponent({
   props: {
@@ -15,6 +18,10 @@ export default defineComponent({
   emits: ['update:query'],
   setup(props) {
     const { query } = toRefs(props)
+
+    const itemHeight = 400
+
+    const ignoreMutation = ref(false)
 
     const isEditing = ref(false)
     const searchQuery = ref(query.value || '')
@@ -52,13 +59,44 @@ export default defineComponent({
       return finalDocs.value.slice(0, visibleCount.value)
     })
 
+    const scrollable = ref<InstanceType<typeof CoreScrollable>>()
+
+    const rowVirtualizerOptions = computed<UnwrapRef<Parameters<typeof useVirtualizer>[0]>>(() => {
+      return {
+        count: finalDocs.value.length,
+        debug: false,
+        estimateSize: () => itemHeight,
+        gap: 16,
+        getItemKey: (index) => finalDocs.value[index].id,
+        getScrollElement: () => scrollable.value?.scrollable?.elements().viewport || null,
+        lanes: 2,
+        overscan: 10,
+      }
+    })
+
+    const rowVirtualizer = useVirtualizer(rowVirtualizerOptions)
+
+    const virtualRows = computed(() => rowVirtualizer.value.getVirtualItems())
+    const totalSize = computed(() => rowVirtualizer.value.getTotalSize())
+
+    watch([filter, query, searchQuery], () => {
+      if ((rowVirtualizer.value?.scrollOffset ?? 0) > 0) {
+        rowVirtualizer.value.scrollToIndex(0)
+      }
+    })
+
     return {
       docs,
       searchResults,
       finalDocs,
       isEditing,
+      ignoreMutation,
+      itemHeight,
+      scrollable,
       searchQuery,
       selectedDocs,
+      virtualRows,
+      totalSize,
       visibleCount,
       visibleDocs,
     }
@@ -115,54 +153,99 @@ export default defineComponent({
 </script>
 
 <template>
-  <div class="flex flex-col w-full">
-    <h2 class="action text-3xl capitalize mb-2">My Docs</h2>
-    <div class="text-layer-muted">
-      <p v-if="tag">Viewing docs tagged with <strong>{{ tag }}</strong></p>
-      <p v-else-if="filter">Viewing <strong>{{ filter }}</strong> docs</p>
-      <p v-else>Viewing <strong>all</strong> docs</p>
+  <div class="flex flex-col flex-grow flex-shrink min-h-0 w-full contain-strict">
+    <div class="flex-shrink-0 p-4">
+      <slot name="header">
+        <h2 class="action text-3xl capitalize mb-2">My Docs</h2>
+      </slot>
+      <slot name="description">
+        <div class="text-layer-muted">
+          <p v-if="tag">Viewing docs tagged with <strong>{{ tag }}</strong></p>
+          <p v-else-if="filter">Viewing <strong>{{ filter }}</strong> docs</p>
+          <p v-else>Viewing <strong>all</strong> docs</p>
+        </div>
+      </slot>
+      <div class="mb-4 mt-8">
+        <CoreLayer class="flex gap-2">
+          <CoreButton @click="toggleIsEditing">
+            {{ isEditing ? 'Cancel' : 'Manage Docs' }}
+          </CoreButton>
+          <CoreButton v-if="canMerge" @click="mergeDocs">
+            Merge Docs
+          </CoreButton>
+        </CoreLayer>
+        <p v-if="isEditing" class="text-layer-muted">Select two or more docs to merge them together.</p>
+      </div>
+      <div class="mb-4">
+        <CoreInput
+          v-model="searchQuery"
+          autocomplete="off"
+          autofocus
+          label="Search"
+          description="Supports /regex/i and fuzzy-matching."
+          placeholder="Start typing to filter results..."
+        />
+      </div>
     </div>
-    <div class="mb-4 mt-8">
-      <CoreLayer class="flex gap-2">
-        <CoreButton @click="toggleIsEditing">
-          {{ isEditing ? 'Cancel' : 'Manage Docs' }}
-        </CoreButton>
-        <CoreButton v-if="canMerge" @click="mergeDocs">
-          Merge Docs
-        </CoreButton>
-      </CoreLayer>
-      <p v-if="isEditing" class="text-layer-muted">Select two or more docs to merge them together.</p>
-    </div>
-    <div class="mb-4">
-      <CoreInput
-        v-model="searchQuery"
-        autocomplete="off"
-        autofocus
-        label="Search"
-        description="Supports /regex/i and fuzzy-matching."
-        placeholder="Start typing to filter results..."
-      />
-    </div>
-    <div class="grid gap-4 grid-cols-1" :class="cols === 2 && 'lg:grid-cols-2'">
+    <FlexDivider />
+    <CoreScrollable ref="scrollable" v-slot="{ element }" class="flex-grow flex-shrink min-h-0 p-4 contain-strict">
       <div
-        v-for="doc in visibleDocs"
-        :key="doc.id"
-        tabindex="0"
-        class="rounded relative cursor-pointer outline-none focus:ring"
-        @keypress.enter.prevent="selectDoc(doc.id)"
-        @click="selectDoc(doc.id)"
+        :ref="element"
+        :style="{
+          height: `${totalSize}px`,
+          width: '100%',
+          position: 'relative',
+        }"
       >
-        <LazyDoc v-bind="doc" :allow-discard="isEditing" class="h-96" />
-        <div v-if="doc.selected" class="flex items-center justify-center rounded absolute inset-0 bg-layer bg-opacity-50">
-          <Icon name="CheckCircle" size="3rem" />
+        <div
+          v-for="virtualRow in virtualRows"
+          :key="virtualRow.key"
+          :style="{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: `${virtualRow.size}px`,
+            transform: `translateY(${virtualRow.start}px)`,
+          }"
+        >
+          <div class="flex gap-4 w-full mb-4">
+            <Doc
+              v-bind="finalDocs[virtualRow.index]"
+              :allow-discard="isEditing"
+              class="flex-grow basis-full"
+              :style="{ height: `${itemHeight}px` }"
+              @keypress.enter.prevent="selectDoc(finalDocs[virtualRow.index].id)"
+              @click="selectDoc(finalDocs[virtualRow.index].id)"
+            />
+            <Doc
+              v-if="finalDocs[virtualRow.index + 1]"
+              v-bind="finalDocs[virtualRow.index + 1]"
+              :allow-discard="isEditing"
+              class="flex-grow basis-full"
+              :style="{ height: `${itemHeight}px` }"
+              @keypress.enter.prevent="selectDoc(finalDocs[virtualRow.index + 1].id)"
+              @click="selectDoc(finalDocs[virtualRow.index + 1].id)"
+            />
+          </div>
         </div>
       </div>
-      <div v-if="showLoadMore" class="flex items-center justify-center rounded cursor-pointer">
-        <CoreButton class="text-lg px-8 py-6" @click="loadMore">
-          <Icon name="DocLoad" size="1.5rem" />
-          <span>Load More</span>
-        </CoreButton>
-      </div>
-    </div>
+      <!-- <div class="grid gap-4 grid-cols-1 p-4" :class="cols === 2 && 'lg:grid-cols-2'">
+        <div
+          v-for="doc in visibleDocs"
+          :key="doc.id"
+          v-memo="[doc.selected]"
+          tabindex="0"
+          class="rounded relative cursor-pointer outline-none focus:ring"
+          @keypress.enter.prevent="selectDoc(doc.id)"
+          @click="selectDoc(doc.id)"
+        >
+          <Doc v-bind="doc" :allow-discard="isEditing" class="h-96" />
+          <div v-if="doc.selected" class="flex items-center justify-center rounded absolute inset-0 bg-layer bg-opacity-50">
+            <Icon name="CheckCircle" size="3rem" />
+          </div>
+        </div>
+      </div> -->
+    </CoreScrollable>
   </div>
 </template>

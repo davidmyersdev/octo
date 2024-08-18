@@ -48,7 +48,7 @@ onUnmounted(() => {
 <template>
   <div class="dashboard flex flex-col lg:flex-row h-screen w-screen min-h-0 min-w-0 overflow-hidden">
     <Gutter :show="isPrimaryGutterShowing" :size="256" class="hidden lg:flex">
-      <TheLeftSidebar class="flex flex-grow flex-shrink overflow-hidden w-full" />
+      <TheLeftSidebar class="flex flex-col flex-grow flex-shrink overflow-hidden w-full" />
     </Gutter>
     <FlexDivider class="hidden lg:block" />
     <CoreLayer class="bg-layer basis-full flex flex-col flex-grow flex-shrink min-h-0">
@@ -117,7 +117,7 @@ onUnmounted(() => {
     </CoreLayer>
     <FlexDivider class="hidden lg:block" />
     <Gutter :show="isSecondaryGutterShowing" :size="256" class="hidden lg:flex justify-end flex-nowrap">
-      <TheRightSidebar class="hidden lg:flex flex-grow flex-shrink-0 w-full" />
+      <TheRightSidebar class="flex flex-col flex-grow flex-shrink overflow-hidden w-full" />
     </Gutter>
     <ToastList class="fixed bottom-8 right-8 m-auto" />
   </div>

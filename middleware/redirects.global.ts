@@ -37,4 +37,6 @@ export default defineNuxtRouteMiddleware((to, _from) => {
   if (legacyRoute) {
     return navigateTo(legacyRoute.redirect(to))
   }
+
+  console.log(to)
 })

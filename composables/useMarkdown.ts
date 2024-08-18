@@ -1,12 +1,9 @@
-import { type Options, micromark } from 'micromark'
-import { gfm, gfmHtml } from 'micromark-extension-gfm'
+import { type HtmlOptions, toHtml } from '#root/src/utils/markdown'
 
-export const useMarkdown = (options: Options = { extensions: [gfm()], htmlExtensions: [gfmHtml()] }) => {
-  const toHtml = (markdown: string) => {
-    return micromark(markdown, options)
-  }
-
+export const useMarkdown = (options: HtmlOptions = {}) => {
   return {
-    toHtml,
+    toHtml: (markdown: string, overrides: HtmlOptions = {}) => {
+      return toHtml(markdown, { ...options, ...overrides })
+    },
   }
 }

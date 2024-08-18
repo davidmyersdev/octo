@@ -118,12 +118,6 @@ svg {
   overflow: hidden !important;
 }
 
-[data-overlayscrollbars=host] [data-overlayscrollbars-viewport] {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
 .os-scrollbar {
   /* https://kingsora.github.io/OverlayScrollbars/#:~:text=to%20read%20it.-,Styling,-OverlayScrollbars%20comes%20with */
   --os-handle-bg: rgb(var(--layer-bg-hover));

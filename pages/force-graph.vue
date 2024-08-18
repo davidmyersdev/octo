@@ -219,8 +219,10 @@ export default {
   <div class="flex h-full relative">
     <div v-if="edges.length || nodes.length" class="flex flex-row flex-grow h-full">
       <div ref="graphElement" class="flex-grow" />
-      <CoreScrollable v-if="tag" class="flex-shrink md:max-w-md w-full p-4">
-        <DocList :tag="tag" :cols="1" />
+      <CoreScrollable v-if="tag" v-slot="{ element }" class="flex-shrink md:max-w-md w-full p-4">
+        <div :ref="element">
+          <DocList :tag="tag" :cols="1" />
+        </div>
       </CoreScrollable>
     </div>
     <div v-else class="flex flex-col flex-grow items-center justify-center p-4 text-center text-layer-muted text-xl">Create relationships between your docs to use this feature.</div>

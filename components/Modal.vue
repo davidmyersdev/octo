@@ -28,8 +28,10 @@ export default defineComponent({
             <Icon name="Dismiss" />
           </button>
         </header>
-        <CoreScrollable class="max-h-96">
-          <slot />
+        <CoreScrollable v-slot="{ element }" class="max-h-96">
+          <div :ref="element">
+            <slot />
+          </div>
         </CoreScrollable>
         <footer v-if="hasFooter">
           <slot name="footer" />

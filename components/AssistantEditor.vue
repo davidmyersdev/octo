@@ -2,7 +2,7 @@
 import { Prec } from '@codemirror/state'
 import { keymap } from '@codemirror/view'
 import { type Options } from 'ink-mde'
-import { type CoreEditor } from '#components'
+import type CoreEditor from '/components/CoreEditor.vue'
 import { readonly } from '#root/src/vendor/plugins/readonly'
 
 export default defineComponent({

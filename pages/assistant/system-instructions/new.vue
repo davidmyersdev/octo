@@ -8,8 +8,8 @@ const addSavedInstructions = async () => {
 </script>
 
 <template>
-  <CoreScrollable class="flex-grow flex-shrink min-h-0">
-    <div class="flex flex-col flex-grow gap-4 m-auto max-w-prose p-2 w-full">
+  <CoreScrollable v-slot="{ element }" class="flex-grow flex-shrink min-h-0">
+    <div :ref="element" class="flex flex-col flex-grow gap-4 m-auto max-w-prose p-2 w-full">
       <div>
         <h2 class="text-4xl">New Saved Instructions</h2>
         <p class="mt-2 text-layer-muted">Manage your saved system instructions.</p>

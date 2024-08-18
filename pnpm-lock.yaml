@@ -82,8 +82,8 @@ importers:
         specifier: ^3.3.7
         version: 3.3.7
       overlayscrollbars:
-        specifier: ^2.4.6
-        version: 2.4.6
+        specifier: ^2.10.0
+        version: 2.10.0
       pinia:
         specifier: ^2.1.7
         version: 2.1.7(typescript@5.3.3)(vue@3.4.21(typescript@5.3.3))
@@ -7545,8 +7545,8 @@ packages:
   outdent@0.8.0:
     resolution: {integrity: sha512-KiOAIsdpUTcAXuykya5fnVVT+/5uS0Q1mrkRHcF89tpieSmY33O/tmc54CqwA+bfhbtEfZUNLHaPUiB9X3jt1A==}
 
-  overlayscrollbars@2.4.6:
-    resolution: {integrity: sha512-C7tmhetwMv9frEvIT/RfkAVEgbjRNz/Gh2zE8BVmN+jl35GRaAnz73rlGQCMRoC2arpACAXyMNnJkzHb7GBrcA==}
+  overlayscrollbars@2.10.0:
+    resolution: {integrity: sha512-diNMeEafWTE0A4GJfwRpdBp2rE/BEvrhptBdBcDu8/UeytWcdCy9Td8tZWnztJeJ26f8/uHCWfPnPUC/dtgJdw==}
 
   p-cancelable@2.1.1:
     resolution: {integrity: sha512-BZOr3nRQHOntUjTrH8+Lh54smKHoHyur8We1V8DSMVrl5A2malOOwuJRnKRDjSnkoeBh4at6BwEnb5I7Jl31wg==}
@@ -19427,7 +19427,7 @@ snapshots:
 
   outdent@0.8.0: {}
 
-  overlayscrollbars@2.4.6: {}
+  overlayscrollbars@2.10.0: {}
 
   p-cancelable@2.1.1: {}
 

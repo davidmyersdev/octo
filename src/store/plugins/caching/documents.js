@@ -40,10 +40,7 @@ export default (store) => {
 
         if (found) {
           debounce(found.id, async () => {
-            const doc = await pack(found, {
-              preferEncryption: state.settings.crypto.enabled,
-              publicKey: state.settings.crypto.publicKey,
-            })
+            const doc = await pack(found)
 
             cache.setItem(found.id, doc)
           })

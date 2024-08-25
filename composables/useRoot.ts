@@ -1,5 +1,4 @@
 import { getAuth } from 'firebase/auth'
-import { useStore } from 'vuex'
 import { appEventTypes, logEvent } from '#helpers/app'
 import { isClient } from '#helpers/environment'
 import { init } from '#root/src/firebase'
@@ -14,10 +13,11 @@ const updateAppHeight = () => {
 
 export const useRoot = () => {
   const { user } = useUser()
-  const store = useStore()
+  const { store } = useVuex()
   const { public: { firebaseDisabled } } = useRuntimeConfig()
 
   useAppearance()
+  useSettings()
   useToasts()
 
   onMounted(() => {

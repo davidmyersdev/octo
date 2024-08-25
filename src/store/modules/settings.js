@@ -21,6 +21,7 @@ export const SETTINGS_LOADED = 'SETTINGS_LOADED'
 
 export default {
   state: () => ({
+    id: 'main',
     crypto: {
       enabled: false,
       privateKey: null,
@@ -53,13 +54,13 @@ export default {
     // nothing yet
   },
   mutations: {
-    [LOAD_SETTINGS] (state, settings) {
+    [LOAD_SETTINGS](state, settings) {
       Object.assign(state, deepmerge(state, settings))
     },
-    [SET_CRYPTO_ENABLED] (state, enabled) {
+    [SET_CRYPTO_ENABLED](state, enabled) {
       state.crypto.enabled = enabled
     },
-    [SET_CRYPTO_KEYS] (state, keys) {
+    [SET_CRYPTO_KEYS](state, keys) {
       if (keys.privateKey) {
         state.crypto.privateKey = keys.privateKey
       }
@@ -68,77 +69,77 @@ export default {
         state.crypto.publicKey = keys.publicKey
       }
     },
-    [SET_EDITOR_IMAGES_ENABLED] (state, isEnabled) {
+    [SET_EDITOR_IMAGES_ENABLED](state, isEnabled) {
       state.editor.images.enabled = isEnabled
     },
-    [SET_EDITOR_IMAGES_SHOW_CAPTIONS] (state, showCaptions) {
+    [SET_EDITOR_IMAGES_SHOW_CAPTIONS](state, showCaptions) {
       state.editor.images.showCaptions = showCaptions
     },
-    [SET_EDITOR_KEY_MAP] (state, keyMap) {
+    [SET_EDITOR_KEY_MAP](state, keyMap) {
       state.editor.keyMap = keyMap
     },
-    [SET_EDITOR_LIGATURES] (state, isEnabled) {
+    [SET_EDITOR_LIGATURES](state, isEnabled) {
       state.editor.ligatures = isEnabled
     },
-    [SET_EDITOR_LISTS_ENABLED] (state, isEnabled) {
+    [SET_EDITOR_LISTS_ENABLED](state, isEnabled) {
       state.editor.lists.enabled = isEnabled
     },
-    [SET_EDITOR_READABILITY_ENABLED] (state, isEnabled) {
+    [SET_EDITOR_READABILITY_ENABLED](state, isEnabled) {
       state.editor.readability.enabled = isEnabled
     },
-    [SET_EDITOR_READABILITY_MAX_WIDTH] (state, maxWidthInChars) {
+    [SET_EDITOR_READABILITY_MAX_WIDTH](state, maxWidthInChars) {
       state.editor.readability.maxWidthInChars = maxWidthInChars
     },
-    [SET_EDITOR_READABILITY_WORDS_PER_MINUTE] (state, wordsPerMinute) {
+    [SET_EDITOR_READABILITY_WORDS_PER_MINUTE](state, wordsPerMinute) {
       state.editor.readability.wordsPerMinute = wordsPerMinute
     },
-    [SET_EDITOR_SPELLCHECK] (state, spellcheck) {
+    [SET_EDITOR_SPELLCHECK](state, spellcheck) {
       state.editor.spellcheck = spellcheck
     },
-    [SET_EDITOR_TAB_SIZE] (state, tabSize) {
+    [SET_EDITOR_TAB_SIZE](state, tabSize) {
       state.editor.tabSize = tabSize
     },
-    [SET_EDITOR_TOOLBAR] (state, isEnabled) {
+    [SET_EDITOR_TOOLBAR](state, isEnabled) {
       state.editor.toolbar = isEnabled
     },
-    [SET_EXPERIMENTAL] (state, isEnabled) {
+    [SET_EXPERIMENTAL](state, isEnabled) {
       state.experimental = isEnabled
     },
-    [SET_THEME] (state, theme) {
+    [SET_THEME](state, theme) {
       state.theme = theme
     },
-    [SETTINGS_LOADED] (state) {
+    [SETTINGS_LOADED](state) {
       state.loaded = true
 
       logEvent(appEventTypes.appSettingsLoaded)
     },
   },
   actions: {
-    async [LOAD_SETTINGS] (context, settings) {
+    async [LOAD_SETTINGS](context, settings) {
       context.commit(LOAD_SETTINGS, settings)
     },
-    async [SET_CRYPTO_ENABLED] (context, enabled) {
+    async [SET_CRYPTO_ENABLED](context, enabled) {
       context.commit(SET_CRYPTO_ENABLED, enabled)
     },
-    async [SET_CRYPTO_KEYS] (context, keys) {
+    async [SET_CRYPTO_KEYS](context, keys) {
       context.commit(SET_CRYPTO_KEYS, keys)
     },
-    async [SET_EDITOR_IMAGES_ENABLED] (context, isEnabled) {
+    async [SET_EDITOR_IMAGES_ENABLED](context, isEnabled) {
       context.commit(SET_EDITOR_IMAGES_ENABLED, isEnabled)
     },
-    async [SET_EDITOR_IMAGES_SHOW_CAPTIONS] (context, showCaptions) {
+    async [SET_EDITOR_IMAGES_SHOW_CAPTIONS](context, showCaptions) {
       context.commit(SET_EDITOR_IMAGES_SHOW_CAPTIONS, showCaptions)
     },
-    async [SET_EDITOR_KEY_MAP] (context, keyMap) {
+    async [SET_EDITOR_KEY_MAP](context, keyMap) {
       context.commit(SET_EDITOR_KEY_MAP, keyMap)
     },
-    async [SET_EDITOR_TAB_SIZE] (context, tabSize) {
+    async [SET_EDITOR_TAB_SIZE](context, tabSize) {
       context.commit(SET_EDITOR_TAB_SIZE, tabSize)
     },
-    async [SET_THEME] (context, theme) {
+    async [SET_THEME](context, theme) {
       context.commit(SET_THEME, theme)
     },
-    async [SETTINGS_LOADED] (context) {
+    async [SETTINGS_LOADED](context) {
       context.commit(SETTINGS_LOADED)
     },
   },

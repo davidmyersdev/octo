@@ -1,8 +1,7 @@
 import { type Plugin, type Store } from 'vuex'
-import { storage } from '#helpers/storage'
-import { debouncer } from '#root/src/common/debouncer'
-import { unwrap } from '#root/src/common/vue'
-
+import { debouncer } from '/src/common/debouncer'
+import { unwrap } from '/src/common/vue'
+import { db } from '/src/db'
 import {
   LOAD_SETTINGS,
   SETTINGS_LOADED,
@@ -21,13 +20,10 @@ import {
   SET_EDITOR_TOOLBAR,
   SET_EXPERIMENTAL,
   SET_THEME,
-} from '#root/src/store/modules/settings'
-
-export const settingsCache = storage().instance({ name: 'settings' })
-export const settingsCacheKey = 'main'
+} from '/src/store/modules/settings'
 
 export const loadSettings = async (store: Store<any>) => {
-  const settings = await settingsCache.getItem(settingsCacheKey)
+  const settings = await db.settings.get('main')
 
   if (settings) {
     await store.dispatch(LOAD_SETTINGS, settings)
@@ -58,8 +54,8 @@ const settingsPlugin: Plugin<any> = (store) => {
       case SET_THEME:
         // Prevent any writes until settings have been loaded.
         if (state.settings.loaded) {
-          debounce(settingsCacheKey, () => {
-            settingsCache.setItem(settingsCacheKey, unwrap(state.settings))
+          debounce('settings', async () => {
+            await db.settings.put(unwrap(state.settings), 'main')
           })
         }
 

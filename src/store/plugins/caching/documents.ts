@@ -1,7 +1,7 @@
-import { debouncer } from '#root/src/common/debouncer'
-import { storage } from '#helpers/storage'
-import { pack, unpack } from '#root/src/models/doc'
-
+import { type Plugin, type Store } from 'vuex'
+import { storage } from '/helpers/storage'
+import { debouncer } from '/src/common/debouncer'
+import { type Doc, type PackedDoc, pack, unpack } from '/src/models/doc'
 import {
   ADD_DOCUMENT,
   DISCARD_DOCUMENT,
@@ -14,18 +14,22 @@ import {
   SHARE_DOCUMENT,
   TOUCH_DOCUMENT,
 } from '/src/store/actions'
+import { SETTINGS_LOADED } from '/src/store/modules/settings'
 
-import { SETTINGS_LOADED } from '#root/src/store/modules/settings'
+type LegacyPackedDoc = PackedDoc & {
+  clientId?: string,
+  dataKey?: string,
+}
 
 const cache = storage().instance({ name: 'firebase/documents' })
 
 const { debounce } = debouncer(100)
 
-const find = (state, id) => {
-  return state.documents.all.find(doc => doc.id === id)
+const find = (state: Store<any>['state'], id: string) => {
+  return state.documents.all.find((doc: Doc) => doc.id === id)
 }
 
-export default (store) => {
+const docsPlugin: Plugin<any> = (store) => {
   store.subscribe(({ type, payload }, state) => {
     switch (type) {
       case ADD_DOCUMENT:
@@ -36,6 +40,7 @@ export default (store) => {
       case RESTRICT_DOCUMENT:
       case SHARE_DOCUMENT:
       case TOUCH_DOCUMENT:
+        // eslint-disable-next-line no-case-declarations
         const found = find(state, payload.id)
 
         if (found) {
@@ -50,12 +55,12 @@ export default (store) => {
       case SETTINGS_LOADED:
         // load all documents from the cache after settings are loaded
         cache.keys()
-          .then(ids => Promise.all(ids.map(id => cache.getItem(id))))
+          .then(ids => Promise.all(ids.map(id => cache.getItem<LegacyPackedDoc>(id))))
           .then((docs) => {
             // unpack cached data
             return Promise.all(
               docs.map((doc) => {
-                const packed = Object.assign({}, doc, { id: (doc.id || doc.clientId), textKey: (doc.textKey || doc.dataKey) })
+                const packed = Object.assign({}, doc, { id: (doc!.id || doc!.clientId), textKey: (doc!.textKey || doc!.dataKey) })
 
                 return unpack(packed, { privateKey: state.settings.crypto.privateKey })
               }),
@@ -69,3 +74,5 @@ export default (store) => {
     }
   })
 }
+
+export default docsPlugin

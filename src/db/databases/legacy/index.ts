@@ -6,6 +6,12 @@ import { toIndexes } from '../../utils/toIndexes'
 export type Chat = ChatData
 export type ChatMessage = ChatMessageData
 export type Embedding = EmbeddingData
+
+export type LegacyPackedDoc = PackedDoc & {
+  clientId?: string,
+  dataKey?: string,
+}
+
 export type SystemInstruction = {
   id: string,
   description: string,
@@ -64,7 +70,7 @@ class LegacyAssistant extends Dexie {
 }
 
 class LegacyDocs extends Dexie {
-  keyvaluepairs!: Table<PackedDoc>
+  keyvaluepairs!: Table<LegacyPackedDoc>
 
   constructor() {
     super('firebase/documents')

@@ -1,7 +1,7 @@
 import { type Plugin, type Store } from 'vuex'
-import { storage } from '/helpers/storage'
 import { debouncer } from '/src/common/debouncer'
-import { type Doc, type PackedDoc, pack, unpack } from '/src/models/doc'
+import { db } from '/src/db'
+import { type Doc, pack, unpack } from '/src/models/doc'
 import {
   ADD_DOCUMENT,
   DISCARD_DOCUMENT,
@@ -14,14 +14,6 @@ import {
   SHARE_DOCUMENT,
   TOUCH_DOCUMENT,
 } from '/src/store/actions'
-import { SETTINGS_LOADED } from '/src/store/modules/settings'
-
-type LegacyPackedDoc = PackedDoc & {
-  clientId?: string,
-  dataKey?: string,
-}
-
-const cache = storage().instance({ name: 'firebase/documents' })
 
 const { debounce } = debouncer(100)
 
@@ -47,32 +39,31 @@ const docsPlugin: Plugin<any> = (store) => {
           debounce(found.id, async () => {
             const doc = await pack(found)
 
-            cache.setItem(found.id, doc)
+            await db.docs.put(doc, found.id)
           })
         }
 
-        break
-      case SETTINGS_LOADED:
-        // load all documents from the cache after settings are loaded
-        cache.keys()
-          .then(ids => Promise.all(ids.map(id => cache.getItem<LegacyPackedDoc>(id))))
-          .then((docs) => {
-            // unpack cached data
-            return Promise.all(
-              docs.map((doc) => {
-                const packed = Object.assign({}, doc, { id: (doc!.id || doc!.clientId), textKey: (doc!.textKey || doc!.dataKey) })
-
-                return unpack(packed, { privateKey: state.settings.crypto.privateKey })
-              }),
-            )
-          })
-          .then(docs => store.dispatch(LOAD_DOCUMENTS, docs))
-          .then(() => store.dispatch(DOCUMENTS_LOADED))
         break
       default:
         break
     }
   })
+}
+
+export const loadDocs = async (store: Store<any>) => {
+  const settings = await db.settings.get('main')
+  const { privateKey } = settings?.crypto || {}
+  const packedDocs = await db.docs.toArray()
+  const docs = await Promise.all(
+    packedDocs.map((doc) => {
+      const packed = Object.assign({}, doc, { id: (doc!.id || doc!.clientId), textKey: (doc!.textKey || doc!.dataKey) })
+
+      return unpack(packed, { privateKey })
+    }),
+  )
+
+  await store.dispatch(LOAD_DOCUMENTS, docs)
+  await store.dispatch(DOCUMENTS_LOADED)
 }
 
 export default docsPlugin

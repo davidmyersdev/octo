@@ -1,5 +1,6 @@
 <script lang="ts">
-import { loadSettings } from '#root/src/store/plugins/caching/settings'
+import { loadDocs } from '/src/store/plugins/caching/documents'
+import { loadSettings } from '/src/store/plugins/caching/settings'
 
 import 'overlayscrollbars/overlayscrollbars.css'
 
@@ -11,13 +12,14 @@ export default defineComponent({
 
     const isMounted = ref(false)
 
-    onMounted(() => {
+    onMounted(async () => {
       isMounted.value = true
+
+      await loadSettings(store)
+      await loadDocs(store)
 
       // This is used by tests to determine when the app is ready.
       document.body.dataset.isMounted = 'true'
-
-      loadSettings(store)
     })
 
     const sizes = computed(() => {

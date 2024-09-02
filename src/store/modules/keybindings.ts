@@ -1,4 +1,4 @@
-import type { ActionContext, Module } from 'vuex'
+import type { ActionContext, Module, Store } from 'vuex'
 import { useRouter } from '#imports'
 import { isClient } from '/helpers/environment'
 import { bind, bindGlobal, unbind } from '/src/common/keybindings'
@@ -50,9 +50,6 @@ const keybindingsModule: Module<any, any> = {
     listening: false,
     loaded: false,
   }),
-  getters: {
-    // nothing yet
-  },
   mutations: {
     [DISABLE_LISTENER](state, listener) {
       state.listeners = state.listeners.filter((l: () => void) => l !== listener)
@@ -71,23 +68,6 @@ const keybindingsModule: Module<any, any> = {
     },
   },
   actions: {
-    async [LOAD_KEYBINDINGS](context) {
-      if (isClient) {
-        bindGlobal('esc', () => context.dispatch(DISABLE_LISTENERS))
-        bindGlobal('mod+k', () => context.dispatch(TOGGLE_LISTENERS))
-        bindGlobal('mod+s', () => context.dispatch(DISABLE_LISTENERS))
-        bindGlobal('mod+shift+f', () => {
-          context.dispatch(DISABLE_LISTENERS)
-
-          goTo('/docs')
-        })
-
-        // disable listeners on any click
-        window.addEventListener('click', () => context.dispatch(DISABLE_LISTENERS))
-
-        context.commit(KEYBINDINGS_LOADED)
-      }
-    },
     async [DISABLE_LISTENER](context, listener) {
       unbind(listener)
 
@@ -134,6 +114,24 @@ const keybindingsModule: Module<any, any> = {
       }
     },
   },
+}
+
+export const loadKeybindings = async (store: Store<any>) => {
+  if (isClient) {
+    bindGlobal('esc', () => store.dispatch(DISABLE_LISTENERS))
+    bindGlobal('mod+k', () => store.dispatch(TOGGLE_LISTENERS))
+    bindGlobal('mod+s', () => store.dispatch(DISABLE_LISTENERS))
+    bindGlobal('mod+shift+f', () => {
+      store.dispatch(DISABLE_LISTENERS)
+
+      goTo('/docs')
+    })
+
+    // disable listeners on any click
+    window.addEventListener('click', () => store.dispatch(DISABLE_LISTENERS))
+
+    store.commit(KEYBINDINGS_LOADED)
+  }
 }
 
 export default keybindingsModule

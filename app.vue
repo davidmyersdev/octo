@@ -1,4 +1,5 @@
 <script lang="ts">
+import { loadKeybindings } from '/src/store/modules/keybindings'
 import { loadDocs } from '/src/store/plugins/caching/documents'
 import { loadSettings } from '/src/store/plugins/caching/settings'
 
@@ -17,6 +18,7 @@ export default defineComponent({
 
       await loadSettings(store)
       await loadDocs(store)
+      await loadKeybindings(store)
 
       // This is used by tests to determine when the app is ready.
       document.body.dataset.isMounted = 'true'

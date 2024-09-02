@@ -10,7 +10,6 @@ import syncModule from '#root/src/store/modules/sync'
 
 // plugins
 import documentsCachingPlugin from '#root/src/store/plugins/caching/documents'
-import keybindingsPlugin from '#root/src/store/plugins/keybindings'
 import settingsCachingPlugin from '#root/src/store/plugins/caching/settings'
 import syncPlugin from '#root/src/store/plugins/sync'
 
@@ -175,7 +174,6 @@ export const store = createStore({
   },
   plugins: [
     documentsCachingPlugin,
-    keybindingsPlugin,
     settingsCachingPlugin,
     syncPlugin,
   ],

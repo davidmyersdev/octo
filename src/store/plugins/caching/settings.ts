@@ -4,7 +4,6 @@ import { unwrap } from '/src/common/vue'
 import { db } from '/src/db'
 import {
   LOAD_SETTINGS,
-  SETTINGS_LOADED,
   SET_CRYPTO_ENABLED,
   SET_CRYPTO_KEYS,
   SET_EDITOR_IMAGES_ENABLED,
@@ -25,11 +24,7 @@ import {
 export const loadSettings = async (store: Store<any>) => {
   const settings = await db.settings.get('main')
 
-  if (settings) {
-    await store.dispatch(LOAD_SETTINGS, settings)
-  }
-
-  await store.dispatch(SETTINGS_LOADED)
+  await store.dispatch(LOAD_SETTINGS, settings || {})
 }
 
 const { debounce } = debouncer(20)

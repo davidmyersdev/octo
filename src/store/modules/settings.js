@@ -17,7 +17,6 @@ export const SET_EDITOR_TAB_SIZE = 'SET_EDITOR_TAB_SIZE'
 export const SET_EDITOR_TOOLBAR = 'SET_EDITOR_TOOLBAR'
 export const SET_EXPERIMENTAL = 'SET_EXPERIMENTAL'
 export const SET_THEME = 'SET_THEME'
-export const SETTINGS_LOADED = 'SETTINGS_LOADED'
 
 export default {
   state: () => ({
@@ -56,6 +55,10 @@ export default {
   mutations: {
     [LOAD_SETTINGS](state, settings) {
       Object.assign(state, deepmerge(state, settings))
+
+      state.loaded = true
+
+      logEvent(appEventTypes.appSettingsLoaded)
     },
     [SET_CRYPTO_ENABLED](state, enabled) {
       state.crypto.enabled = enabled
@@ -108,11 +111,6 @@ export default {
     [SET_THEME](state, theme) {
       state.theme = theme
     },
-    [SETTINGS_LOADED](state) {
-      state.loaded = true
-
-      logEvent(appEventTypes.appSettingsLoaded)
-    },
   },
   actions: {
     async [LOAD_SETTINGS](context, settings) {
@@ -138,9 +136,6 @@ export default {
     },
     async [SET_THEME](context, theme) {
       context.commit(SET_THEME, theme)
-    },
-    async [SETTINGS_LOADED](context) {
-      context.commit(SETTINGS_LOADED)
     },
   },
 }

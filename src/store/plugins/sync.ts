@@ -1,10 +1,9 @@
-import { type Plugin } from 'vuex'
+import { type Plugin, type Store } from 'vuex'
 import { debouncer } from '/src/common/debouncer'
 
 import {
   ADD_DOCUMENT,
   DISCARD_DOCUMENT,
-  DOCUMENTS_LOADED,
   EDIT_DOCUMENT,
   RESTORE_DOCUMENT,
   RESTRICT_DOCUMENT,
@@ -23,7 +22,6 @@ const syncPlugin: Plugin<any> = (store) => {
     switch (type) {
       case ADD_DOCUMENT:
       case DISCARD_DOCUMENT:
-      case DOCUMENTS_LOADED:
       case EDIT_DOCUMENT:
       case RESTORE_DOCUMENT:
       case RESTRICT_DOCUMENT:
@@ -31,18 +29,22 @@ const syncPlugin: Plugin<any> = (store) => {
       case SET_USER:
       case SHARE_DOCUMENT:
       case TOUCH_DOCUMENT:
-        // sync documents if online
-        if (store.state.online && store.state.auth.user) {
-          debounce('sync', () => {
-            store.dispatch(SYNC)
-          })
-        }
+        syncDocs(store)
 
         break
       default:
         break
     }
   })
+}
+
+export const syncDocs = (store: Store<any>) => {
+  // sync documents if online
+  if (store.state.online && store.state.auth.user) {
+    debounce('sync', () => {
+      store.dispatch(SYNC)
+    })
+  }
 }
 
 export default syncPlugin

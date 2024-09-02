@@ -3,6 +3,7 @@ import { appEventTypes, logEvent } from '/helpers/app'
 import { loadKeybindings } from '/src/store/modules/keybindings'
 import { loadDocs } from '/src/store/plugins/caching/documents'
 import { loadSettings } from '/src/store/plugins/caching/settings'
+import { syncDocs } from '/src/store/plugins/sync'
 
 import 'overlayscrollbars/overlayscrollbars.css'
 
@@ -20,6 +21,8 @@ export default defineComponent({
       await loadSettings(store)
       await loadDocs(store)
       await loadKeybindings(store)
+
+      syncDocs(store)
 
       // This is used by tests to determine when the app is ready.
       document.body.dataset.isMounted = 'true'

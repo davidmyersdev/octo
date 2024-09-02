@@ -1,4 +1,5 @@
-import { debouncer } from '#root/src/common/debouncer'
+import { type Plugin } from 'vuex'
+import { debouncer } from '/src/common/debouncer'
 
 import {
   ADD_DOCUMENT,
@@ -11,14 +12,14 @@ import {
   SHARE_DOCUMENT,
   SYNC,
   TOUCH_DOCUMENT,
-} from '#root/src/store/actions'
+} from '/src/store/actions'
 
-import { SET_USER } from '#root/src/store/modules/auth'
+import { SET_USER } from '/src/store/modules/auth'
 
 const { debounce } = debouncer(1500)
 
-export default (store) => {
-  store.subscribe(async ({ type, payload }, state) => {
+const syncPlugin: Plugin<any> = (store) => {
+  store.subscribe(async ({ type }) => {
     switch (type) {
       case ADD_DOCUMENT:
       case DISCARD_DOCUMENT:
@@ -43,3 +44,5 @@ export default (store) => {
     }
   })
 }
+
+export default syncPlugin

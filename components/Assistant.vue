@@ -15,7 +15,8 @@ export default defineComponent({
       type: String,
     },
   },
-  setup(props) {
+  emits: ['send'],
+  setup(props, { emit }) {
     const { id } = useId()
     const { isDesktop, modKey } = useDevice()
     const chatId = computed(() => props.chatId || id())
@@ -218,6 +219,8 @@ export default defineComponent({
       }
 
       isWaiting.value = false
+
+      emit('send')
     }
 
     const examplePrompts = ref([

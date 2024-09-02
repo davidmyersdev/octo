@@ -1,6 +1,7 @@
-import { bind, bindGlobal, unbind } from '#root/src/common/keybindings'
+import type { ActionContext, Module } from 'vuex'
 import { useRouter } from '#imports'
-import { isClient } from '#helpers/environment'
+import { isClient } from '/helpers/environment'
+import { bind, bindGlobal, unbind } from '/src/common/keybindings'
 
 export const DISABLE_LISTENER = 'DISABLE_LISTENER'
 export const DISABLE_LISTENERS = 'DISABLE_LISTENERS'
@@ -10,13 +11,13 @@ export const KEYBINDINGS_LOADED = 'KEYBINDINGS_LOADED'
 export const LOAD_KEYBINDINGS = 'LOAD_KEYBINDINGS'
 export const TOGGLE_LISTENERS = 'TOGGLE_LISTENERS'
 
-const goTo = async (path) => {
+const goTo = async (path: string) => {
   const router = useRouter()
 
   await router.push({ path, force: true })
 }
 
-const makeCallback = (callback, context) => {
+const makeCallback = (callback: () => void, context: ActionContext<any, any>) => {
   return () => {
     callback()
 
@@ -24,11 +25,11 @@ const makeCallback = (callback, context) => {
   }
 }
 
-const makeListener = (keybinding, callback, context) => {
+const makeListener = (keybinding: string, callback: () => void, context: ActionContext<any, any>) => {
   return { keybinding, callback: makeCallback(callback, context) }
 }
 
-const makeListeners = (context) => {
+const makeListeners = (context: ActionContext<any, any>) => {
   return [
     makeListener('a', () => goTo('/account'), context),
     makeListener('d', () => goTo('/docs/f/discarded'), context),
@@ -42,7 +43,7 @@ const makeListeners = (context) => {
   ]
 }
 
-export default {
+const keybindingsModule: Module<any, any> = {
   state: () => ({
     activeElement: null,
     listeners: [],
@@ -54,7 +55,7 @@ export default {
   },
   mutations: {
     [DISABLE_LISTENER](state, listener) {
-      state.listeners = state.listeners.filter(l => l !== listener)
+      state.listeners = state.listeners.filter((l: () => void) => l !== listener)
     },
     [DISABLE_LISTENERS](state) {
       state.listening = false
@@ -94,8 +95,8 @@ export default {
     },
     async [DISABLE_LISTENERS](context) {
       await Promise.all(
-        context.state.listeners.map((listener) => {
-          context.dispatch(DISABLE_LISTENER, listener)
+        context.state.listeners.map((listener: () => void) => {
+          return context.dispatch(DISABLE_LISTENER, listener)
         }),
       )
 
@@ -119,13 +120,13 @@ export default {
 
       await Promise.all(
         makeListeners(context).map((listener) => {
-          context.dispatch(ENABLE_LISTENER, listener)
+          return context.dispatch(ENABLE_LISTENER, listener)
         }),
       )
 
       context.commit(ENABLE_LISTENERS)
     },
-    async [TOGGLE_LISTENERS](context, settings) {
+    async [TOGGLE_LISTENERS](context) {
       if (context.state.listening) {
         return context.dispatch(DISABLE_LISTENERS)
       } else {
@@ -134,3 +135,5 @@ export default {
     },
   },
 }
+
+export default keybindingsModule

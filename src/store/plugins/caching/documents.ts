@@ -5,7 +5,6 @@ import { type Doc, pack, unpack } from '/src/models/doc'
 import {
   ADD_DOCUMENT,
   DISCARD_DOCUMENT,
-  DOCUMENTS_LOADED,
   EDIT_DOCUMENT,
   LOAD_DOCUMENTS,
   MERGE_DOCUMENT,
@@ -63,7 +62,6 @@ export const loadDocs = async (store: Store<any>) => {
   )
 
   await store.dispatch(LOAD_DOCUMENTS, docs)
-  await store.dispatch(DOCUMENTS_LOADED)
 }
 
 export default docsPlugin

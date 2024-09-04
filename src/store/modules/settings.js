@@ -1,5 +1,4 @@
 import deepmerge from 'deepmerge'
-import { appEventTypes, logEvent } from '#helpers/app'
 
 export const LOAD_SETTINGS = 'LOAD_SETTINGS'
 export const SET_CRYPTO_ENABLED = 'SET_CRYPTO_ENABLED'
@@ -57,8 +56,6 @@ export default {
       Object.assign(state, deepmerge(state, settings))
 
       state.loaded = true
-
-      logEvent(appEventTypes.appSettingsLoaded)
     },
     [SET_CRYPTO_ENABLED](state, enabled) {
       state.crypto.enabled = enabled

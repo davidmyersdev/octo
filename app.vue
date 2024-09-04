@@ -1,4 +1,5 @@
 <script lang="ts">
+import { appEventTypes, logEvent } from '/helpers/app'
 import { loadKeybindings } from '/src/store/modules/keybindings'
 import { loadDocs } from '/src/store/plugins/caching/documents'
 import { loadSettings } from '/src/store/plugins/caching/settings'
@@ -22,6 +23,8 @@ export default defineComponent({
 
       // This is used by tests to determine when the app is ready.
       document.body.dataset.isMounted = 'true'
+
+      logEvent(appEventTypes.appMounted)
     })
 
     const sizes = computed(() => {

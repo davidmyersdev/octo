@@ -21,8 +21,6 @@ export const useRoot = () => {
   useToasts()
 
   onMounted(() => {
-    logEvent(appEventTypes.appMounted)
-
     if (localStorage.getItem('octo/welcome/v1') === null) {
       store.dispatch('SET_SHOW_WELCOME', true)
     }

@@ -61,7 +61,7 @@
     "@csstools/postcss-oklab-function": "^3.0.9",
     "@nuxtjs/tailwindcss": "^6.10.3",
     "@pinia/nuxt": "^0.4.11",
-    "@playwright/test": "^1.41.2",
+    "@playwright/test": "^1.46.1",
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/typography": "^0.5.10",
     "@types/culori": "^2.0.4",

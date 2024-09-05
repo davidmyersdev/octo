@@ -152,7 +152,7 @@ export default defineComponent({
         @keypress.enter.prevent="selectDoc(doc.id)"
         @click="selectDoc(doc.id)"
       >
-        <LazyDoc v-bind="doc" :allow-discard="isEditing" class="h-96" />
+        <Doc v-bind="doc" :allow-discard="isEditing" class="h-96" />
         <div v-if="doc.selected" class="flex items-center justify-center rounded absolute inset-0 bg-layer bg-opacity-50">
           <Icon name="CheckCircle" size="3rem" />
         </div>

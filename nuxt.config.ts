@@ -26,6 +26,7 @@ export default defineNuxtConfig({
     '#test': join(root, './test'),
     '#test-utils': join(root, './test/utils'),
   },
+
   app: {
     head: {
       htmlAttrs: {
@@ -59,24 +60,31 @@ export default defineNuxtConfig({
       ],
     },
   },
+
   build: {
     transpile: [
       'rxjs',
     ],
   },
+
+  compatibilityDate: '2024-09-06',
+
   devServer: {
     host: '127.0.0.1',
   },
+
   devtools: {
     enabled: true,
     timeline: {
       enabled: true,
     },
   },
+
   experimental: {
     appManifest: true,
     payloadExtraction: true,
   },
+
   hooks: {
     'pages:extend': (pages) => {
       pages.push({
@@ -86,18 +94,21 @@ export default defineNuxtConfig({
       })
     },
   },
+
   imports: {
     dirs: [
       './helpers',
     ],
     mergeExisting: true,
   },
+
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     '@vite-pwa/nuxt',
     '@vueuse/nuxt',
   ],
+
   nitro: {
     prerender: {
       routes: [
@@ -120,6 +131,7 @@ export default defineNuxtConfig({
       },
     },
   },
+
   postcss: {
     plugins: {
       '@csstools/postcss-oklab-function': {
@@ -130,6 +142,7 @@ export default defineNuxtConfig({
       'tailwindcss': {},
     },
   },
+
   pwa: {
     includeAssets: ['img/icons/favicon.ico'],
     registerType: 'autoUpdate',
@@ -258,11 +271,13 @@ export default defineNuxtConfig({
     scope: '/',
     writePlugin: true,
   },
+
   router: {
     options: {
       strict: true,
     },
   },
+
   runtimeConfig: {
     public: {
       appName: 'Octo',
@@ -303,11 +318,14 @@ export default defineNuxtConfig({
       stripeMonthlyPrice: '',
     },
   },
+
   sourcemap: true,
   ssr: !process.env.DISABLE_SSR,
+
   tailwindcss: {
     configPath: '~/tailwind.config.cjs',
   },
+
   vite: {
     plugins: [
       nodePolyfills({

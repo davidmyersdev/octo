@@ -144,13 +144,10 @@ export default defineNuxtConfig({
       maximumFileSizeToCacheInBytes: (5 * 1024 * 1024),
       navigateFallback: '/',
       navigateFallbackDenylist: [
-        // Ignore Cypress routes.
-        /^\/__/,
         // Keep this around for backward compatibility.
         /^\/manifest\.json$/,
         // Keep this around for backward compatibility.
         /^\/service-worker\.js$/,
-        /cypress/,
       ],
       runtimeCaching: [
         {

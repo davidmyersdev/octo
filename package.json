@@ -18,13 +18,11 @@
     "lint:todo": "eslint-generate-todo --format json .",
     "preview": "serve -p 8889 -s ./.output/public",
     "test": "run-p test:unit test:e2e",
-    "test:e2e": "run-p test:e2e:cypress test:e2e:playwright",
-    "test:e2e:cypress": "cypress run",
+    "test:e2e": "run-p test:e2e:playwright",
     "test:e2e:playwright": "playwright test",
     "test:unit": "vitest",
-    "typecheck": "run-s typecheck:app typecheck:cypress",
-    "typecheck:app": "nuxt typecheck",
-    "typecheck:cypress": "tsc --project ./test/cypress/tsconfig.json"
+    "typecheck": "run-s typecheck:app",
+    "typecheck:app": "nuxt typecheck"
   },
   "dependencies": {
     "@headlessui/tailwindcss": "^0.2.0",
@@ -42,7 +40,6 @@
     "ink-mde": "^0.33.0",
     "jszip": "^3.10.1",
     "khroma": "^2.1.0",
-    "localforage": "^1.10.0",
     "mermaid": "^9.4.3",
     "micromark": "^3.2.0",
     "micromark-extension-gfm": "^2.0.3",
@@ -77,8 +74,6 @@
     "@vueuse/nuxt": "^9.13.0",
     "@vueuse/rxjs": "^10.7.1",
     "autoprefixer": "^10.4.16",
-    "cypress": "^13.6.2",
-    "cypress-network-idle": "^1.14.2",
     "deepmerge-ts": "^4.3.0",
     "eslint": "^8.56.0",
     "eslint-config-artisan": "^0.2.1",

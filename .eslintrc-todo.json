@@ -795,14 +795,6 @@
     },
     {
       "files": [
-        "test/cypress/support/e2e.ts"
-      ],
-      "rules": {
-        "no-proto": "warn"
-      }
-    },
-    {
-      "files": [
         "types/types.ts"
       ],
       "rules": {

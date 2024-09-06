@@ -1,14 +1,14 @@
 import { defineStore } from 'pinia'
 
 interface File {
-  id: string
-  handle: FileSystemFileHandle
+  id: string,
+  handle: FileSystemFileHandle,
 }
 
 interface FileSystemWritableFileStream extends WritableStream {
-  write(data: FileSystemWriteChunkType): Promise<void>
-  seek(position: number): Promise<void>
-  truncate(size: number): Promise<void>
+  write(data: FileSystemWriteChunkType): Promise<void>,
+  seek(position: number): Promise<void>,
+  truncate(size: number): Promise<void>,
 }
 
 type FileSystemWriteChunkType = BufferSource | Blob | string | WriteParams
@@ -27,5 +27,4 @@ export const useFiles = defineStore('files', {
       this.files.push(file)
     },
   },
-  caching: false,
 })

@@ -12,7 +12,6 @@ const appReadyWatcher = (appEvent: AppEvent) => {
   if (!isLogged(appEventTypes.appReady)) {
     const readyEventTypes: AppEventType[] = [
       appEventTypes.appMounted,
-      appEventTypes.appSettingsLoaded,
     ]
 
     if (readyEventTypes.includes(appEvent.type)) {
@@ -30,7 +29,6 @@ const appReadyWatcher = (appEvent: AppEvent) => {
 export const appEventTypes = {
   appMounted: 'app_mounted',
   appReady: 'app_ready',
-  appSettingsLoaded: 'app_settings_loaded',
   networkDocLoaded: 'network_doc_loaded',
   networkDocsSynced: 'network_docs_synced',
   userSignedIn: 'user_signed_in',

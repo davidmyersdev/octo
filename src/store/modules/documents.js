@@ -3,7 +3,6 @@ import { useRecentDocs } from '#root/src/stores/useRecentDocs'
 
 import {
   DISCARD_DOCUMENT,
-  DOCUMENTS_LOADED,
   DUPLICATE_DOCUMENT,
   EDIT_DOCUMENT,
   LOAD_DOCUMENT,
@@ -67,9 +66,6 @@ export default {
     [DISCARD_DOCUMENT](state, { id }) {
       findDoc(state, id).discard()
     },
-    [DOCUMENTS_LOADED](state) {
-      state.loaded = true
-    },
     [EDIT_DOCUMENT](state, doc) {
       const found = findDoc(state, doc.id)
 
@@ -111,9 +107,6 @@ export default {
     async [DISCARD_DOCUMENT](context, doc) {
       context.commit(DISCARD_DOCUMENT, doc)
     },
-    async [DOCUMENTS_LOADED](context) {
-      context.commit(DOCUMENTS_LOADED)
-    },
     async [DUPLICATE_DOCUMENT](context, { id }) {
       const newDoc = findDoc(context.state, id).duplicate()
 
@@ -128,9 +121,11 @@ export default {
       context.commit(LOAD_DOCUMENT, doc)
     },
     async [LOAD_DOCUMENTS](context, docs) {
-      return Promise.all(
+      await Promise.all(
         docs.map(doc => context.dispatch(LOAD_DOCUMENT, doc)),
       )
+
+      context.state.loaded = true
     },
     async [MERGE_DOCUMENT](context, doc) {
       context.commit(MERGE_DOCUMENT, doc)

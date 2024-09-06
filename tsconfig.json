@@ -51,6 +51,9 @@
       "/*": [
         "./*"
       ],
+      "/_nuxt/*": [
+        "./*"
+      ],
       "#components": [
         "./components"
       ],
@@ -115,9 +118,7 @@
   "exclude": [
     "**/node_modules",
     "./.output",
-    "./cypress.config.ts",
     "./dev-dist",
-    "./dist",
-    "./test/cypress/**/*"
+    "./dist"
   ]
 }

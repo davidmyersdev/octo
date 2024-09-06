@@ -14,5 +14,4 @@ export const useRecentDocs = defineStore('recentDocs', {
       this.ids = this.ids.filter(id => id !== removeId)
     },
   },
-  caching: false,
 })

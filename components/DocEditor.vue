@@ -51,7 +51,7 @@ export default defineComponent({
     watch(coreEditor, () => {
       focus()
 
-      // Expose the Ink instance for Cypress.
+      // Expose the Ink instance for tests.
       window.inkMde = coreEditor.value?.instance
     })
 

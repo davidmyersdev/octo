@@ -3,16 +3,13 @@ import { isClient } from '#helpers/environment'
 
 // modules
 import authModule from '#root/src/store/modules/auth'
-import contextsModule from '#root/src/store/modules/contexts'
 import documentsModule from '#root/src/store/modules/documents'
 import keybindingsModule from '#root/src/store/modules/keybindings'
 import settingsModule from '#root/src/store/modules/settings'
 import syncModule from '#root/src/store/modules/sync'
 
 // plugins
-import contextsCachingPlugin from '#root/src/store/plugins/caching/contexts'
 import documentsCachingPlugin from '#root/src/store/plugins/caching/documents'
-import keybindingsPlugin from '#root/src/store/plugins/keybindings'
 import settingsCachingPlugin from '#root/src/store/plugins/caching/settings'
 import syncPlugin from '#root/src/store/plugins/sync'
 
@@ -170,16 +167,13 @@ export const store = createStore({
   },
   modules: {
     auth: authModule,
-    contexts: contextsModule,
     documents: documentsModule,
     keybindings: keybindingsModule,
     settings: settingsModule,
     sync: syncModule,
   },
   plugins: [
-    contextsCachingPlugin,
     documentsCachingPlugin,
-    keybindingsPlugin,
     settingsCachingPlugin,
     syncPlugin,
   ],

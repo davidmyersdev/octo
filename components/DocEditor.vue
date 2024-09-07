@@ -170,6 +170,7 @@ export default defineComponent({
       <CoreEditor
         v-if="isMounted"
         ref="coreEditor"
+        :key="doc?.id"
         v-model="text"
         :max-width-in-chars="maxWidthInChars"
         :options="options"

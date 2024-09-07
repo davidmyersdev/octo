@@ -31,6 +31,13 @@ export default defineComponent({
     const header = computed(() => doc.value.headers[0])
     const { public: { appTitle } } = useConfig()
 
+    watch(docId, () => {
+      // If we don't create a new placeholder, then the same placeholder id
+      // will be used when creating multiple docs back-to-back. This only
+      // happens when the editor is not unmounted between new doc creations.
+      placeholder.value = new Doc({ text: formatTags(store.state.context.tags, ' ') })
+    })
+
     const onInput = async (text: string) => {
       // Todo: Load a new doc before leaving the route so that Ink does not
       // send a new input event (or figure out how to prevent it from sending
@@ -38,7 +45,7 @@ export default defineComponent({
       if (text && (!docId.value || docId.value === 'new')) {
         // When we receive input without an active doc, we should always create
         // a new doc with a unique id.
-        const newDoc = new Doc({ text })
+        const newDoc = new Doc({ id: placeholder.value.id, text })
 
         store.commit(EDIT_DOCUMENT, newDoc)
 

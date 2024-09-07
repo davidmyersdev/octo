@@ -30,7 +30,7 @@ export default defineNuxtConfig({
   app: {
     head: {
       htmlAttrs: {
-        class: 'auto scroll-smooth scroll-pt-4 layer-0',
+        class: 'scroll-smooth scroll-pt-4 layer-0',
         lang: 'en',
       },
       link: [

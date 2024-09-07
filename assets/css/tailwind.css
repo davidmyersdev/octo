@@ -11,7 +11,8 @@
     --colors-primary: 59 130 246;
   }
 
-  .dark {
+  .dark,
+  [data-appearance=dark] {
     --layer-0-bg: 18 18 18;
     --layer-0-bg-hover: 39 39 42;
     --layer-0-bg-active: 39 39 42;
@@ -80,12 +81,14 @@
   }
 
   @media (prefers-color-scheme: dark) {
-    .auto {
+    .auto,
+    [data-appearance=auto] {
       @apply dark;
     }
   }
 
-  .light {
+  .light,
+  [data-appearance=light] {
     --layer-0-bg: 244 244 245;
     --layer-0-bg-hover: 228 228 231;
     --layer-0-bg-active: 228 228 231;
@@ -154,12 +157,14 @@
   }
 
   @media (prefers-color-scheme: light) {
-    .auto {
+    .auto,
+    [data-appearance=auto] {
       @apply light;
     }
   }
 
-  .custom {
+  .custom,
+  [data-appearance=custom] {
     --layer-0-bg: 10 0 31;
     --layer-0-bg-hover: 21 0 44;
     --layer-0-bg-active: 32 2 58;

@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 
 const { store } = useVuex()
-const { store: appearance } = useAppearance()
+const { storedValue: appearance } = useAppearance()
 
 const experimental = computed(() => store.state.settings.experimental)
 </script>

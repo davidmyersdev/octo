@@ -22,6 +22,7 @@ export default {
     allowDiscard: Boolean,
   },
   setup(props) {
+    const { store } = useVuex()
     const html = computed(() => {
       const rawHtml = toHtml(props.text)
 
@@ -33,22 +34,24 @@ export default {
       return rawHtml
     })
 
-    return {
-      html,
+    const updated = computed(() => {
+      return `Updated on ${moment(props.updatedAt).format('ddd, MMM Do, YYYY [at] h:mm A')}`
+    })
+
+    const discard = () => {
+      store.dispatch(DISCARD_DOCUMENT, { id: props.id })
     }
-  },
-  computed: {
-    updated() {
-      return `Updated on ${moment(this.updatedAt).format('ddd, MMM Do, YYYY [at] h:mm A')}`
-    },
-  },
-  methods: {
-    discard() {
-      this.$store.dispatch(DISCARD_DOCUMENT, { id: this.id })
-    },
-    restore() {
-      this.$store.dispatch(RESTORE_DOCUMENT, { id: this.id })
-    },
+
+    const restore = () => {
+      store.dispatch(RESTORE_DOCUMENT, { id: props.id })
+    }
+
+    return {
+      discard,
+      html,
+      restore,
+      updated,
+    }
   },
 }
 </script>

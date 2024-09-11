@@ -24,6 +24,7 @@ withDefaults(defineProps<{
 const icons = {
   Logo,
   Account: Tabler.IconUserCircle,
+  Announce: Tabler.IconSpeakerphone,
   ArrowRight: Tabler.IconArrowRight,
   ArrowUp: Tabler.IconArrowUp,
   ArrowUpCircle: Tabler.IconCircleArrowUp,

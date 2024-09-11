@@ -15,6 +15,8 @@ export default defineComponent({
   emits: ['update:query'],
   setup(props) {
     const { query } = toRefs(props)
+    const { store } = useVuex()
+    const router = useRouter()
 
     const isEditing = ref(false)
     const searchQuery = ref(query.value || '')
@@ -57,8 +59,10 @@ export default defineComponent({
       searchResults,
       finalDocs,
       isEditing,
+      router,
       searchQuery,
       selectedDocs,
+      store,
       visibleCount,
       visibleDocs,
     }
@@ -84,7 +88,7 @@ export default defineComponent({
       this.visibleCount += 25
     },
     mergeDocs() {
-      this.$store.dispatch(MERGE_DOCUMENTS, this.selectedDocs)
+      this.store.dispatch(MERGE_DOCUMENTS, this.selectedDocs)
 
       this.selectedDocs = []
     },
@@ -107,7 +111,7 @@ export default defineComponent({
           }
         }
       } else {
-        this.$router.push({ path: `/docs/${id}` })
+        this.router.push({ path: `/docs/${id}` })
       }
     },
   },

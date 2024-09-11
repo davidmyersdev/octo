@@ -4,6 +4,13 @@ import { TOUCH_DOCUMENT } from '#root/src/store/actions'
 import { SET_CRYPTO_ENABLED, SET_CRYPTO_KEYS } from '#root/src/store/modules/settings'
 
 export default {
+  setup() {
+    const { store } = useVuex()
+
+    return {
+      store,
+    }
+  },
   data() {
     return {
       togglingCrypto: false,
@@ -15,35 +22,35 @@ export default {
     },
     privateKey: {
       get() {
-        return this.$store.state.settings.crypto.privateKey ?? ''
+        return this.store.state.settings.crypto.privateKey ?? ''
       },
       set(value: string) {
-        this.$store.commit(SET_CRYPTO_KEYS, {
+        this.store.commit(SET_CRYPTO_KEYS, {
           privateKey: value.trim(),
         })
       },
     },
     publicKey: {
       get() {
-        return this.$store.state.settings.crypto.publicKey ?? ''
+        return this.store.state.settings.crypto.publicKey ?? ''
       },
       set(value: string) {
-        this.$store.commit(SET_CRYPTO_KEYS, {
+        this.store.commit(SET_CRYPTO_KEYS, {
           publicKey: value.trim(),
         })
       },
     },
     toggleCrypto: {
       get() {
-        return this.$store.state.settings.crypto.enabled
+        return this.store.state.settings.crypto.enabled
       },
       async set(value: boolean) {
         this.togglingCrypto = true
 
-        await this.$store.dispatch(SET_CRYPTO_ENABLED, value)
+        await this.store.dispatch(SET_CRYPTO_ENABLED, value)
         await Promise.all(
-          this.$store.getters.decrypted.map((doc: any) => {
-            return this.$store.dispatch(TOUCH_DOCUMENT, doc)
+          this.store.getters.decrypted.map((doc: any) => {
+            return this.store.dispatch(TOUCH_DOCUMENT, doc)
           }),
         )
 

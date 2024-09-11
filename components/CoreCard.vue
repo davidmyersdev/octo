@@ -14,7 +14,7 @@ const classes = computed(() => props.outline ? 'border border-layer' : 'bg-layer
   <component
     :is="component"
     :class="classes"
-    class="p-4 rounded"
+    class="p-2 rounded"
   >
     <slot />
   </component>

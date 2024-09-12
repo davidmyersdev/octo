@@ -46,7 +46,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="dashboard flex flex-col lg:flex-row h-screen w-screen min-h-0 min-w-0 overflow-hidden">
+  <div class="dashboard flex flex-col lg:flex-row h-screen w-screen min-h-0 min-w-0 overflow-hidden border-t border-layer">
     <Gutter :show="isPrimaryGutterShowing" :size="256" class="hidden lg:flex">
       <TheLeftSidebar class="flex flex-grow flex-shrink overflow-hidden w-full" />
     </Gutter>

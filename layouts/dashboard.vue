@@ -38,6 +38,11 @@ onMounted(() => {
   bindGlobal('mod+shift+,', () => {
     toggleMenu()
   })
+
+  // Todo: Migrate keybindings to composables.
+  bindGlobal('mod+shift+.', () => {
+    toggleMeta()
+  })
 })
 
 onUnmounted(() => {

@@ -132,12 +132,4 @@ onUnmounted(() => {
 .dashboard {
   height: var(--app-height, 100vh);
 }
-
-.gutter-right {
-  direction: rtl;
-}
-
-:deep(.gutter-right > *) {
-  direction: ltr;
-}
 </style>

@@ -39,71 +39,71 @@
 
   .dark,
   [data-appearance=dark] {
-    --layer-0-bg: 18 18 18;
-    --layer-0-bg-hover: 39 39 42;
-    --layer-0-bg-active: 39 39 42;
-    --layer-0-bg-disabled: 20 20 20;
-    --layer-0-border: var(--layer-1-bg-hover);
-    --layer-0-text: 212 212 216;
-    --layer-0-text-hover: 212 212 216;
-    --layer-0-text-active: 212 212 216;
-    --layer-0-text-disabled: 113 113 122;
-    --layer-0-text-muted: 113 113 122;
+    --layer-0-bg: 45 33 24; /* Earthy brown */
+--layer-0-bg-hover: 60 47 38; /* Slightly lighter earthy brown */
+--layer-0-bg-active: 60 47 38;
+--layer-0-bg-disabled: 37 32 27; /* Brown with gray */
+--layer-0-border: var(--layer-1-bg-hover);
+--layer-0-text: 220 220 220; /* Soft white */
+--layer-0-text-hover: 220 220 220;
+--layer-0-text-active: 220 220 220;
+--layer-0-text-disabled: 120 120 130; /* Muted gray */
+--layer-0-text-muted: 120 120 130;
 
-    --layer-1-bg: 24 24 27;
-    --layer-1-bg-hover: 39 39 42;
-    --layer-1-bg-active: 39 39 42;
-    --layer-1-bg-disabled: 26 26 29;
-    --layer-1-border: var(--layer-0-bg-hover);
-    --layer-1-text: 212 212 216;
-    --layer-1-text-hover: 212 212 216;
-    --layer-1-text-active: 212 212 216;
-    --layer-1-text-disabled: 113 113 122;
-    --layer-1-text-muted: 113 113 122;
+--layer-1-bg: 28 38 28; /* Slightly lighter dark green */
+--layer-1-bg-hover: 34 48 36; /* Medium dark green */
+--layer-1-bg-active: 34 48 36;
+--layer-1-bg-disabled: 30 35 30; /* Greenish gray */
+--layer-1-border: var(--layer-1-bg-hover);
+--layer-1-text: 220 220 220;
+--layer-1-text-hover: 220 220 220;
+--layer-1-text-active: 220 220 220;
+--layer-1-text-disabled: 120 120 130;
+--layer-1-text-muted: 120 120 130;
 
-    --layer-2-bg: 39 39 42;
-    --layer-2-bg-hover: 63 63 70;
-    --layer-2-bg-active: 63 63 70;
-    --layer-2-bg-disabled: 41 41 44;
-    --layer-2-border: var(--layer-2-bg-hover);
-    --layer-2-text: 212 212 216;
-    --layer-2-text-hover: 212 212 216;
-    --layer-2-text-active: 212 212 216;
-    --layer-2-text-disabled: 113 113 122;
-    --layer-2-text-muted: 113 113 122;
+--layer-2-bg: 34 48 60; /* Dark blue */
+--layer-2-bg-hover: 48 64 80; /* Slightly lighter dark blue */
+--layer-2-bg-active: 48 64 80;
+--layer-2-bg-disabled: 42 54 70; /* Blue with gray */
+--layer-2-border: var(--layer-2-bg-hover);
+--layer-2-text: 220 220 220;
+--layer-2-text-hover: 220 220 220;
+--layer-2-text-active: 220 220 220;
+--layer-2-text-disabled: 120 120 130;
+--layer-2-text-muted: 120 120 130;
 
-    --layer-3-bg: 63 63 70;
-    --layer-3-bg-hover: 82 82 91;
-    --layer-3-bg-active: 82 82 91;
-    --layer-3-bg-disabled: 65 65 72;
-    --layer-3-border: var(--layer-3-bg-hover);
-    --layer-3-text: 212 212 216;
-    --layer-3-text-hover: 212 212 216;
-    --layer-3-text-active: 212 212 216;
-    --layer-3-text-disabled: 113 113 122;
-    --layer-3-text-muted: 113 113 122;
+--layer-3-bg: 18 30 22; /* Dark green */
+--layer-3-bg-hover: 23 39 28; /* Slightly lighter green */
+--layer-3-bg-active: 23 39 28;
+--layer-3-bg-disabled: 20 20 20; /* Dark gray for disabled */
+--layer-3-border: var(--layer-3-bg-hover);
+--layer-3-text: 220 220 220;
+--layer-3-text-hover: 220 220 220;
+--layer-3-text-active: 220 220 220;
+--layer-3-text-disabled: 120 120 130;
+--layer-3-text-muted: 120 120 130;
 
-    --layer-4-bg: 82 82 91;
-    --layer-4-bg-hover: 113 113 122;
-    --layer-4-bg-active: 113 113 122;
-    --layer-4-bg-disabled: 84 84 93;
-    --layer-4-border: var(--layer-4-bg-hover);
-    --layer-4-text: 212 212 216;
-    --layer-4-text-hover: 212 212 216;
-    --layer-4-text-active: 212 212 216;
-    --layer-4-text-disabled: 113 113 122;
-    --layer-4-text-muted: 113 113 122;
+--layer-4-bg: 28 38 28; /* Slightly lighter dark green */
+--layer-4-bg-hover: 34 48 36; /* Medium dark green */
+--layer-4-bg-active: 34 48 36;
+--layer-4-bg-disabled: 30 35 30; /* Greenish gray */
+--layer-4-border: var(--layer-4-bg-hover);
+--layer-4-text: 220 220 220;
+--layer-4-text-hover: 220 220 220;
+--layer-4-text-active: 220 220 220;
+--layer-4-text-disabled: 120 120 130;
+--layer-4-text-muted: 120 120 130;
 
-    --layer-5-bg: 113 113 122;
-    --layer-5-bg-hover: 161 161 170;
-    --layer-5-bg-active: 161 161 170;
-    --layer-5-bg-disabled: 115 115 124;
-    --layer-5-border: var(--layer-5-bg-hover);
-    --layer-5-text: 212 212 216;
-    --layer-5-text-hover: 212 212 216;
-    --layer-5-text-active: 212 212 216;
-    --layer-5-text-disabled: 113 113 122;
-    --layer-5-text-muted: 113 113 122;
+--layer-5-bg: 34 48 36; /* Medium dark green */
+--layer-5-bg-hover: 48 64 50; /* Lighter green */
+--layer-5-bg-active: 48 64 50;
+--layer-5-bg-disabled: 42 54 45; /* Green gray */
+--layer-5-border: var(--layer-5-bg-hover);
+--layer-5-text: 220 220 220;
+--layer-5-text-hover: 220 220 220;
+--layer-5-text-active: 220 220 220;
+--layer-5-text-disabled: 120 120 130;
+--layer-5-text-muted: 120 120 130;
   }
 
   @media (prefers-color-scheme: dark) {

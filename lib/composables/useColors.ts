@@ -1,26 +1,27 @@
 import { type Oklch, formatRgb, modeLrgb, modeOklch, modeRgb, useMode, wcagContrast } from 'culori/fn'
 
-export type OkLevel = ReturnType<typeof okLevel>
+export type OkLayer = ReturnType<typeof okLayer>
 
 const stripRgb = (color: string) => color.replace(/rgb\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)\s*\)/g, '$1 $2 $3')
 
-const toCssVars = (level: OkLevel) => {
+export const toCssVars = (layer: OkLayer) => {
   return {
-    [`--layer-${level.level - 1}-bg`]: stripRgb(level.bgColor),
-    [`--layer-${level.level - 1}-bg-hover`]: stripRgb(level.bgHoverColor),
-    [`--layer-${level.level - 1}-bg-active`]: stripRgb(level.bgActiveColor),
-    [`--layer-${level.level - 1}-bg-disabled`]: stripRgb(level.bgDisabledColor),
-    [`--layer-${level.level - 1}-border`]: stripRgb(level.borderColor),
-    [`--layer-${level.level - 1}-text`]: stripRgb(level.textColor),
-    [`--layer-${level.level - 1}-text-hover`]: stripRgb(level.textHoverColor),
-    [`--layer-${level.level - 1}-text-disabled`]: stripRgb(level.textDisabledColor),
-    [`--layer-${level.level - 1}-text-muted`]: stripRgb(level.textMutedColor),
+    [`--layer-${layer.index}-bg`]: stripRgb(layer.bgColor),
+    [`--layer-${layer.index}-bg-hover`]: stripRgb(layer.bgHoverColor),
+    [`--layer-${layer.index}-bg-active`]: stripRgb(layer.bgActiveColor),
+    [`--layer-${layer.index}-bg-disabled`]: stripRgb(layer.bgDisabledColor),
+    [`--layer-${layer.index}-border`]: stripRgb(layer.borderColor),
+    [`--layer-${layer.index}-text`]: stripRgb(layer.textColor),
+    [`--layer-${layer.index}-text-hover`]: stripRgb(layer.textHoverColor),
+    [`--layer-${layer.index}-text-disabled`]: stripRgb(layer.textDisabledColor),
+    [`--layer-${layer.index}-text-muted`]: stripRgb(layer.textMutedColor),
   }
 }
 
-const okLevel = (color: MaybeRef<Oklch>, lightness: number, dark: boolean) => {
-  const level = lightness * 10
-  const okBgColor = { ...toValue(color), l: lightness }
+export const okLayer = (color: MaybeRef<Oklch>, index: number, dark: boolean) => {
+  // const okBgColor = { ...toValue(color), l: lightness }
+  const okBgColor = toValue(color)
+  const lightness = okBgColor.l
   const bgColor = formatRgb(okBgColor)
   const okBgHoverColor = okModify(okBgColor, dark ? 0.05 : -0.05)
   const bgHoverColor = formatRgb(okBgHoverColor)
@@ -39,7 +40,7 @@ const okLevel = (color: MaybeRef<Oklch>, lightness: number, dark: boolean) => {
   const borderColor = bgHoverColor
 
   return {
-    level,
+    index,
     bgColor,
     bgHoverColor,
     bgActiveColor,
@@ -54,19 +55,19 @@ const okLevel = (color: MaybeRef<Oklch>, lightness: number, dark: boolean) => {
   }
 }
 
-const okLevels = (color: MaybeRef<Oklch>, dark: boolean) => {
+const okLayers = (color: MaybeRef<Oklch>, dark: boolean) => {
   const okColor = toValue(color)!
 
   const levels = [
-    okLevel(okColor, 0.1, dark),
-    okLevel(okColor, 0.2, dark),
-    okLevel(okColor, 0.3, dark),
-    okLevel(okColor, 0.4, dark),
-    okLevel(okColor, 0.5, dark),
-    okLevel(okColor, 0.6, dark),
-    okLevel(okColor, 0.7, dark),
-    okLevel(okColor, 0.8, dark),
-    okLevel(okColor, 0.9, dark),
+    okLayer(okColor, 0.1, dark),
+    okLayer(okColor, 0.2, dark),
+    okLayer(okColor, 0.3, dark),
+    okLayer(okColor, 0.4, dark),
+    okLayer(okColor, 0.5, dark),
+    okLayer(okColor, 0.6, dark),
+    okLayer(okColor, 0.7, dark),
+    okLayer(okColor, 0.8, dark),
+    okLayer(okColor, 0.9, dark),
   ]
 
   if (!dark) {
@@ -82,6 +83,22 @@ const okModify = (color: MaybeRef<Oklch>, amount: number) => {
   return { ...okColor, l: okColor.l + amount }
 }
 
+export const useColorLayer = (index: MaybeRef<number>) => {
+  const oklch = useMode(modeOklch)
+
+  useMode(modeRgb)
+  useMode(modeLrgb)
+
+  const color = ref('#6e5492')
+  const okColor = computed(() => oklch(color.value)!)
+  const layer = computed(() => okLayer(okColor, toValue(index), true))
+
+  return {
+    color,
+    layer,
+  }
+}
+
 export const useColors = () => {
   const oklch = useMode(modeOklch)
 
@@ -90,14 +107,16 @@ export const useColors = () => {
 
   // Others to try out: #238ccd
   const color = ref('#6e5492')
-
   const okColor = computed(() => oklch(color.value)!)
-  const level5 = computed(() => okLevel(okColor, 0.5, true))
-  const dark = computed(() => okLevels(okColor, true))
-  const light = computed(() => okLevels(okColor, false))
+
+  const level5 = computed(() => okLayer(okColor, 0.5, true))
+  const dark = computed(() => okLayers(okColor, true))
+  const light = computed(() => okLayers(okColor, false))
   const neutral = computed(() => level5.value)
 
   return {
+    oklch,
+    okColor,
     color,
     dark,
     light,

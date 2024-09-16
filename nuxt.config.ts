@@ -74,7 +74,7 @@ export default defineNuxtConfig({
   },
 
   devtools: {
-    enabled: true,
+    enabled: !process.env.DISABLE_DEVTOOLS,
     timeline: {
       enabled: true,
     },

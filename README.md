@@ -10,9 +10,9 @@ Get started for free at [octo.app](https://octo.app).
 
 <a href="https://octo.app">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/screenshot-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="assets/screenshot-light.png">
-    <img alt="Shows the Octo app with an open tab containing a markdown document." src="assets/screenshot-dark.png">
+    <source media="(prefers-color-scheme: dark)" srcset="assets/screenshot-desktop-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="assets/screenshot-desktop-light.png">
+    <img alt="Shows the Octo app with an open tab containing a markdown document." src="assets/screenshot-desktop-dark.png">
   </picture>
 </a>
 

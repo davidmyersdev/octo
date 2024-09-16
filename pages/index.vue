@@ -50,29 +50,27 @@ onMounted(() => {
         </div>
       </div>
     </section>
-    <section class="hero">
-      <section class="p-4 lg:p-8">
-        <div class="container mx-auto max-w-6xl">
-          <picture v-if="isDark">
-            <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait)" srcset="~/assets/screenshot-mobile-dark.png" width="1080" height="2400">
-            <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-desktop-dark.png" width="1600" height="900" class="w-full">
-          </picture>
-          <picture v-else-if="isLight">
-            <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait)" srcset="~/assets/screenshot-mobile-light.png" width="1080" height="2400">
-            <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-desktop-light.png" width="1600" height="900" class="w-full">
-          </picture>
-          <picture v-else>
-            <!-- mobile -->
-            <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait) and (prefers-color-scheme: dark)" srcset="~/assets/screenshot-mobile-dark.png" width="1080" height="2400">
-            <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait) and (prefers-color-scheme: light)" srcset="~/assets/screenshot-mobile-light.png" width="1080" height="2400">
-            <!-- desktop -->
-            <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(prefers-color-scheme: dark)" srcset="~/assets/screenshot-desktop-dark.png" width="1600" height="900">
-            <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(prefers-color-scheme: light)" srcset="~/assets/screenshot-desktop-light.png" width="1600" height="900">
-            <!-- fallback -->
-            <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-desktop-dark.png" width="1600" height="900" class="w-full">
-          </picture>
-        </div>
-      </section>
+    <section class="p-4 lg:p-8">
+      <div class="container mx-auto max-w-6xl">
+        <picture v-if="isDark">
+          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait)" srcset="~/assets/screenshot-mobile-dark.png" width="1080" height="2400">
+          <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-desktop-dark.png" width="1600" height="900" class="w-full">
+        </picture>
+        <picture v-else-if="isLight">
+          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait)" srcset="~/assets/screenshot-mobile-light.png" width="1080" height="2400">
+          <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-desktop-light.png" width="1600" height="900" class="w-full">
+        </picture>
+        <picture v-else>
+          <!-- mobile -->
+          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait) and (prefers-color-scheme: dark)" srcset="~/assets/screenshot-mobile-dark.png" width="1080" height="2400">
+          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait) and (prefers-color-scheme: light)" srcset="~/assets/screenshot-mobile-light.png" width="1080" height="2400">
+          <!-- desktop -->
+          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(prefers-color-scheme: dark)" srcset="~/assets/screenshot-desktop-dark.png" width="1600" height="900">
+          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(prefers-color-scheme: light)" srcset="~/assets/screenshot-desktop-light.png" width="1600" height="900">
+          <!-- fallback -->
+          <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-desktop-dark.png" width="1600" height="900" class="w-full">
+        </picture>
+      </div>
     </section>
     <section>
       <CoreContainer class="p-4 lg:p-8">

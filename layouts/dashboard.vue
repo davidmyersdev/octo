@@ -51,11 +51,17 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="dashboard flex flex-col lg:flex-row h-screen w-screen min-h-0 min-w-0 overflow-hidden border-t border-layer">
-    <Gutter :show="isPrimaryGutterShowing" :size="256" class="hidden lg:flex">
+  <div class="dashboard flex flex-col lg:flex-row h-screen w-screen min-h-0 min-w-0 overflow-hidden">
+    <Gutter
+      :show="isPrimaryGutterShowing"
+      :size="256"
+      class="hidden lg:flex"
+    >
       <TheLeftSidebar class="flex flex-grow flex-shrink overflow-hidden w-full" />
     </Gutter>
-    <FlexDivider class="hidden lg:block" />
+    <Transition name="divider">
+      <FlexDivider v-show="isPrimaryGutterShowing" class="hidden lg:block" />
+    </Transition>
     <CoreLayer class="bg-layer basis-full flex flex-col flex-grow flex-shrink min-h-0">
       <div class="flex p-1 items-center">
         <div class="flex gap-1 flex-row-reverse lg:flex-row items-center basis-full justify-start">
@@ -120,8 +126,14 @@ onUnmounted(() => {
         </section>
       </div>
     </CoreLayer>
-    <FlexDivider class="hidden lg:block" />
-    <Gutter :show="isSecondaryGutterShowing" :size="256" class="hidden lg:flex justify-end flex-nowrap">
+    <Transition name="divider">
+      <FlexDivider v-show="isSecondaryGutterShowing" class="hidden lg:block" />
+    </Transition>
+    <Gutter
+      :show="isSecondaryGutterShowing"
+      :size="256"
+      class="hidden lg:flex justify-end flex-nowrap"
+    >
       <TheRightSidebar class="hidden lg:flex flex-grow flex-shrink-0 w-full" />
     </Gutter>
     <ToastList class="fixed bottom-8 right-8 m-auto" />
@@ -131,5 +143,10 @@ onUnmounted(() => {
 <style scoped>
 .dashboard {
   height: var(--app-height, 100vh);
+}
+
+.divider-enter-active,
+.divider-leave-active {
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 </style>

@@ -20,12 +20,12 @@ withDefaults(defineProps<{
   code: true,
   heading: true,
   image: true,
-  indent: true,
+  indent: false,
   italic: true,
   link: true,
   numberList: true,
   taskList: true,
-  unindent: true,
+  unindent: false,
   upload: false,
 })
 

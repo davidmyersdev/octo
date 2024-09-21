@@ -29,6 +29,7 @@ export default defineComponent({
     const { user } = useUser()
     const coreEditor = ref()
     const { isMounted } = useVue()
+    const { store } = useVuex()
 
     const focus = () => {
       // Focus the editor.
@@ -51,7 +52,7 @@ export default defineComponent({
     watch(coreEditor, () => {
       focus()
 
-      // Expose the Ink instance for Cypress.
+      // Expose the Ink instance for tests.
       window.inkMde = coreEditor.value?.instance
     })
 
@@ -59,6 +60,7 @@ export default defineComponent({
       coreEditor,
       focus,
       isMounted,
+      store,
       uploadFiles,
       user,
     }
@@ -70,7 +72,7 @@ export default defineComponent({
   },
   computed: {
     docs() {
-      return this.$store.getters.kept.reduce((docs: any[], doc: any) => {
+      return this.store.getters.kept.reduce((docs: any[], doc: any) => {
         if (doc.id && doc.id !== this.doc?.id && doc.headers.length > 0) {
           docs.push({
             id: doc.id,
@@ -85,7 +87,7 @@ export default defineComponent({
       return this.settings?.readability.maxWidthInChars
     },
     options(): Options {
-      const isExperimentalEnabled = this.$store.state.settings.experimental
+      const isExperimentalEnabled = this.store.state.settings.experimental
       const hasLazyPlugins = this.lazyPlugins.length > 0
 
       return {
@@ -134,7 +136,7 @@ export default defineComponent({
       return this.settings?.spellcheck
     },
     tags() {
-      return this.$store.getters.allTags.filter((tag: string) => {
+      return this.store.getters.allTags.filter((tag: string) => {
         return !this.doc?.tags.includes(tag)
       })
     },
@@ -168,6 +170,7 @@ export default defineComponent({
       <CoreEditor
         v-if="isMounted"
         ref="coreEditor"
+        :key="doc?.id"
         v-model="text"
         :max-width-in-chars="maxWidthInChars"
         :options="options"

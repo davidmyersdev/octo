@@ -10,7 +10,7 @@ import { bindGlobal } from '#root/src/common/keybindings'
 const { doc } = useDocs()
 const { isZen, toggleZen } = useZen()
 const { showMenu, showMeta, toggleMenu, toggleMeta } = useLayout()
-const { store: appearance, isAuto, isDark, isLight } = useAppearance()
+const { storedValue: appearance, isAuto, isDark, isLight } = useAppearance()
 const isPrimaryGutterShowing = computed(() => !isZen.value && showMenu.value)
 const isSecondaryGutterShowing = computed(() => !isZen.value && showMeta.value && !!doc.value)
 

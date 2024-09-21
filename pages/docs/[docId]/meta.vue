@@ -39,7 +39,7 @@ export default {
       return parseCodeblocks(this.doc.text)
     },
     createdAt() {
-      if (this.$route.params.docId) {
+      if (this.docId) {
         return moment(this.doc.createdAt).format('ddd, MMM Do, YYYY [at] h:mm A')
       }
 
@@ -49,7 +49,10 @@ export default {
       return moment(this.doc.discardedAt).format('ddd, MMM Do, YYYY [at] h:mm A')
     },
     doc() {
-      return this.$store.getters.decrypted.find((doc) => doc.id === this.$route.params.docId)
+      return this.$store.getters.decrypted.find((doc) => doc.id === this.docId)
+    },
+    docId() {
+      return this.$router.currentRoute.value.params?.docId
     },
     hasCodeblocks() {
       return this.codeblocks.length > 0
@@ -65,7 +68,7 @@ export default {
       })
     },
     savedAt() {
-      if (this.$route.params.docId) {
+      if (this.docId) {
         if (this.now.diff(this.doc.updatedAt, 'seconds') < 5) {
           return 'just now'
         } else {
@@ -76,7 +79,7 @@ export default {
       return 'Not yet saved'
     },
     updatedAt() {
-      if (this.$route.params.docId) {
+      if (this.docId) {
         return moment(this.doc.updatedAt).format('ddd, MMM Do, YYYY [at] h:mm A')
       }
 

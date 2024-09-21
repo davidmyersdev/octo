@@ -160,4 +160,25 @@ test.describe('editor', () => {
 
     await expect(page.getByTestId('doc-backlinks').getByRole('link')).toHaveText('Test 2')
   })
+
+  test('does not undo initial doc load', async ({ page }) => {
+    await page.goto('/docs/new')
+    await page.waitForSelector('[data-is-mounted="true"]')
+
+    await page.keyboard.type('# My Test Doc')
+
+    // Wait for the data to be persisted.
+    await page.waitForTimeout(200)
+
+    await page.reload()
+    await page.waitForSelector('[data-is-mounted="true"]')
+
+    await expect(page.locator('.ink-mde-editor-content')).toHaveText('# My Test Doc')
+
+    await page.keyboard.down('Meta')
+    await page.keyboard.press('z')
+    await page.keyboard.up('Meta')
+
+    await expect(page.locator('.ink-mde-editor-content')).toHaveText('# My Test Doc')
+  })
 })

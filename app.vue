@@ -1,5 +1,9 @@
 <script lang="ts">
-import { loadSettings } from '#root/src/store/plugins/caching/settings'
+import { appEventTypes, logEvent } from '/helpers/app'
+import { loadKeybindings } from '/src/store/modules/keybindings'
+import { loadDocs } from '/src/store/plugins/caching/documents'
+import { loadSettings } from '/src/store/plugins/caching/settings'
+import { syncDocs } from '/src/store/plugins/sync'
 
 import 'overlayscrollbars/overlayscrollbars.css'
 
@@ -7,17 +11,37 @@ export default defineComponent({
   setup() {
     const { public: { appName, appTitle } } = useConfig()
     const mq = useMq()
+    const router = useRouter()
     const { store } = useVuex()
 
     const isMounted = ref(false)
 
-    onMounted(() => {
+    const flow = computed(() => {
+      // A param to indicate a user flow (e.g. completing sign-up or sign-in).
+      return router.currentRoute.value.query.flow
+    })
+
+    const showChangeLog = computed(() => {
+      return router.currentRoute.value.path === '/docs/new' && !router.currentRoute.value.query.ci
+    })
+
+    const ligatures = computed(() => {
+      return store.state.settings.editor.ligatures
+    })
+
+    onMounted(async () => {
       isMounted.value = true
+
+      await loadSettings(store)
+      await loadDocs(store)
+      await loadKeybindings(store)
+
+      syncDocs(store)
 
       // This is used by tests to determine when the app is ready.
       document.body.dataset.isMounted = 'true'
 
-      loadSettings(store)
+      logEvent(appEventTypes.appMounted)
     })
 
     const sizes = computed(() => {
@@ -40,20 +64,11 @@ export default defineComponent({
     })
 
     return {
+      flow,
+      ligatures,
+      showChangeLog,
       sizes,
     }
-  },
-  computed: {
-    flow() {
-      // A param to indicate a user flow (e.g. completing sign-up or sign-in).
-      return this.$route.query.flow
-    },
-    showChangeLog() {
-      return this.$route.path === '/docs/new' && !this.$route.query.ci
-    },
-    ligatures() {
-      return this.$store.state.settings.editor.ligatures
-    },
   },
 })
 </script>

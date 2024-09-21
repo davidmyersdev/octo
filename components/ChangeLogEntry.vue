@@ -1,13 +1,23 @@
 <script lang="ts" setup>
-const props = defineProps<{ header: string }>()
+defineProps<{ header?: string }>()
 </script>
 
 <template>
   <div class="flex flex-col gap-4">
-    <h2 class="text-xl">{{ props.header }}</h2>
+    <small v-if="$slots.timestamp" class="text-layer-muted">
+      <slot name="timestamp" />
+    </small>
+    <header class="flex flex-col gap-2">
+      <h3 v-if="$slots.header || header" class="text-2xl">
+        <strong>
+          <slot name="header">
+            <template v-if="header">
+              {{ header }}
+            </template>
+          </slot>
+        </strong>
+      </h3>
+    </header>
     <slot />
-    <ul v-if="$slots.items" class="flex flex-col gap-1 list-disc pl-4">
-      <slot name="items" />
-    </ul>
   </div>
 </template>

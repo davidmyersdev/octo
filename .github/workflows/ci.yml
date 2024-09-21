@@ -64,7 +64,6 @@ jobs:
           key: v1-${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           path: |
             ${{ env.STORE_PATH }}
-            ~/.cache/Cypress
           restore-keys: v1-${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install --shamefully-hoist
@@ -93,62 +92,11 @@ jobs:
           key: v1-${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           path: |
             ${{ env.STORE_PATH }}
-            ~/.cache/Cypress
           restore-keys: v1-${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install --shamefully-hoist
       - name: Run linter
         run: pnpm lint
-  test-e2e-cypress:
-    env:
-      NUXT_PUBLIC_FIREBASE_EMULATOR_AUTH: http://127.0.0.1:32775
-    needs:
-      - install-dependencies
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout the repository
-        uses: actions/checkout@v4
-      - name: Install Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-      - name: Setup pnpm cache
-        uses: actions/cache@v3
-        with:
-          key: v1-${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          path: |
-            ${{ env.STORE_PATH }}
-            ~/.cache/Cypress
-          restore-keys: v1-${{ runner.os }}-pnpm-store-
-      - name: Install dependencies
-        run: pnpm install --shamefully-hoist
-      - uses: cypress-io/github-action@v6.5.0
-        with:
-          build: pnpm build
-          config: baseUrl=http://127.0.0.1:8889
-          install: false
-          start: |
-            pnpm firebase:start
-            pnpm preview
-          wait-on: 'http://127.0.0.1:8889,http://127.0.0.1:32777'
-      - uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: test/cypress/screenshots
-      - uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: cypress-videos
-          path: test/cypress/videos
   test-e2e-playwright:
     needs:
       - install-dependencies
@@ -174,7 +122,6 @@ jobs:
           key: v1-${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           path: |
             ${{ env.STORE_PATH }}
-            ~/.cache/Cypress
           restore-keys: v1-${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install --shamefully-hoist
@@ -211,7 +158,6 @@ jobs:
           key: v1-${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           path: |
             ${{ env.STORE_PATH }}
-            ~/.cache/Cypress
           restore-keys: v1-${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install --shamefully-hoist
@@ -242,7 +188,6 @@ jobs:
           key: v1-${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           path: |
             ${{ env.STORE_PATH }}
-            ~/.cache/Cypress
           restore-keys: v1-${{ runner.os }}-pnpm-store-
       - name: Install dependencies
         run: pnpm install --shamefully-hoist

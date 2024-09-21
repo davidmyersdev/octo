@@ -15,6 +15,8 @@ export default defineComponent({
   emits: ['update:query'],
   setup(props) {
     const { query } = toRefs(props)
+    const { store } = useVuex()
+    const router = useRouter()
 
     const isEditing = ref(false)
     const searchQuery = ref(query.value || '')
@@ -57,8 +59,10 @@ export default defineComponent({
       searchResults,
       finalDocs,
       isEditing,
+      router,
       searchQuery,
       selectedDocs,
+      store,
       visibleCount,
       visibleDocs,
     }
@@ -84,7 +88,7 @@ export default defineComponent({
       this.visibleCount += 25
     },
     mergeDocs() {
-      this.$store.dispatch(MERGE_DOCUMENTS, this.selectedDocs)
+      this.store.dispatch(MERGE_DOCUMENTS, this.selectedDocs)
 
       this.selectedDocs = []
     },
@@ -107,7 +111,7 @@ export default defineComponent({
           }
         }
       } else {
-        this.$router.push({ path: `/docs/${id}` })
+        this.router.push({ path: `/docs/${id}` })
       }
     },
   },
@@ -152,7 +156,7 @@ export default defineComponent({
         @keypress.enter.prevent="selectDoc(doc.id)"
         @click="selectDoc(doc.id)"
       >
-        <LazyDoc v-bind="doc" :allow-discard="isEditing" class="h-96" />
+        <Doc v-bind="doc" :allow-discard="isEditing" class="h-96" />
         <div v-if="doc.selected" class="flex items-center justify-center rounded absolute inset-0 bg-layer bg-opacity-50">
           <Icon name="CheckCircle" size="3rem" />
         </div>

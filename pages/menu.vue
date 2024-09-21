@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 import { nanoid } from 'nanoid'
-import CoreLink from '#root/components/CoreLink.vue'
-import ModKKey from '#root/components/ModKKey.vue'
-import TagLink from '#root/components/TagLink.vue'
-import { DEACTIVATE_CONTEXT, SET_CONTEXT_TAGS } from '#root/src/store/actions'
-import { useFiles } from '#root/src/stores/useFiles'
-import { AsyncIterable } from '#root/src/utils/iterables'
+import CoreLink from '/components/CoreLink.vue'
+import ModKKey from '/components/ModKKey.vue'
+import TagLink from '/components/TagLink.vue'
+import { useWorkspaces } from '/composables/useWorkspaces'
+import { DEACTIVATE_CONTEXT, SET_CONTEXT_TAGS } from '/src/store/actions'
+import { useFiles } from '/src/stores/useFiles'
+import { AsyncIterable } from '/src/utils/iterables'
 
 const { user } = useUser()
 const { store } = useVuex()
@@ -19,7 +20,7 @@ const mediumPlus = computed(() => mq.value.mdPlus)
 const experimentalFeaturesEnabled = computed(() => store.state.settings.experimental)
 const context = computed(() => store.state.context)
 const contextTags = computed(() => [...context.value.tags].sort())
-const contexts = computed(() => store.getters.sortedContexts)
+const { workspaces } = useWorkspaces()
 const tags = computed(() => store.getters.tags)
 
 const clearContext = () => {
@@ -200,8 +201,8 @@ const trackCta = () => {
             <TagLink v-for="tag in contextTags" :key="tag" :tag="tag" class="sidebar-link" />
           </div>
         </DashPanel>
-        <DashPanel v-if="contexts.length" class="flex flex-col bg-layer" collapsed label="Workspaces">
-          <button v-for="workspace in contexts" :key="workspace.id" class="sidebar-link w-full" @click="setContext(workspace)">
+        <DashPanel v-if="workspaces.length" class="flex flex-col bg-layer" collapsed label="Workspaces">
+          <button v-for="workspace in workspaces" :key="workspace.id" class="sidebar-link w-full" @click="setContext(workspace)">
             <Icon name="Workspace" />
             <span class="action flex flex-grow items-stretch justify-between ml-2">
               <span>{{ workspace.name }}</span>

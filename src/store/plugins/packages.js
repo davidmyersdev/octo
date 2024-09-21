@@ -3,9 +3,7 @@ import PackageManager from '#root/src/packages/manager'
 import {
   ADD_DOCUMENT,
   DISCARD_DOCUMENT,
-  DOCUMENTS_LOADED,
   EDIT_DOCUMENT,
-  LOAD_DOCUMENTS,
   RESTORE_DOCUMENT,
   TOUCH_DOCUMENT,
 } from '#root/src/store/actions'
@@ -18,7 +16,6 @@ export default (store) => {
       case EDIT_DOCUMENT:
       case RESTORE_DOCUMENT:
       case TOUCH_DOCUMENT:
-      case DOCUMENTS_LOADED:
         // find the affected document when possible
         const doc = state.documents.all.find(d => d.id === id)
 
@@ -29,5 +26,5 @@ export default (store) => {
       default:
         break
     }
-  });
-};
+  })
+}

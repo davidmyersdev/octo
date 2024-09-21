@@ -1,25 +1,46 @@
+const valueToSystem = {
+  auto: 'auto',
+  custom: 'dark',
+  dark: 'dark',
+  light: 'light',
+} as const
+
+export type AppearanceValue = keyof typeof valueToSystem
+
 const buildAppearance = () => {
-  const { store, system: resolved } = useColorMode({
+  const storedValue = useLocalStorage<AppearanceValue>('vueuse-color-scheme', 'auto', {
     initOnMounted: true,
-    modes: {
-      auto: 'auto',
-      october: 'dark october',
-      custom: 'custom',
+  })
+
+  watch(storedValue, () => {
+    if (!Object.keys(valueToSystem).includes(storedValue.value)) {
+      storedValue.value = 'auto'
+    }
+  })
+
+  useHead({
+    htmlAttrs: {
+      'data-appearance': storedValue,
     },
   })
 
   const system = computed(() => {
-    if (store.value === 'custom') {
-      // Todo: Remove this extra step by making the editor use CSS variables all the time.
+    // Todo: Remove this extra step by making the editor use CSS variables all the time.
+    if (storedValue.value === 'custom') {
       return 'dark'
     }
 
-    if (store.value === 'october') {
+    if (storedValue.value === 'dark') {
       return 'dark'
     }
 
-    return store.value
+    if (storedValue.value === 'light') {
+      return 'light'
+    }
+
+    return 'auto'
   })
+
   const isAuto = computed(() => system.value === 'auto')
   const isDark = computed(() => system.value === 'dark')
   const isLight = computed(() => system.value === 'light')
@@ -28,8 +49,7 @@ const buildAppearance = () => {
     isAuto,
     isDark,
     isLight,
-    resolved,
-    store,
+    storedValue,
     system,
   }
 }
@@ -40,15 +60,5 @@ export type SystemAppearance = 'auto' | 'dark' | 'light'
 export const appearanceKey = Symbol('appearance') as InjectionKey<Appearance>
 
 export const useAppearance = () => {
-  const injected = inject(appearanceKey, undefined)
-
-  if (injected) {
-    return injected
-  }
-
-  const appearance = buildAppearance()
-
-  provide(appearanceKey, appearance)
-
-  return appearance
+  return injectOrProvide(appearanceKey, buildAppearance)
 }

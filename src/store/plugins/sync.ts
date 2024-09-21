@@ -1,9 +1,9 @@
-import { debouncer } from '#root/src/common/debouncer'
+import { type Plugin, type Store } from 'vuex'
+import { debouncer } from '/src/common/debouncer'
 
 import {
   ADD_DOCUMENT,
   DISCARD_DOCUMENT,
-  DOCUMENTS_LOADED,
   EDIT_DOCUMENT,
   RESTORE_DOCUMENT,
   RESTRICT_DOCUMENT,
@@ -11,18 +11,17 @@ import {
   SHARE_DOCUMENT,
   SYNC,
   TOUCH_DOCUMENT,
-} from '#root/src/store/actions'
+} from '/src/store/actions'
 
-import { SET_USER } from '#root/src/store/modules/auth'
+import { SET_USER } from '/src/store/modules/auth'
 
 const { debounce } = debouncer(1500)
 
-export default (store) => {
-  store.subscribe(async ({ type, payload }, state) => {
+const syncPlugin: Plugin<any> = (store) => {
+  store.subscribe(async ({ type }) => {
     switch (type) {
       case ADD_DOCUMENT:
       case DISCARD_DOCUMENT:
-      case DOCUMENTS_LOADED:
       case EDIT_DOCUMENT:
       case RESTORE_DOCUMENT:
       case RESTRICT_DOCUMENT:
@@ -30,12 +29,7 @@ export default (store) => {
       case SET_USER:
       case SHARE_DOCUMENT:
       case TOUCH_DOCUMENT:
-        // sync documents if online
-        if (store.state.online && store.state.auth.user) {
-          debounce('sync', () => {
-            store.dispatch(SYNC)
-          })
-        }
+        syncDocs(store)
 
         break
       default:
@@ -43,3 +37,14 @@ export default (store) => {
     }
   })
 }
+
+export const syncDocs = (store: Store<any>) => {
+  // sync documents if online
+  if (store.state.online && store.state.auth.user) {
+    debounce('sync', () => {
+      store.dispatch(SYNC)
+    })
+  }
+}
+
+export default syncPlugin

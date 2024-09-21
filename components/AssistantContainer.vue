@@ -9,9 +9,14 @@ export default defineComponent({
     const chatIdFromRoute = computed(() => router.currentRoute.value.params.id as string)
     const chatId = computed(() => chatIdFromRoute.value || id())
 
+    const redirect = () => {
+      router.push({ path: `/assistant/conversations/${chatId.value}` })
+    }
+
     return {
       chatId,
       isMounted,
+      redirect,
     }
   },
 })
@@ -19,6 +24,6 @@ export default defineComponent({
 
 <template>
   <article class="flex flex-col flex-grow">
-    <Assistant v-if="isMounted" :chat-id="chatId" @send="$router.push({ path: `/assistant/conversations/${chatId}` })" />
+    <Assistant v-if="isMounted" :chat-id="chatId" @send="redirect" />
   </article>
 </template>

@@ -38,7 +38,7 @@
     "firebase": "^10.8.0",
     "force-graph": "^1.43.4",
     "fuse.js": "^6.6.2",
-    "ink-mde": "^0.33.0",
+    "ink-mde": "^0.34.0",
     "jszip": "^3.10.1",
     "khroma": "^2.1.0",
     "mermaid": "^9.4.3",

@@ -234,10 +234,10 @@ export default defineComponent({
       max-width: var(--core-editor-max-width-in-chars);
     }
 
-    .ink-mde-task-toggle {
-      @apply checkbox;
+    .ink-mde-task-marker {
+      @apply checkbox outline-1;
 
-      top: -2px;
+      translate: 0 -2px;
     }
 
     .cm-editor,

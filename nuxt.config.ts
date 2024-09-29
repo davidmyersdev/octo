@@ -157,6 +157,8 @@ export default defineNuxtConfig({
       maximumFileSizeToCacheInBytes: (5 * 1024 * 1024),
       navigateFallback: '/',
       navigateFallbackDenylist: [
+        // Necessary for Firebase auth requests.
+        /^\/__/,
         // Keep this around for backward compatibility.
         /^\/manifest\.json$/,
         // Keep this around for backward compatibility.

@@ -4,6 +4,32 @@
 
 @layer base {
   :root {
+    --syntax-blue: #5cbaff;
+    --syntax-green: #a4f0c8;
+    --syntax-grey: #557294;
+    --syntax-pink: #b464cd;
+    --syntax-purple: #a4a4f0;
+    --syntax-yellow: #dad17e;
+
+    --ink-syntax-atom-color: var(--syntax-blue);
+    --ink-syntax-comment-color: var(--syntax-grey);
+    --ink-syntax-keyword-color: var(--syntax-pink);
+    --ink-syntax-meta-color: var(--syntax-yellow);
+    --ink-syntax-name-color: var(--syntax-blue);
+    --ink-syntax-name-property-color: var(--syntax-purple);
+    --ink-syntax-name-property-definition-color: var(--syntax-purple);
+    --ink-syntax-name-variable-color: var(--syntax-blue);
+    --ink-syntax-name-variable-definition-color: var(--syntax-blue);
+    --ink-syntax-name-variable-local-color: var(--syntax-blue);
+    --ink-syntax-number-color: var(--syntax-blue);
+    --ink-syntax-operator-color: var(--syntax-purple);
+    --ink-syntax-processing-instruction-color: var(--syntax-grey);
+    --ink-syntax-punctuation-color: var(--syntax-purple);
+    --ink-syntax-string-color: var(--syntax-green);
+    --ink-syntax-url-color: var(--syntax-grey);
+  }
+
+  :root {
     @apply bg-layer;
     @apply text-layer;
 
@@ -89,6 +115,13 @@
 
   .light,
   [data-appearance=light] {
+    --syntax-blue: #0066cc;
+    --syntax-green: #2e8b57;
+    --syntax-grey: #708090;
+    --syntax-pink: #9932cc;
+    --syntax-purple: #6a5acd;
+    --syntax-yellow: #9b870c;
+
     --layer-0-bg: 244 244 245;
     --layer-0-bg-hover: 228 228 231;
     --layer-0-bg-active: 228 228 231;

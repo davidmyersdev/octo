@@ -166,7 +166,6 @@ export default defineComponent({
   --ink-block-background-color: rgb(v-bind('nextLayer.bgCssVar'));
   --ink-block-background-color-on-hover: rgb(v-bind('nextLayer.bgHoverCssVar'));
   --ink-syntax-hashtag-background-color: rgb(v-bind('nextLayer.bgCssVar'));
-  --ink-syntax-processing-instruction-color: rgb(v-bind('nextLayer.textCssVar') / 0.1);
 
   .core-editor-toolbar {
     max-width: var(--core-editor-max-width-in-chars);

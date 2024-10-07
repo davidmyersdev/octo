@@ -1,9 +1,10 @@
 <script lang="ts">
 import { type Options } from 'ink-mde'
 import { toRaw } from 'vue'
-import { addFile } from '#root/src/firebase/storage'
-import { mermaid, plugins } from '#root/src/vendor/plugins'
-import { useVue } from '#shared/composables'
+import { useVue } from '/lib/shared/composables'
+import { type Doc } from '/src/models/doc'
+import { addFile } from '/src/firebase/storage'
+import { mermaid, plugins } from '/src/vendor/plugins'
 
 export default defineComponent({
   props: {
@@ -71,6 +72,11 @@ export default defineComponent({
     }
   },
   computed: {
+    backlinks(): Doc[] {
+      return this.store.getters.sorted.filter((doc: Doc) => {
+        return doc.references.includes(this.doc?.id)
+      })
+    },
     docs() {
       return this.store.getters.kept.reduce((docs: any[], doc: any) => {
         if (doc.id && doc.id !== this.doc?.id && doc.headers.length > 0) {
@@ -160,12 +166,17 @@ export default defineComponent({
     async input(text: string) {
       this.$emit('input', text)
     },
+    getReference(doc: Doc) {
+      return doc.text.split('\n').find((line: string) => {
+        return line.includes(`[[${this.doc?.id}]]`)
+      })?.replace(`[[${this.doc?.id}]]`, `[[${this.doc?.label}]]`).trim()
+    },
   },
 })
 </script>
 
 <template>
-  <div class="flex flex-col flex-grow relative" @click="focus">
+  <div class="doc-editor flex flex-col flex-grow relative" @click="focus">
     <div class="editor flex flex-col flex-grow flex-shrink min-h-0 min-w-0 w-full">
       <CoreEditor
         v-if="isMounted"
@@ -176,11 +187,31 @@ export default defineComponent({
         :options="options"
         class="min-h-0"
       />
+      <FlexDivider />
+      <div class="backlinks mx-auto w-full py-1 flex flex-col gap-4">
+        <h3 class="font-bold">Backlinks</h3>
+        <ul class="flex flex-col gap-2">
+          <li v-for="backlink in backlinks" :key="backlink.id" class="">
+            <div class="flex flex-col gap-1">
+              <p class="underline">{{ backlink.label }}</p>
+              <p class="text-layer-muted">{{ getReference(backlink) }}</p>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.doc-editor {
+  --max-width-in-chars: v-bind('maxWidthInChars');
+}
+
+.backlinks {
+  max-width: calc(1ch * var(--max-width-in-chars));
+}
+
 :deep(.editor) {
   .ink-mde {
     .ink-mde-editor {

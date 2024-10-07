@@ -7,7 +7,7 @@ definePageMeta({ layout: 'minimal' })
 const { isDark, isLight } = useAppearance()
 
 const { user } = useUser()
-const { public: { appSubtitle, appTitle, appName, fathomEventCtaSignUpNow, firebaseDisabled } } = useConfig()
+const { public: { fathomEventCtaSignUpNow, firebaseDisabled } } = useConfig()
 const isCtaRelevant = computed(() => !(user.value.id || firebaseDisabled))
 
 const ctaLabel = computed(() => isCtaRelevant.value ? 'Get started for free' : 'Open the app')
@@ -21,10 +21,6 @@ const ctaHandler = () => () => {
   }
 }
 
-useHead({
-  titleTemplate: (title) => `${appName} - ${title}`,
-})
-
 onMounted(() => {
   window.localStorage.setItem('octo/welcome/v1', '1')
 })
@@ -37,13 +33,13 @@ onMounted(() => {
         <div class="flex items-center text-center gap-8 lg:gap-16 py-8 lg:py-16">
           <div class="w-full flex flex-col justify-between gap-12">
             <div class="flex flex-col items-center gap-8 w-full">
-              <div class="flex flex-col gap-4">
-                <h1 class="text-4xl lg:text-5xl font-semibold">
-                  {{ appTitle }}
-                </h1>
-                <p class="text-2xl lg:text-2xl" v-html="appSubtitle" />
-              </div>
-              <CoreButton :as="CoreLink" :to="ctaRoute" class="bg-brand hover:bg-brand transition whitespace-nowrap justify-center gap-3 mt-1 text-black text-xl py-2 px-8 hover:scale-110 focus:scale-110" @click="ctaHandler">
+              <h1 class="text-4xl lg:text-5xl font-bold">
+                Your home for <span class="text-blue-600">deep work</span>
+              </h1>
+              <p class="text-xl lg:text-2xl">
+                We swim in an ocean of knowledge.<br>Discover its pearls of wisdom with Octo.
+              </p>
+              <CoreButton :as="CoreLink" :to="ctaRoute" class="bg-blue-700 hover:bg-blue-700 transition whitespace-nowrap justify-center gap-3 mt-1 text-white text-xl py-2 px-8 hover:scale-110 focus:scale-110" @click="ctaHandler">
                 <span class="flex items-center gap-3 align-center">
                   <span>{{ ctaLabel }}</span>
                   <Icon name="ArrowRight" />
@@ -54,27 +50,29 @@ onMounted(() => {
         </div>
       </div>
     </section>
-    <section class="p-4 lg:p-8">
-      <div class="container mx-auto max-w-6xl">
-        <picture v-if="isDark">
-          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait)" srcset="~/assets/screenshot-mobile-dark.png" width="1080" height="2400">
-          <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-dark.png" width="1600" height="900" class="max-lg:bg-black max-lg:border-8 max-lg:border-black max-lg:overflow-hidden max-lg:rounded-2xl w-full">
-        </picture>
-        <picture v-else-if="isLight">
-          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait)" srcset="~/assets/screenshot-mobile-light.png" width="1080" height="2400">
-          <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-light.png" width="1600" height="900" class="max-lg:bg-black max-lg:border-8 max-lg:border-black max-lg:overflow-hidden max-lg:rounded-2xl w-full">
-        </picture>
-        <picture v-else>
-          <!-- mobile -->
-          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait) and (prefers-color-scheme: dark)" srcset="~/assets/screenshot-mobile-dark.png" width="1080" height="2400">
-          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait) and (prefers-color-scheme: light)" srcset="~/assets/screenshot-mobile-light.png" width="1080" height="2400">
-          <!-- desktop -->
-          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(prefers-color-scheme: dark)" srcset="~/assets/screenshot-dark.png" width="1600" height="900">
-          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(prefers-color-scheme: light)" srcset="~/assets/screenshot-light.png" width="1600" height="900">
-          <!-- fallback -->
-          <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-dark.png" width="1600" height="900" class="max-lg:bg-black max-lg:border-8 max-lg:border-black max-lg:overflow-hidden max-lg:rounded-2xl w-full">
-        </picture>
-      </div>
+    <section class="hero">
+      <section class="p-4 lg:p-8">
+        <div class="container mx-auto max-w-6xl">
+          <picture v-if="isDark">
+            <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait)" srcset="~/assets/screenshot-mobile-dark.png" width="1080" height="2400">
+            <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-desktop-dark.png" width="1600" height="900" class="w-full">
+          </picture>
+          <picture v-else-if="isLight">
+            <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait)" srcset="~/assets/screenshot-mobile-light.png" width="1080" height="2400">
+            <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-desktop-light.png" width="1600" height="900" class="w-full">
+          </picture>
+          <picture v-else>
+            <!-- mobile -->
+            <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait) and (prefers-color-scheme: dark)" srcset="~/assets/screenshot-mobile-dark.png" width="1080" height="2400">
+            <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait) and (prefers-color-scheme: light)" srcset="~/assets/screenshot-mobile-light.png" width="1080" height="2400">
+            <!-- desktop -->
+            <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(prefers-color-scheme: dark)" srcset="~/assets/screenshot-desktop-dark.png" width="1600" height="900">
+            <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(prefers-color-scheme: light)" srcset="~/assets/screenshot-desktop-light.png" width="1600" height="900">
+            <!-- fallback -->
+            <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-desktop-dark.png" width="1600" height="900" class="w-full">
+          </picture>
+        </div>
+      </section>
     </section>
     <section>
       <CoreContainer class="p-4 lg:p-8">
@@ -126,3 +124,12 @@ onMounted(() => {
     </section>
   </div>
 </template>
+
+<style>
+.hero {
+  background-image: url('~/assets/waves.svg');
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: 100% 100%;
+}
+</style>

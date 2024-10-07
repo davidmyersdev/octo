@@ -50,33 +50,35 @@ onMounted(() => {
         </div>
       </div>
     </section>
-    <section class="p-4 lg:p-8">
-      <div class="container mx-auto max-w-6xl">
-        <picture v-if="isDark">
-          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait)" srcset="~/assets/screenshot-mobile-dark.png" width="1080" height="2400">
-          <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-desktop-dark.png" width="1600" height="900" class="w-full">
-        </picture>
-        <picture v-else-if="isLight">
-          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait)" srcset="~/assets/screenshot-mobile-light.png" width="1080" height="2400">
-          <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-desktop-light.png" width="1600" height="900" class="w-full">
-        </picture>
-        <picture v-else>
-          <!-- mobile -->
-          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait) and (prefers-color-scheme: dark)" srcset="~/assets/screenshot-mobile-dark.png" width="1080" height="2400">
-          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait) and (prefers-color-scheme: light)" srcset="~/assets/screenshot-mobile-light.png" width="1080" height="2400">
-          <!-- desktop -->
-          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(prefers-color-scheme: dark)" srcset="~/assets/screenshot-desktop-dark.png" width="1600" height="900">
-          <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(prefers-color-scheme: light)" srcset="~/assets/screenshot-desktop-light.png" width="1600" height="900">
-          <!-- fallback -->
-          <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-desktop-dark.png" width="1600" height="900" class="w-full">
-        </picture>
-      </div>
+    <section class="hero">
+      <section class="p-4 lg:p-8">
+        <div class="container mx-auto max-w-6xl">
+          <picture v-if="isDark">
+            <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait)" srcset="~/assets/screenshot-mobile-dark.png" width="1080" height="2400">
+            <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-desktop-dark.png" width="1600" height="900" class="w-full">
+          </picture>
+          <picture v-else-if="isLight">
+            <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait)" srcset="~/assets/screenshot-mobile-light.png" width="1080" height="2400">
+            <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-desktop-light.png" width="1600" height="900" class="w-full">
+          </picture>
+          <picture v-else>
+            <!-- mobile -->
+            <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait) and (prefers-color-scheme: dark)" srcset="~/assets/screenshot-mobile-dark.png" width="1080" height="2400">
+            <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(orientation: portrait) and (prefers-color-scheme: light)" srcset="~/assets/screenshot-mobile-light.png" width="1080" height="2400">
+            <!-- desktop -->
+            <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(prefers-color-scheme: dark)" srcset="~/assets/screenshot-desktop-dark.png" width="1600" height="900">
+            <source alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." media="(prefers-color-scheme: light)" srcset="~/assets/screenshot-desktop-light.png" width="1600" height="900">
+            <!-- fallback -->
+            <img alt="The powerful web-based, responsive note-taking app, Octo, with an open markdown document being edited." src="~/assets/screenshot-desktop-dark.png" width="1600" height="900" class="w-full">
+          </picture>
+        </div>
+      </section>
     </section>
     <section>
       <CoreContainer class="p-4 lg:p-8">
         <CoreCard outline>
           <CoreProse class="max-w-none">
-            <h2>We care about privacy</h2>
+            <h2>Privacy-first by design</h2>
             <p>In today's hyper-connected world, your privacy matters more than ever. Octo has been built from the ground up with privacy as a core tenet. We use the Web Crypto API to support client-side (end-to-end) encryption so that your data can be securely and privately synced across all of your devices. That means that no one, not even people on our team, can access your data.</p>
           </CoreProse>
         </CoreCard>
@@ -84,7 +86,7 @@ onMounted(() => {
       <CoreContainer class="p-4 lg:p-8">
         <CoreCard outline>
           <CoreProse class="max-w-none">
-            <h2>Your second brain is always accessible</h2>
+            <h2>Available wherever you are</h2>
             <p>Thanks to modern browser APIs, such as Service Workers and IndexedDB, web apps can be made to function entirely offline just as native apps can. Octo takes advantage of these APIs to make sure you always have access to your second brain. All you need is a device with a web browser.</p>
             <p>We understand the pain of vendor lock-in, so we maintain import and export tools to help you move your data into or out of Octo.</p>
           </CoreProse>

@@ -4,13 +4,15 @@
 [![Donate](https://img.shields.io/badge/donate-FF5F5F?style=for-the-badge&logo=ko-fi&logoColor=white)](https://voracious.link/donate)
 # Octo
 
-Unlock the full potential of your accumulated knowledge. Sign up at [octo.app](https://octo.app).
+A local-first knowledge management app for deep work.
+
+Get started for free at [octo.app](https://octo.app).
 
 <a href="https://octo.app">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/screenshot-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="assets/screenshot-light.png">
-    <img alt="Shows the Octo app with an open tab containing a markdown document." src="assets/screenshot-dark.png">
+    <source media="(prefers-color-scheme: dark)" srcset="assets/screenshot-desktop-dark.png">
+    <source media="(prefers-color-scheme: light)" srcset="assets/screenshot-desktop-light.png">
+    <img alt="Shows the Octo app with an open tab containing a markdown document." src="assets/screenshot-desktop-dark.png">
   </picture>
 </a>
 

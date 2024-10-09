@@ -23,21 +23,14 @@ const defaultLanguageModels: ModelOption[] = [
     contextWindow: '128k',
   },
   {
+    id: 'gpt-4o-mini',
+    label: 'GPT-4o Mini',
+    contextWindow: '128k',
+  },
+  {
     id: 'gpt-4-turbo',
     label: 'GPT-4 Turbo',
     contextWindow: '128k',
-  },
-  {
-    id: 'gpt-4-turbo-preview',
-    label: 'GPT-4 Turbo (Preview)',
-    contextWindow: '128k',
-  },
-  {
-    id: 'gpt-4-vision-preview',
-    label: 'GPT-4 Turbo Vision',
-    contextWindow: '128k',
-    comingSoon: true,
-    disabled: true,
   },
   {
     id: 'gpt-4',

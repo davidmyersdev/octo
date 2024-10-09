@@ -7,7 +7,7 @@ const updateAppHeight = () => {
   if (isClient && window.visualViewport) {
     const actualHeight = window.visualViewport.scale * window.visualViewport.height
 
-    document.documentElement.style.setProperty('--app-height', `calc(${actualHeight}px - 1px)`)
+    document.documentElement.style.setProperty('--app-height', `${actualHeight}px`)
   }
 }
 

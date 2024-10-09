@@ -1,4 +1,4 @@
-#octo #examples
+#examples
 
 # A Quick Guide to the Web Crypto API
 

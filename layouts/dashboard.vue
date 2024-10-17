@@ -38,6 +38,11 @@ onMounted(() => {
   bindGlobal('mod+shift+,', () => {
     toggleMenu()
   })
+
+  // Todo: Migrate keybindings to composables.
+  bindGlobal('mod+shift+.', () => {
+    toggleMeta()
+  })
 })
 
 onUnmounted(() => {
@@ -47,10 +52,16 @@ onUnmounted(() => {
 
 <template>
   <div class="dashboard flex flex-col lg:flex-row h-screen w-screen min-h-0 min-w-0 overflow-hidden">
-    <Gutter :show="isPrimaryGutterShowing" :size="256" class="hidden lg:flex">
+    <Gutter
+      :show="isPrimaryGutterShowing"
+      :size="256"
+      class="hidden lg:flex"
+    >
       <TheLeftSidebar class="flex flex-grow flex-shrink overflow-hidden w-full" />
     </Gutter>
-    <FlexDivider class="hidden lg:block" />
+    <Transition name="divider">
+      <FlexDivider v-show="isPrimaryGutterShowing" class="hidden lg:block" />
+    </Transition>
     <CoreLayer class="bg-layer basis-full flex flex-col flex-grow flex-shrink min-h-0">
       <div class="flex p-1 items-center">
         <div class="flex gap-1 flex-row-reverse lg:flex-row items-center basis-full justify-start">
@@ -70,7 +81,7 @@ onUnmounted(() => {
         <div class="flex -order-1 lg:order-none items-center justify-center">
           <CoreLayer class="flex text-xl gap-4">
             <svg class="sq-7 transition-colors duration-300 cursor-pointer" :class="isZen ? 'text-layer-bg' : 'text-brand'" viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg" @click="toggleZen">
-              <path d="M125 250C194.036 250 250 194.036 250 125C250 55.9644 194.036 0 125 0C55.9644 0 0 55.9644 0 125C0 194.036 55.9644 250 125 250Z" fill="currentColor" />
+              <circle shape-rendering="geometricPrecision" cx="125" cy="125" r="125" fill="currentColor" />
               <template v-if="isZen">
                 <path class="fill-layer-text-muted stroke-layer-text-muted" d="M212.962 153.171C212.962 153.171 192.949 159.5 179.472 159.5C165.995 159.5 145.981 153.171 145.981 153.171C145.981 153.171 164.921 167.5 179.472 167.5C194.022 167.5 212.962 153.171 212.962 153.171Z" stroke-width="2" stroke-linejoin="round" />
                 <path class="fill-layer-text-muted stroke-layer-text-muted" d="M37 153.171C37 153.171 57.0133 159.5 70.4906 159.5C83.9679 159.5 103.981 153.171 103.981 153.171C103.981 153.171 85.0412 167.5 70.4906 167.5C55.94 167.5 37 153.171 37 153.171Z" stroke-width="2" stroke-linejoin="round" />
@@ -115,8 +126,14 @@ onUnmounted(() => {
         </section>
       </div>
     </CoreLayer>
-    <FlexDivider class="hidden lg:block" />
-    <Gutter :show="isSecondaryGutterShowing" :size="256" class="hidden lg:flex justify-end flex-nowrap">
+    <Transition name="divider">
+      <FlexDivider v-show="isSecondaryGutterShowing" class="hidden lg:block" />
+    </Transition>
+    <Gutter
+      :show="isSecondaryGutterShowing"
+      :size="256"
+      class="hidden lg:flex justify-end flex-nowrap"
+    >
       <TheRightSidebar class="hidden lg:flex flex-grow flex-shrink-0 w-full" />
     </Gutter>
     <ToastList class="fixed bottom-8 right-8 m-auto" />
@@ -128,11 +145,8 @@ onUnmounted(() => {
   height: var(--app-height, 100vh);
 }
 
-.gutter-right {
-  direction: rtl;
-}
-
-:deep(.gutter-right > *) {
-  direction: ltr;
+.divider-enter-active,
+.divider-leave-active {
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 </style>

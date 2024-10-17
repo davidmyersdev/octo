@@ -166,7 +166,6 @@ export default defineComponent({
   --ink-block-background-color: rgb(v-bind('nextLayer.bgCssVar'));
   --ink-block-background-color-on-hover: rgb(v-bind('nextLayer.bgHoverCssVar'));
   --ink-syntax-hashtag-background-color: rgb(v-bind('nextLayer.bgCssVar'));
-  --ink-syntax-processing-instruction-color: rgb(v-bind('nextLayer.textCssVar') / 0.1);
 
   .core-editor-toolbar {
     max-width: var(--core-editor-max-width-in-chars);
@@ -234,10 +233,10 @@ export default defineComponent({
       max-width: var(--core-editor-max-width-in-chars);
     }
 
-    .ink-mde-task-toggle {
-      @apply checkbox;
+    .ink-mde-task-marker {
+      @apply checkbox outline-1;
 
-      top: -2px;
+      translate: 0 -2px;
     }
 
     .cm-editor,

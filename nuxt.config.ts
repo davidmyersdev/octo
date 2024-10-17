@@ -41,18 +41,18 @@ export default defineNuxtConfig({
         { href: '/img/icons/icon-maskable-192x192.png', rel: 'apple-touch-icon' },
       ],
       meta: [
-        { content: 'Unlock the full potential of your accumulated knowledge.', name: 'description' },
+        { content: 'We swim in an ocean of knowledge. Discover its pearls of wisdom with Octo.', name: 'description' },
         { content: '#121212', name: 'theme-color' },
         { property: 'og:url', content: 'https://octo.app' },
         { property: 'og:type', content: 'website' },
-        { property: 'og:title', content: 'Octo | Write meaningful notes' },
-        { property: 'og:description', content: 'Unlock the full potential of your accumulated knowledge.' },
+        { property: 'og:title', content: 'Octo | Your home for deep work' },
+        { property: 'og:description', content: 'We swim in an ocean of knowledge. Discover its pearls of wisdom with Octo.' },
         { property: 'og:image', content: 'https://octo.app/img/og.png' },
         { name: 'twitter:card', content: 'summary_large_image' },
         { property: 'twitter:domain', content: 'octo.app' },
         { property: 'twitter:url', content: 'https://octo.app' },
-        { name: 'twitter:title', content: 'Octo | Write meaningful notes' },
-        { name: 'twitter:description', content: 'Unlock the full potential of your accumulated knowledge.' },
+        { name: 'twitter:title', content: 'Octo | Your home for deep work' },
+        { name: 'twitter:description', content: 'We swim in an ocean of knowledge. Discover its pearls of wisdom with Octo.' },
         { name: 'twitter:image', content: 'https://octo.app/img/og.png' },
       ],
       script: [
@@ -74,7 +74,7 @@ export default defineNuxtConfig({
   },
 
   devtools: {
-    enabled: true,
+    enabled: !process.env.DISABLE_DEVTOOLS,
     timeline: {
       enabled: true,
     },
@@ -283,8 +283,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       appName: 'Octo',
-      appTitle: 'Write meaningful notes',
-      appSubtitle: 'Unlock the full potential of your accumulated knowledge',
+      appTitle: 'Your home for deep work',
+      appSubtitle: 'We swim in an ocean of knowledge. Discover its pearls of wisdom with Octo.',
       cdnUrl: '',
       discordInviteLink: '',
       fathomEventAccountRegistration: '',

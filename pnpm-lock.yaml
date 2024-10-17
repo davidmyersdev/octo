@@ -2003,8 +2003,8 @@ packages:
     resolution: {integrity: sha512-4Qrry4vIToth5mqduVslltWVsyb7DR8OhnkBA3F7XiE0jgQsiuUfwp/RB2F559aXnRbwcfmjvP4jSuEaGcjrCQ==}
     engines: {node: '>=12.0.0'}
 
-  '@grpc/grpc-js@1.8.21':
-    resolution: {integrity: sha512-KeyQeZpxeEBSqFVTi3q2K7PiPXmgBfECc4updA1ejCLjYmoAlvvM3ZMp5ztTDUCUQmoY3CpDxvchjO1+rFkoHg==}
+  '@grpc/grpc-js@1.8.22':
+    resolution: {integrity: sha512-oAjDdN7fzbUi+4hZjKG96MR6KTEubAeMpQEb+77qy+3r0Ua5xTFuie6JOLr4ZZgl5g+W5/uRTS2M1V8mVAFPuA==}
     engines: {node: ^8.13.0 || >=10.10.0}
 
   '@grpc/grpc-js@1.9.14':
@@ -12217,7 +12217,7 @@ snapshots:
       - encoding
       - supports-color
 
-  '@grpc/grpc-js@1.8.21':
+  '@grpc/grpc-js@1.8.22':
     dependencies:
       '@grpc/proto-loader': 0.7.10
       '@types/node': 18.19.4
@@ -17068,7 +17068,7 @@ snapshots:
 
   google-gax@3.6.1(encoding@0.1.13):
     dependencies:
-      '@grpc/grpc-js': 1.8.21
+      '@grpc/grpc-js': 1.8.22
       '@grpc/proto-loader': 0.7.10
       '@types/long': 4.0.2
       '@types/rimraf': 3.0.2

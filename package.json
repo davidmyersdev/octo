@@ -41,7 +41,7 @@
     "ink-mde": "^0.34.0",
     "jszip": "^3.10.1",
     "khroma": "^2.1.0",
-    "mermaid": "^9.4.3",
+    "mermaid": "^10.9.3",
     "micromark": "^3.2.0",
     "micromark-extension-gfm": "^2.0.3",
     "mime-types": "^2.1.35",

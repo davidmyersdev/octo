@@ -28,6 +28,16 @@ const defaultLanguageModels: ModelOption[] = [
     contextWindow: '128k',
   },
   {
+    id: 'o1-preview',
+    label: 'o1 Preview',
+    contextWindow: '128k',
+  },
+  {
+    id: 'o1-mini',
+    label: 'o1 Mini',
+    contextWindow: '128k',
+  },
+  {
     id: 'gpt-4-turbo',
     label: 'GPT-4 Turbo',
     contextWindow: '128k',

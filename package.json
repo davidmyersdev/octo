@@ -12,6 +12,7 @@
     "dev:full": "run-p dev firebase:start",
     "dev:minimal": "DISABLE_SSR=1 DISABLE_PWA=1 NUXT_PUBLIC_FIREBASE_DISABLED=1 run-s dev",
     "dev:screenshots": "DISABLE_DEVTOOLS=1 run-s dev:minimal",
+    "dev:tauri": "tauri dev",
     "firebase:login": "firebase login",
     "firebase:start": "firebase -c ./firebase/firebase.json --project \"${FIREBASE_PROJECT_ID:-demo-octo}\" emulators:start --import ./firebase/data --export-on-exit ./firebase/data",
     "lint": "eslint .",

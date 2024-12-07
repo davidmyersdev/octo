@@ -329,6 +329,8 @@ export default defineNuxtConfig({
   },
 
   vite: {
+    clearScreen: false,
+    envPrefix: ['VITE_', 'TAURI_'],
     plugins: [
       nodePolyfills({
         globals: {

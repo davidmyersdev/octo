@@ -2,7 +2,7 @@
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "octo",
   "version": "0.1.0",
-  "identifier": "com.tauri.dev",
+  "identifier": "app.octo",
   "build": {
     "frontendDist": "../dist",
     "devUrl": "http://127.0.0.1:8888",

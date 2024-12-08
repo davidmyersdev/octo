@@ -119,6 +119,8 @@
     "**/node_modules",
     "./.output",
     "./dev-dist",
-    "./dist"
+    "./dist",
+    "./src-tauri/gen/schemas",
+    "./src-tauri/target"
   ]
 }

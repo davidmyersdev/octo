@@ -42,6 +42,12 @@ export default defineComponent({
       document.body.dataset.isMounted = 'true'
 
       logEvent(appEventTypes.appMounted)
+
+      if (import.meta.env.TAURI_DESKTOP) {
+        const { init } = await import('/src/native')
+
+        await init()
+      }
     })
 
     const sizes = computed(() => {

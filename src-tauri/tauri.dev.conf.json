@@ -1,4 +1,13 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
-  "mainBinaryName": "octo-dev"
+  "mainBinaryName": "octo-dev",
+  "plugins": {
+    "updater": {
+      "endpoints": [
+        "https://github.com/davidmyersdev/octo/releases/latest/download/latest.json",
+        "http://127.0.0.1:8888/latest.json"
+      ],
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEJEODg5MkRDQjA0RUE3M0UKUldRK3AwNnczSktJdlNMcW1UZUE1dWpJUitQZDRmTG9QbXEyZitobC9OenBobHhjeXp0cFE1OTYK"
+    }
+  }
 }

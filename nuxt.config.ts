@@ -330,6 +330,9 @@ export default defineNuxtConfig({
       linkFeedback: '',
       openaiApiKey: '',
       stripeMonthlyPrice: '',
+      tauri: {
+        desktop: '',
+      },
     },
   },
 

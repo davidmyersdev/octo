@@ -1,5 +1,3 @@
-import { navigator } from '#helpers/globals'
-
 export const useDevice = () => {
   const mq = useMq()
 

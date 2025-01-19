@@ -35,6 +35,7 @@
     "@headlessui/vue": "^1.7.22",
     "@mermaid-js/mermaid-mindmap": "^9.3.0",
     "@tabler/icons-vue": "^3.11.0",
+    "@tauri-apps/plugin-opener": "^2.2.4",
     "codemirror-lang-mermaid": "^0.2.2",
     "culori": "^3.3.0",
     "deepmerge": "^4.3.1",

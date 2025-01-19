@@ -24,6 +24,9 @@ importers:
       '@tabler/icons-vue':
         specifier: ^3.11.0
         version: 3.11.0(vue@3.5.3(typescript@5.3.3))
+      '@tauri-apps/plugin-opener':
+        specifier: ^2.2.4
+        version: 2.2.4
       codemirror-lang-mermaid:
         specifier: ^0.2.2
         version: 0.2.2
@@ -2715,6 +2718,9 @@ packages:
 
   '@tauri-apps/plugin-dialog@2.2.0':
     resolution: {integrity: sha512-6bLkYK68zyK31418AK5fNccCdVuRnNpbxquCl8IqgFByOgWFivbiIlvb79wpSXi0O+8k8RCSsIpOquebusRVSg==}
+
+  '@tauri-apps/plugin-opener@2.2.4':
+    resolution: {integrity: sha512-5oXWr80ek8JHwQ/budIdZTHAWBF4XfYMiXIyH8Pr92QtwEG+6xCgCcws0k4xCemVDEetclveJPu8yB9ysuU/dQ==}
 
   '@tauri-apps/plugin-process@2.2.0':
     resolution: {integrity: sha512-uypN2Crmyop9z+KRJr3zl71OyVFgTuvHFjsJ0UxxQ/J5212jVa5w4nPEYjIewcn8bUEXacRebwE6F7owgrbhSw==}
@@ -13217,6 +13223,10 @@ snapshots:
       '@tauri-apps/cli-win32-x64-msvc': 2.1.0
 
   '@tauri-apps/plugin-dialog@2.2.0':
+    dependencies:
+      '@tauri-apps/api': 2.1.1
+
+  '@tauri-apps/plugin-opener@2.2.4':
     dependencies:
       '@tauri-apps/api': 2.1.1
 

@@ -22,9 +22,7 @@ test.describe('sharing', () => {
     await page.locator('[data-test-auth-tier-personal] [data-test-auth-social-google]').click()
     await page.waitForLoadState('domcontentloaded')
     await page.getByRole('button', { name: /add new account/i }).click()
-    await page.waitForLoadState('domcontentloaded')
     await page.locator('#autogen-button').click()
-    await page.waitForLoadState('domcontentloaded')
     await page.locator('#sign-in').click()
 
     await page.waitForSelector('[data-is-mounted="true"]')

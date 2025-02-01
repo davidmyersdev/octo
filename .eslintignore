@@ -1,5 +1,7 @@
 .nuxt
 .output
+/src-tauri/gen/schemas
+/src-tauri/target
 dev-dist
 dist
 node_modules

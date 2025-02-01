@@ -93,6 +93,18 @@ export default defineNuxtConfig({
         file: '~/pages/index.vue',
       })
     },
+    'vite:extend': ({ config }) => {
+      // https://github.com/nuxt/nuxt/issues/27558#issuecomment-2254471601
+      if (config.server && config.server.hmr) {
+        if (typeof config.server.hmr === 'boolean') {
+          config.server.hmr = {}
+        }
+
+        // This port must match the main dev server in order for Tauri to work.
+        config.server.hmr.port = 8888
+        config.server.hmr.protocol = 'ws'
+      }
+    },
   },
 
   imports: {
@@ -159,6 +171,8 @@ export default defineNuxtConfig({
       navigateFallbackDenylist: [
         // Necessary for Firebase auth requests.
         /^\/__/,
+        // Necessary for Firebase emulator requests.
+        /^\/emulator/,
         // Keep this around for backward compatibility.
         /^\/manifest\.json$/,
         // Keep this around for backward compatibility.
@@ -318,6 +332,9 @@ export default defineNuxtConfig({
       linkFeedback: '',
       openaiApiKey: '',
       stripeMonthlyPrice: '',
+      tauri: {
+        desktop: '',
+      },
     },
   },
 
@@ -329,6 +346,8 @@ export default defineNuxtConfig({
   },
 
   vite: {
+    clearScreen: false,
+    envPrefix: ['VITE_', 'TAURI_'],
     plugins: [
       nodePolyfills({
         globals: {
@@ -340,5 +359,14 @@ export default defineNuxtConfig({
       }),
       svgPlugin(),
     ],
+    server: {
+      // This is currently ignored due to a Nuxt bug.
+      // https://github.com/nuxt/nuxt/issues/27558#issuecomment-2254471601
+      hmr: {
+        port: 8888,
+        protocol: 'ws',
+      },
+      strictPort: true,
+    },
   },
 })

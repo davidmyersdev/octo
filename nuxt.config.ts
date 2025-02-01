@@ -171,6 +171,8 @@ export default defineNuxtConfig({
       navigateFallbackDenylist: [
         // Necessary for Firebase auth requests.
         /^\/__/,
+        // Necessary for Firebase emulator requests.
+        /^\/emulator/,
         // Keep this around for backward compatibility.
         /^\/manifest\.json$/,
         // Keep this around for backward compatibility.

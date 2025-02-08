@@ -1,7 +1,10 @@
+*.certSigningRequest
 *.crswap
 *.log*
+*.mobileprovision
 *.njsproj
 *.ntvs*
+*.p12
 *.sln
 *.suo
 *.sw?
@@ -15,6 +18,7 @@
 .nuxt
 .output
 .vercel
+certificate.txt
 dev-dist
 dist
 firebase/data

@@ -25,7 +25,7 @@ importers:
         specifier: ^3.11.0
         version: 3.11.0(vue@3.5.13(typescript@5.3.3))
       '@tauri-apps/plugin-opener':
-        specifier: ^2.2.4
+        specifier: ^2.2.5
         version: 2.2.5
       codemirror-lang-mermaid:
         specifier: ^0.2.2
@@ -119,7 +119,7 @@ importers:
         specifier: ^0.5.16
         version: 0.5.16(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@18.19.4)(typescript@5.3.3)))
       '@tauri-apps/cli':
-        specifier: ^2.1.0
+        specifier: ^2.2.7
         version: 2.2.7
       '@tauri-apps/plugin-dialog':
         specifier: ^2.2.0
@@ -128,7 +128,7 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0
       '@tauri-apps/plugin-updater':
-        specifier: ~2
+        specifier: ~2.5.0
         version: 2.5.0
       '@types/culori':
         specifier: ^2.0.4

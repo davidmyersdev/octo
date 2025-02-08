@@ -15,6 +15,9 @@
 .nuxt
 .output
 .vercel
+certificate.certSigningRequest
+certificate.p12
+certificate.txt
 dev-dist
 dist
 firebase/data

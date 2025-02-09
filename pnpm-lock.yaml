@@ -79,8 +79,8 @@ importers:
         specifier: ^1.6.5
         version: 1.6.5
       nanoid:
-        specifier: ^3.3.7
-        version: 3.3.7
+        specifier: ^3.3.8
+        version: 3.3.8
       overlayscrollbars:
         specifier: ^2.10.0
         version: 2.10.0
@@ -8089,8 +8089,8 @@ packages:
   nan@2.18.0:
     resolution: {integrity: sha512-W7tfG7vMOGtD30sHoZSSc/JVYiyDPEyQVso/Zz+/uQd0B0L46gtC+pHha5FFMRpil6fm/AoEcRWyOVi4+E/f8w==}
 
-  nanoid@3.3.7:
-    resolution: {integrity: sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==}
+  nanoid@3.3.8:
+    resolution: {integrity: sha512-WNLf5Sd8oZxOm+TzppcYk8gVOgP+l58xNy58D0nbUnOxOWRWvlcCV4kUF7ltmI6PsrLl/BgKEyS4mqsGChFN0w==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
 
@@ -15433,7 +15433,7 @@ snapshots:
       '@vue/devtools-kit': 7.3.3
       '@vue/devtools-shared': 7.4.4
       mitt: 3.0.1
-      nanoid: 3.3.7
+      nanoid: 3.3.8
       pathe: 1.1.2
       vite-hot-client: 0.2.3(vite@5.4.8(@types/node@18.19.4)(terser@5.34.1))
     transitivePeerDependencies:
@@ -20698,7 +20698,7 @@ snapshots:
   nan@2.18.0:
     optional: true
 
-  nanoid@3.3.7: {}
+  nanoid@3.3.8: {}
 
   nanoid@4.0.2: {}
 
@@ -21760,7 +21760,7 @@ snapshots:
 
   postcss@8.4.45:
     dependencies:
-      nanoid: 3.3.7
+      nanoid: 3.3.8
       picocolors: 1.1.0
       source-map-js: 1.2.1
 

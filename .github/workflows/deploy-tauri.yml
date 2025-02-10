@@ -8,9 +8,13 @@ on:
 
 # This workflow will trigger on each push to the `release` branch to create or update a GitHub release, build your app, and upload the artifacts to the release.
 env:
+  APPLE_DEVELOPMENT_TEAM: ${{ secrets.APPLE_TEAM_ID }}
   APPLE_ID: ${{ secrets.APPLE_ID }}
   APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
   APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+  IOS_CERTIFICATE: ${{ secrets.IOS_CERTIFICATE }}
+  IOS_CERTIFICATE_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
+  IOS_MOBILE_PROVISION: ${{ secrets.IOS_MOBILE_PROVISION }}
   NODE_OPTIONS: --max-old-space-size=4096
   NUXT_PUBLIC_CDN_URL: ${{ secrets.VITE_APP_CDN_URL }}
   NUXT_PUBLIC_DISCORD_INVITE_LINK: ${{ secrets.VITE_DISCORD_INVITE_LINK }}
@@ -48,14 +52,36 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - platform: macos-latest # for Arm based macs (M1 and above).
-            args: --target aarch64-apple-darwin
-          - platform: macos-latest # for Intel based macs.
-            args: --target x86_64-apple-darwin
-          - platform: ubuntu-22.04 # for Tauri v1 you could replace this with ubuntu-20.04.
-            args: ''
-          - platform: windows-latest
-            args: ''
+          - name: desktop_macos_arm
+            platform: macos-latest # for Arm based macs (M1 and above).
+            args: --verbose --target aarch64-apple-darwin
+            rust_targets: aarch64-apple-darwin,x86_64-apple-darwin
+
+          - name: desktop_macos_intel
+            platform: macos-latest # for Intel based macs.
+            args: --verbose --target x86_64-apple-darwin
+            rust_targets: aarch64-apple-darwin,x86_64-apple-darwin
+
+          - name: mobile_ios
+            platform: macos-latest # for Intel based macs.
+            args: --verbose --target x86_64-apple-darwin
+            rust_targets: aarch64-apple-ios,x86_64-apple-ios,aarch64-apple-ios-sim
+            ios: true
+
+          - name: desktop_linux
+            platform: ubuntu-22.04 # for Tauri v1 you could replace this with ubuntu-20.04.
+            args: --verbose
+
+          - name: mobile_android
+            platform: ubuntu-latest # for Tauri v1 you could replace this with ubuntu-20.04.
+            args: --verbose
+            rust_targets: aarch64-linux-android,armv7-linux-androideabi,i686-linux-android,x86_64-linux-android
+            android: true
+
+          # Not working yet.
+          # - name: Desktop Windows
+          #   platform: windows-latest
+          #   args: --verbose
 
     runs-on: ${{ matrix.platform }}
     steps:
@@ -69,14 +95,38 @@ jobs:
       - name: install Rust stable
         uses: dtolnay/rust-toolchain@stable
         with:
-          # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
-          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
+          targets: ${{ matrix.rust_targets }}
 
       - name: install dependencies (ubuntu only)
-        if: matrix.platform == 'ubuntu-22.04' # This must match the platform value defined above.
+        if: matrix.platform == 'ubuntu-22.04' || matrix.platform == 'ubuntu-latest' # This must match the platform value defined above.
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+
+      - name: Install xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        if: matrix.ios
+        with:
+          xcode-version: latest-stable
+
+      - name: Install Java
+        if: matrix.android
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Android SDK
+        if: matrix.android
+        uses: android-actions/setup-android@v3
+
+      - name: Setup Android NDK
+        if: matrix.android
+        uses: nttld/setup-ndk@v1
+        id: setup-ndk
+        with:
+          ndk-version: r26d
+          link-to-sdk: true
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -99,7 +149,20 @@ jobs:
       - name: Install dependencies
         run: pnpm install --shamefully-hoist
 
+      - name: init android
+        if: matrix.android
+        env:
+          NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+        run: |
+          pnpm tauri android init
+
+      - name: init ios
+        if: matrix.ios
+        run: |
+          pnpm tauri ios init
+
       - name: Import Apple Developer Certificate
+        if: matrix.platform == 'macos-latest'
         env:
           APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
           APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
@@ -112,30 +175,45 @@ jobs:
           security import certificate.p12 -k build.keychain -P "$APPLE_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" build.keychain
           security find-identity -v -p codesigning build.keychain
+
       - name: Verify Certificate
+        if: matrix.platform == 'macos-latest'
         run: |
           set -x
           CERT_INFO=$(security find-identity -v -p codesigning build.keychain | grep "Developer ID Application")
           CERT_ID=$(echo "$CERT_INFO" | awk -F'"' '{print $2}')
           echo "CERT_ID=$CERT_ID" >> $GITHUB_ENV
           echo "Certificate imported."
+
       - name: Tauri info
         run: |
           pnpm tauri info
-      - uses: tauri-apps/tauri-action@v0
+
+      - name: Build iOS app
+        if: matrix.ios
+        run: |
+          pnpm tauri ios build --verbose
+
+      - name: Build Android app
+        if: matrix.android
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
-          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
-          APPLE_ID: ${{ secrets.APPLE_ID }}
-          APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
-          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-          APPLE_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
-          APPLE_SIGNING_IDENTITY: ${{ env.CERT_ID }}
-        with:
-          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
-          releaseName: App v__VERSION__
-          releaseBody: See the assets to download this version and install.
-          releaseDraft: true
-          prerelease: false
-          args: ${{ matrix.args }}
+          NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
+        run: |
+          pnpm tauri android build --verbose
+      # - uses: tauri-apps/tauri-action@v0
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+      #     APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+      #     APPLE_ID: ${{ secrets.APPLE_ID }}
+      #     APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+      #     APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      #     APPLE_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+      #     APPLE_SIGNING_IDENTITY: ${{ env.CERT_ID }}
+      #   with:
+      #     tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
+      #     releaseName: App v__VERSION__
+      #     releaseBody: See the assets to download this version and install.
+      #     releaseDraft: true
+      #     prerelease: false
+      #     args: ${{ matrix.args }}

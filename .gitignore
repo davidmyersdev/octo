@@ -1,7 +1,10 @@
+*.certSigningRequest
 *.crswap
 *.log*
+*.mobileprovision
 *.njsproj
 *.ntvs*
+*.p12
 *.sln
 *.suo
 *.sw?
@@ -15,8 +18,6 @@
 .nuxt
 .output
 .vercel
-certificate.certSigningRequest
-certificate.p12
 certificate.txt
 dev-dist
 dist

@@ -157,11 +157,6 @@ jobs:
         run: |
           pnpm tauri android init
 
-      # - name: init ios
-      #   if: matrix.ios
-      #   run: |
-      #     pnpm tauri ios init
-
       # - name: Import Apple Developer Certificate
       #   if: matrix.platform == 'macos-latest'
       #   env:
@@ -205,6 +200,11 @@ jobs:
           MOBILE_CERT_ID=$(echo "$MOBILE_CERT_INFO" | awk -F'"' '{print $2}')
           echo "MOBILE_CERT_ID=$MOBILE_CERT_ID" >> $GITHUB_ENV
           echo "Certificate imported."
+
+      - name: init ios
+        if: matrix.ios
+        run: |
+          pnpm tauri ios init
 
       - name: Tauri info
         run: |

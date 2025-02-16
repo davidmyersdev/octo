@@ -52,15 +52,15 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - name: desktop_macos_arm
-            platform: macos-latest # for Arm based macs (M1 and above).
-            args: --verbose --target aarch64-apple-darwin
-            rust_targets: aarch64-apple-darwin,x86_64-apple-darwin
+          # - name: desktop_macos_arm
+          #   platform: macos-latest # for Arm based macs (M1 and above).
+          #   args: --verbose --target aarch64-apple-darwin
+          #   rust_targets: aarch64-apple-darwin,x86_64-apple-darwin
 
-          - name: desktop_macos_intel
-            platform: macos-latest # for Intel based macs.
-            args: --verbose --target x86_64-apple-darwin
-            rust_targets: aarch64-apple-darwin,x86_64-apple-darwin
+          # - name: desktop_macos_intel
+          #   platform: macos-latest # for Intel based macs.
+          #   args: --verbose --target x86_64-apple-darwin
+          #   rust_targets: aarch64-apple-darwin,x86_64-apple-darwin
 
           - name: mobile_ios
             platform: macos-latest # for Intel based macs.
@@ -68,15 +68,15 @@ jobs:
             rust_targets: aarch64-apple-ios,x86_64-apple-ios,aarch64-apple-ios-sim
             ios: true
 
-          - name: desktop_linux
-            platform: ubuntu-22.04 # for Tauri v1 you could replace this with ubuntu-20.04.
-            args: --verbose
+          # - name: desktop_linux
+          #   platform: ubuntu-22.04 # for Tauri v1 you could replace this with ubuntu-20.04.
+          #   args: --verbose
 
-          - name: mobile_android
-            platform: ubuntu-latest # for Tauri v1 you could replace this with ubuntu-20.04.
-            args: --verbose
-            rust_targets: aarch64-linux-android,armv7-linux-androideabi,i686-linux-android,x86_64-linux-android
-            android: true
+          # - name: mobile_android
+          #   platform: ubuntu-latest # for Tauri v1 you could replace this with ubuntu-20.04.
+          #   args: --verbose
+          #   rust_targets: aarch64-linux-android,armv7-linux-androideabi,i686-linux-android,x86_64-linux-android
+          #   android: true
 
           # Not working yet.
           # - name: Desktop Windows
@@ -156,10 +156,10 @@ jobs:
         run: |
           pnpm tauri android init
 
-      - name: init ios
-        if: matrix.ios
-        run: |
-          pnpm tauri ios init
+      # - name: init ios
+      #   if: matrix.ios
+      #   run: |
+      #     pnpm tauri ios init
 
       - name: Import Apple Developer Certificate
         if: matrix.platform == 'macos-latest'

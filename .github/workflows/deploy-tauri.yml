@@ -170,20 +170,40 @@ jobs:
           KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
         run: |
           echo $APPLE_CERTIFICATE | base64 --decode > certificate.p12
-          security create-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
-          security default-keychain -s build.keychain
-          security unlock-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
-          security import certificate.p12 -k build.keychain -P "$APPLE_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
-          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" build.keychain
-          security find-identity -v -p codesigning build.keychain
+          security create-keychain -p "$KEYCHAIN_PASSWORD" desktop.keychain
+          security default-keychain -s desktop.keychain
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" desktop.keychain
+          security import certificate.p12 -k desktop.keychain -P "$APPLE_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" desktop.keychain
+          security find-identity -v -p codesigning desktop.keychain
 
-      - name: Verify Certificate
+      - name: Verify Apple Developer Certificate
         if: matrix.platform == 'macos-latest'
         run: |
           set -x
-          CERT_INFO=$(security find-identity -v -p codesigning build.keychain | grep "Developer ID Application")
-          CERT_ID=$(echo "$CERT_INFO" | awk -F'"' '{print $2}')
-          echo "CERT_ID=$CERT_ID" >> $GITHUB_ENV
+          DESKTOP_CERT_INFO=$(security find-identity -v -p codesigning desktop.keychain | grep "Developer ID Application")
+          DESKTOP_CERT_ID=$(echo "$DESKTOP_CERT_INFO" | awk -F'"' '{print $2}')
+          echo "DESKTOP_CERT_ID=$DESKTOP_CERT_ID" >> $GITHUB_ENV
+          echo "Certificate imported."
+
+      - name: Import Apple iOS Certificate
+        if: matrix.ios
+        run: |
+          echo $IOS_CERTIFICATE | base64 --decode > certificate.p12
+          security create-keychain -p "$KEYCHAIN_PASSWORD" mobile.keychain
+          security default-keychain -s mobile.keychain
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" mobile.keychain
+          security import certificate.p12 -k mobile.keychain -P "$IOS_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" mobile.keychain
+          security find-identity -v -p codesigning mobile.keychain
+
+      - name: Verify Apple iOS Certificate
+        if: matrix.ios
+        run: |
+          set -x
+          MOBILE_CERT_INFO=$(security find-identity -v -p codesigning mobile.keychain | grep "Developer ID Application")
+          MOBILE_CERT_ID=$(echo "$MOBILE_CERT_INFO" | awk -F'"' '{print $2}')
+          echo "MOBILE_CERT_ID=$MOBILE_CERT_ID" >> $GITHUB_ENV
           echo "Certificate imported."
 
       - name: Tauri info
@@ -192,6 +212,8 @@ jobs:
 
       - name: Build iOS app
         if: matrix.ios
+        env:
+          APPLE_SIGNING_IDENTITY: ${{ env.MOBILE_CERT_ID }}
         run: |
           pnpm tauri ios build --verbose
 
@@ -210,7 +232,7 @@ jobs:
       #     APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
       #     APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
       #     APPLE_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
-      #     APPLE_SIGNING_IDENTITY: ${{ env.CERT_ID }}
+      #     APPLE_SIGNING_IDENTITY: ${{ env.DESKTOP_CERT_ID }}
       #   with:
       #     tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
       #     releaseName: App v__VERSION__

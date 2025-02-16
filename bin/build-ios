@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+source .env
+
+pnpm tauri ios build --verbose

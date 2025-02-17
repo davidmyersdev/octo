@@ -197,7 +197,7 @@ jobs:
         if: matrix.ios
         run: |
           set -x
-          MOBILE_CERT_INFO=$(security find-identity -v -p codesigning mobile.keychain | grep "Developer ID Application")
+          MOBILE_CERT_INFO=$(security find-identity -v -p codesigning mobile.keychain | grep "Apple Distribution")
           MOBILE_CERT_ID=$(echo "$MOBILE_CERT_INFO" | awk -F'"' '{print $2}')
           echo "MOBILE_CERT_ID=$MOBILE_CERT_ID" >> $GITHUB_ENV
           echo "Certificate imported."

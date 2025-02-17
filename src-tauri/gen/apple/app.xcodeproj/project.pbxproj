@@ -260,8 +260,8 @@
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = BL2RJ5DCNK;
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = BL2RJ5DCNK;
+				DEVELOPMENT_TEAM = "BL2RJ5DCNK";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = "BL2RJ5DCNK";
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphoneos*]" = "arm64-sim x86_64";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;
@@ -373,8 +373,8 @@
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = BL2RJ5DCNK;
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = BL2RJ5DCNK;
+				DEVELOPMENT_TEAM = "BL2RJ5DCNK";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = "BL2RJ5DCNK";
 				ENABLE_BITCODE = NO;
 				"EXCLUDED_ARCHS[sdk=iphoneos*]" = "arm64-sim x86_64";
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = arm64;

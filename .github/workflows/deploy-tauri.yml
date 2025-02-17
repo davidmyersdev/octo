@@ -158,29 +158,29 @@ jobs:
         run: |
           pnpm tauri android init
 
-      - name: Import Apple Developer Certificate
-        if: matrix.platform == 'macos-latest'
-        env:
-          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
-          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
-          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-        run: |
-          echo $APPLE_CERTIFICATE | base64 --decode > certificate.p12
-          security create-keychain -p "$KEYCHAIN_PASSWORD" desktop.keychain
-          security default-keychain -s desktop.keychain
-          security unlock-keychain -p "$KEYCHAIN_PASSWORD" desktop.keychain
-          security import certificate.p12 -k desktop.keychain -P "$APPLE_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
-          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" desktop.keychain
-          security find-identity -v -p codesigning desktop.keychain
+      # - name: Import Apple Developer Certificate
+      #   if: matrix.platform == 'macos-latest'
+      #   env:
+      #     APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+      #     APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+      #     KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+      #   run: |
+      #     echo $APPLE_CERTIFICATE | base64 --decode > certificate.p12
+      #     security create-keychain -p "$KEYCHAIN_PASSWORD" desktop.keychain
+      #     security default-keychain -s desktop.keychain
+      #     security unlock-keychain -p "$KEYCHAIN_PASSWORD" desktop.keychain
+      #     security import certificate.p12 -k desktop.keychain -P "$APPLE_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
+      #     security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" desktop.keychain
+      #     security find-identity -v -p codesigning desktop.keychain
 
-      - name: Verify Apple Developer Certificate
-        if: matrix.platform == 'macos-latest'
-        run: |
-          set -x
-          DESKTOP_CERT_INFO=$(security find-identity -v -p codesigning desktop.keychain | grep "Developer ID Application")
-          DESKTOP_CERT_ID=$(echo "$DESKTOP_CERT_INFO" | awk -F'"' '{print $2}')
-          echo "DESKTOP_CERT_ID=$DESKTOP_CERT_ID" >> $GITHUB_ENV
-          echo "Certificate imported."
+      # - name: Verify Apple Developer Certificate
+      #   if: matrix.platform == 'macos-latest'
+      #   run: |
+      #     set -x
+      #     DESKTOP_CERT_INFO=$(security find-identity -v -p codesigning desktop.keychain | grep "Developer ID Application")
+      #     DESKTOP_CERT_ID=$(echo "$DESKTOP_CERT_INFO" | awk -F'"' '{print $2}')
+      #     echo "DESKTOP_CERT_ID=$DESKTOP_CERT_ID" >> $GITHUB_ENV
+      #     echo "Certificate imported."
 
       - name: Import Apple iOS Certificate
         if: matrix.ios
@@ -216,7 +216,7 @@ jobs:
         env:
           APPLE_SIGNING_IDENTITY: ${{ env.MOBILE_CERT_ID }}
         run: |
-          pnpm tauri ios build --verbose
+          pnpm tauri ios build --verbose --export-method app-store-connect
 
       - name: Build Android app
         if: matrix.android

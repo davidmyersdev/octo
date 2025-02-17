@@ -202,10 +202,10 @@ jobs:
           echo "MOBILE_CERT_ID=$MOBILE_CERT_ID" >> $GITHUB_ENV
           echo "Certificate imported."
 
-      - name: init ios
-        if: matrix.ios
-        run: |
-          pnpm tauri ios init
+      # - name: init ios
+      #   if: matrix.ios
+      #   run: |
+      #     pnpm tauri ios init
 
       - name: Tauri info
         run: |

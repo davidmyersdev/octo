@@ -28,7 +28,6 @@
     "active": true,
     "createUpdaterArtifacts": true,
     "macOS": {
-      "signingIdentity": "-"
     },
     "targets": "all",
     "icon": [

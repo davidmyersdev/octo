@@ -205,7 +205,7 @@ jobs:
       - name: init ios
         if: matrix.ios
         run: |
-          pnpm tauri ios init
+          pnpm tauri ios init --verbose
 
       - name: download iOS platform
         if: matrix.ios
@@ -216,6 +216,11 @@ jobs:
         if: matrix.ios
         run: |
           git checkout -- ./src-tauri/gen/apple
+
+      - name: build web
+        if: matrix.ios
+        run: |
+          pnpm build
 
       - name: Tauri info
         run: |

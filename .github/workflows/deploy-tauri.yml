@@ -207,6 +207,11 @@ jobs:
         run: |
           pnpm tauri ios init
 
+      - name: download iOS platform
+        if: matrix.ios
+        run: |
+          xcodebuild -downloadPlatform iOS
+
       - name: checkout files
         if: matrix.ios
         run: |

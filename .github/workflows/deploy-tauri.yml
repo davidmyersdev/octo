@@ -207,6 +207,11 @@ jobs:
         run: |
           pnpm tauri ios init
 
+      - name: checkout files
+        if: matrix.ios
+        run: |
+          git checkout -- ./src-tauri/gen/apple
+
       - name: Tauri info
         run: |
           pnpm tauri info

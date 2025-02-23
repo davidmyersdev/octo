@@ -190,7 +190,7 @@ jobs:
           security default-keychain -s mobile.keychain
           security unlock-keychain -p "$KEYCHAIN_PASSWORD" mobile.keychain
           security show-keychain-info mobile.keychain
-          security set-keychain-settings -lut mobile.keychain
+          security set-keychain-settings -lu mobile.keychain
           security show-keychain-info mobile.keychain
           security import certificate.p12 -k mobile.keychain -P "$IOS_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" mobile.keychain

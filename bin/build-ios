@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -o allexport
 source .env
+set +o allexport
 
-pnpm tauri ios build --verbose
+pnpm tauri ios build --export-method app-store-connect

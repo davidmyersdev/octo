@@ -13,9 +13,6 @@ env:
   APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
   APPLE_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
   APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-  IOS_CERTIFICATE: ${{ secrets.IOS_CERTIFICATE }}
-  IOS_CERTIFICATE_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
-  IOS_MOBILE_PROVISION: ${{ secrets.IOS_MOBILE_PROVISION }}
   KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
   NODE_OPTIONS: --max-old-space-size=4096
   NUXT_PUBLIC_CDN_URL: ${{ secrets.VITE_APP_CDN_URL }}
@@ -47,201 +44,127 @@ env:
   TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
   TAURI_SIGNING_PRIVATE_KEY_PASSWORD:
 jobs:
-  publish-tauri:
-    permissions:
-      contents: write
+  build-desktop-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/install-rust
+      - uses: ./.github/actions/install-tauri
+      - uses: ./.github/actions/install-xcode
+      - uses: ./.github/actions/install-node
+      - name: Build Web app
+        run: |
+          pnpm build
+      - name: Build Linux app
+        run: |
+          pnpm tauri build --verbose
+  build-desktop-macos:
     strategy:
       fail-fast: false
       matrix:
         include:
-          # - name: desktop_macos_arm
-          #   platform: macos-latest # for Arm based macs (M1 and above).
-          #   args: --verbose --target aarch64-apple-darwin
-          #   rust_targets: aarch64-apple-darwin,x86_64-apple-darwin
-
-          # - name: desktop_macos_intel
-          #   platform: macos-latest # for Intel based macs.
-          #   args: --verbose --target x86_64-apple-darwin
-          #   rust_targets: aarch64-apple-darwin,x86_64-apple-darwin
-
-          - name: mobile_ios
-            platform: macos-latest # for Intel based macs.
-            args: --verbose --target x86_64-apple-darwin
-            rust_targets: aarch64-apple-ios,x86_64-apple-ios,aarch64-apple-ios-sim
-            ios: true
-
-          # - name: desktop_linux
-          #   platform: ubuntu-22.04 # for Tauri v1 you could replace this with ubuntu-20.04.
-          #   args: --verbose
-
-          # - name: mobile_android
-          #   platform: ubuntu-latest # for Tauri v1 you could replace this with ubuntu-20.04.
-          #   args: --verbose
-          #   rust_targets: aarch64-linux-android,armv7-linux-androideabi,i686-linux-android,x86_64-linux-android
-          #   android: true
-
-          # Not working yet.
-          # - name: Desktop Windows
-          #   platform: windows-latest
-          #   args: --verbose
-
-    runs-on: ${{ matrix.platform }}
+          # Arm based macs (M1 and above).
+          - tauri-target: aarch64-apple-darwin
+          # Intel based macs.
+          - tauri-target: x86_64-apple-darwin
+    runs-on: macos-latest
+    env:
+      APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+      APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+      KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
-
-      - name: Install Node
-        uses: actions/setup-node@v4
+      - uses: ./.github/actions/install-rust
         with:
-          node-version: 18
-
-      - name: install Rust stable
-        uses: dtolnay/rust-toolchain@stable
+          targets: aarch64-apple-darwin,x86_64-apple-darwin
+      - uses: ./.github/actions/install-tauri
+      - uses: ./.github/actions/install-xcode
+      - uses: ./.github/actions/install-node
+      - uses: ./.github/actions/install-certificates
+        id: import-certificate
         with:
-          targets: ${{ matrix.rust_targets }}
-
-      - name: install dependencies (ubuntu only)
-        if: matrix.platform == 'ubuntu-22.04' || matrix.platform == 'ubuntu-latest' # This must match the platform value defined above.
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
-
-      - name: Install xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        if: matrix.ios
-        with:
-          xcode-version: latest-stable
-
-      - name: Install Java
-        if: matrix.android
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'zulu'
-          java-version: '17'
-
-      - name: Setup Android SDK
-        if: matrix.android
-        uses: android-actions/setup-android@v3
-
-      - name: Setup Android NDK
-        if: matrix.android
-        uses: nttld/setup-ndk@v1
-        id: setup-ndk
-        with:
-          ndk-version: r26d
-          link-to-sdk: true
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
-
-      - name: Get pnpm store directory
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
-      - name: Setup pnpm cache
-        uses: actions/cache@v4
-        with:
-          key: v1-${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          path: |
-            ${{ env.STORE_PATH }}
-          restore-keys: v1-${{ runner.os }}-pnpm-store-
-
-      - name: Install dependencies
-        run: pnpm install --shamefully-hoist
-
-      - name: init android
-        if: matrix.android
-        env:
-          NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
-        run: |
-          pnpm tauri android init
-
-      # - name: Import Apple Developer Certificate
-      #   if: matrix.platform == 'macos-latest'
-      #   env:
-      #     APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
-      #     APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
-      #     KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
-      #   run: |
-      #     echo $APPLE_CERTIFICATE | base64 --decode > certificate.p12
-      #     security create-keychain -p "$KEYCHAIN_PASSWORD" desktop.keychain
-      #     security default-keychain -s desktop.keychain
-      #     security unlock-keychain -p "$KEYCHAIN_PASSWORD" desktop.keychain
-      #     security import certificate.p12 -k desktop.keychain -P "$APPLE_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
-      #     security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" desktop.keychain
-      #     security find-identity -v -p codesigning desktop.keychain
-
-      # - name: Verify Apple Developer Certificate
-      #   if: matrix.platform == 'macos-latest'
-      #   run: |
-      #     set -x
-      #     DESKTOP_CERT_INFO=$(security find-identity -v -p codesigning desktop.keychain | grep "Developer ID Application")
-      #     DESKTOP_CERT_ID=$(echo "$DESKTOP_CERT_INFO" | awk -F'"' '{print $2}')
-      #     echo "DESKTOP_CERT_ID=$DESKTOP_CERT_ID" >> $GITHUB_ENV
-      #     echo "Certificate imported."
-
-      - name: Import Apple iOS Certificate
-        if: matrix.ios
-        run: |
-          echo $IOS_CERTIFICATE | base64 --decode > certificate.p12
-          security create-keychain -p "$KEYCHAIN_PASSWORD" mobile.keychain
-          security default-keychain -s mobile.keychain
-          security unlock-keychain -p "$KEYCHAIN_PASSWORD" mobile.keychain
-          security show-keychain-info mobile.keychain
-          security set-keychain-settings -lu mobile.keychain
-          security show-keychain-info mobile.keychain
-          security import certificate.p12 -k mobile.keychain -P "$IOS_CERTIFICATE_PASSWORD" -T /usr/bin/codesign
-          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KEYCHAIN_PASSWORD" mobile.keychain
-          security find-identity -v -p codesigning mobile.keychain
-
-      - name: Verify Apple iOS Certificate
-        if: matrix.ios
-        run: |
-          set -x
-          MOBILE_CERT_INFO=$(security find-identity -v -p codesigning mobile.keychain | grep "Apple Distribution")
-          MOBILE_CERT_ID=$(echo "$MOBILE_CERT_INFO" | awk -F'"' '{print $2}')
-          echo "MOBILE_CERT_ID=$MOBILE_CERT_ID" >> $GITHUB_ENV
-          echo "Certificate imported."
-
-      - name: init ios
-        if: matrix.ios
-        run: |
-          pnpm tauri ios init --verbose
-
-      - name: download iOS platform
-        if: matrix.ios
-        run: |
-          xcodebuild -downloadPlatform iOS
-
-      - name: checkout files
-        if: matrix.ios
-        run: |
-          git checkout -- ./src-tauri/gen/apple
-
-      - name: build web
-        if: matrix.ios
+          certificate: ${{ env.APPLE_CERTIFICATE }}
+          certificate-password: ${{ env.APPLE_CERTIFICATE_PASSWORD }}
+          certificate-regex: 'Developer ID Application'
+          keychain-password: ${{ env.KEYCHAIN_PASSWORD }}
+      - name: Build Web app
         run: |
           pnpm build
-
+      - name: Build macOS app
+        run: |
+          pnpm tauri build --verbose --target ${{ matrix.tauri-target }}
+  build-desktop-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/install-rust
+      - uses: ./.github/actions/install-tauri
+      - uses: ./.github/actions/install-node
+      - name: Build Web app
+        run: |
+          pnpm build
+      - name: Build Windows app
+        run: |
+          pnpm tauri build --verbose
+  build-mobile-android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/install-rust
+        with:
+          targets: aarch64-linux-android,armv7-linux-androideabi,i686-linux-android,x86_64-linux-android
+      - uses: ./.github/actions/install-android
+      - uses: ./.github/actions/install-tauri
+      - uses: ./.github/actions/install-node
+      - name: Init Android app
+        run: |
+          pnpm tauri android init
+      - name: Build Web app
+        run: |
+          pnpm build
+      - name: Build Android app
+        run: |
+          pnpm tauri android build --verbose
+  build-mobile-ios:
+    runs-on: macos-latest
+    env:
+      IOS_CERTIFICATE: ${{ secrets.IOS_CERTIFICATE }}
+      IOS_CERTIFICATE_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
+      IOS_MOBILE_PROVISION: ${{ secrets.IOS_MOBILE_PROVISION }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/install-rust
+        with:
+          targets: aarch64-apple-ios,x86_64-apple-ios,aarch64-apple-ios-sim
+      - uses: ./.github/actions/install-tauri
+      - uses: ./.github/actions/install-xcode
+      - uses: ./.github/actions/install-node
+      - uses: ./.github/actions/install-certificates
+        id: import-certificate
+        with:
+          certificate: ${{ env.IOS_CERTIFICATE }}
+          certificate-password: ${{ env.IOS_CERTIFICATE_PASSWORD }}
+          keychain-password: ${{ env.KEYCHAIN_PASSWORD }}
+      - name: init ios
+        run: |
+          pnpm tauri ios init --verbose
+      - name: download iOS platform
+        run: |
+          xcodebuild -downloadPlatform iOS
+      - name: checkout files
+        run: |
+          git checkout -- ./src-tauri/gen/apple
+      - name: Build Web app
+        run: |
+          pnpm build
       - name: Tauri info
         run: |
           pnpm tauri info
-
       - name: Build iOS app
-        if: matrix.ios
         env:
-          APPLE_SIGNING_IDENTITY: ${{ env.MOBILE_CERT_ID }}
+          APPLE_SIGNING_IDENTITY: ${{ steps.import-certificate.outputs.certificate-id }}
         run: |
           pnpm tauri ios build --verbose --export-method app-store-connect
-
-      - name: Build Android app
-        if: matrix.android
-        env:
-          NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
-        run: |
-          pnpm tauri android build --verbose
       # - uses: tauri-apps/tauri-action@v0
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -259,3 +182,15 @@ jobs:
       #     releaseDraft: true
       #     prerelease: false
       #     args: ${{ matrix.args }}
+  release:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    needs:
+      - build-desktop-linux
+      - build-desktop-macos
+      - build-desktop-windows
+      - build-mobile-android
+      - build-mobile-ios
+    steps:
+      - run: echo "Release"

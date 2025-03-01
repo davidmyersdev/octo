@@ -1,0 +1,33 @@
+name: Java
+description: Manage your Java environment
+author: David Myers
+inputs:
+  distribution:
+    description: The distribution of Java to install.
+    required: false
+    default: zulu
+  ndk-version:
+    description: The version of Java to install.
+    required: false
+    default: r26d
+outputs:
+  ndk-path:
+    description: The Android NDK path.
+    value: ${{ steps.install-ndk.outputs.ndk-path }}
+runs:
+  using: composite
+  steps:
+    - name: Install Java
+      uses: ./.github/actions/install-java
+    - name: Install Android SDK
+      uses: android-actions/setup-android@v3
+    - name: Install Android NDK
+      id: install-ndk
+      uses: nttld/setup-ndk@v1
+      with:
+        link-to-sdk: true
+        ndk-version: ${{ inputs.ndk-version }}
+    - name: Set the NDK_HOME environment variable
+      shell: bash
+      run: |
+        echo "NDK_HOME=${{ steps.install-ndk.outputs.ndk-path }}" >> $GITHUB_ENV

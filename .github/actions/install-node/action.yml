@@ -1,0 +1,33 @@
+name: Node.js
+description: Manage your Node.js environment
+author: David Myers
+inputs:
+  version:
+    description: The version of Node.js to install.
+    required: false
+    default: 18
+runs:
+  using: composite
+  steps:
+    - name: Install Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.version }}
+    - name: Install PNPM
+      uses: pnpm/action-setup@v4
+      with:
+        run_install: false
+    - name: Set PNPM store path
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+    - name: Setup pnpm cache
+      uses: actions/cache@v4
+      with:
+        key: v1-${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        path: |
+          ${{ env.STORE_PATH }}
+        restore-keys: v1-${{ runner.os }}-pnpm-store-
+    - name: Install project dependencies
+      shell: bash
+      run: pnpm install --shamefully-hoist

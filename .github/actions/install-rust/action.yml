@@ -1,0 +1,21 @@
+name: Rust
+description: Manage your Rust environment
+author: David Myers
+inputs:
+  targets:
+    description: The targets to install.
+    required: false
+  toolchain:
+    # https://rust-lang.github.io/rustup/concepts/toolchains.html
+    description: The toolchain to install. Defaults to stable.
+    required: false
+    default: stable
+runs:
+  using: composite
+  steps:
+    - name: Install Rust
+      # https://github.com/crusty-pie/toolchain
+      uses: crusty-pie/toolchain@v1
+      with:
+        targets: ${{ inputs.targets }}
+        toolchain: ${{ inputs.toolchain }}

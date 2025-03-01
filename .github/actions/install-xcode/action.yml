@@ -1,0 +1,17 @@
+name: Xcode
+description: Manage your Xcode environment
+author: David Myers
+inputs:
+  version:
+    description: The version of Xcode to install.
+    required: false
+    default: latest-stable
+runs:
+  using: composite
+  steps:
+    - name: Install Xcode
+      if: runner.os == 'macOS'
+      # https://github.com/maxim-lobanov/setup-xcode
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: ${{ inputs.version }}

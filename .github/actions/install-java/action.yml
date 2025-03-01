@@ -1,0 +1,20 @@
+name: Java
+description: Manage your Java environment
+author: David Myers
+inputs:
+  distribution:
+    description: The distribution of Java to install.
+    required: false
+    default: zulu
+  version:
+    description: The version of Java to install.
+    required: false
+    default: 17
+runs:
+  using: composite
+  steps:
+    - name: Install Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: ${{ inputs.distribution }}
+        java-version: ${{ inputs.version }}

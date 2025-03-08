@@ -64,9 +64,14 @@ jobs:
       matrix:
         include:
           # Arm based macs (M1 and above).
-          - tauri-target: aarch64-apple-darwin
+          - bundle-type: aarch64-apple-darwin
+            rust-targets: aarch64-apple-darwin
           # Intel based macs.
-          - tauri-target: x86_64-apple-darwin
+          - bundle-type: x86_64-apple-darwin
+            rust-targets: x86_64-apple-darwin
+          # Universal
+          - bundle-type: universal-apple-darwin
+            rust-targets: aarch64-apple-darwin,x86_64-apple-darwin
     runs-on: macos-latest
     env:
       APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
@@ -76,7 +81,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/install-rust
         with:
-          targets: aarch64-apple-darwin,x86_64-apple-darwin
+          targets: ${{ matrix.rust-targets }}
       - uses: ./.github/actions/install-tauri
       - uses: ./.github/actions/install-xcode
       - uses: ./.github/actions/install-node
@@ -92,7 +97,24 @@ jobs:
           pnpm build
       - name: Build macOS app
         run: |
-          pnpm tauri build --verbose --target ${{ matrix.tauri-target }}
+          pnpm tauri build --verbose --target ${{ matrix.bundle-type }}
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          files: |
+            ./src-tauri/target/aarch64-apple-darwin/release/bundle/**/*.dmg
+            ./src-tauri/target/aarch64-apple-darwin/release/bundle/**/*.app
+            ./src-tauri/target/aarch64-apple-darwin/release/bundle/**/*.tar.gz
+            ./src-tauri/target/aarch64-apple-darwin/release/bundle/**/*.tar.gz.sig
+            ./src-tauri/target/x86_64-apple-darwin/release/bundle/**/*.dmg
+            ./src-tauri/target/x86_64-apple-darwin/release/bundle/**/*.app
+            ./src-tauri/target/x86_64-apple-darwin/release/bundle/**/*.tar.gz
+            ./src-tauri/target/x86_64-apple-darwin/release/bundle/**/*.tar.gz.sig
+          make_latest: true
+          name: App v0.0.1-alpha
+          tag_name: app-v0.0.1-alpha
+          target_commitish: ${{ github.sha }}
   build-desktop-windows:
     runs-on: windows-latest
     steps:
@@ -193,4 +215,4 @@ jobs:
       - build-mobile-android
       - build-mobile-ios
     steps:
-      - run: echo "Release"
+      - run: echo 'Release'

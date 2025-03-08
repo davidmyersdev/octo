@@ -130,6 +130,9 @@ export default defineNuxtConfig({
         '/product/pricing',
         '/settings',
       ],
+      ignore: [
+        '/_routes',
+      ],
     },
     routeRules: {
       '/emulator/auth/**': {

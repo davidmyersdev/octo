@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 env:
   BASE_URL: http://127.0.0.1:8888
   FIREBASE_PROJECT_ID: demo-octo

@@ -150,7 +150,6 @@ export default defineNuxtConfig({
         preserve: true,
       },
       'autoprefixer': {},
-      'tailwindcss/nesting': 'postcss-nesting',
       'tailwindcss': {},
     },
   },

@@ -59,6 +59,27 @@ jobs:
       - name: Build Linux app
         run: |
           pnpm tauri build --verbose
+      - name: Rename build artifacts
+        run: |
+          mv ./src-tauri/target/release/bundle/deb/*.deb ./octo-${{ env.APP_VERSION }}-amd64.deb
+          mv ./src-tauri/target/release/bundle/deb/*.deb.sig ./octo-${{ env.APP_VERSION }}-amd64.deb.sig
+          mv ./src-tauri/target/release/bundle/rpm/*.rpm ./octo-${{ env.APP_VERSION }}-x64.rpm
+          mv ./src-tauri/target/release/bundle/appimage/*.AppImage ./octo-${{ env.APP_VERSION }}-amd64.AppImage
+          mv ./src-tauri/target/release/bundle/appimage/*.AppImage.sig ./octo-${{ env.APP_VERSION }}-amd64.AppImage.sig
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          files: |
+            ./octo-${{ env.APP_VERSION }}-amd64.deb
+            ./octo-${{ env.APP_VERSION }}-amd64.deb.sig
+            ./octo-${{ env.APP_VERSION }}-x64.rpm
+            ./octo-${{ env.APP_VERSION }}-amd64.AppImage
+            ./octo-${{ env.APP_VERSION }}-amd64.AppImage.sig
+          make_latest: true
+          name: App ${{ env.APP_VERSION }}
+          tag_name: app-${{ env.APP_VERSION }}
+          target_commitish: ${{ github.sha }}
   build-desktop-macos:
     strategy:
       fail-fast: false

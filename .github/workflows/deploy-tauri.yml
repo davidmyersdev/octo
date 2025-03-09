@@ -193,6 +193,21 @@ jobs:
       - name: Build Android app
         run: |
           pnpm tauri android build --verbose
+      - name: Rename build artifacts
+        run: |
+          mv ./src-tauri/gen/android/app/build/outputs/apk/universal/release/*.apk ./octo-${{ env.APP_VERSION }}-universal.apk
+          mv ./src-tauri/gen/android/app/build/outputs/bundle/universalRelease/*.aab ./octo-${{ env.APP_VERSION }}-universal.aab
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          files: |
+            ./octo-${{ env.APP_VERSION }}-universal.apk
+            ./octo-${{ env.APP_VERSION }}-universal.aab
+          make_latest: true
+          name: App ${{ env.APP_VERSION }}
+          tag_name: app-${{ env.APP_VERSION }}
+          target_commitish: ${{ github.sha }}
   build-mobile-ios:
     runs-on: macos-latest
     env:
@@ -233,6 +248,19 @@ jobs:
           APPLE_SIGNING_IDENTITY: ${{ steps.import-certificate.outputs.certificate-id }}
         run: |
           pnpm tauri ios build --verbose --export-method app-store-connect
+      - name: Rename build artifacts
+        run: |
+          mv ./src-tauri/gen/apple/build/arm64/octo.ipa ./octo-${{ env.APP_VERSION }}-arm64.ipa
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          files: |
+            ./octo-${{ env.APP_VERSION }}-arm64.ipa
+          make_latest: true
+          name: App ${{ env.APP_VERSION }}
+          tag_name: app-${{ env.APP_VERSION }}
+          target_commitish: ${{ github.sha }}
       # - uses: tauri-apps/tauri-action@v0
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

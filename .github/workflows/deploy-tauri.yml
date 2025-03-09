@@ -134,6 +134,25 @@ jobs:
       - name: Build Windows app
         run: |
           pnpm tauri build --verbose
+      - name: Rename build artifacts
+        run: |
+          mv ./src-tauri/target/release/bundle/msi/*.msi ./octo-${{ env.APP_VERSION }}-x64.msi
+          mv ./src-tauri/target/release/bundle/msi/*.msi.sig ./octo-${{ env.APP_VERSION }}-x64.msi.sig
+          mv ./src-tauri/target/release/bundle/nsis/*.exe ./octo-${{ env.APP_VERSION }}-x64.exe
+          mv ./src-tauri/target/release/bundle/nsis/*.exe.sig ./octo-${{ env.APP_VERSION }}-x64.exe.sig
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          files: |
+            ./octo-${{ env.APP_VERSION }}-x64.msi
+            ./octo-${{ env.APP_VERSION }}-x64.msi.sig
+            ./octo-${{ env.APP_VERSION }}-x64.exe
+            ./octo-${{ env.APP_VERSION }}-x64.exe.sig
+          make_latest: true
+          name: App ${{ env.APP_VERSION }}
+          tag_name: app-${{ env.APP_VERSION }}
+          target_commitish: ${{ github.sha }}
   build-mobile-android:
     runs-on: ubuntu-latest
     steps:

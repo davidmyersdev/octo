@@ -64,13 +64,16 @@ jobs:
       matrix:
         include:
           # Arm based macs (M1 and above).
-          - bundle-type: aarch64-apple-darwin
+          - arch-type: aarch64
+            bundle-type: aarch64-apple-darwin
             rust-targets: aarch64-apple-darwin
           # Intel based macs.
-          - bundle-type: x86_64-apple-darwin
+          - arch-type: x64
+            bundle-type: x86_64-apple-darwin
             rust-targets: x86_64-apple-darwin
           # Universal
-          - bundle-type: universal-apple-darwin
+          - arch-type: universal
+            bundle-type: universal-apple-darwin
             rust-targets: aarch64-apple-darwin,x86_64-apple-darwin
     runs-on: macos-latest
     env:
@@ -98,19 +101,21 @@ jobs:
       - name: Build macOS app
         run: |
           pnpm tauri build --verbose --target ${{ matrix.bundle-type }}
+      - name: Rename build artifacts
+        run: |
+          mv ./src-tauri/target/${{ matrix.bundle-type }}/release/bundle/dmg/octo_*_${{ matrix.arch-type }}.dmg ./octo-${{ matrix.arch-type }}.dmg
+          mv ./src-tauri/target/${{ matrix.bundle-type }}/release/bundle/macos/octo.app ./octo-${{ matrix.arch-type }}.app
+          mv ./src-tauri/target/${{ matrix.bundle-type }}/release/bundle/macos/octo.app.tar.gz ./octo-${{ matrix.arch-type }}.tar.gz
+          mv ./src-tauri/target/${{ matrix.bundle-type }}/release/bundle/macos/octo.app.tar.gz.sig ./octo-${{ matrix.arch-type }}.tar.gz.sig
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           draft: true
           files: |
-            ./src-tauri/target/aarch64-apple-darwin/release/bundle/**/*.dmg
-            ./src-tauri/target/aarch64-apple-darwin/release/bundle/**/*.app
-            ./src-tauri/target/aarch64-apple-darwin/release/bundle/**/*.tar.gz
-            ./src-tauri/target/aarch64-apple-darwin/release/bundle/**/*.tar.gz.sig
-            ./src-tauri/target/x86_64-apple-darwin/release/bundle/**/*.dmg
-            ./src-tauri/target/x86_64-apple-darwin/release/bundle/**/*.app
-            ./src-tauri/target/x86_64-apple-darwin/release/bundle/**/*.tar.gz
-            ./src-tauri/target/x86_64-apple-darwin/release/bundle/**/*.tar.gz.sig
+            ./octo-${{ matrix.arch-type }}.dmg
+            ./octo-${{ matrix.arch-type }}.app
+            ./octo-${{ matrix.arch-type }}.tar.gz
+            ./octo-${{ matrix.arch-type }}.tar.gz.sig
           make_latest: true
           name: App v0.0.1-alpha
           tag_name: app-v0.0.1-alpha

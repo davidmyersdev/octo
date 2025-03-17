@@ -248,9 +248,11 @@ jobs:
           APPLE_SIGNING_IDENTITY: ${{ steps.import-certificate.outputs.certificate-id }}
         run: |
           pnpm tauri ios build --verbose --export-method app-store-connect
+      # Todo: Move this into an action
       - name: Rename build artifacts
         run: |
           mv ./src-tauri/gen/apple/build/arm64/octo.ipa ./octo-${{ env.APP_VERSION }}-arm64.ipa
+      # Todo: Move this into an action
       - name: Release
         uses: softprops/action-gh-release@v2
         with:

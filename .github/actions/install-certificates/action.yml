@@ -1,0 +1,53 @@
+name: Certificates
+description: Manage your signing certificates
+author: David Myers
+inputs:
+  certificate:
+    description: A base64-encoded signing certificate.
+    required: true
+  certificate-password:
+    description: The password for the signing certificate.
+    required: false
+    default:
+  certificate-regex:
+    description: A regular expression to match the signing certificate.
+    required: false
+    default: Apple Distribution
+  keychain:
+    description: The name of the keychain to create.
+    required: false
+    default: default.keychain
+  keychain-password:
+    description: The password for the keychain.
+    required: false
+    default: default-password
+outputs:
+  certificate-id:
+    description: The ID of the imported certificate.
+    value: ${{ steps.export-certificate.outputs.certificate-id }}
+runs:
+  using: composite
+  steps:
+    - name: Create keychain
+      shell: bash
+      run: |
+        security create-keychain -p "${{ inputs.keychain-password }}" ${{ inputs.keychain }}
+        security default-keychain -s ${{ inputs.keychain }}
+        security unlock-keychain -p "${{ inputs.keychain-password }}" ${{ inputs.keychain }}
+        security set-keychain-settings -lu ${{ inputs.keychain }}
+        security show-keychain-info ${{ inputs.keychain }}
+    - name: Import signing certificate
+      shell: bash
+      run: |
+        echo ${{ inputs.certificate }} | base64 --decode > certificate.p12
+        security import certificate.p12 -k ${{ inputs.keychain }} -P "${{ inputs.certificate-password }}" -T /usr/bin/codesign
+        security set-key-partition-list -S apple:,apple-tool:,codesign: -s -k "${{ inputs.keychain-password }}" ${{ inputs.keychain }}
+        security find-identity -v -p codesigning ${{ inputs.keychain }}
+    - name: Export certificate
+      id: export-certificate
+      shell: bash
+      run: |
+        set -x
+        MOBILE_CERT_INFO=$(security find-identity -v -p codesigning ${{ inputs.keychain }} | grep -E "${{ inputs.certificate-regex }}")
+        MOBILE_CERT_ID=$(echo "$MOBILE_CERT_INFO" | awk -F'"' '{print $2}')
+        echo "certificate-id=$MOBILE_CERT_ID" >> $GITHUB_OUTPUT

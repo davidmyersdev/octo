@@ -1,13 +1,13 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "octo",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "identifier": "app.octo",
   "build": {
     "frontendDist": "../dist",
     "devUrl": "http://127.0.0.1:8888",
-    "beforeDevCommand": "TAURI=1 TAURI_DESKTOP=1 pnpm dev",
-    "beforeBuildCommand": "TAURI=1 TAURI_DESKTOP=1 pnpm build"
+    "beforeDevCommand": "pnpm dev",
+    "beforeBuildCommand": "echo 'skipping web build' || pnpm build"
   },
   "app": {
     "windows": [
@@ -27,6 +27,8 @@
   "bundle": {
     "active": true,
     "createUpdaterArtifacts": true,
+    "macOS": {
+    },
     "targets": "all",
     "icon": [
       "icons/32x32.png",

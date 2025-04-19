@@ -115,7 +115,7 @@ jobs:
         with:
           certificate: ${{ env.APPLE_CERTIFICATE }}
           certificate-password: ${{ env.APPLE_CERTIFICATE_PASSWORD }}
-          certificate-regex: 'Developer ID Application'
+          certificate-regex: Developer ID Application
           keychain-password: ${{ env.KEYCHAIN_PASSWORD }}
       - name: Build Web app
         run: |

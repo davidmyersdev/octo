@@ -19,6 +19,30 @@ type ModelOption = {
 
 const defaultLanguageModels: ModelOption[] = [
   {
+    id: 'gpt-5',
+    label: 'GPT-5',
+    contextWindow: '400k',
+    url: 'https://platform.openai.com/docs/models/gpt-5',
+  },
+  {
+    id: 'gpt-5-mini',
+    label: 'GPT-5 Mini',
+    contextWindow: '400k',
+    url: 'https://platform.openai.com/docs/models/gpt-5-mini',
+  },
+  {
+    id: 'gpt-5-nano',
+    label: 'GPT-5 Nano',
+    contextWindow: '400k',
+    url: 'https://platform.openai.com/docs/models/gpt-5-nano',
+  },
+  {
+    id: 'gpt-5-chat-latest',
+    label: 'GPT-5 Chat',
+    contextWindow: '400k',
+    url: 'https://platform.openai.com/docs/models/gpt-5-chat-latest',
+  },
+  {
     id: 'gpt-4.1',
     label: 'GPT-4.1',
     contextWindow: '1m',

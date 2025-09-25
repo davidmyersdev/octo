@@ -7,55 +7,288 @@ on:
   workflow_dispatch:
 
 # This workflow will trigger on each push to the `release` branch to create or update a GitHub release, build your app, and upload the artifacts to the release.
-
+env:
+  APP_VERSION: v0.0.1-alpha.1
+  APPLE_DEVELOPMENT_TEAM: ${{ secrets.APPLE_TEAM_ID }}
+  APPLE_ID: ${{ secrets.APPLE_ID }}
+  APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+  APPLE_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+  APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+  KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+  NODE_OPTIONS: --max-old-space-size=4096
+  NUXT_PUBLIC_CDN_URL: ${{ secrets.VITE_APP_CDN_URL }}
+  NUXT_PUBLIC_DISCORD_INVITE_LINK: ${{ secrets.VITE_DISCORD_INVITE_LINK }}
+  NUXT_PUBLIC_FATHOM_EVENT_ACCOUNT_REGISTRATION: ${{ secrets.VUE_APP_FATHOM_GOAL_ACCOUNT_REGISTRATION }}
+  NUXT_PUBLIC_FATHOM_EVENT_CTA_CONTINUE_WITH_PRO: ${{ secrets.VUE_APP_FATHOM_EVENT_CTA_CONTINUE_WITH_PRO }}
+  NUXT_PUBLIC_FATHOM_EVENT_CTA_MODAL_UPGRADE: ${{ secrets.VITE_FATHOM_EVENT_CTA_MODAL_UPGRADE }}
+  NUXT_PUBLIC_FATHOM_EVENT_CTA_OPEN_APP: ${{ secrets.VITE_FATHOM_EVENT_CTA_OPEN_APP }}
+  NUXT_PUBLIC_FATHOM_EVENT_CTA_SAVE_DOCS: ${{ secrets.VUE_APP_FATHOM_GOAL_CTA_SYNC_DOCS }}
+  NUXT_PUBLIC_FATHOM_EVENT_CTA_SETTINGS_UPGRADE: ${{ secrets.VITE_FATHOM_EVENT_CTA_SETTINGS_UPGRADE }}
+  NUXT_PUBLIC_FATHOM_EVENT_CTA_SIGN_UP_NOW: ${{ secrets.VITE_FATHOM_EVENT_CTA_SIGN_UP_NOW }}
+  NUXT_PUBLIC_FATHOM_EVENT_CTA_TRY_IT_OUT: ${{ secrets.VITE_FATHOM_EVENT_CTA_TRY_IT_OUT }}
+  NUXT_PUBLIC_FATHOM_EVENT_CTA_UPGRADE_TO_PRO: ${{ secrets.VUE_APP_FATHOM_EVENT_CTA_UPGRADE_TO_PRO }}
+  NUXT_PUBLIC_FATHOM_SITE_ID: ${{ secrets.VUE_APP_FATHOM_SITE_ID }}
+  NUXT_PUBLIC_FATHOM_SITE_URL: ${{ secrets.VUE_APP_FATHOM_SITE_URL }}
+  NUXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.VUE_APP_FIREBASE_API_KEY }}
+  NUXT_PUBLIC_FIREBASE_APP_ID: ${{ secrets.VUE_APP_FIREBASE_APP_ID }}
+  NUXT_PUBLIC_FIREBASE_AUTH_DOMAIN: ${{ secrets.VUE_APP_FIREBASE_AUTH_DOMAIN }}
+  NUXT_PUBLIC_FIREBASE_DATABASE_URL: ${{ secrets.VUE_APP_FIREBASE_DATABASE_URL }}
+  NUXT_PUBLIC_FIREBASE_DISABLED:
+  NUXT_PUBLIC_FIREBASE_LOG_LEVEL: ${{ secrets.VITE_FIREBASE_LOG_LEVEL }}
+  NUXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VUE_APP_FIREBASE_MESSAGING_SENDER_ID }}
+  NUXT_PUBLIC_FIREBASE_PROJECT_ID: ${{ secrets.VUE_APP_FIREBASE_PROJECT_ID }}
+  NUXT_PUBLIC_FIREBASE_STORAGE_BUCKET: ${{ secrets.VUE_APP_FIREBASE_STORAGE_BUCKET }}
+  NUXT_PUBLIC_LINK_FEEDBACK: ${{ secrets.LINK_FEEDBACK }}
+  NUXT_PUBLIC_STRIPE_MONTHLY_PRICE: ${{ secrets.VUE_APP_STRIPE_MONTHLY_PRICE }}
+  TAURI: 1
+  TAURI_DESKTOP: 1
+  TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
+  TAURI_SIGNING_PRIVATE_KEY_PASSWORD:
 jobs:
-  publish-tauri:
-    permissions:
-      contents: write
+  build-desktop-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/install-rust
+      - uses: ./.github/actions/install-tauri
+      - uses: ./.github/actions/install-xcode
+      - uses: ./.github/actions/install-node
+      - name: Build Web app
+        run: |
+          pnpm build
+      - name: Build Linux app
+        run: |
+          pnpm tauri build --verbose
+      - name: Rename build artifacts
+        run: |
+          mv ./src-tauri/target/release/bundle/deb/*.deb ./octo-${{ env.APP_VERSION }}-amd64.deb
+          mv ./src-tauri/target/release/bundle/deb/*.deb.sig ./octo-${{ env.APP_VERSION }}-amd64.deb.sig
+          mv ./src-tauri/target/release/bundle/rpm/*.rpm ./octo-${{ env.APP_VERSION }}-x64.rpm
+          mv ./src-tauri/target/release/bundle/appimage/*.AppImage ./octo-${{ env.APP_VERSION }}-amd64.AppImage
+          mv ./src-tauri/target/release/bundle/appimage/*.AppImage.sig ./octo-${{ env.APP_VERSION }}-amd64.AppImage.sig
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          files: |
+            ./octo-${{ env.APP_VERSION }}-amd64.deb
+            ./octo-${{ env.APP_VERSION }}-amd64.deb.sig
+            ./octo-${{ env.APP_VERSION }}-x64.rpm
+            ./octo-${{ env.APP_VERSION }}-amd64.AppImage
+            ./octo-${{ env.APP_VERSION }}-amd64.AppImage.sig
+          make_latest: true
+          name: App ${{ env.APP_VERSION }}
+          tag_name: app-${{ env.APP_VERSION }}
+          target_commitish: ${{ github.sha }}
+  build-desktop-macos:
     strategy:
       fail-fast: false
       matrix:
         include:
-          - platform: macos-latest # for Arm based macs (M1 and above).
-            args: --target aarch64-apple-darwin
-          - platform: macos-latest # for Intel based macs.
-            args: --target x86_64-apple-darwin
-          - platform: ubuntu-22.04 # for Tauri v1 you could replace this with ubuntu-20.04.
-            args: ''
-          - platform: windows-latest
-            args: ''
-
-    runs-on: ${{ matrix.platform }}
+          # Arm based macs (M1 and above).
+          - bundle-id: aarch64
+            rust-targets: aarch64-apple-darwin
+            tauri-target: aarch64-apple-darwin
+          # Intel based macs.
+          - bundle-id: x64
+            rust-targets: x86_64-apple-darwin
+            tauri-target: x86_64-apple-darwin
+          # Universal
+          - bundle-id: universal
+            rust-targets: aarch64-apple-darwin,x86_64-apple-darwin
+            tauri-target: universal-apple-darwin
+    runs-on: macos-latest
+    env:
+      APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+      APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+      KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
-
-      - name: setup node
-        uses: actions/setup-node@v4
+      - uses: ./.github/actions/install-rust
         with:
-          node-version: lts/*
-
-      - name: install Rust stable
-        uses: dtolnay/rust-toolchain@stable
+          targets: ${{ matrix.rust-targets }}
+      - uses: ./.github/actions/install-tauri
+      - uses: ./.github/actions/install-xcode
+      - uses: ./.github/actions/install-node
+      - uses: ./.github/actions/install-certificates
+        id: import-certificate
         with:
-          # Those targets are only used on macos runners so it's in an `if` to slightly speed up windows and linux builds.
-          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || '' }}
-
-      - name: install dependencies (ubuntu only)
-        if: matrix.platform == 'ubuntu-22.04' # This must match the platform value defined above.
+          certificate: ${{ env.APPLE_CERTIFICATE }}
+          certificate-password: ${{ env.APPLE_CERTIFICATE_PASSWORD }}
+          certificate-regex: Developer ID Application
+          keychain-password: ${{ env.KEYCHAIN_PASSWORD }}
+      - name: Build Web app
         run: |
-          sudo apt-get update
-          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
-
-      - name: install frontend dependencies
-        run: pnpm install
-
-      - uses: tauri-apps/tauri-action@v0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          pnpm build
+      - name: Build macOS app
+        run: |
+          pnpm tauri build --verbose --target ${{ matrix.tauri-target }}
+      - name: Rename build artifacts
+        run: |
+          mv ./src-tauri/target/${{ matrix.tauri-target }}/release/bundle/macos/octo.app ./octo-${{ env.APP_VERSION }}-${{ matrix.bundle-id }}.app
+          mv ./src-tauri/target/${{ matrix.tauri-target }}/release/bundle/macos/octo.app.tar.gz ./octo-${{ env.APP_VERSION }}-${{ matrix.bundle-id }}.app.tar.gz
+          mv ./src-tauri/target/${{ matrix.tauri-target }}/release/bundle/macos/octo.app.tar.gz.sig ./octo-${{ env.APP_VERSION }}-${{ matrix.bundle-id }}.app.tar.gz.sig
+          mv ./src-tauri/target/${{ matrix.tauri-target }}/release/bundle/dmg/octo_*.dmg ./octo-${{ env.APP_VERSION }}-${{ matrix.bundle-id }}.dmg
+      - name: Release
+        uses: softprops/action-gh-release@v2
         with:
-          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
-          releaseName: App v__VERSION__
-          releaseBody: See the assets to download this version and install.
-          releaseDraft: true
-          prerelease: false
-          args: ${{ matrix.args }}
+          draft: true
+          files: |
+            ./octo-${{ env.APP_VERSION }}-${{ matrix.bundle-id }}.app
+            ./octo-${{ env.APP_VERSION }}-${{ matrix.bundle-id }}.app.tar.gz
+            ./octo-${{ env.APP_VERSION }}-${{ matrix.bundle-id }}.app.tar.gz.sig
+            ./octo-${{ env.APP_VERSION }}-${{ matrix.bundle-id }}.dmg
+          make_latest: true
+          name: App ${{ env.APP_VERSION }}
+          tag_name: app-${{ env.APP_VERSION }}
+          target_commitish: ${{ github.sha }}
+  build-desktop-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/install-rust
+      - uses: ./.github/actions/install-tauri
+      - uses: ./.github/actions/install-node
+      - name: Build Web app
+        run: |
+          pnpm build
+      - name: Build Windows app
+        run: |
+          pnpm tauri build --verbose
+      - name: Rename build artifacts
+        run: |
+          mv ./src-tauri/target/release/bundle/msi/*.msi ./octo-${{ env.APP_VERSION }}-x64.msi
+          mv ./src-tauri/target/release/bundle/msi/*.msi.sig ./octo-${{ env.APP_VERSION }}-x64.msi.sig
+          mv ./src-tauri/target/release/bundle/nsis/*.exe ./octo-${{ env.APP_VERSION }}-x64.exe
+          mv ./src-tauri/target/release/bundle/nsis/*.exe.sig ./octo-${{ env.APP_VERSION }}-x64.exe.sig
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          files: |
+            ./octo-${{ env.APP_VERSION }}-x64.msi
+            ./octo-${{ env.APP_VERSION }}-x64.msi.sig
+            ./octo-${{ env.APP_VERSION }}-x64.exe
+            ./octo-${{ env.APP_VERSION }}-x64.exe.sig
+          make_latest: true
+          name: App ${{ env.APP_VERSION }}
+          tag_name: app-${{ env.APP_VERSION }}
+          target_commitish: ${{ github.sha }}
+  build-mobile-android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/install-rust
+        with:
+          targets: aarch64-linux-android,armv7-linux-androideabi,i686-linux-android,x86_64-linux-android
+      - uses: ./.github/actions/install-android
+      - uses: ./.github/actions/install-tauri
+      - uses: ./.github/actions/install-node
+      - name: Init Android app
+        run: |
+          pnpm tauri android init
+      - name: Build Web app
+        run: |
+          pnpm build
+      - name: Build Android app
+        run: |
+          pnpm tauri android build --verbose
+      - name: Rename build artifacts
+        run: |
+          mv ./src-tauri/gen/android/app/build/outputs/apk/universal/release/*.apk ./octo-${{ env.APP_VERSION }}-universal.apk
+          mv ./src-tauri/gen/android/app/build/outputs/bundle/universalRelease/*.aab ./octo-${{ env.APP_VERSION }}-universal.aab
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          files: |
+            ./octo-${{ env.APP_VERSION }}-universal.apk
+            ./octo-${{ env.APP_VERSION }}-universal.aab
+          make_latest: true
+          name: App ${{ env.APP_VERSION }}
+          tag_name: app-${{ env.APP_VERSION }}
+          target_commitish: ${{ github.sha }}
+  build-mobile-ios:
+    runs-on: macos-latest
+    env:
+      IOS_CERTIFICATE: ${{ secrets.IOS_CERTIFICATE }}
+      IOS_CERTIFICATE_PASSWORD: ${{ secrets.IOS_CERTIFICATE_PASSWORD }}
+      IOS_MOBILE_PROVISION: ${{ secrets.IOS_MOBILE_PROVISION }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/install-rust
+        with:
+          targets: aarch64-apple-ios,x86_64-apple-ios,aarch64-apple-ios-sim
+      - uses: ./.github/actions/install-tauri
+      - uses: ./.github/actions/install-xcode
+      - uses: ./.github/actions/install-node
+      - uses: ./.github/actions/install-certificates
+        id: import-certificate
+        with:
+          certificate: ${{ env.IOS_CERTIFICATE }}
+          certificate-password: ${{ env.IOS_CERTIFICATE_PASSWORD }}
+          keychain-password: ${{ env.KEYCHAIN_PASSWORD }}
+      - name: init ios
+        run: |
+          pnpm tauri ios init --verbose
+      - name: download iOS platform
+        run: |
+          xcodebuild -downloadPlatform iOS
+      - name: checkout files
+        run: |
+          git checkout -- ./src-tauri/gen/apple
+      - name: Build Web app
+        run: |
+          pnpm build
+      - name: Tauri info
+        run: |
+          pnpm tauri info
+      - name: Build iOS app
+        env:
+          APPLE_SIGNING_IDENTITY: ${{ steps.import-certificate.outputs.certificate-id }}
+        run: |
+          pnpm tauri ios build --verbose --export-method app-store-connect
+      # Todo: Move this into an action
+      - name: Rename build artifacts
+        run: |
+          mv ./src-tauri/gen/apple/build/arm64/octo.ipa ./octo-${{ env.APP_VERSION }}-arm64.ipa
+      # Todo: Move this into an action
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          files: |
+            ./octo-${{ env.APP_VERSION }}-arm64.ipa
+          make_latest: true
+          name: App ${{ env.APP_VERSION }}
+          tag_name: app-${{ env.APP_VERSION }}
+          target_commitish: ${{ github.sha }}
+      # - uses: tauri-apps/tauri-action@v0
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+      #     APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+      #     APPLE_ID: ${{ secrets.APPLE_ID }}
+      #     APPLE_ID_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+      #     APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+      #     APPLE_PASSWORD: ${{ secrets.APPLE_ID_PASSWORD }}
+      #     APPLE_SIGNING_IDENTITY: ${{ env.DESKTOP_CERT_ID }}
+      #   with:
+      #     tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
+      #     releaseName: App v__VERSION__
+      #     releaseBody: See the assets to download this version and install.
+      #     releaseDraft: true
+      #     prerelease: false
+      #     args: ${{ matrix.args }}
+  release:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    needs:
+      - build-desktop-linux
+      - build-desktop-macos
+      - build-desktop-windows
+      - build-mobile-android
+      - build-mobile-ios
+    steps:
+      - run: echo 'Release'
